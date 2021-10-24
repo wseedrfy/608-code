@@ -176,3 +176,10 @@ page {
   position: relative;
   margin-left: 20rpx;
 }
+
+
+/* @media (prefers-color-scheme: dark) {
+  page{
+    filter: invert(90%) !important;
+  }
+} */
