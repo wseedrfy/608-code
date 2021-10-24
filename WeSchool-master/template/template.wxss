@@ -11,7 +11,6 @@
   width: 50rpx;
   height: 50rpx;
   padding: 0 0 0 20rpx;
-
 }
 .navigate_item text{
   flex: 1;
@@ -52,4 +51,3 @@
   color: rgb(186, 186, 186);
   letter-spacing: 2rpx;
 }
-

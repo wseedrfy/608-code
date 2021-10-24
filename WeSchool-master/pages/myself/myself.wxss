@@ -59,7 +59,6 @@ page {
   color: rgb(106, 106, 106);
 }
 
-
 /* 第二个Dialog */
 .more {
   margin: 0 20rpx;

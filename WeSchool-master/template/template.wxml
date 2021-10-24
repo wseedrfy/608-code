@@ -24,7 +24,6 @@
     <text>{{item.title}}</text>
     <image src="{{right || '/pages/myself/images/right.png'}}"></image>
   </view>
-
 </template>
 
 <!-- 
@@ -46,4 +45,3 @@
     <text>{{item.littleTitle}}</text>
   </view>
 </template>
-

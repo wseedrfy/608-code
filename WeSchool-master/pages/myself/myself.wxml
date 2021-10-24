@@ -9,7 +9,6 @@
       <view class="userAvatar">
         头像
       </view>
-
       <view class="userInfoTxt">
         <!-- 姓名 -->
         <view class="userName">
@@ -23,7 +22,6 @@
     </view>
     <!-- 班级/专业Dialog -->
     <view class="userInfoDialog">
-
       <block wx:for="{{userInfo}}" wx:key="index">
         <template is="userInfo_item" data="{{item}}">
         </template>
@@ -37,5 +35,4 @@
       <template is="navigate_item" data="{{item, right:'images/right.png'}}"></template>
     </block>
   </view> 
-
 </view>

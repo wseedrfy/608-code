@@ -60,25 +60,30 @@ Page({
 
     Week: ["一", "二", "三", "四", "五", "六", "七"], // 星期 [1,2,3,4,5,6,7]
     WeekIndex: 0,
-    addSubmitStyle: false,
-    showscroll: false
+    addSubmitStyle: false
   },
 
   showCurriculumPoint: function () {
-    this.setData({
-      showscroll: !this.data.showscroll,
-      onShowCurriculumPoint: this.data.whichWeek
-    })
+    if (this.data.onShowCurriculumPoint === 0) {
+      this.setData({
+        onShowCurriculumPoint: util.getweekString()
+      })
+    } else {
+      this.setData({
+        onShowCurriculumPoint: 0
+      })
+    }
+
   },
 
   onLoad: function (options) {
-    this.kb(util.getweekString());
+    this.kb(getApp().globalData.whichWeek);
     this.setData({
-      weekNow: util.getweekString(),
+      weekNow: getApp().globalData.whichWeek,
     })
   },
   onShow: function (options) {
-    this.kb(util.getweekString());
+    this.kb(getApp().globalData.whichWeek);
     this.initWeek()
   },
   onShareAppMessage: function (res) {
@@ -186,28 +191,8 @@ Page({
     var curriculum = personalInformation.curriculum;
     var wlist = [];
     var zc = 0;
-    //处理的绿色小点点
-    var wlistPoint = new Array();
-
-    for (var i = 0; i < 20; i++) { 
-      wlistPoint[i] = new Array();
-      for (var j = 0; j < 35; j++) {
-        wlistPoint[i][j] = null;
-      }
-    }
-
     for (let i in curriculum) {
       zc = curriculum[i].zc;
-
-      for (let j = 0; j < 20; j++) {
-        if (j + 1 === Number(zc)) {
-          let bright_skjc = Number(curriculum[i].jcdm.substr(0, 2)) + 1
-          wlistPoint[j][((bright_skjc / 2 - 1) * 7 + Number(curriculum[i].xq)) - 1] = 1
-          // console.log(zc);s
-          // point[(xqj) + 7 * ]
-        }
-      }
-
       if (zc == zs) {
         var kcmcc = curriculum[i].kcmc;
         if ((curriculum[i].kcmc + curriculum[i].jxcdmc).length > 20) {
@@ -230,8 +215,6 @@ Page({
       whichWeek: zs,
       wlist: wlist,
       multiIndex: [(Number(zs) - 1), 0, 0, 0],
-      wlistPoint,
-      onShowCurriculumPoint: zs
     })
 
   },

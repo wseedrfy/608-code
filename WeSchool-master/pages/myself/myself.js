@@ -31,7 +31,6 @@ Page({
         littleTitle: "访客专业",
         click: "academy"
       }
-
     ]
   },
   onLoad() {
@@ -44,7 +43,6 @@ Page({
   academy(e){
     console.log(e,"专业");
   },
-
   about(e){
     console.log(e)
     console.log("关于我们")
