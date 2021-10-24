@@ -1,1 +1,32 @@
 /* pages/more/more.wxss */
+page{
+  width: 100%;
+  margin: 0;
+  background: #F2F2F2;
+}
+.content{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 10rpx;
+  overflow: hidden;
+}
+ 
+.left{
+  width: 360rpx;
+}
+ 
+.right{
+  width: 360rpx;
+  margin-left: 10rpx;
+}
+ .image{
+   width:360rpx;
+ }
+.pic{
+  border-radius: 15rpx;
+  width: 360rpx;
+  background-color: rgb(255, 255, 255);
+  margin-bottom: 10rpx;
+  overflow: hidden;
+}

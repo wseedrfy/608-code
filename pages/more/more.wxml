@@ -1,2 +1,19 @@
 <!--pages/more/more.wxml-->
-<text>pages/more/more.wxml</text>
+<view class='content'>
+<view class='left'>
+  <block wx:for="{{leftList}}" wx:key="index">
+    <view class="pic">
+      <image class="image" style='height:{{item.CoverHeight}}' src='{{item.Cover}}'></image>
+      <text>标题</text>
+    </view>
+  </block>
+</view>
+<view class='right'>
+  <block wx:for="{{rightList}}" wx:key="index">
+    <view class="pic">
+      <image class="image" style='height:{{item.CoverHeight}}' src='{{item.Cover}}'></image>
+      <text>标题</text>
+    </view>
+  </block>
+</view>
+</view>
