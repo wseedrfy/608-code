@@ -20,7 +20,7 @@ page{
   width: 360rpx;
   margin-left: 10rpx;
 }
- .image{
+ .Show_Image{
    width:360rpx;
  }
 .pic{
@@ -29,4 +29,133 @@ page{
   background-color: rgb(255, 255, 255);
   margin-bottom: 10rpx;
   overflow: hidden;
+}
+
+.pic_Title{
+  color:orange;
+  width:360rpx;
+  font-size: 37rpx;
+}
+.pic_Text{
+  width:360rpx;
+  font-size: 30rpx;
+}
+.img-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Add_Image{
+  width: 48rpx;
+  height: 48rpx;
+}
+
+.add-btn{
+  width:105rpx;
+  height:80rpx;
+  background-color: rgba(255, 255, 255, 0.685);
+  position: fixed;
+  bottom:130rpx;
+  right:0rpx;
+  border-top-left-radius: 40rpx;
+  border-bottom-left-radius: 40rpx;
+  box-shadow: 0px 0px 4px 0px #c7c7c7;
+}
+.Camera_Image{
+  width: 90rpx;
+  height: 90rpx;
+  position: absolute;
+  left:330rpx;
+  z-index: 1;
+}
+.chooseImg-btn{
+  width:100%;
+  height:380rpx;
+  background-color: rgba(236, 213, 165, 0.26);
+}
+.add_show{
+  animation: add_show .5s;
+}
+.add_hide{
+  animation: add_hide .5s;
+}
+.edit,
+.edit_background{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  font-family: unset;
+}
+.edit_background{
+  background-color: rgba(0, 0, 0, 0.349);
+  opacity: 0.6;
+  height: 100%;
+}
+.edit_contain{
+  position: relative;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  bottom: 0;
+  width: 100%;
+  background-color: #fff;
+  padding: 15rpx 0;
+  z-index: 99999;
+}
+.edit_Title{
+  font-size: 35rpx;
+  padding-bottom: 15rpx;
+  font-weight: 500;
+  display: flex;
+  padding-left: 307rpx;
+}
+.edit_pic_Title{
+  width:100%;
+  height:90rpx;
+  display: flex;
+  align-items: center;
+  font-weight: 550;
+  font-size: 38rpx;
+  margin-left: 10rpx;
+}
+.Line{
+  background: #9b9b9b5b;
+  width: 98%;
+  height: 2rpx;
+ }
+ .edit_pic_Text{
+  width:100%;
+  height:320rpx;
+  font-size: 30rpx;
+  padding-top: 10rpx;
+  padding-left: 10rpx;
+  display: block;
+  text-overflow:ellipsis;
+  word-wrap:break-word;
+ }
+ 
+ 
+
+@keyframes add_show {
+  0% {
+      opacity: 0;
+      transform: translateY(100%);
+  }
+  100% {
+      opacity: 1;
+      transform: translateY(0%);
+  }
+}
+@keyframes add_hide {
+  0% {
+      opacity: 1;
+      transform: translateY(0%);
+  }
+  100% {
+      opacity: 0;
+      transform: translateY(100%);
+  }
 }

@@ -1,4 +1,5 @@
 // pages/more/more.js
+var app = getApp()  
 Page({
  
   /**
@@ -8,26 +9,36 @@ Page({
    
     noramalData: [{
         "Cover": "http://dashus.oss-cn-shenzhen.aliyuncs.com/DefaultImage/Game/20190306144842/1001.png",
-        "CoverHeight": 467,
-        "CoverWidth": 350
+        "Title":"标题标题标题标题标题标题",
+        "Text":"文字文字文字文字文字文字",
+        "CoverHeight": 340,
+        "CoverWidth": 270
       },
       {
         "Cover": "http://dashus.oss-cn-shenzhen.aliyuncs.com/DefaultImage/Game/20190313090409/完美9.png",
+        "Title":"标题标题标题标题标题标题",
+        "Text":"文字文字文字文字文字文字",
         "CoverHeight": 871,
         "CoverWidth": 672
       },
       {
         "Cover": "http://dashus.oss-cn-shenzhen.aliyuncs.com/DefaultImage/Game/20190313090409/完美9.png",
+        "Title":"标题标题标题标题标题标题",
+        "Text":"文字文字文字文字文字文字",
         "CoverHeight": 871,
         "CoverWidth": 672
       },
       {
         "Cover": "https://img.zcool.cn/community/01743a594097d3a8012193a3aa31eb.jpg@1280w_1l_2o_100sh.jpg",
+        "Title":"标题标题标题标题标题标题",
+        "Text":"文字文字文字文字文字文字",
         "CoverHeight": 930,
         "CoverWidth": 672
       },
       {
         "Cover": "https://img.zcool.cn/community/01e2525c235064a8012029ac7836fa.jpg@1280w_1l_2o_100sh.jpg",
+        "Title":"标题标题标题标题标题标题",
+        "Text":"文字文字文字文字文字文字",
         "CoverHeight": 571,
         "CoverWidth": 672
       }
@@ -35,7 +46,47 @@ Page({
    
     leftList: [],
     rightList: [],
+    Title:' ',
+    Text:' ',
+    showModel:false,
+    tempFilePaths: ''
   },
+
+  add(){
+    var showModel=this.data.showModel
+    var that=this
+    if(showModel){
+      this.setData({
+        add_style:"add_hide"
+      })
+      setTimeout(() => {
+        that.setData({
+          showModel: !showModel
+        })
+      }, 200);
+    }else{
+      this.setData({
+        add_style:"add_show",
+        showModel:!showModel
+      })
+    }
+  },
+
+  chooseimage: function () {  
+   
+    wx.chooseImage({  
+      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有  
+      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有  
+      success:  (res) =>{  
+        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片  
+        this.setData({  
+          tempFilePaths:res.tempFilePaths  
+        })  
+      }  
+    })  
+  }, 
+
+
     //以本地数据为例，实际开发中数据整理以及加载更多等实现逻辑可根据实际需求进行实现   
   onLoad: function(options) {
     var that = this;
@@ -63,6 +114,8 @@ Page({
     //更新左右两栏的数据以及累计高度
     that.setData({
       leftList: leftData,
-      rightList: rightData
+      rightList: rightData,
+      Title:'标题标题标题标题标题标题',
+      Text:'文字文字文字文字文字文字'
     })
   },})
