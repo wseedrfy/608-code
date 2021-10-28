@@ -43,13 +43,38 @@ Page({
         "CoverWidth": 672
       }
     ],
-   
+    tabitem:[{
+        id:0,
+        title:"日常",
+      },
+      {
+        id:1,
+        title:"情墙",
+      },
+      {
+        id:2,
+      title:"悄悄话",
+      },
+      {
+        id:3,
+        title:"地点",
+      },
+      {
+        id:4,
+        title:"二手",
+      },
+      {
+        id:5,
+        title:"社团",
+      }
+    ],
     leftList: [],
     rightList: [],
     Title:' ',
     Text:' ',
     showModel:false,
-    tempFilePaths: ''
+    tempFilePaths: '',
+    chan: []
   },
 
   add(){
@@ -73,18 +98,78 @@ Page({
   },
 
   chooseimage: function () {  
-   
-    wx.chooseImage({  
-      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有  
-      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有  
-      success:  (res) =>{  
-        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片  
-        this.setData({  
-          tempFilePaths:res.tempFilePaths  
-        })  
-      }  
-    })  
+    var tempFilePaths=this.data.tempFilePaths
+    if(tempFilePaths.length==0){
+      wx.chooseImage({  
+        sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有  
+        sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有  
+        success:  (res) =>{  
+          // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片  
+          this.setData({  
+            tempFilePaths:res.tempFilePaths  
+          })  
+        }  
+      })  
+    }
   }, 
+  deleteImage: function (e) {
+    var that = this;
+    var tempFilePaths = that.data.tempFilePaths;
+    var index = e.currentTarget.dataset.index;//获取当前长按图片下标
+    if(tempFilePaths.length!=0){
+      wx.showModal({
+        title: '提示',
+        content: '确定要删除此图片吗？',
+        success: function (res) {
+          if (res.confirm) {
+            tempFilePaths.splice(index, 1);
+          } 
+          that.setData({
+            tempFilePaths
+          });
+        }
+      })
+    }
+  },
+  PreviewImage: function (e) {
+    let index = e.target.dataset.index;
+    var imgs=this.data.tempFilePaths;
+    if(imgs.length!=0){
+      wx.previewImage({
+        current: imgs[index],
+        urls: imgs,
+      })
+    }
+  },
+  setTab: function(e) {
+    let arry = this.data.tabitem
+    let index = e.currentTarget.dataset.index
+    let title = e.currentTarget.dataset.title
+    let chan = this.data.chan
+    if (arry[index].type == 1) {
+      arry[index].type = 0
+      var row = chan.map(item => item.title).indexOf(title)
+      chan.splice(row, 1);
+    } else {
+      if (chan.length == 3) {
+        wx.showToast({
+          title: '只能选三个',
+          icon: "none"
+        })
+        return
+      }
+      chan.push({
+        title: arry[index].title
+      })
+      arry[index].type = 1
+    }
+    this.setData({
+      tabitem: arry,
+      chan: chan
+    })
+    console.log(this.data.chan)
+  },
+
 
 
     //以本地数据为例，实际开发中数据整理以及加载更多等实现逻辑可根据实际需求进行实现   

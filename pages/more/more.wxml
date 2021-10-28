@@ -5,7 +5,6 @@
       <view class="pic">
         <image class="Show_Image" style='height:{{item.CoverHeight}}' src='{{item.Cover}}' mode="aspectFill"></image>
         <view class="pic_Title">{{item.Title}}</view>
-        <view class="pic_Text">{{Text}}</view>
         <hr/>
       </view>
     </block>
@@ -15,37 +14,39 @@
       <view class="pic">
         <image class="Show_Image" style='height:{{item.CoverHeight}}' src='{{item.Cover}}' mode="aspectFill"></image>
         <view class="pic_Title">{{item.Title}}</view>
-        <view class="pic_Text">{{item.Text}}</view>
       </view>
     </block>
   </view>
 </view>
 
-<view class="img-button add-btn" bindtap="add">
-  <image src="/images/btn_feed@2x.png" class="Add_Image"></image>
+<view class="img-button Add_Content-btn" bindtap="add">
+  <image src="/images/btn_feed@2x.png" class="Add_Content"></image>
 </view>
+
 <view class="edit" wx:if="{{showModel}}">
   <view class="edit_background" bindtap="add"></view>
     <view class="edit_contain {{add_style}}" >
       <view class="edit_Title">发布日常</view>
+      <view class="Line"></view>
       <form bindsubmit="edit_Submit" bindreset="edit_Reset">
-        <view class="img-button chooseImg-btn" bindtap="chooseimage">
-          <image src="/images/Camera-3.png" class="Camera_Image"></image>
-          <image src="{{tempFilePaths }}" mode="aspectFill" style="width: 100%; height: 100%; z-index: 11;"/>
+        <view class="edit_Choose_Label">
+          <view wx:for="{{tabitem}}" wx:key="index" class="item-text {{item.type == 1?'activity':''}}" data-title="{{item.title}}" bindtap="setTab" data-index="{{index}}">{{item.title}}</view>
         </view>
-      
+        <view class="img-button chooseImg-btn" bindtap="chooseimage">
+          <image src="/images/Camera-3.png" class="Camera_Image" ></image>
+          <image src="{{tempFilePaths }}" mode="aspectFill" style="width: 100%; height: 100%; z-index: 11;" bindlongpress="deleteImage" bindtap="PreviewImage" data-index="{{index}}"/>
+        </view>
         <view class="edit_pic_Title">
-    
-            <input placeholder="标题 闲聊/求助/组队..."  model:value="{{Input_Title}}"></input>
-          
+          <input placeholder="标题 闲聊/求助/组队..."  model:value="{{Input_Title}}"></input>
         </view>
         <view class="Line"></view>
         <view class="edit_pic_Text">
-          <!--<textarea cols="33" rows="5">--->
-          <input placeholder="正文内容"  model:value="{{Input_Text}}"></input>
-        <!---</textarea>--->
+          <textarea placeholder="添加正文"  model:value="{{Input_Text}}"></textarea> 
         </view>
-        <!--<view class="Line"></view>-->
+        <view class="edit_Publish">
+          <button bindtap="add" class="off-btn">取消</button>
+          <button form-type="submit" class="Publish-btn">发表内容</button>
+        </view>
       </form>
     </view>
 </view>

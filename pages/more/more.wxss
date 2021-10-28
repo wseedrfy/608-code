@@ -45,12 +45,12 @@ page{
   justify-content: center;
   align-items: center;
 }
-.Add_Image{
+.Add_Content{
   width: 48rpx;
   height: 48rpx;
 }
 
-.add-btn{
+.Add_Content-btn{
   width:105rpx;
   height:80rpx;
   background-color: rgba(255, 255, 255, 0.685);
@@ -108,36 +108,69 @@ page{
 .edit_Title{
   font-size: 35rpx;
   padding-bottom: 15rpx;
-  font-weight: 500;
+  font-weight: 550;
   display: flex;
   padding-left: 307rpx;
 }
 .edit_pic_Title{
   width:100%;
-  height:90rpx;
+  height:85rpx;
   display: flex;
   align-items: center;
   font-weight: 550;
-  font-size: 38rpx;
+  font-size: 35rpx;
   margin-left: 10rpx;
 }
 .Line{
-  background: #9b9b9b5b;
-  width: 98%;
-  height: 2rpx;
+  background: #9b9b9b48;
+  width: 100%;
+  height: 1rpx;
  }
  .edit_pic_Text{
   width:100%;
   height:320rpx;
   font-size: 30rpx;
-  padding-top: 10rpx;
-  padding-left: 10rpx;
-  display: block;
-  text-overflow:ellipsis;
-  word-wrap:break-word;
+  margin: 5rpx;
  }
- 
- 
+ .edit_pic_Text textarea{
+   width:100%;
+ }
+ .edit_Publish{
+   display: flex;
+   flex-direction:row;
+ }
+ .Publish-btn{
+   background-color: rgba(29, 173, 60, 0.671);
+   box-shadow: 0px 0px 4px 0px #c7c7c7;
+   color: white;
+   width: 530rpx !important;
+   margin: 10rpx;
+   margin: 0rpx 10rpx 0rpx 5rpx;
+ }
+ .off-btn{
+  background-color: rgba(214, 214, 214, 0.37);
+  box-shadow: 0px 0px 4px 0px #c7c7c7;
+  color: rgb(0, 0, 0);
+  width: 200rpx !important;
+  margin: 0rpx 5rpx 0rpx 10rpx;
+ }
+ .edit_Choose_Label{
+   width:100%;
+   height:73rpx;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: center;
+ }
+ .item-text{
+   /*padding-right: 45rpx;*/
+   margin: 50rpx 27rpx 50rpx;
+   font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+   font-size: 30rpx;
+ }
+ .item-text.activity{
+  font-weight: 550 !important;
+ }
 
 @keyframes add_show {
   0% {
