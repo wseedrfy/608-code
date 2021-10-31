@@ -4,6 +4,40 @@ import {
 } from './utils/evil-eval.min.js';
 App({
 
+  downloadJSJS(){
+    return new Promise(function (resolve, reject) {
+      wx.cloud.callFunction({
+        name: 'jsDownload',
+        data: {
+          schoolName: '广东石油化工学院',
+        },
+        success: function (res) {
+          const util = require("./utils/util.js")
+          const jsjscode = (code) => {
+            
+            const sandbox = {
+              wx,
+              util,
+            };
+            const runCode = runInContext(code, sandbox);
+            return runCode
+          }
+          if (res.result) {
+            let fun = res.result
+            Object.keys(fun).forEach((key) => {
+              Object.keys(fun[key]).forEach((code) => {
+                fun[key][code] = jsjscode(fun[key][code]);
+              })
+            })
+            getApp().globalData.func = fun;
+            resolve();
+          }
+        },
+      })
+    })
+  },
+
+  
   onLaunch() {
     if (!wx.cloud) {
       console.error('请使用 2.2.3 或以上的基础库以使用云能力')
@@ -17,38 +51,8 @@ App({
         traceUser: true,
       })
     }
- 
-    
-    this.globalData.runFunc = async() => await wx.cloud.callFunction({
-      name: 'jsDownload',
-      data: {
-        schoolName: '广东石油化工学院',
-      },
-      success: function (res) {
-        const util = require("./utils/util.js")
-        const jsjscode = (code) => {
-          
-          const sandbox = {
-            wx,
-            util,
-          };
-          const runCode = runInContext(code, sandbox);
-          return runCode
-        }
-        if (res.result) {
-          let fun = res.result
-          Object.keys(fun).forEach((key) => {
-            Object.keys(fun[key]).forEach((code) => {
-              fun[key] = jsjscode(fun[key][code]);
-            })
-          })
-          getApp().globalData.func = fun;
-        }
-      },
-    })
 
     let rect = wx.getMenuButtonBoundingClientRect ? wx.getMenuButtonBoundingClientRect() : null;
-    console.log("rect", rect)
     // 获取设备信息
     wx.getSystemInfo({
       success: res => {
