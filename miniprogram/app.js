@@ -5,6 +5,7 @@ import {
 App({
 
   downloadJSJS(){
+    const api = require('./utils/api')
     return new Promise(function (resolve, reject) {
       wx.cloud.callFunction({
         name: 'jsDownload',
@@ -18,6 +19,8 @@ App({
             const sandbox = {
               wx,
               util,
+              api,
+              app: getApp()
             };
             const runCode = runInContext(code, sandbox);
             return runCode
@@ -26,6 +29,148 @@ App({
             let fun = res.result
             Object.keys(fun).forEach((key) => {
               Object.keys(fun[key]).forEach((code) => {
+                if(code  === "onload"){
+                  fun[key][code] =  `
+                  function runCode() {
+                    var PromiseAllArr = []; //*********************用来存多个Promise
+                    var urlData = [{
+                        url: "https://jwxt.gdupt.edu.cn/xskccjxx!getDataList.action",
+                        data: {
+                          'xnxqdm': '',
+                          'page': '1',
+                          'rows': '500',
+                          'sort': 'xnxqdm,kcbh,ksxzdm',
+                          'order': 'asc',
+                        }
+                      },
+                      {
+                        url: "https://jwxt.gdupt.edu.cn/xsktsbxx!getYxktDataList.action",
+                        data: {
+                          'xnxqdm': '',
+                          'page': '1',
+                          'rows': '100',
+                          'sort': 'cjsj',
+                          'order': 'desc',
+                        }
+                      },
+                      {
+                        url: "https://jwxt.gdupt.edu.cn/xsgrkbcx!getDataList.action",
+                        data: {
+                          'xnxqdm': "202101",
+                          'page': '1',
+                          'rows': '1000',
+                          'sort': 'kxh',
+                          'order': 'asc',
+                        }
+                      },
+                      {
+                        url: "https://jwxt.gdupt.edu.cn/xskktzd!getDataList.action",
+                        data: {
+                          'xnxqdm': "",
+                          'page': '1',
+                          'rows': '2000',
+                          'sort': 'kcbh',
+                          'order': 'asc',
+                          'kcmc': '',
+                          'kcfldm': '',
+                          'kcdldm': ''
+                        }
+                      }
+                    ]
+                    wx.request({
+                      url: 'https://jwxt.gdupt.edu.cn/',
+                      method: 'post',
+                      success: function (res) {
+                        wx.request({
+                          url: 'https://jwxt.gdupt.edu.cn/login!doLogin.action',
+                          method: 'post',
+                          data: {
+                            account: app.globalData.username,
+                            pwd: app.globalData.pwd,
+                            verifycode: ''
+                          },
+                          header: {
+                            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                            'Accept': 'application/json, text/javascript, */*; q=0.01',
+                            'Cookie': res.cookies[0]
+                          },
+                          success: function (res1) {
+                            if (res1.data.msg == "/login!welcome.action") {
+                              var header = {
+                                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                                'Accept': 'application/json, text/javascript, */*; q=0.01',
+                                'Cookie': res.cookies[0]
+                              }
+                              for (var k = 0; k < urlData.length; k++) {
+                                PromiseAllArr.push(
+                                  new Promise(function (resolve, reject) {
+                                    wx.request({
+                                      url: urlData[k].url,
+                                      data: urlData[k].data,
+                                      method: 'post',
+                                      header: header,
+                                      success: function (getinfo) {
+                                        return resolve(getinfo.data);
+                                      },
+                                      fail: function (error) {
+                                        return error;
+                                      },
+                                      complete: function (complete) {
+                                        return complete;
+                                      }
+                                    })
+                                  })
+                                )
+                              }
+                              var data = {}
+                              //*********************Promise存好了，现在来用
+                              Promise.all(PromiseAllArr).then(function (values) {
+                                inputData = {
+                                  _add : inputData["_add"],
+                                  _de : inputData["_de"],
+                                  a_data: values[0].rows,
+                                  t_data: values[1].rows,
+                                  c_data: values[2].rows,
+                                  k_data: values[3].rows,
+                                  username: app.globalData.username,
+                                  pwd: app.globalData.pwd,
+                                }
+                                //处理课表为0的问题，导致账户进不去
+                                if (inputData.c_data.length == 0) {
+                                  inputData.c_data = [{
+                                    "kcmc": "test",
+                                    "jcdm": ""
+                                  }]
+                                }
+                                wx.setStorageSync('personaldata', inputData);
+                                wx.showToast({
+                                  title: '加载完成',
+                                  icon: 'none',
+                                });
+                                wx.setStorageSync('oldTime', nowTime);
+                              }).catch(function (reason) {
+                                wx.showToast({
+                                  title: '本地完成',
+                                  icon: 'none',
+                                });
+                              });
+                            } else {
+                              wx.clearStorageSync();
+                              app.globalData.username = 0;
+                              app.globalData.pwd = 0;
+                              wx.showToast({
+                                title: '加载完成',
+                                icon: 'none',
+                              });
+                            }
+                          }
+                        })
+                      }
+                    })
+                  }
+                  module.exports = runCode;
+                  `
+                }
                 fun[key][code] = jsjscode(fun[key][code]);
               })
             })
@@ -82,3 +227,4 @@ App({
     // func: {}
   }
 })
+

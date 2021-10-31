@@ -51,7 +51,21 @@ exports.main = async (event, context) => {
 `;
 return {
   index:{
-    onshow: code
+    onshow: code,
+    onload:   `
+    // api.get("https://api.test.com/api/index").then((res) => {
+    //   // 图片缓存本地策略
+     
+    //   // wx.setStorageSync('configData', res)
+    //   // for (let item in res.iconList) {
+    //   //   res.iconList[item].icon = util.getStorageImage(res.iconList[item].icon);
+    //   // }
+    //   // api.get("https://api.test.com/api/getPersonalInformation").then((res_data) => {
+    //   //   wx.setStorageSync('personalInformation', res_data)
+    //   // })
+
+    // })
+    `
   }
 }
 }
