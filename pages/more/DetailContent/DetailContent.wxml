@@ -1,0 +1,13 @@
+<view class="page">
+  <view class="contain">
+    <view class="content_Img" ><image src="{{ImgSrc}}" mode="widthFix" style="max-height:680rpx; height: expression{{Height > 100 ? 100: true}};"/></view>
+    <view class="content_first">
+      <view class="content_Title">{{Title}}</view>
+      <view class="content_Text">{{Text}}</view>
+    </view>
+    <view class="Line"></view>
+
+    
+
+  </view>
+</view>
