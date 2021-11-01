@@ -4,7 +4,6 @@
     <!-- 状态栏 -->
     <view style="height: {{statusBarHeight}}px;" />
     <!-- 导航栏 -->
-    <image style="left: 20rpx; margin-top:{{lineHeight/3.5}}px; position: absolute; width:45rpx; height:45rpx" src="./images/设置.png"></image>
     <view class="cur-week" style="height: {{lineHeight}}px;" >
       <text bindtap="showCurriculumPoint">{{curWeek}}</text>
       <image src="./images/箭头 下.png" />
@@ -40,7 +39,7 @@
 </view>
 
 <!-- 填充 -->
-<view style="padding-top: {{(showscroll? 140: 0) + 65 + (statusBarHeight + lineHeight) * 2}}rpx; width: 100%;"></view>
+<view style="padding-top: {{(showscroll? 70: 0) + 40 + (statusBarHeight + lineHeight)}}px; width: 100%;"></view>
 
 <!-- 课表 -->
 <view style="z-index: -1;" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd"
