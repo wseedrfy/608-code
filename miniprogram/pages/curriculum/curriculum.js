@@ -131,9 +131,8 @@ Page({
     })
     this.kb(this.data.whichWeek);
   },
-
   // 日期切换处理函数  返回时间格式 YYYY-MM-DD
-  showDate(n) {
+  showDate(n) { 
     var date = new Date(wx.getStorageSync('configData').timeYear);
     date.setDate(date.getDate() + n);
     var month = date.getMonth() + 1
