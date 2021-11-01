@@ -2,8 +2,10 @@
   "pages":[
     "pages/index/index",
     "pages/more/more",
-    "pages/curriculum/curriculum"
+    "pages/curriculum/curriculum",
+    "pages/more/DetailContent/DetailContent"
   ],
+  
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",

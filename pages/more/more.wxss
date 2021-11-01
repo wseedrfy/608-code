@@ -24,7 +24,7 @@ page{
    width:360rpx;
  }
 .pic{
-  border-radius: 15rpx;
+  border-radius: 10rpx;
   width: 360rpx;
   background-color: rgb(255, 255, 255);
   margin-bottom: 10rpx;
@@ -32,9 +32,19 @@ page{
 }
 
 .pic_Title{
-  color:orange;
-  width:360rpx;
-  font-size: 37rpx;
+  color:rgb(0, 0, 0);
+  font-size: 27rpx;
+  font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
+  line-height: 36rpx;
+  padding-top: 8rpx;
+  padding-left: 19rpx;
+  padding-right: 19rpx;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 .pic_Text{
   width:360rpx;
@@ -114,12 +124,15 @@ page{
 }
 .edit_pic_Title{
   width:100%;
-  height:85rpx;
+  height:80rpx;
   display: flex;
   align-items: center;
   font-weight: 550;
   font-size: 35rpx;
   margin-left: 10rpx;
+}
+.edit_pic_Title input{
+  width:95%;
 }
 .Line{
   background: #9b9b9b48;
@@ -130,10 +143,11 @@ page{
   width:100%;
   height:320rpx;
   font-size: 30rpx;
-  margin: 5rpx;
+  margin: 10rpx;
  }
  .edit_pic_Text textarea{
-   width:100%;
+   width:98%;
+   height:100%;
  }
  .edit_Publish{
    display: flex;
@@ -163,7 +177,6 @@ page{
    justify-content: center;
  }
  .item-text{
-   /*padding-right: 45rpx;*/
    margin: 50rpx 27rpx 50rpx;
    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
    font-size: 30rpx;
