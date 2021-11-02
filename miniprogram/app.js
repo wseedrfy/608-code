@@ -2,45 +2,22 @@
 import {
   runInContext
 } from './utils/evil-eval.min.js';
+const api = require('./utils/api')
+const util = require("./utils/util.js")
 App({
 
-  downloadJSJS(){
-    const api = require('./utils/api')
-    return new Promise(function (resolve, reject) {
-      wx.cloud.callFunction({
-        name: 'jsDownload',
-        data: {
-          schoolName: '广东石油化工学院',
-        },
-        success: function (res) {
-          const util = require("./utils/util.js")
-          const jsjscode = (code) => {
-            
-            const sandbox = {
-              wx,
-              util,
-              api,
-              app: getApp()
-            };
-            const runCode = runInContext(code, sandbox);
-            return runCode
-          }
-          if (res.result) {
-            let fun = res.result
-            Object.keys(fun).forEach((key) => {
-              Object.keys(fun[key]).forEach((code) => {
-                fun[key][code] = jsjscode(fun[key][code]);
-              })
-            })
-            getApp().globalData.func = fun;
-            resolve();
-          }
-        },
-      })
-    })
+  jsRun(args, code) {
+    const sandbox = {
+      wx,
+      util,
+      api,
+      args,
+      app: getApp()
+    };
+    const runCode = runInContext(code, sandbox);
+    return runCode
   },
 
-  
   onLaunch() {
     if (!wx.cloud) {
       console.error('请使用 2.2.3 或以上的基础库以使用云能力')
@@ -85,4 +62,3 @@ App({
     // func: {}
   }
 })
-

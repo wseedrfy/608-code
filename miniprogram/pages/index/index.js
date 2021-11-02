@@ -1,6 +1,8 @@
 // index.js
 // 获取应用实例
-
+wx.cloud.init()
+const db = wx.cloud.database()
+const schoolLoading = db.collection('schoolLoading')
 const app = getApp()
 
 var util = require("../../utils/util.js")
@@ -12,21 +14,17 @@ Page({
       day: new Date().getDay(),
     },
   },
-  onShow() {
-    if(getApp().globalData.func){
-      var onshow = getApp().globalData.func.index.onshow
-      onshow(this);
-    }
-
-  },
-  onLoad() {
+  async onLoad() {
     var that = this;
-    //进行JS的加载，JSJS针对不同学校的用法
-    app.downloadJSJS().then(function () {
-      //先运行一次onshow进行预加载
-      that.onShow()
-      var onLoad = getApp().globalData.func.index.onload
-      that.setData(onLoad(that));
+    var schoolName = wx.getStorageSync("schoolName")
+    await schoolLoading.where({
+      schoolName: schoolName ? schoolName : '空'
+    }).get().then(res =>{
+      var schoolInitData = res.data[0]
+      var onLoad = app.jsRun(schoolInitData, schoolInitData.jsCode)
+      onLoad(that)
+    //加载
     })
+
   },
 })

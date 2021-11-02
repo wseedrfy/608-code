@@ -54,6 +54,9 @@ Page({
     console.log("更新日志")
   },
   login(e){
+    wx.redirectTo({
+      url: '/pages/login/login'
+    })
     console.log(e)
     console.log("登录/注销账号")
   }
