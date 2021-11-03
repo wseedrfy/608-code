@@ -13,9 +13,13 @@ Page({
   async onLoad() {
     var that = this;
     var args = wx.getStorageSync('args')
-    if(args){
-      var onLoad = app.jsRun(args, args.jsCode)
-      onLoad(that)
+    if (args) {
+      try {
+        var onload = app.jsRun(args, args.jsCode)
+        onload(that)
+      } catch (e) {
+        console.log(e)
+      }
     }
     await wx.cloud.callFunction({
       name: 'api',
@@ -26,7 +30,11 @@ Page({
         var args = res.result
         var onLoad = app.jsRun(args, args.jsCode)
         wx.setStorageSync('args', args)
-        onLoad(that)
+        try{
+          onLoad(that)
+        }catch{
+          that.setData({msg: '有超级bug，请联系开发查看函数'})
+        }
       },
       fail: res => {
         wx.showToast({
@@ -35,6 +43,5 @@ Page({
         })
       }
     })
-
   },
 })
