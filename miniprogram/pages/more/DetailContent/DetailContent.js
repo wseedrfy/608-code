@@ -1,20 +1,29 @@
+var util = require("../../../utils/util.js")
 Page({
-
+  data:{
+    photo:[],
+  },
   /**
    * 页面的初始数据
    */
-  
+  ShowImg:function(){
+    var photo=this.data.photo
+    wx.previewImage({
+      current: photo[0],
+      urls:photo,
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     var content=JSON.parse(options.content)
-    
+    this.data.photo.push(content.Cover)
     this.setData({
       ImgSrc:content.Cover,
       Title:content.Title,
       Text:content.Text,
-      Height:content.CoverHeight
+      Label:content.Label
     })
   },
 

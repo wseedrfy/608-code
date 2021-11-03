@@ -11,28 +11,55 @@ Page({
     tabitem:[{
         id:0,
         title:"日常",
+        type:0
       },
       {
         id:1,
         title:"情墙",
+        type:0
       },
       {
         id:2,
-      title:"悄悄话",
+        title:"悄悄话",
+        type:0
       },
       {
         id:3,
         title:"地点",
+        type:0
       },
       {
         id:4,
         title:"二手",
+        type:0
       },
       {
         id:5,
         title:"社团",
+        type:0
+      },
+      {
+        id:6,
+        title:"拾领",
+        type:0
+      },
+      {
+        id:7,
+        title:"活动",
+        type:0
+      },
+      {
+        id:8,
+        title:"吐槽",
+        type:0
       }
     ],
+
+    info: {
+      licensePicUrls: [],
+    },
+    imgShow:false,
+
     leftList: [],
     rightList: [],
     formTitle:' ',
@@ -78,11 +105,12 @@ Page({
     var that = this; 
     if(tempFilePaths.length==0){
       wx.chooseImage({  
+        count: 1,
         sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有  
         sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有  
         success:  (res) =>{  
           // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片  
-          this.setData({  
+          that.setData({  
             tempFilePaths:res.tempFilePaths  
           })
           wx.getImageInfo({
@@ -129,15 +157,17 @@ Page({
     let arry = this.data.tabitem
     let index = e.currentTarget.dataset.index
     let title = e.currentTarget.dataset.title
+    //let chooseLabel=this.data.chooseLabel
     let chan = this.data.chan
     if (arry[index].type == 1) {
       arry[index].type = 0
       var row = chan.map(item => item.title).indexOf(title)
+      console.log("row",row)
       chan.splice(row, 1);
     } else {
-      if (chan.length == 3) {
+      if (chan.length == 1) {
         wx.showToast({
-          title: '只能选三个',
+          title: '只能选一个',
           icon: "none"
         })
         return
@@ -149,13 +179,15 @@ Page({
     }
     this.setData({
       tabitem: arry,
-      chan: chan
+      //chan: chan
     })
     console.log(this.data.chan)
+    //console.log("chooseLabel",chooseLabel)
   },
 
   formSubmit:function(e){     //添加与存储
     let{formTitle, formText}=e.detail.value
+    var that=this
     if(!formTitle){
       wx.showToast({
         title: '标题不能为空',
@@ -166,21 +198,50 @@ Page({
         title: '文字不能为空',
         icon:'none'
       })
-    }else if(!this.data.tempFilePaths){
+    }else if(!that.data.tempFilePaths){
       wx.showToast({
         title: '图片不能为空',
         icon:'none'
       })
     }else{
       var add={
-        "Cover": this.data.tempFilePaths[0],
+        "Cover": that.data.tempFilePaths[0],
         "Title":formTitle,
         "Text":formText,
-        "CoverHeight": this.data.imageHeight,
-        "CoverWidth": this.data.imageWidth
+        "CoverHeight": that.data.imageHeight,
+        "CoverWidth": that.data.imageWidth,
+        "Label":this.data.chan
       }
-      this.data.noramalData.push(add)
-      this.CalculateImage()
+      that.data.noramalData.push(add)
+      that.CalculateImage()
+      /*wx.cloud.callFunction({
+        name: 'CampusCircle',
+        data: {
+          AddContent: JSON.stringify(add),
+          type: 'write'
+        },
+        success: res => {
+          wx.showToast({
+            title: '添加成功',
+            icon: 'none',
+          })
+          this.onLoad()
+        },
+        fail: err => {
+          wx.showToast({
+            title: '添加失败',
+            icon: 'none',
+          })
+        },
+        complete() {
+          that.setData({
+            formTitle:"",
+            formText: "",
+            tempFilePaths: "",
+            showModel: !that.data.showModel,
+          })
+        }
+      })*/
     }
   },
 
@@ -190,8 +251,11 @@ Page({
     for (let i = 0; i < allData.length; i++) {
       var height=parseInt(Math.round(allData[i].CoverHeight * 370 / allData[i].CoverWidth));
       if(height){
-        //allData[i].ShowHeight=allData[i].CoverHeight
         var currentItemHeight = parseInt(Math.round(allData[i].CoverHeight * 370 / allData[i].CoverWidth));
+        allData[i].ShowHeight=currentItemHeight
+        if(currentItemHeight>500){
+          currentItemHeight=500
+        }
         allData[i].CoverHeight = currentItemHeight + "rpx";//因为xml文件中直接引用的该值作为高度，所以添加对应单位
         if (that.data.leftH == that.data.rightH || that.data.leftH < that.data.rightH) {//判断左右两侧当前的累计高度，来确定item应该放置在左边还是右边
           that.data.leftList.push(allData[i]);
@@ -200,6 +264,8 @@ Page({
           that.data.rightList.push(allData[i]);
           that.data.rightH += currentItemHeight;
         }
+        console.log("that.data.leftH",that.data.leftH)
+        console.log("that.data.rightH",that.data.rightH)
       }
     }
     that.setData({

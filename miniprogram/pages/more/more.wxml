@@ -1,18 +1,31 @@
 <!--pages/more/more.wxml-->
+<view class="Line"></view>
+<scroll-view scroll-x="true">
+  <view class="Choose_Label" scroll-x="true">
+    <view wx:for="{{tabitem}}" wx:key="index" class="Label-text {{item.type == 1?'activity':''}}" data-title="{{item.title}}" bindtap="setTab" data-index="{{index}}" name="formTabitem"><view class="Label_limit">{{item.title}}</view></view>
+  </view>
+</scroll-view>
+<view class="Line"></view>
 <view class='content'>
   <view class='left'>
     <block wx:for="{{leftList}}" wx:key="index">
       <view class="pic" bindtap="ShowContent" data-index="{{leftList[index]}}">
-        <image class="Show_Image" style='height:{{item.CoverHeight}}' src='{{item.Cover}}' mode="aspectFill"></image>
+        <image class="Show_Image"  src='{{item.Cover}}' mode="aspectFill" style="height: {{item.ShowHeight > 500 ? 500+'rpx':item.ShowHeight+'rpx'}};"></image>
         <view class="pic_Title">{{item.Title}}</view>
+        <view class="pic_Label" wx:for="{{item.Label}}">#{{item.title}}</view>
+        <image src="../more/text.jpg" class="text_user"/>
+        <span class="text_username">土拨鼠</span>
       </view>
     </block>
   </view>
   <view class='right'>
     <block wx:for="{{rightList}}" wx:key="index">
       <view class="pic" bindtap="ShowContent" data-index="{{rightList[index]}}">
-        <image class="Show_Image" style='height:{{item.CoverHeight}}' src='{{item.Cover}}' mode="aspectFill"></image>
+        <image class="Show_Image" src='{{item.Cover}}' mode="aspectFill" style="height: {{item.ShowHeight > 534 ? 534+'rpx':item.ShowHeight+'rpx'}};"></image>
         <view class="pic_Title">{{item.Title}}</view>
+        <view class="pic_Label" wx:for="{{item.Label}}">#{{item.title}}</view>
+        <image src="../more/text.jpg" class="text_user"/>
+        <span class="text_username">土拨鼠</span>
       </view>
     </block>
   </view>
@@ -28,19 +41,23 @@
       <view class="edit_Title">发布日常</view>
       <view class="Line"></view>
       <form bindsubmit="formSubmit" bindreset="formReset">
-        <view class="edit_Choose_Label">
-          <view wx:for="{{tabitem}}" wx:key="index" class="item-text {{item.type == 1?'activity':''}}" data-title="{{item.title}}" bindtap="setTab" data-index="{{index}}" name="formTabitem">{{item.title}}</view>
-        </view>
-        <view class="img-button chooseImg-btn" bindtap="chooseimage">
+        <scroll-view scroll-x="true">
+          <view class="Choose_Label" scroll-x="true">
+            <view wx:for="{{tabitem}}" wx:key="index" class="Label-text {{item.type == 1?'activity':''}}" data-title="{{item.title}}" bindtap="setTab" data-index="{{index}}" name="formTabitem"><view class="Label_limit">{{item.title}}</view></view>
+          </view>
+        </scroll-view>
+        <view class="img-button chooseImg-btn" bindtap="chooseimage" >
           <image src="/images/Camera-3.png" class="Camera_Image" ></image>
-          <image src="{{tempFilePaths }}" mode="aspectFill" style="width: 100%; height: 100%; z-index: 11;" bindlongpress="deleteImage" bindtap="PreviewImage" data-index="{{index}}" name="formPhoto"/>
+          <!--<scroll-view scroll-x="true"> --->
+              <image src="{{tempFilePaths}}"  mode="aspectFill" style="width: 100%; height: 100%; z-index: 11;" bindlongpress="deleteImage" bindtap="PreviewImage" data-index="{{index}}" name="formPhoto"/>
+          <!--</scroll-view>--->
         </view>
         <view class="edit_pic_Title">
-          <input placeholder="标题 闲聊/求助/组队..."  model:value="{{Input_Title}}" name="formTitle"></input>
+          <input placeholder="标题 闲聊/求助/组队..."  value="{{Input_Title}}" name="formTitle"></input>
         </view>
         <view class="Line"></view>
         <view class="edit_pic_Text">
-          <textarea placeholder="添加正文"  model:value="{{Input_Text}}" name="formText"></textarea> 
+          <textarea placeholder="添加正文"  value="{{Input_Text}}" name="formText"></textarea> 
         </view>
         <view class="edit_Publish">
           <button bindtap="add" class="off-btn">取消</button>
