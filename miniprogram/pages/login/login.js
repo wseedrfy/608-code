@@ -1,20 +1,43 @@
 //index.js
 //获取应用实例
+
+const db = wx.cloud.database()
+const schoolLoading = db.collection('schoolLoading')
+
 const app = getApp()
 Page({
-  data:{
-    user:"",
-    pwd:""
+  data: {
+    user: "",
+    pwd: "",
+    school: [],
+    url: '',
+    urls: []
   },
-  onReady: function () {
-  },
-  activity: function (e) {
-    wx.navigateTo({
-      url: '/pages/about/about'
+
+  bindPickerChange: function(e) {
+    var that = this
+    this.setData({
+      index: e.detail.value,
+      url: that.data.urls[e.detail.value]
     })
   },
+
+  async onLoad() {
+    // 注意！这个只能拉100个学校，我也希望未来我们能超过100个
+    var that = this;
+    var res = (await schoolLoading.where({}).get()).data
+    res.forEach(e => {
+      if(e.schoolName !== '空'){
+        this.data.school.push(e.schoolName)
+        this.data.urls.push(e.url)
+      }
+    })
+    this.setData({res: res, school: that.data.school});
+  },
+
   login: function (e) {
     var that = this
+    console.log(this.data)
     if (this.data.user.length == 0 || this.data.pwd.length == 0) {
       wx.showToast({
         title: '帐号及密码不能为空',
@@ -31,23 +54,25 @@ Page({
       title: '登录中',
       mask: true
     })
+    console.log(that.data.user)
     wx.cloud.callFunction({
-      name: 'login',
+      name: 'api',
       data: {
+        url: 'login',
         username: that.data.user,
         password: that.data.pwd,
+        school: that.data.school[that.data.index]
       },
       success: res => {
         wx.setStorage({
           key: 'data',
           data: ""
         })
-        if (res.result.msg == "/login!welcome.action") {
-            wx.reLaunch({
-              url: '/pages/index/index'
-            })
-        }
-        else {
+        if (res.result.msg == "welcome") {
+          wx.reLaunch({
+            url: '/pages/index/index'
+          })
+        } else {
           wx.showToast({
             icon: 'none',
             title: res.result.msg,
@@ -62,32 +87,31 @@ Page({
       }
     })
   },
-  input(e){
+  input: function (e) {
     this.setData({
-      [e.target.id]:e.detail.value
+      [e.target.id]: e.detail.value
     })
   },
-
   // 帮助弹窗
-  tapHelp: function(e){
-    if(e.target.id == 'help_model'){
+  tapHelp: function (e) {
+    if (e.target.id == 'help_model') {
       this.hideHelp();
     }
   },
-  showHelp: function(e){
+  showHelp: function (e) {
     this.setData({
       'help_status': true
     });
   },
-  hideHelp: function(e){
+  hideHelp: function (e) {
     this.setData({
       'help_status': false
     });
   },
-  copy(){
+  copy() {
     wx.setClipboardData({
-      data:'http://210.38.250.43/',
-      success(){
+      data: this.data.url,
+      success() {
         wx.showToast({
           title: '已成功复制地址，快用浏览器打开吧',
           icon: "none"

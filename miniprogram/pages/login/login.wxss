@@ -89,7 +89,7 @@
 .login_school, .login_user, .login_pwd{
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   background-color: white;
   padding: 30rpx 20rpx;
@@ -109,6 +109,7 @@
 }
 
 .picker{
+  padding-left: 15rpx;
   color: rgb(141,141,141);
 }
 
@@ -126,9 +127,11 @@
 
 .arrow{
   width: 35rpx; 
+  /* z-index: -1; */
   height: 35rpx;
+  margin-top: 5rpx;
   position: absolute;
-  padding-left: 85%;
+  padding-left: 580rpx;
 }
 
 .help{

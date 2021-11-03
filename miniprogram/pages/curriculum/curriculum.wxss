@@ -40,8 +40,8 @@ page {
   align-items: center;
   border-radius: 15rpx;
   width: 120rpx;
-  height: 122rpx;
-  margin-top: 9rpx;
+  height: 128rpx;
+  margin-top: 7rpx;
 }
 
 .week_point {
@@ -52,7 +52,7 @@ page {
   flex-wrap: wrap;
   /* white-space:normal; */
   /* padding: 3rpx 8rpx; */
-  padding-top: 3rpx;
+  /* padding-top: 3rpx; */
   width: 93%;
 }
 

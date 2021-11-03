@@ -1,10 +1,11 @@
 
-exports.main = async (wxContext, event) => {
+exports.main = async (event) => {
   try{
     const loginSchool = require("../school/" + event.school + '/login.js') 
-    return await loginSchool.main(wxContext, event)
+    return await loginSchool.main(event)
   }catch(e){
-    return '学校错误'
+    console.log(e)
+    return {msg:'学校错误'}
   }
 }
 

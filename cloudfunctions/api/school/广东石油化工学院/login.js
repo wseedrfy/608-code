@@ -2,11 +2,16 @@ var got = require('got'); //引用 got
 var querystring = require("querystring");
 const cloud = require('wx-server-sdk');
 cloud.init();
+const db = cloud.database()
+const _ = db.command;
+
 // 云函数入口函数
-exports.main = async (wxContext, event) => {
+exports.main = async (event) => {
+  
   if(!(event.password && event.username)){
-    return '没有账号或者密码'
+    return {msg:'没有账号或者密码'}
   }
+  const wxContext = cloud.getWXContext()
   var _keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
     output = "";
   var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
@@ -68,39 +73,19 @@ exports.main = async (wxContext, event) => {
     })
   })
   if (JSON.parse(postResponse.body).msg == "/login!welcome.action") {
-    await db.collection("username").where({
-      _openid: wxContext.OPENID
-    }).get().then(async res => {
-      const userLen = res.data.length;
-      if (userLen === 0) {
-        await db.collection('username').add({
-          data: {
-            _openid: wxContext.OPENID,
-            _user: Number(event.username),
-            _pwd: event.password,
-            _school: event.school
-          },
-          success(res) {},
-          fail(res) {
-            console.log('数据库操作失败');
-          }
-        })
-      } else if (userLen === 1) {
-        await db.collection('username').where({
-          _openid: wxContext.OPENID
-        }).update({
-          data: {
-            _user: Number(event.username),
-            _pwd: event.password
-          },
-          success(res) {},
-          fail(res) {
-            console.log('数据库操作失败');
-          }
-        })
+    await db.collection('user').set({
+      data: {
+        openid: wxContext.OPENID,
+        username: Number(event.username),
+        password: event.password,
+        school: event.school
+      },
+      success(res) {},
+      fail(res) {
+        console.log('数据库操作失败');
       }
     })
-    return JSON.parse(postResponse.body)
+    return {msg:'welcome'}
   } else {
     return JSON.parse(postResponse.body)
   }

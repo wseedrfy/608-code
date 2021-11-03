@@ -15,15 +15,16 @@
     </view>
 
     <view class="login">
+      <picker style="width: 100%;" bindchange="bindPickerChange" value="{{index}}" range="{{school}}">
       <view class="login_school">
         <label>学校</label>
-        <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
-          <view class="picker">
-            请选择学校{{array[index]}}
+          <view class="picker" style="color: {{school[index] ?  '#000' : 'rgb(141,141,141)'}};" >
+            {{school[index] ||'请选择学校' }}
           </view>
-        </picker>
-        <image src="./image/箭头 下.png" class="arrow" />
+          <image src="./image/箭头 下.png" class="arrow" />
       </view>
+    </picker>
+
 
       <view class="login_user">
         <label>帐号</label>
@@ -59,7 +60,8 @@
         <view class="help-a">
           <view>
             <text>忘记密码请到教务系统</text>
-            <text style="color:rgb(45, 165, 230);" catchtap="copy">网站为：http://210.38.250.43/重置找回密码</text>
+            
+            <text style="color:rgb(45, 165, 230);" catchtap="copy">网站为：{{url}}重置找回密码</text>
             <text>。</text>
           </view>
           <text>找回后使用教务系统密码登录即可。</text>
