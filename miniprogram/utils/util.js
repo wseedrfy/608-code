@@ -80,8 +80,9 @@ const getweekString = () => {
   return whichWeek;
 }
 
+
 module.exports = {
   getStorageImage,
   formatTime,
-  getweekString
+  getweekString,
 }

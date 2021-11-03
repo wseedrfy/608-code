@@ -1,11 +1,21 @@
 <view class="page">
   <view class="contain">
-    <view class="content_Img" ><image src="{{ImgSrc}}" mode="widthFix" style="max-height:680rpx; height: expression{{Height > 100 ? 100: true}};"/></view>
+    <view class="content_Img" bindtap="ShowImg"><image src="{{ImgSrc}}" mode="widthFix"/></view>
     <view class="content_first">
       <view class="content_Title">{{Title}}</view>
-      <view class="content_Text">{{Text}}</view>
+      <text class="content_Text">{{Text}}</text>
+      <view class="content_Label" wx:for="{{Label}}">#{{item.title}}</view>
     </view>
     <view class="Line"></view>
+    <view class="comment">
+      <view class="All_Comment">共 286 条评论</view>
+      <view class="Comment_second">
+        <image src="../text.jpg" class="text_user"/>
+        <span class="Sent_Comment">
+          <textarea placeholder="来发句评论吧ヾ(≧▽≦*)o" name="Sent_Comment" auto-height></textarea>
+        </span>
+      </view>
+    </view>
 
     
 

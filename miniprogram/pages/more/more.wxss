@@ -2,7 +2,7 @@
 page{
   width: 100%;
   margin: 0;
-  background: #F2F2F2;
+  background: #f5f5f54d;
 }
 .content{
   display: flex;
@@ -33,12 +33,10 @@ page{
 
 .pic_Title{
   color:rgb(0, 0, 0);
-  font-size: 27rpx;
+  font-size: 28rpx;
   font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
   line-height: 36rpx;
-  padding-top: 8rpx;
-  padding-left: 19rpx;
-  padding-right: 19rpx;
+  padding:8rpx 21rpx 0rpx 19rpx;
   display: -webkit-box;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -46,10 +44,7 @@ page{
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
-.pic_Text{
-  width:360rpx;
-  font-size: 30rpx;
-}
+
 .img-button {
   display: flex;
   justify-content: center;
@@ -166,25 +161,62 @@ page{
   box-shadow: 0px 0px 4px 0px #c7c7c7;
   color: rgb(0, 0, 0);
   width: 200rpx !important;
-  margin: 0rpx 5rpx 0rpx 10rpx;
+  margin: 0rpx 10rpx 0rpx 5rpx;
  }
- .edit_Choose_Label{
-   width:100%;
-   height:73rpx;
-   display: flex;
-   flex-direction: row;
-   align-items: center;
-   justify-content: center;
- }
- .item-text{
-   margin: 50rpx 27rpx 50rpx;
-   font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-   font-size: 30rpx;
- }
- .item-text.activity{
-  font-weight: 550 !important;
- }
-
+.text_user{
+  width:35rpx;
+  height:35rpx;
+  border-radius: 50rpx;
+  margin: 15rpx 21rpx;
+}
+.text_username{
+  font-size: 20rpx;
+  position: relative;
+  bottom:22rpx;
+  right:6rpx;
+}
+.Choose_Label{
+  width:100%;
+  height:73rpx;
+  background-color: rgba(255, 255, 255, 0.363);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.Label-text{
+  margin: 50rpx 45rpx 50rpx 0rpx;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  color: rgba(46, 46, 46, 0.938);
+  font-size: 27rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Label-text.activity{
+  width: 90rpx;
+  height:47rpx;
+  background-color: rgba(206, 206, 206, 0.404);
+  color: rgba(46, 46, 46, 0.938);
+  font-weight: 550;
+  border-radius: 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Label_limit{
+  width:87rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pic_Label{
+  color:rgb(255, 190, 70);
+  font-size: 25rpx;
+  font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
+  line-height: 36rpx;
+  padding:8rpx 21rpx 0rpx 19rpx;
+  
+}
 @keyframes add_show {
   0% {
       opacity: 0;
