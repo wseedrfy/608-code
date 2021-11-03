@@ -1,7 +1,7 @@
 
 exports.main = async (event) => {
   try{
-    const loginSchool = require("../school/" + event.school + '/login.js') 
+    const loginSchool = require("./school/" + event.school + '/login.js') 
     return await loginSchool.main(event)
   }catch(e){
     console.log(e)

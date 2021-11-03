@@ -37,7 +37,6 @@ Page({
 
   login: function (e) {
     var that = this
-    console.log(this.data)
     if (this.data.user.length == 0 || this.data.pwd.length == 0) {
       wx.showToast({
         title: '帐号及密码不能为空',
@@ -54,7 +53,6 @@ Page({
       title: '登录中',
       mask: true
     })
-    console.log(that.data.user)
     wx.cloud.callFunction({
       name: 'api',
       data: {

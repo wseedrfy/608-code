@@ -1,11 +1,7 @@
 // index.js
 // 获取应用实例
-
-const db = wx.cloud.database()
-const schoolLoading = db.collection('schoolLoading')
 const app = getApp()
 
-var util = require("../../utils/util.js")
 Page({
   data: {
     time: {
@@ -16,29 +12,28 @@ Page({
   },
   async onLoad() {
     var that = this;
-    var schoolName = wx.getStorageSync("schoolName")
-    await schoolLoading.where({
-      schoolName: schoolName ? schoolName : '空'
-    }).get().then(res => {
-      var schoolInitData = res.data[0]
-      function runCode(that,args) {
-        console.log(args)
-        wx.setStorageSync('configData', Object.assign({
-          "timeYear": args.StartTime,
-          "msg": "暂未登录哟"
-        }, args.SchoolIndex))
-        that.onShow = function () {
-          that.setData(wx.getStorageSync('configData'))
-        }
-        that.onShow()
+    var args = wx.getStorageSync('args')
+    if(args){
+      var onLoad = app.jsRun(args, args.jsCode)
+      onLoad(that)
+    }
+    await wx.cloud.callFunction({
+      name: 'api',
+      data: {
+        url: 'indexLoading',
+      },
+      success: res => {
+        var args = res.result
+        var onLoad = app.jsRun(args, args.jsCode)
+        wx.setStorageSync('args', args)
+        onLoad(that)
+      },
+      fail: res => {
+        wx.showToast({
+          icon: 'none',
+          title: "模版请求错误",
+        })
       }
-      module.exports = runCode;
-      runCode(that, schoolInitData);
-
-   
-      // var onLoad = app.jsRun(schoolInitData, schoolInitData.jsCode)
-      // onLoad(that)
-      //加载
     })
 
   },
