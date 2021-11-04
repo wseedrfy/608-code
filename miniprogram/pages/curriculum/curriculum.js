@@ -85,6 +85,16 @@ Page({
       title: 'We广油',
     }
   },
+  // 点击上面课表进行切换
+  clickWeek: function (e) {
+    this.setData({
+      whichWeek: Number(e.currentTarget.id) + 1,
+
+    })
+    this.kb(this.data.whichWeek);
+    
+  },
+
   // 触摸开始事件
   touchStart: function (e) {
     startX = e.touches[0].pageX; // 获取触摸时的原点
@@ -99,7 +109,6 @@ Page({
         this.setData({
           whichWeek: this.data.whichWeek - 1,
         })
-
         this.kb(this.data.whichWeek);
       }
       if (startX - endX > 50) {
@@ -155,13 +164,13 @@ Page({
     for (var i = 0; i < 7; i++) {
       arr.push(this.showDate(whichWeek_now + i));
     }
-    if (whichWeek > '19') {
+    if (whichWeek > '20') {
       wx.showModal({
         showCancel: false,
         title: '提示',
         content: '超过范围'
       })
-      whichWeek = 19;
+      whichWeek = 20;
     } else if (whichWeek < '1') {
       whichWeek = 1;
     }

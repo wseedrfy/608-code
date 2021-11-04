@@ -66,7 +66,9 @@ Page({
           key: 'data',
           data: ""
         })
+        console.log(res.result)
         if (res.result.msg == "welcome") {
+   
           wx.reLaunch({
             url: '/pages/index/index'
           })

@@ -214,6 +214,9 @@ page {
 
 /* 没课 */
 .wx-isclass {
+  overflow: hidden;
+  position: absolute;
+  /* display: flex; */
   width: 730rpx;
   text-align: center;
   font-size: 40rpx;

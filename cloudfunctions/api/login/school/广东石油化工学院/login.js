@@ -73,18 +73,27 @@ exports.main = async (event) => {
     })
   })
   if (JSON.parse(postResponse.body).msg == "/login!welcome.action") {
-    await db.collection('user').set({
-      data: {
-        openid: wxContext.OPENID,
-        username: Number(event.username),
-        password: event.password,
-        school: event.school
-      },
-      success(res) {},
-      fail(res) {
-        console.log('数据库操作失败');
-      }
-    })
+    const isHave = (await db.collection("user").where({
+      openid: wxContext.OPENID
+    }).get()).data.length
+    if(isHave === 0){
+      await db.collection('user').add({
+        data: {
+          openid: wxContext.OPENID,
+          username: Number(event.username),
+          password: event.password,
+          school: event.school
+        }
+      })
+    }else{
+      await db.collection('user').where({ openid: wxContext.OPENID }).update({
+        data: {
+          username: Number(event.username),
+          password: event.password,
+          school: event.school
+        }
+      })
+    }
     return {msg:'welcome'}
   } else {
     return JSON.parse(postResponse.body)
