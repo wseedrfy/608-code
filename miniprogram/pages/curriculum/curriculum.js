@@ -89,10 +89,8 @@ Page({
   clickWeek: function (e) {
     this.setData({
       whichWeek: Number(e.currentTarget.id) + 1,
-
     })
     this.kb(this.data.whichWeek);
-    
   },
 
   // 触摸开始事件
@@ -109,17 +107,15 @@ Page({
         this.setData({
           whichWeek: this.data.whichWeek - 1,
         })
-        this.kb(this.data.whichWeek);
       }
       if (startX - endX > 50) {
         moveFlag = false;
         this.setData({
           whichWeek: this.data.whichWeek + 1,
         })
-
-        this.kb(this.data.whichWeek);
       }
     }
+    this.kb(this.data.whichWeek);
 
   },
   // 触摸结束事件
