@@ -1,16 +1,15 @@
 var util = require("../../../utils/util.js")
 Page({
-  data:{
-    photo:[],
-  },
+  
   /**
    * 页面的初始数据
    */
-  ShowImg:function(){
-    var photo=this.data.photo
+  ShowImg:function(e){
+    var Photo=this.data.Photo
+    var index=e.target.dataset.index
     wx.previewImage({
-      current: photo[0],
-      urls:photo,
+      current: Photo[index],
+      urls:Photo,
     })
   },
   /**
@@ -18,12 +17,12 @@ Page({
    */
   onLoad: function (options) {
     var content=JSON.parse(options.content)
-    this.data.photo.push(content.Cover)
     this.setData({
       ImgSrc:content.Cover,
       Title:content.Title,
       Text:content.Text,
-      Label:content.Label
+      Label:content.Label,
+      Photo:content.AllPhoto
     })
   },
 

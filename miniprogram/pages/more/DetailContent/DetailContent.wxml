@@ -1,19 +1,41 @@
 <view class="page">
   <view class="contain">
-    <view class="content_Img" bindtap="ShowImg"><image src="{{ImgSrc}}" mode="widthFix"/></view>
+    <swiper indicator-dots='true' indicator-color="rgba(223, 223, 223, 0.39)" indicator-active-color='rgb(235, 21, 21)'>
+      <block wx:for="{{Photo}}" wx:key="Photo" class="photo">
+        <swiper-item >
+          <image data-src="{{item}}" src="{{item}}"  mode="widthFix" style="z-index: 11;width:800rpx;height:100%" bindtap="ShowImg" data-index="{{index}}"/>
+        </swiper-item>
+      </block>
+    </swiper>
     <view class="content_first">
       <view class="content_Title">{{Title}}</view>
       <text class="content_Text">{{Text}}</text>
-      <view class="content_Label" wx:for="{{Label}}">#{{item.title}}</view>
+      <view class="content_Label" >#{{Label}}</view>
     </view>
     <view class="Line"></view>
     <view class="comment">
       <view class="All_Comment">共 286 条评论</view>
-      <view class="Comment_second">
+      <view class="Send_Commend">
         <image src="../text.jpg" class="text_user"/>
-        <span class="Sent_Comment">
+        <span class="Comment_second">
           <textarea placeholder="来发句评论吧ヾ(≧▽≦*)o" name="Sent_Comment" auto-height></textarea>
         </span>
+      </view>
+      <view class="Show_Commend">
+          <image src="../text.jpg" class="text_user"/>
+          <span class="text_username">土拨鼠</span>
+          <view class="Comment_Content">今天你吃饭了吗？
+            <span class="Comment_Time">2分钟前</span>
+          </view>
+          <view class="Line_Second"></view>
+      </view>
+      <view class="Show_Commend">
+          <image src="../text.jpg" class="text_user"/>
+          <span class="text_username">土拨鼠</span>
+          <view class="Comment_Content">今天你吃饭了吗？
+            <span class="Comment_Time">2分钟前</span>
+          </view>
+          <view class="Line_Second"></view>
       </view>
     </view>
 
