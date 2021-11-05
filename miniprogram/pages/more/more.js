@@ -1,13 +1,15 @@
 // pages/more/more.js
 var app = getApp()  
 Page({
- 
   /**
    * 页面的初始数据
    */
   data: {
-   
+    statusBarHeight: getApp().globalData.statusBarHeight,
+    lineHeight: getApp().globalData.lineHeight,
+    rectHeight: getApp().globalData.rectHeight,
     noramalData: [],
+    current:0,
     tabitem:[{
         id:0,
         title:"日常",
@@ -66,7 +68,7 @@ Page({
     formText:' ',
     showModel:false,
     tempFilePaths: '',
-    chan: [],
+    Label:'',
     imageHeight:0,
     imageWidth:0,
     currentItemHeight:0,
@@ -101,20 +103,22 @@ Page({
     })
   },
   chooseimage: function () {  
-    var tempFilePaths=this.data.tempFilePaths
     var that = this; 
-    if(tempFilePaths.length==0){
+    var photo=[]
+    if(photo.length==0){
       wx.chooseImage({  
-        count: 1,
+        count: 2,
         sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有  
         sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有  
         success:  (res) =>{  
+          photo=res.tempFilePaths
+          console.log("photo",photo)
           // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片  
           that.setData({  
-            tempFilePaths:res.tempFilePaths  
+            photo:photo
           })
           wx.getImageInfo({
-            src: that.data.tempFilePaths[0],
+            src: that.data.photo[0],
             success: function (res) {
               that.data.imageHeight=res.height
               that.data.imageWidth=res.width
@@ -126,18 +130,20 @@ Page({
   }, 
   deleteImage: function (e) {
     var that = this;
-    var tempFilePaths = that.data.tempFilePaths;
     var index = e.currentTarget.dataset.index;//获取当前长按图片下标
-    if(tempFilePaths.length!=0){
+    console.log("index",index)
+    if(that.data.photo.length!=0){
       wx.showModal({
         title: '提示',
         content: '确定要删除此图片吗？',
         success: function (res) {
           if (res.confirm) {
-            tempFilePaths.splice(index, 1);
+            that.data.photo.splice(index,1)
           } 
+          console.log(that.data.photo)
           that.setData({
-            tempFilePaths
+            photo:that.data.photo,
+            current:0
           });
         }
       })
@@ -145,7 +151,7 @@ Page({
   },
   PreviewImage: function (e) {
     let index = e.target.dataset.index;
-    var imgs=this.data.tempFilePaths;
+    var imgs=this.data.photo;
     if(imgs.length!=0){
       wx.previewImage({
         current: imgs[index],
@@ -157,32 +163,13 @@ Page({
     let arry = this.data.tabitem
     let index = e.currentTarget.dataset.index
     let title = e.currentTarget.dataset.title
-    //let chooseLabel=this.data.chooseLabel
-    let chan = this.data.chan
-    if (arry[index].type == 1) {
-      arry[index].type = 0
-      var row = chan.map(item => item.title).indexOf(title)
-      console.log("row",row)
-      chan.splice(row, 1);
-    } else {
-      if (chan.length == 1) {
-        wx.showToast({
-          title: '只能选一个',
-          icon: "none"
-        })
-        return
-      }
-      chan.push({
-        title: arry[index].title
-      })
-      arry[index].type = 1
-    }
+    this.data.Label=arry[index].title
+    arry[index].type=1
     this.setData({
       tabitem: arry,
-      //chan: chan
     })
-    console.log(this.data.chan)
-    //console.log("chooseLabel",chooseLabel)
+    arry[index].type=0
+    console.log(this.data.Label)
   },
 
   formSubmit:function(e){     //添加与存储
@@ -198,20 +185,27 @@ Page({
         title: '文字不能为空',
         icon:'none'
       })
-    }else if(!that.data.tempFilePaths){
+    }else if(that.data.photo.length==0){
       wx.showToast({
         title: '图片不能为空',
         icon:'none'
       })
+    }else if(!that.data.Label){
+      wx.showToast({
+        title: '标签不能为空',
+        icon:'none'
+      })
     }else{
       var add={
-        "Cover": that.data.tempFilePaths[0],
+        "Cover": that.data.photo[0],
+        "AllPhoto":that.data.photo,
         "Title":formTitle,
         "Text":formText,
         "CoverHeight": that.data.imageHeight,
         "CoverWidth": that.data.imageWidth,
-        "Label":this.data.chan
+        "Label":this.data.Label
       }
+      console.log("add",add)
       that.data.noramalData.push(add)
       that.CalculateImage()
       /*wx.cloud.callFunction({
