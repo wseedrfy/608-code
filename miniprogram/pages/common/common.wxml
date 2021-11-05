@@ -1,2 +1,1 @@
-<!--pages/common/common.wxml-->
-<text>pages/common/common.wxml</text>
+<web-view wx:if="{{htmlSrc}}" src="{{htmlSrc}}"></web-view>
