@@ -8,7 +8,7 @@ Page({
     statusBarHeight: getApp().globalData.statusBarHeight,
     lineHeight: getApp().globalData.lineHeight,
     rectHeight: getApp().globalData.rectHeight,
-    curWeek: '第 1 周',
+    curWeek: '第 ' + util.getweekString() + ' 周',
     colorArrays: ['#99CCFF',
       '#FFCC99',
       '#FFCCCC',
@@ -208,7 +208,6 @@ Page({
 
     that.setData({
       arr,
-      curWeek: '第 ' + whichWeek + ' 周',
       whichWeek,
       wlist,
       multiIndex: [(Number(whichWeek) - 1), 0, 0, 0],

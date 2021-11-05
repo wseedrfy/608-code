@@ -4,8 +4,8 @@
     <!-- 状态栏 -->
     <view style="height: {{statusBarHeight}}px;" />
     <!-- 导航栏 -->
-    <view class="cur-week" style="height: {{lineHeight}}px;" >
-      <text bindtap="showCurriculumPoint">{{curWeek}}</text>
+    <view  bindtap="showCurriculumPoint" class="cur-week" style="height: {{lineHeight}}px;" >
+      <text>{{'第 ' + whichWeek + ' 周' === curWeek ?  curWeek : '第 ' + whichWeek + ' 周(非本周)' }}</text>
       <image src="./images/箭头 下.png" />
     </view>
   </view>
