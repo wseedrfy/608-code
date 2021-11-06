@@ -1,1 +1,24 @@
-/* pages/common/common.wxss */
+@import "../../template/showCommonPage/template.wxss";
+
+page {
+  background-color: #fffcfc;
+}
+
+.main {
+  margin: 0 26rpx 30rpx 20rpx;
+}
+
+.wx-isclass {
+  text-align: center;
+  font-size: 40rpx;
+  color: #1cbbb4;
+  margin-top: 30rpx;
+}
+
+.list {
+  margin-bottom: 30rpx;
+}
+
+.icon-open {
+  margin-left: 20rpx;
+}

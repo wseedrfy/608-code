@@ -1,4 +1,4 @@
-<import src="../../template/template.wxml"></import>
+<import src="../../template/more/template.wxml"></import>
 
 <view class="container">
   <!-- 背景图片区域 -->

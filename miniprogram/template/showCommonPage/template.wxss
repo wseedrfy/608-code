@@ -1,0 +1,110 @@
+/* 卡片列表 */
+.list{
+  margin-bottom: 30rpx;
+}
+.data{
+  display: flex;
+}
+.data-adj{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 70rpx;
+}
+.dot{
+  margin: auto;
+  width:20rpx;
+  height:20rpx;
+  border-radius:50%;
+}
+.upWard{
+  margin: auto;
+  width:7rpx;
+  height:95rpx;
+  background-color:#000000;
+}
+.offWard{
+  margin: auto;
+  width:7rpx;
+  height:60rpx;
+  background-color:#e2e5f2;
+}
+
+.data-score{
+  flex: 1;
+  margin:auto;
+  text-align:right;
+  font-size: 52rpx;
+  white-space:nowrap;
+  width:50rpx;
+  text-overflow:ellipsis;
+}
+.grade{
+    display: flex;
+    flex: 1;
+    margin-top: 35rpx;
+    padding:20rpx 35rpx;
+    border-radius: 40rpx;
+    background-color: #fff;
+    box-shadow: 0rpx 0rpx 17rpx #e2e2e2;
+}
+.grade-column{
+    font-size:31rpx;
+    font-weight:500;
+    line-height:60rpx;
+    width:470rpx;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+.grade-rum{
+    margin-top: 10rpx;
+    font-size: 24rpx;
+    line-height: 30rpx
+}
+.grade-rum text{
+    margin-right: 28rpx;
+    color: #8a8a8a;
+}
+
+
+/* 头部 */
+.head-padding{
+  padding: 35rpx ;
+}
+
+.head {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  position: fixed;
+  padding: 10rpx 25rpx;
+  line-height: 45rpx;
+  right: 0;
+  left: 0;
+  box-shadow: 0px 0px 10px #e2e2e2;
+  background-color: #fff;
+  z-index: 9;
+}
+.head-left{
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.head-right {
+  flex: 1;
+  text-align: right;
+  color: coral;
+  padding-right: 5rpx;
+}
+.head-right view {
+  display: inline-block;
+  font-size: 25rpx;
+  margin-left: 25rpx;
+}
+
+.icon-open {
+  margin-left: 20rpx;
+}
