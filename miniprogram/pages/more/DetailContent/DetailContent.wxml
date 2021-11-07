@@ -1,9 +1,9 @@
 <view class="page">
   <view class="contain">
-    <swiper indicator-dots='true' indicator-color="rgba(223, 223, 223, 0.39)" indicator-active-color='rgb(235, 21, 21)'>
+    <swiper indicator-dots='true' indicator-color="rgba(223, 223, 223, 0.39)" indicator-active-color='rgb(235, 21, 21)' style="height: {{Height > 300 ? 700+'rpx':Height+'px'}};">
       <block wx:for="{{Photo}}" wx:key="Photo" class="photo">
         <swiper-item >
-          <image data-src="{{item}}" src="{{item}}"  mode="widthFix" style="z-index: 11;width:800rpx;height:100%" bindtap="ShowImg" data-index="{{index}}"/>
+          <image src="{{item}}"  mode="aspectFill" style="z-index: 11;" bindtap="ShowImg" data-index="{{index}}"/>
         </swiper-item>
       </block>
     </swiper>
@@ -11,6 +11,7 @@
       <view class="content_Title">{{Title}}</view>
       <text class="content_Text">{{Text}}</text>
       <view class="content_Label" >#{{Label}}</view>
+      <view class="content_Time" >{{Time}}</view>
     </view>
     <view class="Line"></view>
     <view class="comment">
@@ -22,20 +23,22 @@
         </span>
       </view>
       <view class="Show_Commend">
-          <image src="../text.jpg" class="text_user"/>
-          <span class="text_username">土拨鼠</span>
+        <image src="../text.jpg" class="text_user"/>
+        <span class="text_username">土拨鼠
           <view class="Comment_Content">今天你吃饭了吗？
-            <span class="Comment_Time">2分钟前</span>
+            <span class="Comment_Time">{{Time}}</span>
           </view>
-          <view class="Line_Second"></view>
+        </span>
+        <view class="Line_Second"></view>
       </view>
       <view class="Show_Commend">
-          <image src="../text.jpg" class="text_user"/>
-          <span class="text_username">土拨鼠</span>
+        <image src="../text.jpg" class="text_user"/>
+        <span class="text_username">土拨鼠
           <view class="Comment_Content">今天你吃饭了吗？
-            <span class="Comment_Time">2分钟前</span>
+            <span class="Comment_Time">{{Time}}</span>
           </view>
-          <view class="Line_Second"></view>
+        </span>
+        <view class="Line_Second"></view>
       </view>
     </view>
 

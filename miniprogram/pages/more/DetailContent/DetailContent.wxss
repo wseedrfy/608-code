@@ -2,6 +2,7 @@
   width:100%;
   height:100%;
   margin: 0;
+  overflow: hidden;
 }
 .contain{
   display: flex;
@@ -11,8 +12,9 @@
 }
 
 swiper{
-  width: 100%;
-  height: 650rpx;
+  width: 100%; 
+  /* height: 700rpx; */
+  /*height: auto;*/
 }
 swiper image{
   width: 100%;
@@ -26,30 +28,32 @@ swiper .wx-swiper-dot {
   justify-content: space-between;
 }
 .content_first{
-  padding-top: 50rpx;
+  padding-top: 35rpx;
   width:700rpx;
+  line-height: 45rpx;
 }
 .content_Title{
-  font-size: 35rpx;
+  font-size: 33rpx;
   font-weight: 550;
-  width:100%;
 }
 .content_Text{
   font-size: 28rpx;
-  position:relative;
-  top:7rpx;
 }
 .content_Label{
   color:rgb(255, 190, 70);
   font-size: 28rpx;
-  position:relative;
-  top:12rpx;
+}
+.content_Time{
+  font-size: 23rpx;
+  color:rgba(78, 78, 78, 0.541);
+  position: relative;
+  top: 24rpx;
 }
 .Line{
   background: #9b9b9b48;
   width: 95%;
   height: 1rpx;
-  margin-top: 80rpx;
+  margin-top: 55rpx;
  }
  .comment{
   width:100%;
@@ -86,27 +90,28 @@ swiper .wx-swiper-dot {
    flex-direction: row;
  }
  .Show_Commend{
-   margin-top: 35rpx;
+   position: relative;
+   top: 35rpx;
  }
  .text_username{
    color: rgba(94, 94, 94, 0.541);
    font-size: 26rpx;
    position: relative;
-   bottom:35rpx;
-   left:20rpx;
+   bottom:70rpx;
+   left:85rpx;
+   display: flex;
+   flex-direction:column;
  }
  .Comment_Content{
-  font-size: 27rpx;
-  position: relative;
-  bottom: 34rpx;
-  left: 97rpx;
+  color:rgb(54, 54, 54);
  }
  .Line_Second{
   background: #9b9b9b48;
   width: 87%;
   height: 1rpx;
-  margin-top: 10rpx;
-  margin-left: 98rpx;
+  margin-left: 90rpx;
+  position: relative;
+  bottom: 38rpx;
  }
  .Comment_Time{
   font-size: 23rpx;

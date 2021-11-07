@@ -17,12 +17,25 @@ Page({
    */
   onLoad: function (options) {
     var content=JSON.parse(options.content)
+    var jj=content.Time
+    //var Height=''
+    var Time=util.timeago(jj, 'Y年M月D日 h:m:s')
+    console.log("content.ShowHeight",content.ShowHeight)
+    // if(content.ShowHeight>320){
+    //   console.log("2333")
+    //   Height=700+'rpx';
+    // }else{
+    //   Height=content.ShowHeight+200+'rpx';
+    // }
+    // console.log("Height",Height)
     this.setData({
       ImgSrc:content.Cover,
       Title:content.Title,
       Text:content.Text,
       Label:content.Label,
-      Photo:content.AllPhoto
+      Photo:content.AllPhoto,
+      Time:Time,
+      Height:content.ShowHeight
     })
   },
 
