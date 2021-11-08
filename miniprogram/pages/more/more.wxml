@@ -7,7 +7,7 @@
       <!-- 导航栏 -->
       <view class="head_second"  style="height: {{lineHeight}}px;" > 
           <image src="../../images/search.png" />
-          <input class="search" bindtap="search_Input"></input>
+          <input class="search" bindtap="search_Input" value="{{search}}"></input>
       </view>
     </view>
   </view>

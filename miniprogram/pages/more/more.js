@@ -80,11 +80,11 @@ Page({
   
   search_Input:function(e){
     this.animate('.search', [{
-      opacity: '0',
+      opacity: '1',
       width: '90rpx',
     }, {
       opacity: '1',
-      width: '250rpx',
+      width: '270rpx',
     }],1000)
   },
   /*添加内容图标按钮*/
