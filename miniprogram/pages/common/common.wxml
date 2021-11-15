@@ -1,7 +1,7 @@
 <import src="../../template/showCommonPage/template.wxml"></import>
 
-<template is="head-block"
-  data="{{ type: template.type, index, array, text: ['学分:'+TotalCredit, '平均绩点:'+AverageScorePoint, '无公选:'+Achi] }}">
+<template is="head-block" wx:if="{{list.length != 0}}"
+  data="{{ type: 'picker', index, array, text: text }}">
 </template>
 
 
@@ -10,8 +10,8 @@
   <view class="list">
     <block wx:key="id" wx:for="{{list}}">
 
-      <template is="card"
-        data="{{line: true, color: color[index], index: index, title: item.kcmc, score: item.zcj, text: [item.xdfsmc, '学分:'+item.xf, '绩点:'+item.cjjd, '状态:'+item.ksxzmc]}}">
+      <template is="card" 
+        data="{{fontSize:fontSize, line: false, color: color[index], index: index, title: item.title, score: item.score, text: item.text }}">
       </template>
 
     </block>

@@ -34,6 +34,8 @@ exports.main = async (event) => {
       e.url = '/pages/common/common?type=web&url=' + e.url;
     }else if(e.type === '跳转小程序'){
       e.url = '/pages/common/common?type=small&id=' + e.url;
+    }else if(e.type === '通用展示栏'){
+      e.url = '/pages/common/common?type=commonPage&content=' + e.url;
     }
   })
   return {

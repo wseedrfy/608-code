@@ -22,3 +22,7 @@ page {
 .icon-open {
   margin-left: 20rpx;
 }
+/* 
+.data-score {
+  font-size: 30rpx;
+} */

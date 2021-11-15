@@ -33,6 +33,16 @@ Page({
           })
         }
       })
+    }else if(options.type === "commonPage"){
+      var args = wx.getStorageSync('args')
+      if (args) {
+        try {
+          var onload = app.jsRun(args, args.otherPageCode[options.content])
+          onload(that)
+        } catch (e) {
+          console.log(e)
+        }
+      }
     }else{
       wx.showToast({
         title: '内容出错',
