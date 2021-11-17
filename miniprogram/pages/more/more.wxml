@@ -76,8 +76,8 @@
             <textarea placeholder="添加正文"  value="{{Input_Text}}" name="formText"></textarea> 
           </view>
           <view class="edit_Publish">
-            <button bindtap="add" class="off-btn">取消</button>
-            <button form-type="submit" class="Publish-btn">发表内容</button>
+            <button bindtap="add" class="off-btn" hover-class="btn-hover">取消</button>
+            <button form-type="submit" class="Publish-btn" hover-class="btn-hover">发表内容</button>
           </view>
         </form>
       </view>

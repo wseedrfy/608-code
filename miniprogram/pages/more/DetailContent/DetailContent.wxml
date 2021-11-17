@@ -16,12 +16,17 @@
     <view class="Line"></view>
     <view class="comment">
       <view class="All_Comment">共 286 条评论</view>
-      <view class="Send_Commend">
-        <image src="../text.jpg" class="text_user"/>
-        <span class="Comment_second">
-          <textarea placeholder="来发句评论吧ヾ(≧▽≦*)o" name="Sent_Comment" auto-height></textarea>
-        </span>
-      </view>
+      <form bindsubmit="formSubmit" bindreset="formReset">
+        <view class="Send_Commend" bindtap="Comment_Inputting">
+          <image src="../text.jpg" class="text_user"/>
+          <span class="{{isChecked?'old_Comment_second':'new_Comment_second'}}">
+            <textarea placeholder="来发句评论吧ヾ(≧▽≦*)o" name="InputComment"  value="{{Input}}" auto-height></textarea>
+          </span>
+          <span wx:if="{{!isChecked}}" class="Pre_Send">
+            <button form-type="submit" class="Sending" hover-class="Sending-hover">发送</button>
+          </span>
+        </view>
+      </form>
       <view class="Show_Commend">
         <image src="../text.jpg" class="text_user"/>
         <span class="text_username">土拨鼠

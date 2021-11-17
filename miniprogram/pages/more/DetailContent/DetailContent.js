@@ -1,5 +1,33 @@
 var util = require("../../../utils/util.js")
 Page({
+  data:{
+    isChecked:true,
+    InputComment:" ",
+    CommentList:[]
+  },
+  Comment_Inputting:function(){
+    this.setData({
+      isChecked:false,
+    })
+  },
+  formSubmit:function(e){     //添加与存储
+    console.log('form发生了submit事件，携带数据为：', e.detail.value);
+    let{InputComment}=e.detail.value
+    var that=this
+    if(!InputComment){
+      wx.showToast({
+        title: '内容不能为空',
+        icon:'none'
+      })
+    }else{
+      var add={
+        "InputComment":InputComment,
+        "CommentTime":new Date().getTime()
+      }
+      that.data.CommentList.push(add)
+      console.log("that.data.CommentList",that.data.CommentList)
+    }
+  },
   
   /**
    * 页面的初始数据
@@ -12,22 +40,16 @@ Page({
       urls:Photo,
     })
   },
+  
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     var content=JSON.parse(options.content)
     var jj=content.Time
-    //var Height=''
     var Time=util.timeago(jj, 'Y年M月D日 h:m:s')
     console.log("content.ShowHeight",content.ShowHeight)
-    // if(content.ShowHeight>320){
-    //   console.log("2333")
-    //   Height=700+'rpx';
-    // }else{
-    //   Height=content.ShowHeight+200+'rpx';
-    // }
-    // console.log("Height",Height)
     this.setData({
       ImgSrc:content.Cover,
       Title:content.Title,

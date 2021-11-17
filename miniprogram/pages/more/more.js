@@ -165,7 +165,7 @@ Page({
     }
   },
   PreviewImage: function (e) {
-    let index = e.target.dataset.index;
+    let index = e.currentTarget.dataset.index;
     var imgs=this.data.photo;
     if(imgs.length!=0){
       wx.previewImage({

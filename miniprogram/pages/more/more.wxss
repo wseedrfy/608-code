@@ -17,11 +17,11 @@ page{
   display: flex;
   justify-content: center;
   width: 90rpx;
-  height: 15rpx;
+  height: 20rpx;
   margin-left: 10rpx;
   font-size: 27rpx;
   border-radius: 50rpx;
-  background-color: rgba(202, 202, 202, 0.514);
+  background-color: rgba(202, 202, 202, 0.342);
 }
 
 .head_second image {
@@ -187,6 +187,11 @@ page{
   color: rgb(0, 0, 0);
   width: 200rpx !important;
   margin: 0rpx 10rpx 0rpx 5rpx;
+ }
+ .btn-hover{
+  position: relative;
+  top: 3rpx;
+  box-shadow:0px 0px 4px rgba(153, 153, 153, 0.507) inset;
  }
 .text_user{
   width:35rpx;
