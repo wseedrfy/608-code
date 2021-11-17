@@ -22,7 +22,7 @@
     "checkInvalidKey": true,
     "checkSiteMap": true,
     "uploadWithSourceMap": true,
-    "compileHotReLoad": false,
+    "compileHotReLoad": true,
     "lazyloadPlaceholderEnable": false,
     "useMultiFrameRuntime": false,
     "useApiHook": false,
@@ -45,7 +45,7 @@
   },
   "appid": "wxf84451020f439de9",
   "projectname": "miniprogram-1",
-  "libVersion": "2.20.1",
+  "libVersion": "2.20.2",
   "cloudfunctionTemplateRoot": "cloudfunctionTemplate",
   "compileType": "miniprogram",
   "debugOptions": {

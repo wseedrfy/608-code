@@ -19,7 +19,7 @@ page {
 
 /* 课表选择 */
 .weekscroll {
-  overflow-anchor: auto;
+  /* overflow-anchor:initial; */
   height: 140rpx;
   width: 750rpx;
   background-color: rgb(237, 237, 237);

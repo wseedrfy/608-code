@@ -6,13 +6,12 @@
     <!-- 导航栏 -->
     <view  bindtap="showCurriculumPoint" class="cur-week" style="height: {{lineHeight}}px;" >
       <text>{{'第 ' + whichWeek + ' 周' === curWeek ?  curWeek : '第 ' + whichWeek + ' 周(非本周)' }}</text>
-      <image src="./images/箭头 下.png" />
+      <text style="margin-left:10rpx" class='iconfont icon-open'></text>
     </view>
   </view>
 
   <!-- 课表弹出 -->
-  <scroll-view class="weekscroll" scroll-x="true" scroll-into-view="index{{whichWeek}}" enable-flex="false"
-    scroll-with-animation="true" bounces="true" show-scrollbar="false" hidden="{{!showscroll}}">
+  <scroll-view scroll-with-animation="true" class="weekscroll" scroll-x="true" scroll-into-view="index{{whichWeek}}"  hidden="{{!showscroll}}">
     <!-- 显示一个周 -->
     <view id="index{{index+3}}" class="weekscroll_week_contain" wx:key="item" wx:for="{{wlistPoint}}">
       <view  bindtap="clickWeek" id="{{index}}" class="weekscroll_week" style="background-color: {{ index+1 === whichWeek ? 'rgb(188,187,193)' : null}};">
