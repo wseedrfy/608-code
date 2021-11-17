@@ -1,16 +1,15 @@
 var util = require("../../../utils/util.js")
 Page({
-  data:{
-    photo:[],
-  },
+  
   /**
    * 页面的初始数据
    */
-  ShowImg:function(){
-    var photo=this.data.photo
+  ShowImg:function(e){
+    var Photo=this.data.Photo
+    var index=e.target.dataset.index
     wx.previewImage({
-      current: photo[0],
-      urls:photo,
+      current: Photo[index],
+      urls:Photo,
     })
   },
   /**
@@ -18,12 +17,25 @@ Page({
    */
   onLoad: function (options) {
     var content=JSON.parse(options.content)
-    this.data.photo.push(content.Cover)
+    var jj=content.Time
+    //var Height=''
+    var Time=util.timeago(jj, 'Y年M月D日 h:m:s')
+    console.log("content.ShowHeight",content.ShowHeight)
+    // if(content.ShowHeight>320){
+    //   console.log("2333")
+    //   Height=700+'rpx';
+    // }else{
+    //   Height=content.ShowHeight+200+'rpx';
+    // }
+    // console.log("Height",Height)
     this.setData({
       ImgSrc:content.Cover,
       Title:content.Title,
       Text:content.Text,
-      Label:content.Label
+      Label:content.Label,
+      Photo:content.AllPhoto,
+      Time:Time,
+      Height:content.ShowHeight
     })
   },
 

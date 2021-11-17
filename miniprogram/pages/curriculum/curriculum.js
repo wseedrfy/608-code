@@ -8,7 +8,7 @@ Page({
     statusBarHeight: getApp().globalData.statusBarHeight,
     lineHeight: getApp().globalData.lineHeight,
     rectHeight: getApp().globalData.rectHeight,
-    curWeek: '第 1 周',
+    curWeek: '第 ' + util.getweekString() + ' 周',
     colorArrays: ['#99CCFF',
       '#FFCC99',
       '#FFCCCC',
@@ -85,6 +85,14 @@ Page({
       title: 'We广油',
     }
   },
+  // 点击上面课表进行切换
+  clickWeek: function (e) {
+    this.setData({
+      whichWeek: Number(e.currentTarget.id) + 1,
+    })
+    this.kb(this.data.whichWeek);
+  },
+
   // 触摸开始事件
   touchStart: function (e) {
     startX = e.touches[0].pageX; // 获取触摸时的原点
@@ -99,18 +107,15 @@ Page({
         this.setData({
           whichWeek: this.data.whichWeek - 1,
         })
-
-        this.kb(this.data.whichWeek);
       }
       if (startX - endX > 50) {
         moveFlag = false;
         this.setData({
           whichWeek: this.data.whichWeek + 1,
         })
-
-        this.kb(this.data.whichWeek);
       }
     }
+    this.kb(this.data.whichWeek);
 
   },
   // 触摸结束事件
@@ -155,13 +160,13 @@ Page({
     for (var i = 0; i < 7; i++) {
       arr.push(this.showDate(whichWeek_now + i));
     }
-    if (whichWeek > '19') {
+    if (whichWeek > '20') {
       wx.showModal({
         showCancel: false,
         title: '提示',
         content: '超过范围'
       })
-      whichWeek = 19;
+      whichWeek = 20;
     } else if (whichWeek < '1') {
       whichWeek = 1;
     }
@@ -203,7 +208,6 @@ Page({
 
     that.setData({
       arr,
-      curWeek: '第 ' + whichWeek + ' 周',
       whichWeek,
       wlist,
       multiIndex: [(Number(whichWeek) - 1), 0, 0, 0],

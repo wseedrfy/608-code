@@ -1,4 +1,4 @@
-@import "../../template/template.wxss";
+@import "../../template/more/template.wxss";
 
 page {
   background-color: rgb(240, 240, 240);

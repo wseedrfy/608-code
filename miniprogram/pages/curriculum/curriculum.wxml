@@ -4,8 +4,8 @@
     <!-- 状态栏 -->
     <view style="height: {{statusBarHeight}}px;" />
     <!-- 导航栏 -->
-    <view class="cur-week" style="height: {{lineHeight}}px;" >
-      <text bindtap="showCurriculumPoint">{{curWeek}}</text>
+    <view  bindtap="showCurriculumPoint" class="cur-week" style="height: {{lineHeight}}px;" >
+      <text>{{'第 ' + whichWeek + ' 周' === curWeek ?  curWeek : '第 ' + whichWeek + ' 周(非本周)' }}</text>
       <image src="./images/箭头 下.png" />
     </view>
   </view>
@@ -15,7 +15,7 @@
     scroll-with-animation="true" bounces="true" show-scrollbar="false" hidden="{{!showscroll}}">
     <!-- 显示一个周 -->
     <view id="index{{index+3}}" class="weekscroll_week_contain" wx:key="item" wx:for="{{wlistPoint}}">
-      <view class="weekscroll_week" style="background-color: {{ index+1 === whichWeek ? 'rgb(188,187,193)' : null}};">
+      <view  bindtap="clickWeek" id="{{index}}" class="weekscroll_week" style="background-color: {{ index+1 === whichWeek ? 'rgb(188,187,193)' : null}};">
         <view >第{{index+1}}周</view>
         <!-- 显示一堆小圆点的容器 -->
         <view class="week_point">
@@ -39,17 +39,19 @@
 </view>
 
 <!-- 填充 -->
-<view style="padding-top: {{(showscroll? 70: 0) + 40 + (statusBarHeight + lineHeight)}}px; width: 100%;"></view>
-
+<view style="position: relative; padding-top: {{(statusBarHeight + lineHeight)}}px; width: 100%;"></view>
+<view style="position: relative; padding-top: {{(showscroll? 140: 0) + 85}}rpx; width: 100%;"></view>
 <!-- 课表 -->
 <view style="z-index: -1;" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd"
   animation="{{ani1}}">
   <!-- 滑块部分 -->
+
+  <view class=' wx-isclass' wx:if="{{wlist.length == 0}}">今天没有课，出去玩吧</view>
   <scroll-view wx:if="{{wlist.length != 0}}">
 
     <view class="timetable">
       <view>
-        <view wx:for="{{[1,2,3,4,5,6,7,8,9,10,11,12]}}" wx:key="unique" class="left">
+        <view wx:for="{{[1,2,3,4,5,6,7,8,9,10,11]}}" wx:key="unique" class="left">
           <view>{{item}}</view>
           <view class="after-left1">{{courseTime[index]}}</view>
         </view>
@@ -69,8 +71,6 @@
       </view>
     </view>
   </scroll-view>
-
-  <view class='wx-isclass' wx:if="{{wlist.length == 0}}">今天没有课，出去玩吧</view>
   <view class='pd2' wx:if="{{wlist.length == 0}}"> </view>
 </view>
 

@@ -2,6 +2,7 @@
   width:100%;
   height:100%;
   margin: 0;
+  overflow: hidden;
 }
 .contain{
   display: flex;
@@ -9,40 +10,50 @@
   justify-content: center;
   flex-direction: column;
 }
-.content_Img {
-  width:100%;
-  max-height:650rpx;
-  overflow: hidden;
-}
-.content_Img image{
-  width:100%;
-}
 
+swiper{
+  width: 100%; 
+  /* height: 700rpx; */
+  /*height: auto;*/
+}
+swiper image{
+  width: 100%;
+  height: 100%;
+}
+swiper .wx-swiper-dot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: space-between;
+}
 .content_first{
-  padding-top: 50rpx;
+  padding-top: 35rpx;
   width:700rpx;
+  line-height: 45rpx;
 }
 .content_Title{
-  font-size: 35rpx;
+  font-size: 33rpx;
   font-weight: 550;
-  width:100%;
 }
 .content_Text{
   font-size: 28rpx;
-  position:relative;
-  top:7rpx;
 }
 .content_Label{
   color:rgb(255, 190, 70);
   font-size: 28rpx;
-  position:relative;
-  top:12rpx;
+}
+.content_Time{
+  font-size: 23rpx;
+  color:rgba(78, 78, 78, 0.541);
+  position: relative;
+  top: 24rpx;
 }
 .Line{
   background: #9b9b9b48;
   width: 95%;
   height: 1rpx;
-  margin-top: 80rpx;
+  margin-top: 55rpx;
  }
  .comment{
   width:100%;
@@ -58,7 +69,7 @@
    border-radius: 50rpx;
    margin-left: 19rpx;
  }
- .Sent_Comment{
+ .Comment_second{
    width:630rpx;
    min-height: 56rpx;
    background-color: rgba(202, 202, 202, 0.322);
@@ -70,14 +81,46 @@
    align-items: center;
    justify-content: center;
  }
- .Sent_Comment textarea{
+ .Comment_second textarea{
     width:95%;
     font-size: 27rpx;
  }
- .Comment_second{
+ .Send_Commend{
    display: flex;
    flex-direction: row;
  }
+ .Show_Commend{
+   position: relative;
+   top: 35rpx;
+ }
+ .text_username{
+   color: rgba(94, 94, 94, 0.541);
+   font-size: 26rpx;
+   position: relative;
+   bottom:70rpx;
+   left:85rpx;
+   display: flex;
+   flex-direction:column;
+ }
+ .Comment_Content{
+  color:rgb(54, 54, 54);
+ }
+ .Line_Second{
+  background: #9b9b9b48;
+  width: 87%;
+  height: 1rpx;
+  margin-left: 90rpx;
+  position: relative;
+  bottom: 38rpx;
+ }
+ .Comment_Time{
+  font-size: 23rpx;
+  color:rgba(78, 78, 78, 0.541);
+ }
+ 
+
+
+
  
  
 
