@@ -23,12 +23,12 @@ Page({
       {
         icon: "images/class.png",
         title: "班级",
-        littleTitle: "访客班级",
+        littleTitle: "暂未开通哟",
         click: "class"
       },{
         icon: "images/academy.png",
         title: "专业",
-        littleTitle: "访客专业",
+        littleTitle: "暂未开通哟",
         click: "academy"
       }
 
