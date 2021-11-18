@@ -82,7 +82,9 @@ exports.main = async (event) => {
           openid: wxContext.OPENID,
           username: Number(event.username),
           password: event.password,
-          school: event.school
+          school: event.school,
+          iconUrl: event.iconUrl,
+          nickName: event.nickName
         }
       })
     }else{
@@ -90,7 +92,9 @@ exports.main = async (event) => {
         data: {
           username: Number(event.username),
           password: event.password,
-          school: event.school
+          school: event.school,
+          iconUrl: event.iconUrl,
+          nickName: event.nickName
         }
       })
     }

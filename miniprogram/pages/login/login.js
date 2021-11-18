@@ -53,39 +53,53 @@ Page({
       title: '登录中',
       mask: true
     })
-    wx.cloud.callFunction({
-      name: 'api',
-      data: {
-        url: 'login',
-        username: that.data.user,
-        password: that.data.pwd,
-        school: that.data.school[that.data.index]
-      },
-      success: res => {
-        wx.setStorage({
-          key: 'data',
-          data: ""
+    wx.getUserProfile({
+      desc: '获取头像和信息', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
+      success: (res) => {
+        console.log(res.userInfo)
+        wx.cloud.callFunction({
+          name: 'api',
+          data: {
+            url: 'login',
+            username: that.data.user,
+            password: that.data.pwd,
+            nickName: res.userInfo.nickName, 
+            iconUrl: res.userInfo.avatarUrl,
+            school: that.data.school[that.data.index]
+          },
+          success: res => {
+            wx.setStorage({
+              key: 'data',
+              data: ""
+            })
+            if (res.result.msg == "welcome") {
+       
+              wx.reLaunch({
+                url: '/pages/index/index'
+              })
+            } else {
+              wx.showToast({
+                icon: 'none',
+                title: res.result.msg,
+              })
+            }
+          },
+          fail: err => {
+            wx.showToast({
+              icon: 'none',
+              title: '校园网关闭或者服务器异常',
+            })
+          }
         })
-        console.log(res.result)
-        if (res.result.msg == "welcome") {
-   
-          wx.reLaunch({
-            url: '/pages/index/index'
-          })
-        } else {
-          wx.showToast({
-            icon: 'none',
-            title: res.result.msg,
-          })
-        }
       },
-      fail: err => {
+      fail: (res) => {
         wx.showToast({
           icon: 'none',
-          title: '校园网关闭或者服务器异常',
+          title: '授权失败',
         })
       }
     })
+
   },
   input: function (e) {
     this.setData({
