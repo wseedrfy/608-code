@@ -6,7 +6,8 @@
     "pages/myself/myself",
     "pages/login/login",
     "pages/more/DetailContent/DetailContent",
-    "pages/common/common"
+    "pages/common/common",
+    "pages/physical/physical"
   ],
   "window": {
     "backgroundTextStyle": "light",
