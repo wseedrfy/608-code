@@ -7,7 +7,9 @@
       <!-- 导航栏 -->
       <view class="head_second"  style="height: {{lineHeight}}px;" > 
           <image src="../../images/search.png" />
-          <input class="search" bindtap="search_Input" value="{{search}}"></input>
+          <view class="search">
+            <input class="SearchInput" bindtap="search_Input" value="{{search}}"></input>
+          </view>
       </view>
     </view>
   </view>
@@ -25,8 +27,9 @@
       <block wx:for="{{leftList}}" wx:key="index">
         <view class="pic" bindtap="ShowContent" data-index="{{leftList[index]}}">
           <image class="Show_Image"  src='{{item.Cover}}' mode="aspectFill" style="height: {{item.ShowHeight > 500 ? 500+'rpx':item.ShowHeight+'rpx'}};"></image>
-          <view class="pic_Title">{{item.Title}}</view>
-          <view class="pic_Label" >#{{item.Label}}</view>
+          <span class="pic_Title">
+            <span class="pic_Label">#{{item.Label}}</span>{{item.Title}}
+          </span>
           <image src="../more/text.jpg" class="text_user"/>
           <span class="text_username">土拨鼠</span>
         </view>
@@ -36,8 +39,9 @@
       <block wx:for="{{rightList}}" wx:key="index">
         <view class="pic" bindtap="ShowContent" data-index="{{rightList[index]}}">
           <image class="Show_Image" src='{{item.Cover}}' mode="aspectFill" style="height: {{item.ShowHeight > 500 ? 500+'rpx':item.ShowHeight+'rpx'}};"></image>
-          <view class="pic_Title">{{item.Title}}</view>
-          <view class="pic_Label" >#{{item.Label}}</view>
+          <span class="pic_Title">
+            <span class="pic_Label">#{{item.Label}}</span>{{item.Title}}
+          </span>
           <image src="../more/text.jpg" class="text_user"/>
           <span class="text_username">土拨鼠</span>
         </view>

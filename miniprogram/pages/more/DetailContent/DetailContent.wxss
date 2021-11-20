@@ -135,9 +135,9 @@ swiper .wx-swiper-dot {
  }
  .text_username{
    color: rgba(94, 94, 94, 0.541);
-   font-size: 26rpx;
+   font-size: 24rpx;
    position: relative;
-   bottom:70rpx;
+   bottom:73rpx;
    left:85rpx;
    display: flex;
    flex-direction:column;
@@ -154,8 +154,8 @@ swiper .wx-swiper-dot {
   bottom: 38rpx;
  }
  .Comment_Time{
-  font-size: 23rpx;
-  color:rgba(78, 78, 78, 0.541);
+  font-size: 20rpx;
+  color:rgba(94, 94, 94, 0.541);
  }
  
 

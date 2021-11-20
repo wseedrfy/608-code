@@ -1,9 +1,11 @@
 var util = require("../../../utils/util.js")
+var app = getApp()
 Page({
   data:{
     isChecked:true,
     InputComment:" ",
-    CommentList:[]
+    CommentList:[],
+    ContentTime:0,
   },
   Comment_Inputting:function(){
     this.setData({
@@ -11,7 +13,6 @@ Page({
     })
   },
   formSubmit:function(e){     //添加与存储
-    console.log('form发生了submit事件，携带数据为：', e.detail.value);
     let{InputComment}=e.detail.value
     var that=this
     if(!InputComment){
@@ -25,10 +26,41 @@ Page({
         "CommentTime":new Date().getTime()
       }
       that.data.CommentList.push(add)
-      console.log("that.data.CommentList",that.data.CommentList)
+      wx.cloud.callFunction({
+        name: 'CampusCircle',
+        data: {
+          CommentList:that.data.CommentList,
+          Time:that.data.ContentTime,
+          type: 'writeComment'
+        }, success: res => { 
+          that.ShowComment()
+        }, 
+        fail: err => {
+          console.error
+        }
+      })
+      that.setData({
+        Input:" "
+      })
     }
   },
-  
+  ShowComment:function(){
+    var Show=[]
+    var length=this.data.CommentList.length
+    for(let i=0;i<length;i++){
+      var PreTime=this.data.CommentList[i].CommentTime
+      var AftTime=util.timeago(PreTime, 'Y年M月D日 h:m:s')
+      Show.push({
+        InputContent:this.data.CommentList[i].InputComment,
+        InputTime:AftTime
+      })
+      console.log("Show",Show)
+      this.setData({
+        ShowList:Show,
+        CommentNum:length
+      })
+    }
+  },
   /**
    * 页面的初始数据
    */
@@ -47,9 +79,28 @@ Page({
    */
   onLoad: function (options) {
     var content=JSON.parse(options.content)
-    var jj=content.Time
-    var Time=util.timeago(jj, 'Y年M月D日 h:m:s')
-    console.log("content.ShowHeight",content.ShowHeight)
+    var Time=util.timeago(content.Time, 'Y年M月D日 h:m:s')
+    this.data.ContentTime=content.Time
+    wx.cloud.callFunction({
+      name: 'CampusCircle',
+      data: {
+        Time:content.Time,
+        type: 'readComment'
+      },
+      complete: res => {
+        this.data.CommentList=res.result.data[0].CommentList
+        console.log("res.result.data[0].CommentList",this.data.CommentList)
+        if(this.data.CommentList){ 
+          this.ShowComment()
+        }else{
+          this.data.CommentList=[]
+          this.setData({
+            CommentNum:0
+          })
+        }
+      }
+    });
+
     this.setData({
       ImgSrc:content.Cover,
       Title:content.Title,
@@ -72,7 +123,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+    this.ShowComment()
   },
 
   /**

@@ -70,6 +70,7 @@ Page({
     showModel:false,
     tempFilePaths: '',
     Label:'',
+    LabelId:0,
     imageHeight:0,
     imageWidth:0,
     currentItemHeight:0,
@@ -179,6 +180,7 @@ Page({
     let index = e.currentTarget.dataset.index
     let title = e.currentTarget.dataset.title
     this.data.Label=arry[index].title
+    this.data.LabelId=arry[index].id
     arry[index].type=1
     this.setData({
       tabitem: arry,
@@ -218,44 +220,63 @@ Page({
         "CoverHeight": that.data.imageHeight,
         "CoverWidth": that.data.imageWidth,
         "Label":that.data.Label,
+        "LabelId":that.data.LabelId,
         "Time":new Date().getTime()
       }
+      console.log("add",add)
       that.data.noramalData.push(add)
       that.CalculateImage()
-      /*wx.cloud.callFunction({
+      var NewData=that.data.noramalData.length-1
+      wx.cloud.callFunction({
         name: 'CampusCircle',
         data: {
-          AddContent: JSON.stringify(add),
+          Cover: that.data.noramalData[NewData].Cover,
+          AllPhoto: that.data.noramalData[NewData].AllPhoto,
+          Title: that.data.noramalData[NewData].Title,
+          Text: that.data.noramalData[NewData].Text,
+          CoverHeight: that.data.noramalData[NewData].CoverHeight,
+          CoverWidth: that.data.noramalData[NewData].CoverWidth,
+          Label: that.data.noramalData[NewData].Label,
+          LabelId: that.data.noramalData[NewData].LabelId,
+          Time: that.data.noramalData[NewData].Time,
+          ShowHeight: that.data.noramalData[NewData].ShowHeight,
           type: 'write'
-        },
-        success: res => {
+        }, success: res => {
           wx.showToast({
-            title: '添加成功',
-            icon: 'none',
+            duration:4000,
+            title: '添加成功'
           })
-          this.onLoad()
-        },
+   
+        }, 
         fail: err => {
           wx.showToast({
-            title: '添加失败',
             icon: 'none',
+            title: '出错啦！请稍后重试'
           })
-        },
-        complete() {
-          that.setData({
-            formTitle:"",
-            formText: "",
-            tempFilePaths: "",
-            showModel: !that.data.showModel,
-          })
+          console.error
         }
-      })*/
+      })
+      
+      // if(!that.data.noramalData[NewData]._id){
+      //   wx.cloud.callFunction({
+      //     name: 'CampusCircle',
+      //     data: {
+      //       type: 'read'
+      //     },
+      //     complete: res => {
+      //       console.log("res.result.data.233",res.result.data)
+      //       that.data.noramalData=res.result.data
+      //     }
+      //   });
+      // }
     }
   },
 
   CalculateImage:function(){
     var that = this;
     var allData = that.data.noramalData;
+    console.log("233.allData",allData)
+    console.log("allData",allData)
     for (let i = 0; i < allData.length; i++) {
       var height=parseInt(Math.round(allData[i].CoverHeight * 370 / allData[i].CoverWidth));
       if(height){
@@ -263,14 +284,17 @@ Page({
         allData[i].ShowHeight=currentItemHeight
         if(currentItemHeight>500){
           currentItemHeight=500
+          allData[i].ShowHeight=currentItemHeight
         }
         allData[i].CoverHeight = currentItemHeight + "rpx";//因为xml文件中直接引用的该值作为高度，所以添加对应单位
         if (that.data.leftH == that.data.rightH || that.data.leftH < that.data.rightH) {//判断左右两侧当前的累计高度，来确定item应该放置在左边还是右边
           that.data.leftList.push(allData[i]);
           that.data.leftH += currentItemHeight;
+          console.log("that.data.leftH",that.data.leftH)
         } else {
           that.data.rightList.push(allData[i]);
           that.data.rightH += currentItemHeight;
+          console.log("that.data.rightH",that.data.rightH)
         }
       }
     }
@@ -282,8 +306,32 @@ Page({
 
     //以本地数据为例，实际开发中数据整理以及加载更多等实现逻辑可根据实际需求进行实现   
   onLoad: function(options) {
-    this.CalculateImage()
-    
-    
+    var that = this;
+    wx.cloud.callFunction({
+      name: 'CampusCircle',
+      data: {
+        type: 'read'
+      },
+      complete: res => {
+        console.log("res.result.data",res.result.data)
+        that.data.noramalData=res.result.data
+        var allData = that.data.noramalData;
+        for (let i = 0; i < allData.length; i++) {
+          if (that.data.leftH == that.data.rightH || that.data.leftH < that.data.rightH) {//判断左右两侧当前的累计高度，来确定item应该放置在左边还是右边
+            that.data.leftList.push(allData[i]);
+            that.data.leftH += allData[i].ShowHeight;
+            console.log("Bef-that.data.leftH",that.data.leftH)
+          } else {
+            that.data.rightList.push(allData[i]);
+            that.data.rightH += allData[i].ShowHeight;
+            console.log("bef-that.data.rightH",that.data.rightH)
+          }
+        }
+        that.setData({
+          leftList: that.data.leftList,
+          rightList: that.data.rightList,
+        })
+      }
+    });
   },
 })

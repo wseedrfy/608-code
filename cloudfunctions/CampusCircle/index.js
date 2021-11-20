@@ -2,40 +2,66 @@
 const cloud = require('wx-server-sdk')
 
 cloud.init()
-const db = cloud.database()
-const _ = db.command;
+const db = cloud.database();
 // 云函数入口函数
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
-  /*if(event.type == "read"){
-    var data = await db.collection('Campus_Circle').where({ _openid: wxContext.OPENID }).get({ })
-    if(data.data[0] === undefined){
-      db.collection('daysmatter').add({
+  if(event.type == "read"){
+    try {
+        return await db.collection('Campus-Circle').where({}).get({
+        success: function (res) {
+          return res
+        }
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  }
+  if(event.type == "write"){
+    try {
+      return await db.collection("Campus-Circle").add({
         data: {
-          _user: Number(event.username),
-          _adday: '[]',
-        },
-        success(res) {
-        },
-        fail(res) {
-          console.log('数据库操作失败');
+          Cover: event.Cover,
+          AllPhoto: event.AllPhoto,
+          Title: event.Title,
+          Text: event.Text,
+          CoverHeight: event.CoverHeight,
+          CoverWidth: event.CoverWidth,
+          Label: event.Label,
+          LabelId: event.LabelId,
+          Time: event.Time,
+          ShowHeight: event.ShowHeight,
+        }, success: res => { }, 
+        fail: err => { }
+      })
+    } catch (e) {
+      console.log(e)
+    }
+  }
+  if(event.type == "writeComment"){
+    try {
+      return await db.collection('Campus-Circle').where({
+        Time:event.Time
+      }).update({
+        data: {
+          CommentList:event.CommentList
         }
       })
-      return "[]"
+    } catch (e) {
+      console.log(e)
     }
-    return data.data[0]._adday
-  }*/
-  if(event.type == "write"){
-    await db.collection('Campus_Circle').where({ /*_openid: wxContext.OPENID*/ _user:20034530303 }).add({
-      data: {
-        Circle_content: event.AddContent
-      }
-    })
   }
-  /*return {
-    event,
-    openid: wxContext.OPENID,
-    appid: wxContext.APPID,
-    unionid: wxContext.UNIONID,
-  }*/
+  if(event.type == "readComment"){
+    try {
+        return await db.collection('Campus-Circle').where({
+        Time:event.Time
+      }).get({
+        success: function (res) {
+          return res
+        }
+      })
+    } catch (e) {
+      console.log(e)
+    }
+  }
 }

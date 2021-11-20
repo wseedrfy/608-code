@@ -15,7 +15,8 @@
     </view>
     <view class="Line"></view>
     <view class="comment">
-      <view class="All_Comment">共 286 条评论</view>
+      <view class="All_Comment" wx:if="{{CommentNum!=0}}">共 {{CommentNum}} 条评论</view>
+      <view class="All_Comment" wx:if="{{CommentNum==0}}">这里还没有评论哟~</view>
       <form bindsubmit="formSubmit" bindreset="formReset">
         <view class="Send_Commend" bindtap="Comment_Inputting">
           <image src="../text.jpg" class="text_user"/>
@@ -27,20 +28,11 @@
           </span>
         </view>
       </form>
-      <view class="Show_Commend">
+      <view class="Show_Commend" wx:for="{{ShowList}}" wx:key="kk" data-item="item">
         <image src="../text.jpg" class="text_user"/>
         <span class="text_username">土拨鼠
-          <view class="Comment_Content">今天你吃饭了吗？
-            <span class="Comment_Time">{{Time}}</span>
-          </view>
-        </span>
-        <view class="Line_Second"></view>
-      </view>
-      <view class="Show_Commend">
-        <image src="../text.jpg" class="text_user"/>
-        <span class="text_username">土拨鼠
-          <view class="Comment_Content">今天你吃饭了吗？
-            <span class="Comment_Time">{{Time}}</span>
+          <view class="Comment_Content">{{item.InputContent}}
+            <span class="Comment_Time">{{item.InputTime}}</span>
           </view>
         </span>
         <view class="Line_Second"></view>
