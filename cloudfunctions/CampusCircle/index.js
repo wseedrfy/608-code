@@ -8,7 +8,7 @@ exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
   if(event.type == "read"){
     try {
-        return await db.collection('Campus-Circle').where({}).get({
+        return await db.collection('Campus-Circle').where({}).skip(event.currentPage * event.pageSize).limit(event.pageSize).get({
         success: function (res) {
           return res
         }
