@@ -17,13 +17,17 @@ page{
   display: flex;
   justify-content: center;
   width: 90rpx;
-  height: 20rpx;
   margin-left: 10rpx;
   font-size: 27rpx;
   border-radius: 50rpx;
   background-color: rgba(202, 202, 202, 0.342);
 }
-
+.SearchInput{
+  widows: 95%;
+  height:100%;
+  padding-left: 8rpx;
+  font-size: 24rpx;
+}
 .head_second image {
   margin-left: 10rpx;
   width: 35rpx;
@@ -62,7 +66,7 @@ page{
   font-size: 28rpx;
   font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
   line-height: 36rpx;
-  padding:8rpx 21rpx 0rpx 19rpx;
+  padding:8rpx 21rpx 0rpx 0rpx;
   display: -webkit-box;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -214,10 +218,11 @@ page{
   align-items: center;
 }
 .Label-text{
-  margin: 50rpx 45rpx 50rpx 0rpx;
+  margin: 0rpx 45rpx 0rpx 0rpx;
   font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   color: rgba(46, 46, 46, 0.938);
   font-size: 27rpx;
+  height:100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -244,7 +249,7 @@ page{
   font-size: 25rpx;
   font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
   line-height: 36rpx;
-  padding:8rpx 21rpx 0rpx 19rpx;
+  padding:8rpx 21rpx 0rpx 15rpx;
   
 }
 
