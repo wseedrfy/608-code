@@ -234,19 +234,6 @@ Page({
       that.CalculateImage()
       var NewData=that.data.noramalData.length-1
       that.uploadimg(NewData)
-      
-      // if(!that.data.noramalData[NewData]._id){
-      //   wx.cloud.callFunction({
-      //     name: 'CampusCircle',
-      //     data: {
-      //       type: 'read'
-      //     },
-      //     complete: res => {
-      //       console.log("res.result.data.233",res.result.data)
-      //       that.data.noramalData=res.result.data
-      //     }
-      //   });
-      // }
     }
   },
 
@@ -346,6 +333,14 @@ Page({
           title: '出错啦！请稍后重试'
         })
         console.error
+      },
+      complete() {
+        that.setData({
+          photo:[ ],
+          Input_Title: "",
+          Input_Text: "",
+          showModel: !that.data.showModel,
+        })
       }
     })
   },
@@ -458,6 +453,7 @@ Page({
           loadAll: false,
           loadMore: false
         });
+
       }
     })
   },
