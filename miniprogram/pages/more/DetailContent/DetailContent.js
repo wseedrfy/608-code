@@ -81,6 +81,15 @@ Page({
     var content=JSON.parse(options.content)
     var Time=util.timeago(content.Time, 'Y年M月D日 h:m:s')
     this.data.ContentTime=content.Time
+
+    this.animate('.ShowImg', [{
+      opacity: '0',
+      height: '30%',
+    }, {
+      opacity: '1',
+      height: '100%',
+    }], 1000)
+
     wx.cloud.callFunction({
       name: 'CampusCircle',
       data: {
