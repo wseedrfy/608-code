@@ -31,8 +31,8 @@
             <span class="pic_Title">
               <span class="pic_Label">#{{item.Label}}</span>{{item.Title}}
             </span>
-            <image src="../more/text.jpg" class="text_user"/>
-            <span class="text_username">土拨鼠</span>
+            <image src="{{item.iconUrl}}" class="text_user"/>
+            <span class="text_username">{{item.nickName}}</span>
           </view>
         </block>
       </view>
@@ -43,8 +43,8 @@
             <span class="pic_Title">
               <span class="pic_Label">#{{item.Label}}</span>{{item.Title}}
             </span>
-            <image src="../more/text.jpg" class="text_user"/>
-            <span class="text_username">土拨鼠</span>
+            <image src="{{item.iconUrl}}" class="text_user"/>
+            <span class="text_username">{{item.nickName}}</span>
           </view>
         </block>
       </view>

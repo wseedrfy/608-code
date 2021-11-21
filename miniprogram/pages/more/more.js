@@ -226,7 +226,10 @@ Page({
         "CoverWidth": that.data.imageWidth,
         "Label":that.data.Label,
         "LabelId":that.data.LabelId,
-        "Time":new Date().getTime()
+        "Time":new Date().getTime(),
+        "nickName":that.data.nickname,
+        "School":that.data.school,
+        "iconUrl":that.data.iconUrl
       }
       console.log("add",add)
       that.data.noramalData.push(add)
@@ -270,36 +273,26 @@ Page({
   },
 
     //以本地数据为例，实际开发中数据整理以及加载更多等实现逻辑可根据实际需求进行实现   
-  onLoad: function(options) {
-    this.getData()
-    // var that = this;
-    
-    // wx.cloud.callFunction({
-    //   name: 'CampusCircle',
-    //   data: {
-    //     type: 'read'
-    //   },
-    //   complete: res => {
-    //     console.log("res.result.data",res.result.data)
-    //     that.data.noramalData=res.result.data
-    //     var allData = that.data.noramalData;
-    //     for (let i = 0; i < allData.length; i++) {
-    //       if (that.data.leftH == that.data.rightH || that.data.leftH < that.data.rightH) {//判断左右两侧当前的累计高度，来确定item应该放置在左边还是右边
-    //         that.data.leftList.push(allData[i]);
-    //         that.data.leftH += allData[i].ShowHeight;
-    //         console.log("Bef-that.data.leftH",that.data.leftH)
-    //       } else {
-    //         that.data.rightList.push(allData[i]);
-    //         that.data.rightH += allData[i].ShowHeight;
-    //         console.log("bef-that.data.rightH",that.data.rightH)
-    //       }
-    //     }
-    //     that.setData({
-    //       leftList: that.data.leftList,
-    //       rightList: that.data.rightList,
-    //     })
-    //   }
-    // });
+  onLoad: function() {
+    var that =this 
+   //加载缓存获得学校和用户名和头像
+   wx.getStorage({
+     key:"data",
+     success(res){
+       console.log(JSON.parse(res.data))
+       var data = JSON.parse(res.data)
+       var school = data.school
+       var nickname =data.nickName
+       var iconUrl =data.iconUrl
+       console.log(school)
+       that.setData({
+         school:school,
+        nickname:nickname,
+       iconUrl:iconUrl})
+       that.getData()
+     }
+   })
+
   },
   //将数据上传到数据库
   uploadData:function(NewData,fileIDs){
@@ -319,8 +312,12 @@ Page({
         LabelId: that.data.noramalData[NewData].LabelId,
         Time: that.data.noramalData[NewData].Time,
         ShowHeight: that.data.noramalData[NewData].ShowHeight,
+        School:that.data.noramalData[NewData].School,
+        nickName:that.data.noramalData[NewData].nickName,
+        iconUrl:that.data.noramalData[NewData].iconUrl,
         type: 'write'
       }, success: res => {
+        console.log(res)
         wx.showToast({
           duration:4000,
           title: '添加成功'
@@ -391,6 +388,7 @@ Page({
   //提高网络性能，分页加载数据
   getData:function() {
     let that = this;
+    console.log(that.data.noramalData)
     //第一次加载数据
     if (currentPage == 1) {
       this.setData({
@@ -457,6 +455,26 @@ Page({
       }
     })
   },
+  onPullDownRefresh(){
+    wx.showNavigationBarLoading() //在标题栏中显示加载
+    console.log("下拉刷新")
+    var that =this
+    setTimeout(function()
+    {
+    // complete
+    that.getData()
+    wx.hideNavigationBarLoading() //完成停止加载
+    wx.stopPullDownRefresh() //停止下拉刷新
+    
+    },2500);
+    console.log("over")
+    },
+    // //模拟加载
+    // this.getData()
+    //   // complete
+    //   wx.hideNavigationBarLoading() //完成停止加载
+    //   wx.stopPullDownRefresh() //停止下拉刷新
+
 })
 
 

@@ -31,6 +31,9 @@ exports.main = async (event, context) => {
           LabelId: event.LabelId,
           Time: event.Time,
           ShowHeight: event.ShowHeight,
+          nickName:event.nickName,
+          iconUrl:event.iconUrl,
+          School:event.School
         }, success: res => { }, 
         fail: err => { }
       })
