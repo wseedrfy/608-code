@@ -183,6 +183,7 @@ Page({
   setTab: function(e) {
     let arry = this.data.tabitem
     let index = e.currentTarget.dataset.index
+    console.log(index)
     let title = e.currentTarget.dataset.title
     this.data.Label=arry[index].title
     this.data.LabelId=arry[index].id
@@ -376,11 +377,7 @@ Page({
         loadMore: true, //加载中  
         loadAll: false //是否加载完所有数据
       });
-      wx.showLoading({
-        title: '加载更多中',
-      })
       that.getData()
-      wx.hideLoading()
       //加载更多，这里做下延时加载
  
     }

@@ -23,12 +23,12 @@ Page({
       {
         icon: "images/class.png",
         title: "班级",
-        littleTitle: "暂未开通哟",
+        littleTitle: "访客班级",
         click: "class"
       },{
         icon: "images/academy.png",
         title: "专业",
-        littleTitle: "暂未开通哟",
+        littleTitle: "访客专业",
         click: "academy"
       }
 
@@ -52,6 +52,9 @@ Page({
   journal(e){
     console.log(e)
     console.log("更新日志")
+    wx.navigateTo({
+      url: '/pages/journal/journal',
+    })
   },
   login(e){
     wx.redirectTo({

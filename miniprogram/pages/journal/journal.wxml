@@ -1,0 +1,24 @@
+<view class="title">
+   <text>更新日志</text>
+</view>
+
+
+<view class="main">
+   <!-- 延伸出来一小截线 -->
+   <view class="smallLine"></view>
+
+   <block wx:for="{{list}}"  wx:for-item="listItem" wx:key="item">
+      <view class="box">
+         <view class="line"></view>
+         <view class="card">
+            <view class="head">
+               <view class="verse">{{listItem.verse}}</view>
+               <view class="time">{{listItem.time}}</view>
+            </view>
+            <view class="content" wx:for="{{listItem.content}}" wx:for-item="contentItem" wx:key="index">
+               <text>{{contentItem}}</text>
+            </view>
+         </view>
+      </view>
+   </block>
+</view>
