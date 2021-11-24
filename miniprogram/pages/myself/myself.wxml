@@ -7,27 +7,49 @@
     <view class="userInfo">
       <!-- 头像 -->
       <view class="userAvatar">
-        <open-data type="userAvatarUrl"></open-data>
+        <view wx:if="{{isLogin}}">
+          <image class="userAvatarImg" src="{{storageInfo.iconUrl}}" alt="" />
+        </view>
+        <view wx:if="{{isLogin==false}}"><open-data type="userAvatarUrl"></open-data></view>
       </view>
 
-      <view class="userInfoTxt">
+      <!-- 未登录状态 -->
+      <view class="userInfoTxt" wx:if="{{isLogin == false}}" bindtap="login">
         <!-- 姓名 -->
         <view class="userName">
-          <view class="guest">访客 <open-data type="userNickName"></open-data></view>
+          Users 暂未登录
         </view>
-        <!-- 学院 -->
+        <!-- 学号 -->
         <view class="userAcademy">
-          <view class="guestAcademy">访客学院</view>
+          <view class="guestAcademy">请点击此处登录账号，以获得最佳体验</view>
+        </view>
+      </view>
+      <!-- 登录状态 -->
+      <view class="userInfoTxt" wx:if="{{isLogin == true}}">
+        <!-- 姓名 -->
+        <view class="userName">
+          {{storageInfo.nickName}}
+        </view>
+        <!-- 学号 -->
+        <view class="userAcademy">
+          <view class="guestAcademy">{{ isLogin? storageInfo.username : ''}}</view>
         </view>
       </view>
     </view>
-    <!-- 班级/专业Dialog -->
+    <!-- 学校/学号Dialog -->
     <view class="userInfoDialog">
-
-      <block wx:for="{{userInfo}}" wx:key="index">
-        <template is="userInfo_item" data="{{item}}">
-        </template>
-      </block>
+      <!-- 学校 -->
+      <view class="userInfo_item" catchtap="school">
+        <image src="images/class.png"></image>
+        <text class="title">学校</text>
+        <text>{{isLogin ? storageInfo.school : '访客学校'}}</text>
+      </view>
+      <!-- 学号 -->
+      <view class="userInfo_item" catchtap="academy">
+        <image src="images/academy.png"></image>
+        <text class="title">学号</text>
+        <text>{{isLogin ? storageInfo.username : '访客学号'}}</text>
+      </view>
     </view>
   </view>
 

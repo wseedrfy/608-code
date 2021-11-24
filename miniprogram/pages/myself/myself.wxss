@@ -30,6 +30,15 @@ page {
   height: 100rpx;
   border-radius: 50%;
   background-color: #fff;
+  border: 5rpx solid #fff;
+}
+.userAvatar .userAvatarImg {
+  display: flex;
+  overflow: hidden;
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  background-color: #fff;
 }
 /* 角色信息text */
 .userInfoTxt {
@@ -55,7 +64,33 @@ page {
   box-shadow: #ccc  0 0 5rpx 2rpx;
   color: rgb(106, 106, 106);
 }
-
+/* userInfo_item */
+.userInfo_item{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  line-height: 100rpx;
+}
+.userInfo_item image{
+  width: 50rpx;
+  height: 50rpx;
+  padding: 0 0 0 20rpx;
+}
+/* 不知道为什么 .userInfo_item text:first-child 选不到它，只好加个类名了 */
+.userInfo_item .title{
+  flex: 1;
+  text-align: start;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.userInfo_item text:last-child{
+  margin-right: 20rpx;
+  font-size: 20rpx;
+  color: rgb(186, 186, 186);
+  letter-spacing: 2rpx;
+}
 
 /* 第二个Dialog */
 .more {

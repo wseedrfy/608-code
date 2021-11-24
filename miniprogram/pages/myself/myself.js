@@ -19,27 +19,26 @@ Page({
         click: "login"
       }
     ],
-    userInfo:[
-      {
-        icon: "images/class.png",
-        title: "班级",
-        littleTitle: "访客班级",
-        click: "class"
-      },{
-        icon: "images/academy.png",
-        title: "专业",
-        littleTitle: "访客专业",
-        click: "academy"
-      }
-
-    ]
+    isLogin:'',
+    userInfo:[]
   },
   onLoad() {
-    
+    var that = this
+    wx.getStorage({
+      key:'data',
+      success(res) {
+        that.setData({
+          storageInfo:JSON.parse(res.data),
+          isLogin:true
+        });
+      },
+      fail(err) {
+        that.data.isLogin = false;
+      }
+    })
   },
-  
-  class(e){
-    console.log(e,"班级");
+  school(e){
+    console.log(e,"学校");
   },
   academy(e){
     console.log(e,"专业");
@@ -63,6 +62,4 @@ Page({
     console.log(e)
     console.log("登录/注销账号")
   }
-
-  
 })
