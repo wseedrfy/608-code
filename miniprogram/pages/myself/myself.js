@@ -47,6 +47,9 @@ Page({
   about(e){
     console.log(e)
     console.log("关于我们")
+    wx.navigateTo({
+      url: '/pages/about/about',
+    })
   },
   journal(e){
     console.log(e)
@@ -55,6 +58,7 @@ Page({
       url: '/pages/journal/journal',
     })
   },
+
   login(e){
     wx.redirectTo({
       url: '/pages/login/login'
