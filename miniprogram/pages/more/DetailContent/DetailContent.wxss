@@ -10,7 +10,27 @@
   justify-content: center;
   flex-direction: column;
 }
-
+.user{
+  width: 100%;
+}
+.user_iconUrl{
+  width:58rpx;
+  height: 58rpx;
+  border-radius: 100rpx;
+  margin-left: 15rpx;
+}
+.user_nickname{
+  position: relative;
+  bottom: 15rpx;
+  left: 15rpx;
+}
+.more{
+  width:58rpx;
+  height: 58rpx;
+  margin-left: 500rpx;
+  position:relative;
+  top: 6rpx;
+}
 swiper{
   width: 100%; 
 }
@@ -157,7 +177,81 @@ swiper .wx-swiper-dot {
   font-size: 20rpx;
   color:rgba(94, 94, 94, 0.541);
  }
- 
+ .CardMore,
+.CardMore_background{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  font-family: unset;
+}
+.CardMore_background{
+  background-color: rgba(0, 0, 0, 0.712);
+  opacity: 0.6;
+  height: 100%;
+}
+.CardMore_contain{
+  position: relative;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.856);
+  padding: 15rpx 0;
+  z-index: 99999;
+  border-radius: 20rpx;
+}
+.CardMore_Title{
+  position: relative;
+  right: 307rpx;
+  font-size: 27rpx;
+  color: rgba(70, 70, 70, 0.952);
+}
+.DelCard{
+  background-color: rgba(255, 255, 255, 0.966);
+  width:80rpx;
+  height:80rpx;
+  border-radius: 50rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.DelCard image{
+  width:40rpx;
+  height:40rpx;
+}
+
+ .edit_show{
+  animation: edit_show .5s;
+}
+.edit_hide{
+  animation: edit_hide .5s;
+}
+@keyframes edit_show {
+  0% {
+      opacity: 0;
+      transform: translateY(100%);
+  }
+  100% {
+      opacity: 1;
+      transform: translateY(0%);
+  }
+}
+@keyframes edit_hide {
+  0% {
+      opacity: 1;
+      transform: translateY(0%);
+  }
+  100% {
+      opacity: 0;
+      transform: translateY(100%);
+  }
+}
 
 
 

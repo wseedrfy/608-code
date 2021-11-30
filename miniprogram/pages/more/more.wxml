@@ -7,8 +7,8 @@
       <!-- 导航栏 -->
       <view class="head_second"  style="height: {{lineHeight}}px;" > 
           <image src="../../images/search.png" />
-          <view class="search">
-            <input class="SearchInput" bindtap="search_Input" value="{{search}}"></input>
+          <view class="search" bindtap="search_Animate">
+            <input class="SearchInput" value="{{search}}" bindinput="search_Input"/>
           </view>
       </view>
     </view>
@@ -18,7 +18,9 @@
   <view class="Line"></view>
     <scroll-view scroll-x="true">
       <view class="Choose_Label" scroll-x="true">
-        <view wx:for="{{tabitem}}" wx:key="index" class="Label-text {{item.type == 1?'activity':''}}" data-title="{{item.title}}" bindtap="setTab" data-index="{{index}}" name="formTabitem"><view class="Label_limit">{{item.title}}</view></view>
+        <view wx:for="{{tabitem}}" wx:key="index" class="Label-text {{item.type == 1?'activity':''}}" data-title="{{item.title}}" bindtap="setTab" data-index="{{index}}" name="formTabitem" >
+          <view class="Label_limit">{{item.title}}</view>
+        </view>
       </view>
     </scroll-view>
   <view class="Line"></view>
@@ -27,24 +29,32 @@
       <view class='left'>
         <block wx:for="{{leftList}}" wx:key="index">
           <view class="pic" bindtap="ShowContent" data-index="{{leftList[index]}}">
-            <image class="Show_Image"  src='{{item.Cover}}' mode="aspectFill" lazy-load="true" style="height: {{item.ShowHeight > 500 ? 500+'rpx':item.ShowHeight+'rpx'}};"></image>
+            <image class="Show_Image" lazy-load  src='{{item.Cover}}' mode="aspectFill" style="height: {{item.ShowHeight > 500 ? 500+'rpx':item.ShowHeight+'rpx'}};" binderror="binderrorimg" bindload='onLazyLoad'></image>
             <span class="pic_Title">
               <span class="pic_Label">#{{item.Label}}</span>{{item.Title}}
             </span>
             <image src="{{item.iconUrl}}" class="text_user"/>
             <span class="text_username">{{item.nickName}}</span>
+            <span class="comment">
+              <image src="../../images/comment.png" class="commentImg"/>
+              <span class="commentNum" >{{item.CommentList?item.CommentList.length:0}}</span>
+            </span>
           </view>
         </block>
       </view>
       <view class='right'>
         <block wx:for="{{rightList}}" wx:key="index">
           <view class="pic" bindtap="ShowContent" data-index="{{rightList[index]}}">
-            <image class="Show_Image" src='{{item.Cover}}' mode="aspectFill"  lazy-load="true" style="height: {{item.ShowHeight > 500 ? 500+'rpx':item.ShowHeight+'rpx'}};"></image>
+            <image class="Show_Image" lazy-load src='{{item.Cover}}' mode="aspectFill"  style="height: {{item.ShowHeight > 500 ? 500+'rpx':item.ShowHeight+'rpx'}};" binderror="binderrorimg" bindload='onLazyLoad'></image>
             <span class="pic_Title">
               <span class="pic_Label">#{{item.Label}}</span>{{item.Title}}
             </span>
             <image src="{{item.iconUrl}}" class="text_user"/>
             <span class="text_username">{{item.nickName}}</span>
+            <span class="comment">
+              <image src="../../images/comment.png" class="commentImg"/>
+              <span class="commentNum">{{item.CommentList?item.CommentList.length:0}}</span>
+            </span>
           </view>
         </block>
       </view>
@@ -53,17 +63,15 @@
   <view class="img-button Add_Content-btn" bindtap="add">
     <image src="/images/btn_feed@2x.png" class="Add_Content"></image>
   </view>
+  <view class="img-button User_Content-btn" bindtap="User">
+    <image src="../../images/User.png" class="User_Content"></image>
+  </view>
   <view class="edit" wx:if="{{showModel}}">
     <view class="edit_background" bindtap="add"></view>
       <view class="edit_contain {{add_style}}" >
         <view class="edit_Title">发布日常</view>
         <view class="Line"></view>
         <form bindsubmit="formSubmit" bindreset="formReset">
-          <scroll-view scroll-x="true">
-            <view class="Choose_Label" scroll-x="true">
-              <view wx:for="{{tabitem}}" wx:key="index" class="Label-text {{item.type == 1?'activity':''}}" data-title="{{item.title}}" bindtap="setTab" data-index="{{index}}" name="formTabitem" ><view class="Label_limit">{{item.title}}</view></view>
-            </view>
-          </scroll-view>
           <view class="img-button chooseImg-btn" bindtap="chooseimage" >
             <image src="/images/Camera-3.png" class="Camera_Image" ></image>
             <swiper indicator-dots='true' indicator-color="#fff" indicator-active-color='red' current="{{current}}">
@@ -74,6 +82,22 @@
               </block>
             </swiper>
           </view>
+          <view class='MenuDiv' bindtap='clickMenu' >
+              <span  class='rightimg-top'>
+                  标签:
+              </span>
+              <span class="choosenLabel">
+                  {{choosenLabel}}
+              </span>
+              <scroll-view scroll-x="true" class="choose_First">
+                <view class="Choosen" scroll-x="true" hidden='{{arrayMenu.hideHidden}}'>
+                  <view wx:for="{{arrayMenu.menu}}" wx:key="index" class="Label-text" data-index="{{index}}" catchtap="clickMenuSecond">
+                    <view class="Label_limit">{{item.cent}}</view>
+                  </view>
+                </view>
+              </scroll-view>
+          </view>
+          <view class="Line"></view>
           <view class="edit_pic_Title">
             <input placeholder="标题 闲聊/求助/组队..."  value="{{Input_Title}}" name="formTitle"></input>
           </view>

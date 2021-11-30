@@ -2,7 +2,6 @@
 var app = getApp()  
 var util = require("../../utils/util")
 let currentPage = 0 // 当前第几页,0代表第一页 
-let pageSize = 10 //每页显示多少数据 
 Page({
   /**
    * 页面的初始数据
@@ -14,78 +13,114 @@ Page({
     noramalData: [],
     current:0,
     tabitem:[{
-        id:0,
+        title:"全部",
+        type:0
+      },
+      {
         title:"日常",
         type:0
       },
       {
-        id:1,
         title:"情墙",
         type:0
       },
       {
-        id:2,
         title:"悄悄话",
         type:0
       },
       {
-        id:3,
         title:"地点",
         type:0
       },
       {
-        id:4,
         title:"二手",
         type:0
       },
       {
-        id:5,
         title:"社团",
         type:0
       },
       {
-        id:6,
         title:"拾领",
         type:0
       },
       {
-        id:7,
         title:"活动",
         type:0
       },
       {
-        id:8,
         title:"吐槽",
+        type:0
+      },
+      {
+        title:"探店",
         type:0
       }
     ],
-
     info: {
       licensePicUrls: [],
     },
+    arrayMenu: {
+      menu: [
+        {
+          cent: '日常'
+        },
+        {
+          cent: '情墙'
+        },
+        {
+          cent: '悄悄话'
+        },
+        {
+          cent: '地点'
+        },
+        {
+          cent: '二手'
+        },
+        {
+          cent: '社团'
+        },
+        {
+          cent: '拾领'
+        },
+        {
+          cent: '活动'
+        },
+        {
+          cent: '吐槽'
+        },
+        {
+          cent: '探店'
+        },
+      ],
+      hideHidden: true
+      }
+    ,
     imgShow:false,
-
     leftList: [],
     rightList: [],
     formTitle:' ',
     formText:' ',
     showModel:false,
     tempFilePaths: '',
-    Label:'',
-    LabelId:0,
+    Label:'全部',
     imageHeight:0,
     imageWidth:0,
     currentItemHeight:0,
     leftH:0,
     rightH:0,
     photo:[],
-
+    Input:"",
+    resultLength:0,
     loadMore: false, //"上拉加载"的变量，默认false，隐藏  
-    loadAll: false //“没有数据”的变量，默认false，隐藏 
+    loadAll: false, //“没有数据”的变量，默认false，隐藏 
+    fileIDs:[],
   },
-  
-  search_Input:function(e){
-    this.animate('.search', [{
+  onLazyLoad(info) {
+    console.log(info)
+  },
+  search_Animate:function(e){
+    this.animate('.SearchInput', [{
       opacity: '1',
       width: '90rpx',
     }, {
@@ -93,6 +128,102 @@ Page({
       width: '270rpx',
     }],1000)
   },
+  search_Input:function(e){
+    console.log("e.",e.detail.value)
+    console.log("this.data.noramalData",this.data.noramalData)
+    if(e.detail.value){
+      wx.cloud.callFunction({
+        name: "CampusCircle",
+        data: {
+          type: "search",
+          searchKey:e.detail.value
+        }, success: res => {
+          if(res.result.data.length!=0 ){
+            console.log(res.result.data)
+            currentPage=0
+            this.data.leftList=[]
+            this.data.rightList=[]
+            this.data.leftH=0
+            this.data.rightH=0
+            var allData = res.result.data
+              for (let i = 0; i < allData.length; i++) {
+                if (this.data.leftH == this.data.rightH || this.data.leftH < this.data.rightH) {//判断左右两侧当前的累计高度，来确定item应该放置在左边还是右边
+                  this.data.leftList.push(allData[i]);
+                  this.data.leftH += allData[i].ShowHeight;
+                } else {
+                  this.data.rightList.push(allData[i]);
+                  this.data.rightH += allData[i].ShowHeight;
+                }
+              }
+              this.data.tabitem[0].type=1
+              this.setData({
+                leftList: this.data.leftList,
+                rightList: this.data.rightList,
+                leftH:this.data.leftH,
+                right:this.data.rightH,
+                tabitem: this.data.tabitem,
+              });
+              this.data.tabitem[0].type=0
+          }else{
+            wx.showToast({
+              icon: "none",
+              title: "什么都找不到哟"
+            })
+            this.data.tabitem[0].type=1
+            this.setData({
+              leftList: [],
+              rightList: [],
+              leftH:0,
+              right:0,
+              tabitem: this.data.tabitem,
+            });
+            this.data.tabitem[0].type=0
+          }
+        }, 
+        fail: err => {
+          console.error
+        }
+      })
+    }else{
+      currentPage=0
+      this.data.leftList=[]
+      this.data.rightList=[]
+      this.data.leftH=0
+      this.data.rightH=0
+      var allData = this.data.noramalData
+      for (let i = 0; i < allData.length; i++) {
+        if (this.data.leftH == this.data.rightH || this.data.leftH < this.data.rightH) {//判断左右两侧当前的累计高度，来确定item应该放置在左边还是右边
+          this.data.leftList.push(allData[i]);
+          this.data.leftH += allData[i].ShowHeight;
+        } else {
+          this.data.rightList.push(allData[i]);
+          this.data.rightH += allData[i].ShowHeight;
+        }
+      }
+      for(let j = 0; j < this.data.tabitem.length; j++) {
+        if(this.data.tabitem[j].title==this.data.Label){
+          this.data.tabitem[j].type=1
+          this.setData({
+            tabitem: this.data.tabitem,
+          })
+          this.data.tabitem[j].type=0
+          break
+        }
+      }
+      this.setData({
+        leftList: this.data.leftList,
+        rightList: this.data.rightList,
+        leftH:this.data.leftH,
+        right:this.data.rightH,
+      });
+    }
+  },
+
+  binderrorimg:function(){ 
+    var errorImg=" "
+    errorImg="./Errimages.png" //我们构建一个对象
+    this.setData(errorImg) //修改数据源对应的数据
+   },
   /*添加内容图标按钮*/
   add(){
     var showModel=this.data.showModel
@@ -112,6 +243,11 @@ Page({
         showModel:!showModel
       })
     }
+  },
+  User(){
+    wx.navigateTo({
+      url: "UserContent/UserContent",
+    })
   },
   ShowContent:function(e){
     var content=JSON.stringify(e.currentTarget.dataset.index)
@@ -181,19 +317,51 @@ Page({
     }
   },
   setTab: function(e) {
-    let arry = this.data.tabitem
-    let index = e.currentTarget.dataset.index
-    console.log(index)
-    let title = e.currentTarget.dataset.title
+    var arry = this.data.tabitem
+    var index = e.currentTarget.dataset.index
+    var title = e.currentTarget.dataset.title
     this.data.Label=arry[index].title
-    this.data.LabelId=arry[index].id
     arry[index].type=1
     this.setData({
       tabitem: arry,
     })
     arry[index].type=0
+    currentPage=0
+    this.data.leftList=[]
+    this.data.rightList=[]
+    this.data.leftH=0
+    this.data.rightH=0
+    this.data.noramalData=[]
+    this.getData()
   },
-
+  clickMenu: function (e) {
+    var that = this;
+    // 获取当前的状态，是否隐藏的值
+    var staues = that.data.arrayMenu.hideHidden;
+    console.log("111", staues);
+    // 第几个状态
+    var stauesval = "arrayMenu.hideHidden";
+    if (staues == true) {
+      that.setData({
+        [stauesval]: false
+      })
+    } else {
+      that.setData({
+        [stauesval]: true
+      })
+    }
+  },
+  clickMenuSecond:function(e){
+    var that = this;
+    console.log("打印索引值233", e.currentTarget.dataset.index);
+    // 获取索引值
+    var index = e.currentTarget.dataset.index;
+    var name=that.data.arrayMenu.menu[index].cent
+    console.log("that.data.arrayMenu.menu[index].cent",that.data.arrayMenu.menu[index].cent)
+    that.setData({
+      choosenLabel:that.data.arrayMenu.menu[index].cent
+    })
+  },
   formSubmit:function(e){     //添加与存储
     let{formTitle, formText}=e.detail.value
     var that=this
@@ -212,7 +380,7 @@ Page({
         title: '图片不能为空',
         icon:'none'
       })
-    }else if(!that.data.Label){
+    }else if(!that.data.choosenLabel){
       wx.showToast({
         title: '标签不能为空',
         icon:'none'
@@ -225,27 +393,25 @@ Page({
         "Text":formText,
         "CoverHeight": that.data.imageHeight,
         "CoverWidth": that.data.imageWidth,
-        "Label":that.data.Label,
-        "LabelId":that.data.LabelId,
+        "Label":that.data.choosenLabel,
         "Time":new Date().getTime(),
         "nickName":that.data.nickname,
         "School":that.data.school,
         "iconUrl":that.data.iconUrl
       }
-      console.log("add",add)
       that.data.noramalData.push(add)
-      console.log(that.data.noramalData)
-      that.CalculateImage()
       var NewData=that.data.noramalData.length-1
+      that.CalculateImage()
       that.uploadimg(NewData)
+      //that.uploadData(NewData)
     }
   },
 
   CalculateImage:function(){
     var that = this;
     var allData = that.data.noramalData;
-    console.log("233.allData",allData)
-    console.log("allData",allData)
+    console.log("that.data.leftH",that.data.leftH)
+    console.log("that.data.rightH",that.data.rightH)
     for (let i = 0; i < allData.length; i++) {
       var height=parseInt(Math.round(allData[i].CoverHeight * 370 / allData[i].CoverWidth));
       if(height){
@@ -256,21 +422,8 @@ Page({
           allData[i].ShowHeight=currentItemHeight
         }
         allData[i].CoverHeight = currentItemHeight + "rpx";//因为xml文件中直接引用的该值作为高度，所以添加对应单位
-        if (that.data.leftH == that.data.rightH || that.data.leftH < that.data.rightH) {//判断左右两侧当前的累计高度，来确定item应该放置在左边还是右边
-          that.data.leftList.push(allData[i]);
-          that.data.leftH += currentItemHeight;
-          console.log("that.data.leftH",that.data.leftH)
-        } else {
-          that.data.rightList.push(allData[i]);
-          that.data.rightH += currentItemHeight;
-          console.log("that.data.rightH",that.data.rightH)
-        }
       }
     }
-    that.setData({
-      leftList: that.data.leftList,
-      rightList: that.data.rightList,
-    })
   },
 
     //以本地数据为例，实际开发中数据整理以及加载更多等实现逻辑可根据实际需求进行实现   
@@ -280,73 +433,25 @@ Page({
    wx.getStorage({
      key:"data",
      success(res){
-       console.log(JSON.parse(res.data))
+       console.log("JSON.parse(res.data)",JSON.parse(res.data))
        var data = JSON.parse(res.data)
        var school = data.school
        var nickname =data.nickName
        var iconUrl =data.iconUrl
        console.log(school)
+       //that.getData()
        that.setData({
          school:school,
-        nickname:nickname,
-       iconUrl:iconUrl})
-       that.getData()
+         nickname:nickname,
+         iconUrl:iconUrl})
      }
    })
-
   },
-  //将数据上传到数据库
-  uploadData:function(NewData,fileIDs){
-    var that = this
-    console.log(NewData)
-    console.log(that.data.noramalData[NewData])
-    wx.cloud.callFunction({
-      name: 'CampusCircle',
-      data: {
-        Cover: fileIDs[0],
-        AllPhoto: fileIDs,
-        Title: that.data.noramalData[NewData].Title,
-        Text: that.data.noramalData[NewData].Text,
-        CoverHeight: that.data.noramalData[NewData].CoverHeight,
-        CoverWidth: that.data.noramalData[NewData].CoverWidth,
-        Label: that.data.noramalData[NewData].Label,
-        LabelId: that.data.noramalData[NewData].LabelId,
-        Time: that.data.noramalData[NewData].Time,
-        ShowHeight: that.data.noramalData[NewData].ShowHeight,
-        School:that.data.noramalData[NewData].School,
-        nickName:that.data.noramalData[NewData].nickName,
-        iconUrl:that.data.noramalData[NewData].iconUrl,
-        type: 'write'
-      }, success: res => {
-        console.log(res)
-        wx.showToast({
-          duration:4000,
-          title: '添加成功'
-        })
- 
-      }, 
-      fail: err => {
-        wx.showToast({
-          icon: 'none',
-          title: '出错啦！请稍后重试'
-        })
-        console.error
-      },
-      complete() {
-        that.setData({
-          photo:[ ],
-          Input_Title: "",
-          Input_Text: "",
-          showModel: !that.data.showModel,
-        })
-      }
-    })
-  },
-  //将本地图片上传到云存储进行存储，后续通过fileid进行图片展示
-  // 图片上传逻辑
-// 1.判断条件，是否符合上传条件
-// 2.自定义函数上传图片到云存储
-// 3.将所有信息保存到数据库
+    //将本地图片上传到云存储进行存储，后续通过fileid进行图片展示
+    // 图片上传逻辑
+  // 1.判断条件，是否符合上传条件
+  // 2.自定义函数上传图片到云存储
+  // 3.将所有信息保存到数据库
   uploadimg:function(NewData){
     wx.showLoading({
       title: '加载中',
@@ -357,18 +462,17 @@ Page({
     var fileIDs=[]
     var that =this
     for(var i=0;i<path.length;i++){
-       wx.cloud.uploadFile({
+      wx.cloud.uploadFile({
         cloudPath:'CampusCircle_images/' + new Date().getTime() + Math.floor(Math.random() * 150) + '.png',
         filePath:path[i],
       }).then(res=>{
         fileIDs.push(res.fileID)
         console.log(fileIDs)
         that.uploadData(NewData,fileIDs)
-        wx.hideLoading()
       })
-      }
+    }
   },
-  //下拉触底改变状态
+//下拉触底改变状态
   onReachBottom: function() {
     console.log("上拉触底事件")
     let that = this
@@ -377,15 +481,89 @@ Page({
         loadMore: true, //加载中  
         loadAll: false //是否加载完所有数据
       });
+      wx.showLoading({
+        title: '加载更多中',
+      })
       that.getData()
+      wx.hideLoading()
       //加载更多，这里做下延时加载
- 
+
     }
   },
+  //将数据上传到数据库
+  uploadData:function(NewData,fileIDs){
+    var that = this
+    if(fileIDs.length==that.data.noramalData[NewData].AllPhoto.length){
+      console.log("NewData",NewData)
+      console.log("that.data.noramalData[NewData].AllPhoto.length",that.data.noramalData[NewData].AllPhoto.length)
+      console.log("fileIDs-Aft.length",fileIDs.length)
+      wx.cloud.callFunction({
+        name: 'CampusCircle',
+        data: {
+          Cover: fileIDs[0],
+          AllPhoto: fileIDs,
+          Title: that.data.noramalData[NewData].Title,
+          Text: that.data.noramalData[NewData].Text,
+          CoverHeight: that.data.noramalData[NewData].CoverHeight,
+          CoverWidth: that.data.noramalData[NewData].CoverWidth,
+          Label: that.data.noramalData[NewData].Label,
+          Time: that.data.noramalData[NewData].Time,
+          ShowHeight: that.data.noramalData[NewData].ShowHeight,
+          School:that.data.noramalData[NewData].School,
+          nickName:that.data.noramalData[NewData].nickName,
+          iconUrl:that.data.noramalData[NewData].iconUrl,
+          type: 'write'
+        }, success: res => {
+          console.log(res)
+          wx.showToast({
+            duration:4000,
+            title: '添加成功'
+          })
+          console.log("that.data.rightH",that.data.rightH)
+          console.log("that.data.leftH",that.data.leftH)
+          console.log("that.data.Label",that.data.Label)
+          console.log("that.data.choosenLabel",that.data.choosenLabel)
+          console.log("that.data.Label",that.data.Label)
+          if((that.data.rightH<500 || that.data.leftH<500 || that.data.resultLength==0) && (that.data.Label==that.data.choosenLabel || that.data.Label=="全部")){
+            if (that.data.leftH == that.data.rightH || that.data.leftH < that.data.rightH) {//判断左右两侧当前的累计高度，来确定item应该放置在左边还是右边
+              that.data.leftList.push(that.data.noramalData[NewData]);
+              that.data.leftH += that.data.noramalData[NewData].ShowHeight;
+            } else {
+              that.data.rightList.push(that.data.noramalData[NewData]);
+              that.data.rightH += that.data.noramalData[NewData].ShowHeight;
+            }
+            that.setData({
+              leftList: that.data.leftList,
+              rightList: that.data.rightList,
+            })
+          }
+        }, 
+        fail: err => {
+          wx.showToast({
+            icon: 'none',
+            title: '出错啦！请稍后重试'
+          })
+          console.error
+        },
+        complete() {
+          that.setData({
+            photo:[ ],
+            Input_Title: "",
+            Input_Text: "",
+            choosenLabel:" ",
+            showModel: !that.data.showModel,
+          })
+        }
+      })
+    }
+  },
+  
   //提高网络性能，分页加载数据
   getData:function() {
     let that = this;
-    console.log(that.data.noramalData)
+    console.log("that.data.noramalData",that.data.noramalData)
+    that.data.noramalData=[]
+    console.log("ShowId",that.data.Label)
     //第一次加载数据
     if (currentPage == 1) {
       this.setData({
@@ -399,9 +577,12 @@ Page({
       data:{
         type:"read",
         currentPage:currentPage,
-        pageSize:pageSize
+        ShowId:that.data.Label        
       },
       success(res){
+        console.log("res.result.data",res.result.data)
+        that.data.resultLength=res.result.data.length
+        console.log("that.data.resultLength",that.data.resultLength)
         if (res.result.data && res.result.data.length > 0) {
           console.log("请求成功", res.result.data)
           currentPage++
@@ -409,33 +590,36 @@ Page({
           let Batch_Data = that.data.noramalData.concat(res.result.data)
           var allData = res.result.data
           console.log(Batch_Data)
-          console.log(allData)
           for (let i = 0; i < allData.length; i++) {
             if (that.data.leftH == that.data.rightH || that.data.leftH < that.data.rightH) {//判断左右两侧当前的累计高度，来确定item应该放置在左边还是右边
               that.data.leftList.push(allData[i]);
               that.data.leftH += allData[i].ShowHeight;
-              console.log("Bef-that.data.leftH",that.data.leftH)
             } else {
               that.data.rightList.push(allData[i]);
               that.data.rightH += allData[i].ShowHeight;
-              console.log("bef-that.data.rightH",that.data.rightH)
             }
-            that.setData({
-              leftList: that.data.leftList,
-              rightList: that.data.rightList,
-            })
           }
           that.setData({
+            leftList: that.data.leftList,
+            rightList: that.data.rightList,
+            leftH:that.data.leftH,
+            right:that.data.rightH,
             noramalData: Batch_Data, //获取数据数组    
             loadMore: false //把"上拉加载"的变量设为false，显示  
           });
-          if (res.result.data.length < pageSize) {
+          if (res.result.data.length < 10) {
             that.setData({
               loadMore: false, //隐藏加载中。。
               loadAll: true //所有数据都加载完了
             });
           }
-        } else {
+         } else {
+          if(that.data.leftH==0 && that.data.rightH==0){
+            that.setData({
+              leftList: [],
+              rightList: [],
+            })
+          }
           that.setData({
             loadAll: true, //把“没有数据”设为true，显示  
             loadMore: false //把"上拉加载"的变量设为false，隐藏  
@@ -448,7 +632,6 @@ Page({
           loadAll: false,
           loadMore: false
         });
-
       }
     })
   },
@@ -465,12 +648,18 @@ Page({
     
     },2500);
     console.log("over")
-    },
-    // //模拟加载
-    // this.getData()
-    //   // complete
-    //   wx.hideNavigationBarLoading() //完成停止加载
-    //   wx.stopPullDownRefresh() //停止下拉刷新
+  },
+  onShow: function () {
+    console.log("onshow")
+    this.data.leftList=[]
+    this.data.rightList=[]
+    this.data.leftH=0
+    this.data.rightH=0
+    this.data.noramalData
+    console.log("onShow-Atf")
+    currentPage=0
+    this.getData()
+  },
 
 })
 

@@ -7,14 +7,27 @@ const db = cloud.database();
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
   if(event.type == "read"){
-    try {
-        return await db.collection('Campus-Circle').where({}).skip(event.currentPage * event.pageSize).limit(event.pageSize).get({
-        success: function (res) {
+    if(event.ShowId!="全部"){
+      try {
+          return await db.collection('Campus-Circle').where({Label:event.ShowId}).skip(event.currentPage * 10).limit(10).get({
+          success: res => {
+            console.log("2333")
+            return res
+          }
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    }else{
+      try {
+        return await db.collection('Campus-Circle').where({ }).skip(event.currentPage * 10).limit(10).get({
+        success: res => {
           return res
         }
       });
     } catch (e) {
       console.error(e);
+    }
     }
   }
   if(event.type == "write"){
@@ -28,7 +41,6 @@ exports.main = async (event, context) => {
           CoverHeight: event.CoverHeight,
           CoverWidth: event.CoverWidth,
           Label: event.Label,
-          LabelId: event.LabelId,
           Time: event.Time,
           ShowHeight: event.ShowHeight,
           nickName:event.nickName,
@@ -65,6 +77,43 @@ exports.main = async (event, context) => {
       })
     } catch (e) {
       console.log(e)
+    }
+  }
+  if(event.type == "search"){
+    try {
+      return await db.collection('Campus-Circle').where({
+        Title: db.RegExp({
+          regexp: event.searchKey,
+          options: 'i',
+        })
+      }).get({
+        success: function (res) {
+          return res
+        },
+      })
+    } catch (e) {
+    console.log(e)
+    }
+  }
+  if(event.type == "readUser"){
+    try {
+      return await db.collection('Campus-Circle').where({
+        nickName:event.nickname,
+        iconUrl:event.iconUrl
+      }).skip(event.currentPage * 10).limit(10).get({
+        success: function (res) {
+          return res
+        },
+      })
+    } catch (e) {
+    console.log(e)
+    }
+  }
+  if(event.type == "delCard"){
+    try {
+      return await db.collection('Campus-Circle').doc(event.id).remove()
+    } catch (e) {
+    console.log(e)
     }
   }
 }

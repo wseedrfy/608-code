@@ -1,5 +1,19 @@
 <view class="page">
   <view class="contain">
+    <view class="user">
+      <image src="{{SenticonUrl}}" class="user_iconUrl"/>
+      <span class="user_nickname">{{SentName}}</span>
+      <image src="../../../images/more.png" class="more" wx:if="{{more==1}}" bindtap="More"/>
+      <view class="CardMore" wx:if="{{showEdit}}">
+        <view class="CardMore_background" bindtap="More"></view>
+        <view class="CardMore_contain {{edit_style}}" >
+          <view class="CardMore_Title">编辑卡片</view>
+          <view class="DelCard" catchtap="DelCard">
+            <image src="../../../images/del.png" class="DelCard"/>
+          </view>
+        </view>
+      </view>
+    </view>
     <swiper indicator-dots='true' indicator-color="rgba(223, 223, 223, 0.39)" indicator-active-color='rgb(235, 21, 21)' style="height: {{Height > 300 ? 700+'rpx':Height+'px'}};">
       <block wx:for="{{Photo}}" wx:key="Photo" class="photo">
         <swiper-item >
@@ -19,7 +33,7 @@
       <view class="All_Comment" wx:if="{{CommentNum==0}}">这里还没有评论哟~</view>
       <form bindsubmit="formSubmit" bindreset="formReset">
         <view class="Send_Commend" bindtap="Comment_Inputting">
-          <image src="../text.jpg" class="text_user"/>
+          <image src="{{iconUrl}}" class="text_user"/>
           <span class="{{isChecked?'old_Comment_second':'new_Comment_second'}}">
             <textarea placeholder="来发句评论吧ヾ(≧▽≦*)o" name="InputComment"  value="{{Input}}" auto-height></textarea>
           </span>
@@ -29,8 +43,8 @@
         </view>
       </form>
       <view class="Show_Commend" wx:for="{{ShowList}}" wx:key="kk" data-item="item">
-        <image src="../text.jpg" class="text_user"/>
-        <span class="text_username">土拨鼠
+        <image src="{{item.iconUser}}" class="text_user"/>
+        <span class="text_username">{{item.userName}}
           <view class="Comment_Content">{{item.InputContent}}
             <span class="Comment_Time">{{item.InputTime}}</span>
           </view>

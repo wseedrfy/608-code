@@ -13,18 +13,16 @@ page{
   width: 750rpx;
 }
 
-.search{
+.SearchInput{
   display: flex;
   justify-content: center;
   width: 90rpx;
   margin-left: 10rpx;
-  font-size: 27rpx;
-  border-radius: 50rpx;
+  font-size: 25rpx;
+  border-radius: 15rpx;
   background-color: rgba(202, 202, 202, 0.342);
 }
-.SearchInput{
-  widows: 95%;
-  height:100%;
+.search{
   padding-left: 8rpx;
   font-size: 24rpx;
 }
@@ -90,7 +88,23 @@ page{
   height:80rpx;
   background-color: rgba(255, 255, 255, 0.685);
   position: fixed;
-  bottom:130rpx;
+  bottom:180rpx;
+  right:0rpx;
+  border-top-left-radius: 40rpx;
+  border-bottom-left-radius: 40rpx;
+  box-shadow: 0px 0px 4px 0px #c7c7c7;
+}
+.User_Content{
+  width: 54rpx;
+  height: 54rpx;
+}
+
+.User_Content-btn{
+  width:105rpx;
+  height:80rpx;
+  background-color: rgba(255, 255, 255, 0.685);
+  position: fixed;
+  bottom:80rpx;
   right:0rpx;
   border-top-left-radius: 40rpx;
   border-bottom-left-radius: 40rpx;
@@ -105,7 +119,7 @@ page{
 .chooseImg-btn{
   width:100%;
   height:380rpx;
-  background-color: rgba(236, 213, 165, 0.26);
+  background-color: rgba(241, 229, 201, 0.26);
 }
 .add_show{
   animation: add_show .5s;
@@ -124,7 +138,7 @@ page{
   font-family: unset;
 }
 .edit_background{
-  background-color: rgba(0, 0, 0, 0.349);
+  background-color: rgba(0, 0, 0, 0.712);
   opacity: 0.6;
   height: 100%;
 }
@@ -135,9 +149,10 @@ page{
   flex-direction: column;
   bottom: 0;
   width: 100%;
-  background-color: #fff;
+  background-color: rgb(255, 255, 255);
   padding: 15rpx 0;
   z-index: 99999;
+  border-radius: 20rpx;
 }
 .edit_Title{
   font-size: 35rpx;
@@ -146,13 +161,35 @@ page{
   display: flex;
   padding-left: 307rpx;
 }
+.MenuDiv{overflow: hidden;margin-top: 15rpx;margin-bottom: 15rpx;}
+.rightimg-top{
+  font-size: 30rpx;
+  margin-left: 10rpx;
+  font-weight: 550;
+  color: #2b2b2bd7;
+}
+.choosenLabel{
+  font-size: 30rpx;
+  font-weight: 550;
+  color: #2b2b2bd7;
+}
+.choose_First{
+  background-color: rgba(236, 236, 236, 0.219);
+}
+.Choosen{
+  width: 100%;
+  height: 68rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 .edit_pic_Title{
   width:100%;
   height:80rpx;
   display: flex;
   align-items: center;
   font-weight: 550;
-  font-size: 35rpx;
+  font-size: 30rpx;
   margin-left: 10rpx;
 }
 .edit_pic_Title input{
@@ -178,7 +215,7 @@ page{
    flex-direction:row;
  }
  .Publish-btn{
-   background-color: rgba(29, 173, 60, 0.671);
+   background-color: rgb(128, 190, 226);
    box-shadow: 0px 0px 4px 0px #c7c7c7;
    color: white;
    width: 530rpx !important;
@@ -207,7 +244,28 @@ page{
   font-size: 20rpx;
   position: relative;
   bottom:22rpx;
-  right:6rpx;
+  right:10rpx;
+}
+.comment{
+  width:20rpx;
+  height:20rpx;
+  position:sticky;
+  left: 270rpx;
+  bottom: 13rpx;
+}
+.commentImg{
+  width: 36rpx;
+  height: 36rpx;
+  /* position: relative;
+  bottom: 10rpx;
+  left: 150rpx; */
+  /* margin: 10rpx 0rpx 10rpx 150rpx; */
+}
+.commentNum{
+  font-size: 22rpx;
+  position:relative;
+  bottom: 13rpx;
+  left: 7rpx;
 }
 .Choose_Label{
   width:100%;
@@ -228,15 +286,11 @@ page{
   justify-content: center;
 }
 .Label-text.activity{
-  width: 90rpx;
   height:47rpx;
-  background-color: rgba(206, 206, 206, 0.404);
+  background-color: rgba(206, 206, 206, 0.267);
   color: rgba(46, 46, 46, 0.938);
   font-weight: 550;
   border-radius: 30rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 .Label_limit{
   width:87rpx;

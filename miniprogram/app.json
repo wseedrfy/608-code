@@ -6,6 +6,7 @@
     "pages/myself/myself",
     "pages/login/login",
     "pages/more/DetailContent/DetailContent",
+    "pages/more/UserContent/UserContent",
     "pages/common/common",
     "pages/physical/physical",
     "pages/about/about"

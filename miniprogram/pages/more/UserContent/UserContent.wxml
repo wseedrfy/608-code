@@ -1,0 +1,37 @@
+<!--pages/more/UserContent/UserContent.wxml-->
+<view class="page">
+  <view class='content'>
+      <view class='left'>
+        <block wx:for="{{leftList}}" wx:key="index">
+          <view class="pic" bindtap="ShowContent" data-index="{{leftList[index]}}">
+            <image class="Show_Image" lazy-load  src='{{item.Cover}}' mode="aspectFill" style="height: {{item.ShowHeight > 500 ? 500+'rpx':item.ShowHeight+'rpx'}};" binderror="binderrorimg" bindload='onLazyLoad'></image>
+            <span class="pic_Title">
+              <span class="pic_Label">#{{item.Label}}</span>{{item.Title}}
+            </span>
+            <image src="{{item.iconUrl}}" class="text_user"/>
+            <span class="text_username">{{item.nickName}}</span>
+            <span class="comment">
+              <image src="../../../images/comment.png" class="commentImg"/>
+              <span class="commentNum" >{{item.CommentList?item.CommentList.length:0}}</span>
+            </span>
+          </view>
+        </block>
+      </view>
+      <view class='right'>
+        <block wx:for="{{rightList}}" wx:key="index">
+          <view class="pic" bindtap="ShowContent" data-index="{{rightList[index]}}">
+            <image class="Show_Image" lazy-load src='{{item.Cover}}' mode="aspectFill"  style="height: {{item.ShowHeight > 500 ? 500+'rpx':item.ShowHeight+'rpx'}};" binderror="binderrorimg" bindload='onLazyLoad'></image>
+            <span class="pic_Title">
+              <span class="pic_Label">#{{item.Label}}</span>{{item.Title}}
+            </span>
+            <image src="{{item.iconUrl}}" class="text_user"/>
+            <span class="text_username">{{item.nickName}}</span>
+            <span class="comment">
+              <image src="../../../images/comment.png" class="commentImg"/>
+              <span class="commentNum">{{item.CommentList?item.CommentList.length:0}}</span>
+            </span>
+          </view>
+        </block>
+      </view>
+    </view>
+</view>
