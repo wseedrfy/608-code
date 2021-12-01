@@ -16,15 +16,11 @@ page{
 .SearchInput{
   display: flex;
   justify-content: center;
-  width: 90rpx;
+  width: 240rpx;
   margin-left: 10rpx;
   font-size: 25rpx;
   border-radius: 15rpx;
   background-color: rgba(202, 202, 202, 0.342);
-}
-.search{
-  padding-left: 8rpx;
-  font-size: 24rpx;
 }
 .head_second image {
   margin-left: 10rpx;

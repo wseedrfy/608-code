@@ -8,8 +8,9 @@ exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
   if(event.type == "read"){
     if(event.ShowId!="全部"){
+      if(event.addAft==0){
       try {
-          return await db.collection('Campus-Circle').where({Label:event.ShowId}).skip(event.currentPage * 10).limit(10).get({
+          return await db.collection('Campus-Circle').orderBy('Time','desc').where({Label:event.ShowId}).skip(event.currentPage * 10).limit(10).get({
           success: res => {
             console.log("2333")
             return res
@@ -18,16 +19,40 @@ exports.main = async (event, context) => {
       } catch (e) {
         console.error(e);
       }
+      }else{
+        try {
+          return await db.collection('Campus-Circle').orderBy('Time','desc').where({Label:event.ShowId}).skip(event.currentPage * 10 + 1).limit(10).get({
+            success: res => {
+              console.log("2333")
+              return res
+            }
+          });
+      } catch (e) {
+        console.error(e);
+      }
+      }
     }else{
+      if(event.addAft==0){
       try {
-        return await db.collection('Campus-Circle').where({ }).skip(event.currentPage * 10).limit(10).get({
-        success: res => {
-          return res
+        return await db.collection('Campus-Circle').orderBy('Time','desc').where({ }).skip(event.currentPage * 10).limit(10).get({
+          success: res => {
+            return res
+          }
+        });
+      } catch (e) {
+        console.error(e);
+      }
+      }else{
+        try {
+          return await db.collection('Campus-Circle').orderBy('Time','desc').where({ }).skip(event.currentPage * 10 + 1).limit(10).get({
+            success: res => {
+              return res
+            }
+          });
+        } catch (e) {
+          console.error(e);
         }
-      });
-    } catch (e) {
-      console.error(e);
-    }
+      }
     }
   }
   if(event.type == "write"){
