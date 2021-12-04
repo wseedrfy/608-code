@@ -102,6 +102,7 @@ Page({
     formTitle:' ',
     formText:' ',
     showModel:false,
+    searchShow:false,
     tempFilePaths: '',
     Label:'全部',
     imageHeight:0,
@@ -118,15 +119,6 @@ Page({
   },
   onLazyLoad(info) {
     console.log(info)
-  },
-  search_Animate:function(e){
-    this.animate('.SearchInput', [{
-      opacity: '1',
-      width: '90rpx',
-    }, {
-      opacity: '1',
-      width: '270rpx',
-    }],1000)
   },
   search_Input:function(e){
     console.log("e.",e.detail.value)
@@ -658,6 +650,7 @@ Page({
     this.data.noramalData
     console.log("onShow-Atf")
     currentPage=0
+    console.log("currpage",currentPage)
     this.getData()
   },
 

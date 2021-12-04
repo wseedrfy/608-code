@@ -12,19 +12,14 @@ page{
   font-size: 30rpx;
   width: 750rpx;
 }
-
 .SearchInput{
   display: flex;
   justify-content: center;
-  width: 90rpx;
+  width: 240rpx;
   margin-left: 10rpx;
   font-size: 25rpx;
   border-radius: 15rpx;
   background-color: rgba(202, 202, 202, 0.342);
-}
-.search{
-  padding-left: 8rpx;
-  font-size: 24rpx;
 }
 .head_second image {
   margin-left: 10rpx;
@@ -256,10 +251,6 @@ page{
 .commentImg{
   width: 36rpx;
   height: 36rpx;
-  /* position: relative;
-  bottom: 10rpx;
-  left: 150rpx; */
-  /* margin: 10rpx 0rpx 10rpx 150rpx; */
 }
 .commentNum{
   font-size: 22rpx;
