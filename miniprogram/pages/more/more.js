@@ -2,6 +2,8 @@
 var app = getApp()  
 var util = require("../../utils/util")
 let currentPage = 0 // 当前第几页,0代表第一页 
+let TurnPage=0
+let Detail
 Page({
   /**
    * 页面的初始数据
@@ -102,7 +104,6 @@ Page({
     formTitle:' ',
     formText:' ',
     showModel:false,
-    searchShow:false,
     tempFilePaths: '',
     Label:'全部',
     imageHeight:0,
@@ -118,10 +119,14 @@ Page({
     fileIDs:[],
     addAft:0,
     ImgAft:0,
+    Showtabitem:0,
+    direction:" ",
+    directionIndex:0,
   },
   onLazyLoad(info) {
     console.log(info)
   },
+  
   search_Input:function(e){
     console.log("e.",e.detail.value)
     console.log("this.data.noramalData",this.data.noramalData)
@@ -239,16 +244,32 @@ Page({
     }
   },
   User(){
+    TurnPage=1
     wx.navigateTo({
       url: "UserContent/UserContent",
     })
   },
-  ShowContent:function(e){
-    var content=JSON.stringify(e.currentTarget.dataset.index)
-    console.log("content",content)
-    wx.navigateTo({
-      url: "DetailContent/DetailContent?content=" + content,
-    })
+  ShowContentLeft:function(e){
+    this.data.direction="Left"
+    var index=e.currentTarget.dataset.index
+    this.data.directionIndex=index
+    var content=JSON.stringify(this.data.leftList[index])
+     TurnPage=1
+     console.log("content233",content)
+     wx.navigateTo({
+       url: "DetailContent/DetailContent?content=" + content,
+     })
+  },
+  ShowContentRight:function(e){
+    this.data.direction="Right"
+    var index=e.currentTarget.dataset.index
+    this.data.directionIndex=index
+    var content=JSON.stringify(this.data.rightList[index])
+     TurnPage=1
+     console.log("content233",content)
+     wx.navigateTo({
+       url: "DetailContent/DetailContent?content=" + content,
+     })
   },
   chooseimage: function () {  
     var that = this; 
@@ -314,6 +335,11 @@ Page({
   },
   setTab: function(e) {
     var arry = this.data.tabitem
+    if(this.data.Showtabitem==1){
+      arry[0].type=0
+      console.log("2333")
+    }
+    this.data.Showtabitem=0
     var index = e.currentTarget.dataset.index
     var title = e.currentTarget.dataset.title
     this.data.Label=arry[index].title
@@ -425,6 +451,7 @@ Page({
 
     //以本地数据为例，实际开发中数据整理以及加载更多等实现逻辑可根据实际需求进行实现   
   onLoad: function() {
+    this.data.Showtabitem=1
     var that =this 
    //加载缓存获得学校和用户名和头像
    wx.getStorage({
@@ -435,12 +462,16 @@ Page({
        var school = data.school
        var nickname =data.nickName
        var iconUrl =data.iconUrl
+       var arry=that.data.tabitem
+       arry[0].type=1
        console.log(school)
        //that.getData()
        that.setData({
          school:school,
          nickname:nickname,
-         iconUrl:iconUrl})
+         iconUrl:iconUrl,
+         tabitem: arry,
+      })
      }
    })
   },
@@ -482,6 +513,7 @@ Page({
         title: '加载更多中',
       })
       that.getData()
+      console.log("currentPage-onReachBottom",currentPage)
       wx.hideLoading()
       //加载更多，这里做下延时加载
 
@@ -586,15 +618,17 @@ Page({
             leftH:that.data.leftH,
             right:that.data.rightH,
             noramalData: Batch_Data, //获取数据数组    
-            loadMore: false //把"上拉加载"的变量设为false，显示  
+            loadMore: false, //把"上拉加载"的变量设为false，显示  
+            DataNull:1,
           });
           if (res.result.data.length < 10) {
             that.setData({
               loadMore: false, //隐藏加载中。。
-              loadAll: true //所有数据都加载完了
+              loadAll: true, //所有数据都加载完了
+              DataNull:0,
             });
           }
-         } else {
+        } else {
           if(that.data.leftH==0 && that.data.rightH==0){
             that.setData({
               leftList: [],
@@ -603,7 +637,8 @@ Page({
           }
           that.setData({
             loadAll: true, //把“没有数据”设为true，显示  
-            loadMore: false //把"上拉加载"的变量设为false，隐藏  
+            loadMore: false, //把"上拉加载"的变量设为false，隐藏  
+            DataNull:0,
           });
         }
       },
@@ -619,6 +654,10 @@ Page({
   onPullDownRefresh(){
     wx.showNavigationBarLoading() //在标题栏中显示加载
     console.log("下拉刷新")
+    wx.showToast({
+      title: '刷新中',
+      icon: 'loading',
+    })
     var that =this
     setTimeout( function() {
       that.data.leftList=[]
@@ -631,24 +670,30 @@ Page({
       that.getData()
       wx.hideNavigationBarLoading() //完成停止加载
       wx.stopPullDownRefresh() //停止下拉刷新
-    },2500);
+    },1500);
     console.log("over")
   },
   onShow: function () {
-    console.log("this.data.ImgAft",this.data.ImgAft)
-    if(this.data.ImgAft!=1){
-    console.log("onshow")
-    this.data.leftList=[]
-    this.data.rightList=[]
-    this.data.leftH=0
-    this.data.rightH=0
-    this.data.noramalData
-    console.log("onShow-Atf")
-    currentPage=0
-    console.log("currpage",currentPage)
-    this.getData()
+    if(this.data.ImgAft!=1 && TurnPage!=1){
+      this.getData()
+    }
+    if(this.data.direction=="Left"){
+      var index=this.data.directionIndex
+      this.data.leftList[index].CommentList=app.globalData.Comment
+      this.setData({
+        leftList:this.data.leftList,
+        rightList:this.data.rightList
+      })
+    }else if(this.data.direction=="Right"){
+      var index=this.data.directionIndex
+      this.data.rightList[index].CommentList=app.globalData.Comment
+      this.setData({
+        leftList:this.data.leftList,
+        rightList:this.data.rightList
+      })
     }
     this.data.ImgAft=0
+    TurnPage=0
   },
 
 })

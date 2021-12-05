@@ -7,7 +7,10 @@ Page({
     CommentList:[],
     ContentTime:0,
     showEdit:false,
+    comEdit:false,
     CardID:"",
+    Commentindex:0,
+    ShowDelCom:0,
   },
   More:function(){
     var showEdit=this.data.showEdit
@@ -29,32 +32,129 @@ Page({
       })
     }
   },
+  EditComment:function(e){
+    var comEdit=this.data.comEdit
+    var that=this
+    var index=e.currentTarget.dataset.index
+    that.data.Commentindex=index
+    console.log("index",index)
+    if(index || index==0){
+      console.log("233")
+      console.log("that.data.CommentList[index].userName",that.data.CommentList[index].userName)
+      console.log("that.data.userName",that.data.userName)
+      if((that.data.CommentList[index].userName==that.data.userName && that.data.CommentList[index].iconUser==that.data.iconUrl) || (that.data.SentName==that.data.userName && that.data.SenticonUrl==that.data.iconUrl)){
+        that.data.ShowDelCom=1
+      }
+    }
+    if(comEdit){
+      that.setData({
+        edit_style:"edit_hide"
+      })
+      setTimeout(() => {
+        that.setData({
+          comEdit: !comEdit
+        })
+      }, 200);
+    }else{
+      that.setData({
+        edit_style:"edit_show",
+        comEdit:!comEdit,
+        ShowDelCom:that.data.ShowDelCom,
+        CommentName:that.data.ShowList[index].userName,
+        CommentContent:that.data.ShowList[index].InputContent
+      })
+    }
+    that.data.ShowDelCom=0
+  },
   DelCard:function(){
-    wx.cloud.callFunction({
-      name: 'CampusCircle',
-      data: {
-        id:this.data.CardID,
-        type: 'delCard'
-      }, success: res => { 
-        console.log("success")
-        this.setData({
-          showEdit:!this.data.showEdit
-        })
-        let pages = getCurrentPages();   //获取小程序页面栈
-        let beforePage = pages[pages.length -2];  //获取上个页面的实例对象
-        console.log("beforePage",beforePage)
-        beforePage.onLoad();
-        wx.navigateBack({
-          delta: 1,
-        })
-      }, 
-      fail: err => {
-        console.error
-        this.setData({
-          showEdit:!this.data.showEdit
-        })
-      },
-      
+    var that=this
+    wx.showModal({
+      title: '提示',
+      content: '确定删除?',
+      success (res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+          wx.cloud.callFunction({
+            name: 'CampusCircle',
+            data: {
+              id:that.data.CardID,
+              type: 'delCard'
+            }, success: res => { 
+              console.log("success")
+              that.setData({
+                showEdit:!that.data.showEdit
+              })
+              let pages = getCurrentPages();   //获取小程序页面栈
+              let beforePage = pages[pages.length -2];  //获取上个页面的实例对象
+              console.log("beforePage",beforePage)
+              beforePage.onLoad();
+              wx.navigateBack({
+                delta: 1,
+              })
+            }, 
+            fail: err => {
+              console.error
+              that.setData({
+                showEdit:!that.data.showEdit
+              })
+            },
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
+  DelComment:function(){
+    var index=this.data.Commentindex
+    var that=this
+    wx.showModal({
+      title: '提示',
+      content: '确定删除?',
+      success (res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+          that.data.CommentList.splice(index,1)
+          console.log("that.data.CommentList",that.data.CommentList)
+          wx.cloud.callFunction({
+            name: 'CampusCircle',
+            data: {
+              id:that.data.CardID,
+              CommentList:that.data.CommentList,
+              type: 'delComment',
+            }, success: res => { 
+              console.log("success")
+              that.ShowComment()
+              that.setData({
+                comEdit:!that.data.comEdit
+              })
+            }, 
+            fail: err => {
+              console.error
+              that.setData({
+                comEdit:!that.data.comEdit
+              })
+            },
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
+  
+  CopyComment:function(){
+    wx.setClipboardData({
+      //准备复制的数据
+       data: this.data.CommentContent,
+       success: function (res) {
+         wx.showToast({
+           title: '复制成功',
+         });
+       }
+    });
+    this.setData({
+      comEdit:!this.data.comEdit
     })
   },
   Comment_Inputting:function(){
@@ -99,6 +199,7 @@ Page({
   ShowComment:function(){
     var Show=[]
     var length=this.data.CommentList.length
+    console.log("length",length)
     for(let i=0;i<length;i++){
       var PreTime=this.data.CommentList[i].CommentTime
       console.log("PreTime",PreTime)
@@ -109,12 +210,14 @@ Page({
         iconUser:this.data.CommentList[i].iconUser,
         userName:this.data.CommentList[i].userName
       })
-      console.log("Show",Show)
-      this.setData({
-        ShowList:Show,
-        CommentNum:length
-      })
     }
+    console.log("Show",Show)
+    app.globalData.Comment=this.data.CommentList
+    console.log("app.globalData.Comment",app.globalData.Comment)
+    this.setData({
+      ShowList:Show,
+      CommentNum:length
+    })
   },
   /**
    * 页面的初始数据

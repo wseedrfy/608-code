@@ -9,16 +9,16 @@ exports.main = async (event, context) => {
   if(event.type == "read"){
     if(event.ShowId!="全部"){
       if(event.addAft==0){
-      try {
-          return await db.collection('Campus-Circle').orderBy('Time','desc').where({Label:event.ShowId}).skip(event.currentPage * 10).limit(10).get({
-          success: res => {
-            console.log("2333")
-            return res
-          }
-        });
-      } catch (e) {
-        console.error(e);
-      }
+        try {
+            return await db.collection('Campus-Circle').orderBy('Time','desc').where({Label:event.ShowId}).skip(event.currentPage * 10).limit(10).get({
+            success: res => {
+              console.log("2333")
+              return res
+            }
+          });
+        } catch (e) {
+          console.error(e);
+        }
       }else{
         try {
           return await db.collection('Campus-Circle').orderBy('Time','desc').where({Label:event.ShowId}).skip(event.currentPage * 10 + 1).limit(10).get({
@@ -27,21 +27,21 @@ exports.main = async (event, context) => {
               return res
             }
           });
-      } catch (e) {
-        console.error(e);
-      }
+        } catch (e) {
+          console.error(e);
+        }
       }
     }else{
       if(event.addAft==0){
-      try {
-        return await db.collection('Campus-Circle').orderBy('Time','desc').where({ }).skip(event.currentPage * 10).limit(10).get({
-          success: res => {
-            return res
-          }
-        });
-      } catch (e) {
-        console.error(e);
-      }
+        try {
+          return await db.collection('Campus-Circle').orderBy('Time','desc').where({ }).skip(event.currentPage * 10).limit(10).get({
+            success: res => {
+              return res
+            }
+          });
+        } catch (e) {
+          console.error(e);
+        }
       }else{
         try {
           return await db.collection('Campus-Circle').orderBy('Time','desc').where({ }).skip(event.currentPage * 10 + 1).limit(10).get({
@@ -122,7 +122,7 @@ exports.main = async (event, context) => {
   }
   if(event.type == "readUser"){
     try {
-      return await db.collection('Campus-Circle').where({
+      return await db.collection('Campus-Circle').orderBy('Time','desc').where({
         nickName:event.nickname,
         iconUrl:event.iconUrl
       }).skip(event.currentPage * 10).limit(10).get({
@@ -137,6 +137,17 @@ exports.main = async (event, context) => {
   if(event.type == "delCard"){
     try {
       return await db.collection('Campus-Circle').doc(event.id).remove()
+    } catch (e) {
+    console.log(e)
+    }
+  }
+  if(event.type == "delComment"){
+    try {
+      return await db.collection('Campus-Circle').doc(event.id).update({
+        data: {
+          CommentList: event.CommentList
+        },
+      })
     } catch (e) {
     console.log(e)
     }

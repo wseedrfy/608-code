@@ -8,7 +8,7 @@
         <view class="CardMore_background" bindtap="More"></view>
         <view class="CardMore_contain {{edit_style}}" >
           <view class="CardMore_Title">编辑卡片</view>
-          <view class="DelCard" catchtap="DelCard">
+          <view class="DelCard" bindtap="DelCard">
             <image src="../../../images/del.png" class="DelCard"/>
           </view>
         </view>
@@ -42,7 +42,7 @@
           </span>
         </view>
       </form>
-      <view class="Show_Commend" wx:for="{{ShowList}}" wx:key="kk" data-item="item">
+      <view class="Show_Commend" wx:for="{{ShowList}}" wx:key="kk" data-item="item" bindtap="EditComment" data-index="{{index}}">
         <image src="{{item.iconUser}}" class="text_user"/>
         <span class="text_username">{{item.userName}}
           <view class="Comment_Content">{{item.InputContent}}
@@ -50,7 +50,35 @@
           </view>
         </span>
         <view class="Line_Second"></view>
+        <!-- <view class="EditCom" wx:if="{{comEdit}}">
+          <view class="EditCom_background" bindtap="EditComment"></view>
+          <view class="EditCom_contain {{edit_style}}" >
+            <view class="EditCom_Title">{{CommentName}}: {{CommentContent}}</view>
+            <view class="Line"></view>
+            <view class="CopyComment" bindtap="CopyComment">
+              复制
+            </view>
+            <view class="Line"></view>
+            <view class="DelComment" bindtap="DelComment">
+              删除
+            </view>
+          </view>
+        </view> -->
       </view>
+    </view>
+    <view class="EditCom" wx:if="{{comEdit}}">
+        <view class="EditCom_background" bindtap="EditComment"></view>
+        <view class="EditCom_contain {{edit_style}}" >
+          <view class="EditCom_Title">{{CommentName}}: {{CommentContent}}</view>
+          <view class="Line"></view>
+          <view class="CopyComment" bindtap="CopyComment">
+             复制
+          </view>
+          <view class="Line"></view>
+          <view class="DelComment" bindtap="DelComment" wx:if="{{ShowDelCom==1}}">
+             删除
+          </view>
+        </view>
     </view>
 
     

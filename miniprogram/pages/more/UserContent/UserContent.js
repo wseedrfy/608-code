@@ -16,14 +16,36 @@ Page({
     iconUrl:"",
     loadMore: false, //"上拉加载"的变量，默认false，隐藏  
     loadAll: false, //“没有数据”的变量，默认false，隐藏 
+    direction:" ",
+    directionIndex:0,
   },
-  ShowContent:function(e){
-    var content=JSON.stringify(e.currentTarget.dataset.index)
+  // ShowContent:function(e){
+  //   var content=JSON.stringify(e.currentTarget.dataset.index)
+  //   var del=1
+  //   console.log("content",content)
+  //   wx.navigateTo({
+  //     url: "../DetailContent/DetailContent?content=" + content + "&del=" + del, 
+  //   })
+  // },
+  ShowContentLeft:function(e){
+    this.data.direction="Left"
+    var index=e.currentTarget.dataset.index
     var del=1
-    console.log("content",content)
-    wx.navigateTo({
-      url: "../DetailContent/DetailContent?content=" + content + "&del=" + del, 
-    })
+    this.data.directionIndex=index
+    var content=JSON.stringify(this.data.leftList[index])
+     wx.navigateTo({
+       url: "../DetailContent/DetailContent?content=" + content + "&del=" + del,
+     })
+  },
+  ShowContentRight:function(e){
+    this.data.direction="Right"
+    var index=e.currentTarget.dataset.index
+    var del=1
+    this.data.directionIndex=index
+    var content=JSON.stringify(this.data.rightList[index])
+     wx.navigateTo({
+       url: "../DetailContent/DetailContent?content=" + content + "&del=" + del,
+     })
   },
   onLazyLoad(info) {
     console.log(info)
@@ -68,12 +90,14 @@ Page({
             rightList: that.data.rightList,
             leftH:that.data.leftH,
             right:that.data.rightH,
-            loadMore: false //把"上拉加载"的变量设为false，显示  
+            loadMore: false, //把"上拉加载"的变量设为false，显示  
+            DataNull:1,
           });
           if (res.result.data.length < 10) {
             that.setData({
               loadMore: false, //隐藏加载中。。
-              loadAll: true //所有数据都加载完了
+              loadAll: true, //所有数据都加载完了
+              DataNull:0,
             });
           }
          } else {
@@ -85,7 +109,8 @@ Page({
           }
           that.setData({
             loadAll: true, //把“没有数据”设为true，显示  
-            loadMore: false //把"上拉加载"的变量设为false，隐藏  
+            loadMore: false, //把"上拉加载"的变量设为false，隐藏  
+            DataNull:0,
           });
         }
       },
@@ -138,6 +163,25 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    // currentPage=0
+    // this.getData()
+    if(this.data.direction=="Left"){
+      var index=this.data.directionIndex
+      this.data.leftList[index].CommentList=app.globalData.Comment
+      console.log("this.data.leftList[index]",this.data.leftList[index])
+      this.setData({
+        leftList:this.data.leftList,
+        rightList:this.data.rightList
+      })
+    }else if(this.data.direction=="Right"){
+      var index=this.data.directionIndex
+      this.data.rightList[index].CommentList=app.globalData.Comment
+      console.log("this.data.rightList[index]",this.data.rightList[index])
+      this.setData({
+        leftList:this.data.leftList,
+        rightList:this.data.rightList
+      })
+    }
   },
 
   /**
