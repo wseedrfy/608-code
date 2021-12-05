@@ -7,7 +7,9 @@
       <!-- 导航栏 -->
       <view class="head_second"  style="height: {{lineHeight}}px;" > 
           <image src="../../images/search.png" />
-          <input class="SearchInput" value="{{search}}" bindinput="search_Input"/>
+          <view class="searchFrame">
+            <input class="SearchInput" value="{{search}}" bindinput="search_Input"/>
+          </view>
       </view>
     </view>
   </view>
@@ -24,9 +26,9 @@
   <view class="Line"></view>
   <scroll-view>
     <view class='content'>
-      <view class='left'>
+      <view class='left' >
         <block wx:for="{{leftList}}" wx:key="index">
-          <view class="pic" bindtap="ShowContent" data-index="{{leftList[index]}}">
+          <view class="pic" bindtap="ShowContentLeft" data-index="{{index}}">
             <image class="Show_Image" lazy-load  src='{{item.Cover}}' mode="aspectFill" style="height: {{item.ShowHeight > 500 ? 500+'rpx':item.ShowHeight+'rpx'}};" binderror="binderrorimg" bindload='onLazyLoad'></image>
             <span class="pic_Title">
               <span class="pic_Label">#{{item.Label}}</span>{{item.Title}}
@@ -42,7 +44,7 @@
       </view>
       <view class='right'>
         <block wx:for="{{rightList}}" wx:key="index">
-          <view class="pic" bindtap="ShowContent" data-index="{{rightList[index]}}">
+          <view class="pic" bindtap="ShowContentRight" data-index="{{index}}">
             <image class="Show_Image" lazy-load src='{{item.Cover}}' mode="aspectFill"  style="height: {{item.ShowHeight > 500 ? 500+'rpx':item.ShowHeight+'rpx'}};" binderror="binderrorimg" bindload='onLazyLoad'></image>
             <span class="pic_Title">
               <span class="pic_Label">#{{item.Label}}</span>{{item.Title}}
@@ -57,6 +59,7 @@
         </block>
       </view>
     </view>
+    <view class="DataNull" wx:if="{{DataNull==0}}">-无更多内容-</view>
   </scroll-view>
   <view class="img-button Add_Content-btn" bindtap="add">
     <image src="/images/btn_feed@2x.png" class="Add_Content"></image>

@@ -80,3 +80,9 @@
   padding:0rpx 15rpx 0rpx 0rpx;
  
 }
+.DataNull{
+  font-size: 26rpx;
+  color: #2c2c2cb4;
+  display: flex;
+  justify-content: center;
+}

@@ -12,8 +12,7 @@ page{
   font-size: 30rpx;
   width: 750rpx;
 }
-
-.SearchInput{
+.searchFrame{
   display: flex;
   justify-content: center;
   width: 240rpx;
@@ -21,6 +20,10 @@ page{
   font-size: 25rpx;
   border-radius: 15rpx;
   background-color: rgba(202, 202, 202, 0.342);
+}
+.SearchInput{
+  width:95%;
+  padding:0rpx 3rpx;
 }
 .head_second image {
   margin-left: 10rpx;
@@ -46,6 +49,7 @@ page{
 }
  .Show_Image{
    width:360rpx;
+   background-color: #ebebebd8;
  }
 .pic{
   border-radius: 10rpx;
@@ -301,6 +305,12 @@ page{
   line-height: 36rpx;
   padding:0rpx 15rpx 0rpx 0rpx;
  
+}
+.DataNull{
+  font-size: 26rpx;
+  color: #2c2c2cb4;
+  display: flex;
+  justify-content: center;
 }
 
 swiper{
