@@ -116,6 +116,8 @@ Page({
     loadMore: false, //"上拉加载"的变量，默认false，隐藏  
     loadAll: false, //“没有数据”的变量，默认false，隐藏 
     fileIDs:[],
+    addAft:0,
+    ImgAft:0,
   },
   onLazyLoad(info) {
     console.log(info)
@@ -250,6 +252,8 @@ Page({
   },
   chooseimage: function () {  
     var that = this; 
+    that.data.ImgAft=1
+    console.log("ImgAft")
     if(that.data.photo.length==0){
       wx.chooseImage({  
         count: 2,
@@ -269,7 +273,7 @@ Page({
             }
           })
         }  
-      })  
+      })
     }
   }, 
   deleteImage: function (e) {
@@ -324,6 +328,7 @@ Page({
     this.data.leftH=0
     this.data.rightH=0
     this.data.noramalData=[]
+    this.data.addAft=0
     this.getData()
   },
   clickMenu: function (e) {
@@ -506,29 +511,12 @@ Page({
           iconUrl:that.data.noramalData[NewData].iconUrl,
           type: 'write'
         }, success: res => {
-          console.log(res)
+          console.log("add",res)
           wx.showToast({
             duration:4000,
             title: '添加成功'
           })
-          console.log("that.data.rightH",that.data.rightH)
-          console.log("that.data.leftH",that.data.leftH)
-          console.log("that.data.Label",that.data.Label)
-          console.log("that.data.choosenLabel",that.data.choosenLabel)
-          console.log("that.data.Label",that.data.Label)
-          if((that.data.rightH<500 || that.data.leftH<500 || that.data.resultLength==0) && (that.data.Label==that.data.choosenLabel || that.data.Label=="全部")){
-            if (that.data.leftH == that.data.rightH || that.data.leftH < that.data.rightH) {//判断左右两侧当前的累计高度，来确定item应该放置在左边还是右边
-              that.data.leftList.push(that.data.noramalData[NewData]);
-              that.data.leftH += that.data.noramalData[NewData].ShowHeight;
-            } else {
-              that.data.rightList.push(that.data.noramalData[NewData]);
-              that.data.rightH += that.data.noramalData[NewData].ShowHeight;
-            }
-            that.setData({
-              leftList: that.data.leftList,
-              rightList: that.data.rightList,
-            })
-          }
+          that.data.addAft=1
         }, 
         fail: err => {
           wx.showToast({
@@ -569,7 +557,8 @@ Page({
       data:{
         type:"read",
         currentPage:currentPage,
-        ShowId:that.data.Label        
+        ShowId:that.data.Label,
+        addAft:that.data.addAft,        
       },
       success(res){
         console.log("res.result.data",res.result.data)
@@ -631,17 +620,23 @@ Page({
     wx.showNavigationBarLoading() //在标题栏中显示加载
     console.log("下拉刷新")
     var that =this
-    setTimeout(function()
-    {
-    // complete
-    that.getData()
-    wx.hideNavigationBarLoading() //完成停止加载
-    wx.stopPullDownRefresh() //停止下拉刷新
-    
+    setTimeout( function() {
+      that.data.leftList=[]
+      that.data.rightList=[]
+      that.data.leftH=0
+      that.data.rightH=0
+      that.data.noramalData=[]
+      that.data.addAft=0
+      currentPage=0
+      that.getData()
+      wx.hideNavigationBarLoading() //完成停止加载
+      wx.stopPullDownRefresh() //停止下拉刷新
     },2500);
     console.log("over")
   },
   onShow: function () {
+    console.log("this.data.ImgAft",this.data.ImgAft)
+    if(this.data.ImgAft!=1){
     console.log("onshow")
     this.data.leftList=[]
     this.data.rightList=[]
@@ -652,6 +647,8 @@ Page({
     currentPage=0
     console.log("currpage",currentPage)
     this.getData()
+    }
+    this.data.ImgAft=0
   },
 
 })

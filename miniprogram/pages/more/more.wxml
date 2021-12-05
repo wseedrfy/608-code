@@ -7,7 +7,11 @@
       <!-- 导航栏 -->
       <view class="head_second"  style="height: {{lineHeight}}px;" > 
           <image src="../../images/search.png" />
+<<<<<<< HEAD
           <input class="SearchInput " value="{{search}}" bindinput="search_Input"/>
+=======
+          <input class="SearchInput" value="{{search}}" bindinput="search_Input"/>
+>>>>>>> 38b9b31ff07bc671cfe0b7d3031d97f4e4c0261d
       </view>
     </view>
   </view>
