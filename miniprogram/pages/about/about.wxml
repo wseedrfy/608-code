@@ -1,19 +1,10 @@
 <view class="container page">
-  <!-- 
-  <view class="header">
-    <view class="black-cover">
-    </view>
-    <image class="logo" src="https://z4a.net/images/2019/02/20/blur.jpg">
-    </image>
-    <image class="title" src="/images/title.png">
-    </image>///
-  </view>
-  -->
+
   <view class="content">
     <view class="version">
       <view class="version-title">
         <text class="title-name">We校园</text>
-        <!-- <text class="version-text">公测1.2.0</text> -->
+        <!-- <text class="version-text">{{version}}</text> -->
       </view>
     </view>
     <view class="describe">
@@ -41,13 +32,13 @@
           <view class="coperatorName">{{item.nickName}}</view>
         </view>
       </view>
-      <text class="desc-title">关联We广油</text>
+      <!-- <text class="desc-title">关联We广油</text>
       <text class="desc-content" style='text-indent:2em;'>若您或者您的朋友在运营与本校相关的公众号（学生组织/社团/校园自媒体等），「WE广油」诚挚地欢迎您的公众号关联我们的小程序，并期待合作！\r\n \r\n \r\n  </text>
 
       <text class="desc-content" style='text-indent:2em;'>忘记密码和修改密码都是在教务处网站修改！\r\n  </text>
 
       <view class="button-sp-area">
-      </view>
+      </view> -->
 
 
       <button class="weui-btn" type="primary" plain="true" session-from='{"nickName":"{{userInfo.nickName}}", "avatarUrl":"{{userInfo.avatarUrl}}"' open-type='contact'>联系客服</button>
@@ -58,7 +49,7 @@
   <view class="footer">
     <view class="footer-beingshawn">
     </view>
-    <text>WE广油</text>
-    <text>Copyright @ 2019</text>
+    <text>WE校园</text>
+    <text>Copyright @ 2021</text>
   </view>
 </view>
