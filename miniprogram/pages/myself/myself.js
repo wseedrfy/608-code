@@ -1,7 +1,9 @@
 // index.js
 // 获取应用实例
+const db = wx.cloud.database();
+const journal = db.collection('journal');
 const app = getApp()
-
+var pagecount = 1
 Page({
   data: {
     list:[
@@ -22,6 +24,7 @@ Page({
     isLogin:'',
     userInfo:[]
   },
+ 
   onLoad() {
     var that = this
     wx.getStorage({
@@ -31,6 +34,7 @@ Page({
           storageInfo:JSON.parse(res.data),
           isLogin:true
         });
+        // that.getJournalData()
       },
       fail(err) {
         that.data.isLogin = false;

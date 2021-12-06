@@ -1,4 +1,5 @@
 // pages/features/about.js
+var app=getApp()
 Page({
 
   /**
@@ -9,7 +10,7 @@ Page({
     height: '',
     coder: [{
       avatar: '/images/about/zw.jpg',
-      nickName: 'U.'
+      nickName: 'u.'
     },
     {
       avatar: '/images/about/xld.jpg',
@@ -30,16 +31,16 @@ Page({
 
     ],
     servicer: [{
-      avatar: 'cloud://un1-d62c68.756e-un1-d62c68-1258307938/UncAnnyZ.png',
-      nickName: 'UncAnnyZ'
+      avatar: '/images/about/zw.jpg',
+      nickName: 'u.'
     },
     {
-      avatar: 'cloud://un1-d62c68.756e-un1-d62c68-1258307938/猪大肠居仔HL.png',
-      nickName: '猪大肠'
+      avatar: '/images/about/yq.jpg',
+      nickName: 'Grace'
     },
     {
-      avatar: 'cloud://un1-d62c68.756e-un1-d62c68-1258307938/Luella.png',
-      nickName: 'Luella'
+      avatar: '/images/about/zt.jpg',
+      nickName: '騰丶'
     }
     ],
   },
@@ -49,12 +50,16 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
+    console.log(app.globalData.verse)
+    
     that.setData({
       width: wx.getSystemInfoSync().windowWidth * 0.9 + 'px',
-      height: wx.getSystemInfoSync().windowWidth * 0.9 * 0.5625 + 'px'
+      height: wx.getSystemInfoSync().windowWidth * 0.9 * 0.5625 + 'px',
+      version:app.globalData.verse
     })
 
   },
+  
   copyID: function () {
     wx.setClipboardData({
       data: 'wxd1eacf33b4ed0195'

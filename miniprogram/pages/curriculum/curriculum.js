@@ -86,13 +86,13 @@ Page({
     }
   },
   // 点击上面课表进行切换
-  clickWeek: function (e) {
-    this.kb(this.data.whichWeek);
-    this.setData({
-      whichWeek: Number(e.currentTarget.id) + 1,
-    })
-  
-  },
+  // clickWeek: function (e) {
+  //   this.kb(this.data.whichWeek);
+  //   this.setData({
+  //     whichWeek: Number(e.currentTarget.id) + 1,
+  //   })
+  //   console.log(this.data.whichWeek)
+  // },
 
   // 触摸开始事件
   touchStart: function (e) {
@@ -119,9 +119,19 @@ Page({
   
 
   },
+    // 点击上面课表进行切换
+    clickWeek: function (e) {
+      // this.kb(this.data.whichWeek);
+      this.setData({
+        whichWeek: Number(e.currentTarget.id) + 1,
+      })
+      this.kb(this.data.whichWeek);
+      console.log(this.data.whichWeek)
+    },
   // 触摸结束事件
   touchEnd: function (e) {
     this.kb(this.data.whichWeek);
+    console.log(this.data.whichWeek)
     moveFlag = true; // 回复滑动事件
   },
   // 上一周
