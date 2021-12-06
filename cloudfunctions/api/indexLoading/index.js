@@ -6,7 +6,7 @@ exports.main = async (event) => {
   const usernameData = (await db.collection("user").where({
     openid: wxContext.OPENID
   }).get()).data[0]
-  delete usernameData.openid
+  usernameData ? delete usernameData.openid : null;
   const school = usernameData ? usernameData.school : '';
   const schoolInitData = (await db.collection("schoolLoading").where({
     schoolName: school ? school : '空'
