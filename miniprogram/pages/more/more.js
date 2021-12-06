@@ -27,7 +27,7 @@ Page({
         type:0
       },
       {
-        title:"悄悄话",
+        title:"学习",
         type:0
       },
       {
@@ -71,7 +71,7 @@ Page({
           cent: '情墙'
         },
         {
-          cent: '悄悄话'
+          cent: '学习'
         },
         {
           cent: '地点'

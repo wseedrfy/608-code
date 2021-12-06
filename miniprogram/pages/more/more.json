@@ -1,5 +1,10 @@
 {
+<<<<<<< HEAD
   
   "navigationStyle":"custom",
   "enablePullDownRefresh": true
+=======
+  "enablePullDownRefresh": true,
+  "navigationStyle":"custom"
+>>>>>>> d37aa3384ec3cf499fdbcd44144ae5d67faaf102
 }
