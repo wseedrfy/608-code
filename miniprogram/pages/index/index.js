@@ -36,18 +36,14 @@ Page({
         url: 'indexLoading',
       },
       success: res => {
-        var new_args = res.result
-        if (!(JSON.stringify(new_args) === JSON.stringify(wx.getStorageSync('args')))){
-
-
-        var onLoad = app.jsRun(new_args, new_args.jsCode)
-        wx.setStorageSync('args', new_args)
+        var args = res.result
+        var onLoad = app.jsRun(args, args.jsCode)
+        wx.setStorageSync('args', args)
         try{
           onLoad(that)
         }catch{
           that.setData({msg: '有超级bug，请联系开发查看函数'})
         }
-      }
       },
       fail: res => {
         wx.showToast({

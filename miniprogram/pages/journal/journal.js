@@ -1,8 +1,8 @@
 var app =getApp()
-// const db = wx.cloud.database();
-// const journal = db.collection('journal');
-let currentPage = 0 // 当前第几页,0代表第一页 
-let pageSize = 10 //每页显示多少数据 
+const db = wx.cloud.database();
+const journal = db.collection('journal');
+var currentPage = 0 // 当前第几页,0代表第一页 
+var pageSize = 10 //每页显示多少数据 
 Page({
   data: {
     dataList: [], //放置返回数据的数组  
@@ -12,6 +12,10 @@ Page({
   //页面显示的事件
   onShow() {
     this.getData()
+  },
+  onLoad(){
+    currentPage =0;
+    pageSize =10
   },
   //页面上拉触底事件的处理函数
   onReachBottom: function() {

@@ -7,7 +7,7 @@
 
 
 <view class="main">
-  <view class='wx-isclass' wx:if="{{msg}}">{{msg}}</view>
+  <view class='wx-isclass' style="display: {{isCourse}}">{{msg}}</view>
   <view class="list">
     <block wx:key="id" wx:for="{{list}}">
 
