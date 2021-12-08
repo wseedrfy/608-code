@@ -37,10 +37,10 @@ exports.main = async (event) => {
   })
   // 加载其他信息内容
   let otherData = {}
-  if(event.loadingOther){
+  if(usernameData.runOtherJS){
     try{
-      const School = require("./school/" + school + '/index.js') 
-      otherData =  await School.main(event)
+      const SchoolRunOther = require("./school/" + school + '/index.js') 
+      SchoolRunOther =  await School.main(event)
     }catch(e){
       return {
         ...usernameData,
