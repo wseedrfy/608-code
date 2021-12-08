@@ -2,8 +2,6 @@
 var app = getApp()  
 var util = require("../../utils/util")
 let currentPage = 0 // 当前第几页,0代表第一页 
-let TurnPage=0
-let Detail
 Page({
   /**
    * 页面的初始数据
@@ -118,7 +116,6 @@ Page({
     loadAll: false, //“没有数据”的变量，默认false，隐藏 
     fileIDs:[],
     addAft:0,
-    ImgAft:0,
     Showtabitem:0,
     direction:" ",
     directionIndex:0,
@@ -244,7 +241,7 @@ Page({
     }
   },
   User(){
-    TurnPage=1
+    //TurnPage=1
     wx.navigateTo({
       url: "UserContent/UserContent",
     })
@@ -254,7 +251,7 @@ Page({
     var index=e.currentTarget.dataset.index
     this.data.directionIndex=index
     var content=JSON.stringify(this.data.leftList[index])
-     TurnPage=1
+     //TurnPage=1
      console.log("content233",content)
      wx.navigateTo({
        url: "DetailContent/DetailContent?content=" + content,
@@ -265,7 +262,7 @@ Page({
     var index=e.currentTarget.dataset.index
     this.data.directionIndex=index
     var content=JSON.stringify(this.data.rightList[index])
-     TurnPage=1
+     //TurnPage=1
      console.log("content233",content)
      wx.navigateTo({
        url: "DetailContent/DetailContent?content=" + content,
@@ -273,8 +270,6 @@ Page({
   },
   chooseimage: function () {  
     var that = this; 
-    that.data.ImgAft=1
-    console.log("ImgAft")
     if(that.data.photo.length==0){
       wx.chooseImage({  
         count: 2,
@@ -408,6 +403,11 @@ Page({
         title: '标签不能为空',
         icon:'none'
       })
+    }else if(!that.data.nickname && !that.data.iconUrl){
+      wx.showToast({
+        title: '小主还没登录哟QwQ',
+        icon:'none'
+      })
     }else{
       var add={
         "Cover": that.data.photo[0],
@@ -422,11 +422,11 @@ Page({
         "School":that.data.school,
         "iconUrl":that.data.iconUrl
       }
+      console.log("that.data.nickname-Input",that.data.nickname)
       that.data.noramalData.push(add)
       var NewData=that.data.noramalData.length-1
       that.CalculateImage()
       that.uploadimg(NewData)
-      //that.uploadData(NewData)
     }
   },
 
@@ -453,6 +453,7 @@ Page({
   onLoad: function() {
     this.data.Showtabitem=1
     var that =this 
+    var i=0
    //加载缓存获得学校和用户名和头像
    wx.getStorage({
      key:"data",
@@ -465,14 +466,41 @@ Page({
        var arry=that.data.tabitem
        arry[0].type=1
        console.log(school)
-       //that.getData()
+       currentPage=0
+       if(i==0){
+          that.getData()
+          i++
+       }
        that.setData({
          school:school,
          nickname:nickname,
          iconUrl:iconUrl,
          tabitem: arry,
       })
-     }
+     },fail(res){
+        var arry=that.data.tabitem
+        console.log("请求失败")
+        arry[0].type=1
+        currentPage=0
+        if(i==0){
+          that.getData()
+          i++
+        }
+        that.setData({
+          tabitem: arry,
+        })
+        wx.showModal({
+          title: '提示',
+          content: '小主还没登录哟QwQ',
+          success (res) {
+            if (res.confirm) {
+              console.log('用户点击确定')
+            } else if (res.cancel) {
+              console.log('用户点击取消')
+            }
+          }
+        })
+    }
    })
   },
     //将本地图片上传到云存储进行存储，后续通过fileid进行图片展示
@@ -583,6 +611,8 @@ Page({
         loadAll: false //把“没有数据”设为false，隐藏  
       })
     }
+    console.log("that.data.addAft",that.data.addAft)
+    console.log("currentPage",currentPage)
     //云数据的请求
     wx.cloud.callFunction({
       name:"CampusCircle",
@@ -590,7 +620,8 @@ Page({
         type:"read",
         currentPage:currentPage,
         ShowId:that.data.Label,
-        addAft:that.data.addAft,        
+        addAft:that.data.addAft,
+        School:that.data.school        
       },
       success(res){
         console.log("res.result.data",res.result.data)
@@ -674,9 +705,6 @@ Page({
     console.log("over")
   },
   onShow: function () {
-    if(this.data.ImgAft!=1 && TurnPage!=1){
-      this.getData()
-    }
     if(this.data.direction=="Left"){
       var index=this.data.directionIndex
       this.data.leftList[index].CommentList=app.globalData.Comment
@@ -692,8 +720,6 @@ Page({
         rightList:this.data.rightList
       })
     }
-    this.data.ImgAft=0
-    TurnPage=0
   },
 
 })
