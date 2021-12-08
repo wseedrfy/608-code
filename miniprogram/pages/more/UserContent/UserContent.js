@@ -128,6 +128,7 @@ Page({
    */
   onLoad: function (options) {
     var that =this 
+    var i=0
     that.data.leftList=[],
     that.data.rightList=[],
     that.data.leftH=0,
@@ -146,8 +147,26 @@ Page({
           nickname:nickname,
           iconUrl:iconUrl
         })
-        currentPage=0
-        that.getData()
+        if(i==0){
+          currentPage=0
+          that.getData()
+          i++
+        }
+      },fail(res){
+        that.setData({
+          DataNull:0,
+        })
+        wx.showModal({
+          title: '提示',
+          content: '小主还没登录哟QwQ',
+          success (res) {
+            if (res.confirm) {
+              console.log('用户点击确定')
+            } else if (res.cancel) {
+              console.log('用户点击取消')
+            }
+          }
+        })
       }
     })
   },
@@ -163,8 +182,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    // currentPage=0
-    // this.getData()
+    //  currentPage=0
+    //  this.getData()
     if(this.data.direction=="Left"){
       var index=this.data.directionIndex
       this.data.leftList[index].CommentList=app.globalData.Comment
