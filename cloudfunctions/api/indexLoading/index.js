@@ -12,7 +12,6 @@ exports.main = async (event) => {
     schoolName: school ? school : '空'
   }).get()).data[0]
   var SchoolIndex = {}
-
   SchoolIndex = {
     SchoolIndex: {
       iconList: (await db.collection("jumpPage").where({
@@ -26,10 +25,8 @@ exports.main = async (event) => {
         schoolName: '通用'
       }).get()).data),
     }
-
   }
   SchoolIndex.SchoolIndex.iconList.forEach(e => {
-    console.log(e)
     if(e.type === '跳转WEB'){
       e.url = '/pages/common/common?type=web&url=' + e.url;
     }else if(e.type === '跳转小程序'){
@@ -38,9 +35,24 @@ exports.main = async (event) => {
       e.url = '/pages/common/common?type=commonPage&content=' + e.url;
     }
   })
+  // 加载其他信息内容
+  let otherData = {}
+  if(event.loadingOther){
+    try{
+      const School = require("./school/" + school + '/index.js') 
+      otherData =  await School.main(event)
+    }catch(e){
+      return {
+        ...usernameData,
+        ...schoolInitData,
+        ...SchoolIndex,
+      }
+    }
+  }
   return {
     ...usernameData,
     ...schoolInitData,
-    ...SchoolIndex
+    ...SchoolIndex,
+    ...otherData
   }
 }

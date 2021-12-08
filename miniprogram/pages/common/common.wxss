@@ -1,7 +1,7 @@
 @import "../../template/showCommonPage/template.wxss";
 
 page {
-  background-color: #fffcfc;
+  background-color: #ffffff;
 }
 
 .main {
