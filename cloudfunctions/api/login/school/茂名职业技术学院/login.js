@@ -1,7 +1,6 @@
 var got = require('got'); //引用 got
 var querystring = require("querystring");
 const cloud = require('wx-server-sdk');
-const {get} = require("../../../../../miniprogram/utils/api");
 cloud.init();
 const db = cloud.database()
 const _ = db.command;
@@ -16,7 +15,7 @@ exports.main = async (event) => {
   let getResponse = await got('https://jwc.mmpt.edu.cn/default2.aspx') 
   let cookie = getResponse.headers["set-cookie"]
   //获取验证码
-  let yzm = await  got.get('https://jwc.mmpt.edu.cn/CheckCode.aspx',
+  let yzm = await  got('https://jwc.mmpt.edu.cn/CheckCode.aspx',
       {
         headers:{
           'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36(KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge / 18.18362',
