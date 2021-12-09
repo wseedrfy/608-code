@@ -9,8 +9,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "wx-server-sdk": "~2.5.3",
-    "got": "^9.6.0",
-    "querystring": "^0.2.0"
+    "fs": "^0.0.1-security",
+    "get-image-pixels": "^1.0.1",
+    "get-pixels": "^3.3.3",
+    "got": "^11.8.3",
+    "image-size": "^1.0.0",
+    "querystring": "^0.2.0",
+    "sync-request": "^6.1.0",
+    "wx-server-sdk": "~2.5.3"
   }
 }
