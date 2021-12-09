@@ -3,9 +3,7 @@ page{
   width: 100%;
   margin: 0;
   background-color: #f5f5f54d;
-  
 }
-
 .head_second {
   display: flex;
   align-items: center;
@@ -46,31 +44,6 @@ page{
 .right{
   width: 360rpx;
   margin-left: 10rpx;
-}
- .Show_Image{
-   width:360rpx;
-   background-color: #ebebebd8;
- }
-.pic{
-  border-radius: 10rpx;
-  width: 360rpx;
-  background-color: rgb(255, 255, 255);
-  margin-bottom: 10rpx;
-  overflow: hidden;
-}
-
-.pic_Title{
-  color:rgb(0, 0, 0);
-  font-size: 28rpx;
-  font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
-  line-height: 36rpx;
-  padding:8rpx 21rpx 0rpx 21rpx;
-  display: -webkit-box;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  word-break: break-all;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
 }
 
 .img-button {
@@ -234,7 +207,7 @@ page{
   top: 3rpx;
   box-shadow:0px 0px 4px rgba(153, 153, 153, 0.507) inset;
  }
-.text_user{
+ .text_user{
   width:35rpx;
   height:35rpx;
   border-radius: 50rpx;
@@ -266,7 +239,7 @@ page{
   position:relative;
   bottom: 13rpx;
   left: 7rpx;
-}
+} 
 .Choose_Label{
   width:100%;
   height:73rpx;
@@ -298,14 +271,7 @@ page{
   align-items: center;
   justify-content: center;
 }
-.pic_Label{
-  color:rgb(255, 190, 70);
-  font-size: 25rpx;
-  font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
-  line-height: 36rpx;
-  padding:0rpx 15rpx 0rpx 0rpx;
- 
-}
+
 .DataNull{
   font-size: 26rpx;
   color: #2c2c2cb4;

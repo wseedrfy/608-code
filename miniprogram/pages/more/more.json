@@ -1,5 +1,8 @@
 {
-  
+  "usingComponents": {
+    "campusCards": "../../components/campusCards/campusCards",
+    "publishCards": "../../components/publishCards/publishCards"
+  },
   "navigationStyle":"custom",
   "enablePullDownRefresh": true
 }

@@ -96,13 +96,13 @@ Page({
       hideHidden: true
       }
     ,
-    imgShow:false,
+    //imgShow:false,
     leftList: [],
     rightList: [],
     formTitle:' ',
     formText:' ',
     showModel:false,
-    tempFilePaths: '',
+    //tempFilePaths: '',
     Label:'全部',
     imageHeight:0,
     imageWidth:0,
@@ -110,7 +110,7 @@ Page({
     leftH:0,
     rightH:0,
     photo:[],
-    Input:"",
+    //Input:"",
     resultLength:0,
     loadMore: false, //"上拉加载"的变量，默认false，隐藏  
     loadAll: false, //“没有数据”的变量，默认false，隐藏 
@@ -119,9 +119,6 @@ Page({
     Showtabitem:0,
     direction:" ",
     directionIndex:0,
-  },
-  onLazyLoad(info) {
-    console.log(info)
   },
   
   search_Input:function(e){
@@ -246,28 +243,17 @@ Page({
       url: "UserContent/UserContent",
     })
   },
-  ShowContentLeft:function(e){
+  leftDirection:function(){
     this.data.direction="Left"
-    var index=e.currentTarget.dataset.index
-    this.data.directionIndex=index
-    var content=JSON.stringify(this.data.leftList[index])
-     //TurnPage=1
-     console.log("content233",content)
-     wx.navigateTo({
-       url: "DetailContent/DetailContent?content=" + content,
-     })
   },
-  ShowContentRight:function(e){
+  rightDirection:function(){
     this.data.direction="Right"
-    var index=e.currentTarget.dataset.index
-    this.data.directionIndex=index
-    var content=JSON.stringify(this.data.rightList[index])
-     //TurnPage=1
-     console.log("content233",content)
-     wx.navigateTo({
-       url: "DetailContent/DetailContent?content=" + content,
-     })
   },
+  getBackData(e){
+    this.data.directionIndex=e.detail
+    console.log("e.detail",e.detail)
+  },
+  
   chooseimage: function () {  
     var that = this; 
     if(that.data.photo.length==0){

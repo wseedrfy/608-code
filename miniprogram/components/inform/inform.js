@@ -8,6 +8,7 @@ Component({
       type: Array,
       value: []
     }
+    
   },
 
   /**
