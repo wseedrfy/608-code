@@ -2097,41 +2097,62 @@ exports.recogCaptcha = async (img_path, callback = async function(result) {}) =>
     },
   };
 
-
-
-  // 验证码识别函数
-  async function processCaptcha() {
-    // 首先确保载入样本集
-    charList.load();
-    let captchaImg
-    await getPixels(img_path, function (err, pixels) {
-      captchaImg = pixels.data
-
-      let { raw, normalized } = processImg(captchaImg);
-
-      let startTime = Date.now();
-
-      // 由于计算时间较长，把识别任务放到下一个MacroTask中执行，避免因为阻塞导致UI不能更新
-      return new Promise(function (resolve, reject) {
-        setTimeout(function () {
-          // 结果
-          let result = "";
-          normalized.forEach(function (v, i) {
-            let { distance, char: c } = charList.recognize(v);
-            // console.log(distance, c);
-            // console.log(v.width, c.width);
-            result += c.char;
-          });
-          resolve();
-          callback(result);
-        }, 0);
-      });
-    })
-  
-  }
-
-
-
+  return await processCaptcha(getPixels,processImg,charList)
 
 }
 
+// 验证码识别函数
+async function processCaptcha(getPixels, processImg, charList) {
+  
+  // 首先确保载入样本集
+  await charList.load();
+  let captchaImg;
+  var pixels = await getPixels(img_path)
+  captchaImg = pixels.data
+  let { raw, normalized } = await processImg(captchaImg);
+
+  let startTime = Date.now();
+  
+  let result = "";
+  await normalized.forEach(function (v, i) {
+    let { distance, char: c } = charList.recognize(v);
+    // console.log(distance, c);
+    // console.log(v.width, c.width);
+    result += c.char;
+  });
+  console.log(result)
+  return result;
+
+}
+
+
+  //  // 验证码识别函数
+  // async function processCaptcha() {
+  //   // 首先确保载入样本集
+  //   charList.load();
+  //   let captchaImg
+  //   await getPixels(img_path, function (err, pixels) {
+  //     captchaImg = pixels.data
+
+  //     let { raw, normalized } = processImg(captchaImg);
+
+  //     let startTime = Date.now();
+
+  //     // 由于计算时间较长，把识别任务放到下一个MacroTask中执行，避免因为阻塞导致UI不能更新
+  //     return new Promise(function (resolve, reject) {
+  //       setTimeout(function () {
+  //         // 结果
+  //         let result = "";
+  //         normalized.forEach(function (v, i) {
+  //           let { distance, char: c } = charList.recognize(v);
+  //           // console.log(distance, c);
+  //           // console.log(v.width, c.width);
+  //           result += c.char;
+  //         });
+  //         resolve();
+  //         callback(result);
+  //       }, 0);
+  //     });
+  //   })
+  
+  // }
