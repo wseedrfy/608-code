@@ -11,7 +11,7 @@ exports.main = async (event) => {
   if(!(event.password && event.username)){
     return {msg:'没有账号或者密码'}
   }
-  const wxContext = cloud.getWXContext()
+
   var _keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
     output = "";
   var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
@@ -73,31 +73,6 @@ exports.main = async (event) => {
     })
   })
   if (JSON.parse(postResponse.body).msg == "/login!welcome.action") {
-    const isHave = (await db.collection("user").where({
-      openid: wxContext.OPENID
-    }).get()).data.length
-    if(isHave === 0){
-      await db.collection('user').add({
-        data: {
-          openid: wxContext.OPENID,
-          username: Number(event.username),
-          password: event.password,
-          school: event.school,
-          iconUrl: event.iconUrl,
-          nickName: event.nickName
-        }
-      })
-    }else{
-      await db.collection('user').where({ openid: wxContext.OPENID }).update({
-        data: {
-          username: Number(event.username),
-          password: event.password,
-          school: event.school,
-          iconUrl: event.iconUrl,
-          nickName: event.nickName
-        }
-      })
-    }
     return {msg:'welcome'}
   } else {
     return JSON.parse(postResponse.body)
