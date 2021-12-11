@@ -89,6 +89,7 @@ Page({
                 url: '/pages/index/index'
               })
             } else {
+              console.log(res.result)
               wx.showToast({
                 icon: 'none',
                 title: res.result.msg,

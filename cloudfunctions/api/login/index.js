@@ -1,10 +1,12 @@
 
 const cloud = require('wx-server-sdk');
-const wxContext = cloud.getWXContext()
+cloud.init();
+const db = cloud.database()
 exports.main = async (event) => {
   try{
+    const wxContext = cloud.getWXContext()
     const loginSchool = require("./school/" + event.school + '/login.js') 
-    let returnData = await loginSchool.main(event)
+    const returnData = await loginSchool.main(event)
     if(returnData.msg === "welcome"){
       const isHave = (await db.collection("user").where({
         openid: wxContext.OPENID
@@ -31,11 +33,12 @@ exports.main = async (event) => {
           }
         })
       }
+      return returnData
     }
     return returnData
   }catch(e){
     console.log(e)
-    return {msg:'学校错误'}
+    return {msg:'学校错误',error: e}
   }
 }
 

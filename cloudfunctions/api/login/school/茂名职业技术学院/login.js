@@ -1,13 +1,7 @@
 var got = require('got'); //引用 got
 const utils = require("../../../utils/recogCaptcha")
 var querystring = require("querystring");
-const cloud = require('wx-server-sdk');
 const fs = require('fs');
-cloud.init();
-const db = cloud.database()
-const _ = db.command;
-const request = require('request');
-
 // 云函数入口函数
 exports.main = async (event) => {
   if (!(event.password && event.username)) {
@@ -15,7 +9,6 @@ exports.main = async (event) => {
       msg: '没有账号或者密码'
     }
   }
-  const wxContext = cloud.getWXContext()
   //获取cookie
   let getResponse = await got('https://jwc.mmpt.edu.cn/default2.aspx')
   let cookie = getResponse.headers["set-cookie"]
@@ -58,6 +51,7 @@ exports.main = async (event) => {
       })
     })
   }catch(e){
+
     return {msg: 'welcome'}
   }
 
