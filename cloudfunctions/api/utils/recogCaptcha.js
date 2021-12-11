@@ -1,5 +1,4 @@
-
-exports.recogCaptcha = async (img_path, callback = async function(result) {}) => {
+exports.recogCaptcha = async (img_path, callback = async function (result) {}) => {
   var width = 72;
   var height = 27;
   var getPixels = require('get-pixels')
@@ -1644,7 +1643,10 @@ exports.recogCaptcha = async (img_path, callback = async function(result) {}) =>
       let sin = Math.sin(angle);
       let rx = Math.round(x * cos - y * sin + (1 - cos) * tx + sin * ty);
       let ry = Math.round(x * sin + y * cos + (1 - cos) * ty - sin * tx);
-      return { rx, ry };
+      return {
+        rx,
+        ry
+      };
     }
   };
 
@@ -1688,7 +1690,8 @@ exports.recogCaptcha = async (img_path, callback = async function(result) {}) =>
     this.imageData.forEach((v, i) => {
       // 第几行 i / width
       // 第几列 i % width
-      let x = i % this.width, y = parseInt(i / this.width);
+      let x = i % this.width,
+        y = parseInt(i / this.width);
       // console.log(x, ', ', y);
       let u = this.get(x, y - 1) !== 0;
       let d = this.get(x, y + 1) !== 0;
@@ -1741,7 +1744,8 @@ exports.recogCaptcha = async (img_path, callback = async function(result) {}) =>
       dx = j === num - 1 ? img.dx - sumdx : Math.round(img.dx / num);
       // push进去之前先扫描一下上下边界
       // 跑一遍，得到上下边界，顺便判断是否应该
-      let min = 0, max = 0;
+      let min = 0,
+        max = 0;
       // 记录之前扫描的结果，以便判断是否最优
       let countArr = [];
       for (let k = sx; k <= sx + dx; k++) {
@@ -1795,7 +1799,10 @@ exports.recogCaptcha = async (img_path, callback = async function(result) {}) =>
     // 保存字符坐标的数组
     let imgs = [];
     // sx, sy: 字符起始坐标, dx, dy: 字符宽度
-    let sx = 0, sy = 0, dx = 0, dy = 0;
+    let sx = 0,
+      sy = 0,
+      dx = 0,
+      dy = 0;
     // 标记一个字符扫描的开始
     let start = false;
     // 存储已扫描字符的宽度
@@ -1805,7 +1812,8 @@ exports.recogCaptcha = async (img_path, callback = async function(result) {}) =>
       let count = 0;
       // 纵向扫描
       // 保存最小和最大的纵坐标
-      let min = 0, max = 0;
+      let min = 0,
+        max = 0;
       // 统计每次扫描最高和最低像素点的高度差
       let height = 0;
       for (let j = 0; j < grayImage.height; j++) {
@@ -1951,13 +1959,13 @@ exports.recogCaptcha = async (img_path, callback = async function(result) {}) =>
   // https://github.com/gustf/js-levenshtein
   let levenshtein = (function () {
     function _min(d0, d1, d2, bx, ay) {
-      return d0 < d1 || d2 < d1
-        ? d0 > d2
-          ? d2 + 1
-          : d0 + 1
-        : bx === ay
-          ? d1
-          : d1 + 1;
+      return d0 < d1 || d2 < d1 ?
+        d0 > d2 ?
+        d2 + 1 :
+        d0 + 1 :
+        bx === ay ?
+        d1 :
+        d1 + 1;
     }
 
     return function (a, b) {
@@ -2013,7 +2021,8 @@ exports.recogCaptcha = async (img_path, callback = async function(result) {}) =>
         vector.push(a.charCodeAt(offset + y));
       }
 
-      for (; (x + 3) < lb;) {
+      for (;
+        (x + 3) < lb;) {
         bx0 = b.charCodeAt(offset + (d0 = x));
         bx1 = b.charCodeAt(offset + (d1 = x + 1));
         bx2 = b.charCodeAt(offset + (d2 = x + 2));
@@ -2038,11 +2047,11 @@ exports.recogCaptcha = async (img_path, callback = async function(result) {}) =>
         dd = ++x;
         for (y = 0; y < vector.length; y += 2) {
           dy = vector[y];
-          vector[y] = dd = dy < d0 || dd < d0
-            ? dy > dd ? dd + 1 : dy + 1
-            : bx0 === vector[y + 1]
-              ? d0
-              : d0 + 1;
+          vector[y] = dd = dy < d0 || dd < d0 ?
+            dy > dd ? dd + 1 : dy + 1 :
+            bx0 === vector[y + 1] ?
+            d0 :
+            d0 + 1;
           d0 = dy;
         }
       }
@@ -2093,66 +2102,56 @@ exports.recogCaptcha = async (img_path, callback = async function(result) {}) =>
         if (distance < 3) break;
       }
 
-      return { distance, char: c };
+      return {
+        distance,
+        char: c
+      };
     },
   };
 
-  return await processCaptcha(getPixels,processImg,charList)
+
+
+  // 验证码识别函数
+  async function processCaptcha() {
+    // 首先确保载入样本集
+    charList.load();
+    let captchaImg
+    function getPixelsBuffer(img_path) {
+      return new Promise((resolve, reject) => {
+        getPixels(img_path, function (err, pixels) {
+          resolve(pixels.data)
+        })
+      })
+    }
+    captchaImg = await getPixelsBuffer(img_path)
+    let {
+      raw,
+      normalized
+    } = processImg(captchaImg);
+
+    let startTime = Date.now();
+
+    // 由于计算时间较长，把识别任务放到下一个MacroTask中执行，避免因为阻塞导致UI不能更新
+    return new Promise(function (resolve, reject) {
+      setTimeout(function () {
+        // 结果
+        let result = "";
+        normalized.forEach(function (v, i) {
+          let {
+            distance,
+            char: c
+          } = charList.recognize(v);
+          // console.log(distance, c);
+          // console.log(v.width, c.width);
+          result += c.char;
+        });
+        resolve();
+        callback(result);
+      }, 0);
+    });
+  }
+
+  await processCaptcha()
+
 
 }
-
-// 验证码识别函数
-async function processCaptcha(getPixels, processImg, charList) {
-  
-  // 首先确保载入样本集
-  await charList.load();
-  let captchaImg;
-  var pixels = await getPixels(img_path)
-  captchaImg = pixels.data
-  let { raw, normalized } = await processImg(captchaImg);
-
-  let startTime = Date.now();
-  
-  let result = "";
-  await normalized.forEach(function (v, i) {
-    let { distance, char: c } = charList.recognize(v);
-    // console.log(distance, c);
-    // console.log(v.width, c.width);
-    result += c.char;
-  });
-  console.log(result)
-  return result;
-
-}
-
-
-  //  // 验证码识别函数
-  // async function processCaptcha() {
-  //   // 首先确保载入样本集
-  //   charList.load();
-  //   let captchaImg
-  //   await getPixels(img_path, function (err, pixels) {
-  //     captchaImg = pixels.data
-
-  //     let { raw, normalized } = processImg(captchaImg);
-
-  //     let startTime = Date.now();
-
-  //     // 由于计算时间较长，把识别任务放到下一个MacroTask中执行，避免因为阻塞导致UI不能更新
-  //     return new Promise(function (resolve, reject) {
-  //       setTimeout(function () {
-  //         // 结果
-  //         let result = "";
-  //         normalized.forEach(function (v, i) {
-  //           let { distance, char: c } = charList.recognize(v);
-  //           // console.log(distance, c);
-  //           // console.log(v.width, c.width);
-  //           result += c.char;
-  //         });
-  //         resolve();
-  //         callback(result);
-  //       }, 0);
-  //     });
-  //   })
-  
-  // }
