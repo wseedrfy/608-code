@@ -20,7 +20,7 @@ exports.main = async (event) => {
   let getResponse = await got('https://jwc.mmpt.edu.cn/default2.aspx')
   let cookie = getResponse.headers["set-cookie"]
   //获取验证码
-  const writer = await fs.createWriteStream('./a.gif', {
+  const writer = await fs.createWriteStream('/tmp/a.gif', {
     //默认值为w， 通过调用writer.write方法写入数据的时候，会直接覆盖文件所有的内容，
     // 即会把文件之前的内容全部再删除，写入新的数据
     flags: 'w'
@@ -37,7 +37,7 @@ exports.main = async (event) => {
   // let ab = await got('https://jwc.mmpt.edu.cn/CheckCode.aspx')
   // writer.write(ab.rawBody)
   let code1
-  await utils.recogCaptcha('./a.gif', function (code) {
+  await utils.recogCaptcha('/tmp/a.gif', function (code) {
     code1 = code
   })
   let postResponse
