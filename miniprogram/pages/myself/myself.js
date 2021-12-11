@@ -6,7 +6,12 @@ const app = getApp()
 var pagecount = 1
 Page({
   data: {
-    list:[
+    list: [
+      {
+        icon: "images/aboutUs.png",
+        title: "社团注册",
+        click: "association"
+      },
       {
         icon: "images/aboutUs.png",
         title: "关于我们",
@@ -21,18 +26,18 @@ Page({
         click: "login"
       }
     ],
-    isLogin:'',
-    userInfo:[]
+    isLogin: '',
+    userInfo: []
   },
- 
+
   onLoad() {
     var that = this
     wx.getStorage({
-      key:'data',
+      key: 'data',
       success(res) {
         that.setData({
-          storageInfo:JSON.parse(res.data),
-          isLogin:true
+          storageInfo: JSON.parse(res.data),
+          isLogin: true
         });
         // that.getJournalData()
       },
@@ -41,21 +46,21 @@ Page({
       }
     })
   },
-  school(e){
-    console.log(e,"学校");
+  school(e) {
+    console.log(e, "学校");
   },
-  academy(e){
-    console.log(e,"专业");
+  academy(e) {
+    console.log(e, "专业");
   },
 
-  about(e){
+  about(e) {
     console.log(e)
     console.log("关于我们")
     wx.navigateTo({
       url: '/pages/about/about',
     })
   },
-  journal(e){
+  journal(e) {
     console.log(e)
     console.log("更新日志")
     wx.navigateTo({
@@ -63,11 +68,17 @@ Page({
     })
   },
 
-  login(e){
+  login(e) {
     wx.redirectTo({
       url: '/pages/login/login'
     })
     console.log(e)
     console.log("登录/注销账号")
-  }
+  },
+
+  association(e) {
+    wx.navigateTo({
+      url: '/pages/association/association',
+    });
+  },
 })

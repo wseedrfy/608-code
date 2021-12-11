@@ -1,0 +1,98 @@
+<view class="all_wrap">
+    <!-- 申请 -->
+    <view class="content_wrap" wx:if="{{htmlType==0}}">
+        <view class="top_wrap">
+            <view class="title">社团/机构负责人注册</view>
+            <view class="mess_wrap">
+                <view class="list">学校:{{userObj.school}}</view>
+                <view class="list">学号:{{userObj.username}}</view>
+            </view>
+        </view>
+        <view class="change_wrap">
+            <view class="item" wx:for="{{newType}}" bind:tap="logon" data-item="{{item}}">
+                {{item.name}}
+            </view>
+        </view>
+    </view>
+    <!-- 审核中 -->
+    <view class="review_wrap" wx:elif="{{htmlType==1}}">
+        <view class="img">
+            <image src="../../images/review.png" />
+        </view>
+        <view class="caption">您的申请正在审核...</view>
+    </view>
+    <!-- 审核通过 -->
+    <view class="admin_wrap" wx:elif="{{htmlType==2}}">
+        <view class="admin_mess">
+            <view class="admin_title">管理员信息</view>
+            <view class="mess_wrap">
+                <view class="list">
+                    <view class="left">学校</view>
+                    <view class="right">广东石油化工学院</view>
+                </view>
+                <view class="list">
+                    <view class="left">名字</view>
+                    <view class="right">邓松涛</view>
+                </view>
+                <view class="list">
+                    <view class="left">学号</view>
+                    <view class="right">20114340331</view>
+                </view>
+                <view class="list">
+                    <view class="left">社团/机构</view>
+                    <view class="right">创业实践协会</view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
+<page-container class="page_container" show="{{showModle}}">
+    <view class="content">
+        <view class="caption">负责人信息填写</view>
+        <view class="handle_wrap">
+            <form class="list_wrap" bindsubmit="formSubmit">
+                <view class="list" wx:for="{{handleArr}}">
+                    <view class="title">{{item.name}}</view>
+                    <input placeholder="{{item.placeholder}}" class="input" name="{{item.id}}" />
+                </view>
+                <view class="sub_wrap">
+                    <button class="bt" type="default" bind:tap="cancel">取消</button>
+                    <button class="bt" type="primary" form-type="submit">提交</button>
+                </view>
+                <view class="tip_wrap">
+                    <view class="tip_list">
+                        <view class="tip">·提示：</view>
+                        <view class="tip">·信息审核通过后即可进入管理页面</view>
+                        <view class="tip">·同一社团/机构仅有一名负责人</view>
+                    </view>
+                </view>
+            </form>
+        </view>
+    </view>
+</page-container>
+<!-- 图标 -->
+<view class="img-button Add_Content-btn" bindtap="clickme">
+    <image src="/images/btn_feed@2x.png" class="Add_Content"></image>
+</view>
+<view class="img-button User_Content-btn" bindtap="User">
+    <image src="../../images/User.png" class="User_Content"></image>
+</view>
+<!-- 发布弹窗 -->
+<view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
+<!-- 弹出框 -->
+<view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
+    <view class="write_wrap">
+        <view class="caption_wrap">发布活动</view>
+        <view class="img" bind:tap="upload">
+            <image src="/images/Camera-3.png" />
+        </view>
+        <view class="handl_wrap">
+            <input placeholder="活动名称" class="handl_input"/>
+            <textarea placeholder="添加正文" class="handl_input"></textarea>
+        </view>
+        <view class="form_wrap">
+            <view class="cancel" >取消</view>
+            <view class="send">发布活动</view>
+        </view>
+    </view>
+</view>

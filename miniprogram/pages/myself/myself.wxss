@@ -98,7 +98,7 @@ page {
   margin-top: 175rpx;
   /* 175 - 150 = 间距 */
   width: 710rpx;
-  height: 300rpx;
+  height: 400rpx;
   background-color: #fff;
   border: 1rpx solid #ccc;
   border-radius: 20rpx;
