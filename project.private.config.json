@@ -57,6 +57,12 @@
         {
           "name": "pages/updateRecordSuccess/index",
           "pathName": "pages/updateRecordSuccess/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "社团",
+          "pathName": "pages/association/association",
           "scene": null
         }
       ]

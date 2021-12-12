@@ -57,15 +57,16 @@ page {
   padding: 24rpx;
   font-size: 34rpx;
 }
-.all_wrap .admin_wrap {
-  background-color: white;
-}
 .all_wrap .admin_wrap .admin_mess {
   padding: 24rpx;
+  background-color: white;
+  margin: 12rpx;
+  border-radius: 24rpx;
 }
 .all_wrap .admin_wrap .admin_mess .admin_title {
   padding: 24rpx;
   text-align: center;
+  font-weight: 700;
 }
 .all_wrap .admin_wrap .admin_mess .mess_wrap .list {
   display: flex;
@@ -79,6 +80,20 @@ page {
   flex: 3;
   padding-left: 12rpx;
   color: #636363;
+}
+.all_wrap .admin_wrap .admin_bt {
+  display: flex;
+  flex-direction: column;
+}
+.all_wrap .admin_wrap .admin_bt .bt_list {
+  text-align: center;
+  color: white;
+  margin: 12rpx;
+  margin-left: 36rpx;
+  margin-right: 36rpx;
+  padding: 12rpx;
+  background-color: #a8ccdb;
+  border-radius: 24rpx;
 }
 .page_container .content {
   display: flex;

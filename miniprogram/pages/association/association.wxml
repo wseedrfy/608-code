@@ -17,35 +17,42 @@
     <!-- 审核中 -->
     <view class="review_wrap" wx:elif="{{htmlType==1}}">
         <view class="img">
-            <image src="../../images/review.png" />
+            <image src="image/judging.png" />
         </view>
         <view class="caption">您的申请正在审核...</view>
     </view>
     <!-- 审核通过 -->
     <view class="admin_wrap" wx:elif="{{htmlType==2}}">
+        <!-- 管理员信息 -->
         <view class="admin_mess">
             <view class="admin_title">管理员信息</view>
             <view class="mess_wrap">
                 <view class="list">
                     <view class="left">学校</view>
-                    <view class="right">广东石油化工学院</view>
+                    <view class="right">{{adminInfo.school}}</view>
                 </view>
                 <view class="list">
                     <view class="left">名字</view>
-                    <view class="right">邓松涛</view>
+                    <view class="right">{{adminInfo.name}}</view>
                 </view>
                 <view class="list">
                     <view class="left">学号</view>
-                    <view class="right">20114340331</view>
+                    <view class="right">{{adminInfo.count}}</view>
                 </view>
                 <view class="list">
                     <view class="left">社团/机构</view>
-                    <view class="right">创业实践协会</view>
+                    <view class="right">{{adminInfo.association}}</view>
                 </view>
             </view>
         </view>
+        <!-- 管理员操作 -->
+        <view class="admin_bt">
+            <!-- <view class="bt_list">修改信息</view> -->
+            <view class="bt_list" bind:tap="delete">注销身份</view>
+        </view>
     </view>
 </view>
+<!-- 信息填写 -->
 <page-container class="page_container" show="{{showModle}}">
     <view class="content">
         <view class="caption">负责人信息填写</view>
@@ -71,15 +78,15 @@
     </view>
 </page-container>
 <!-- 图标 -->
-<view class="img-button Add_Content-btn" bindtap="clickme">
+<view class="img-button Add_Content-btn" bindtap="clickme" wx:if="{{htmlType==2}}">
     <image src="/images/btn_feed@2x.png" class="Add_Content"></image>
 </view>
-<view class="img-button User_Content-btn" bindtap="User">
+<view class="img-button User_Content-btn" bindtap="User" wx:if="{{htmlType==2}}">
     <image src="../../images/User.png" class="User_Content"></image>
 </view>
 <!-- 发布弹窗 -->
 <view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
-<!-- 弹出框 -->
+<!-- 弹出框 (发布信息) -->
 <view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
     <view class="write_wrap">
         <view class="caption_wrap">发布活动</view>
@@ -87,11 +94,11 @@
             <image src="/images/Camera-3.png" />
         </view>
         <view class="handl_wrap">
-            <input placeholder="活动名称" class="handl_input"/>
+            <input placeholder="活动名称" class="handl_input" />
             <textarea placeholder="添加正文" class="handl_input"></textarea>
         </view>
         <view class="form_wrap">
-            <view class="cancel" >取消</view>
+            <view class="cancel">取消</view>
             <view class="send">发布活动</view>
         </view>
     </view>
