@@ -37,7 +37,8 @@ Page({
     htmlType: 0,//0为注册  1审核中  2为审核通过（管理员）
     showModle: false,
     userObj: "",
-    showModalStatus:true
+    showModalStatus: false,
+    adminInfo: ""
   },
 
   /**
@@ -73,21 +74,32 @@ Page({
           userObj: userObj
         })
         // 获取用户申请状态
-        db.collection("applied_association").where({ userObj: userObj }).get().then(res => {
-          console.log(res);
+        db.collection("applied_association").where({ userCount: userObj.username }).get().then(res => {
+          // console.log(res);
+          // 未申请
           if (res.data.length == 0) {
             this.setData({
               htmlType: 0
             })
           }
-          else if (res.data[0].status == "审核中") {
+          // 审核中
+          else if (res.data[0].status == false) {
             this.setData({
               htmlType: 1
             })
           }
-          else if (res.data[0].status == "审核通过") {
+          // 审核通过
+          else if (res.data[0].status == true) {
+            // 获取管理员信息
+            let adminInfo = {
+              school: res.data[0].userSchool,
+              name: res.data[0].assoDetail.name,
+              count: res.data[0].userCount,
+              association: res.data[0].assoDetail.association
+            }
             this.setData({
-              htmlType: 2
+              htmlType: 2,
+              adminInfo: adminInfo
             })
           }
         })
@@ -103,10 +115,16 @@ Page({
       showModle: true,
     })
   },
+  // 取消
+  cancel(){
+    this.setData({
+      showModle:false
+    })
+  },
   // 提交表单
   formSubmit(e) {
-    // console.log(e);
     let arr = e.detail.value
+    // 判断信息是否完善
     if (arr[0] == "" || arr[1] == "" || arr[2] == "") {
       wx.showToast({
         title: '请完善信息',
@@ -131,13 +149,13 @@ Page({
           }
           db.collection("applied_association").add({
             data: {
-              userObj: this.data.userObj,
-              assoDetail: assoDetail,
-              type: type,
-              status: "审核中"
+              userSchool: this.data.userObj.school,//负责人学校
+              userCount: this.data.userObj.username,//负责人学号
+              assoDetail: assoDetail,//社团详细
+              type: type,//社团类型
+              status: false //审核状态
             }
           }).then(res => {
-            // console.log(res);
             wx.hideLoading();
             this.setData({
               showModle: false,
@@ -164,6 +182,40 @@ Page({
   clickme: function () {
     this.showModal();
   },
+  // 我的发布
+  User() {
+    wx.navigateTo({
+      url: '/pages/more/UserContent/UserContent',
+    });
+  },
+  // 注销身份
+  delete() {
+    wx.showModal({
+      title: '警告',
+      content: '确定注销管理员身份',
+      showCancel: true,
+      cancelText: '取消',
+      cancelColor: '#000000',
+      confirmText: '确定',
+      confirmColor: '#3CC51F',
+      success: (result) => {
+        if (result.confirm) {
+          wx.showLoading({
+            title: "注销中",
+            mask: true,
+            success: (result) => {
+              db.collection("applied_association").where({ userCount: this.data.adminInfo.count }).remove().then(res => {
+                wx.navigateBack({
+                  delta: 1
+                });
+              })
+            },
+          });
+        }
+      },
+    });
+  },
+  // UserContent
 
   //显示对话框
   showModal: function () {
