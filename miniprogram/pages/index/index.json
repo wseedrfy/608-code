@@ -5,5 +5,6 @@
   },
   "backgroundColor": "#F6F6F6",
   "navigationBarTitleText": "We校园",
-  "navigationBarBackgroundColor": "#F6F6F6"
+  "navigationBarBackgroundColor": "#F6F6F6",
+  "enablePullDownRefresh": true
 }
