@@ -38,6 +38,7 @@ exports.main = async (event) => {
   // 加载其他信息内容
   let otherData = {}
   if(schoolInitData.runOtherJS){
+    otherData.msg = "异常"
     try{
       const SchoolRunOther = require("./school/" + school + '/index.js') 
       otherData =  await SchoolRunOther.main(usernameData.username, usernameData.password)
@@ -49,6 +50,7 @@ exports.main = async (event) => {
         ...usernameData,
         ...schoolInitData,
         ...SchoolIndex,
+        ...otherData
       }
     }
   }

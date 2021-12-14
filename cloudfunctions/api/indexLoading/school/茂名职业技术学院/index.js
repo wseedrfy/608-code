@@ -243,7 +243,6 @@ exports.main = async (username, password) => {
     otherData : {
       curriculum: m
     }
-
   }
 
   function formatContent(str) {

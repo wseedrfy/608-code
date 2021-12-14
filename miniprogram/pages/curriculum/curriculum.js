@@ -70,7 +70,6 @@ Page({
   },
 
   onLoad: function (options) {
-
     this.kb(util.getweekString());
     this.setData({
       weekNow: util.getweekString(),
