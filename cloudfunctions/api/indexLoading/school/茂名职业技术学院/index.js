@@ -57,9 +57,7 @@ const login = async (username, password) => {
     } else {
       return '错误'
     }
-
   }
-
   // return encoder.encode(str);
   var bufferHelper = new BufferHelper();
   bufferHelper.concat(postResponse.rawBody);
@@ -68,7 +66,7 @@ const login = async (username, password) => {
 }
 // 云函数入口函数
 exports.main = async (username, password) => {
-  let returnData = await login(username, password)
+  var returnData = await login(username, password)
   console.log(returnData)
   while (true) {
     if (returnData.match(/用户名或密码不正确/)) {
@@ -77,8 +75,8 @@ exports.main = async (username, password) => {
       }
     } else if (returnData.match(/SessionId/)) {
       break
-    } else if (returnData.match(/验证码不正确/)) {
-      returnData = login(username, password)
+    } else if (returnData.match(/验证码/)) {
+      returnData = await login(username, password)
     } else {
       return {
         msg: '异常'
