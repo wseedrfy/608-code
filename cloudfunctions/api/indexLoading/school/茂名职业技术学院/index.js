@@ -224,7 +224,7 @@ exports.main = async (username, password) => {
             course.push(tempElement[2])
             course.push(tempElement[3])
             week_day[tempElement[length - 4] - 1] = course;
-            week_day[tempElement[length - 3] - 1] = course;
+            
           }
         }
       }
@@ -248,7 +248,7 @@ exports.main = async (username, password) => {
           jxcdmc: course[2],
           xq: "" + (j + 1), //星期
           zc: "" + (i + 1), //周
-          jcdm: "0" + (k + 1) //节数
+          jcdm: "0" + (k + 1)+"0"+(k+2) //节数
         }
         m.push(object)
       }
