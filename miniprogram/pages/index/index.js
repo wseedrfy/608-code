@@ -13,6 +13,7 @@ Page({
   onPullDownRefresh(){
     wx.showNavigationBarLoading() //在标题栏中显示加载
     console.log("下拉刷新")
+    var that = this
     setTimeout( function() {
       var args = wx.getStorageSync('args')
       if (args) {
