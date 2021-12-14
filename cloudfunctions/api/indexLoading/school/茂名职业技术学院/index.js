@@ -10,7 +10,7 @@ var BufferHelper = require('bufferhelper');
 const fs = require('fs')
 const utils = require("../../../utils/recogCaptcha")
 
-const login = async(username, password) => {
+const login = async (username, password) => {
   let getResponse = await got('https://jwc.mmpt.edu.cn/default2.aspx')
   let cookie = getResponse.headers["set-cookie"]
   //获取验证码
@@ -52,9 +52,9 @@ const login = async(username, password) => {
       })
     })
   } catch (e) {
-    if(String(e).match(/405/)){
+    if (String(e).match(/405/)) {
       return cookie[0]
-    }else{
+    } else {
       return '错误'
     }
 
@@ -64,7 +64,7 @@ const login = async(username, password) => {
   var bufferHelper = new BufferHelper();
   bufferHelper.concat(postResponse.rawBody);
   let returnData = iconv.decode(bufferHelper.toBuffer(), 'GBK')
-  return returnData
+  return String(returnData)
 }
 // 云函数入口函数
 exports.main = async (username, password) => {
@@ -85,9 +85,29 @@ exports.main = async (username, password) => {
       }
     }
   }
-  const str = encodeURI('谢东才');
-  var xh = username
+  //获取名字
   let cookie = returnData;
+  let getname = await got('https://jwc.mmpt.edu.cn/xs_main.aspx?xh=' + username, {
+    headers: {
+      "Referer": "https://jwc.mmpt.edu.cn/xs_main.aspx?xh=" + username,
+      "Content-Type": "text/html;charset=gb2312",
+      "Cookie": cookie,
+      "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36"
+    }
+
+  });
+  var Test = new BufferHelper();
+  Test.concat(getname.rawBody);
+  let testname = iconv.decode(Test.toBuffer(), 'GBK')
+  // <span id="xhxm">(?s:(.*?))同学
+  regname = /欢迎您：<em><span id="xhxm">(.*?)同学/g;
+  for (let regExpMatchArray of testname.matchAll(regname)) {
+    var name = regExpMatchArray[1]
+  }
+  const str = encodeURI(name);
+  var xh = username
+
+
   let getResponse = await got('https://jwc.mmpt.edu.cn/xskbcx.aspx?xh=' +
     xh +
     '&xm=' + str + '&gnmkdm=N121603', {
@@ -238,9 +258,9 @@ exports.main = async (username, password) => {
     }
 
   }
-  
+
   return {
-    otherData : {
+    otherData: {
       curriculum: m
     }
   }
