@@ -444,11 +444,12 @@ Page({
     console.log('onLoad')
    //加载缓存获得学校和用户名和头像
    wx.getStorage({
-     key:"data",
+     key:"args",
      success(res){
-       console.log("JSON.parse(res.data)",JSON.parse(res.data))
-       var data = JSON.parse(res.data)
-       var school = data.school
+       console.log(res)
+      //  console.log("JSON.parse(res.data)",JSON.parse(res.data))
+       var data = res.data
+       var school = data.schoolName
        var nickname =data.nickName
        var iconUrl =data.iconUrl
        var arry=that.data.tabitem
@@ -466,28 +467,34 @@ Page({
          tabitem: arry,
       })
      },fail(res){
-        var arry=that.data.tabitem
+       //app里面登录状态判断
+      app.loginState()
+        // var arry=that.data.tabitem
         console.log("请求失败")
-        arry[0].type=1
-        currentPage=0
-        if(i==0){
-          that.getData()
-          i++
-        }
-        that.setData({
-          tabitem: arry,
-        })
-        wx.showModal({
-          title: '提示',
-          content: '小主还没登录哟QwQ',
-          success (res) {
-            if (res.confirm) {
-              console.log('用户点击确定')
-            } else if (res.cancel) {
-              console.log('用户点击取消')
-            }
-          }
-        })
+        // that.getData()
+        // arry[0].type=1
+        // currentPage=0
+        // if(i==0){
+        //   that.getData()
+        //   i++
+        // }
+        // that.setData({
+        //   tabitem: arry,
+        // })
+        // wx.showModal({
+        //   title: '提示',
+        //   content: '小主还没登录哟QwQ',
+        //   showCancel:false,
+
+        //   success (res) {
+        //     if (res.confirm) {
+        //       console.log('用户点击确定')
+        //       wx.navigateTo({
+        //         url: '/pages/login/login',
+        //       })
+        //     } 
+        //   }
+        // })
     }
    })
   },
