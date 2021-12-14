@@ -4,6 +4,7 @@ var moveFlag = true;
 var util = require("../../utils/util.js")
 
 Page({
+
   data: {
     statusBarHeight: getApp().globalData.statusBarHeight,
     lineHeight: getApp().globalData.lineHeight,
@@ -69,6 +70,7 @@ Page({
   },
 
   onLoad: function (options) {
+
     this.kb(util.getweekString());
     this.setData({
       weekNow: util.getweekString(),
@@ -76,6 +78,7 @@ Page({
   },
 
   onShow: function (options) {
+    app.loginState()
     this.kb(util.getweekString());
     this.initWeek()
   },

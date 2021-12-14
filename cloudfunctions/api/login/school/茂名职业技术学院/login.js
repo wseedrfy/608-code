@@ -51,8 +51,11 @@ exports.main = async (event) => {
       })
     })
   }catch(e){
-
-    return {msg: 'welcome'}
+    if(String(e).match(/405/)){
+      return {msg: 'welcome'}
+    }else{
+      return '错误'
+    }
   }
 
   // return encoder.encode(str);

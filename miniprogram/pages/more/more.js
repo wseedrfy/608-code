@@ -367,7 +367,8 @@ Page({
     })
   },
   formSubmit:function(e){     //添加与存储
-    let{formTitle, formText}=e.detail.value
+    let{formTitle, formText}= e.detail.value
+    
     var that=this
     if(!formTitle){
       wx.showToast({
@@ -440,6 +441,7 @@ Page({
     this.data.Showtabitem=1
     var that =this 
     var i=0
+    console.log('onLoad')
    //加载缓存获得学校和用户名和头像
    wx.getStorage({
      key:"data",
@@ -676,7 +678,7 @@ Page({
       icon: 'loading',
     })
     var that =this
-    setTimeout( function() {
+    setTimeout(function() {
       that.data.leftList=[]
       that.data.rightList=[]
       that.data.leftH=0
@@ -687,26 +689,22 @@ Page({
       that.getData()
       wx.hideNavigationBarLoading() //完成停止加载
       wx.stopPullDownRefresh() //停止下拉刷新
-    },1500);
+    },1500); 
     console.log("over")
   },
   onShow: function () {
+    var index=this.data.directionIndex
     if(this.data.direction=="Left"){
-      var index=this.data.directionIndex
       this.data.leftList[index].CommentList=app.globalData.Comment
-      this.setData({
-        leftList:this.data.leftList,
-        rightList:this.data.rightList
-      })
     }else if(this.data.direction=="Right"){
-      var index=this.data.directionIndex
       this.data.rightList[index].CommentList=app.globalData.Comment
-      this.setData({
-        leftList:this.data.leftList,
-        rightList:this.data.rightList
-      })
     }
+    this.setData({
+      leftList:this.data.leftList,
+      rightList:this.data.rightList
+    })
   },
+  
 
 })
 

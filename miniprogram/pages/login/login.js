@@ -23,6 +23,10 @@ Page({
   },
 
   async onLoad() {
+    wx.showLoading({
+      title: '加载基础信息中',
+      mask: true
+    })
     // 注意！这个只能拉100个学校，我也希望未来我们能超过100个
     var that = this;
     var res = (await schoolLoading.where({}).get()).data
@@ -33,6 +37,7 @@ Page({
       }
     })
     this.setData({res: res, school: that.data.school});
+    wx.hideLoading()
   },
 
   login: function (e) {

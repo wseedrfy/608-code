@@ -37,11 +37,14 @@ exports.main = async (event) => {
   })
   // 加载其他信息内容
   let otherData = {}
-  if(usernameData.runOtherJS){
+  if(schoolInitData.runOtherJS){
     try{
       const SchoolRunOther = require("./school/" + school + '/index.js') 
-      SchoolRunOther =  await School.main(event)
+      otherData =  await SchoolRunOther.main(usernameData.username, usernameData.password)
+      console.log(otherData)
     }catch(e){
+      console.log("runOtherJS错误")
+      console.log(e)
       return {
         ...usernameData,
         ...schoolInitData,

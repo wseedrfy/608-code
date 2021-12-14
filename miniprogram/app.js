@@ -5,7 +5,35 @@ import {
 const api = require('./utils/api')
 const util = require("./utils/util.js")
 App({
+  // 登录昨天判断
+  loginState: function(){
+    let username = wx.getStorageSync('args').username
+    if(!username){
+      wx.showModal({
+        title: '登录提示',
+        showCancel: true, //是否显示取消按钮
+        content: "是否要登录",
+        cancelText: "否", //默认是“取消”
+        // cancelColor: 'skyblue', //取消文字的颜色
+        confirmText: "是", //默认是“确定”
+        // confirmColor: 'red', //确定文字的颜色
+        success: function (res) {
+          if (!res.cancel) {
+            wx.redirectTo({
+              url: '/pages/login/login'
+            })
+          } else {
+            wx.navigateBack({
+            })
+          }
+        },
+        fail: function (res) {}, //接口调用失败的回调函数
+        complete: function (res) {}, //接口调用结束的回调函数（调用成功、失败都会执行）
+      })
+    }
+  },
 
+  // js本地运行
   jsRun(args, code) {
     const sandbox = {
       wx,
