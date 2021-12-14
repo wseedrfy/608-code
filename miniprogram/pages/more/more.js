@@ -611,11 +611,22 @@ Page({
         addAft:that.data.addAft,
         School:that.data.school        
       },
+
       success(res){
-        console.log("res.result.data",res.result.data)
+        console.log(res)
+        console.log(currentPage)
+        console.log(that.data.addAft)
+        console.log(that.data.school)
+        console.log(that.data.Label)
+        // console.log("res.result.data",res.result.data)
+        if(res.result ==null){
+          that.getData()
+        }
+       else{
         that.data.resultLength=res.result.data.length
+       }
         console.log("that.data.resultLength",that.data.resultLength)
-        if (res.result.data && res.result.data.length > 0) {
+        if (res.result && res.result.data.length > 0) {
           console.log("请求成功", res.result.data)
           currentPage++
           //把新请求到的数据添加到noramalData里  

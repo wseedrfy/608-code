@@ -34,7 +34,7 @@ exports.main = async (event, context) => {
     }else{
       if(event.addAft==0){
         try {
-          return await db.collection('Campus-Circle').orderBy('Time','desc').where({ }).skip(event.currentPage * 10).limit(10).get({
+          return await db.collection('Campus-Circle').orderBy('Time','desc').where({ School:event.School}).skip(event.currentPage * 10).limit(10).get({
             success: res => {
               return res
             }
@@ -44,7 +44,7 @@ exports.main = async (event, context) => {
         }
       }else{
         try {
-          return await db.collection('Campus-Circle').orderBy('Time','desc').where({ }).skip(event.currentPage * 10 + 1).limit(10).get({
+          return await db.collection('Campus-Circle').orderBy('Time','desc').where({ School:event.School}).skip(event.currentPage * 10 + 1).limit(10).get({
             success: res => {
               return res
             }
