@@ -25,7 +25,11 @@
   margin-bottom: 10rpx;
   overflow: hidden;
 }
-
+.pic_Label{
+  color:rgb(252, 219, 129);
+  margin-right: 5px;
+  font-size: 24rpx;
+}
 .pic_Title{
   color:rgb(0, 0, 0);
   font-size: 28rpx;

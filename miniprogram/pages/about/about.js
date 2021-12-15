@@ -27,6 +27,22 @@ Page({
       {
         avatar: '/images/about/sx.jpg',
         nickName: 'Minf'
+      },
+      {
+        avatar: '/images/about/yue.jpg',
+        nickName: '恩佐'
+      },
+      {
+        avatar: '/images/about/juan.jpg',
+        nickName: '自然卷'
+      },
+      {
+        avatar: '/images/about/long.jpg',
+        nickName: '智阝章龙'
+      },
+      {
+        avatar: '/images/about/bing.jpg',
+        nickName: '.'
       }
 
     ],
@@ -41,6 +57,14 @@ Page({
     {
       avatar: '/images/about/zt.jpg',
       nickName: '騰丶'
+    },
+    {
+      avatar: '/images/about/lin.jpg',
+      nickName: '小排骨'
+    },
+    {
+      avatar: '/images/about/yan.jpg',
+      nickName: '云崖呀呀'
     }
     ],
   },

@@ -24,20 +24,25 @@
       {
         "pagePath": "pages/index/index",
         "iconPath": "/images/tabbar/basics.png",
-        "selectedIconPath": "/images/tabbar/basics_cur.png",
+        "selectedIconPath": "/images/tabbar/search.png",
         "text": "首页"
       },
       {
         "pagePath": "pages/curriculum/curriculum",
-        "iconPath": "/images/tabbar/about.png",
-        "selectedIconPath": "/images/tabbar/about_cur.png",
+        "iconPath": "/images/tabbar/cur.png",
+        "selectedIconPath": "/images/tabbar/search.png",
         "text": "课表"
       },
-   
+   {
+        "pagePath": "pages/more/more",
+        "iconPath": "/images/tabbar/circle.png",
+        "selectedIconPath": "/images/tabbar/search.png",
+        "text": "校园圈"
+      },
       {
         "pagePath": "pages/myself/myself",
         "iconPath": "/images/tabbar/about.png",
-        "selectedIconPath": "/images/tabbar/about_cur.png",
+        "selectedIconPath": "/images/tabbar/search.png",
         "text": "我的"
       }
     ]

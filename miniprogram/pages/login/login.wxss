@@ -1,6 +1,6 @@
 /**index.wxss**/
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   page{
     min-height: 100vh;
     filter: invert(90%) !important;
@@ -22,7 +22,7 @@
     overflow: hidden;
   }
 
-}
+} */
 
 
 

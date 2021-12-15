@@ -91,6 +91,7 @@ App({
     // func: {}
   }
 })
+//app.json校友圈
    // {
       //   "pagePath": "pages/more/more",
       //   "iconPath": "/images/tabbar/about.png",
