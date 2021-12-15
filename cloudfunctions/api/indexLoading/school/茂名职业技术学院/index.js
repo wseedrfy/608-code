@@ -85,6 +85,7 @@ exports.main = async (username, password) => {
   }
   //获取名字
   let cookie = returnData;
+
   let getname = await got('https://jwc.mmpt.edu.cn/xs_main.aspx?xh=' + username, {
     headers: {
       "Referer": "https://jwc.mmpt.edu.cn/xs_main.aspx?xh=" + username,
@@ -105,6 +106,30 @@ exports.main = async (username, password) => {
   const str = encodeURI(name);
   var xh = username
 
+  var Test = new BufferHelper();
+
+
+  //获取__VIEWSTATE
+  let get_VIEWSTATE = await got('https://jwc.mmpt.edu.cn/xscjcx.aspx?xh=' +
+    username +
+    "&xm=" +
+    name +
+    '&gnmkdm=N121605', {
+      headers: {
+        "Referer": "https://jwc.mmpt.edu.cn/xs_main.aspx?xh=" + username,
+        "Content-Type": "text/html;charset=gb2312",
+        "Cookie": cookie,
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36"
+      },
+    });
+  Test.concat(get_VIEWSTATE.rawBody);
+  testname = iconv.decode(Test.toBuffer(), 'GBK')
+  get_VIEWSTATE_reg = /<input type="hidden" name="__VIEWSTATE" value="(.*?)" \/>/g;
+  var regExpMatchArrays = testname.matchAll(get_VIEWSTATE_reg);
+  for (let regExpMatchArray of regExpMatchArrays) {
+    var VIEWSTATE = regExpMatchArray[1];
+  }
+
 
   let getResponse = await got('https://jwc.mmpt.edu.cn/xskbcx.aspx?xh=' +
     xh +
@@ -116,7 +141,29 @@ exports.main = async (username, password) => {
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36"
       },
 
-    }) //get请求 用httpbin.org这个网址做测试
+    })
+
+  getname = await got.post('https://jwc.mmpt.edu.cn/xscjcx.aspx?xh=' +
+    username +
+    "&xm=" +
+    str +
+    "&gnmkdm=N121605", {
+      headers: {
+        "Referer": "https://jwc.mmpt.edu.cn/xscjcx.aspx?xh=31902200128&xm=%D0%BB%B6%AB%B2%C5&gnmkdm=N121605",
+        "Cookie": cookie,
+        "Content-Type": "application/x-www-form-urlencoded",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36"
+      },
+      body: querystring.stringify({
+        btn_zcj: "历年成绩",
+        __VIEWSTATE: VIEWSTATE
+      })
+    });
+  var getname_codice = new BufferHelper();
+  getname_codice.concat(getname.rawBody)
+  let getname_test = iconv.decode(getname_codice.toBuffer(), 'GBK')
+  console.log(getname_test)
+
   var bufferHelper = new BufferHelper();
   bufferHelper.concat(getResponse.rawBody);
   let body = iconv.decode(bufferHelper.toBuffer(), 'GBK')
@@ -224,7 +271,7 @@ exports.main = async (username, password) => {
             course.push(tempElement[2])
             course.push(tempElement[3])
             week_day[tempElement[length - 4] - 1] = course;
-            
+
           }
         }
       }
@@ -248,7 +295,7 @@ exports.main = async (username, password) => {
           jxcdmc: course[2],
           xq: "" + (j + 1), //星期
           zc: "" + (i + 1), //周
-          jcdm: "0" + (k + 1)+"0"+(k+2) //节数
+          jcdm: "0" + (k + 1) + "0" + (k + 2) //节数
         }
         m.push(object)
       }
