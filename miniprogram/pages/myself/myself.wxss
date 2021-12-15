@@ -1,7 +1,5 @@
-@import "../../template/more/template.wxss";
-
 page {
-  background-color: rgb(240, 240, 240);
+  background-color: rgb(249, 249, 249);
 }
 
 .container {
@@ -11,14 +9,14 @@ page {
 .bgcImage {
   position: relative;
   width: 100%;
-  height: 400rpx;
-  background-color: skyblue;
+  height: 350rpx;
+  background-color: rgb(122, 159, 204);
 }
 
 .userInfo {
   position: absolute;
-  left: 80rpx;
-  top: 45%;
+  left: 30rpx;
+  top: 60%;
   display: flex;
   justify-content: space-between;
 }
@@ -26,86 +24,175 @@ page {
 .userAvatar {
   display: flex;
   overflow: hidden;
-  width: 100rpx;
-  height: 100rpx;
-  border-radius: 50%;
-  background-color: #fff;
-  border: 5rpx solid #fff;
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 5%;
+  /* background-color: #fff; */
+  /* opacity: 0.7; */
+  border: 5rpx solid rgba(171, 199, 233, 0.6);
 }
+
 .userAvatar .userAvatarImg {
   display: flex;
   overflow: hidden;
-  width: 100rpx;
-  height: 100rpx;
-  border-radius: 50%;
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 5%;
   background-color: #fff;
 }
 /* 角色信息text */
 .userInfoTxt {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 585rpx;
   margin: 10rpx 0 0 20rpx;
   color: rgb(233, 253, 253);
-  letter-spacing: 3rpx;
 }
-.userName {
+.userInfoTxt .left .userName {
   margin-bottom: 10rpx;
 }
-.userAcademy {
-  font-size: 20rpx;
+.userInfoTxt .left .userAcademy {
+  font-size: 23rpx;
+  color: rgb(212, 223, 238);
 }
-/* 班级/专业 */
-.userInfoDialog {
-  position: absolute;
-  bottom: -150rpx;
-  margin: 0 20rpx;
+.userInfoTxt .right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 23rpx;
+  color: rgb(212, 223, 238);
+}
+/* ModuleAdd模块 */
+.moduleAdd {
+  display: flex;
+  flex-direction: row;
   width: 710rpx;
+  margin: 20rpx 20rpx;
   background-color: #fff;
-  border: 1rpx solid #ccc;
-  border-radius: 20rpx;
-  box-shadow: #ccc  0 0 5rpx 2rpx;
-  color: rgb(106, 106, 106);
+  border-radius: 15rpx;
 }
-/* userInfo_item */
-.userInfo_item{
+.moduleAdd .firstModule {
+  border-right: 1rpx solid #ccc;
+}
+.moduleAdd .moduleItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 355rpx;
+  margin: 30rpx 0 30rpx 0;
+}
+.moduleAdd .moduleItem .text {
+  font-size: 24rpx;
+  color: black;
+  font-weight: 700;
+  margin-bottom: 10rpx;
+}
+.moduleAdd .moduleItem .fundamention {
+  font-size: 28rpx;
+  font-weight: 400;
+  color: rgb(164, 163, 165);
+}
+/* demo */
+.demoBox {
+  width: 710rpx;
+  border-radius: 15rpx;
+  background-color: #fff;
+  margin: 20rpx 0 20rpx 20rpx;
+}
+.demoUser {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  line-height: 100rpx;
+  width: 650rpx;
+  height: 100rpx;
+  border-bottom: 1rpx solid rgb(122, 159, 204,0.3);
+  margin-left: 30rpx;
 }
-.userInfo_item image{
+.demoUser:last-child {
+  border-bottom: 0;
+}
+.demoUser .left image {
   width: 50rpx;
   height: 50rpx;
-  padding: 0 0 0 20rpx;
+  padding-right: 10rpx;
 }
-/* 不知道为什么 .userInfo_item text:first-child 选不到它，只好加个类名了 */
-.userInfo_item .title{
-  flex: 1;
-  text-align: start;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.demoUser .left {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
-.userInfo_item text:last-child{
-  margin-right: 20rpx;
-  font-size: 20rpx;
-  color: rgb(186, 186, 186);
+.demoUser .left .title {
+  font-size: 25rpx;
+  color:black
+}
+.demoUser .right {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.demoUser .right text {
+  font-size: 25rpx;
+  color: rgb(164, 163, 165);
   letter-spacing: 2rpx;
 }
-
-/* 第二个Dialog */
-.more {
-  margin: 0 20rpx;
-  margin-top: 175rpx;
-  /* 175 - 150 = 间距 */
-  width: 710rpx;
-  height: 400rpx;
-  background-color: #fff;
-  border: 1rpx solid #ccc;
-  border-radius: 20rpx;
-  box-shadow: #ccc  0 0 5rpx 2rpx;
-  color: rgb(106, 106, 106);
+.demoUser image:last-child {
+  width: 30rpx;
+  height: 30rpx;
+  margin-top: 2rpx;
 }
-
-.textMarginLeft {
-  margin-left: 55rpx;
+/* more -> 第二个Dialog */
+.more {
+  width: 710rpx;
+  border-radius: 15rpx;
+  background-color: #fff;
+  margin: 20rpx 0 20rpx 20rpx;
+}
+.more_item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 650rpx;
+  height: 100rpx;
+  border-bottom: 1rpx solid rgb(122, 159, 204,0.3);
+  margin-left: 30rpx;
+}
+.more_item:last-child {
+  border-bottom: 0;
+}
+.more_item .left {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.more_item .left image {
+  width: 50rpx;
+  height: 50rpx;
+  padding-right: 10rpx;
+}
+.more_item .left .title {
+  font-size: 25rpx;
+  color:black
+}
+.more_item .right {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.more_item .right text {
+  font-size: 25rpx;
+  color: rgb(164, 163, 165);
+  letter-spacing: 2rpx;
+}
+.more_item image:last-child {
+  width: 30rpx;
+  height: 30rpx;
+  margin-top: 2rpx;
 }
