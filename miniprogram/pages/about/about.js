@@ -46,27 +46,27 @@ Page({
       }
 
     ],
-    servicer: [{
-      avatar: '/images/about/zw.jpg',
-      nickName: 'u.'
-    },
-    {
-      avatar: '/images/about/yq.jpg',
-      nickName: 'Grace'
-    },
-    {
-      avatar: '/images/about/zt.jpg',
-      nickName: '騰丶'
-    },
-    {
-      avatar: '/images/about/lin.jpg',
-      nickName: '小排骨'
-    },
-    {
-      avatar: '/images/about/yan.jpg',
-      nickName: '云崖呀呀'
-    }
-    ],
+    // servicer: [{
+    //   avatar: '/images/about/zw.jpg',
+    //   nickName: 'u.'
+    // },
+    // {
+    //   avatar: '/images/about/yq.jpg',
+    //   nickName: 'Grace'
+    // },
+    // {
+    //   avatar: '/images/about/zt.jpg',
+    //   nickName: '騰丶'
+    // },
+    // {
+    //   avatar: '/images/about/lin.jpg',
+    //   nickName: '小排骨'
+    // },
+    // {
+    //   avatar: '/images/about/yan.jpg',
+    //   nickName: '云崖呀呀'
+    // }
+    // ],
   },
 
   /**

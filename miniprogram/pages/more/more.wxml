@@ -62,7 +62,7 @@
           </view>
           <view class='MenuDiv' bindtap='clickMenu' >
               <span  class='rightimg-top'>
-                  标签:
+                  分类:
               </span>
               <span class="choosenLabel">
                   {{choosenLabel}}

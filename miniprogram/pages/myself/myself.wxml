@@ -61,7 +61,7 @@
       </view>
       <view class="right">
         <text>{{isLogin ? storageInfo.school : '暂未登录'}}</text>
-        <image src="{{right || '/pages/myself/images/right.png'}}"></image>
+        <!-- <image src="{{right || '/pages/myself/images/right.png'}}"></image> -->
       </view>
       
     </view>
@@ -73,7 +73,7 @@
       </view>
       <view class="right">
         <text>{{isLogin ? storageInfo.username : '暂未登录'}}</text>
-        <image src="{{right || '/pages/myself/images/right.png'}}"></image>
+        <!-- <image src="{{right || '/pages/myself/images/right.png'}}"></image> -->
       </view>
     </view>
   </view>

@@ -8,23 +8,27 @@ var pagecount = 1
 Page({
   data: {
     list: [
+      // {
+      //   icon: "images/sheTuan.png",
+      //   title: "社团注册",
+      //   intro: "添加你的社团",
+      //   click: "association"
+      // },
+
       {
-        icon: "images/sheTuan.png",
-        title: "社团注册",
-        intro: "添加你的社团",
-        click: "association"
-      },
-      {
+        id:1,
         icon: "images/aboutUs.png",
         title: "关于我们",
-        intro: "找到我们",
+        intro: "联系客服",
         click: "about"
       }, {
+        id:2,
         icon: "images/update.png",
         title: "更新日志",
         intro: "更新日志",
         click: "journal"
       }, {
+        id:3,
         icon: "images/login.png",
         title: "登录/注销账号",
         intro: "登录/注销",
@@ -65,24 +69,26 @@ Page({
       wx.navigateTo({
         url: '/pages/login/login',
       })
-    }else {
-      wx.showToast({
-        icon:'none',
-        title: '你的学校哟!',
-      })
     }
+    // else {
+    //   wx.showToast({
+    //     icon:'none',
+    //     title: '你的学校哟!',
+    //   })
+    // }
   },
   academy(e) {
     if(!this.data.isLogin) {
       wx.navigateTo({
         url: '/pages/login/login',
       })
-    }else {
-      wx.showToast({
-        icon:'none',
-        title: '你的学号哟!',
-      })
     }
+    // else {
+    //   wx.showToast({
+    //     icon:'none',
+    //     title: '你的学号哟!',
+    //   })
+    // }
   },
 
   about(e) {
@@ -97,9 +103,21 @@ Page({
   },
 
   login(e) {
-    wx.redirectTo({
-      url: '/pages/login/login'
+    wx.showModal({
+      title: '提示',
+      content: '请确定是否注销/登录',
+      success (res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+          wx.redirectTo({
+            url: '/pages/login/login'
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
     })
+
   },
 
   association(e) {
