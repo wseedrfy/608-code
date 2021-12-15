@@ -1,5 +1,4 @@
 var got = require('got'); //引用 got
-var iconv = require("iconv-lite");
 const cloud = require('wx-server-sdk');
 const querystring = require("querystring");
 cloud.init();
@@ -9,7 +8,7 @@ var iconv = require('iconv-lite');
 var BufferHelper = require('bufferhelper');
 const fs = require('fs')
 const utils = require("../../../utils/recogCaptcha")
-
+//登录
 const login = async (username, password) => {
   let getResponse = await got('https://jwc.mmpt.edu.cn/default2.aspx')
   let cookie = getResponse.headers["set-cookie"]
@@ -64,10 +63,13 @@ const login = async (username, password) => {
   let returnData = iconv.decode(bufferHelper.toBuffer(), 'GBK')
   return String(returnData)
 }
+
+//登录结束
+
+
 // 云函数入口函数
 exports.main = async (username, password) => {
   var returnData = await login(username, password)
-  console.log(returnData)
   while (true) {
     if (returnData.match(/用户名或密码不正确/)) {
       return {
@@ -95,10 +97,7 @@ exports.main = async (username, password) => {
     }
 
   });
-  var Test = new BufferHelper();
-  Test.concat(getname.rawBody);
-  let testname = iconv.decode(Test.toBuffer(), 'GBK')
-  // <span id="xhxm">(?s:(.*?))同学
+  let testname =zm(getname.rawBody)
   regname = /欢迎您：<em><span id="xhxm">(.*?)同学/g;
   for (let regExpMatchArray of testname.matchAll(regname)) {
     var name = regExpMatchArray[1]
@@ -106,7 +105,6 @@ exports.main = async (username, password) => {
   const str = encodeURI(name);
   var xh = username
 
-  var Test = new BufferHelper();
 
 
   //获取__VIEWSTATE
@@ -122,9 +120,8 @@ exports.main = async (username, password) => {
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36"
       },
     });
-  Test.concat(get_VIEWSTATE.rawBody);
-  testname = iconv.decode(Test.toBuffer(), 'GBK')
-  get_VIEWSTATE_reg = /<input type="hidden" name="__VIEWSTATE" value="(.*?)" \/>/g;
+  testname = zm(get_VIEWSTATE.rawBody)
+  let get_VIEWSTATE_reg = /<input type="hidden" name="__VIEWSTATE" value="(.*?)" \/>/g;
   var regExpMatchArrays = testname.matchAll(get_VIEWSTATE_reg);
   for (let regExpMatchArray of regExpMatchArrays) {
     var VIEWSTATE = regExpMatchArray[1];
@@ -143,31 +140,28 @@ exports.main = async (username, password) => {
 
     })
 
-  getname = await got.post('https://jwc.mmpt.edu.cn/xscjcx.aspx?xh=' +
-    username +
-    "&xm=" +
-    str +
-    "&gnmkdm=N121605", {
-      headers: {
-        "Referer": "https://jwc.mmpt.edu.cn/xscjcx.aspx?xh=31902200128&xm=%D0%BB%B6%AB%B2%C5&gnmkdm=N121605",
-        "Cookie": cookie,
-        "Content-Type": "application/x-www-form-urlencoded",
-        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36"
-      },
-      body: querystring.stringify({
-        btn_zcj: "历年成绩",
-        __VIEWSTATE: VIEWSTATE
-      })
-    });
-  var getname_codice = new BufferHelper();
-  getname_codice.concat(getname.rawBody)
-  let getname_test = iconv.decode(getname_codice.toBuffer(), 'GBK')
-  console.log(getname_test)
+  let getcj = await got.post('https://jwc.mmpt.edu.cn/xscjcx.aspx?xh=' +
+      username +
+      "&xm=" +
+      str +
+      "&gnmkdm=N121605", {
+    headers: {
+      "Referer": "https://jwc.mmpt.edu.cn/xscjcx.aspx?xh=31902200128&xm=%D0%BB%B6%AB%B2%C5&gnmkdm=N121605",
+      "Cookie": cookie,
+      "Content-Type": "application/x-www-form-urlencoded",
+      "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36"
+    },
+    body: querystring.stringify({
+      btn_zcj: "历年成绩",
+      __VIEWSTATE: VIEWSTATE
+    })
+  });
 
-  var bufferHelper = new BufferHelper();
-  bufferHelper.concat(getResponse.rawBody);
-  let body = iconv.decode(bufferHelper.toBuffer(), 'GBK')
-
+  let getcj_html = zm(getcj.rawBody)
+  let cj = cj(getcj_html);
+  let body = zm(getResponse.rawBody)
+  let test = formatContent(body);
+  let kb = kb(test);
   Array.prototype.notempty = function () {
     var arr = [];
     this.map(function (val, index) {
@@ -179,16 +173,93 @@ exports.main = async (username, password) => {
     });
     return arr;
   }
+  return {
+    otherData: {
+      curriculum: kb,
+      achievement:cj
+    }
+
+  }
+}
+
+function formatContent(str) {
+
+  // 去除指定标签的行内元素
+  str = str.replace(/<head>([\S\s]*?)<\/head>/ig, "");
+  str = str.replace(/<script([\S\s]*?)<\/script>/ig, "");
+  str = str.replace(/<!--([\S\s]*?)-->/ig, "");
+  str = str.replace(/<td([\S\s]*?)>/ig, "<td>");
+  str = str.replace(/<tr([\S\s]*?)>/ig, "<tr>");
+  str = str.replace(/<td>第([\S\s]*?)节<\/td>/ig, "");
+
+  // 去除指定标签及其包含内容
+  str = str.replace(/<\/?(!DOCTYPE|!--|html|head|title|meta|body|font|em|input|div|form|p|span|table|select|option)\b[^>]*>/ig, "");
+
+  // 去除空行
+  str = str.replace(/<td>&nbsp;<\/td>/ig, "");
+  str = str.replace(/&nbsp;/ig, "");
+  // 清除所有换行和空格
+  str = str.replace(/[\r\n]/g, "");
+  str = str.replace(/[\t]+/g, "");
+
+  // 去除没用的字段标签
+  str = str.replace(/<tr><\/tr>/ig, "");
+  str = str.replace(/<\/tr><br>([\S\s]*?)<\/tr>/ig, "<tr>");
+  str = str.replace(/<tr><td><tr>([\S\s]*?)<\/tr><\/td><\/tr>/ig, "");
+  str = str.replace(/<\/td>/ig, "<\/td>");
+  str = str.replace(/<\/tr>/ig, "<\/tr>");
+
+  return str;
+
+}
+//转GBK编码
+function zm(body){
+  let codice = new BufferHelper();
+  codice.concat(body)
+  return  iconv.decode(codice.toBuffer(), 'GBK')
+}
+//成绩
+function cj(html){
+  var str = formatContent(html);
+  reg = /<tr><td>(.*?)<\/td><\/tr>/g;
+  var regExpMatchArrays = str.matchAll(reg);
+  regnew = /<tr><td>(.*?)<\/td><td>(.*?)<\/td><td>(.*?)<\/td><td>(.*?)<\/td><td>(.*?)课<\/td><td>(.*?)<\/td><td>(.*?)<\/td><td>(.*?)<\/td><td>(.*?)<\/td><td>(.*?)<\/td><td><\/td><td><\/td><\/tr>/g
+  var all = []
+  for (let regExpMatchArray of regExpMatchArrays) {
+    var matchAll = regExpMatchArray[0].matchAll(regnew);
+    for (let matchAllElement of matchAll) {
+      let kszt="正常考试";
+      if(matchAllElement[5]!=='必修'){
+        let kszt="不正常考试";
+      }
+      let object = {
+
+        xnxqmc:matchAllElement[1]+"-"+matchAllElement[2],//学年学期
+        kcbh:matchAllElement[3],//课程编号
+        kcmc:matchAllElement[4],//课程名称
+        xdfsmc:matchAllElement[5],//课程性质
+        zcj:matchAllElement[8],//成绩
+        xf:matchAllElement[6],//学分
+        ksxzmc: kszt,
+        cjjd:matchAllElement[7],//绩点
+      }
+      all.push(object)
+    }
+  }
+  return all
+}
+//课表
+function kb(test){
 
   // 仅剩<tr>和<td>标签
-  var test = formatContent(body)
+
   // tr用来分片
   test = test.replace(/<tr>/ig, "");
-  var arr = test.split("</tr>")
+  let arr = test.split("</tr>");
   // 去除（去除非课表元素后的）空数组
   arr = arr.notempty()
-  reg = /<td>(.*?)<\/td>/g;
-  newreg = /周(.*?)第(.*?),(.*?)节{第(.*?)-(.*?)周}/g; //用来划分某周某天某节课
+  let reg = /<td>(.*?)<\/td>/g;
+  let newreg = /周(.*?)第(.*?),(.*?)节{第(.*?)-(.*?)周}/g; //用来划分某周某天某节课
   let test_br;
   let temp = [];
   let all = [];
@@ -200,7 +271,7 @@ exports.main = async (username, password) => {
         //判断是否为课表内容
         if (test_br.length > 6) {
           let p1 = [],
-            p2 = [];
+              p2 = [];
           for (let i = 0; i < (test_br.length - 1) / 2; i++) {
             if (test_br[i] !== "")
               p1.push(test_br[i]);
@@ -263,7 +334,7 @@ exports.main = async (username, password) => {
               break;
           }
           let min = tempElement[length - 2],
-            max = tempElement[length - 1];
+              max = tempElement[length - 1];
           if (min <= i + 1 && i + 1 <= max && week_day_i === j) {
             let course = [];
             //存放内容
@@ -303,41 +374,5 @@ exports.main = async (username, password) => {
     }
 
   }
-
-  return {
-    otherData: {
-      curriculum: m
-    }
-  }
-
-  function formatContent(str) {
-
-    // 去除指定标签的行内元素
-    str = str.replace(/<head>([\S\s]*?)<\/head>/ig, "");
-    str = str.replace(/<script([\S\s]*?)<\/script>/ig, "");
-    str = str.replace(/<!--([\S\s]*?)-->/ig, "");
-    str = str.replace(/<td([\S\s]*?)>/ig, "<td>");
-    str = str.replace(/<tr([\S\s]*?)>/ig, "<tr>");
-    str = str.replace(/<td>第([\S\s]*?)节<\/td>/ig, "");
-
-    // 去除指定标签及其包含内容
-    str = str.replace(/<\/?(!DOCTYPE|!--|html|head|title|meta|body|font|em|input|div|form|p|span|table|select|option)\b[^>]*>/ig, "");
-
-    // 去除空行
-    str = str.replace(/<td>&nbsp;<\/td>/ig, "");
-    str = str.replace(/&nbsp;/ig, "");
-    // 清除所有换行和空格
-    str = str.replace(/[\r\n]/g, "");
-    str = str.replace(/[\t]+/g, "");
-
-    // 去除没用的字段标签
-    str = str.replace(/<tr><\/tr>/ig, "");
-    str = str.replace(/<\/tr><br>([\S\s]*?)<\/tr>/ig, "<tr>");
-    str = str.replace(/<tr><td><tr>([\S\s]*?)<\/tr><\/td><\/tr>/ig, "");
-    str = str.replace(/<\/td>/ig, "<\/td>");
-    str = str.replace(/<\/tr>/ig, "<\/tr>");
-
-    return str;
-
-  }
+  return m
 }
