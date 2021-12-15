@@ -9,7 +9,7 @@ Page({
   data: {
     list: [
       {
-        icon: "images/aboutUs.png",
+        icon: "images/sheTuan.png",
         title: "社团注册",
         intro: "添加你的社团",
         click: "association"
@@ -61,22 +61,36 @@ Page({
     this.handleStudyWeek();
   },
   school(e) {
-    console.log(e, "学校");
+    if(!this.data.isLogin) {
+      wx.navigateTo({
+        url: '/pages/login/login',
+      })
+    }else {
+      wx.showToast({
+        icon:'none',
+        title: '你的学校哟!',
+      })
+    }
   },
   academy(e) {
-    console.log(e, "专业");
+    if(!this.data.isLogin) {
+      wx.navigateTo({
+        url: '/pages/login/login',
+      })
+    }else {
+      wx.showToast({
+        icon:'none',
+        title: '你的学号哟!',
+      })
+    }
   },
 
   about(e) {
-    console.log(e)
-    console.log("关于我们")
     wx.navigateTo({
       url: '/pages/about/about',
     })
   },
   journal(e) {
-    console.log(e)
-    console.log("更新日志")
     wx.navigateTo({
       url: '/pages/journal/journal',
     })
@@ -86,8 +100,6 @@ Page({
     wx.redirectTo({
       url: '/pages/login/login'
     })
-    console.log(e)
-    console.log("登录/注销账号")
   },
 
   association(e) {

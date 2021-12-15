@@ -12,13 +12,12 @@
       </view>
       <!-- 未登录状态 -->
       <view class="userInfoTxt" wx:if="{{isLogin == false}}" bindtap="login">
-        <!-- 姓名 -->
-        <view class="userName">
-          Users 暂未登录
-        </view>
-        <!-- 学号 -->
-        <view class="userAcademy">
-          <view class="guestAcademy">请点击此处登录账号，以获得最佳体验</view>
+        <view class="left">
+          <!-- 姓名 -->
+          <view class="userName">
+            你还没登录哟!
+          </view>
+          <view class="userAcademy">点击登录账号</view>
         </view>
       </view>
       <!-- 登录状态 -->
@@ -34,7 +33,7 @@
           </view>
         </view>
         <view class="right">
-          <view class="studyDate" style="margin-bottom: 10rpx;">{{studyDate}}</view>
+          <view class="studyDate" style="margin-bottom: 10rpx;margin-top: 8rpx;">{{studyDate}}</view>
           <view class="studyWeek">{{studyWeek}}</view>
         </view>
       </view>
@@ -48,7 +47,7 @@
       <view class="fundamention">待定功能</view>
     </view>
     <view class="secondModule moduleItem">
-      <view class="text">{{storageInfo.school}}</view>
+      <view class="text">{{storageInfo.school ? storageInfo.school : '暂未登录'}}</view>
       <view class="fundamention">学校</view>
     </view>
   </view>

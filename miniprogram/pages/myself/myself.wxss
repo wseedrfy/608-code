@@ -6,6 +6,9 @@ page {
   padding: 0 0;
 }
 
+image {
+  color: #fff;
+}
 .bgcImage {
   position: relative;
   width: 100%;
@@ -24,20 +27,18 @@ page {
 .userAvatar {
   display: flex;
   overflow: hidden;
-  width: 90rpx;
-  height: 90rpx;
-  border-radius: 5%;
-  /* background-color: #fff; */
-  /* opacity: 0.7; */
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
   border: 5rpx solid rgba(171, 199, 233, 0.6);
 }
 
 .userAvatar .userAvatarImg {
   display: flex;
   overflow: hidden;
-  width: 90rpx;
-  height: 90rpx;
-  border-radius: 5%;
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
   background-color: #fff;
 }
 /* 角色信息text */

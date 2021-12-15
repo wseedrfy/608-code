@@ -120,7 +120,11 @@ Page({
     direction:" ",
     directionIndex:0,
   },
-  
+  naviToMyself() {
+    wx.switchTab({
+      url: '/pages/myself/myself',
+    })
+  },
   search_Input:function(e){
     console.log("e.",e.detail.value)
     console.log("this.data.noramalData",this.data.noramalData)

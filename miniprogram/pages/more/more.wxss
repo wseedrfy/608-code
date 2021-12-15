@@ -19,16 +19,26 @@ page{
   border-radius: 15rpx;
   background-color: rgba(202, 202, 202, 0.342);
 }
+.head_second .avatar {
+  margin-left: 20rpx;
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+}
+.head_second .searchFrame {
+  width: 400rpx;
+  margin-left: 15rpx;
+}
+.head_second .searchFrame image {
+  margin: 10rpx 10rpx 0 10rpx;
+  width: 20rpx;
+  height: 20rpx;
+}
 .SearchInput{
   width:95%;
   padding:0rpx 3rpx;
+  color: rgb(142, 142, 142);
 }
-.head_second image {
-  margin-left: 10rpx;
-  width: 35rpx;
-  height: 35rpx;
-}
-
 .content{
   display: flex;
   flex-direction: row;

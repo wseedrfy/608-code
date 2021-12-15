@@ -91,3 +91,9 @@ App({
     // func: {}
   }
 })
+   // {
+      //   "pagePath": "pages/more/more",
+      //   "iconPath": "/images/tabbar/about.png",
+      //   "selectedIconPath": "/images/tabbar/about_cur.png",
+      //   "text": "校园圈"
+      // },

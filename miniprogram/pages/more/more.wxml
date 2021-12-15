@@ -6,10 +6,11 @@
       <view style="height: {{statusBarHeight}}px;" />
       <!-- 导航栏 -->
       <view class="head_second"  style="height: {{lineHeight}}px;" > 
+        <image class="avatar" src="{{iconUrl}}" catchtap="naviToMyself"></image>
+        <view class="searchFrame">
           <image src="../../images/search.png" />
-          <view class="searchFrame">
-            <input class="SearchInput" value="{{search}}" bindinput="search_Input"/>
-          </view>
+          <input class="SearchInput" value="{{search}}" bindinput="search_Input" />
+        </view>
       </view>
     </view>
   </view>
