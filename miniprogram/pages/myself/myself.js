@@ -8,12 +8,7 @@ var pagecount = 1
 Page({
   data: {
     list: [
-      // {
-      //   icon: "images/sheTuan.png",
-      //   title: "社团注册",
-      //   intro: "添加你的社团",
-      //   click: "association"
-      // },
+
 
       {
         id:1,

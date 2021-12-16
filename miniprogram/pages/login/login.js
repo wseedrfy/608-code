@@ -83,11 +83,10 @@ Page({
             school: that.data.school[that.data.index]
           },
           success: res => {
-            //
-             wx.setStorage({
-              key: 'data',
-              data: JSON.stringify(data)
-            })
+            wx.setStorage({
+              key: 'args',
+              data: data
+            });
             if (res.result.msg == "welcome") {
        
               wx.reLaunch({
