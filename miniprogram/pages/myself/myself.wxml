@@ -32,7 +32,7 @@
             <view class="guestAcademy">学号：{{ isLogin? storageInfo.username : ''}}</view>
           </view>
         </view>
-        <view class="right">
+        <view class="right" style="margin-right: 40rpx;">
           <view class="studyDate" style="margin-bottom: 10rpx;margin-top: 8rpx;">{{studyDate}}</view>
           <view class="studyWeek">{{studyWeek}}</view>
         </view>

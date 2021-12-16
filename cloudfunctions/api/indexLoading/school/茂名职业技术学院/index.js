@@ -66,9 +66,178 @@ const login = async (username, password) => {
 
 //登录结束
 
-
 // 云函数入口函数
 exports.main = async (username, password) => {
+  Array.prototype.notempty = function () {
+    var arr = [];
+    this.map(function (val, index) {
+      let buf = val.split("<\/td>")
+      //过滤规则为，不为空串、不为null、不为undefined，也可自行修改
+      if (buf.length > 2) {
+        arr.push(val);
+      }
+    });
+    return arr;
+  }
+  function cj(html) {
+    var str = formatContent(html);
+    reg = /<tr><td>(.*?)<\/td><\/tr>/g;
+    var regExpMatchArrays = str.matchAll(reg);
+    regnew = /<tr><td>(.*?)<\/td><td>(.*?)<\/td><td>(.*?)<\/td><td>(.*?)<\/td><td>(.*?)课<\/td><td>(.*?)<\/td><td>(.*?)<\/td><td>(.*?)<\/td><td>(.*?)<\/td><td>(.*?)<\/td><td><\/td><td><\/td><\/tr>/g
+    var all = []
+    var matchAll
+    let kszt
+    let object
+    for (let regExpMatchArray of regExpMatchArrays) {
+      matchAll = regExpMatchArray[0].matchAll(regnew);
+      for (let matchAllElement of matchAll) {
+        kszt = "正常考试";
+        if (matchAllElement[5] !== '必修') {
+          kszt = "不正常考试";
+        }
+        object = {
+          xnxqmc: matchAllElement[1] + "-" + matchAllElement[2], //学年学期
+          kcbh: matchAllElement[3], //课程编号
+          kcmc: matchAllElement[4], //课程名称
+          xdfsmc: matchAllElement[5], //课程性质
+          zcj: matchAllElement[8], //成绩
+          xf: matchAllElement[6], //学分
+          ksxzmc: kszt,
+          cjjd: matchAllElement[7], //绩点
+        }
+        all.push(object)
+      }
+    }
+    return all
+  }
+  //课表
+  function kb(test) {
+
+    // 仅剩<tr>和<td>标签
+
+    // tr用来分片
+    test = test.replace(/<tr>/ig, "");
+    let arr = test.split("</tr>");
+    // 去除（去除非课表元素后的）空数组
+    arr = arr.notempty()
+    let reg = /<td>(.*?)<\/td>/g;
+    let newreg = /周(.*?)第(.*?),(.*?)节{第(.*?)-(.*?)周}/g; //用来划分某周某天某节课
+    let test_br;
+    let temp = [];
+    let all = [];
+    for (let kb of arr) {
+      let matchAll = kb.matchAll(reg);
+      for (let matchAllElement of matchAll) {
+        test_br = matchAllElement[1].split("<br>")
+        if (test_br.length >= 4) {
+          //判断是否为课表内容
+          if (test_br.length > 6) {
+            let p1 = [],
+              p2 = [];
+            for (let i = 0; i < (test_br.length - 1) / 2; i++) {
+              if (test_br[i] !== "")
+                p1.push(test_br[i]);
+            }
+            temp.push(p1);
+            for (let i = (test_br.length - 1) / 2; i < test_br.length; i++) {
+              if (test_br[i] !== "")
+                p2.push(test_br[i]);
+            }
+            temp.push(p2)
+
+          } else {
+            temp.push(test_br)
+          }
+        }
+      }
+
+    }
+    for (let tempElement of temp) {
+      let matchAll1 = tempElement[1].matchAll(newreg);
+      for (let matchAll1Element of matchAll1) {
+        //将周 节 天 分出
+        tempElement.push(matchAll1Element[1]);
+        tempElement.push(parseInt(matchAll1Element[2]));
+        tempElement.push(parseInt(matchAll1Element[3]));
+        tempElement.push(parseInt(matchAll1Element[4]));
+        tempElement.push(parseInt(matchAll1Element[5]));
+      }
+      // console.log(tempElement)
+    }
+    for (let i = 0; i < 20; i++) {
+      let week = new Array(7)
+      for (let j = 0; j < 7; j++) {
+        let week_day = new Array(10)
+        for (let k = 0; k < 10; k++) {
+          for (let tempElement of temp) {
+            let length = tempElement.length;
+            let week_day_i = 0;
+            switch (tempElement[length - 5]) {
+              case "一":
+                week_day_i = 0;
+                break;
+              case "二":
+                week_day_i = 1;
+                break;
+              case "三":
+                week_day_i = 2;
+                break;
+              case "四":
+                week_day_i = 3;
+                break;
+              case "五":
+                week_day_i = 4;
+                break;
+              case "六":
+                week_day_i = 5;
+                break;
+              case "日":
+                week_day_i = 6;
+                break;
+            }
+            let min = tempElement[length - 2],
+              max = tempElement[length - 1];
+            if (min <= i + 1 && i + 1 <= max && week_day_i === j) {
+              let course = [];
+              //存放内容
+              course.push(tempElement[0])
+              course.push(tempElement[2])
+              course.push(tempElement[3])
+              week_day[tempElement[length - 4] - 1] = course;
+
+            }
+          }
+        }
+        week[j] = week_day
+      }
+      all.push(week)
+    }
+    let m = []
+    const isNotEmpty = arr => Array.isArray(arr) && arr.length > 0;
+    for (let i = 0; i < all.length; i++) {
+      let week = all[i];
+      for (let j = 0; j < week.length; j++) {
+        let day = week[j];
+        for (let k = 0; k < day.length; k++) {
+          // console.log(day[k].length);
+          let course = day[k];
+          if (!isNotEmpty(course)) continue;
+          let object = {
+            kcmc: course[0], //课程名称
+            teaxms: course[1], //老师
+            jxcdmc: course[2],
+            xq: "" + (j + 1), //星期
+            zc: "" + (i + 1), //周
+            jcdm: "0" + (k + 1) + "0" + (k + 2) //节数
+          }
+          m.push(object)
+        }
+
+      }
+
+    }
+    return m
+  }
   var returnData = await login(username, password)
   while (true) {
     if (returnData.match(/用户名或密码不正确/)) {
@@ -97,7 +266,7 @@ exports.main = async (username, password) => {
     }
 
   });
-  let testname =zm(getname.rawBody)
+  let testname = zm(getname.rawBody)
   regname = /欢迎您：<em><span id="xhxm">(.*?)同学/g;
   for (let regExpMatchArray of testname.matchAll(regname)) {
     var name = regExpMatchArray[1]
@@ -141,42 +310,32 @@ exports.main = async (username, password) => {
     })
 
   let getcj = await got.post('https://jwc.mmpt.edu.cn/xscjcx.aspx?xh=' +
-      username +
-      "&xm=" +
-      str +
-      "&gnmkdm=N121605", {
-    headers: {
-      "Referer": "https://jwc.mmpt.edu.cn/xscjcx.aspx?xh=31902200128&xm=%D0%BB%B6%AB%B2%C5&gnmkdm=N121605",
-      "Cookie": cookie,
-      "Content-Type": "application/x-www-form-urlencoded",
-      "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36"
-    },
-    body: querystring.stringify({
-      btn_zcj: "历年成绩",
-      __VIEWSTATE: VIEWSTATE
-    })
-  });
+    username +
+    "&xm=" +
+    str +
+    "&gnmkdm=N121605", {
+      headers: {
+        "Referer": "https://jwc.mmpt.edu.cn/xscjcx.aspx?xh=31902200128&xm=%D0%BB%B6%AB%B2%C5&gnmkdm=N121605",
+        "Cookie": cookie,
+        "Content-Type": "application/x-www-form-urlencoded",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36"
+      },
+      body: querystring.stringify({
+        btn_zcj: "历年成绩",
+        __VIEWSTATE: VIEWSTATE
+      })
+    });
 
   let getcj_html = zm(getcj.rawBody)
-  let cj = cj(getcj_html);
+  let achievement = cj(getcj_html);
   let body = zm(getResponse.rawBody)
   let test = formatContent(body);
-  let kb = kb(test);
-  Array.prototype.notempty = function () {
-    var arr = [];
-    this.map(function (val, index) {
-      let buf = val.split("<\/td>")
-      //过滤规则为，不为空串、不为null、不为undefined，也可自行修改
-      if (buf.length > 2) {
-        arr.push(val);
-      }
-    });
-    return arr;
-  }
+  let curriculum = kb(test);
+
   return {
     otherData: {
-      curriculum: kb,
-      achievement:cj
+      curriculum,
+      achievement
     }
 
   }
@@ -213,166 +372,9 @@ function formatContent(str) {
 
 }
 //转GBK编码
-function zm(body){
+function zm(body) {
   let codice = new BufferHelper();
   codice.concat(body)
-  return  iconv.decode(codice.toBuffer(), 'GBK')
+  return iconv.decode(codice.toBuffer(), 'GBK')
 }
 //成绩
-function cj(html){
-  var str = formatContent(html);
-  reg = /<tr><td>(.*?)<\/td><\/tr>/g;
-  var regExpMatchArrays = str.matchAll(reg);
-  regnew = /<tr><td>(.*?)<\/td><td>(.*?)<\/td><td>(.*?)<\/td><td>(.*?)<\/td><td>(.*?)课<\/td><td>(.*?)<\/td><td>(.*?)<\/td><td>(.*?)<\/td><td>(.*?)<\/td><td>(.*?)<\/td><td><\/td><td><\/td><\/tr>/g
-  var all = []
-  for (let regExpMatchArray of regExpMatchArrays) {
-    var matchAll = regExpMatchArray[0].matchAll(regnew);
-    for (let matchAllElement of matchAll) {
-      let kszt="正常考试";
-      if(matchAllElement[5]!=='必修'){
-        let kszt="不正常考试";
-      }
-      let object = {
-
-        xnxqmc:matchAllElement[1]+"-"+matchAllElement[2],//学年学期
-        kcbh:matchAllElement[3],//课程编号
-        kcmc:matchAllElement[4],//课程名称
-        xdfsmc:matchAllElement[5],//课程性质
-        zcj:matchAllElement[8],//成绩
-        xf:matchAllElement[6],//学分
-        ksxzmc: kszt,
-        cjjd:matchAllElement[7],//绩点
-      }
-      all.push(object)
-    }
-  }
-  return all
-}
-//课表
-function kb(test){
-
-  // 仅剩<tr>和<td>标签
-
-  // tr用来分片
-  test = test.replace(/<tr>/ig, "");
-  let arr = test.split("</tr>");
-  // 去除（去除非课表元素后的）空数组
-  arr = arr.notempty()
-  let reg = /<td>(.*?)<\/td>/g;
-  let newreg = /周(.*?)第(.*?),(.*?)节{第(.*?)-(.*?)周}/g; //用来划分某周某天某节课
-  let test_br;
-  let temp = [];
-  let all = [];
-  for (let kb of arr) {
-    let matchAll = kb.matchAll(reg);
-    for (let matchAllElement of matchAll) {
-      test_br = matchAllElement[1].split("<br>")
-      if (test_br.length >= 4) {
-        //判断是否为课表内容
-        if (test_br.length > 6) {
-          let p1 = [],
-              p2 = [];
-          for (let i = 0; i < (test_br.length - 1) / 2; i++) {
-            if (test_br[i] !== "")
-              p1.push(test_br[i]);
-          }
-          temp.push(p1);
-          for (let i = (test_br.length - 1) / 2; i < test_br.length; i++) {
-            if (test_br[i] !== "")
-              p2.push(test_br[i]);
-          }
-          temp.push(p2)
-
-        } else {
-          temp.push(test_br)
-        }
-      }
-    }
-
-  }
-  for (let tempElement of temp) {
-    let matchAll1 = tempElement[1].matchAll(newreg);
-    for (let matchAll1Element of matchAll1) {
-      //将周 节 天 分出
-      tempElement.push(matchAll1Element[1]);
-      tempElement.push(parseInt(matchAll1Element[2]));
-      tempElement.push(parseInt(matchAll1Element[3]));
-      tempElement.push(parseInt(matchAll1Element[4]));
-      tempElement.push(parseInt(matchAll1Element[5]));
-    }
-    // console.log(tempElement)
-  }
-  for (let i = 0; i < 20; i++) {
-    let week = new Array(7)
-    for (let j = 0; j < 7; j++) {
-      let week_day = new Array(10)
-      for (let k = 0; k < 10; k++) {
-        for (let tempElement of temp) {
-          let length = tempElement.length;
-          let week_day_i = 0;
-          switch (tempElement[length - 5]) {
-            case "一":
-              week_day_i = 0;
-              break;
-            case "二":
-              week_day_i = 1;
-              break;
-            case "三":
-              week_day_i = 2;
-              break;
-            case "四":
-              week_day_i = 3;
-              break;
-            case "五":
-              week_day_i = 4;
-              break;
-            case "六":
-              week_day_i = 5;
-              break;
-            case "日":
-              week_day_i = 6;
-              break;
-          }
-          let min = tempElement[length - 2],
-              max = tempElement[length - 1];
-          if (min <= i + 1 && i + 1 <= max && week_day_i === j) {
-            let course = [];
-            //存放内容
-            course.push(tempElement[0])
-            course.push(tempElement[2])
-            course.push(tempElement[3])
-            week_day[tempElement[length - 4] - 1] = course;
-
-          }
-        }
-      }
-      week[j] = week_day
-    }
-    all.push(week)
-  }
-  let m = []
-  const isNotEmpty = arr => Array.isArray(arr) && arr.length > 0;
-  for (let i = 0; i < all.length; i++) {
-    let week = all[i];
-    for (let j = 0; j < week.length; j++) {
-      let day = week[j];
-      for (let k = 0; k < day.length; k++) {
-        // console.log(day[k].length);
-        let course = day[k];
-        if (!isNotEmpty(course)) continue;
-        let object = {
-          kcmc: course[0], //课程名称
-          teaxms: course[1], //老师
-          jxcdmc: course[2],
-          xq: "" + (j + 1), //星期
-          zc: "" + (i + 1), //周
-          jcdm: "0" + (k + 1) + "0" + (k + 2) //节数
-        }
-        m.push(object)
-      }
-
-    }
-
-  }
-  return m
-}

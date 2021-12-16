@@ -61,6 +61,7 @@ Page({
         }
       },
       fail: res => {
+        console.log(res)
         wx.showToast({
           icon: 'none',
           title: "模版请求错误",
