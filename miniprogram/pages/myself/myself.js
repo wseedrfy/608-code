@@ -8,8 +8,6 @@ var pagecount = 1
 Page({
   data: {
     list: [
-
-
       {
         id:1,
         icon: "images/aboutUs.png",

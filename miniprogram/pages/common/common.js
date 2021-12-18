@@ -7,12 +7,25 @@ Page({
     foodList: [],
     htmlSrc: "",
   },
+  getMessage:function(res){
+
+    var that = this
+    var args = wx.getStorageSync('args')
+    console.log(res.detail.data)
+    var run = app.jsRun(args, res.detail.data)
+    var returnUrl = run(that)
+    
+    if(returnUrl){
+      that.setData({htmlSrc: returnUrl})
+    }
+
+  },
   //事件处理函数
   onLoad: function(options) {
     var that = this;
     console.log(options)
     if(options.type === "web"){
-      that.setData({htmlSrc: options.url})
+      that.setData({htmlSrc: options.url + '?argsData=' + options.argsData})
     }else if(options.type === "small"){
       wx.navigateToMiniProgram({
         appId: options.id,

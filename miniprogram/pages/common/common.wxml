@@ -20,5 +20,5 @@
   <text>\n</text>
 </view>
 
-<web-view wx:if="{{htmlSrc}}" src="{{htmlSrc}}"></web-view>
+<web-view wx:if="{{htmlSrc}}" src="{{htmlSrc}}" bindmessage="getMessage"></web-view>
 

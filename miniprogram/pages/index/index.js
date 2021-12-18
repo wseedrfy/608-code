@@ -49,10 +49,10 @@ Page({
         var new_args = res.result
         if (!(JSON.stringify(new_args) === JSON.stringify(wx.getStorageSync('args')))) {
           console.log("进入函数更新")
-          var onLoad = app.jsRun(new_args, new_args.jsCode)
+          var onload = app.jsRun(new_args, new_args.jsCode)
           wx.setStorageSync('args', new_args)
           try {
-            onLoad(that)
+            onload(that)
           } catch {
             that.setData({
               msg: '有超级bug，请联系开发查看函数'
