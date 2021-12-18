@@ -35,8 +35,8 @@ function runCode(that) {
             isCourse = '';
             msg = "此类无成绩"
             that.setData({
-                isCourse: isCourse,
-                msg: msg,
+                // isCourse: isCourse,
+                // msg: msg,
                 list: data,
                 index: id,
                 headerType: 'picker',
