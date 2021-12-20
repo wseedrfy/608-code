@@ -16,6 +16,9 @@
   </view>
   <view style="position: relative; padding-top: {{ 3 + (statusBarHeight + lineHeight)}}px; width: 100%;"></view>
   <view style="position: relative; padding-top: {{(showscroll? 140: 0) }}rpx; width: 100%;"></view>
+  
+   <image class="showLoading" mode="aspectFit" animation="{{animation}}" src='../../images/loading.png' wx:if="{{showLoading==0}}"></image>
+
   <view class="Line"></view>
     <scroll-view scroll-x="true">
       <view class="Choose_Label" scroll-x="true">

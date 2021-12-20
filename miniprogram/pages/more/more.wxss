@@ -46,7 +46,12 @@ page{
   overflow: hidden;
   margin:10rpx;
 }
- 
+.showLoading{
+  width: 45rpx;
+  height: 45rpx;
+  position: relative;
+  left: 355rpx;
+}
 .left{
   width: 360rpx;
 }

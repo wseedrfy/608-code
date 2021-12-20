@@ -1,7 +1,6 @@
 {
   "usingComponents": {
-    "campusCards": "../../components/campusCards/campusCards",
-    "publishCards": "../../components/publishCards/publishCards"
+    "campusCards": "../../components/campusCards/campusCards"
   },
   "navigationStyle":"custom",
   "enablePullDownRefresh": true
