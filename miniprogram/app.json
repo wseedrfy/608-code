@@ -9,7 +9,8 @@
     "pages/more/UserContent/UserContent",
     "pages/common/common",
     "pages/physical/physical",
-    "pages/about/about"
+    "pages/about/about",
+    "pages/dynamic/dynamic"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -32,7 +33,7 @@
         "selectedIconPath": "/images/tabbar/cur_sel.png",
         "text": "课表"
       },
-   {
+      {
         "pagePath": "pages/more/more",
         "iconPath": "/images/tabbar/circle.png",
         "selectedIconPath": "/images/tabbar/circle_sel.png",
