@@ -84,7 +84,7 @@ Page({
 
   onShareAppMessage: function (res) {
     return {
-      title: 'We广油',
+      title: 'WE校园',
     }
   },
   // 点击上面课表进行切换
