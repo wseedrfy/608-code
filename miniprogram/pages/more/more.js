@@ -794,7 +794,11 @@ stopAnimationInterval: function () {
       rightList:this.data.rightList
     })
   },
-  
+  onShareAppMessage: function (res) {
+    return {
+      title: 'WE校园',
+    }
+  },
 
 })
 

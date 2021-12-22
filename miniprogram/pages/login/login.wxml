@@ -9,7 +9,7 @@
     </view>
 
     <view class="hd">
-      <image class="logo" src="image/3.png"></image>
+      <image class="logo" src="image/logo.jpg"></image>
       <image class="wave" src="image/wave.png" mode="aspectFill"></image>
       <image class="wave wave-bg" src="image/wave.png" mode="aspectFill"></image>
     </view>

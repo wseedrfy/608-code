@@ -163,5 +163,10 @@ Page({
     this.setData({
       studyDate: time.year + '-' + nextYear + '学年 第' + semester + '学期'
     })
-  }
+  },
+  onShareAppMessage: function (res) {
+    return {
+      title: 'WE校园',
+    }
+  },
 })

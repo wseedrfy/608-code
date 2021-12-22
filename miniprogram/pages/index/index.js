@@ -69,4 +69,9 @@ Page({
       }
     })
   },
+  onShareAppMessage: function (res) {
+    return {
+      title: 'WE校园',
+    }
+  },
 })
