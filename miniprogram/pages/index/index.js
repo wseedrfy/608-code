@@ -29,13 +29,13 @@ Page({
     },1500);
     console.log("over")
   },
-  async onLoad() {
+  async onLoad(options) {
     var that = this;
     var args = wx.getStorageSync('args')
     if (args) {
       try {
         var onload = app.jsRun(args, args.jsCode)
-        onload(that)
+        onload(that, options)
       } catch (e) {
         console.log(e)
       }
@@ -69,4 +69,10 @@ Page({
       }
     })
   },
+  onShareAppMessage: function (res) {
+    return {
+      title: 'WE校园',
+    }
+  },
+  
 })

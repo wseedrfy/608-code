@@ -57,7 +57,7 @@ def login():
                 "msg": '异常'
             }
     return {
-        "msg": 'wlecome'
+        "msg": 'welcome'
     }
 
     
@@ -69,10 +69,10 @@ def login():
 # }
 
 # 登录接口
-@app.route('/getDataZf', methods=["POST"])
+@app.route('/getAllData', methods=["POST"])
 def getAllData():
     data = json.loads(request.data)
-    username = data['username']
+    username = str(data['username'])
     password = data['password']
     a = time.time()
     session = requests.Session()
@@ -245,4 +245,4 @@ def getAllData():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=1)
+    app.run(host='0.0.0.0', port=82, debug=1)

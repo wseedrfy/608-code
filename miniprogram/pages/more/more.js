@@ -2,7 +2,12 @@
 var app = getApp()  
 var util = require("../../utils/util")
 let currentPage = 0 // 当前第几页,0代表第一页 
-var _animation; // 动画实体
+var  _animation = wx.createAnimation({
+  duration: _ANIMATION_TIME,
+  timingFunction: 'linear', // "linear","ease","ease-in","ease-in-out","ease-out","step-start","step-end"
+  delay: 0,
+  transformOrigin: '50% 50% 0'
+})
 var _animationIndex = 0; // 动画执行次数index（当前执行了多少次）
 var _animationIntervalId = -1; // 动画定时任务id，通过setInterval来达到无限旋转，记录id，用于结束定时任务
 const _ANIMATION_TIME = 500; // 动画播放一次的时长ms
@@ -560,14 +565,22 @@ stopAnimationInterval: function () {
     var fileIDs=[]
     var that =this
     for(var i=0;i<path.length;i++){
-      wx.cloud.uploadFile({
-        cloudPath:'CampusCircle_images/' + new Date().getTime() + Math.floor(Math.random() * 150) + '.png',
-        filePath:path[i],
-      }).then(res=>{
-        fileIDs.push(res.fileID)
-        console.log(fileIDs)
-        that.uploadData(NewData,fileIDs)
+      wx.compressImage({
+        src: path[i], // 图片路径
+        quality: 20 ,// 压缩质量,
+        success(res){
+          console.log(res)
+          wx.cloud.uploadFile({
+            cloudPath:'CampusCircle_images/' + new Date().getTime() + Math.floor(Math.random() * 150) + '.png',
+            filePath:res.tempFilePath,
+          }).then(res=>{
+            fileIDs.push(res.fileID)
+            console.log(fileIDs)
+            that.uploadData(NewData,fileIDs)
+          })
+        }
       })
+     
     }
   },
 //下拉触底改变状态
@@ -746,12 +759,12 @@ stopAnimationInterval: function () {
 //       delay: 0,
 //       transformOrigin: '50% 50% 0'
 //  })
-    
+
     that.setData({
       showLoading:0
     })
     that.startAnimationInterval()
-   
+    
     console.log("下拉刷新")
     setTimeout(function() {
       //that.startAnimationInterval()
@@ -776,12 +789,7 @@ stopAnimationInterval: function () {
     console.log("over")
   },
   onShow: function () {
-    _animation = wx.createAnimation({
-      duration: _ANIMATION_TIME,
-      timingFunction: 'linear', // "linear","ease","ease-in","ease-in-out","ease-out","step-start","step-end"
-      delay: 0,
-      transformOrigin: '50% 50% 0'
-    })
+
 
     var index=this.data.directionIndex
     if(this.data.direction=="Left"){
@@ -794,7 +802,11 @@ stopAnimationInterval: function () {
       rightList:this.data.rightList
     })
   },
-  
+  onShareAppMessage: function (res) {
+    return {
+      title: 'WE校园',
+    }
+  },
 
 })
 

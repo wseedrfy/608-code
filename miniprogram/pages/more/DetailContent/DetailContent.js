@@ -263,10 +263,9 @@ Page({
     });
     var that=this
     wx.getStorage({
-      key:"data",
+      key:"args",
       success(res){
-        console.log("JSON.parse(res.data)",JSON.parse(res.data))
-        var data = JSON.parse(res.data)
+        var data = res.data
         var userName = data.nickName
         var iconUrl = data.iconUrl
         that.setData({

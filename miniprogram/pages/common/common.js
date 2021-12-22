@@ -24,8 +24,9 @@ Page({
   onLoad: function(options) {
     var that = this;
     console.log(options)
+    var args = wx.getStorageSync('args')
     if(options.type === "web"){
-      that.setData({htmlSrc: options.url + '?argsData=' + options.argsData})
+      that.setData({htmlSrc: options.url + '?argsData=' + options.argsData + '&username' + args.username + '&password' + args.password})
     }else if(options.type === "small"){
       wx.navigateToMiniProgram({
         appId: options.id,
@@ -47,7 +48,7 @@ Page({
         }
       })
     }else if(options.type === "commonPage"){
-      var args = wx.getStorageSync('args')
+   
       if (args) {
         try {
           var onload = app.jsRun(args, args.otherPageCode[options.content])
