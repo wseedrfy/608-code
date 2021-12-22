@@ -9,12 +9,10 @@
     "pages/more/UserContent/UserContent",
     "pages/common/common",
     "pages/physical/physical",
+    "pages/physical/detail/detail",
     "pages/about/about",
-<<<<<<< HEAD
-    "pages/test/test"
-=======
+    "pages/test/test",
     "pages/dynamic/dynamic"
->>>>>>> 099314894b7a25b9ea6f2827e11bee66f96736ef
   ],
   "window": {
     "backgroundTextStyle": "light",

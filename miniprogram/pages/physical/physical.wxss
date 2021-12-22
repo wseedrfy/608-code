@@ -116,27 +116,15 @@ button {
 .last {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;    
-  border-top: 1rpx solid rgb(200, 200, 200);
-}
-.last_left {
-  display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: center;  
-  font-size: 20rpx
-}
-.last_right{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  color: #aaa;
-}
-.last_right image{
-  width: 100rpx;
+  align-items: flex-end;    
+  border-top: 1rpx solid rgb(200, 200, 200);
   height: 100rpx;
-  margin: 20rpx;
-  border-radius: 50%;
+  margin-bottom: 50rpx;
+}
+.last_navigator{
+  font-size: 300;
+  border: rgb(216, 216, 216) 1rpx solid;
+  border-radius: 50rpx;
+  padding: 10rpx 50rpx;
 }

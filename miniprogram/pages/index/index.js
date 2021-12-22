@@ -74,5 +74,10 @@ Page({
       title: 'WE校园',
     }
   },
+  onShareTimeline: function(res) {
+    return {
+      title: 'WE校园'
+    }
+  }
   
 })

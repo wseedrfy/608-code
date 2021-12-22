@@ -1,4 +1,8 @@
 /**index.wxss**/
+page{
+  
+  font-family: Helvetica Neue, Helvetica, sans-serif;
+}
 .container {
   background-color: #f6f6f6;
 }

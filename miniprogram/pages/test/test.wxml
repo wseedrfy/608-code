@@ -50,7 +50,10 @@
 </template>
 
 <view class="all">
+<!-- 
   <block wx:for="{{parent}}">
     <template is="{{ item.type == 'view'?'test-'+item.type+1:'test-'+item.type }}" data="{{ item, deep:1 }}"></template>
   </block>
+-->
+  <canvas type="2d" id="myCanvas" ></canvas>
 </view>
