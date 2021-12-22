@@ -134,10 +134,11 @@ Page({
     that.data.leftH=0,
     that.data.rightH=0,
     wx.getStorage({
-      key:"data",
+      key:"args",
       success(res){
-        console.log("JSON.parse(res.data)",JSON.parse(res.data))
-        var data = JSON.parse(res.data)
+        // console.log("JSON.parse(res.data)",JSON.parse(res.data))
+        var data = res.data
+        console.log(data,"141")
         var school = data.school
         var nickname =data.nickName
         var iconUrl =data.iconUrl

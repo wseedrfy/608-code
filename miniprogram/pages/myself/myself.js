@@ -26,7 +26,14 @@ Page({
         title: "登录/注销账号",
         intro: "登录/注销",
         click: "login"
-      }
+      },
+      {
+        id:4,
+        icon: "images/flag.png",
+        title: "推荐给好友",
+        intro: "方便更多同学",
+        click: "onShareAppMessage"
+      }
     ],
     isLogin: '',
     userInfo: [],
@@ -36,7 +43,9 @@ Page({
       day: new Date().getDay(),
     },
   },
-
+  share(){
+    
+  },
   onLoad() {
     var that = this
     wx.getStorage({
