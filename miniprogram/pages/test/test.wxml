@@ -1,0 +1,56 @@
+<!--pages/test/test.wxml-->
+
+<template name="test-view1">
+  <view class="{{item.class}}" catchtap="{{'undefined'?'':item.bindtap}}">
+    <text>{{item.text}}</text>
+    <block wx:for="{{item.child}}" wx:for-item="childItem">
+      <template is="{{ childItem.type == 'view'?'test-'+childItem.type+(deep+1):'test-'+childItem.type }}" data="{{ item:childItem, deep:deep+1 }}"></template>
+    </block>
+  </view>
+</template>
+<template name="test-view2">
+  <view class="{{item.class}}" catchtap="{{'undefined'?'':item.bindtap}}">
+    <text>{{item.text}}</text>
+    <block wx:for="{{item.child}}" wx:for-item="childItem">
+      <template is="{{ childItem.type == 'view'?'test-'+childItem.type+(deep+1):'test-'+childItem.type }}" data="{{ item:childItem, deep:deep+1 }}"></template>
+    </block>
+  </view>
+</template>
+<template name="test-view3">
+  <view class="{{item.class}}" catchtap="{{'undefined'?'':item.bindtap}}">
+    <text>{{item.text}}</text>
+    <block wx:for="{{item.child}}" wx:for-item="childItem">
+      <template is="{{ childItem.type == 'view'?'test-'+childItem.type+(deep+1):'test-'+childItem.type }}" data="{{ item:childItem, deep:deep+1 }}"></template>
+    </block>
+  </view>
+</template>
+<template name="test-view4">
+  <view class="{{item.class}}" catchtap="{{'undefined'?'':item.bindtap}}">
+    <text>{{item.text}}</text>
+    <block wx:for="{{item.child}}" wx:for-item="childItem">
+      <template is="{{ childItem.type == 'view'?'test-'+childItem.type+(deep+1):'test-'+childItem.type }}" data="{{ item:childItem, deep:deep+1 }}"></template>
+    </block>
+  </view>
+</template>
+<template name="test-view5">
+  <view class="{{item.class}}" catchtap="{{'undefined'?'':item.bindtap}}">
+    <text>{{item.text}}</text>
+    <block wx:for="{{item.child}}" wx:for-item="childItem">
+      <template is="{{ childItem.type == 'view'?'test-'+childItem.type+(deep+1):'test-'+childItem.type }}" data="{{ item:childItem, deep:deep+1 }}"></template>
+    </block>
+  </view>
+</template>
+
+<template name="test-input">
+  <input bindinput="{{item.bindtap}}" value="{{item.text}}" id="{{item.id}}"></input>
+</template>
+
+<template name="test-text">
+  <text bindtap="{{item.bindtap}}">{{item.text}}</text>
+</template>
+
+<view class="all">
+  <block wx:for="{{parent}}">
+    <template is="{{ item.type == 'view'?'test-'+item.type+1:'test-'+item.type }}" data="{{ item, deep:1 }}"></template>
+  </block>
+</view>
