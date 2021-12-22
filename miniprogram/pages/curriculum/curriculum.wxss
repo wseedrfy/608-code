@@ -49,11 +49,7 @@ page {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  /* align-items: center; */
   flex-wrap: wrap;
-  /* white-space:normal; */
-  /* padding: 3rpx 8rpx; */
-  /* padding-top: 3rpx; */
   width: 93%;
 }
 

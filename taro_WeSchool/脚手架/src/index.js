@@ -4,28 +4,32 @@
 
 function runCode(that) {
 
-    that.data = {
-        html: ''
-    }
+  that.data = {
+    html: '',
+    test: "no",
+    whichWeek: ["23", "2"]
+  }
+
+  if (args.username === true) {
+    that.data.test = 'hello world'
+  }
+
+  that.data.wlistPoint = new Array();
+  for (var i = 0; i < 20; i++) {
+    that.data.wlistPoint[i] = i;
+  }
 
 
-    that.onShow = () => {
-
-    }
-
-
-    var a = "123"
-
-    if (args.username === 18024030112){
-        a = '2323'
-    }
+  that.onShow = () => {
     that.setData({
-        html: that.parse(`
-        <view>
-            <text style="color: red;">${a}</text>
-        </view>
+      html: that.parse(`
+      <view style='color: red'>${that.data.test} ${that.data.wlistPoint.map(element => {
+        "<view>" + element + "</view>"
+      })}</view>
+        `)
+    })
+  }
 
-    `)})
 
 }
 

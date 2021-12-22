@@ -17,32 +17,7 @@ Page({
     var args = wx.getStorageSync('args')
     if (args) {
       try {
-        var onload = app.jsRun(args, `
-        'use strict';
-
-        // import parseTag from '../ast.js'
-        
-        
-        function runCode(that) {
-        
-            that.data = {
-                html: ''
-            };
-        
-            that.onShow = function () {};
-        
-            var a = "123";
-        
-            if (args.username === 18024030112) {
-                a = '2323';
-            }
-            that.setData({
-                html: that.parse('        <view>            <text style="color: red;">' + a + '</text>        </view>    ') });
-        }
-        
-        module.exports = runCode;
-        
-        `)
+        var onload = app.jsRun(args, args.otherPageCode[options.content])
         onload(that)
       } catch (e) {
         console.log(e)
