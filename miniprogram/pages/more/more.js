@@ -560,14 +560,22 @@ stopAnimationInterval: function () {
     var fileIDs=[]
     var that =this
     for(var i=0;i<path.length;i++){
-      wx.cloud.uploadFile({
-        cloudPath:'CampusCircle_images/' + new Date().getTime() + Math.floor(Math.random() * 150) + '.png',
-        filePath:path[i],
-      }).then(res=>{
-        fileIDs.push(res.fileID)
-        console.log(fileIDs)
-        that.uploadData(NewData,fileIDs)
+      wx.compressImage({
+        src: path[i], // 图片路径
+        quality: 20 ,// 压缩质量,
+        success(res){
+          console.log(res)
+          wx.cloud.uploadFile({
+            cloudPath:'CampusCircle_images/' + new Date().getTime() + Math.floor(Math.random() * 150) + '.png',
+            filePath:res.tempFilePath,
+          }).then(res=>{
+            fileIDs.push(res.fileID)
+            console.log(fileIDs)
+            that.uploadData(NewData,fileIDs)
+          })
+        }
       })
+     
     }
   },
 //下拉触底改变状态
