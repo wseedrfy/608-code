@@ -59,9 +59,6 @@ const getStorageImage = (web_image) => {
 
 // 计算周数
 const getweekString = () => {
-  if(getApp().globalData.whichWeek){
-    return getApp().globalData.whichWeek
-  }
   var Date1 = new Date();
   if(!wx.getStorageSync('configData')){
     return 1;
