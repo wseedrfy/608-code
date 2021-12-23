@@ -124,7 +124,9 @@ Page({
     direction:" ",
     directionIndex:0,
     showLoading:0,
-    animation: ''
+    animation: '',
+    campus_account:false,
+    describe:""
     // rotateIndex: '',
     // animationData: {}
   },
@@ -499,8 +501,30 @@ stopAnimationInterval: function () {
        var nickname =data.nickName
        var iconUrl =data.iconUrl
        var arry=that.data.tabitem
+       var campus_account = data.campus_account? data.campus_account:false
+       var describe = data.describe? data.describe:false
        arry[0].type=1
+       //判断封号
        console.log(school)
+       console.log(describe)
+       console.log( that.data.campus_account)
+       console.log(campus_account)
+       if(campus_account===true){
+        wx.showModal({
+          title:"提示",
+          content:describe,
+          showCancel:false,
+          success(res){
+            if(res.confirm){
+              wx.reLaunch({
+                url: '/pages/index/index',
+              })
+            }
+        
+          }
+        })
+       }
+
        currentPage=0
        if(i==0){
           //that.getData()
@@ -512,6 +536,8 @@ stopAnimationInterval: function () {
          nickname,
          iconUrl,
          tabitem: arry,
+         campus_account:campus_account,
+         describe:describe
       })
      },fail(res){
        //app里面登录状态判断
@@ -681,7 +707,7 @@ stopAnimationInterval: function () {
         console.log(that.data.school)
         console.log(that.data.Label)
         // console.log("res.result.data",res.result.data)
-        if(res.result ==null){
+        if(res.result ===null){
           that.getData()
         }
        else{
