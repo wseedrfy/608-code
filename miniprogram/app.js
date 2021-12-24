@@ -85,6 +85,45 @@ App({
     })
 
   },
+
+  //渐变
+  fadein: function (that, param, opacity) {
+    var select = wx.createAnimation({
+      duration: 500,
+      timingFunction: 'ease',
+    });
+    select.opacity(opacity).step()
+    var json = '{"' + param + '":""}'
+    json = JSON.parse(json);
+    json[param] = select.export()
+    that.setData(json)
+  },
+
+  //垂直滑动 渐入渐出
+  slideupshow: function (that, param, px, opacity) {
+    var select = wx.createAnimation({
+      duration: 800,
+      timingFunction: 'ease',
+    });
+    select.translateY(px).opacity(opacity).step()
+    var json = '{"' + param + '":""}'
+    json = JSON.parse(json);
+    json[param] = select.export()
+    that.setData(json)
+  },
+
+  //平行滑动 渐入渐出
+  sliderightshow: function (that, param, px, opacity) {
+    var select = wx.createAnimation({
+      duration: 500,
+      timingFunction: 'ease',
+    });
+    select.translateX(px).opacity(opacity).step()
+    var json = '{"' + param + '":""}'
+    json = JSON.parse(json);
+    json[param] = select.export()
+    that.setData(json)
+  },
   globalData: {
     userInfo: null,
     Comment:[],

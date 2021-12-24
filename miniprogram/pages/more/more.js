@@ -69,42 +69,8 @@ Page({
     info: {
       licensePicUrls: [],
     },
-    arrayMenu: {
-      menu: [
-        {
-          cent: '日常'
-        },
-        {
-          cent: '情墙'
-        },
-        {
-          cent: '学习'
-        },
-        {
-          cent: '地点'
-        },
-        {
-          cent: '二手'
-        },
-        {
-          cent: '社团'
-        },
-        {
-          cent: '拾领'
-        },
-        {
-          cent: '活动'
-        },
-        {
-          cent: '吐槽'
-        },
-        {
-          cent: '探店'
-        },
-      ],
-      hideHidden: true
-      }
-    ,
+    hideHidden: true,
+    menu: [], // 发布栏的选择
     //imgShow:false,
     leftList: [],
     rightList: [],
@@ -393,29 +359,21 @@ stopAnimationInterval: function () {
   clickMenu: function (e) {
     var that = this;
     // 获取当前的状态，是否隐藏的值
-    var staues = that.data.arrayMenu.hideHidden;
+    var staues = that.data.hideHidden;
     console.log("111", staues);
     // 第几个状态
-    var stauesval = "arrayMenu.hideHidden";
-    if (staues == true) {
-      that.setData({
-        [stauesval]: false,
-      })
-    } else {
-      that.setData({
-        [stauesval]: true,
-      })
-    }
+    that.setData({
+      hideHidden: !staues,
+    })
   },
   clickMenuSecond:function(e){
     var that = this;
     console.log("打印索引值233", e.currentTarget.dataset.index);
     // 获取索引值
     var index = e.currentTarget.dataset.index;
-    var name=that.data.arrayMenu.menu[index].cent
-    console.log("that.data.arrayMenu.menu[index].cent",that.data.arrayMenu.menu[index].cent)
+    console.log("that.data.arrayMenu.menu[index].cent",that.data.menu[index])
     that.setData({
-      choosenLabel:that.data.arrayMenu.menu[index].cent,
+      choosenLabel:that.data.menu[index],
     })
   },
   
@@ -491,6 +449,7 @@ stopAnimationInterval: function () {
 
     //以本地数据为例，实际开发中数据整理以及加载更多等实现逻辑可根据实际需求进行实现   
   onLoad: function() {
+    
     this.data.Showtabitem=1
     var that =this 
     var i=0
@@ -502,6 +461,10 @@ stopAnimationInterval: function () {
        console.log(res)
       //  console.log("JSON.parse(res.data)",JSON.parse(res.data))
        var data = res.data
+       that.data.tabitem = data.tabitem ? data.tabitem.map(e => { return {title : e, type: 0} } ) : that.data.tabitem
+       console.log(that.data.tabitem, 244)
+       var menu = that.data.tabitem.map(e => e.title)
+       menu.splice(0, 1)
        var school = data.schoolName
        var nickname =data.nickName
        var iconUrl =data.iconUrl
@@ -539,6 +502,7 @@ stopAnimationInterval: function () {
        }
        that.setData({
          school,
+         menu,
          nickname,
          iconUrl,
          tabitem: arry,
@@ -708,7 +672,7 @@ stopAnimationInterval: function () {
       },
 
       success(res){
-        console.log(res.result.data[1].Star,"res.result.data[1].Start")
+        // console.log(res.result.data[1].Star,"res.result.data[1].Start")
         console.log(res.result.data)
         console.log(currentPage)
         console.log(that.data.addAft)

@@ -76,9 +76,9 @@
                   {{choosenLabel}}
               </span>
               <scroll-view scroll-x="true" class="choose_First">
-                <view class="Choosen" scroll-x="true" hidden='{{arrayMenu.hideHidden}}'>
-                  <view wx:for="{{arrayMenu.menu}}" wx:key="index" class="Label-text" data-index="{{index}}" catchtap="clickMenuSecond">
-                    <view class="Label_limit">{{item.cent}}</view>
+                <view class="Choosen" scroll-x="true" hidden='{{hideHidden}}'>
+                  <view wx:for="{{menu}}" wx:key="index" class="Label-text" data-index="{{index}}" catchtap="clickMenuSecond">
+                    <view class="Label_limit">{{item}}</view>
                   </view>
                 </view>
               </scroll-view>

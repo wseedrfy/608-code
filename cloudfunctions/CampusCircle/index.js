@@ -120,8 +120,18 @@ exports.main = async (event, context) => {
     }
   }
   if(event.type == "readComment"){
+    // 记得有空删除一下，下面逻辑，暂时用event._id兜底
     try {
+      if(event._id){
         return await db.collection('Campus-Circle').where({
+          _id: event._id
+        }).get({
+          success: function (res) {
+            return res
+          }
+        })
+      }
+      return await db.collection('Campus-Circle').where({
         Time:event.Time
       }).get({
         success: function (res) {
