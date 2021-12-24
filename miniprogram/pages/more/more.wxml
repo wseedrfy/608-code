@@ -1,5 +1,10 @@
 <!--pages/more/more.wxml-->
-<view class="page">
+<!-- 封号 -->
+<view class="title" wx:if="{{campus_account}}">
+  <!-- <view>{{describe}}</view> -->
+</view>
+
+<view wx:if="{{campus_account!=true}}" class="page">
   <view style="z-index:2; position:fixed; background-color: white;">
     <view class="head">
       <!-- 状态栏 -->

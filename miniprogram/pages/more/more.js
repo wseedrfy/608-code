@@ -129,7 +129,9 @@ Page({
     direction:" ",
     directionIndex:0,
     showLoading:0,
-    animation: ''
+    animation: '',
+    campus_account:false,
+    describe:""
     // rotateIndex: '',
     // animationData: {}
   },
@@ -504,8 +506,31 @@ stopAnimationInterval: function () {
        var nickname =data.nickName
        var iconUrl =data.iconUrl
        var arry=that.data.tabitem
+       //封号
+       var campus_account = data.campus_account? data.campus_account:false
+       var describe = data.describe? data.describe:false
        arry[0].type=1
+       //判断封号
        console.log(school)
+       console.log(describe)
+       console.log( that.data.campus_account)
+       console.log(campus_account)
+       //判断封号
+       if(campus_account===true){
+        wx.showModal({
+          title:"提示",
+          content:describe,
+          showCancel:false,
+          success(res){
+            if(res.confirm){
+              wx.reLaunch({
+                url: '/pages/index/index',
+              })
+            }
+          }
+        })
+       }
+
        currentPage=0
        if(i==0){
           //that.getData()
@@ -517,6 +542,8 @@ stopAnimationInterval: function () {
          nickname,
          iconUrl,
          tabitem: arry,
+         campus_account:campus_account,
+         describe:describe
       })
      },fail(res){
        //app里面登录状态判断
@@ -624,6 +651,7 @@ stopAnimationInterval: function () {
           School:that.data.noramalData[NewData].School,
           nickName:that.data.noramalData[NewData].nickName,
           iconUrl:that.data.noramalData[NewData].iconUrl,
+          Star:0,
           type: 'write'
         }, success: res => {
           console.log("add",res)
@@ -680,13 +708,14 @@ stopAnimationInterval: function () {
       },
 
       success(res){
-        console.log(res)
+        console.log(res.result.data[1].Star,"res.result.data[1].Start")
+        console.log(res.result.data)
         console.log(currentPage)
         console.log(that.data.addAft)
         console.log(that.data.school)
         console.log(that.data.Label)
         // console.log("res.result.data",res.result.data)
-        if(res.result ==null){
+        if(res.result ===null){
           that.getData()
         }
        else{
@@ -794,8 +823,12 @@ stopAnimationInterval: function () {
     var index=this.data.directionIndex
     if(this.data.direction=="Left"){
       this.data.leftList[index].CommentList=app.globalData.Comment
+      this.data.leftList[index].Star =app.globalData.Star_count
+      this.data.leftList[index].Star_User =app.globalData.Star_User
     }else if(this.data.direction=="Right"){
       this.data.rightList[index].CommentList=app.globalData.Comment
+      this.data.rightList[index].Star =app.globalData.Star_count
+      this.data.rightList[index].Star_User =app.globalData.Star_User
     }
     this.setData({
       leftList:this.data.leftList,

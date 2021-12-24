@@ -70,7 +70,8 @@ exports.main = async (event, context) => {
           ShowHeight: event.ShowHeight,
           nickName:event.nickName,
           iconUrl:event.iconUrl,
-          School:event.School
+          School:event.School,
+          Star:0
         }, success: res => { }, 
         fail: err => { }
       })
@@ -85,6 +86,33 @@ exports.main = async (event, context) => {
       }).update({
         data: {
           CommentList:event.CommentList
+        }
+      })
+    } catch (e) {
+      console.log(e)
+    }
+  }
+  if(event.type == "starCount"){
+    try {
+      return await db.collection('Campus-Circle').where({
+        Time:event.Time
+      }).update({
+        data: {
+          Star:event.Star,
+          Star_User:event.Star_User
+        }
+      })
+    } catch (e) {
+      console.log(e)
+    }
+  }
+  if(event.type == "star"){
+    try {
+      return await db.collection('Campus-Circle').where({
+        Time:event.Time
+      }).update({
+        data: {
+          StarUser:event.StarUser
         }
       })
     } catch (e) {

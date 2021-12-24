@@ -22,11 +22,13 @@
     "checkInvalidKey": true,
     "checkSiteMap": true,
     "uploadWithSourceMap": true,
-    "compileHotReLoad": false,
+
+       "compileHotReLoad": false,
     "lazyloadPlaceholderEnable": false,
     "useMultiFrameRuntime": false,
     "useApiHook": false,
     "useApiHostProcess": false,
+
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
