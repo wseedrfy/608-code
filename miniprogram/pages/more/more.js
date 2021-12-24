@@ -501,6 +501,7 @@ stopAnimationInterval: function () {
        var nickname =data.nickName
        var iconUrl =data.iconUrl
        var arry=that.data.tabitem
+       //封号
        var campus_account = data.campus_account? data.campus_account:false
        var describe = data.describe? data.describe:false
        arry[0].type=1
@@ -509,6 +510,7 @@ stopAnimationInterval: function () {
        console.log(describe)
        console.log( that.data.campus_account)
        console.log(campus_account)
+       //判断封号
        if(campus_account===true){
         wx.showModal({
           title:"提示",
@@ -520,7 +522,6 @@ stopAnimationInterval: function () {
                 url: '/pages/index/index',
               })
             }
-        
           }
         })
        }
