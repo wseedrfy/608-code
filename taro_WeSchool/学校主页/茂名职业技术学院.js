@@ -8,6 +8,9 @@ function runCode(that) {
     wx.setStorageSync('configData', Object.assign(args.SchoolIndex, {
         "timeYear": args.StartTime
     }))
+    that.setClass = function() {
+        wx.switchTab({url: '/pages/curriculum/curriculum'})
+    }
     // if(args.otherData){
     // 	wx.setStorageSync('personalInformation', args.otherData)
     // }
@@ -83,6 +86,7 @@ function runCode(that) {
         },
         fail: function (res) {
             console.log(res)
+            var personalInformation = wx.getStorageSync('personalInformation')
             var curriculum = personalInformation.curriculum;
             if (!curriculum) {
                 that.setData({
