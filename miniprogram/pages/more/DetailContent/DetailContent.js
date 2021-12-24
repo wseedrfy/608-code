@@ -92,7 +92,10 @@ Page({
               let pages = getCurrentPages(); //获取小程序页面栈
               let beforePage = pages[pages.length - 2]; //获取上个页面的实例对象
               console.log("beforePage", beforePage)
+              let beforePage_ = pages[pages.length - 3]; //获取上个页面的实例对象
+              console.log("beforePage", beforePage_)
               beforePage.onLoad();
+              beforePage_.onPullDownRefresh()
               wx.navigateBack({
                 delta: 1,
               })
@@ -331,6 +334,7 @@ Page({
         // Starif: true,
         Starurl: "../../../images/zan1.png",
       })
+
       // console.log(Star_User.indexOf(that.data.openusername), 244)
       Star_User.splice(Star_User.indexOf(that.data.openusername), 1)
       console.log(Star_User, "Star_User")
@@ -362,6 +366,7 @@ Page({
         console.log(res)
       }
     })
+    app.globalData.Starurl = this.data.Starurl
     app.globalData.Starif = Starif
     app.globalData.Star_count = Star_count
     app.globalData.Star_User = Star_User

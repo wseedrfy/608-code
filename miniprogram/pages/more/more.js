@@ -623,6 +623,7 @@ stopAnimationInterval: function () {
             duration:4000,
             title: '添加成功'
           })
+          that.onLoad()
           that.data.addAft=1
         }, 
         fail: err => {

@@ -75,5 +75,5 @@
   position:relative;
   bottom: 8rpx;
   padding-top: 2rpx;
-  left: 7rpx;
+  left: 2rpx;
 }
