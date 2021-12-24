@@ -1,9 +1,19 @@
 <!--index.wxml-->
 
 <view class="container">
-  <!-- icon条 -->
-  <view style="margin-left:10rpx">
-    <iconBar iconList="{{iconList}}"></iconBar>
+  <!-- 弹窗 - 可复用-->
+  <!-- <view class="dialogAdd" animation="{{slideupshowDialog}}" style="display: {{isDialogAdd? 'flex' : 'none'}};">
+    <view class="dialogAdd_topBgc">
+      <image class="dialogAdd_title" src="./font.png" mode="heightFix">{{dialogAdd_title}}</image>
+      <view class="dialogAdd_addBtn" bindtap="activity"></view>
+    </view>
+    <image class="dialogAdd_pic" src="./chrismas2.png" mode="aspectFit"></image>
+    <image class="dialogAdd_close" src="./close2.png" bindtap="closeDialogAdd"></image>
+  </view> -->
+    
+  <view class="dialogAdd" animation="{{slideupshowDialog}}" style="display: {{isDialogAdd? 'flex' : 'none'}};">
+    <view class="btn" bindtap="activity"></view>
+    <view class="close" bindtap="closeDialogAdd"></view>
   </view>
   <!-- 通知拦 -->
   <view wx:if="{{inform}}" style="margin-top:15rpx">
