@@ -88,6 +88,7 @@ App({
   globalData: {
     userInfo: null,
     Comment:[],
+    Starif:false
     // func: {}
   }
 })

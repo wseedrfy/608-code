@@ -11,6 +11,10 @@ Page({
     CardID:"",
     Commentindex:0,
     ShowDelCom:0,
+    Starurl:"../../../images/zan1.png",
+    Starif:app.globalData.Starif,
+    Star_count:0,
+    
   },
   More:function(){
     var showEdit=this.data.showEdit
@@ -66,6 +70,7 @@ Page({
     }
     that.data.ShowDelCom=0
   },
+  //删除
   DelCard:function(){
     var that=this
     wx.showModal({
@@ -105,6 +110,8 @@ Page({
       }
     })
   },
+
+  //删除评论
   DelComment:function(){
     var index=this.data.Commentindex
     var that=this
@@ -196,6 +203,9 @@ Page({
       })
     }
   },
+  // ShowStar:function(){
+
+  // },
   ShowComment:function(){
     var Show=[]
     var length=this.data.CommentList.length
@@ -241,6 +251,8 @@ Page({
     var jj=content.Time
     var Time=util.timeago(jj, 'Y年M月D日')
     this.data.CardID=content._id
+    this.data.Star = content.Star
+
     this.data.ContentTime=content.Time
     wx.cloud.callFunction({
       name: 'CampusCircle',
@@ -256,7 +268,8 @@ Page({
         }else{
           this.data.CommentList=[]
           this.setData({
-            CommentNum:0
+            CommentNum:0,
+            content:content
           })
         }
       }
@@ -266,14 +279,28 @@ Page({
       key:"args",
       success(res){
         var data = res.data
+        console.log(data)
         var userName = data.nickName
         var iconUrl = data.iconUrl
+        var openid = data._id
+        console.log(openid)
         that.setData({
           userName:userName,
-          iconUrl:iconUrl
+          iconUrl:iconUrl,
+          openid:openid
         })
+        if(content.Star_User === undefined){
+          content.Star_User=[]
+        }
+        if(content.Star_User.indexOf(that.data.openid)>-1){
+          //this.data.content ==
+          that.setData({
+            Starurl:"../../../images/zan.png",
+          })
+        }
       },
-    })
+    }),
+    
     this.setData({
       ImgSrc:content.Cover,
       Title:content.Title,
@@ -284,10 +311,71 @@ Page({
       Height:content.ShowHeight,
       SenticonUrl:content.iconUrl,
       SentName:content.nickName,
-      more:more
+      more:more,
+      // Starurl: app.globalData.Starurl 
+      // Starcount:content.Star
     })
+    console.log(content)
+    console.log(this.data.openid)
   },
+  //点赞
+  get_Star(){
+    var Star_User = this.data.content.Star_User
+    if(Star_User == undefined){
+      Star_User=[]
+    }
+    console.log(Star_User,"Star_User")
+    var that = this 
+    var  Starif = false
+    //判断是不是为点赞过的openid
+    if(Star_User.indexOf(that.data.openid)!=-1){
+      Starif =true
+      that.setData({
+        // Starif: true,
+        Starurl:"../../../images/zan1.png",
+      })
+      Star_User.splice(Star_User.indexOf(that.data.openid),1)
+      console.log(Star_User,"Star_User")
+    }
+    if(!Starif ){
+      //push到openid
+      Star_User.push(that.data.openid)
+      wx.showToast({
+        title: '点赞成功',
+        icon:"none"
+      })
+      that.setData({
+        Starurl:"../../../images/zan.png",
+      })
+      console.log(Star_User)
+    }
+    var Star_count = Star_User.length
+    console.log("Star_count",Star_count)
+    console.log(that.data.Star_count)
+    wx.cloud.callFunction({
+      name:"CampusCircle",
+      data:{
+        type:"starCount",
+        Time:that.data.ContentTime,
+        Star:Star_count, 
+        Star_User:Star_User     
+      },
+      success(res){
+        console.log(res)
+      }
+})
+    app.globalData.Starif = Starif
+    app.globalData.Star_count = Star_count
+    app.globalData.Star_User = Star_User
+    console.log(Starif)
+    that.setData({
+      openid:that.data.openid,
+      // Starif:Starif
+    })
+ 
 
+   
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

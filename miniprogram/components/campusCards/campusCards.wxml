@@ -6,9 +6,15 @@
     </span>
     <image src="{{item.iconUrl}}" class="text_user"/>
     <span class="text_username">{{item.nickName}}</span>
-    <span class="comment">
-      <image src="../../images/comment.png" class="commentImg"/>
-      <span class="commentNum" >{{item.CommentList?item.CommentList.length:0}}</span>
-    </span>
+    <div class="comment" >
+      <div style="margin-right:5px;">
+        <image src="../../images/zan1.png" class="commentImg"/>
+        <span class="commentNum" >{{item.Star?item.Star:0}}</span>
+      </div>
+      <div style="margin-right:5px;">
+        <image src="../../images/comment.png" class="commentImg"/>
+        <span class="commentNum" >{{item.CommentList?item.CommentList.length:0}}</span>
+      </div>
+    </div>
   </view>
 </block>

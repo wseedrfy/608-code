@@ -25,7 +25,12 @@
       <view class="content_Title">{{Title}}</view>
       <text class="content_Text">{{Text}}</text>
       <view class="content_Label" >#{{Label}}</view>
-      <view class="content_Time" >{{Time}}</view>
+      <view class="content_sec">
+        <view class="content_Time" >{{Time}}</view>
+        <view class="content_Star">
+          <image class="content_Star_img" bindtap="get_Star" src="{{Starurl}}"></image>
+        </view>
+     </view>
     </view>
     <view class="Line"></view>
     <view class="comment">

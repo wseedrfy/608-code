@@ -68,6 +68,24 @@ swiper .wx-swiper-dot {
   top: 15rpx;
   margin-bottom: 35rpx;
 }
+.content_sec{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.content_Star{
+  justify-content: right;
+  border:1rpx solid #e7e7e7;
+  font-size: 18rpx;
+  padding: 10rpx;
+  line-height: 10rpx;
+  border-radius: 20rpx;
+
+}
+.content_Star_img{
+  width: 35rpx;
+  height: 35rpx;
+}
 .Line{
   background: #9b9b9b48;
   width: 95%;

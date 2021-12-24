@@ -646,6 +646,7 @@ stopAnimationInterval: function () {
           School:that.data.noramalData[NewData].School,
           nickName:that.data.noramalData[NewData].nickName,
           iconUrl:that.data.noramalData[NewData].iconUrl,
+          Star:0,
           type: 'write'
         }, success: res => {
           console.log("add",res)
@@ -702,7 +703,8 @@ stopAnimationInterval: function () {
       },
 
       success(res){
-        console.log(res)
+        console.log(res.result.data[1].Star,"res.result.data[1].Start")
+        console.log(res.result.data)
         console.log(currentPage)
         console.log(that.data.addAft)
         console.log(that.data.school)
@@ -821,8 +823,12 @@ stopAnimationInterval: function () {
     var index=this.data.directionIndex
     if(this.data.direction=="Left"){
       this.data.leftList[index].CommentList=app.globalData.Comment
+      this.data.leftList[index].Star =app.globalData.Star_count
+      this.data.leftList[index].Star_User =app.globalData.Star_User
     }else if(this.data.direction=="Right"){
       this.data.rightList[index].CommentList=app.globalData.Comment
+      this.data.rightList[index].Star =app.globalData.Star_count
+      this.data.rightList[index].Star_User =app.globalData.Star_User
     }
     this.setData({
       leftList:this.data.leftList,
