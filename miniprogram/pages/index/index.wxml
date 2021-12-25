@@ -1,7 +1,7 @@
 <!--index.wxml-->
 
 <view class="container">
-  <!-- 弹窗 - 可复用-->
+<!-- 弹窗 - 可复用-->
   <!-- <view class="dialogAdd" animation="{{slideupshowDialog}}" style="display: {{isDialogAdd? 'flex' : 'none'}};">
     <view class="dialogAdd_topBgc">
       <image class="dialogAdd_title" src="./font.png" mode="heightFix">{{dialogAdd_title}}</image>
@@ -14,6 +14,9 @@
   <view class="dialogAdd" animation="{{slideupshowDialog}}" style="display: {{isDialogAdd? 'flex' : 'none'}};">
     <view class="btn" bindtap="activity"></view>
     <view class="close" bindtap="closeDialogAdd"></view>
+  </view>
+  <view style="margin-left:10rpx">
+    <iconBar iconList="{{iconList}}"></iconBar>
   </view>
   <!-- 通知拦 -->
   <view wx:if="{{inform}}" style="margin-top:15rpx">

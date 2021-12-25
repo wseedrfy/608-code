@@ -320,8 +320,9 @@ Page({
   //点赞
   get_Star() {
     // console.log(this.data.content.Star_User,233)
+    console.log(this.data.content)
     var Star_User = this.data.content.Star_User
-    if (!Star_User) {
+    if (Star_User ===undefined) {
       Star_User = []
     }
     var that = this
