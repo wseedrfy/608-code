@@ -230,6 +230,7 @@ Page({
     }
     console.log("Show", Show)
     app.globalData.Comment = this.data.CommentList
+    
     console.log("app.globalData.Comment", app.globalData.Comment)
     this.setData({
       ShowList: Show,
@@ -258,7 +259,6 @@ Page({
     var jj = content.Time
     var that = this
     var Time = util.timeago(jj, 'Y年M月D日')
-    this.data.CardID = content._id
     this.data.Star = content.Star
     this.data.ContentTime = content.Time
     // console.log(this.data.CardID,233)
@@ -266,7 +266,7 @@ Page({
       name: 'CampusCircle',
       data: {
         Time: content.Time,
-        _id: that.data.CardID,
+        _id: content._id,
         type: 'readComment'
       },
       complete: res => {
@@ -274,6 +274,9 @@ Page({
         console.log("res.result.data[0].CommentList", this.data.CommentList)
         if (this.data.CommentList) {
           this.ShowComment()
+          this.setData({
+            content: content
+          })
         } else {
           this.data.CommentList = []
           this.setData({
@@ -283,19 +286,26 @@ Page({
         }
       }
     });
+
     var data = wx.getStorageSync('args')
     var userName = data.nickName
     var iconUrl = data.iconUrl
     var openusername = data.username
-    // console.log(content, 233)
-    if (!content.Star_User) {
+    // 点赞判断
+    if (content.Star_User == undefined || !content.Star_User) {
       content.Star_User = []
+      that.setData({
+        content: content
+      })
     }
     if (content.Star_User.includes(openusername)) {
       that.setData({
         Starurl: "../../../images/zan.png",
       })
     }
+    // app.globalData.Starif = Starif
+    app.globalData.Star_count = content.Star_User.length
+    app.globalData.Star_User = content.Star_User
     this.setData({
       userName: userName,
       Star_User: content.Star_User,
@@ -319,16 +329,15 @@ Page({
   },
   //点赞
   get_Star() {
-    // console.log(this.data.content.Star_User,233)
-    console.log(this.data.content)
     var Star_User = this.data.content.Star_User
-    if (Star_User ===undefined) {
+    // console.log(Star_User);
+    if (!Star_User) {
       Star_User = []
     }
     var that = this
     var Starif = false
     //判断是不是为点赞过的openid
-    console.log(Star_User, 244)
+    // console.log(Star_User, 244)
     if (Star_User.includes(that.data.openusername)) {
       Starif = true
       that.setData({
@@ -372,12 +381,6 @@ Page({
     app.globalData.Star_count = Star_count
     app.globalData.Star_User = Star_User
     console.log(Starif)
-    that.setData({
-      openusername: that.data.openusername,
-      // Starif:Starif
-    })
-
-
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
