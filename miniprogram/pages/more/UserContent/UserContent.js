@@ -8,16 +8,16 @@ Page({
    * 页面的初始数据
    */
   data: {
-    leftList:[],
-    rightList:[],
-    leftH:0,
-    rightH:0,
-    nickname:"",
-    iconUrl:"",
+    leftList: [],
+    rightList: [],
+    leftH: 0,
+    rightH: 0,
+    nickname: "",
+    iconUrl: "",
     loadMore: false, //"上拉加载"的变量，默认false，隐藏  
     loadAll: false, //“没有数据”的变量，默认false，隐藏 
-    direction:" ",
-    directionIndex:0,
+    direction: " ",
+    directionIndex: 0,
   },
   // ShowContent:function(e){
   //   var content=JSON.stringify(e.currentTarget.dataset.index)
@@ -27,30 +27,30 @@ Page({
   //     url: "../DetailContent/DetailContent?content=" + content + "&del=" + del, 
   //   })
   // },
-  ShowContentLeft:function(e){
-    this.data.direction="Left"
-    var index=e.currentTarget.dataset.index
-    var del=1
-    this.data.directionIndex=index
-    var content=JSON.stringify(this.data.leftList[index])
-     wx.navigateTo({
-       url: "../DetailContent/DetailContent?content=" + content + "&del=" + del,
-     })
+  ShowContentLeft: function (e) {
+    this.data.direction = "Left"
+    var index = e.currentTarget.dataset.index
+    var del = 1
+    this.data.directionIndex = index
+    var content = JSON.stringify(this.data.leftList[index])
+    wx.navigateTo({
+      url: "../DetailContent/DetailContent?content=" + content + "&del=" + del,
+    })
   },
-  ShowContentRight:function(e){
-    this.data.direction="Right"
-    var index=e.currentTarget.dataset.index
-    var del=1
-    this.data.directionIndex=index
-    var content=JSON.stringify(this.data.rightList[index])
-     wx.navigateTo({
-       url: "../DetailContent/DetailContent?content=" + content + "&del=" + del,
-     })
+  ShowContentRight: function (e) {
+    this.data.direction = "Right"
+    var index = e.currentTarget.dataset.index
+    var del = 1
+    this.data.directionIndex = index
+    var content = JSON.stringify(this.data.rightList[index])
+    wx.navigateTo({
+      url: "../DetailContent/DetailContent?content=" + content + "&del=" + del,
+    })
   },
   onLazyLoad(info) {
     console.log(info)
   },
-  getData:function() {
+  getData: function () {
     let that = this;
     //第一次加载数据
     if (currentPage == 1) {
@@ -61,16 +61,16 @@ Page({
     }
     //云数据的请求
     wx.cloud.callFunction({
-      name:"CampusCircle",
-      data:{
-        type:"readUser",
-        currentPage:currentPage,
-        nickname:that.data.nickname,
-        iconUrl:that.data.iconUrl          
+      name: "CampusCircle",
+      data: {
+        type: "readUser",
+        currentPage: currentPage,
+        nickname: that.data.nickname,
+        iconUrl: that.data.iconUrl
       },
-      success(res){
-        console.log("res.result.data",res.result.data)
-        that.data.resultLength=res.result.data.length
+      success(res) {
+        console.log("res.result.data", res.result.data)
+        that.data.resultLength = res.result.data.length
         if (res.result.data && res.result.data.length > 0) {
           console.log("请求成功", res.result.data)
           currentPage++
@@ -88,20 +88,20 @@ Page({
           that.setData({
             leftList: that.data.leftList,
             rightList: that.data.rightList,
-            leftH:that.data.leftH,
-            right:that.data.rightH,
+            leftH: that.data.leftH,
+            right: that.data.rightH,
             loadMore: false, //把"上拉加载"的变量设为false，显示  
-            DataNull:1,
+            DataNull: 1,
           });
           if (res.result.data.length < 10) {
             that.setData({
               loadMore: false, //隐藏加载中。。
               loadAll: true, //所有数据都加载完了
-              DataNull:0,
+              DataNull: 0,
             });
           }
-         } else {
-          if(that.data.leftH==0 && that.data.rightH==0){
+        } else {
+          if (that.data.leftH == 0 && that.data.rightH == 0) {
             that.setData({
               leftList: [],
               rightList: [],
@@ -110,7 +110,7 @@ Page({
           that.setData({
             loadAll: true, //把“没有数据”设为true，显示  
             loadMore: false, //把"上拉加载"的变量设为false，隐藏  
-            DataNull:0,
+            DataNull: 0,
           });
         }
       },
@@ -127,56 +127,57 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that =this 
-    var i=0
-    that.data.leftList=[],
-    that.data.rightList=[],
-    that.data.leftH=0,
-    that.data.rightH=0,
-    wx.getStorage({
-      key:"args",
-      success(res){
-        // console.log("JSON.parse(res.data)",JSON.parse(res.data))
-        var data = res.data
-        console.log(data,"141")
-        var school = data.school
-        var nickname =data.nickName
-        var iconUrl =data.iconUrl
-        console.log(school)
-        that.setData({
-          school:school,
-          nickname:nickname,
-          iconUrl:iconUrl
-        })
-        if(i==0){
-          currentPage=0
-          that.getData()
-          i++
-        }
-      },fail(res){
-        that.setData({
-          DataNull:0,
-        })
-        wx.showModal({
-          title: '提示',
-          content: '小主还没登录哟QwQ',
-          success (res) {
-            if (res.confirm) {
-              console.log('用户点击确定')
-            } else if (res.cancel) {
-              console.log('用户点击取消')
-            }
+    var that = this
+    var i = 0
+    that.data.leftList = [],
+      that.data.rightList = [],
+      that.data.leftH = 0,
+      that.data.rightH = 0,
+      wx.getStorage({
+        key: "args",
+        success(res) {
+          var data = res.data
+          console.log(data, "141")
+          var school = data.school
+          var nickname = data.nickName
+          var iconUrl = data.iconUrl
+          var openusername = data.username
+          console.log(school)
+          that.setData({
+            school: school,
+            nickname: nickname,
+            iconUrl: iconUrl,
+            openusername
+          })
+          if (i == 0) {
+            currentPage = 0
+            that.getData()
+            i++
           }
-        })
-      }
-    })
+        }, fail(res) {
+          that.setData({
+            DataNull: 0,
+          })
+          wx.showModal({
+            title: '提示',
+            content: '小主还没登录哟QwQ',
+            success(res) {
+              if (res.confirm) {
+                console.log('用户点击确定')
+              } else if (res.cancel) {
+                console.log('用户点击取消')
+              }
+            }
+          })
+        }
+      })
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    
+
   },
 
   /**
@@ -185,21 +186,21 @@ Page({
   onShow: function () {
     //  currentPage=0
     //  this.getData()
-    if(this.data.direction=="Left"){
-      var index=this.data.directionIndex
-      this.data.leftList[index].CommentList=app.globalData.Comment
-      console.log("this.data.leftList[index]",this.data.leftList[index])
+    if (this.data.direction == "Left") {
+      var index = this.data.directionIndex
+      this.data.leftList[index].CommentList = app.globalData.Comment
+      console.log("this.data.leftList[index]", this.data.leftList[index])
       this.setData({
-        leftList:this.data.leftList,
-        rightList:this.data.rightList
+        leftList: this.data.leftList,
+        rightList: this.data.rightList
       })
-    }else if(this.data.direction=="Right"){
-      var index=this.data.directionIndex
-      this.data.rightList[index].CommentList=app.globalData.Comment
-      console.log("this.data.rightList[index]",this.data.rightList[index])
+    } else if (this.data.direction == "Right") {
+      var index = this.data.directionIndex
+      this.data.rightList[index].CommentList = app.globalData.Comment
+      console.log("this.data.rightList[index]", this.data.rightList[index])
       this.setData({
-        leftList:this.data.leftList,
-        rightList:this.data.rightList
+        leftList: this.data.leftList,
+        rightList: this.data.rightList
       })
     }
   },
@@ -226,7 +227,7 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
     console.log("上拉触底事件")
     let that = this
     if (!that.data.loadMore) {
