@@ -19,15 +19,53 @@ page{
   border-radius: 15rpx;
   background-color: rgba(202, 202, 202, 0.342);
 }
-.head_second .avatar {
+.avatarBox {
+  position: relative;
+}
+.avatar {
   margin-left: 20rpx;
-  width: 60rpx;
-  height: 60rpx;
+  width: 65rpx;
+  height: 65rpx;
   border-radius: 50%;
 }
+.redPointBox {
+  position: absolute;
+  right: -11rpx;
+  top: -4rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35rpx;
+  height: 35rpx;
+  background-color: #fff;
+  border-radius: 50%;
+}
+.redPoint {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30rpx;
+  height: 30rpx;
+  /* background-color: rgb(251, 114, 153); */
+  background-color:rgba(230,130,130,1);
+  border-radius: 60%;
+}
+.redPoint .news {
+  font-size: 20rpx;
+  color: #fff;
+}
+.head_second .newInfo {
+  position: relative;
+}
+.head_second .newInfo image {
+  width: 50rpx;
+  height: 50rpx;
+  margin-left: 10rpx;
+}
+
 .head_second .searchFrame {
   width: 400rpx;
-  margin-left: 15rpx;
+  margin-left: 20rpx;
 }
 .head_second .searchFrame image {
   margin: 10rpx 10rpx 0 10rpx;

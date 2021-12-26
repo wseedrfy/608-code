@@ -40,6 +40,54 @@ Page({
         console.log(e)
       }
     }
+    // 以下 2021-12-25新增
+    await wx.cloud.callFunction({
+      name:"CampusCircle",
+      data:{
+        type:"readUser",
+        currentPage:0,
+        nickname:args.nickName,
+        iconUrl:args.iconUrl          
+      },
+      success(res){
+        console.log("res.result.data",res.result.data)
+        if(wx.getStorage('myTieZi')) {
+          const newTieZi = res.result.data;
+          const oldTieZi = wx.getStorage('myTieZi');
+          // 遍历新帖子，与旧帖子做比较，得到是否有新消息
+          for(let i = 0 ;i < newTieZi.length;i++) {
+            // 判断点赞数是否增加
+            if(newTieZi[i].Star > oldTieZi[i].Star) {
+              var addedInfo = [];
+              console.log("for循环star"+"第"+i+'次',newTieZi[i].Star,oldTieZi[i].Star);
+              
+            }
+          }
+        }
+        
+        if(wx.getStorageSync('myStar') === myStarAll) {
+          wx.removeStorageSync('newStar')
+          wx.hideTabBarRedDot({
+            index: 2,
+          })
+        }else {
+          console.log("myStar VS  Storage 看到这个log说明此时不相等",myStarAll,wx.getStorageSync('myStar'));
+          var newStar = myStarAll - wx.getStorageSync('myStar');
+          wx.setStorageSync('newStar', newStar)
+          // 判空
+          if(wx.getStorageSync('myStar')) {
+            wx.showTabBarRedDot({
+              index: 2,
+            })
+          }
+        }
+        wx.setStorageSync('myStar', myStarAll);
+      },
+      fail(res) {
+        console.log("请求失败", res)
+      }
+    })
+    // 以上为新增代码
     await wx.cloud.callFunction({
       name: 'api',
       data: {
