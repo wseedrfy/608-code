@@ -14,18 +14,23 @@
         </view>
       </view>
     </view>
-    <swiper indicator-dots='true' indicator-color="rgba(223, 223, 223, 0.39)" indicator-active-color='rgb(235, 21, 21)' style="height: {{Height > 300 ? 700+'rpx':Height+'px'}};">
-      <block wx:for="{{Photo}}" wx:key="Photo" class="photo">
+    <swiper indicator-dots='true' indicator-color="rgba(223, 223, 223, 0.39)" indicator-active-color='rgb(235, 21, 21)' style="height: {{content.ShowHeight > 300 ? 700+'rpx':content.ShowHeight+'px'}};">
+      <block wx:for="{{content.AllPhoto}}" wx:key="Photo" class="photo">
         <swiper-item >
           <image src="{{item}}"  mode="aspectFill" style="z-index: 11;" bindtap="ShowImg" class="ShowImg" data-index="{{index}}"/>
         </swiper-item>
       </block>
     </swiper>
     <view class="content_first">
-      <view class="content_Title">{{Title}}</view>
-      <text class="content_Text">{{Text}}</text>
-      <view class="content_Label" >#{{Label}}</view>
-      <view class="content_Time" >{{Time}}</view>
+      <view class="content_Title">{{content.Title}}</view>
+      <text class="content_Text">{{content.Text}}</text>
+      <view class="content_Label" >#{{content.Label}}</view>
+      <view class="content_sec">
+        <view class="content_Time" >{{Time}}</view>
+        <view class="content_Star">
+          <image class="content_Star_img" bindtap="get_Star" src="{{Starurl}}"></image>
+        </view>
+     </view>
     </view>
     <view class="Line"></view>
     <view class="comment">
@@ -33,7 +38,7 @@
       <view class="All_Comment" wx:if="{{CommentNum==0}}">这里还没有评论哟~</view>
       <form bindsubmit="formSubmit" bindreset="formReset">
         <view class="Send_Commend" bindtap="Comment_Inputting">
-          <image src="{{iconUrl}}" class="text_user"/>
+          <image src="{{content.iconUrl}}" class="text_user"/>
           <span class="{{isChecked?'old_Comment_second':'new_Comment_second'}}">
             <textarea placeholder="来发句评论吧ヾ(≧▽≦*)o" name="InputComment"  value="{{Input}}" auto-height></textarea>
           </span>

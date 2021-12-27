@@ -70,9 +70,12 @@ Page({
   },
 
   onLoad: function (options) {
+    var courseTime = wx.getStorageSync('args').courseTime
     this.kb(util.getweekString());
+    var that = this;
     this.setData({
       weekNow: util.getweekString(),
+      courseTime: courseTime? courseTime : that.data.courseTime
     })
   },
 

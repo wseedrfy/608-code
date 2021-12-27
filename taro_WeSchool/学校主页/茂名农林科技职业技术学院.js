@@ -66,7 +66,7 @@ function runCode(that) {
 
     }
     wx.request({
-        url: 'https://www.biubbmk.cn/api_flask_zf/getAllData', //仅为示例，并非真实的接口地址
+        url: 'https://www.biubbmk.cn/api_flask_zf/getDataNL', //仅为示例，并非真实的接口地址
         data: {
             username: args.username,
             password: args.password

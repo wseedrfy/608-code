@@ -6,7 +6,34 @@ page{
 .container {
   background-color: #f6f6f6;
 }
-
+/* 弹窗 */
+.dialogAdd {
+  position: absolute;
+  top: -400px;
+  left: 100rpx;
+  width: 600rpx;
+  height: 800rpx;
+  border-radius: 90rpx;
+  z-index: 999;
+  opacity: 0;
+  background-image: url(https://s4.ax1x.com/2021/12/24/Tta1PJ.png);
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+}
+.dialogAdd_btn {
+  position: absolute;
+  z-index: 99999;
+  opacity: 1;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+}
+.dialogAdd_close {
+  position: absolute;
+  opacity: 1;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+}
+/* 弹窗 ↑ */
 .wx-remind {
   background: #fff;
   padding: 20rpx 31rpx 50rpx 31rpx;

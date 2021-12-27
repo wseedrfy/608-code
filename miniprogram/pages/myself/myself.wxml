@@ -1,4 +1,13 @@
-<view class="container">
+<view class="container" animation="{{slideupshow}}">
+  <!-- 状态栏 -->
+  <view style="z-index:2; position:fixed; background-color: rgb(122, 159, 204);"/>
+  <view style=" background-color: rgb(122, 159, 204);" >
+    <!-- 状态栏 -->
+    <view style="height: {{statusBarHeight}}px;" />
+    <!-- 导航栏 -->
+    <view  bindtap="showCurriculumPoint" class="cur-week" style="height: {{lineHeight}}px;" >
+    </view>
+  </view>
   <!-- 背景图片区域 -->
   <view class="bgcImage">
     <!-- 用户信息区域 -->

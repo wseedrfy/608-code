@@ -1,0 +1,40 @@
+/* pages/more/NewInfo/NewInfo.wxss *//* pages/more/News/News.wxss */
+page {
+   padding-left: 20rpx;
+}
+.demo {
+   display: flex;
+   flex: 1;
+   width: 100%;
+   padding-top: 20rpx;
+   border-bottom: 1rpx solid #ccc;
+   /* justify-content: space-between; */
+}
+.demo .picture {
+   width: 100rpx;
+   height: 100rpx;
+   background-color: yellow;
+}
+.demo image {
+   width: 80rpx;
+   height: 80rpx;
+   margin-right: 20rpx;
+   border-radius: 10rpx;
+}
+.demo .text {
+   width: 500rpx;
+}
+.demo .text .name {
+   /* font-weight: 700; */
+   color: rgb(104, 109, 138);
+}
+.demo .text .content {
+   line-height: 40rpx;
+   font-size: 26rpx;
+   letter-spacing: 2rpx;
+}
+.demo .text .time {
+   line-height: 40rpx;
+   font-size: 25rpx;
+   color: rgb(137, 137, 136);
+}

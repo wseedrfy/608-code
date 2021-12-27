@@ -63,8 +63,8 @@
   bottom: 13rpx;
 }
 .commentImg{
-  width: 36rpx;
-  height: 36rpx;
+  width: 32rpx;
+  height: 32rpx;
   /* position: relative;
   bottom: 10rpx;
   left: 150rpx; */
@@ -73,6 +73,7 @@
 .commentNum{
   font-size: 22rpx;
   position:relative;
-  bottom: 13rpx;
-  left: 7rpx;
+  bottom: 8rpx;
+  padding-top: 2rpx;
+  left: 2rpx;
 }

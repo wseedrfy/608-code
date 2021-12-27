@@ -1,40 +1,12 @@
 // index.js
 // 获取应用实例
-const db = wx.cloud.database();
-const journal = db.collection('journal');
 const app = getApp()
 var util = require("../../utils/util.js")
 var pagecount = 1
 Page({
   data: {
-    list: [
-      {
-        id:1,
-        icon: "images/aboutUs.png",
-        title: "关于我们",
-        intro: "联系客服",
-        click: "about"
-      }, {
-        id:2,
-        icon: "images/update.png",
-        title: "更新日志",
-        intro: "更新日志",
-        click: "journal"
-      }, {
-        id:3,
-        icon: "images/login.png",
-        title: "登录/注销账号",
-        intro: "登录/注销",
-        click: "login"
-      },
-      {
-        id:4,
-        icon: "images/flag.png",
-        title: "推荐给好友",
-        intro: "方便更多同学",
-        click: "onShareAppMessage"
-      }
-    ],
+    statusBarHeight: getApp().globalData.statusBarHeight,
+    lineHeight: getApp().globalData.lineHeight,
     isLogin: '',
     userInfo: [],
     time: {
@@ -43,11 +15,22 @@ Page({
       day: new Date().getDay(),
     },
   },
-  share(){
-    
-  },
   onLoad() {
     var that = this
+    var myselfData = wx.getStorageSync('myselfData')
+    if(myselfData){
+      that.setData({
+        list:myselfData.list
+      })
+    }
+    wx.cloud.database().collection('myself').orderBy('myself_Id','asc').get().then(res => {
+      console.log(res.data);
+      wx.setStorageSync('myselfData', {list: res.data})
+      that.setData({
+        list:res.data
+      })
+    });
+
     wx.getStorage({
       key: 'args',
       success(res) {
@@ -57,7 +40,6 @@ Page({
           storageInfo: res.data,
           isLogin: true
         });
-        // that.getJournalData()
       },
       fail(err) {
         that.data.isLogin = false;
@@ -65,6 +47,10 @@ Page({
     })
     this.handleStudyDate();
     this.handleStudyWeek();
+  },
+  onShow() {
+    let that = this;
+    app.slideupshow(that,'slideupshow',500,1)
   },
   school(e) {
     if(!this.data.isLogin) {

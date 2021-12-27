@@ -70,7 +70,8 @@ exports.main = async (event, context) => {
           ShowHeight: event.ShowHeight,
           nickName:event.nickName,
           iconUrl:event.iconUrl,
-          School:event.School
+          School:event.School,
+          Star:0
         }, success: res => { }, 
         fail: err => { }
       })
@@ -91,9 +92,46 @@ exports.main = async (event, context) => {
       console.log(e)
     }
   }
-  if(event.type == "readComment"){
+  if(event.type == "starCount"){
     try {
+      return await db.collection('Campus-Circle').where({
+        Time:event.Time
+      }).update({
+        data: {
+          Star:event.Star,
+          Star_User:event.Star_User
+        }
+      })
+    } catch (e) {
+      console.log(e)
+    }
+  }
+  if(event.type == "star"){
+    try {
+      return await db.collection('Campus-Circle').where({
+        Time:event.Time
+      }).update({
+        data: {
+          StarUser:event.StarUser
+        }
+      })
+    } catch (e) {
+      console.log(e)
+    }
+  }
+  if(event.type == "readComment"){
+    // 记得有空删除一下，下面逻辑，暂时用event._id兜底
+    try {
+      if(event._id){
         return await db.collection('Campus-Circle').where({
+          _id: event._id
+        }).get({
+          success: function (res) {
+            return res
+          }
+        })
+      }
+      return await db.collection('Campus-Circle').where({
         Time:event.Time
       }).get({
         success: function (res) {
@@ -121,18 +159,18 @@ exports.main = async (event, context) => {
     }
   }
   if(event.type == "readUser"){
-    try {
-      return await db.collection('Campus-Circle').orderBy('Time','desc').where({
-        nickName:event.nickname,
-        iconUrl:event.iconUrl
-      }).skip(event.currentPage * 10).limit(10).get({
-        success: function (res) {
-          return res
-        },
-      })
-    } catch (e) {
-    console.log(e)
-    }
+      try {
+        return await db.collection('Campus-Circle').orderBy('Time','desc').where({
+          nickName:event.nickname,
+          iconUrl:event.iconUrl
+        }).skip(event.currentPage * 10).limit(10).get({
+          success: function (res) {
+            return res
+          },
+        })
+      } catch (e) {
+      console.log(e)
+      }
   }
   if(event.type == "delCard"){
     try {
