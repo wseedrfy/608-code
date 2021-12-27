@@ -55,8 +55,8 @@ page{
   color: #fff;
 }
 .head_second .newInfo {
-  top: 7rpx;
   position: relative;
+  display: flex;
 }
 .head_second .newInfo image {
   position: relative;
@@ -66,13 +66,14 @@ page{
 }
 
 .head_second .searchFrame {
-  width: 400rpx;
+  width: 47%;
   margin-left: 20rpx;
 }
 .head_second .searchFrame image {
-  margin: 10rpx 10rpx 0 10rpx;
-  width: 20rpx;
-  height: 20rpx;
+  position: relative;
+  margin: 10rpx;
+  width: 30rpx;
+  height: 30rpx;
 }
 .SearchInput{
   width:95%;
