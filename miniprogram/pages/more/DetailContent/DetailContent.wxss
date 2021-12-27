@@ -27,7 +27,7 @@
 .more{
   width:58rpx;
   height: 58rpx;
-  margin-left: 500rpx;
+  margin-left: 600rpx;
   position:relative;
   top: 6rpx;
 }
