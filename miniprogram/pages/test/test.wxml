@@ -55,5 +55,8 @@
     <template is="{{ item.type == 'view'?'test-'+item.type+1:'test-'+item.type }}" data="{{ item, deep:1 }}"></template>
   </block>
 -->
-  <canvas type="2d" id="myCanvas" ></canvas>
+  <view class="block">
+    <text>第一周</text>
+    <canvas class="myCanvas" type="2d" id="myCanvas"></canvas>
+  </view>
 </view>

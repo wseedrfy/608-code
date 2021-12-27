@@ -9,6 +9,11 @@ Page({
       month: new Date().getMonth(),
       day: new Date().getDay(),
     },
+    model:{
+      title: "圣诞树下的悄悄话",
+      src: "../../images/model.png",
+      time: "*活动时间: 2021.12.24-12.26"
+    }
   },
   onPullDownRefresh(){
     wx.showNavigationBarLoading() //在标题栏中显示加载

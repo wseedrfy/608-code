@@ -1,1 +1,28 @@
 /* pages/test/test.wxss */
+
+.all{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(237, 237, 237);
+}
+
+.block{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 66px;
+  height: 70px;
+  border-radius: 15rpx;
+  background-color: rgb(188,187,193);
+}
+.block text{
+  font-size: 9pt;
+}
+
+.myCanvas{
+  width: 64px;      /*（7周 + 1） x 8 */
+  height: 48px;     /*（5行 + 1） x 8 */
+}

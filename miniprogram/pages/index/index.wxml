@@ -35,4 +35,13 @@
     </view>
   </view>
 
+  <view class="model">
+    <text>{{model.title}}</text>
+    <view class="model_btn" bindtap="model_btn">立即参与</view>
+    <view class="model_padding"></view>
+    <image class="model_pic" src="{{model.src}}" mode="aspectFit"></image>
+    <!-- <text>{{model.time}}</text> -->
+    <image class="model_close" src=""></image>
+  </view>
+
 </view>
