@@ -12,9 +12,7 @@ Page({
     Commentindex: 0,
     ShowDelCom: 0,
     Starurl: "../../../images/zan1.png",
-    Starif: app.globalData.Starif,
     Star_count: 0,
-
   },
   More: function () {
     var showEdit = this.data.showEdit
@@ -76,6 +74,7 @@ Page({
       title: '提示',
       content: '确定删除?',
       success(res) {
+        console.log(that.data.CardID)
         if (res.confirm) {
           console.log('用户点击确定')
           wx.cloud.callFunction({
@@ -85,7 +84,7 @@ Page({
               type: 'delCard'
             },
             success: res => {
-              console.log("success")
+              console.log(res)
               that.setData({
                 showEdit: !that.data.showEdit
               })
@@ -259,8 +258,10 @@ Page({
     var jj = content.Time
     var that = this
     var Time = util.timeago(jj, 'Y年M月D日')
+    
     this.data.Star = content.Star
     this.data.ContentTime = content.Time
+    this.data.CardID = content._id
     // console.log(this.data.CardID,233)
     wx.cloud.callFunction({
       name: 'CampusCircle',
@@ -270,7 +271,12 @@ Page({
         type: 'readComment'
       },
       complete: res => {
+        // this.data.Star = res
+        app.globalData.Star_User=res.result.data[0].Star_User
+        app.globalData.Star_count = res.result.data[0].Star
         this.data.CommentList = res.result.data[0].CommentList
+        this.data.Star_User = res.result.data[0].Star_User
+        this.data.Star_count = res.result.data[0].Star_count
         console.log("res.result.data[0].CommentList", this.data.CommentList)
         if (this.data.CommentList) {
           this.ShowComment()
@@ -290,22 +296,33 @@ Page({
     var data = wx.getStorageSync('args')
     var userName = data.nickName
     var iconUrl = data.iconUrl
-    var openusername = data.username
+    var openusername = {
+      username:data.username,
+      iconUrl:data.iconUrl,
+      nickName:data.nickName
+    }
     // 点赞判断
     if (content.Star_User == undefined || !content.Star_User) {
       content.Star_User = []
       that.setData({
-        content: content
+        content: content,
+        openusername:openusername
       })
     }
-    if (content.Star_User.includes(openusername)) {
-      that.setData({
-        Starurl: "../../../images/zan.png",
-      })
+    for(var i = 0;i<content.Star_User.length;i++){
+      if(content.Star_User[i].username===openusername.username){
+        that.setData({
+          Starurl: "../../../images/zan.png",
+        })
+      }
     }
+    // if (content.Star_User.includes(openusername)) {
+  
+    // }
     // app.globalData.Starif = Starif
-    app.globalData.Star_count = content.Star_User.length
-    app.globalData.Star_User = content.Star_User
+    //数据本地初始化
+
+    console.log()
     this.setData({
       userName: userName,
       Star_User: content.Star_User,
@@ -321,37 +338,33 @@ Page({
       SenticonUrl: content.iconUrl,
       SentName: content.nickName,
       more: more,
-      // Starurl: app.globalData.Starurl 
-      // Starcount:content.Star
+
     })
     console.log(content)
-    // console.log(this.data.openid)
   },
   //点赞
   get_Star() {
     var Star_User = this.data.content.Star_User
-    // console.log(Star_User);
+    var openusername = this.data.openusername
     if (!Star_User) {
       Star_User = []
     }
     var that = this
     var Starif = false
-    //判断是不是为点赞过的openid
-    // console.log(Star_User, 244)
-    if (Star_User.includes(that.data.openusername)) {
-      Starif = true
-      that.setData({
-        // Starif: true,
+    //判断是不是为点赞过的username
+    for (var i = 0 ;i<Star_User.length;i++){
+      if(Star_User[i].username===openusername.username){
+        Starif = true
+        Star_User.splice(Star_User.indexOf(openusername), 1)
+        that.setData({
         Starurl: "../../../images/zan1.png",
       })
-
-      // console.log(Star_User.indexOf(that.data.openusername), 244)
-      Star_User.splice(Star_User.indexOf(that.data.openusername), 1)
-      console.log(Star_User, "Star_User")
+      }
     }
     if (!Starif) {
-      //push到openid
-      Star_User.push(that.data.openusername)
+      //push到username
+      openusername.Star_time = new Date().getTime()
+      Star_User.push(openusername)
       wx.showToast({
         title: '点赞成功',
         icon: "none"
@@ -359,28 +372,21 @@ Page({
       that.setData({
         Starurl: "../../../images/zan.png",
       })
-      console.log(Star_User)
     }
-    var Star_count = Star_User.length
-    console.log("Star_count", Star_count)
-    console.log(that.data.Star_count)
     wx.cloud.callFunction({
       name: "CampusCircle",
       data: {
         type: "starCount",
         Time: that.data.ContentTime,
-        Star: Star_count,
+        Star:  Star_User.length,
         Star_User: Star_User
       },
       success(res) {
         console.log(res)
       }
     })
-    app.globalData.Starurl = this.data.Starurl
-    app.globalData.Starif = Starif
-    app.globalData.Star_count = Star_count
+    app.globalData.Star_count =  Star_User.length
     app.globalData.Star_User = Star_User
-    console.log(Starif)
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

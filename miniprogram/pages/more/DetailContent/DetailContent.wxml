@@ -23,8 +23,8 @@
     </swiper>
     <view class="content_first">
       <view class="content_Title">{{Title}}</view>
-      <text class="content_Text">{{Text}}</text>
-      <view class="content_Label" >#{{Label}}</view>
+      <text class="content_Text">{{Text}}\n</text>
+      <text class="content_Label" >{{Label}}</text>
       <view class="content_sec">
         <view class="content_Time" >{{Time}}</view>
         <view class="content_Star">

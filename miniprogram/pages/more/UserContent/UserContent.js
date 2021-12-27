@@ -18,6 +18,7 @@ Page({
     loadAll: false, //“没有数据”的变量，默认false，隐藏 
     direction:" ",
     directionIndex:0,
+    openusername:{}
   },
   // ShowContent:function(e){
   //   var content=JSON.stringify(e.currentTarget.dataset.index)
@@ -27,6 +28,80 @@ Page({
   //     url: "../DetailContent/DetailContent?content=" + content + "&del=" + del, 
   //   })
   // },
+  getStar_left_card:function(e){
+    this.data.direction="Left"
+    var index = e.currentTarget.dataset.index //索引
+    var List  = this.data.leftList
+    this.get_Star(index,List)
+  },
+  getStar_right_card:function(e){
+    this.data.direction="right"
+    var index = e.currentTarget.dataset.index //索引
+    var List  = this.data.rightList
+    this.get_Star(index,List)
+  },
+  get_Star:function(index,List) {
+    var content = List[index] //点击页的数据
+    var Star_User = content.Star_User //初始点赞用户
+    var openusername = this.data.openusername
+    if (!Star_User) {
+      Star_User = []
+    }
+    var Starif = false
+    //判断是不是为点赞过的usernameid
+    for (var i = 0 ;i<Star_User.length;i++){
+      if(Star_User[i].username===openusername.username){
+        Starif = true
+        Star_User.splice(Star_User.indexOf(openusername), 1)
+      }
+    }
+    if (!Starif) {2
+      openusername.Star_time = new Date().getTime()
+      //push到usernameid
+      Star_User.push(openusername)
+      wx.showToast({
+        title: '点赞成功',
+        icon: "none"
+      })
+      console.log(Star_User)
+    }
+    var Star_count = Star_User.length
+    //点赞后对本地数据进行更新
+
+    //点赞用户更新
+    content.Star_User = Star_User
+    //点赞用户数更新
+    content.Star = Star_count
+    if( this.data.direction==="Left"){
+          //更新后的数据本地刷新
+      this.setData({
+        leftList:List
+      })
+    }
+    else if (this.data.direction==="right"){
+      this.setData({
+        rightList:List
+      })
+    }
+    console.log("Star_count", Star_count)
+    //点赞后对数据库数据进行更新
+    wx.cloud.callFunction({
+      name: "CampusCircle",
+      data: {
+        type: "starCount",
+        Time: content.Time,
+        Star: Star_count,
+        Star_User: Star_User
+      },
+      success(res) {
+        console.log(res)
+      }
+    })
+    //点赞数
+    app.globalData.Star_count = Star_count
+    //点赞数组
+    app.globalData.Star_User = Star_User
+  },
   ShowContentLeft:function(e){
     this.data.direction="Left"
     var index=e.currentTarget.dataset.index
@@ -127,6 +202,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(this.data.CommentList)
     var that =this 
     var i=0
     that.data.leftList=[],
@@ -142,12 +218,20 @@ Page({
         var school = data.school
         var nickname =data.nickName
         var iconUrl =data.iconUrl
+        // var username =data.username
         console.log(school)
         that.setData({
           school:school,
           nickname:nickname,
-          iconUrl:iconUrl
+          iconUrl:iconUrl,
+          // openusername:username
+          openusername:{
+            username: data.username,
+            iconUrl: data.iconUrl,
+            nickName: data.nickName
+          }
         })
+        console.log(that.data.openusername)
         if(i==0){
           currentPage=0
           that.getData()
@@ -185,6 +269,7 @@ Page({
   onShow: function () {
     //  currentPage=0
     //  this.getData()
+    console.log(app.globalData.Comment)
     if(this.data.direction=="Left"){
       var index=this.data.directionIndex
       this.data.leftList[index].CommentList=app.globalData.Comment

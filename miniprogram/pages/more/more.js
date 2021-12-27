@@ -1,5 +1,6 @@
 // pages/more/more.js
 var app = getApp()
+// const { log } = require("console");
 var util = require("../../utils/util")
 let currentPage = 0 // 当前第几页,0代表第一页 
 var _animation = wx.createAnimation({
@@ -99,7 +100,7 @@ Page({
     campus_account: false,
     describe: "",
     content: "",
-    openusername: "",//学号
+    openusername: {},//点赞人的对象
     // rotateIndex: '',
     // animationData: {}
   },
@@ -433,8 +434,8 @@ Page({
   CalculateImage: function () {
     var that = this;
     var allData = that.data.noramalData;
-    console.log("that.data.leftH", that.data.leftH)
-    console.log("that.data.rightH", that.data.rightH)
+    // console.log("that.data.leftH", that.data.leftH)
+    // console.log("that.data.rightH", that.data.rightH)
     for (let i = 0; i < allData.length; i++) {
       var height = parseInt(Math.round(allData[i].CoverHeight * 370 / allData[i].CoverWidth));
       if (height) {
@@ -501,6 +502,8 @@ Page({
           that.onPullDownRefresh()
           i++
         }
+        console.log(data.username)
+        console.log(data.iconurl)
         that.setData({
           school,
           menu,
@@ -509,8 +512,15 @@ Page({
           tabitem: arry,
           campus_account: campus_account,
           describe: describe,
-          openusername: data.username
+          // openusername: data.username,
+          openusername:{
+            username: data.username,
+            iconUrl: data.iconUrl,
+            nickName: data.nickName
+          }
+    
         })
+        console.log(that.data.openusername)
       }, fail(res) {
         //app里面登录状态判断
         app.loginState()
@@ -791,21 +801,22 @@ Page({
     console.log("over")
   },
   onShow: function () {
+    // console.log('23187947');
     var index = this.data.directionIndex
     if (this.data.direction == "Left") {
-      this.data.leftList[index].CommentList = app.globalData.Comment
+      this.data.leftList[index].CommentList = app.globalData.Comment //回复全局
       this.data.leftList[index].Star = app.globalData.Star_count
       this.data.leftList[index].Star_User = app.globalData.Star_User
     } else if (this.data.direction == "Right") {
-      this.data.rightList[index].CommentList = app.globalData.Comment
+      this.data.rightList[index].CommentList = app.globalData.Comment //回复全局
       this.data.rightList[index].Star = app.globalData.Star_count
       this.data.rightList[index].Star_User = app.globalData.Star_User
     }
+    // console.log('8218371923',this.data.leftList)
     this.setData({
       leftList: this.data.leftList,
       rightList: this.data.rightList
     })
-    // console.log('长度',this.data.leftList.length);
    
   },
   onShareAppMessage: function (res) {

@@ -13,12 +13,16 @@ page{
 .searchFrame{
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 240rpx;
+  height: 50rpx;
+  line-height: 50rpx;
   margin-left: 10rpx;
   font-size: 25rpx;
   border-radius: 15rpx;
   background-color: rgba(202, 202, 202, 0.342);
 }
+
 .head_second .avatar {
   margin-left: 20rpx;
   width: 60rpx;
@@ -30,7 +34,8 @@ page{
   margin-left: 15rpx;
 }
 .head_second .searchFrame image {
-  margin: 10rpx 10rpx 0 10rpx;
+  margin:0rpx 10rpx ;
+  /* margin: 10rpx 10rpx 0 10rpx; */
   width: 20rpx;
   height: 20rpx;
 }
