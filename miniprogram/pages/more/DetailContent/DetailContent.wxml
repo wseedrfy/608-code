@@ -1,8 +1,8 @@
 <view class="page">
   <view class="contain">
     <view class="user">
-      <image src="{{SenticonUrl}}" class="user_iconUrl"/>
-      <span class="user_nickname">{{SentName}}</span>
+      <image src="{{content.iconUrl}}" class="user_iconUrl"/>
+      <span class="user_nickname">{{content.nickName}}</span>
       <image src="../../../images/more.png" class="more" wx:if="{{more==1}}" bindtap="More"/>
       <view class="CardMore" wx:if="{{showEdit}}">
         <view class="CardMore_background" bindtap="More"></view>
