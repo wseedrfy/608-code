@@ -1,23 +1,19 @@
 <!--pages/more/News/News.wxml-->
 <view class="container">
-   <!-- <block wx:for="list" wx:key="item">
+   <block wx:for="{{finalDataList}}" wx:key="item">
       <view class="demo">
-         <image src="{{item.iconUrl}}"></image>
+         <image src="{{item.character.iconUrl}}"></image>
          <view class="text">
-            <view class="name">{{item.userName}}</view>
-            <text class="content">{{item.content}}</text>
-            <view class="time">{{item.time}}</view>
+            <view class="name">{{item.character.nickName}}</view>
+            <view class="content">
+               <!-- 点赞 -->
+               <image class="zan" src="../../../images/love.png"></image>
+               <!-- 回复内容 -->
+               <text class="content">{{item.content}}</text>
+            </view>
+            <view class="time">{{item.createTime}}</view>
          </view>
-         <view class="picture"></view>
+         <image class="picture" src="{{item.arcticle.AllPhoto[0]}}" mode="aspectFill"></image>
       </view>
-   </block> -->
-   <view class="demo">
-      <image src="{{list[0].iconUrl}}"></image>
-      <view class="text">
-         <view class="name">{{list[0].userName}}</view>
-         <view class="content">{{list[0].content}}</view>
-         <view class="time">{{list[0].time}}</view>
-      </view>
-      <view class="picture"></view>
-   </view>
+   </block>
 </view>

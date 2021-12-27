@@ -198,11 +198,12 @@ exports.main = async (event, context) => {
         data: {
           character: event.character,
           be_character: event.be_character,
-          type: event.type_type,
+          type: '点赞',
           content: '',
           status: 0,
           createTime: event.createTime,
-          arcticle: event.arcticle
+          arcticle: event.arcticle,
+          arcticle_id: event.arcticle_id
         },
         success(res) { console.log(res,"点赞成功，数据库添加成功"); },
         fail(e) { console.log(e,"点赞失败，数据库存储失败"); }
@@ -211,21 +212,21 @@ exports.main = async (event, context) => {
       console.log(e);
     }
   }
-  // 取消点赞/评论状态
-  if(event.type == "CancelControlLogs"){
+  // 更改点赞状态
+  if(event.type == "CancelStarControlLogs"){
     try {
       return await db.collection('New-Information').where({
-        character:event.character,
-        be_character:event.be_character,
-        arcticle:event.arcticle,
-        type:event.type_type
+        character: event.character,
+        be_character: event.be_character,
+        arcticle_id: event.arcticle_id,
+        type: '点赞'
       }).update({
         data: {
           status: -1,
           createTime:event.createTime
-        },
-        success(res) { console.log(res,"点赞状态更新成功"); },
-        fail(e) { console.log(e,"点赞状态更新失败"); }
+        }
+      }).then((res) => {
+        console.log(res,"点赞状态更新成功");
       })
     } catch(e) {
       console.log(e);
@@ -242,10 +243,31 @@ exports.main = async (event, context) => {
           content: event.content,
           status: 0,
           createTime: event.createTime,
-          arcticle: event.arcticle
+          arcticle: event.arcticle,
+          arcticle_id: event.arcticle_id
         },
         success(res) { console.log(res,"评论成功，数据库添加成功"); },
         fail(e) { console.log(e,"评论失败，数据库存储失败"); }
+      })
+    } catch(e) {
+      console.log(e);
+    }
+  }
+  // 删除评论
+  if(event.type == "CancelCommentControlLogs"){
+    try {
+      return await db.collection('New-Information').where({
+        character: event.character,
+        be_character: event.be_character,
+        arcticle_id: event.arcticle_id,
+        type: '评论'
+      }).update({
+        data: {
+          status: -1,
+          createTime:event.createTime
+        }
+      }).then((res) => {
+        console.log(res,"点赞状态更新成功");
       })
     } catch(e) {
       console.log(e);

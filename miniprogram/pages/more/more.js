@@ -103,12 +103,24 @@ Page({
     // rotateIndex: '',
     // animationData: {}
   },
-  getNewsTotal() {  // 得到新消息页面
-    // let args = wx.getStorageSync('args');
-    // let be_character = {  }
-    // wx.cloud.database().collection('New-Information').where({
-    //   be_character = 
-    // })
+  getNewInfo() {    // 获取新消息总数
+    var that = this;
+    const agrs = wx.getStorageSync('args')
+    // 被评论者信息
+    let be_character = {
+      // userName:this.data.content.username,    bug : content里面没有
+      iconUrl:agrs.iconUrl,
+      nickName:agrs.nickName
+    }
+    wx.cloud.database().collection('New-Information').where({
+      be_character: be_character,
+      status: 0
+    }).count().then(res => {
+      console.log(res.total);
+      that.setData({
+        NewInfo:res.total
+      })
+    })
   },
   naviToMyself() { // 跳转到个人信息页面
     wx.switchTab({
@@ -467,6 +479,7 @@ Page({
     var that = this
     var i = 0
     // console.log('onLoad')
+    this.getNewInfo()     // 获取新消息通知
     //加载缓存获得学校和用户名和头像
     wx.getStorage({
       key: "args",
@@ -600,6 +613,7 @@ Page({
       wx.showLoading({
         title: '加载更多中',
       })
+      this.getNewInfo();          // 上拉刷新，是否有新消息
       that.getData()
       console.log("currentPage-onReachBottom", currentPage)
       wx.hideLoading()

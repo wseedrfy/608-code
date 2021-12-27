@@ -21,12 +21,18 @@ page {
    margin-right: 20rpx;
    border-radius: 10rpx;
 }
-.demo .text {
+.demo image:first-child {
+   border-radius: 50%;
+}
+.text .content {
    width: 500rpx;
+   display: flex;
+   align-items: center;
+
 }
 .demo .text .name {
    /* font-weight: 700; */
-   color: rgb(104, 109, 138);
+   color: black;
 }
 .demo .text .content {
    line-height: 40rpx;
@@ -37,4 +43,8 @@ page {
    line-height: 40rpx;
    font-size: 25rpx;
    color: rgb(137, 137, 136);
+}
+.demo .zan {
+   width: 35rpx;
+   height: 35rpx;
 }

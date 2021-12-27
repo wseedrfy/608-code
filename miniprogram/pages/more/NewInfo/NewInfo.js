@@ -1,66 +1,105 @@
-// pages/more/NewInfo/NewInfo.js
+const util = require("../../../utils/util");
+
+var currentPage = 0 // 当前第几页,0代表第一页 
+var pageSize = 10 //每页显示多少数据 
 Page({
-
-   /**
-    * 页面的初始数据
-    */
-   data: {
-
-   },
-
-   /**
-    * 生命周期函数--监听页面加载
-    */
-   onLoad: function (options) {
-
-   },
-
-   /**
-    * 生命周期函数--监听页面初次渲染完成
-    */
-   onReady: function () {
-
-   },
-
-   /**
-    * 生命周期函数--监听页面显示
-    */
-   onShow: function () {
-
-   },
-
-   /**
-    * 生命周期函数--监听页面隐藏
-    */
-   onHide: function () {
-
-   },
-
-   /**
-    * 生命周期函数--监听页面卸载
-    */
-   onUnload: function () {
-
-   },
-
-   /**
-    * 页面相关事件处理函数--监听用户下拉动作
-    */
-   onPullDownRefresh: function () {
-
-   },
-
-   /**
-    * 页面上拉触底事件的处理函数
-    */
-   onReachBottom: function () {
-
-   },
-
-   /**
-    * 用户点击右上角分享
-    */
-   onShareAppMessage: function () {
-
-   }
+  data: {
+    dataList: [],    // 放置返回数据的数组  
+    oldDataList:[],  // 历史消息
+    loadMore: false, // "上拉加载"的变量，默认false，隐藏  
+    loadAll: false   // “没有数据”的变量，默认false，隐藏  
+  },
+  //页面显示的事件
+  onShow() {
+    this.getData()
+  },
+  onLoad(){
+    currentPage =0;
+    pageSize =10
+  },
+  //页面上拉触底事件的处理函数
+  onReachBottom: function() {
+    console.log("上拉触底事件")
+    if (!this.data.loadMore) {
+      this.setData({
+        loadMore: true, //加载中  
+        loadAll: false //是否加载完所有数据
+      });
+      this.getData()
+    }
+  },
+  //访问网络,请求数据  
+  getData() {
+    let args = wx.getStorageSync('args')
+    let be_character = {         // 用户自己
+       iconUrl: args.iconUrl,
+       nickName: args.nickName
+    }
+    let that = this;
+    //第一次加载数据
+    if (currentPage == 1) {
+      this.setData({
+        loadMore: true, //把"上拉加载"的变量设为true，显示  
+        loadAll: false //把“没有数据”设为false，隐藏  
+      })
+    }
+    //云数据的请求
+    wx.cloud.database().collection("New-Information").orderBy('createTime','desc').where({ be_character:be_character, status: 0 })
+      .skip(currentPage * pageSize) //从第几个数据开始
+      .limit(pageSize)
+      .get({
+        success(res) {
+          if (res.data && res.data.length > 0) {
+            console.log("请求成功", res.data)
+            currentPage++
+            // 1. 拿缓存内
+            if(wx.getStorageSync('mnds')) {
+               console.log("有旧消息，进入判断");
+               that.data.oldDataList = wx.getStorageSync('mnds');
+               console.log("第一步拿缓存",that.data.oldDataList);
+            }
+            // 2. 拿新List
+            for(let i = 0; i < res.data.length;i++) {   // 处理每个数据的时间
+               res.data[i].createTime = util.timeago(res.data[i].createTime,'Y年M月D日');
+            }
+            let list = that.data.dataList.concat(res.data)
+            that.setData({
+              dataList: list, //获取数据数组    
+              loadMore: false //把"上拉加载"的变量设为false，显示  
+            });
+            console.log("第二步拿新List",that.data.dataList);
+            // 3. 新老 List 合并
+            if(!list.includes(that.data.oldDataList)) {
+               let finalDataList = list.concat(that.data.oldDataList);
+               that.setData({
+                  finalDataList:finalDataList
+               }) 
+            }
+            
+            console.log("第三步新老List合并",finalDataList);
+            // 4. 存缓存
+            wx.setStorageSync('mnds', finalDataList)
+            if (res.data.length < pageSize) {
+              that.setData({
+                loadMore: false, //隐藏加载中。。
+                loadAll: true //所有数据都加载完了
+              });
+            }
+          } else {
+            that.setData({
+              loadAll: true, //把“没有数据”设为true，显示  
+              loadMore: false //把"上拉加载"的变量设为false，隐藏  
+            });
+          }
+        },
+        fail(res) {
+          console.log("请求失败", res)
+          that.setData({
+            loadAll: false,
+            loadMore: false
+          });
+        }
+      })
+      console.log(this.data.dataList);
+  },
 })
