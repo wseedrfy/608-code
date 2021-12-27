@@ -103,12 +103,19 @@ Page({
     // rotateIndex: '',
     // animationData: {}
   },
-  naviToMyself() {
+  getNewsTotal() {  // 得到新消息页面
+    // let args = wx.getStorageSync('args');
+    // let be_character = {  }
+    // wx.cloud.database().collection('New-Information').where({
+    //   be_character = 
+    // })
+  },
+  naviToMyself() { // 跳转到个人信息页面
     wx.switchTab({
       url: '/pages/myself/myself',
     })
   },
-  naviToNews() {
+  naviToNews() {  // 跳转到新消息提示页面
     wx.navigateTo({
       url: './NewInfo/NewInfo',
     })

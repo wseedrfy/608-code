@@ -20,13 +20,12 @@ Page({
   //页面上拉触底事件的处理函数
   onReachBottom: function() {
     console.log("上拉触底事件")
-    let that = this
-    if (!that.data.loadMore) {
-      that.setData({
+    if (!this.data.loadMore) {
+      this.setData({
         loadMore: true, //加载中  
         loadAll: false //是否加载完所有数据
       });
-      that.getData()
+      this.getData()
     }
   },
   //访问网络,请求数据  

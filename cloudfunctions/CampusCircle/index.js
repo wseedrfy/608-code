@@ -162,7 +162,8 @@ exports.main = async (event, context) => {
       try {
         return await db.collection('Campus-Circle').orderBy('Time','desc').where({
           nickName:event.nickname,
-          iconUrl:event.iconUrl
+          iconUrl:event.iconUrl,
+          status:0,
         }).skip(event.currentPage * 10).limit(10).get({
           success: function (res) {
             return res
@@ -190,4 +191,78 @@ exports.main = async (event, context) => {
     console.log(e)
     }
   }
+  // 12-27新增：将点赞与评论这些新消息提示上传到数据库
+  if(event.type == "StarControlLogs"){
+    try {
+      return await db.collection('New-Information').add({
+        data: {
+          character: event.character,
+          be_character: event.be_character,
+          type: event.type_type,
+          content: '',
+          status: 0,
+          createTime: event.createTime,
+          arcticle: event.arcticle
+        },
+        success(res) { console.log(res,"点赞成功，数据库添加成功"); },
+        fail(e) { console.log(e,"点赞失败，数据库存储失败"); }
+      })
+    } catch(e) {
+      console.log(e);
+    }
+  }
+  // 取消点赞/评论状态
+  if(event.type == "CancelControlLogs"){
+    try {
+      return await db.collection('New-Information').where({
+        character:event.character,
+        be_character:event.be_character,
+        arcticle:event.arcticle,
+        type:event.type_type
+      }).update({
+        data: {
+          status: -1,
+          createTime:event.createTime
+        },
+        success(res) { console.log(res,"点赞状态更新成功"); },
+        fail(e) { console.log(e,"点赞状态更新失败"); }
+      })
+    } catch(e) {
+      console.log(e);
+    }
+  }
+  // 评论
+  if(event.type == "CommentControlLogs") {
+    try {
+      return await db.collection('New-Information').add({
+        data: {
+          character: event.character,
+          be_character: event.be_character,
+          type: '评论',
+          content: event.content,
+          status: 0,
+          createTime: event.createTime,
+          arcticle: event.arcticle
+        },
+        success(res) { console.log(res,"评论成功，数据库添加成功"); },
+        fail(e) { console.log(e,"评论失败，数据库存储失败"); }
+      })
+    } catch(e) {
+      console.log(e);
+    }
+  }
+  if(event.type == 'ReadControlLogs') {
+    try {
+      return await db.collection('New-Information').where().add({
+        data: {
+
+        },
+        success(res) { console.log(res,"评论成功，数据库添加成功"); },
+        fail(e) { console.log(e,"评论失败，数据库存储失败"); }
+      })
+    } catch(e) {
+      console.log(e);
+    }
+  }
+  // 12-27新增：将点赞与评论这些新消息提示上传到数据库 ↑↑↑↑↑↑
 }
