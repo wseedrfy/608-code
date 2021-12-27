@@ -5,7 +5,7 @@ Page({
     isChecked: true,
     InputComment: " ",
     CommentList: [],
-    ContentTime: 0,
+    // ContentTime: 0,
     showEdit: false,
     comEdit: false,
     CardID: "",
@@ -45,7 +45,7 @@ Page({
     if (index || index == 0) {
       console.log("that.data.CommentList[index].userName", that.data.CommentList[index].userName)
       console.log("that.data.userName", that.data.userName)
-      if ((that.data.CommentList[index].userName == that.data.userName && that.data.CommentList[index].iconUser == that.data.iconUrl) || (that.data.SentName == that.data.userName && that.data.SenticonUrl == that.data.iconUrl)) {
+      if ((that.data.CommentList[index].userName == that.data.userName && that.data.CommentList[index].iconUser == that.data.args.iconUrl) || (that.data.content.nickName == that.data.userName && that.data.content.iconUrl == that.data.args.iconUrl)) {
         that.data.ShowDelCom = 1
       }
     }
@@ -187,15 +187,15 @@ Page({
       var add = {
         "InputComment": InputComment,
         "CommentTime": new Date().getTime(),
-        "iconUser": that.data.iconUrl,
-        "userName": that.data.userName
+        "iconUser": that.data.args.iconUrl,   
+        "userName": that.data.args.nickName   
       }
       that.data.CommentList.push(add)
       wx.cloud.callFunction({
         name: 'CampusCircle',
         data: {
           CommentList: that.data.CommentList,
-          Time: that.data.ContentTime,
+          Time: that.data.content.Time,
           type: 'writeComment'
         },
         success: res => {
@@ -210,9 +210,7 @@ Page({
       })
     }
   },
-  // ShowStar:function(){
 
-  // },
   ShowComment: function () {
     var Show = []
     var length = this.data.CommentList.length
@@ -237,11 +235,9 @@ Page({
       CommentNum: length
     })
   },
-  /**
-   * 页面的初始数据
-   */
+
   ShowImg: function (e) {
-    var Photo = this.data.Photo
+    var Photo = this.data.content.AllPhoto
     var index = e.target.dataset.index
     wx.previewImage({
       current: Photo[index],
@@ -249,18 +245,14 @@ Page({
     })
   },
 
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
-    var content = JSON.parse(options.content)
+    var content = JSON.parse(options.content)  // 将JSON帖子信息转成对象
     var more = options.del
     var jj = content.Time
     var that = this
     var Time = util.timeago(jj, 'Y年M月D日')
-    this.data.Star = content.Star
-    this.data.ContentTime = content.Time
+    // this.data.Star = content.Star
+    // this.data.ContentTime = content.Time
     // console.log(this.data.CardID,233)
     wx.cloud.callFunction({
       name: 'CampusCircle',
@@ -283,83 +275,100 @@ Page({
             CommentNum: 0,
             content: content
           })
+          console.log("我得到content了",this.data.content);
         }
       }
     });
 
-    var data = wx.getStorageSync('args')
-    var userName = data.nickName
-    var iconUrl = data.iconUrl
-    var openusername = data.username
-    // 点赞判断
-    if (content.Star_User == undefined || !content.Star_User) {
-      content.Star_User = []
-      that.setData({
-        content: content
-      })
-    }
-    if (content.Star_User.includes(openusername)) {
+    this.setData({ args:wx.getStorageSync('args')})
+    console.log("我得到args并赋值了",this.data.args);
+    // var data = wx.getStorageSync('args')
+    // var userName = this.data.args.nickName
+    // var userName = data.nickName
+    // var iconUrl = this.data.args.iconUrl
+    // var openusername = this.data.args.username
+
+    // 点赞判断 ×   留言：点赞函数里已经进行判空了！！！！！
+    // if (content.Star_User == undefined || !content.Star_User) {
+    //   content.Star_User = []
+    //   that.setData({
+    //     content: content
+    //   })
+    // }
+    if (content.Star_User.includes(this.data.args.username)) {  // username学号
       that.setData({
         Starurl: "../../../images/zan.png",
       })
     }
     // app.globalData.Starif = Starif
+
+    // !!!!!!!!!!!!!!!!!我没懂这两个在哪里用到，写这个代码的人仔细看看 xyq留言
     app.globalData.Star_count = content.Star_User.length
     app.globalData.Star_User = content.Star_User
+    // !!!!!!!!!!!!!!!!!我没懂这两个在哪里用到，写这个代码的人仔细看看
+
     this.setData({
-      userName: userName,
-      Star_User: content.Star_User,
-      iconUrl: iconUrl,
-      openusername,
-      ImgSrc: content.Cover,
-      Title: content.Title,
-      Text: content.Text,
-      Label: content.Label,
-      Photo: content.AllPhoto,
+      // userName: userName,
+      // Star_User: content.Star_User,
+      // iconUrl: iconUrl,
+      // openusername,
+      // ImgSrc: content.Cover,
+      // Title: content.Title,
+      // Text: content.Text,
+      // Label: content.Label,
+      // Photo: content.AllPhoto,
       Time: Time,
-      Height: content.ShowHeight,
-      SenticonUrl: content.iconUrl,
-      SentName: content.nickName,
+      // Height: content.ShowHeight,
+      // SenticonUrl: content.iconUrl,
+      // SentName: content.nickName,
       more: more,
       // Starurl: app.globalData.Starurl 
       // Starcount:content.Star
     })
-    console.log(content)
+    // console.log(content)
     // console.log(this.data.openid)
   },
   //点赞
   get_Star() {
-    var Star_User = this.data.content.Star_User
-    // console.log(Star_User);
-    if (!Star_User) {
+    var Star_User = this.data.content.Star_User  // content是帖子全部信息，Star_User是点赞用户id
+
+    // 判空
+    if (!Star_User || Star_User == undefined) {
       Star_User = []
     }
     var that = this
     var Starif = false
-    //判断是不是为点赞过的openid
-    // console.log(Star_User, 244)
-    if (Star_User.includes(that.data.openusername)) {
+    // 判断是不是为点赞过的学号
+    if (Star_User.includes(that.data.args.username)) {  // openusername是args里的username=学号
       Starif = true
       that.setData({
         // Starif: true,
         Starurl: "../../../images/zan1.png",
       })
 
-      // console.log(Star_User.indexOf(that.data.openusername), 244)
-      Star_User.splice(Star_User.indexOf(that.data.openusername), 1)
+      // 取消点赞
+      Star_User.splice(Star_User.indexOf(that.data.args.username), 1)
       console.log(Star_User, "Star_User")
     }
     if (!Starif) {
-      //push到openid
-      Star_User.push(that.data.openusername)
-      wx.showToast({
-        title: '点赞成功',
-        icon: "none"
-      })
-      that.setData({
-        Starurl: "../../../images/zan.png",
-      })
-      console.log(Star_User)
+      // 不可以给自己点赞   缺陷：未来每个人的名称必须唯一不重复
+      if(this.data.content.nickName == this.data.args.nickName) {
+        wx.showToast({
+          title: '不可以给自己点赞哦！',
+          icon:'none'
+        })
+      }else {
+        //push到openid
+        Star_User.push(this.data.args.username)
+        wx.showToast({
+          title: '点赞成功',
+          icon: "none"
+        })
+        that.setData({
+          Starurl: "../../../images/zan.png",
+        })
+        console.log(Star_User)
+      }
     }
     var Star_count = Star_User.length
     console.log("Star_count", Star_count)
@@ -368,7 +377,7 @@ Page({
       name: "CampusCircle",
       data: {
         type: "starCount",
-        Time: that.data.ContentTime,
+        Time: that.data.content.Time,
         Star: Star_count,
         Star_User: Star_User
       },
@@ -382,52 +391,8 @@ Page({
     app.globalData.Star_User = Star_User
     console.log(Starif)
   },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
   onShow: function () {
     this.ShowComment()
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
 })

@@ -108,6 +108,11 @@ Page({
       url: '/pages/myself/myself',
     })
   },
+  naviToNews() {
+    wx.navigateTo({
+      url: './NewInfo/NewInfo',
+    })
+  },
   search_Input: function (e) {
     console.log("e.", e.detail.value)
     console.log("this.data.noramalData", this.data.noramalData)
