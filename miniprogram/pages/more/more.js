@@ -154,6 +154,7 @@ Page({
       wx.cloud.callFunction({
         name: "CampusCircle",
         data: {
+          username: that.data.username,
           type: "search",
           searchKey: e.detail.value
         },
@@ -640,6 +641,7 @@ Page({
       name: "CampusCircle",
       data: {
         type: "read",
+        username: tbat.data.username,
         currentPage: currentPage,
         ShowId: that.data.Label,
         addAft: that.data.addAft,

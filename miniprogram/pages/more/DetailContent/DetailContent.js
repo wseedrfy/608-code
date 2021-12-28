@@ -100,6 +100,7 @@ Page({
             name: 'CampusCircle',
             data: {
               type: 'delComment',
+              username : that.data.username,
               _id: that.data.content._id,
               CommentList: that.data.CommentList
             },
@@ -110,11 +111,13 @@ Page({
                 data: {
                   type: 'CancelCommentControlLogs',
                   character: character,
+                  username : that.data.username,
                   be_character: be_character,
                   content: InputComment,
                   createTime: changeStatusTime,
                   arcticle: content,
-                  arcticle_id: content._id
+                  arcticle_id: content._id,
+                  _id: that.data.content._id
                 }
               }),
               
@@ -170,6 +173,7 @@ Page({
             name: 'CampusCircle',
             data: {
               _id: that.data.CardID,
+              username : that.data.username,
               type: 'delCard'
             },
             success: res => {
@@ -235,7 +239,9 @@ Page({
         name: 'CampusCircle',
         data: {
           CommentList: that.data.CommentList,
+          username : that.data.username,
           Time: that.data.content.Time,
+          _id: that.data.content._id,
           type: 'writeComment'
         },
         success: res => {
@@ -273,10 +279,12 @@ Page({
           type: "CommentControlLogs",
           character: character,
           be_character:be_character,
+          username : that.data.username,
           content: e.detail.value.InputComment,
           createTime:commentTime,
           arcticle:this.data.content,
-          arcticle_id:this.data.content._id
+          arcticle_id:this.data.content._id,
+          _id: this.data.content._id
         },
         success(res) { console.log(res,"调用评论云函数成功"); },
         fail(e) { 
@@ -343,7 +351,13 @@ Page({
     var more = options.del
     var that = this
     var Time = util.timeago(content.Time, 'Y年M月D日')
-    
+    var data = wx.getStorageSync('args')
+    that.data.username = args.username
+    var openusername = {
+      username:data.username,
+      iconUrl:data.iconUrl,
+      nickName:data.nickName
+    }
     this.data.Star = content.Star
     this.data.ContentTime = content.Time
     this.data.CardID = content._id
@@ -351,6 +365,7 @@ Page({
     wx.cloud.callFunction({
       name: 'CampusCircle',
       data: {
+        username : that.data.username,
         Time: content.Time,
         _id: content._id,
         type: 'readComment'
@@ -380,12 +395,7 @@ Page({
       }
     });
 
-    var data = wx.getStorageSync('args')
-    var openusername = {
-      username:data.username,
-      iconUrl:data.iconUrl,
-      nickName:data.nickName
-    }
+
     // 点赞判断
     this.setData({ args:wx.getStorageSync('args')})
     console.log("我得到args并赋值了",this.data.args);
@@ -451,7 +461,9 @@ Page({
         name: "CampusCircle",
         data: {
           type: "StarControlLogs",
+          username : that.data.username,
           Time: that.data.content.Time,
+          _id: that.data.content._id,
           Star: Star_count,
           Star_User: Star_User,
           // 上面三条为迎合旧点赞函数
@@ -487,6 +499,7 @@ Page({
         wx.cloud.callFunction({
           name: "CampusCircle",
           data: {
+            username : that.data.username,
             type: "StarControlLogs",
             Time: that.data.content.Time,
             Star: Star_count,
@@ -496,7 +509,8 @@ Page({
             be_character:be_character,
             createTime:starTime,
             arcticle:this.data.content,
-            arcticle_id:this.data.content._id
+            arcticle_id:this.data.content._id,
+            _id:this.data.content._id
           },
           success(res) {
             console.log(res)

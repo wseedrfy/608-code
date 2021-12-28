@@ -90,6 +90,7 @@ Page({
       name: "CampusCircle",
       data: {
         type: "starCount",
+        username: that.data.username,
         _id: content._id,
         Star: Star_count,
         Star_User: Star_User
@@ -139,7 +140,6 @@ Page({
     // console.log(that.data.nickname);
     // console.log(that.data.iconUrl);
     //云数据的请求
-    var args = wx.getStorageSync('args')
     wx.cloud.callFunction({
       name: "CampusCircle",
       data: {
@@ -147,7 +147,7 @@ Page({
         currentPage: currentPage,
         nickname: that.data.nickname,
         iconUrl: that.data.iconUrl,
-        username: args.username
+        username: that.data.username
       },
       success(res) {
         that.data.resultLength = res.result.data.length
@@ -227,6 +227,7 @@ Page({
         that.setData({
           school:school,
           nickname:nickname,
+          username: data.username,
           iconUrl:iconUrl,
           // openusername:username
           openusername:{

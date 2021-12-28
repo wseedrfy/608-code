@@ -6,7 +6,6 @@ const db = cloud.database();
 const _ = db.command;
 // 云函数入口函数
 exports.main = async (event, context) => {
-  const wxContext = cloud.getWXContext()
   if (event.type == "read") {
     if (event.ShowId != "全部") {
       if (event.addAft == 0) {
@@ -80,7 +79,7 @@ exports.main = async (event, context) => {
           Time: event.Time,
           ShowHeight: event.ShowHeight,
           nickName: event.nickName,
-          userName: event.userName,
+          username: event.username,
           iconUrl: event.iconUrl,
           School: event.School,
           Star: 0
@@ -154,7 +153,6 @@ exports.main = async (event, context) => {
     try {
       return await db.collection('Campus-Circle').orderBy('Time', 'desc').where({
         username: event.username,
-        iconUrl: event.iconUrl,
       }).skip(event.currentPage * 10).limit(10).get({
         success: function (res) {
           console.log("云函数成功");
