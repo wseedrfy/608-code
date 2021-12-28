@@ -27,9 +27,9 @@
 .more{
   width:58rpx;
   height: 58rpx;
-  margin-left: 600rpx;
-  position:relative;
-  top: 6rpx;
+  margin-left: 570rpx;
+  position:flex;
+  /* top: 6rpx; */
 }
 swiper{
   width: 100%; 
