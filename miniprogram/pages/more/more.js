@@ -104,10 +104,34 @@ Page({
     // rotateIndex: '',
     // animationData: {}
   },
-  naviToMyself() {
+  getNewInfo() {    // 获取新消息总数
+    var that = this;
+    const agrs = wx.getStorageSync('args')
+    // 被评论者信息
+    let be_character = {
+      // userName:this.data.content.username,    bug : content里面没有
+      iconUrl:agrs.iconUrl,
+      nickName:agrs.nickName
+    }
+    wx.cloud.database().collection('New-Information').where({
+      be_character: be_character,
+      status: 0
+    }).count().then(res => {
+      console.log(res.total);
+      that.setData({
+        NewInfo:res.total
+      })
+    })
+  },
+  naviToMyself() { // 跳转到个人信息页面
     wx.switchTab({
       url: '/pages/myself/myself',
     })
+  },
+  naviToNews() {  // 跳转到新消息提示页面
+      wx.navigateTo({
+        url: './NewInfo/NewInfo',
+      })
   },
   search_Input: function (e) {
     console.log("e.", e.detail.value)
@@ -598,6 +622,7 @@ Page({
       wx.showLoading({
         title: '加载更多中',
       })
+      this.getNewInfo();          // 上拉刷新，是否有新消息
       that.getData()
       console.log("currentPage-onReachBottom", currentPage)
       wx.hideLoading()
@@ -661,9 +686,9 @@ Page({
   //提高网络性能，分页加载数据
   getData: function () {
     let that = this;
-    console.log("that.data.noramalData", that.data.noramalData)
+    // console.log("that.data.noramalData", that.data.noramalData)
     that.data.noramalData = []
-    console.log("ShowId", that.data.Label)
+    // console.log("ShowId", that.data.Label)
     //第一次加载数据
     if (currentPage == 1) {
       this.setData({
@@ -817,7 +842,7 @@ Page({
       leftList: this.data.leftList,
       rightList: this.data.rightList
     })
-   
+    this.getNewInfo()
   },
   onShareAppMessage: function (res) {
     return {

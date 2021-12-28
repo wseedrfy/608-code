@@ -11,33 +11,55 @@
       <view style="height: {{statusBarHeight}}px;" />
       <!-- 导航栏 -->
       <view class="head_second"  style="height: {{lineHeight}}px;" > 
-        <image class="avatar" src="{{iconUrl}}" catchtap="naviToMyself"></image>
-        <view class="searchFrame">
+        <!-- 头像 -->
+        <view class="avatarBox">
+          <image class="avatar" src="{{iconUrl}}" catchtap="naviToMyself"></image>
+          
+        </view>
+        <!-- 搜索框 -->
+        <view class="searchFrame"> 
           <image src="../../images/search.png" />
           <input class="SearchInput" value="{{search}}" bindinput="search_Input" />
+        </view>
+        <!-- 消息列表 -->
+        <view class="newInfo">
+          <image src="../../images/information.png" bindtap="naviToNews" ></image>
+          <!-- 消息提示 -->
+          <view class="redPointBox" catchtap="naviToNews" wx:if="{{NewInfo}}">
+            <view class="redPoint">
+              <text class="news">{{NewInfo}}</text>
+            </view>
+          </view>
         </view>
       </view>
     </view>
   </view>
   <view style="position: relative; padding-top: {{ 3 + (statusBarHeight + lineHeight)}}px; width: 100%;"></view>
   <view style="position: relative; padding-top: {{(showscroll? 140: 0) }}rpx; width: 100%;"></view>
-  
+    <!-- 加载 - 小圆圈 -->
    <image class="showLoading" mode="aspectFit" animation="{{animation}}" src='../../images/loading.png' wx:if="{{showLoading==0}}"></image>
 
   <view class="Line"></view>
+    <!-- 标签 -->
     <scroll-view scroll-x="true">
       <view class="Choose_Label" scroll-x="true">
-        <view wx:for="{{tabitem}}" wx:key="index" class="Label-text {{item.type == 1?'activity':''}}" data-title="{{item.title}}" bindtap="setTab" data-index="{{index}}" name="formTabitem" >
+        <view wx:for="{{tabitem}}" wx:key="index" 
+        class="Label-text {{item.type == 1?'activity':''}}" 
+        data-title="{{item.title}}" 
+        data-index="{{index}}"
+        bindtap="setTab"
+        name="formTabitem">
           <view class="Label_limit">{{item.title}}</view>
         </view>
       </view>
     </scroll-view>
   <view class="Line"></view>
   
+  <!-- 页面主体 -->
   <scroll-view>
     <view class='content'>
       <view class="left" bindtap="leftDirection">
-        <campusCards List="{{leftList}}" bind:ShowContent="getBackData" openusername="{{openusername}}"></campusCards>
+        <campusCards List="{{leftList}}" bind:ShowContent="getBackData" openusername="{{openusername}}" direction = "{{direction}}"></campusCards>
       </view>
       <view class="right" bindtap="rightDirection">
         <campusCards List="{{rightList}}" bind:ShowContent="getBackData" openusername="{{openusername}}" direction = "{{direction}}"></campusCards>

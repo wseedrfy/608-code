@@ -28,7 +28,7 @@
 .more{
   width:58rpx;
   height: 58rpx;
-  margin-left: 500rpx;
+  margin-left: 600rpx;
   position:relative;
   top: 6rpx;
 }
@@ -58,16 +58,20 @@ swiper .wx-swiper-dot {
 .content_Text{
   font-size: 28rpx;
 }
+.content_LabelBox {
+  display: block;
+}
 .content_Label{
+  display: inline-block;
   color:white;
   background-color: rgba(230,130,130,1);
   font-size:22rpx;
-  padding:4rpx 8rpx;
-  width: auto;
-  /* margin: 0rpx auto ; */
+  line-height: 40rpx;
+  padding: 0 8rpx;
   margin-right:5rpx;
   border-radius: 5rpx;
   /* vertical-align: middle; */
+  box-sizing: border-box;
 }
 .content_Time{
   font-size: 23rpx;

@@ -53,6 +53,10 @@
   bottom:22rpx;
   right:10rpx;
 }
+.commentImg{
+  width: 32rpx;
+  height: 32rpx;
+}
 .comment{
   width:20rpx;
   height:20rpx;

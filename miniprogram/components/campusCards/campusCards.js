@@ -30,6 +30,7 @@ Component({
     getStar_card(e) {
       var index = e.currentTarget.dataset.index //索引
       var content = this.properties.List[index] //点击页的数据
+      var args = wx.getStorageSync('args')
       var Star_User = content.Star_User //初始点赞用户
       var openusername = this.properties.openusername
       if (!Star_User) {
@@ -48,13 +49,20 @@ Component({
         }
       }
       if (!Starif) {
-        openusername.Star_time = new Date().getTime()
-        console.log(openusername)
-        Star_User.push(openusername)
-        wx.showToast({
-          title: '点赞成功',
-          icon: "none"
-        })
+        if(content.nickName == args.nickName) {
+          wx.showToast({
+            title: '不可以给自己点赞哦！',
+            icon:'none'
+          })
+        }else {
+          openusername.Star_time = new Date().getTime()
+          console.log(openusername)
+          Star_User.push(openusername)
+          wx.showToast({
+            title: '点赞成功',
+            icon: "none"
+          })
+        }
       }
       var Star_count = Star_User.length
       //点赞后对本地数据进行更新
@@ -68,19 +76,38 @@ Component({
         List:this.properties.List
       })
       console.log("Star_count", Star_count)
+      let character = {                            // 处理得到点赞者信息
+        userName:args.username,
+        iconUrl:args.iconUrl,
+        nickName:args.nickName
+      }
+      let be_character = {                         // 被点赞者信息
+        // userName:this.data.content.username,    bug : content里面没有
+        iconUrl:content.iconUrl,
+        nickName:content.nickName
+      }
+      let starTime = new Date().getTime();         // 点赞时间
+      // console.log(character);
+      // console.log(be_character);     这4个都是没问题的
+      // console.log(starTime);
+      // console.log(content);
+
       //点赞后对数据库数据进行更新
-      wx.cloud.callFunction({
+      wx.cloud.callFunction({   // 云函数更改点赞状态
         name: "CampusCircle",
         data: {
-          type: "starCount",
+          type: "StarControlLogs",
           Time: content.Time,
           Star: Star_count,
-          Star_User: Star_User
-        },
-        success(res) {
-          console.log(res)
+          Star_User: Star_User,
+          // 上面三条为迎合旧点赞函数
+          character: character,
+          be_character: be_character,
+          createTime: starTime,
+          arcticle: content,
+          arcticle_id: content._id
         }
-      })
+      }).then(console.log('触发云函数'))
       app.globalData.List = this.data.List
       //点赞数全局变量
       app.globalData.Star_count = Star_count

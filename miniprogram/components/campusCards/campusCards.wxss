@@ -36,7 +36,7 @@
   margin: 0rpx auto ;
   margin-right:5rpx;
   vertical-align: middle;
-
+  border-radius: 5rpx;
 }
 .pic_Title{
   color:rgb(0, 0, 0);

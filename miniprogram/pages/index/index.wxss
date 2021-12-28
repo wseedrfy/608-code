@@ -13,92 +13,27 @@ page{
   left: 100rpx;
   width: 600rpx;
   height: 800rpx;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* background-color: rgb(85, 120, 33); */
   border-radius: 90rpx;
-  box-sizing: border-box;
-  /* box-shadow: 0 0 5rpx #ccc; */
   z-index: 999;
   opacity: 0;
   background-image: url(https://s4.ax1x.com/2021/12/24/Tta1PJ.png);
   background-size: auto 100%;
   background-repeat: no-repeat;
 }
-
-.dialogAdd_topBgc {
+.dialogAdd_btn {
   position: absolute;
-  top: 0;
-  width: 100%;
-  height: 250rpx;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border-top-left-radius: 90rpx;
-  border-top-right-radius: 90rpx;
-  background-color: rgb(85, 120, 33);
-}
-.dialogAdd_title {
-  /* width: 300rpx; */
-  height: 300rpx;
-  font-size: 35rpx;
-  /* font-weight: 700; */
-  /* color: #fff; */
-  /* letter-spacing: 5rpx; */
-}
-.dialogAdd_addBtn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 200rpx;
-  height: 70rpx;
-  margin-top: 25rpx;
-  background-color: rgb(241, 244, 80);
-  border-radius: 15rpx;
-  color:rgb(157, 44, 11);
-  letter-spacing: 3rpx;
-  z-index: 99;
-}
-
-.dialogAdd_pic {
-  position: absolute;
-  bottom: 0;
-  left: -60rpx;
-  width: 120%;
-  height: 80%;
+  z-index: 99999;
+  opacity: 1;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
 }
 .dialogAdd_close {
   position: absolute;
-  top: -20rpx;
-  right: -20rpx;
-  width: 50rpx;
-  height: 50rpx;
-  /* background-color: #ccc; */
-  z-index: 9999;
+  opacity: 1;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
 }
-
-/* 圣诞节活动 */
-.dialogAdd .btn {
-  position: absolute;
-  top: 162rpx;
-  left: 163rpx;
-  width: 228rpx;
-  height: 70rpx;
-  background-color: #fff;
-  z-index: 99999;
-  opacity: 0;
-}
-.close {
-  position: absolute;
-  top: 0;
-  right: 40rpx;
-  width: 50rpx;
-  height: 50rpx;
-  background-color: green;
-  opacity: 0;
-}
+/* 弹窗 ↑ */
 .wx-remind {
   background: #fff;
   padding: 20rpx 31rpx 50rpx 31rpx;
