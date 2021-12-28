@@ -28,9 +28,9 @@
 .more{
   width:58rpx;
   height: 58rpx;
-  margin-left: 600rpx;
-  position:relative;
-  top: 6rpx;
+  margin-left: 570rpx;
+  position:flex;
+  /* top: 6rpx; */
 }
 swiper{
   width: 100%; 
@@ -333,6 +333,8 @@ swiper .wx-swiper-dot {
       transform: translateY(100%);
   }
 }
+
+
 .ReplyCom_background{
   background-color: rgba(0, 0, 0, 0.171);
   opacity: 0.6;

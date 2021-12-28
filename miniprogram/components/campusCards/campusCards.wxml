@@ -26,7 +26,7 @@ module.exports.getStar = getStar;
       style="height: {{item.ShowHeight > 500 ? 500+'rpx':item.ShowHeight+'rpx'}};" binderror="binderrorimg"
       bindload='onLazyLoad'></image>
     <span class="pic_Title">
-      <span class="pic_Label">{{item.Label}}</span>{{item.Title}}
+      <span style="vertical-align: middle;" class="pic_Label">{{item.Label}}</span><text>{{item.Title}}</text>
     </span>
     <image src="{{item.iconUrl}}" class="text_user" />
     <span class="text_username">{{item.nickName}}</span>

@@ -50,17 +50,17 @@
         </view>
       </form>
 
-      <view class="Show_Commend" wx:for="{{ShowList}}" wx:key="kk" data-item="item" bindtap="obtainIndex" data-index="{{index}}">  <!-- bindtap从EditComment更改为obtainIndex-->
-        <view catchtap="EditComment" class="seses" >  <!--这个标签-->
+      <view class="Show_Commend" wx:for="{{ShowList}}" wx:key="kk" data-item="item" bindtap="EditComment" data-index="{{index}}">  <!-- bindtap从EditComment更改为obtainIndex-->
+        <!-- <view catchtap="EditComment" class="seses" >  这个标签是新增 -->
           <image src="{{item.iconUser}}" class="text_user"/>
-          <span class="text_username">{{item.userName}}
+          <span class="text_username">{{item.nickName}}
             <view class="Comment_Content">{{item.InputContent}}
               <span class="Comment_Time">{{item.InputTime}}</span>
             </view>
           </span>
         </view>
         <!-- 下面都是新的 -->
-        <view class="showReply" wx:for="{{item.replyList}}" wx:key="aa" data-item="item" data-index="{{index2}}" catchtap="obtainSecond">
+        <!-- <view class="showReply" wx:for="{{item.replyList}}" wx:key="aa" data-item="item" data-index="{{index2}}" catchtap="obtainSecond">
           <view catchtap="EditReply">
             <image src="{{item.Replyicon}}" class="text_user"/>
             <span class="text_username">{{item.ReplyName}}
@@ -69,7 +69,7 @@
               </view>
             </span>
           </view>
-        </view>
+        </view> -->
         <view class="Line_Second"></view>
       </view>
     </view>
@@ -79,9 +79,9 @@
         <view class="EditCom_contain {{edit_style}}" >
           <view class="EditCom_Title">{{CommentName}}: {{CommentContent}}</view>
           <view class="Line"></view>
-          <view class="ReplyComment" bindtap="ReplyComment" style="color:rgba(0, 89, 255, 0.699);">
+          <!-- <view class="ReplyComment" bindtap="ReplyComment" style="color:rgba(0, 89, 255, 0.699);">
              回复
-          </view>
+          </view> -->
           <view class="CopyComment" bindtap="CopyComment" style="color:rgba(0, 89, 255, 0.699);">
              复制
           </view>
@@ -91,7 +91,7 @@
           </view>
         </view>
     </view>
-    <view class="ReplyCom" wx:if="{{comReply}}">
+    <!-- <view class="ReplyCom" wx:if="{{comReply}}">
       <view class="ReplyCom_background" bindtap="ReplyComment"></view>
         <view class="ReplyCom_contain {{reply_style}}" >
           <view class="replycheck" catchtap="replycheck">
@@ -105,5 +105,5 @@
         </view>
     </view>
     
-  </view>
+  </view> -->
 </view>

@@ -58,21 +58,20 @@ Page({
     
     // 在点其他位置时，index = undefined
     if(index != undefined) {
-      let userName = this.data.CommentList[index].userName;  // 该评论的评论者userName
-      let iconUrl = this.data.CommentList[index].iconUser;   // 该评论的评论者iconUrl
-
-      // 判断是否本人的评论
-      if(userName == this.data.args.nickName && iconUrl == this.data.args.iconUrl) {
-        this.setData({ ShowDelCom : 1})
+      let nickName = this.data.CommentList[index].nickName;  // 该评论的评论者
+      let username = this.data.CommentList[index].username;  // 该评论的评论者学号
+      let ShowDelCom = 0;
+      // 判断是否本人的评论 -> 凭学号
+      if(username == this.data.args.username) {
+        ShowDelCom = 1;
       }
       this.setData({
-        CommentName:userName,
+        ShowDelCom,
+        CommentName:nickName,
         CommentContent:this.data.CommentList[index].InputComment
       })
     }
-    this.setData({
-      ShowDelCom:0
-    })    //初始化
+    // this.data.ShowDelCom = 0;    //初始化
   },
   //删除评论
   DelComment: function () {
@@ -109,7 +108,8 @@ Page({
             name: 'CampusCircle',
             data: {
               type: 'delComment',
-              id: that.data.content._id,
+              username : that.data.username,
+              _id: that.data.content._id,
               CommentList: that.data.CommentList
             },
             success: res => {
@@ -119,11 +119,13 @@ Page({
                 data: {
                   type: 'CancelCommentControlLogs',
                   character: character,
+                  username : that.data.username,
                   be_character: be_character,
                   content: InputComment,
                   createTime: changeStatusTime,
                   arcticle: content,
-                  arcticle_id: content._id
+                  arcticle_id: content._id,
+                  _id: that.data.content._id
                 }
               }),
               
@@ -178,7 +180,8 @@ Page({
           wx.cloud.callFunction({
             name: 'CampusCircle',
             data: {
-              id: that.data.CardID,
+              _id: that.data.CardID,
+              username : that.data.username,
               type: 'delCard'
             },
             success: res => {
@@ -245,8 +248,9 @@ Page({
         name: 'CampusCircle',
         data: {
           CommentList: that.data.CommentList,
+          username : that.data.username,
           Time: that.data.content.Time,
-          username: that.data.content.username,   // 12-29新增
+          _id: that.data.content._id,
           type: 'writeComment'
         },
         success: res => {
@@ -268,7 +272,7 @@ Page({
       }
       // 被评论者信息
       let be_character = {
-        // userName:this.data.content.username,    bug : content里面没有
+        userName:this.data.content.username,    
         iconUrl:this.data.content.iconUrl,
         nickName:this.data.content.nickName
       }
@@ -284,10 +288,12 @@ Page({
           type: "CommentControlLogs",
           character: character,
           be_character:be_character,
+          username : that.data.username,
           content: e.detail.value.InputComment,
           createTime:commentTime,
           arcticle:this.data.content,
-          arcticle_id:this.data.content._id
+          arcticle_id:this.data.content._id,
+          _id: this.data.content._id
         },
         success(res) { console.log(res,"调用评论云函数成功"); },
         fail(e) { 
@@ -304,9 +310,7 @@ Page({
     var Show = []
     let length = this.data.CommentList.length
     var copyList = JSON.parse(JSON.stringify(this.data.CommentList))
-    if(!copyList.replyList) {
-      copyList.replyList = []
-    }
+    let content = this.data.content;
     for (let i = 0; i < this.data.CommentList.length; i++) {
       if (copyList[i].replyList) {
         var replylen = copyList[i].replyList.length
@@ -320,14 +324,17 @@ Page({
         var AftTime2 = util.timeago(PreTime2, 'Y年M月D日')
         copyList[i].replyList[j].ReplyTime = AftTime2
       }
+      console.log(this.data.content);
       Show.push({
         InputContent: this.data.CommentList[i].InputComment,
         InputTime: AftTime,
         iconUser: this.data.CommentList[i].iconUser,
-        userName: this.data.CommentList[i].userName,
+        nickName: this.data.content.CommentList[i].nickName,
+        username:this.data.content.CommentList[i].username,
         replyList: copyList[i].replyList
       })
     }
+    console.log(Show,"打印show看看");
     app.globalData.Comment = this.data.CommentList
     console.log("app.globalData.Comment", app.globalData.Comment)
     this.setData({
@@ -363,7 +370,13 @@ Page({
     var more = options.del
     var that = this
     var Time = util.timeago(content.Time, 'Y年M月D日')
-    
+    var data = wx.getStorageSync('args')
+    that.data.username = data.username
+    var openusername = {
+      username:data.username,
+      iconUrl:data.iconUrl,
+      nickName:data.nickName
+    }
     this.data.Star = content.Star
     this.data.ContentTime = content.Time
     this.data.CardID = content._id
@@ -371,6 +384,7 @@ Page({
     wx.cloud.callFunction({
       name: 'CampusCircle',
       data: {
+        username : that.data.username,
         Time: content.Time,
         _id: content._id,
         type: 'readComment'
@@ -400,14 +414,9 @@ Page({
       }
     });
 
-    var data = wx.getStorageSync('args')
-    var openusername = {
-      username:data.username,
-      iconUrl:data.iconUrl,
-      nickName:data.nickName
-    }
+
     // 点赞判断
-    this.setData({ args:wx.getStorageSync('args')})
+    this.setData({ args: wx.getStorageSync('args')})
     console.log("我得到args并赋值了",this.data.args);
 
     // 判空
@@ -471,7 +480,9 @@ Page({
         name: "CampusCircle",
         data: {
           type: "StarControlLogs",
+          username : that.data.username,
           Time: that.data.content.Time,
+          _id: that.data.content._id,
           Star: Star_count,
           Star_User: Star_User,
           // 上面三条为迎合旧点赞函数
@@ -507,6 +518,7 @@ Page({
         wx.cloud.callFunction({
           name: "CampusCircle",
           data: {
+            username : that.data.username,
             type: "StarControlLogs",
             Time: that.data.content.Time,
             Star: Star_count,
@@ -516,7 +528,8 @@ Page({
             be_character:be_character,
             createTime:starTime,
             arcticle:this.data.content,
-            arcticle_id:this.data.content._id
+            arcticle_id:this.data.content._id,
+            _id:this.data.content._id
           },
           success(res) {
             console.log(res)
