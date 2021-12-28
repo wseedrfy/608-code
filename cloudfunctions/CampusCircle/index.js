@@ -153,7 +153,7 @@ exports.main = async (event, context) => {
   if (event.type == "readUser") {
     try {
       return await db.collection('Campus-Circle').orderBy('Time', 'desc').where({
-        nickName: event.nickname,
+        username: event.username,
         iconUrl: event.iconUrl,
       }).skip(event.currentPage * 10).limit(10).get({
         success: function (res) {
