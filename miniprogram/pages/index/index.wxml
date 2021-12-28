@@ -2,7 +2,7 @@
 
 <view class="container">
   <!-- 弹窗 -->
-  <view class="dialogAdd" style="display: {{activityDialog.status == 0 ? 'flex' : 'none'}}; background-image: url({{activityDialog.dialogAdd_bgc}});width: {{activityDialog.width}}rpx;height: {{activityDialog.height}}rpx;" animation="{{slideupshow}}">
+  <view class="dialogAdd" style="display: {{activityDialog.status == 0 ? 'flex' : 'none'}}; background-image: url({{activityDialog.dialogAdd_bgc}});width: {{activityDialog.width}}rpx;height: {{activityDialog.height}}rpx;" animation="{{slideupshow}}" >
     <!-- 点击参与按钮 bindtap:activity 在动态JS里 -->
     <view class="dialogAdd_btn" style="background-image: url({{activityDialog.dialogAdd_btn.picUrl}});width: {{activityDialog.dialogAdd_btn.width}}rpx;height: {{activityDialog.dialogAdd_btn.height}}rpx;top: {{activityDialog.dialogAdd_btn.top*1.82}}rpx;left: {{activityDialog.dialogAdd_btn.left*1.82}}rpx;" bindtap="activity"></view>
     <!-- 点击关闭 bindtap:closeDialogAdd 在动态JS里 -->

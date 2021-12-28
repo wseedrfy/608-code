@@ -3,14 +3,22 @@ var app = getApp()
 Page({
   data: {
     isChecked: true,
+    ReplyChecked:true,  // 新增-回复
     InputComment: " ",
     CommentList: [],
+    ContentTime:0,      // 新增-回复
 
     showEdit: false,    // 控制评论区弹窗显示
     comEdit: false,     // 评论区复制/删除弹窗
+    comReply:false,
+    CardID:"",
     ShowDelCom: 0,      // 评论区控制是否出现“删除”按钮
     Commentindex: 0,    // 评论区的 index
-    
+    Commentindex222:0,
+    ShowReplyComment:0,
+    ReplyCom_input:"",
+    obtainIndex:0,
+
     Starurl: "../../../images/zan1.png",
     Star_count: 0,
   },
@@ -62,7 +70,9 @@ Page({
         CommentContent:this.data.CommentList[index].InputComment
       })
     }
-    this.data.ShowDelCom = 0;    //初始化
+    this.setData({
+      ShowDelCom:0
+    })    //初始化
   },
   //删除评论
   DelComment: function () {
@@ -227,7 +237,8 @@ Page({
         "InputComment": e.detail.value.InputComment,
         "CommentTime": new Date().getTime(),
         "iconUser": that.data.args.iconUrl,   
-        "userName": that.data.args.nickName   
+        "nickName": that.data.args.nickName,
+        "username": that.data.args.username
       }
       this.data.CommentList.push(add)
       wx.cloud.callFunction({
@@ -235,6 +246,7 @@ Page({
         data: {
           CommentList: that.data.CommentList,
           Time: that.data.content.Time,
+          username: that.data.content.username,   // 12-29新增
           type: 'writeComment'
         },
         success: res => {
@@ -288,31 +300,40 @@ Page({
       })
     }
   },
-
   ShowComment: function () {
     var Show = []
-    var length = this.data.CommentList.length
-    console.log("length", length)
-    for (let i = 0; i < length; i++) {
+    let length = this.data.CommentList.length
+    var copyList = JSON.parse(JSON.stringify(this.data.CommentList))
+    if(!copyList.replyList) {
+      copyList.replyList = []
+    }
+    for (let i = 0; i < this.data.CommentList.length; i++) {
+      if (copyList[i].replyList) {
+        var replylen = copyList[i].replyList.length
+      }
       var PreTime = this.data.CommentList[i].CommentTime
       console.log("PreTime", PreTime)
       var AftTime = util.timeago(PreTime, 'Y年M月D日')
+      for (let j = 0; j < replylen; j++) {
+        var PreTime2 = copyList[i].replyList[j].ReplyTime
+        console.log("PreTime2", PreTime2)
+        var AftTime2 = util.timeago(PreTime2, 'Y年M月D日')
+        copyList[i].replyList[j].ReplyTime = AftTime2
+      }
       Show.push({
         InputContent: this.data.CommentList[i].InputComment,
         InputTime: AftTime,
         iconUser: this.data.CommentList[i].iconUser,
-        userName: this.data.CommentList[i].userName
+        userName: this.data.CommentList[i].userName,
+        replyList: copyList[i].replyList
       })
     }
-    console.log("Show", Show)
     app.globalData.Comment = this.data.CommentList
     console.log("app.globalData.Comment", app.globalData.Comment)
     this.setData({
       ShowList: Show,
       CommentNum: length,
     })
-    console.log(Show,"ShowComment函数中的show");
-    console.log(this.data.content);
   },
 
   ShowImg: function (e) {
@@ -426,7 +447,7 @@ Page({
       nickName:this.data.args.nickName
     }
     let be_character = {                         // 被点赞者信息
-      // userName:this.data.content.username,    bug : content里面没有
+      userName:this.data.content.username,       // 学号来查找
       iconUrl:this.data.content.iconUrl,
       nickName:this.data.content.nickName
     }

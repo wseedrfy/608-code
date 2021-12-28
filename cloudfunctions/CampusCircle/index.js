@@ -83,7 +83,7 @@ exports.main = async (event, context) => {
   if(event.type == "writeComment"){
     try {
       return await db.collection('Campus-Circle').where({
-        Time:event.Time
+        username:event.username
       }).update({
         data: {
           CommentList:event.CommentList
