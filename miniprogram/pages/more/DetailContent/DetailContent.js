@@ -352,7 +352,7 @@ Page({
     var that = this
     var Time = util.timeago(content.Time, 'Y年M月D日')
     var data = wx.getStorageSync('args')
-    that.data.username = args.username
+    that.data.username = data.username
     var openusername = {
       username:data.username,
       iconUrl:data.iconUrl,
@@ -397,7 +397,7 @@ Page({
 
 
     // 点赞判断
-    this.setData({ args:wx.getStorageSync('args')})
+    this.setData({ args: wx.getStorageSync('args')})
     console.log("我得到args并赋值了",this.data.args);
 
     // 判空
