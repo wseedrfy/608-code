@@ -641,7 +641,7 @@ Page({
       name: "CampusCircle",
       data: {
         type: "read",
-        username: tbat.data.username,
+        username: that.data.username,
         currentPage: currentPage,
         ShowId: that.data.Label,
         addAft: that.data.addAft,
