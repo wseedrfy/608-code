@@ -12,9 +12,7 @@ Page({
     Commentindex: 0,    // 评论区的 index
     
     Starurl: "../../../images/zan1.png",
-    Starif: app.globalData.Starif,
     Star_count: 0,
-
   },
   
   More: function () {
@@ -41,14 +39,14 @@ Page({
     let index = e.currentTarget.dataset.index;
     this.data.Commentindex = index;
     let edit_style = this.data.edit_style;
-    
-    if(edit_style == undefined || edit_style == 'edit_show') {
+    // picker动画样式
+    if(edit_style == undefined || edit_style == 'edit_hide') {
       edit_style = 'edit_show'
     }else {
       edit_style = 'edit_hide'
     }
+    console.log(edit_style);
     this.setData({ comEdit:!this.data.comEdit,edit_style:edit_style})
-    
     
     // 在点其他位置时，index = undefined
     if(index != undefined) {
@@ -64,7 +62,7 @@ Page({
         CommentContent:this.data.CommentList[index].InputComment
       })
     }
-    this.data.ShowDelCom = 0     // 初始化0
+    this.data.ShowDelCom = 0;    //初始化
   },
   //删除评论
   DelComment: function () {
@@ -88,6 +86,10 @@ Page({
       title: '提示',
       content: '确定删除?',
       success(res) {
+        console.log(that.data.CardID)
+        that.setData({
+          ShowDelCom:0
+        })
         if (res.confirm) {
           console.log('用户点击确定')
           that.data.CommentList.splice(index, 1)
@@ -132,6 +134,9 @@ Page({
           
         } else if (res.cancel) {
           console.log('用户点击取消')
+          that.setData({
+            ShowDelCom:1
+          })
         }
       }
     })
@@ -301,14 +306,10 @@ Page({
     }
     console.log("Show", Show)
     app.globalData.Comment = this.data.CommentList
-    // var content = this.data.content;
-    // console.log(content);
-    // content.CommentList = Show;
     console.log("app.globalData.Comment", app.globalData.Comment)
     this.setData({
       ShowList: Show,
       CommentNum: length,
-      // content
     })
     console.log(Show,"ShowComment函数中的show");
     console.log(this.data.content);
@@ -324,11 +325,28 @@ Page({
   },
 
   onLoad: function (options) {
-    var content = JSON.parse(options.content)  // 将JSON帖子信息转成对象
+    var that = this;
+    if(options.content || options.content != undefined) {
+      var content = JSON.parse(options.content)  // 将JSON帖子信息转成对象
+      that.setData({ content })
+    }else {
+      // 页面间通信，详见 wx.navigateTo; 为兼容NewInfo页面跳转
+      const eventChannel = this.getOpenerEventChannel()
+      eventChannel.on('acceptDataFromNewInfoPage', function(data){
+        that.setData({ content:data.data })
+        // console.log(data.data);
+      })
+    }
+    var content = this.data.content;
+    // console.log(content);
     var more = options.del
     var that = this
     var Time = util.timeago(content.Time, 'Y年M月D日')
-
+    
+    this.data.Star = content.Star
+    this.data.ContentTime = content.Time
+    this.data.CardID = content._id
+    // console.log(this.data.CardID,233)
     wx.cloud.callFunction({
       name: 'CampusCircle',
       data: {
@@ -337,7 +355,12 @@ Page({
         type: 'readComment'
       },
       complete: res => {
+        // this.data.Star = res
+        app.globalData.Star_User=res.result.data[0].Star_User
+        app.globalData.Star_count = res.result.data[0].Star
         this.data.CommentList = res.result.data[0].CommentList
+        this.data.Star_User = res.result.data[0].Star_User
+        this.data.Star_count = res.result.data[0].Star_count
         console.log("res.result.data[0].CommentList", this.data.CommentList)
         if (this.data.CommentList) {
           this.setData({
@@ -356,6 +379,13 @@ Page({
       }
     });
 
+    var data = wx.getStorageSync('args')
+    var openusername = {
+      username:data.username,
+      iconUrl:data.iconUrl,
+      nickName:data.nickName
+    }
+    // 点赞判断
     this.setData({ args:wx.getStorageSync('args')})
     console.log("我得到args并赋值了",this.data.args);
 
@@ -363,31 +393,33 @@ Page({
     if (content.Star_User == undefined || !content.Star_User) {
       content.Star_User = []
       that.setData({
-        content: content
+        content: content,
+        openusername:openusername
       })
     }
-    if (content.Star_User.includes(this.data.args.username)) {  // username学号
-      that.setData({
-        Starurl: "../../../images/zan.png",
-      })
+    this.setData({
+      openusername:openusername
+    })
+    for(var i = 0;i<content.Star_User.length;i++){
+      if(content.Star_User[i].username===openusername.username){
+        that.setData({
+          Starurl: "../../../images/zan.png",
+        })
+      }
     }
-    // !!!!!!!!!!!!!!!!!我没懂这两个在哪里用到，写这个代码的人仔细看看 xyq留言
-    app.globalData.Star_count = content.Star_User.length
-    app.globalData.Star_User = content.Star_User
-    // !!!!!!!!!!!!!!!!!我没懂这两个在哪里用到，写这个代码的人仔细看看
     this.setData({
       Time: Time,
       more: more,
+
     })
+    console.log(content)
   },
   //点赞
   get_Star() {
-    var Star_User = this.data.content.Star_User          // content是帖子全部信息，Star_User是点赞用户id
+    
+    var Star_User = this.data.content.Star_User
+    var openusername = this.data.openusername
 
-    var that = this;
-    var Starif = false;
-
-    // 下面进行点赞/取消点赞操作
     let character = {                            // 处理得到点赞者信息
       userName:this.data.args.username,
       iconUrl:this.data.args.iconUrl,
@@ -401,20 +433,27 @@ Page({
     let starTime = new Date().getTime();         // 点赞时间
     // 如果想在后台看到具体的时间年月日，请用下面这句
     // let starTime = util.timeago(new Date().getTime(),'Y年M月D日');
-
-    // 判断是不是为点赞过的学号
-    if (Star_User.includes(that.data.args.username)) {   // openusername是args里的username=学号
-      Starif = true
-      that.setData({
+    if (!Star_User) {
+      Star_User = []
+    }
+    var that = this
+    var Starif = false
+    //判断是不是为点赞过的username
+    for (var i = 0 ;i<Star_User.length;i++){
+      if(Star_User[i].username===openusername.username){
+        Starif = true
+        Star_User.splice(Star_User.indexOf(openusername), 1)
+        that.setData({
         Starurl: "../../../images/zan1.png",
       })
-      // 取消点赞
-      Star_User.splice(Star_User.indexOf(that.data.args.username), 1)
-      console.log(Star_User, "Star_User")
       wx.cloud.callFunction({   // 云函数更改点赞状态
         name: "CampusCircle",
         data: {
-          type: "CancelStarControlLogs",
+          type: "StarControlLogs",
+          Time: that.data.content.Time,
+          Star: Star_count,
+          Star_User: Star_User,
+          // 上面三条为迎合旧点赞函数
           character: character,
           be_character:be_character,
           createTime:starTime,
@@ -430,74 +469,41 @@ Page({
           console.log(e,"点赞失败");
         }
       })
+      }
     }
-    
-    if (!Starif) {                               // !Starif 表示未点赞
-      // 不可以给自己点赞   缺陷：未来每个人的名称必须唯一不重复
-      if(this.data.content.nickName == this.data.args.nickName) {
-        wx.showToast({
-          title: '不可以给自己点赞哦！',
-          icon:'none'
-        })
-      }else {                                  // 点赞
-        Star_User.push(this.data.args.username)
-        wx.showToast({
-          title: '点赞成功',
-          icon: "none"
-        })
-        that.setData({
-          Starurl: "../../../images/zan.png",
-        })
-        console.log(character,be_character,"云函数处理咯");
-        // 云函数增加一条点赞记录
+    if (!Starif) {
+      //push到username
+      openusername.Star_time = new Date().getTime()
+      Star_User.push(openusername)
+      wx.showToast({
+        title: '点赞成功',
+        icon: "none"
+      })
+      that.setData({
+        Starurl: "../../../images/zan.png",
+      })
+      var Star_count = Star_User.length
         wx.cloud.callFunction({
           name: "CampusCircle",
           data: {
             type: "StarControlLogs",
+            Time: that.data.content.Time,
+            Star: Star_count,
+            Star_User: Star_User,
+            // 为迎合新云函数
             character: character,
             be_character:be_character,
             createTime:starTime,
             arcticle:this.data.content,
             arcticle_id:this.data.content._id
           },
-          success(res) { console.log(res,"调用点赞云函数成功"); },
-          fail(e) { 
-            wx.showToast({
-              title: '点赞失败',
-              icon: 'none'
-            }) 
-            console.log(e,"点赞失败");
+          success(res) {
+            console.log(res)
           }
         })
-        console.log(Star_User)
-      }
     }
-    // !!!!!!!!!!!!!!!!!!!!!!!!
-    // !  太多云函数请求了     !
-    // ！ 是不是可以一个云函数  !
-    // !  得到全部需要的数据    !
-    // !!!!!!!!!!!!!!!!!!!!!!!!!
-
-    var Star_count = Star_User.length
-    console.log("Star_count", Star_count)
-    console.log(that.data.Star_count)
-    wx.cloud.callFunction({
-      name: "CampusCircle",
-      data: {
-        type: "starCount",
-        Time: that.data.content.Time,
-        Star: Star_count,
-        Star_User: Star_User
-      },
-      success(res) {
-        console.log(res)
-      }
-    })
-    app.globalData.Starurl = this.data.Starurl
-    app.globalData.Starif = Starif
-    app.globalData.Star_count = Star_count
+    app.globalData.Star_count =  Star_User.length
     app.globalData.Star_User = Star_User
-    console.log(Starif)
   },
   onShow: function () {
     this.ShowComment()

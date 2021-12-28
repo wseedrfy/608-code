@@ -85,14 +85,14 @@
                "scene": null
             },
             {
-               "name": "pages/more/more",
+               "name": "校园圈",
                "pathName": "pages/more/more",
                "query": "",
                "scene": null
             },
             {
-               "name": "NewInfo",
-               "pathName": "pages/more/NewInfo/NewInfo",
+               "name": "我的发布",
+               "pathName": "pages/more/UserContent/UserContent",
                "query": "",
                "scene": null
             }

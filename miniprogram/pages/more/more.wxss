@@ -13,7 +13,10 @@ page{
 .searchFrame{
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 240rpx;
+  height: 50rpx;
+  line-height: 50rpx;
   margin-left: 10rpx;
   font-size: 25rpx;
   border-radius: 15rpx;

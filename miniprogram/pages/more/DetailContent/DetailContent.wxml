@@ -24,7 +24,9 @@
     <view class="content_first">
       <view class="content_Title">{{content.Title}}</view>
       <text class="content_Text">{{content.Text}}</text>
-      <view class="content_Label" >#{{content.Label}}</view>
+      <view class="content_LabelBox">
+        <view class="content_Label" >{{content.Label}}</view>
+      </view>
       <view class="content_sec">
         <view class="content_Time" >{{Time}}</view>
         <view class="content_Star">
@@ -38,7 +40,7 @@
       <view class="All_Comment" wx:if="{{CommentNum==0}}">这里还没有评论哟~</view>
       <form bindsubmit="formSubmit" bindreset="formReset">
         <view class="Send_Commend" bindtap="Comment_Inputting">
-          <image src="{{content.iconUrl}}" class="text_user"/>
+          <image src="{{args.iconUrl}}" class="text_user"/>
           <span class="{{isChecked?'old_Comment_second':'new_Comment_second'}}">
             <textarea placeholder="来发句评论吧ヾ(≧▽≦*)o" name="InputComment"  value="{{Input}}" auto-height></textarea>
           </span>

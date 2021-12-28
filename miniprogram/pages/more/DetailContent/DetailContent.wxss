@@ -23,6 +23,7 @@
   position: relative;
   bottom: 15rpx;
   left: 15rpx;
+  color:rgba(128,128,128,0.4)
 }
 .more{
   width:58rpx;
@@ -57,9 +58,20 @@ swiper .wx-swiper-dot {
 .content_Text{
   font-size: 28rpx;
 }
+.content_LabelBox {
+  display: block;
+}
 .content_Label{
-  color:rgb(255, 190, 70);
-  font-size: 28rpx;
+  display: inline-block;
+  color:white;
+  background-color: rgba(230,130,130,1);
+  font-size:22rpx;
+  line-height: 40rpx;
+  padding: 0 8rpx;
+  margin-right:5rpx;
+  border-radius: 5rpx;
+  /* vertical-align: middle; */
+  box-sizing: border-box;
 }
 .content_Time{
   font-size: 23rpx;
