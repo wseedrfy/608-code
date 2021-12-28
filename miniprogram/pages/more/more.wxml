@@ -22,10 +22,10 @@
           <input class="SearchInput" value="{{search}}" bindinput="search_Input" />
         </view>
         <!-- 消息列表 -->
-        <view class="newInfo" style="display: {{NewInfo == 0 ? 'none' : 'flex'}};">
+        <view class="newInfo">
           <image src="../../images/information.png" bindtap="naviToNews" ></image>
           <!-- 消息提示 -->
-          <view class="redPointBox" catchtap="naviToNews">
+          <view class="redPointBox" catchtap="naviToNews" wx:if="{{NewInfo}}">
             <view class="redPoint">
               <text class="news">{{NewInfo}}</text>
             </view>

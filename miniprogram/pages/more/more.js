@@ -128,9 +128,9 @@ Page({
     })
   },
   naviToNews() {  // 跳转到新消息提示页面
-    wx.navigateTo({
-      url: './NewInfo/NewInfo',
-    })
+      wx.navigateTo({
+        url: './NewInfo/NewInfo',
+      })
   },
   search_Input: function (e) {
     console.log("e.", e.detail.value)

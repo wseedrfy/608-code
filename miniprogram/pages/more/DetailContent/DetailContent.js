@@ -301,14 +301,10 @@ Page({
     }
     console.log("Show", Show)
     app.globalData.Comment = this.data.CommentList
-    // var content = this.data.content;
-    // console.log(content);
-    // content.CommentList = Show;
     console.log("app.globalData.Comment", app.globalData.Comment)
     this.setData({
       ShowList: Show,
       CommentNum: length,
-      // content
     })
     console.log(Show,"ShowComment函数中的show");
     console.log(this.data.content);
@@ -324,7 +320,20 @@ Page({
   },
 
   onLoad: function (options) {
-    var content = JSON.parse(options.content)  // 将JSON帖子信息转成对象
+    var that = this;
+    if(options.content || options.content != undefined) {
+      var content = JSON.parse(options.content)  // 将JSON帖子信息转成对象
+      that.setData({ content })
+    }else {
+      // 页面间通信，详见 wx.navigateTo; 为兼容NewInfo页面跳转
+      const eventChannel = this.getOpenerEventChannel()
+      eventChannel.on('acceptDataFromNewInfoPage', function(data){
+        that.setData({ content:data.data })
+        // console.log(data.data);
+      })
+    }
+    var content = this.data.content;
+    // console.log(content);
     var more = options.del
     var that = this
     var Time = util.timeago(content.Time, 'Y年M月D日')
@@ -337,6 +346,7 @@ Page({
         type: 'readComment'
       },
       complete: res => {
+        console.log(res);
         this.data.CommentList = res.result.data[0].CommentList
         console.log("res.result.data[0].CommentList", this.data.CommentList)
         if (this.data.CommentList) {
@@ -371,10 +381,8 @@ Page({
         Starurl: "../../../images/zan.png",
       })
     }
-    // !!!!!!!!!!!!!!!!!我没懂这两个在哪里用到，写这个代码的人仔细看看 xyq留言
     app.globalData.Star_count = content.Star_User.length
     app.globalData.Star_User = content.Star_User
-    // !!!!!!!!!!!!!!!!!我没懂这两个在哪里用到，写这个代码的人仔细看看
     this.setData({
       Time: Time,
       more: more,
@@ -383,7 +391,7 @@ Page({
   //点赞
   get_Star() {
     var Star_User = this.data.content.Star_User          // content是帖子全部信息，Star_User是点赞用户id
-
+    
     var that = this;
     var Starif = false;
 
@@ -411,10 +419,17 @@ Page({
       // 取消点赞
       Star_User.splice(Star_User.indexOf(that.data.args.username), 1)
       console.log(Star_User, "Star_User")
+      var Star_count = Star_User.length
+      console.log("Star_count", Star_count)
+      console.log(that.data.Star_count)
       wx.cloud.callFunction({   // 云函数更改点赞状态
         name: "CampusCircle",
         data: {
-          type: "CancelStarControlLogs",
+          type: "StarControlLogs",
+          Time: that.data.content.Time,
+          Star: Star_count,
+          Star_User: Star_User,
+          // 上面三条为迎合旧点赞函数
           character: character,
           be_character:be_character,
           createTime:starTime,
@@ -448,51 +463,30 @@ Page({
         that.setData({
           Starurl: "../../../images/zan.png",
         })
-        console.log(character,be_character,"云函数处理咯");
-        // 云函数增加一条点赞记录
+        console.log(Star_User)
+        var Star_count = Star_User.length
+        console.log("Star_count", Star_count)
+        console.log(that.data.Star_count)
         wx.cloud.callFunction({
           name: "CampusCircle",
           data: {
             type: "StarControlLogs",
+            Time: that.data.content.Time,
+            Star: Star_count,
+            Star_User: Star_User,
+            // 为迎合新云函数
             character: character,
             be_character:be_character,
             createTime:starTime,
             arcticle:this.data.content,
             arcticle_id:this.data.content._id
           },
-          success(res) { console.log(res,"调用点赞云函数成功"); },
-          fail(e) { 
-            wx.showToast({
-              title: '点赞失败',
-              icon: 'none'
-            }) 
-            console.log(e,"点赞失败");
+          success(res) {
+            console.log(res)
           }
         })
-        console.log(Star_User)
       }
     }
-    // !!!!!!!!!!!!!!!!!!!!!!!!
-    // !  太多云函数请求了     !
-    // ！ 是不是可以一个云函数  !
-    // !  得到全部需要的数据    !
-    // !!!!!!!!!!!!!!!!!!!!!!!!!
-
-    var Star_count = Star_User.length
-    console.log("Star_count", Star_count)
-    console.log(that.data.Star_count)
-    wx.cloud.callFunction({
-      name: "CampusCircle",
-      data: {
-        type: "starCount",
-        Time: that.data.content.Time,
-        Star: Star_count,
-        Star_User: Star_User
-      },
-      success(res) {
-        console.log(res)
-      }
-    })
     app.globalData.Starurl = this.data.Starurl
     app.globalData.Starif = Starif
     app.globalData.Star_count = Star_count

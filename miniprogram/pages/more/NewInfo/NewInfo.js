@@ -9,6 +9,20 @@ Page({
     loadMore: false, // "上拉加载"的变量，默认false，隐藏  
     loadAll: false   // “没有数据”的变量，默认false，隐藏  
   },
+  naviToDetail(e) {
+    let content = e.currentTarget.dataset.content
+    wx.navigateTo({
+      url: '../DetailContent/DetailContent',
+      events: {
+        acceptDataFromNewInfoPage: function (data) {
+          console.log(data);
+        }
+      },
+      success:(res) => {
+        res.eventChannel.emit('acceptDataFromNewInfoPage', {data: content})
+      }
+    })
+  },
   //页面显示的事件
   onShow() {
     this.getData()
@@ -36,70 +50,58 @@ Page({
        nickName: args.nickName
     }
     let that = this;
-    //第一次加载数据
+    // 第一次加载数据
     if (currentPage == 1) {
       this.setData({
         loadMore: true, //把"上拉加载"的变量设为true，显示  
         loadAll: false //把“没有数据”设为false，隐藏  
       })
     }
-    //云数据的请求
-    wx.cloud.database().collection("New-Information").orderBy('createTime','desc').where({ be_character:be_character, status: 0 })
-      .skip(currentPage * pageSize) //从第几个数据开始
-      .limit(pageSize)
-      .get({
-        success(res) {
-          if (res.data && res.data.length > 0) {
-            console.log("请求成功", res.data)
-            currentPage++
-            // 1. 拿缓存内
-            if(wx.getStorageSync('mnds')) {
-               console.log("有旧消息，进入判断");
-               that.data.oldDataList = wx.getStorageSync('mnds');
-               console.log("第一步拿缓存",that.data.oldDataList);
-            }
-            // 2. 拿新List
-            for(let i = 0; i < res.data.length;i++) {   // 处理每个数据的时间
-               res.data[i].createTime = util.timeago(res.data[i].createTime,'Y年M月D日');
-            }
-            let list = that.data.dataList.concat(res.data)
+    wx.cloud.callFunction({
+      name:'CampusCircle',
+      data: {
+        be_character:be_character,
+        currentPage:currentPage,
+        pageSize:pageSize,
+        type:'ReadControlLogs'
+      },
+      success(res) {
+        if (res.result.data && res.result.data.length > 0) {
+          console.log("请求成功", res.result.data)
+          currentPage++
+          // 2. 拿新List
+          for(let i = 0; i < res.result.data.length;i++) {   // 处理每个数据的时间
+             res.result.data[i].createTime = util.timeago(res.result.data[i].createTime,'Y年M月D日');
+          }
+          let list = that.data.dataList.concat(res.result.data)
+          that.setData({
+            dataList: list, //获取数据数组    
+            loadMore: false //把"上拉加载"的变量设为false，显示  
+          });
+          console.log("第二步拿新List",that.data.dataList);
+
+          // 5. 更新数据库数据状态
+          if (res.result.data.length < pageSize) {
             that.setData({
-              dataList: list, //获取数据数组    
-              loadMore: false //把"上拉加载"的变量设为false，显示  
-            });
-            console.log("第二步拿新List",that.data.dataList);
-            // 3. 新老 List 合并
-            if(!list.includes(that.data.oldDataList)) {
-               let finalDataList = list.concat(that.data.oldDataList);
-               that.setData({
-                  finalDataList:finalDataList
-               }) 
-            }
-            
-            console.log("第三步新老List合并",finalDataList);
-            // 4. 存缓存
-            wx.setStorageSync('mnds', finalDataList)
-            if (res.data.length < pageSize) {
-              that.setData({
-                loadMore: false, //隐藏加载中。。
-                loadAll: true //所有数据都加载完了
-              });
-            }
-          } else {
-            that.setData({
-              loadAll: true, //把“没有数据”设为true，显示  
-              loadMore: false //把"上拉加载"的变量设为false，隐藏  
+              loadMore: false, //隐藏加载中。。
+              loadAll: true //所有数据都加载完了
             });
           }
-        },
-        fail(res) {
-          console.log("请求失败", res)
+        } else {
           that.setData({
-            loadAll: false,
-            loadMore: false
+            loadAll: true, //把“没有数据”设为true，显示  
+            loadMore: false //把"上拉加载"的变量设为false，隐藏  
           });
         }
-      })
+      },
+      fail(res) {
+        console.log("请求失败", res)
+        that.setData({
+          loadAll: false,
+          loadMore: false
+        });
+      }
+    })
       console.log(this.data.dataList);
   },
 })
