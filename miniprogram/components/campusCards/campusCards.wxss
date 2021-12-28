@@ -33,13 +33,14 @@
   background-color: rgba(230,130,130,1);
   font-size:20rpx;
   padding:4rpx 8rpx;
-  margin: 0rpx auto ;
-  margin-right:5rpx;
+  /* margin: 0rpx auto ; */
+  margin-right:10rpx;
   vertical-align: middle;
   border-radius: 5rpx;
 }
 .pic_Title{
   color:rgb(0, 0, 0);
+
   font-size: 28rpx;
   font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
   line-height: 46rpx;

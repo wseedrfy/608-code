@@ -52,17 +52,18 @@ Page({
     if(index != undefined) {
       let userName = this.data.CommentList[index].userName;  // 该评论的评论者userName
       let iconUrl = this.data.CommentList[index].iconUser;   // 该评论的评论者iconUrl
-
+      let ShowDelCom = 0;
       // 判断是否本人的评论
       if(userName == this.data.args.nickName && iconUrl == this.data.args.iconUrl) {
-        this.setData({ ShowDelCom : 1})
+        ShowDelCom = 1;
       }
       this.setData({
+        ShowDelCom,
         CommentName:userName,
         CommentContent:this.data.CommentList[index].InputComment
       })
     }
-    this.data.ShowDelCom = 0;    //初始化
+    // this.data.ShowDelCom = 0;    //初始化
   },
   //删除评论
   DelComment: function () {
