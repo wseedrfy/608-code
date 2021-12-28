@@ -480,6 +480,7 @@ Page({
     var that = this
     var i = 0
     // console.log('onLoad')
+    this.getNewInfo()     // 获取新消息通知
     //加载缓存获得学校和用户名和头像
     wx.getStorage({
       key: "args",

@@ -20,4 +20,5 @@
          <image class="picture" src="{{item.arcticle.AllPhoto[0]}}" mode="aspectFill"></image>
       </view>
    </block>
+   <view class="DataNull">-无更多内容-</view>
 </view>

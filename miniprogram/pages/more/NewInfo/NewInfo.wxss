@@ -58,3 +58,10 @@ page {
    font-size: 26rpx;
    color: rgb(148, 147, 147);
 }
+.DataNull{
+   font-size: 26rpx;
+   color: #2c2c2cb4;
+   display: flex;
+   justify-content: center;
+   margin-top: 30rpx;
+ }

@@ -134,9 +134,9 @@ Page({
         loadAll: false //把“没有数据”设为false，隐藏  
       })
     }
-    console.log(currentPage);
-    console.log(that.data.nickname);
-    console.log(that.data.iconUrl);
+    // console.log(currentPage);
+    // console.log(that.data.nickname);
+    // console.log(that.data.iconUrl);
     //云数据的请求
     wx.cloud.callFunction({
       name: "CampusCircle",
@@ -266,13 +266,29 @@ Page({
                 } else if (res.cancel) {
                   console.log('用户点击取消')
                 }
+              }, fail(res) {
+          that.setData({
+            DataNull: 0,
+          })
+          wx.showModal({
+            title: '提示',
+            content: '小主还没登录哟QwQ',
+            success(res) {
+              if (res.confirm) {
+                console.log('用户点击确定')
+              } else if (res.cancel) {
+                console.log('用户点击取消')
               }
+            }
+          })
+        }
             })
           }
         })
       }
     })
-  },
+      },
+    
 
   /**
    * 生命周期函数--监听页面显示
