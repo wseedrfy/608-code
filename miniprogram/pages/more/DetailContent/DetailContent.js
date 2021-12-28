@@ -100,7 +100,7 @@ Page({
             name: 'CampusCircle',
             data: {
               type: 'delComment',
-              id: that.data.content._id,
+              _id: that.data.content._id,
               CommentList: that.data.CommentList
             },
             success: res => {
@@ -169,7 +169,7 @@ Page({
           wx.cloud.callFunction({
             name: 'CampusCircle',
             data: {
-              id: that.data.CardID,
+              _id: that.data.CardID,
               type: 'delCard'
             },
             success: res => {

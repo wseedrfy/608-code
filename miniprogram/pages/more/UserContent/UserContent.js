@@ -72,6 +72,7 @@ Page({
     content.Star_User = Star_User
     //点赞用户数更新
     content.Star = Star_count
+    console.log(content, 244)
     if( this.data.direction==="Left"){
           //更新后的数据本地刷新
       this.setData({
@@ -89,7 +90,7 @@ Page({
       name: "CampusCircle",
       data: {
         type: "starCount",
-        Time: content.Time,
+        _id: content._id,
         Star: Star_count,
         Star_User: Star_User
       },
@@ -138,17 +139,17 @@ Page({
     // console.log(that.data.nickname);
     // console.log(that.data.iconUrl);
     //云数据的请求
+    var args = wx.getStorageSync('args')
     wx.cloud.callFunction({
       name: "CampusCircle",
       data: {
         type: "readUser",
         currentPage: currentPage,
         nickname: that.data.nickname,
-        iconUrl: that.data.iconUrl
+        iconUrl: that.data.iconUrl,
+        username: args.username
       },
       success(res) {
-        console.log(res);
-        console.log("res.result.data", res.result.data)
         that.data.resultLength = res.result.data.length
         if (res.result.data && res.result.data.length > 0) {
           console.log("请求成功", res.result.data)

@@ -223,13 +223,11 @@ Page({
       animation: _animation.export()
     })
   },
-
   /**
    * 开始旋转
    */
   startAnimationInterval: function () {
     var that = this;
-
     that.rotateAni(++_animationIndex); // 进行一次旋转
     _animationIntervalId = setInterval(function () {
       that.rotateAni(++_animationIndex);
@@ -588,6 +586,7 @@ Page({
           ShowHeight: that.data.noramalData[NewData].ShowHeight,
           School: that.data.noramalData[NewData].School,
           nickName: that.data.noramalData[NewData].nickName,
+          username: that.data.username,
           iconUrl: that.data.noramalData[NewData].iconUrl,
           Star: 0,
           type: 'write'
@@ -684,6 +683,7 @@ Page({
               loadMore: false, //隐藏加载中。。
               loadAll: true, //所有数据都加载完了
               DataNull: 0,
+              showLoading: 1
             });
           }
         } else {
@@ -697,6 +697,7 @@ Page({
             loadAll: true, //把“没有数据”设为true，显示  
             loadMore: false, //把"上拉加载"的变量设为false，隐藏  
             DataNull: 0,
+            showLoading: 1
           });
         }
       },
@@ -709,7 +710,6 @@ Page({
       }
     })
   },
-
   // 下拉刷新
   onPullDownRefresh() {
     var that = this
@@ -743,15 +743,12 @@ Page({
       this.data.rightList[index].Star = app.globalData.Star_count
       this.data.rightList[index].Star_User = app.globalData.Star_User
     }
-    // console.log('8218371923',this.data.leftList)
     this.setData({
       leftList: this.data.leftList,
       rightList: this.data.rightList
     })
     this.getNewInfo()
   },
-
-
   onShareAppMessage: function (res) {
     return {
       title: 'WE校园',
