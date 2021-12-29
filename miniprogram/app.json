@@ -12,8 +12,8 @@
     "pages/physical/physical",
     "pages/physical/detail/detail",
     "pages/about/about",
-    "pages/test/test",
-    "pages/dynamic/dynamic"
+    "pages/dynamic/dynamic",
+    "pages/test/test"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -1,20 +1,20 @@
 <wxs module="m1">
 var getStar = function(item,openusername) {
-  // max=item.Star_User.includes(openusername)?'1':'2'
   var max=undefined
-  if(!item.Star_User){
-    max='../../images/zan1.png'
+  if(!item.Star_User||item.Star_User.length===0){
+    //判断空
+    max='../../images/zan1.png'//初始化
   }
   else{
     for(var i=0;i<item.Star_User.length;i++){
-    if(item.Star_User[i]==openusername){
-      max='../../images/zan.png'
-      break
+      if(item.Star_User[i].username===openusername.username){
+        max='../../images/zan.png'
+        break
+      }
+      else{
+        max='../../images/zan1.png'
+      }
     }
-    else{
-      max='../../images/zan1.png'
-    }
-  }
   }
   return max;
 }
@@ -26,14 +26,13 @@ module.exports.getStar = getStar;
       style="height: {{item.ShowHeight > 500 ? 500+'rpx':item.ShowHeight+'rpx'}};" binderror="binderrorimg"
       bindload='onLazyLoad'></image>
     <span class="pic_Title">
-      <span class="pic_Label">#{{item.Label}}</span>{{item.Title}}
+      <span style="vertical-align: middle;" class="pic_Label">{{item.Label}}</span><text>{{item.Title}}</text>
     </span>
     <image src="{{item.iconUrl}}" class="text_user" />
     <span class="text_username">{{item.nickName}}</span>
     <div class="comment">
       <div style="margin-right:6px;">
-        <!-- <image src="../../images/zan1.png" class="commentImg"/> -->
-        <image src="{{m1.getStar(item,openusername)}}" class="commentImg" />
+        <image src="{{m1.getStar(item,openusername)}}" catchtap="getStar_card" class="commentImg" data-index="{{index}}" />
         <span class="commentNum">{{item.Star?item.Star:0}}</span>
       </div>
       <div style="margin-right:6px;">

@@ -1,69 +1,74 @@
 <wxs module="m1">
-  var star=function(item,openusername){
-    var url='../../../images/zan1.png'
-    if(item.Star_User){
-      for(var i=0;i<item.Star_User.length;i++){
-      if(item.Star_User[i]==openusername){
-        url='../../../images/zan.png'
-        break
-      }
-      else{
-        url='../../../images/zan1.png'
-      }
-    }
-    }
-    return url
+var getStar = function(item,openusername) {
+  var max=undefined
+  if(!item.Star_User||item.Star_User.length===0){
+    max='../../../images/zan1.png'
   }
-  module.exports.star = star;
+  else{
+    for(var i=0;i<item.Star_User.length;i++){
+    if(item.Star_User[i].username==openusername.username){
+      max='../../../images/zan.png'
+      break
+    }
+    else{
+      max='../../../images/zan1.png'
+    }
+  }
+  }
+  return max;
+}
+module.exports.getStar = getStar;
 </wxs>
 <view class="page">
   <view class='content'>
-    <view class='left'>
-      <block wx:for="{{leftList}}" wx:key="index">
-        <view class="pic" bindtap="ShowContentLeft" data-index="{{index}}">
-          <image class="Show_Image" lazy-load src='{{item.Cover}}' mode="aspectFill" style="height: {{item.ShowHeight > 500 ? 500+'rpx':item.ShowHeight+'rpx'}};" binderror="binderrorimg" bindload='onLazyLoad'></image>
-          <span class="pic_Title">
-            <span class="pic_Label">#{{item.Label}}</span>
-            {{item.Title}}
-          </span>
-          <image src="{{item.iconUrl}}" class="text_user" />
-          <span class="text_username">{{item.nickName}}</span>
-          <span class="comment">
-            <div style="margin-right:6px;">
-              <image src="{{m1.star(item,openusername)}}" class="commentImg" />
-              <span class="commentNum">{{item.Star?item.Star:0}}</span>
-            </div>
-            <div style="margin-right:6px;">
-              <image src="../../../images/comment.png" class="commentImg" />
+      <view class='left'>
+        <block wx:for="{{leftList}}" wx:key="index">
+          <view class="pic" bindtap="ShowContentLeft" data-index="{{index}}">
+            <image class="Show_Image" lazy-load  src='{{item.Cover}}' mode="aspectFill" style="height: {{item.ShowHeight > 500 ? 500+'rpx':item.ShowHeight+'rpx'}};" binderror="binderrorimg" bindload='onLazyLoad'></image>
+            <span class="pic_Title">
+              <span class="pic_Label">{{item.Label}}</span>{{item.Title}}
+            </span>
+            <image src="{{item.iconUrl}}" class="text_user"/>
+            <span class="text_username">{{item.nickName}}</span>
+            <span class="comment">
+              <div style="margin-right:6px;">
+                <image src="{{m1.getStar(item,openusername)}}" catchtap="getStar_left_card" class="commentImg" data-index="{{index}}" />
+               <span class="commentNum">{{item.Star?item.Star:0}}</span>
+               </div>
+              <div style="margin-right:6px;">
+                <image src="../../../images/comment.png" class="commentImg" />
+                <span class="commentNum">{{item.CommentList?item.CommentList.length:0}}</span>
+              </div>
+            </span>
+          </view>
+        </block>
+      </view>
+      <view class='right'>
+        <block wx:for="{{rightList}}" wx:key="index">
+          <view class="pic" bindtap="ShowContentRight" data-index="{{index}}">
+            <image class="Show_Image" lazy-load src='{{item.Cover}}' mode="aspectFill"  style="height: {{item.ShowHeight > 500 ? 500+'rpx':item.ShowHeight+'rpx'}};" binderror="binderrorimg" bindload='onLazyLoad'></image>
+            <span class="pic_Title">
+              <span class="pic_Label">{{item.Label}}</span>{{item.Title}}
+            </span>
+            <image src="{{item.iconUrl}}" class="text_user"/>
+            <span class="text_username">{{item.nickName}}</span>
+            <!-- <span class="comment">
+              <image src="../../../images/comment.png" class="commentImg"/>
               <span class="commentNum">{{item.CommentList?item.CommentList.length:0}}</span>
-            </div>
-          </span>
-        </view>
-      </block>
-    </view>
-    <view class='right'>
-      <block wx:for="{{rightList}}" wx:key="index">
-        <view class="pic" bindtap="ShowContentRight" data-index="{{index}}">
-          <image class="Show_Image" lazy-load src='{{item.Cover}}' mode="aspectFill" style="height: {{item.ShowHeight > 500 ? 500+'rpx':item.ShowHeight+'rpx'}};" binderror="binderrorimg" bindload='onLazyLoad'></image>
-          <span class="pic_Title">
-            <span class="pic_Label">#{{item.Label}}</span>
-            {{item.Title}}
-          </span>
-          <image src="{{item.iconUrl}}" class="text_user" />
-          <span class="text_username">{{item.nickName}}</span>
-          <span class="comment">
-            <div style="margin-right:6px;">
-              <image src="{{m1.star(item,openusername)}}" class="commentImg" />
-              <span class="commentNum">{{item.Star?item.Star:0}}</span>
-            </div>
-            <div style="margin-right:6px;">
-              <image src="../../../images/comment.png" class="commentImg" />
-              <span class="commentNum">{{item.CommentList?item.CommentList.length:0}}</span>
-            </div>
-          </span>
-        </view>
-      </block>
-    </view>
+            </span> -->
+            <span class="comment">
+              <div style="margin-right:6px;">
+                <image src="{{m1.getStar(item,openusername)}}" catchtap="getStar_right_card" class="commentImg" data-index="{{index}}" />
+               <span class="commentNum">{{item.Star?item.Star:0}}</span>
+               </div>
+              <div style="margin-right:6px;">
+                <image src="../../../images/comment.png" class="commentImg" />
+                <span class="commentNum">{{item.CommentList?item.CommentList.length:0}}</span>
+              </div>
+            </span>
+          </view>
+        </block>
+      </view>
   </view>
   <view class="DataNull" wx:if="{{DataNull==0}}">-无更多内容-</view>
 </view>

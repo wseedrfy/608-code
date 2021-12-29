@@ -1,16 +1,16 @@
 // pages/more/more.js
 var app = getApp()
-var util = require("../../utils/util")
 let currentPage = 0 // 当前第几页,0代表第一页 
+// 旋转初始化
 var _animation = wx.createAnimation({
   duration: _ANIMATION_TIME,
-  timingFunction: 'linear', // "linear","ease","ease-in","ease-in-out","ease-out","step-start","step-end"
+  timingFunction: 'linear', 
   delay: 0,
   transformOrigin: '50% 50% 0'
 })
 var _animationIndex = 0; // 动画执行次数index（当前执行了多少次）
 var _animationIntervalId = -1; // 动画定时任务id，通过setInterval来达到无限旋转，记录id，用于结束定时任务
-const _ANIMATION_TIME = 500; // 动画播放一次的时长ms
+const _ANIMATION_TIME = 400; // 动画播放一次的时长ms
 Page({
   /**
    * 页面的初始数据
@@ -22,49 +22,49 @@ Page({
     noramalData: [],
     current: 0,
     tabitem: [{
-      title: "全部",
-      type: 0
-    },
-    {
-      title: "日常",
-      type: 0
-    },
-    {
-      title: "情墙",
-      type: 0
-    },
-    {
-      title: "学习",
-      type: 0
-    },
-    {
-      title: "地点",
-      type: 0
-    },
-    {
-      title: "二手",
-      type: 0
-    },
-    {
-      title: "社团",
-      type: 0
-    },
-    {
-      title: "拾领",
-      type: 0
-    },
-    {
-      title: "活动",
-      type: 0
-    },
-    {
-      title: "吐槽",
-      type: 0
-    },
-    {
-      title: "探店",
-      type: 0
-    }
+        title: "全部",
+        type: 0
+      },
+      {
+        title: "日常",
+        type: 0
+      },
+      {
+        title: "情墙",
+        type: 0
+      },
+      {
+        title: "学习",
+        type: 0
+      },
+      {
+        title: "地点",
+        type: 0
+      },
+      {
+        title: "二手",
+        type: 0
+      },
+      {
+        title: "社团",
+        type: 0
+      },
+      {
+        title: "拾领",
+        type: 0
+      },
+      {
+        title: "活动",
+        type: 0
+      },
+      {
+        title: "吐槽",
+        type: 0
+      },
+      {
+        title: "探店",
+        type: 0
+      }
     ],
     info: {
       licensePicUrls: [],
@@ -91,7 +91,7 @@ Page({
     loadAll: false, //“没有数据”的变量，默认false，隐藏 
     fileIDs: [],
     addAft: 0,
-    Showtabitem: 0,
+    Showtabitem: 1,
     direction: " ",
     directionIndex: 0,
     showLoading: 0,
@@ -99,16 +99,34 @@ Page({
     campus_account: false,
     describe: "",
     content: "",
-    openusername: "",//学号
+    openusername: {}, //点赞人的对象
     // rotateIndex: '',
     // animationData: {}
   },
-  naviToMyself() {
+  getNewInfo() { // 获取新消息总数
+    var that = this;
+    const agrs = wx.getStorageSync('args')
+    // 被评论者信息
+    let be_character = {
+      userName:this.data.content.username,    
+      iconUrl: agrs.iconUrl,
+      nickName: agrs.nickName
+    }
+    wx.cloud.database().collection('New-Information').where({
+      be_character: be_character,
+      status: 0
+    }).count().then(res => {
+      that.setData({
+        NewInfo: res.total
+      })
+    })
+  },
+  naviToMyself() { // 跳转到个人信息页面
     wx.switchTab({
       url: '/pages/myself/myself',
     })
   },
-  naviToNews() {
+  naviToNews() { // 跳转到新消息提示页面
     wx.navigateTo({
       url: './NewInfo/NewInfo',
     })
@@ -116,30 +134,33 @@ Page({
   search_Input: function (e) {
     console.log("e.", e.detail.value)
     console.log("this.data.noramalData", this.data.noramalData)
+    const setEmptyStatus = () => { 
+      currentPage = 0
+      this.data.leftList = []
+      this.data.rightList = []
+      this.data.leftH = 0
+      this.data.rightH = 0
+      var allData = res.result.data
+      for (let i = 0; i < allData.length; i++) {
+        if (this.data.leftH == this.data.rightH || this.data.leftH < this.data.rightH) { //判断左右两侧当前的累计高度，来确定item应该放置在左边还是右边
+          this.data.leftList.push(allData[i]);
+          this.data.leftH += allData[i].ShowHeight;
+        } else {
+          this.data.rightList.push(allData[i]);
+          this.data.rightH += allData[i].ShowHeight;
+        }
+      }}
     if (e.detail.value) {
       wx.cloud.callFunction({
         name: "CampusCircle",
         data: {
+          username: that.data.username,
           type: "search",
           searchKey: e.detail.value
-        }, success: res => {
+        },
+        success: res => {
           if (res.result.data.length != 0) {
-            console.log(res.result.data)
-            currentPage = 0
-            this.data.leftList = []
-            this.data.rightList = []
-            this.data.leftH = 0
-            this.data.rightH = 0
-            var allData = res.result.data
-            for (let i = 0; i < allData.length; i++) {
-              if (this.data.leftH == this.data.rightH || this.data.leftH < this.data.rightH) {//判断左右两侧当前的累计高度，来确定item应该放置在左边还是右边
-                this.data.leftList.push(allData[i]);
-                this.data.leftH += allData[i].ShowHeight;
-              } else {
-                this.data.rightList.push(allData[i]);
-                this.data.rightH += allData[i].ShowHeight;
-              }
-            }
+            setEmptyStatus()
             this.data.tabitem[0].type = 1
             this.setData({
               leftList: this.data.leftList,
@@ -170,21 +191,7 @@ Page({
         }
       })
     } else {
-      currentPage = 0
-      this.data.leftList = []
-      this.data.rightList = []
-      this.data.leftH = 0
-      this.data.rightH = 0
-      var allData = this.data.noramalData
-      for (let i = 0; i < allData.length; i++) {
-        if (this.data.leftH == this.data.rightH || this.data.leftH < this.data.rightH) {//判断左右两侧当前的累计高度，来确定item应该放置在左边还是右边
-          this.data.leftList.push(allData[i]);
-          this.data.leftH += allData[i].ShowHeight;
-        } else {
-          this.data.rightList.push(allData[i]);
-          this.data.rightH += allData[i].ShowHeight;
-        }
-      }
+      setEmptyStatus()
       for (let j = 0; j < this.data.tabitem.length; j++) {
         if (this.data.tabitem[j].title == this.data.Label) {
           this.data.tabitem[j].type = 1
@@ -209,15 +216,14 @@ Page({
     this.data.animation = '';
   },
   /**
-  * 实现image旋转动画，每次旋转 120*n度
-  */
+   * 实现image旋转动画，每次旋转 120*n度
+   */
   rotateAni: function (n) {
     _animation.rotate(120 * (n)).step()
     this.setData({
       animation: _animation.export()
     })
   },
-
   /**
    * 开始旋转
    */
@@ -236,7 +242,6 @@ Page({
       console.log("stop")
     }
   },
-
   binderrorimg: function () {
     var errorImg = " "
     errorImg = "./Errimages.png" //我们构建一个对象
@@ -305,7 +310,7 @@ Page({
   },
   deleteImage: function (e) {
     var that = this;
-    var index = e.currentTarget.dataset.index;//获取当前长按图片下标
+    var index = e.currentTarget.dataset.index; //获取当前长按图片下标
     if (that.data.photo.length != 0) {
       wx.showModal({
         title: '提示',
@@ -347,7 +352,7 @@ Page({
     }
     this.data.Showtabitem = 0
     var index = e.currentTarget.dataset.index
-    var title = e.currentTarget.dataset.title
+
     this.data.Label = arry[index].title
     arry[index].type = 1
     this.setData({
@@ -384,8 +389,11 @@ Page({
     })
   },
 
-  formSubmit: function (e) {     //添加与存储
-    let { formTitle, formText } = e.detail.value
+  formSubmit: function (e) { //添加与存储
+    let {
+      formTitle,
+      formText
+    } = e.detail.value
 
     var that = this
     if (!formTitle) {
@@ -438,8 +446,8 @@ Page({
   CalculateImage: function () {
     var that = this;
     var allData = that.data.noramalData;
-    console.log("that.data.leftH", that.data.leftH)
-    console.log("that.data.rightH", that.data.rightH)
+    // console.log("that.data.leftH", that.data.leftH)
+    // console.log("that.data.rightH", that.data.rightH)
     for (let i = 0; i < allData.length; i++) {
       var height = parseInt(Math.round(allData[i].CoverHeight * 370 / allData[i].CoverWidth));
       if (height) {
@@ -449,104 +457,61 @@ Page({
           currentItemHeight = 500
           allData[i].ShowHeight = currentItemHeight
         }
-        allData[i].CoverHeight = currentItemHeight + "rpx";//因为xml文件中直接引用的该值作为高度，所以添加对应单位
+        allData[i].CoverHeight = currentItemHeight + "rpx"; //因为xml文件中直接引用的该值作为高度，所以添加对应单位
       }
     }
   },
 
   //以本地数据为例，实际开发中数据整理以及加载更多等实现逻辑可根据实际需求进行实现   
   onLoad: function () {
-    this.data.Showtabitem = 1
+    currentPage = 0
     var that = this
-    var i = 0
-    // console.log('onLoad')
+    app.loginState() //判断登录
+    this.getNewInfo() // 获取新消息通知
     //加载缓存获得学校和用户名和头像
-    wx.getStorage({
-      key: "args",
-      success(res) {
-        // console.log("信息",res);
-        //  console.log("JSON.parse(res.data)",JSON.parse(res.data))
-        var data = res.data
-        that.data.tabitem = data.tabitem ? data.tabitem.map(e => { return { title: e, type: 0 } }) : that.data.tabitem
-        console.log(that.data.tabitem, 244)
-        var menu = that.data.tabitem.map(e => e.title)
-        menu.splice(0, 1)
-        var school = data.schoolName
-        var nickname = data.nickName
-        var iconUrl = data.iconUrl
-        var arry = that.data.tabitem
-        //封号
-        var campus_account = data.campus_account ? data.campus_account : false
-        var describe = data.describe ? data.describe : false
-        arry[0].type = 1
-        //判断封号
-        // console.log(school)
-        // console.log(describe)
-        // console.log(that.data.campus_account)
-        // console.log(campus_account)
-        //判断封号
-        if (campus_account === true) {
-          wx.showModal({
-            title: "提示",
-            content: describe,
-            showCancel: false,
-            success(res) {
-              if (res.confirm) {
-                wx.reLaunch({
-                  url: '/pages/index/index',
-                })
-              }
-            }
-          })
+    var data = wx.getStorageSync('args')
+    that.data.tabitem = data.tabitem ? data.tabitem.map(e => {
+      return {
+        title: e,
+        type: 0
+      }
+    }) : that.data.tabitem // that.data.tabitem是兜底数据
+    var menu = that.data.tabitem.map(e => e.title)
+    menu.splice(0, 1)
+    that.data.tabitem[0].type = 1
+    var campus_account = data.campus_account ? data.campus_account : false
+    var describe = data.describe ? data.describe : false
+    //判断封号
+    if (campus_account === true) {
+      wx.showModal({
+        title: "提示",
+        content: describe,
+        showCancel: false,
+        success(res) {
+          if (res.confirm) {
+            wx.reLaunch({
+              url: '/pages/index/index',
+            })
+          }
         }
-
-        currentPage = 0
-        if (i == 0) {
-          //that.getData()
-          that.onPullDownRefresh()
-          i++
-        }
-        that.setData({
-          school,
-          menu,
-          nickname,
-          iconUrl,
-          tabitem: arry,
-          campus_account: campus_account,
-          describe: describe,
-          openusername: data.username
-        })
-      }, fail(res) {
-        //app里面登录状态判断
-        app.loginState()
-        // var arry=that.data.tabitem
-        console.log("请求失败")
-        // that.getData()
-        // arry[0].type=1
-        // currentPage=0
-        // if(i==0){
-        //   that.getData()
-        //   i++
-        // }
-        // that.setData({
-        //   tabitem: arry,
-        // })
-        // wx.showModal({
-        //   title: '提示',
-        //   content: '小主还没登录哟QwQ',
-        //   showCancel:false,
-
-        //   success (res) {
-        //     if (res.confirm) {
-        //       console.log('用户点击确定')
-        //       wx.navigateTo({
-        //         url: '/pages/login/login',
-        //       })
-        //     } 
-        //   }
-        // })
+      })
+    }
+    that.setData({
+      school: data.schoolName,
+      menu,
+      nickname: data.nickName,
+      iconUrl: data.iconUrl,
+      tabitem: that.data.tabitem,
+      campus_account: campus_account,
+      describe: describe,
+      username: data.username,
+      openusername: {
+        username: data.username,
+        iconUrl: data.iconUrl,
+        nickName: data.nickName
       }
     })
+    that.onPullDownRefresh()
   },
   //将本地图片上传到云存储进行存储，后续通过fileid进行图片展示
   // 图片上传逻辑
@@ -565,7 +530,7 @@ Page({
     for (var i = 0; i < path.length; i++) {
       wx.compressImage({
         src: path[i], // 图片路径
-        quality: 20,// 压缩质量,
+        quality: 20, // 压缩质量,
         success(res) {
           console.log(res)
           wx.cloud.uploadFile({
@@ -593,6 +558,7 @@ Page({
       wx.showLoading({
         title: '加载更多中',
       })
+      this.getNewInfo(); // 上拉刷新，是否有新消息
       that.getData()
       console.log("currentPage-onReachBottom", currentPage)
       wx.hideLoading()
@@ -621,10 +587,12 @@ Page({
           ShowHeight: that.data.noramalData[NewData].ShowHeight,
           School: that.data.noramalData[NewData].School,
           nickName: that.data.noramalData[NewData].nickName,
+          username: that.data.username,
           iconUrl: that.data.noramalData[NewData].iconUrl,
           Star: 0,
           type: 'write'
-        }, success: res => {
+        },
+        success: res => {
           console.log("add", res)
           wx.showToast({
             duration: 4000,
@@ -656,9 +624,9 @@ Page({
   //提高网络性能，分页加载数据
   getData: function () {
     let that = this;
-    console.log("that.data.noramalData", that.data.noramalData)
+    // console.log("that.data.noramalData", that.data.noramalData)
     that.data.noramalData = []
-    console.log("ShowId", that.data.Label)
+    // console.log("ShowId", that.data.Label)
     //第一次加载数据
     if (currentPage == 1) {
       this.setData({
@@ -673,24 +641,16 @@ Page({
       name: "CampusCircle",
       data: {
         type: "read",
+        username: that.data.username,
         currentPage: currentPage,
         ShowId: that.data.Label,
         addAft: that.data.addAft,
         School: that.data.school
       },
-
       success(res) {
-        // console.log(res.result.data[1].Star,"res.result.data[1].Start")
-        // console.log(res.result.data)
-        // console.log(currentPage)
-        // console.log(that.data.addAft)
-        // console.log(that.data.school)
-        // console.log(that.data.Label)
-        // console.log("res.result.data",res.result.data)
         if (res.result === null) {
           that.getData()
-        }
-        else {
+        } else {
           that.data.resultLength = res.result.data.length
         }
         console.log("that.data.resultLength", that.data.resultLength)
@@ -702,7 +662,7 @@ Page({
           var allData = res.result.data
           console.log(Batch_Data)
           for (let i = 0; i < allData.length; i++) {
-            if (that.data.leftH == that.data.rightH || that.data.leftH < that.data.rightH) {//判断左右两侧当前的累计高度，来确定item应该放置在左边还是右边
+            if (that.data.leftH == that.data.rightH || that.data.leftH < that.data.rightH) { //判断左右两侧当前的累计高度，来确定item应该放置在左边还是右边
               that.data.leftList.push(allData[i]);
               that.data.leftH += allData[i].ShowHeight;
             } else {
@@ -710,7 +670,6 @@ Page({
               that.data.rightH += allData[i].ShowHeight;
             }
           }
-          
           that.setData({
             leftList: that.data.leftList,
             rightList: that.data.rightList,
@@ -719,18 +678,15 @@ Page({
             noramalData: Batch_Data, //获取数据数组    
             loadMore: false, //把"上拉加载"的变量设为false，显示  
             DataNull: 1,
+            showLoading: 1
           });
-          // console.log('测试',that.data.leftList[0]);
-          // for(let i=0;i<that.data.leftList.length;i++){
-          //   that.data.leftList[i].Star_User.includes(that.data.openusername)?that.leftList[i].push(url=true):push(url=false)
-          // }
           if (res.result.data.length < 10) {
             that.setData({
               loadMore: false, //隐藏加载中。。
               loadAll: true, //所有数据都加载完了
               DataNull: 0,
+              showLoading: 1
             });
-            
           }
         } else {
           if (that.data.leftH == 0 && that.data.rightH == 0) {
@@ -743,6 +699,7 @@ Page({
             loadAll: true, //把“没有数据”设为true，显示  
             loadMore: false, //把"上拉加载"的变量设为false，隐藏  
             DataNull: 0,
+            showLoading: 1
           });
         }
       },
@@ -755,54 +712,39 @@ Page({
       }
     })
   },
+  // 下拉刷新
   onPullDownRefresh() {
     var that = this
     //var showLoading=0
-    wx.showNavigationBarLoading() //在标题栏中显示加载
-
-    //     _animation = wx.createAnimation({
-    //       duration: _ANIMATION_TIME,
-    //       timingFunction: 'linear', // "linear","ease","ease-in","ease-in-out","ease-out","step-start","step-end"
-    //       delay: 0,
-    //       transformOrigin: '50% 50% 0'
-    //  })
-
+    wx.showNavigationBarLoading()              //在标题栏中显示加载
     that.setData({
       showLoading: 0
     })
     that.startAnimationInterval()
-
     console.log("下拉刷新")
-    setTimeout(function () {
-      //that.startAnimationInterval()
-      that.data.leftList = []
-      that.data.rightList = []
-      that.data.leftH = 0
-      that.data.rightH = 0
-      that.data.noramalData = []
-      that.data.addAft = 0
-      currentPage = 0
-      that.getData()
-
-      that.setData({
-        showLoading: 1
-      })
-      wx.hideNavigationBarLoading() //完成停止加载
-      wx.stopPullDownRefresh() //停止下拉刷新
-      that.stopAnimationInterval()
-    }, 2500);
-    //that.stopAnimationInterval()
-
-    console.log("over")
+    //that.startAnimationInterval()
+    that.data.leftList = []
+    that.data.rightList = []
+    that.data.leftH = 0
+    that.data.rightH = 0
+    that.data.noramalData = []
+    that.data.addAft = 0
+    currentPage = 0
+    that.getData()
+    wx.hideNavigationBarLoading()             //完成停止加载
+    wx.stopPullDownRefresh()                  //停止下拉刷新
   },
   onShow: function () {
+    // console.log(app.globalData.List,21)
     var index = this.data.directionIndex
     if (this.data.direction == "Left") {
-      this.data.leftList[index].CommentList = app.globalData.Comment
+      this.data.leftList = app.globalData.List ? app.globalData.List : this.data.leftList
+      this.data.leftList[index].CommentList = app.globalData.Comment //回复全局
       this.data.leftList[index].Star = app.globalData.Star_count
       this.data.leftList[index].Star_User = app.globalData.Star_User
     } else if (this.data.direction == "Right") {
-      this.data.rightList[index].CommentList = app.globalData.Comment
+      this.data.rightList = app.globalData.List ? app.globalData.List : this.data.rightList
+      this.data.rightList[index].CommentList = app.globalData.Comment //回复全局
       this.data.rightList[index].Star = app.globalData.Star_count
       this.data.rightList[index].Star_User = app.globalData.Star_User
     }
@@ -810,8 +752,9 @@ Page({
       leftList: this.data.leftList,
       rightList: this.data.rightList
     })
-    // console.log('长度',this.data.leftList.length);
-   
+    this.getNewInfo()
+    // console.log(this.data.leftList,"左");
+    // console.log(this.data.rightList,"右");
   },
   onShareAppMessage: function (res) {
     return {
@@ -820,7 +763,3 @@ Page({
   },
 
 })
-
-
-
-

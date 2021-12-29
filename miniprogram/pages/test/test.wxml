@@ -59,4 +59,10 @@
     <text>第一周</text>
     <canvas class="myCanvas" type="2d" id="myCanvas"></canvas>
   </view>
+  
+  <view class="here" bindtap="click">
+    <view class="this">
+      <text>this</text>
+    </view>
+  </view>
 </view>

@@ -51,13 +51,24 @@ Page({
       }]
     }
     ],
-    node: []
+    node: [],
+    arg:[["a", "b"], [1, 2, 3]],
+    num: 5
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+
+  },
+  click(){
+
+    console.log(a)
+    // let a = "asd";
+    {
+      // var a;
+    }
 
   },
   input(e) {

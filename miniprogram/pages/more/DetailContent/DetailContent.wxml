@@ -1,8 +1,8 @@
 <view class="page">
   <view class="contain">
     <view class="user">
-      <image src="{{SenticonUrl}}" class="user_iconUrl"/>
-      <span class="user_nickname">{{SentName}}</span>
+      <image src="{{content.iconUrl}}" class="user_iconUrl"/>
+      <span class="user_nickname">{{content.nickName}}</span>
       <image src="../../../images/more.png" class="more" wx:if="{{more==1}}" bindtap="More"/>
       <view class="CardMore" wx:if="{{showEdit}}">
         <view class="CardMore_background" bindtap="More"></view>
@@ -24,7 +24,9 @@
     <view class="content_first">
       <view class="content_Title">{{content.Title}}</view>
       <text class="content_Text">{{content.Text}}</text>
-      <view class="content_Label" >#{{content.Label}}</view>
+      <view class="content_LabelBox">
+        <view class="content_Label" >{{content.Label}}</view>
+      </view>
       <view class="content_sec">
         <view class="content_Time" >{{Time}}</view>
         <view class="content_Star">
@@ -38,7 +40,7 @@
       <view class="All_Comment" wx:if="{{CommentNum==0}}">这里还没有评论哟~</view>
       <form bindsubmit="formSubmit" bindreset="formReset">
         <view class="Send_Commend" bindtap="Comment_Inputting">
-          <image src="{{content.iconUrl}}" class="text_user"/>
+          <image src="{{args.iconUrl}}" class="text_user"/>
           <span class="{{isChecked?'old_Comment_second':'new_Comment_second'}}">
             <textarea placeholder="来发句评论吧ヾ(≧▽≦*)o" name="InputComment"  value="{{Input}}" auto-height></textarea>
           </span>
@@ -47,46 +49,62 @@
           </span>
         </view>
       </form>
-      <view class="Show_Commend" wx:for="{{ShowList}}" wx:key="kk" data-item="item" bindtap="EditComment" data-index="{{index}}">
-        <image src="{{item.iconUser}}" class="text_user"/>
-        <span class="text_username">{{item.userName}}
-          <view class="Comment_Content">{{item.InputContent}}
-            <span class="Comment_Time">{{item.InputTime}}</span>
-          </view>
-        </span>
-        <view class="Line_Second"></view>
-        <!-- <view class="EditCom" wx:if="{{comEdit}}">
-          <view class="EditCom_background" bindtap="EditComment"></view>
-          <view class="EditCom_contain {{edit_style}}" >
-            <view class="EditCom_Title">{{CommentName}}: {{CommentContent}}</view>
-            <view class="Line"></view>
-            <view class="CopyComment" bindtap="CopyComment">
-              复制
+
+      <view class="Show_Commend" wx:for="{{ShowList}}" wx:key="kk" data-item="item" bindtap="EditComment" data-index="{{index}}">  <!-- bindtap从EditComment更改为obtainIndex-->
+        <!-- <view catchtap="EditComment" class="seses" >  这个标签是新增 -->
+          <image src="{{item.iconUser}}" class="text_user"/>
+          <span class="text_username">{{item.nickName}}
+            <view class="Comment_Content">{{item.InputContent}}
+              <span class="Comment_Time">{{item.InputTime}}</span>
             </view>
-            <view class="Line"></view>
-            <view class="DelComment" bindtap="DelComment">
-              删除
-            </view>
+          </span>
+          <view class="Line_Second"></view>
+        </view>
+        <!-- 下面都是新的 -->
+        <!-- <view class="showReply" wx:for="{{item.replyList}}" wx:key="aa" data-item="item" data-index="{{index2}}" catchtap="obtainSecond">
+          <view catchtap="EditReply">
+            <image src="{{item.Replyicon}}" class="text_user"/>
+            <span class="text_username">{{item.ReplyName}}
+              <view class="Comment_Content">{{item.ReplyComment}}
+                <span class="Comment_Time">{{item.ReplyTime}}</span>
+              </view>
+            </span>
           </view>
         </view> -->
+
       </view>
     </view>
+
     <view class="EditCom" wx:if="{{comEdit}}">
         <view class="EditCom_background" bindtap="EditComment"></view>
         <view class="EditCom_contain {{edit_style}}" >
           <view class="EditCom_Title">{{CommentName}}: {{CommentContent}}</view>
           <view class="Line"></view>
-          <view class="CopyComment" bindtap="CopyComment">
+          <!-- <view class="ReplyComment" bindtap="ReplyComment" style="color:rgba(0, 89, 255, 0.699);">
+             回复
+          </view> -->
+          <view class="CopyComment" bindtap="CopyComment" style="color:rgba(0, 89, 255, 0.699);">
              复制
           </view>
           <view class="Line"></view>
-          <view class="DelComment" bindtap="DelComment" wx:if="{{ShowDelCom==1}}">
+          <view class="DelComment" bindtap="DelComment" wx:if="{{ShowDelCom==1}}" style="color: rgba(255, 0, 0, 0.753);">
              删除
           </view>
         </view>
     </view>
-
+    <!-- <view class="ReplyCom" wx:if="{{comReply}}">
+      <view class="ReplyCom_background" bindtap="ReplyComment"></view>
+        <view class="ReplyCom_contain {{reply_style}}" >
+          <view class="replycheck" catchtap="replycheck">
+            <span class="{{ReplyChecked?'old_ReplyCom_input':'new_ReplyCom_input'}}">
+              <textarea placeholder="@{{CommentName}} :" model:value="{{ReplyCom_input}}" auto-height auto-focus></textarea>
+            </span>
+            <span wx:if="{{!ReplyChecked}}" class="Reply_Send">
+              <button catchtap="Reply_submit" class="Reply_Sending" hover-class="Reply_Sending-hover">发送</button>
+            </span>
+          </view>
+        </view>
+    </view>
     
-
-  </view>
+  </view> -->
 </view>

@@ -13,7 +13,10 @@ page{
 .searchFrame{
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 240rpx;
+  height: 50rpx;
+  line-height: 50rpx;
   margin-left: 10rpx;
   font-size: 25rpx;
   border-radius: 15rpx;
@@ -56,21 +59,24 @@ page{
 }
 .head_second .newInfo {
   position: relative;
+  display: flex;
 }
 .head_second .newInfo image {
+  position: relative;
   width: 50rpx;
   height: 50rpx;
   margin-left: 10rpx;
 }
 
 .head_second .searchFrame {
-  width: 400rpx;
+  width: 47%;
   margin-left: 20rpx;
 }
 .head_second .searchFrame image {
-  margin: 10rpx 10rpx 0 10rpx;
-  width: 20rpx;
-  height: 20rpx;
+  position: relative;
+  margin: 10rpx;
+  width: 30rpx;
+  height: 30rpx;
 }
 .SearchInput{
   width:95%;
@@ -295,7 +301,7 @@ page{
 } 
 .Choose_Label{
   width:100%;
-  height:73rpx;
+  height:57rpx;
   background-color: rgba(255, 255, 255, 0.363);
   display: flex;
   flex-direction: row;
@@ -319,10 +325,12 @@ page{
   border-radius: 30rpx;
 }
 .Label_limit{
-  /* width: auto; */
+  width: auto;
   padding: 25rpx;
+  /* height: 5rpx; */
   display: flex;
   align-items: center;
+  white-space:nowrap;
   justify-content: center;
 }
 

@@ -26,3 +26,8 @@
   width: 64px;      /*（7周 + 1） x 8 */
   height: 48px;     /*（5行 + 1） x 8 */
 }
+
+
+.here{
+  color: var(--color);
+}
