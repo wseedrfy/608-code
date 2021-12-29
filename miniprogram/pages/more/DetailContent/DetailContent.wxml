@@ -58,6 +58,7 @@
               <span class="Comment_Time">{{item.InputTime}}</span>
             </view>
           </span>
+          <view class="Line_Second"></view>
         </view>
         <!-- 下面都是新的 -->
         <!-- <view class="showReply" wx:for="{{item.replyList}}" wx:key="aa" data-item="item" data-index="{{index2}}" catchtap="obtainSecond">
@@ -70,7 +71,7 @@
             </span>
           </view>
         </view> -->
-        <view class="Line_Second"></view>
+
       </view>
     </view>
 

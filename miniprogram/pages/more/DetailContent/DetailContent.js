@@ -440,7 +440,6 @@ Page({
     this.setData({
       Time: Time,
       more: more,
-
     })
     console.log(content)
   },
