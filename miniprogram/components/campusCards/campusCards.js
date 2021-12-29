@@ -82,7 +82,7 @@ Component({
         nickName:args.nickName
       }
       let be_character = {                         // 被点赞者信息
-        // userName:this.data.content.username,    bug : content里面没有
+        userName:content.username,   
         iconUrl:content.iconUrl,
         nickName:content.nickName
       }
@@ -93,6 +93,7 @@ Component({
       // console.log(content);
 
       //点赞后对数据库数据进行更新
+      console.log("触发这个点赞函数");
       wx.cloud.callFunction({   // 云函数更改点赞状态
         name: "CampusCircle",
         data: {
@@ -102,7 +103,9 @@ Component({
           Star_User: Star_User,
           // 上面三条为迎合旧点赞函数
           character: character,
+          username: args.username,
           be_character: be_character,
+          be_username: content.username,
           createTime: starTime,
           arcticle: content,
           arcticle_id: content._id
