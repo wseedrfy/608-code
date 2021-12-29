@@ -510,15 +510,24 @@ Page({
     if (!Starif) {
       //push到username
       openusername.Star_time = new Date().getTime()
+      console.log(this.data.args);
+      console.log(this.data.content);
+      // 判断是不是给自己点赞
+      if( this.data.args.username == this.data.content.username) {
+        wx.showToast({
+          title: '不可以给自己点赞哦！',
+          icon:'none'
+        })
+     }else {
       Star_User.push(openusername)
-      wx.showToast({
-        title: '点赞成功',
-        icon: "none"
-      })
-      that.setData({
-        Starurl: "../../../images/zan.png",
-      })
-      var Star_count = Star_User.length
+        wx.showToast({
+          title: '点赞成功',
+          icon: "none"
+        })
+        that.setData({
+          Starurl: "../../../images/zan.png",
+        })
+        var Star_count = Star_User.length
         wx.cloud.callFunction({
           name: "CampusCircle",
           data: {
@@ -540,6 +549,7 @@ Page({
             console.log(res)
           }
         })
+      }
     }
     app.globalData.Star_count =  Star_User.length
     app.globalData.Star_User = Star_User
