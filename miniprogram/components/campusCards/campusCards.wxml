@@ -7,14 +7,14 @@ var getStar = function(item,openusername) {
   }
   else{
     for(var i=0;i<item.Star_User.length;i++){
-    if(item.Star_User[i].username===openusername.username){
-      max='../../images/zan.png'
-      break
+      if(item.Star_User[i].username===openusername.username){
+        max='../../images/zan.png'
+        break
+      }
+      else{
+        max='../../images/zan1.png'
+      }
     }
-    else{
-      max='../../images/zan1.png'
-    }
-  }
   }
   return max;
 }

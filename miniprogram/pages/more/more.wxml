@@ -59,10 +59,10 @@
   <scroll-view>
     <view class='content'>
       <view class="left" bindtap="leftDirection">
-        <campusCards List="{{leftList}}" bind:ShowContent="getBackData" openusername="{{openusername}}" direction = "{{direction}}"></campusCards>
+        <campusCards List="{{leftList}}" bind:reNewData="onShow" bind:ShowContent="getBackData" openusername="{{openusername}}" direction = "{{direction}}"></campusCards>
       </view>
       <view class="right" bindtap="rightDirection">
-        <campusCards List="{{rightList}}" bind:ShowContent="getBackData" openusername="{{openusername}}" direction = "{{direction}}"></campusCards>
+        <campusCards List="{{rightList}}" bind:reNewData="onShow" bind:ShowContent="getBackData" openusername="{{openusername}}" direction = "{{direction}}"></campusCards>
       </view>
     </view>
     <view class="DataNull" wx:if="{{DataNull==0}}">-无更多内容-</view>
