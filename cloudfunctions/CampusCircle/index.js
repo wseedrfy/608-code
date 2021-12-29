@@ -197,6 +197,7 @@ exports.main = async (event, context) => {
     //                    ->status 0/1?-> -1
     const data1 = await db.collection('New-Information').where({ //查找记录
       character_username: event.username,
+      be_character_username: event.be_username,
       type: '点赞',
       arcticle_id: event.arcticle_id
     }).count()
@@ -206,8 +207,9 @@ exports.main = async (event, context) => {
       db.collection('New-Information').add({
         data: {
           character: event.character,
-          character_username: event.username,
           be_character: event.be_character,
+          character_username: event.username,
+          be_character_username: event.be_username,
           type: '点赞',
           content: '',
           status: 0,
@@ -255,6 +257,7 @@ exports.main = async (event, context) => {
           character: event.character,
           character_username:event.username,
           be_character: event.be_character,
+          be_character_username: event.be_username,
           type: '评论',
           content: event.content,
           status: 0,
@@ -278,7 +281,7 @@ exports.main = async (event, context) => {
     try {
       return await db.collection('New-Information').where({     // 感觉有问题
         character_username: event.username,
-        be_character: event.be_character,
+        be_character_username: event.be_username,
         arcticle_id: event.arcticle_id,
         type: '评论'
       }).update({
@@ -295,7 +298,7 @@ exports.main = async (event, context) => {
   }
   if (event.type == 'ReadControlLogs') {
     const data = await db.collection('New-Information').orderBy('createTime', 'desc').where({
-        be_character: event.be_character,
+        be_character_username: event.be_username,
         status: _.gte(0)
       })
       .skip(event.currentPage * event.pageSize)
@@ -303,7 +306,7 @@ exports.main = async (event, context) => {
       .get()
     // 更新
     await db.collection('New-Information').where({
-        be_character: event.be_character,
+        be_character_username: event.be_username,
         status: _.eq(0)
       }).update({
         data: {

@@ -121,6 +121,7 @@ Page({
                   character: character,
                   username : that.data.username,
                   be_character: be_character,
+                  be_username: that.data.content.username,
                   content: InputComment,
                   createTime: changeStatusTime,
                   arcticle: content,
@@ -254,6 +255,7 @@ Page({
           type: 'writeComment'
         },
         success: res => {
+          console.log("成功添加",res);
           that.ShowComment()
         },
         fail: err => {
@@ -289,6 +291,7 @@ Page({
           character: character,
           be_character:be_character,
           username : that.data.username,
+          be_username: that.data.content.username,
           content: e.detail.value.InputComment,
           createTime:commentTime,
           arcticle:this.data.content,
@@ -324,13 +327,13 @@ Page({
         var AftTime2 = util.timeago(PreTime2, 'Y年M月D日')
         copyList[i].replyList[j].ReplyTime = AftTime2
       }
-      console.log(this.data.content);
+      // console.log(content);
       Show.push({
         InputContent: this.data.CommentList[i].InputComment,
         InputTime: AftTime,
         iconUser: this.data.CommentList[i].iconUser,
-        nickName: this.data.content.CommentList[i].nickName,
-        username:this.data.content.CommentList[i].username,
+        nickName: this.data.CommentList[i].nickName,
+        username:this.data.CommentList[i].username,
         replyList: copyList[i].replyList
       })
     }
@@ -357,12 +360,13 @@ Page({
     if(options.content || options.content != undefined) {
       var content = JSON.parse(options.content)  // 将JSON帖子信息转成对象
       that.setData({ content })
+      console.log(content,"options");
     }else {
       // 页面间通信，详见 wx.navigateTo; 为兼容NewInfo页面跳转
       const eventChannel = this.getOpenerEventChannel()
       eventChannel.on('acceptDataFromNewInfoPage', function(data){
         that.setData({ content:data.data })
-        // console.log(data.data);
+        console.log(data.data);
       })
     }
     var content = this.data.content;
@@ -460,7 +464,7 @@ Page({
       iconUrl:this.data.content.iconUrl,
       nickName:this.data.content.nickName
     }
-    let starTime = new Date().getTime();         // 点赞时间
+    let starTime = new Date().getTime();          // 点赞时间
     // 如果想在后台看到具体的时间年月日，请用下面这句
     // let starTime = util.timeago(new Date().getTime(),'Y年M月D日');
     if (!Star_User) {
@@ -481,6 +485,7 @@ Page({
         data: {
           type: "StarControlLogs",
           username : that.data.username,
+          be_username: that.data.content.username,
           Time: that.data.content.Time,
           _id: that.data.content._id,
           Star: Star_count,
@@ -519,6 +524,7 @@ Page({
           name: "CampusCircle",
           data: {
             username : that.data.username,
+            be_username: that.data.content.username,
             type: "StarControlLogs",
             Time: that.data.content.Time,
             Star: Star_count,

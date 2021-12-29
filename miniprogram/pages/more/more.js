@@ -108,7 +108,7 @@ Page({
     const agrs = wx.getStorageSync('args')
     // 被评论者信息
     let be_character = {
-      // userName:this.data.content.username,    bug : content里面没有
+      userName:this.data.content.username,    
       iconUrl: agrs.iconUrl,
       nickName: agrs.nickName
     }
