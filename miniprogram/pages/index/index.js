@@ -33,20 +33,20 @@ Page({
     console.log("over")
   },
   // 活动跳转 (点击事件)
-  activity:function () {
-    var that = this
-    console.log("触发activity函数");
-    app.fadein(that, 'slideupshow', 0)  
-    wx.setStorage({ key: 'activityDialog', data: that.data.activityDialog });  //覆盖status=0的缓存
-    wx.switchTab({ url: '../more/more' })
-},
+//   activity:function () {
+//     var that = this
+//     console.log("触发activity函数");
+//     app.fadein(that, 'slideupshow', 0)  
+//     wx.setStorage({ key: 'activityDialog', data: that.data.activityDialog });  //覆盖status=0的缓存
+//     wx.switchTab({ url: '../more/more' })
+// },
 // 关闭活动通知 (点击事件)
-  closeDialogAdd: function () {
-    var that = this
-    console.log("触发关闭函数");
-    app.fadein(that, 'slideupshow', 0)
-    wx.removeStorageSync('activityDialog')
-  },
+  // closeDialogAdd: function () {
+  //   var that = this
+  //   console.log("触发关闭函数");
+  //   app.fadein(that, 'slideupshow', 0)
+  //   wx.removeStorageSync('activityDialog')
+  // },
   async onLoad(options) {
     var that = this;
     var args = wx.getStorageSync('args')
@@ -58,33 +58,33 @@ Page({
         console.log(e)
       }
     }
-    var timeNow = new Date().getTime();
+    // var timeNow = new Date().getTime();
     
-    if (wx.getStorageSync('activityDialog')) {
-      var that = this;
-      var activityDialog = wx.getStorageSync('activityDialog');
-      let timeHour = (timeNow - activityDialog.time)/1000 /60/60 ;
-      console.log(timeHour);
-      if(timeHour >= 1 ) {
-        app.slideupshow(that, 'slideupshow', 450, 1);    // 弹窗出现动效
-        activityDialog.time = timeNow
-        wx.setStorageSync('activityDialog', activityDialog)
-      }else {
-        activityDialog.time = timeNow
-        wx.setStorageSync('activityDialog', activityDialog)
-      }
-      this.setData({ activityDialog });
-    } else {
-      wx.cloud.database().collection('activityDialog').orderBy('_createTime', 'desc').get({
-          success: function (res) {
-              console.log(res.data, "活动弹窗数据");
-              res.data[0].time = timeNow
-              that.setData({ activityDialog: res.data[0] });
-              app.slideupshow(that, 'slideupshow', 450, 1);    // 弹窗出现动效
-              wx.setStorage({ key: 'activityDialog', data: res.data[0] })  // 存入本地
-          }
-      })
-  }
+  //   if (wx.getStorageSync('activityDialog')) {
+  //     var that = this;
+  //     var activityDialog = wx.getStorageSync('activityDialog');
+  //     let timeHour = (timeNow - activityDialog.time)/1000 /60/60 ;
+  //     console.log(timeHour);
+  //     if(timeHour >= 1 ) {
+  //       app.slideupshow(that, 'slideupshow', 450, 1);    // 弹窗出现动效
+  //       activityDialog.time = timeNow
+  //       wx.setStorageSync('activityDialog', activityDialog)
+  //     }else {
+  //       activityDialog.time = timeNow
+  //       wx.setStorageSync('activityDialog', activityDialog)
+  //     }
+  //     this.setData({ activityDialog });
+  //   } else {
+  //     wx.cloud.database().collection('activityDialog').orderBy('_createTime', 'desc').get({
+  //         success: function (res) {
+  //             console.log(res.data, "活动弹窗数据");
+  //             res.data[0].time = timeNow
+  //             that.setData({ activityDialog: res.data[0] });
+  //             app.slideupshow(that, 'slideupshow', 450, 1);    // 弹窗出现动效
+  //             wx.setStorage({ key: 'activityDialog', data: res.data[0] })  // 存入本地
+  //         }
+  //     })
+  // }
     
     // 以下 2021-12-25新增
     // await wx.cloud.callFunction({
