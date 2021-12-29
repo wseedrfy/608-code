@@ -716,7 +716,7 @@ Page({
   onPullDownRefresh() {
     var that = this
     //var showLoading=0
-    wx.showNavigationBarLoading() //在标题栏中显示加载
+    wx.showNavigationBarLoading()              //在标题栏中显示加载
     that.setData({
       showLoading: 0
     })
@@ -731,8 +731,8 @@ Page({
     that.data.addAft = 0
     currentPage = 0
     that.getData()
-    wx.hideNavigationBarLoading() //完成停止加载
-    wx.stopPullDownRefresh() //停止下拉刷新
+    wx.hideNavigationBarLoading()             //完成停止加载
+    wx.stopPullDownRefresh()                  //停止下拉刷新
   },
   onShow: function () {
     var index = this.data.directionIndex

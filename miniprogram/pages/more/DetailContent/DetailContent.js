@@ -354,26 +354,15 @@ Page({
       urls: Photo,
     })
   },
-
   onLoad: function (options) {
     var that = this;
-    if(options.content || options.content != undefined) {
-      var content = JSON.parse(options.content)  // 将JSON帖子信息转成对象
-      that.setData({ content })
-      console.log(content,"options");
-    }else {
-      // 页面间通信，详见 wx.navigateTo; 为兼容NewInfo页面跳转
-      const eventChannel = this.getOpenerEventChannel()
-      eventChannel.on('acceptDataFromNewInfoPage', function(data){
-        that.setData({ content:data.data })
-        console.log(data.data);
-      })
-    }
-    var content = this.data.content;
-    // console.log(content);
+    var content = JSON.parse(options.content)  // 将JSON帖子信息转成对象
+    that.setData({ content })
+    console.log(content,"options");
+
     var more = options.del
     var that = this
-    var Time = util.timeago(content.Time, 'Y年M月D日')
+    var Time = util.timeago(that.data.content.Time, 'Y年M月D日')
     var data = wx.getStorageSync('args')
     that.data.username = data.username
     var openusername = {
@@ -512,13 +501,7 @@ Page({
       openusername.Star_time = new Date().getTime()
       console.log(this.data.args);
       console.log(this.data.content);
-      // 判断是不是给自己点赞
-      if( this.data.args.username == this.data.content.username) {
-        wx.showToast({
-          title: '不可以给自己点赞哦！',
-          icon:'none'
-        })
-     }else {
+
       Star_User.push(openusername)
         wx.showToast({
           title: '点赞成功',
@@ -549,7 +532,6 @@ Page({
             console.log(res)
           }
         })
-      }
     }
     app.globalData.Star_count =  Star_User.length
     app.globalData.Star_User = Star_User

@@ -10,17 +10,9 @@ Page({
     loadAll: false   // “没有数据”的变量，默认false，隐藏  
   },
   naviToDetail(e) {
-    let content = e.currentTarget.dataset.content
+    var content = JSON.stringify(e.currentTarget.dataset.content);
     wx.navigateTo({
-      url: '../DetailContent/DetailContent',
-      events: {
-        acceptDataFromNewInfoPage: function (data) {
-          console.log(data);
-        }
-      },
-      success:(res) => {
-        res.eventChannel.emit('acceptDataFromNewInfoPage', {data: content})
-      }
+      url: '../DetailContent/DetailContent?content='+content,
     })
   },
   //页面显示的事件

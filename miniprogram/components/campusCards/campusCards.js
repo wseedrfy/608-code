@@ -31,38 +31,30 @@ Component({
       var index = e.currentTarget.dataset.index //索引
       var content = this.properties.List[index] //点击页的数据
       var args = wx.getStorageSync('args')
-      var Star_User = content.Star_User //初始点赞用户
+      var Star_User = content.Star_User         //初始点赞用户
       var openusername = this.properties.openusername
-      if (!Star_User) {
-        //判断点赞人有没有在数组里面
+      if (!Star_User) {                         //判断点赞人有没有在数组里面
         Star_User = []
       }
       var Starif = false
       //判断是不是为点赞过的usernameid
       for (var i = 0 ;i<Star_User.length;i++){
-        if(Star_User[i].username===openusername.username){
+        if(Star_User[i].username == openusername.username){
           Starif = true
           // openusername
           // new Date().getTime()
-          Star_User.splice(Star_User.indexOf(openusername), 1)
+          Star_User.splice(Star_User.indexOf(Star_User[i]), 1)  
           break
         }
       }
       if (!Starif) {
-        if(content.nickName == args.nickName) {
-          wx.showToast({
-            title: '不可以给自己点赞哦！',
-            icon:'none'
-          })
-        }else {
-          openusername.Star_time = new Date().getTime()
-          console.log(openusername)
-          Star_User.push(openusername)
-          wx.showToast({
-            title: '点赞成功',
-            icon: "none"
-          })
-        }
+        openusername.Star_time = new Date().getTime()
+        console.log(openusername,"要把它推进Star_User了")
+        Star_User.push(openusername)
+        wx.showToast({
+          title: '点赞成功',
+          icon: "none"
+        })
       }
       var Star_count = Star_User.length
       //点赞后对本地数据进行更新
@@ -87,11 +79,6 @@ Component({
         nickName:content.nickName
       }
       let starTime = new Date().getTime();         // 点赞时间
-      // console.log(character);
-      // console.log(be_character);     这4个都是没问题的
-      // console.log(starTime);
-      // console.log(content);
-
       //点赞后对数据库数据进行更新
       console.log("触发这个点赞函数");
       wx.cloud.callFunction({   // 云函数更改点赞状态
