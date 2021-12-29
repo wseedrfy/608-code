@@ -6,9 +6,9 @@ const api = require('./utils/api')
 const util = require("./utils/util.js")
 App({
   // 登录昨天判断
-  loginState: function(){
+  loginState: function () {
     let username = wx.getStorageSync('args').username
-    if(!username){
+    if (!username) {
       wx.showModal({
         title: '登录提示',
         showCancel: false, //是否显示取消按钮
@@ -23,12 +23,9 @@ App({
               url: '/pages/login/login'
             })
           } else {
-            wx.navigateBack({
-            })
+            wx.navigateBack({})
           }
-        },
-        fail: function (res) {}, //接口调用失败的回调函数
-        complete: function (res) {}, //接口调用结束的回调函数（调用成功、失败都会执行）
+        }
       })
     }
   },
@@ -98,7 +95,6 @@ App({
     json[param] = select.export()
     that.setData(json)
   },
-
   //垂直滑动 渐入渐出
   slideupshow: function (that, param, px, opacity) {
     var select = wx.createAnimation({
@@ -111,7 +107,6 @@ App({
     json[param] = select.export()
     that.setData(json)
   },
-
   //平行滑动 渐入渐出
   sliderightshow: function (that, param, px, opacity) {
     var select = wx.createAnimation({
@@ -124,17 +119,18 @@ App({
     json[param] = select.export()
     that.setData(json)
   },
+
   globalData: {
     userInfo: null,
-    Comment:[],
-    Starif:false
+    Comment: [],
+    Starif: false
     // func: {}
   }
 })
 //app.json校友圈
-   // {
-      //   "pagePath": "pages/more/more",
-      //   "iconPath": "/images/tabbar/about.png",
-      //   "selectedIconPath": "/images/tabbar/about_cur.png",
-      //   "text": "校园圈"
-      // },
+// {
+//   "pagePath": "pages/more/more",
+//   "iconPath": "/images/tabbar/about.png",
+//   "selectedIconPath": "/images/tabbar/about_cur.png",
+//   "text": "校园圈"
+// },

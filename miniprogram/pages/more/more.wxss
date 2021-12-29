@@ -110,38 +110,32 @@ page{
   justify-content: center;
   align-items: center;
 }
-.Add_Content{
+
+.content_btn{
+  position: fixed;
+  width:105rpx;
+  height:80rpx;
+  right:0rpx;
+  box-shadow: 0px 0px 4px 0px #c7c7c7;
+  border-top-left-radius: 40rpx;
+  border-bottom-left-radius: 40rpx;
+  background-color: rgba(255, 255, 255, 0.685);
+}
+.content_btn_add{
+  bottom:180rpx;
+}
+.content_btn_user{
+  bottom:80rpx;
+}
+.content_btn_add image{
   width: 48rpx;
   height: 48rpx;
 }
-
-.Add_Content-btn{
-  width:105rpx;
-  height:80rpx;
-  background-color: rgba(255, 255, 255, 0.685);
-  position: fixed;
-  bottom:180rpx;
-  right:0rpx;
-  border-top-left-radius: 40rpx;
-  border-bottom-left-radius: 40rpx;
-  box-shadow: 0px 0px 4px 0px #c7c7c7;
-}
-.User_Content{
+.content_btn_user image{
   width: 54rpx;
   height: 54rpx;
 }
 
-.User_Content-btn{
-  width:105rpx;
-  height:80rpx;
-  background-color: rgba(255, 255, 255, 0.685);
-  position: fixed;
-  bottom:80rpx;
-  right:0rpx;
-  border-top-left-radius: 40rpx;
-  border-bottom-left-radius: 40rpx;
-  box-shadow: 0px 0px 4px 0px #c7c7c7;
-}
 .Camera_Image{
   width: 90rpx;
   height: 90rpx;

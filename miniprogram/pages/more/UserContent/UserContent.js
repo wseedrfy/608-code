@@ -55,7 +55,7 @@ Page({
         Star_User.splice(Star_User.indexOf(openusername), 1)
       }
     }
-    if (!Starif) {2
+    if (!Starif) {
       openusername.Star_time = new Date().getTime()
       //push到usernameid
       Star_User.push(openusername)

@@ -4,7 +4,7 @@ let currentPage = 0 // 当前第几页,0代表第一页
 // 旋转初始化
 var _animation = wx.createAnimation({
   duration: _ANIMATION_TIME,
-  timingFunction: 'linear', 
+  timingFunction: 'linear',
   delay: 0,
   transformOrigin: '50% 50% 0'
 })
@@ -85,8 +85,7 @@ Page({
     leftH: 0,
     rightH: 0,
     photo: [],
-    //Input:"",
-    resultLength: 0,
+    DataNull: 0,
     loadMore: false, //"上拉加载"的变量，默认false，隐藏  
     loadAll: false, //“没有数据”的变量，默认false，隐藏 
     fileIDs: [],
@@ -103,12 +102,14 @@ Page({
     // rotateIndex: '',
     // animationData: {}
   },
-  getNewInfo() { // 获取新消息总数
+
+  // 获取新消息总数
+  getNewInfo() {
     var that = this;
     const agrs = wx.getStorageSync('args')
     // 被评论者信息
     let be_character = {
-      userName:this.data.content.username,    
+      userName: this.data.content.username,
       iconUrl: agrs.iconUrl,
       nickName: agrs.nickName
     }
@@ -121,20 +122,18 @@ Page({
       })
     })
   },
-  naviToMyself() { // 跳转到个人信息页面
+
+  // 跳转到个人信息页面
+  naviToMyself() {
     wx.switchTab({
       url: '/pages/myself/myself',
     })
   },
-  naviToNews() { // 跳转到新消息提示页面
-    wx.navigateTo({
-      url: './NewInfo/NewInfo',
-    })
-  },
+
   search_Input: function (e) {
     console.log("e.", e.detail.value)
     console.log("this.data.noramalData", this.data.noramalData)
-    const setEmptyStatus = () => { 
+    const setEmptyStatus = () => {
       currentPage = 0
       this.data.leftList = []
       this.data.rightList = []
@@ -142,14 +141,15 @@ Page({
       this.data.rightH = 0
       var allData = res.result.data
       for (let i = 0; i < allData.length; i++) {
-        if (this.data.leftH == this.data.rightH || this.data.leftH < this.data.rightH) { //判断左右两侧当前的累计高度，来确定item应该放置在左边还是右边
+        if (this.data.leftH <= this.data.rightH) { //判断左右两侧当前的累计高度，来确定item应该放置在左边还是右边
           this.data.leftList.push(allData[i]);
           this.data.leftH += allData[i].ShowHeight;
         } else {
           this.data.rightList.push(allData[i]);
           this.data.rightH += allData[i].ShowHeight;
         }
-      }}
+      }
+    }
     if (e.detail.value) {
       wx.cloud.callFunction({
         name: "CampusCircle",
@@ -465,20 +465,22 @@ Page({
   //以本地数据为例，实际开发中数据整理以及加载更多等实现逻辑可根据实际需求进行实现   
   onLoad: function () {
     currentPage = 0
-    var that = this
     app.loginState() //判断登录
     this.getNewInfo() // 获取新消息通知
     //加载缓存获得学校和用户名和头像
     var data = wx.getStorageSync('args')
-    that.data.tabitem = data.tabitem ? data.tabitem.map(e => {
+    this.data.tabitem = data.tabitem ? data.tabitem.map(e => {
       return {
         title: e,
         type: 0
       }
-    }) : that.data.tabitem // that.data.tabitem是兜底数据
-    var menu = that.data.tabitem.map(e => e.title)
+    }) : this.data.tabitem // that.data.tabitem是兜底数据
+    var menu = this.data.tabitem.map(e => e.title)
+    // 把第一个 “全部” 去掉
     menu.splice(0, 1)
-    that.data.tabitem[0].type = 1
+    // 默认选中第一个 “全部”
+    this.data.tabitem[0].type = 1
+    // 封号
     var campus_account = data.campus_account ? data.campus_account : false
     var describe = data.describe ? data.describe : false
     //判断封号
@@ -496,23 +498,47 @@ Page({
         }
       })
     }
-    that.setData({
+    this.setData({
       school: data.schoolName,
       menu,
+      username: data.username,
       nickname: data.nickName,
       iconUrl: data.iconUrl,
-      tabitem: that.data.tabitem,
+      tabitem: this.data.tabitem,
       campus_account: campus_account,
       describe: describe,
-      username: data.username,
       openusername: {
         username: data.username,
         iconUrl: data.iconUrl,
         nickName: data.nickName
       }
     })
-    that.onPullDownRefresh()
+    this.onPullDownRefresh()
   },
+
+  onShow: function () {
+    // console.log(app.globalData.List,21)
+    var index = this.data.directionIndex
+    if (this.data.direction == "Left") {
+      this.data.leftList = app.globalData.List ? app.globalData.List : this.data.leftList
+      this.data.leftList[index].CommentList = app.globalData.Comment //回复全局
+      this.data.leftList[index].Star = app.globalData.Star_count
+      this.data.leftList[index].Star_User = app.globalData.Star_User
+    } else if (this.data.direction == "Right") {
+      this.data.rightList = app.globalData.List ? app.globalData.List : this.data.rightList
+      this.data.rightList[index].CommentList = app.globalData.Comment //回复全局
+      this.data.rightList[index].Star = app.globalData.Star_count
+      this.data.rightList[index].Star_User = app.globalData.Star_User
+    }
+    this.setData({
+      leftList: this.data.leftList,
+      rightList: this.data.rightList
+    })
+    this.getNewInfo()
+    // console.log(this.data.leftList,"左");
+    // console.log(this.data.rightList,"右");
+  },
+
   //将本地图片上传到云存储进行存储，后续通过fileid进行图片展示
   // 图片上传逻辑
   // 1.判断条件，是否符合上传条件
@@ -624,9 +650,9 @@ Page({
   //提高网络性能，分页加载数据
   getData: function () {
     let that = this;
-    // console.log("that.data.noramalData", that.data.noramalData)
-    that.data.noramalData = []
-    // console.log("ShowId", that.data.Label)
+    // console.log("this.data.noramalData", this.data.noramalData)
+    this.data.noramalData = []
+    // console.log("ShowId", this.data.Label)
     //第一次加载数据
     if (currentPage == 1) {
       this.setData({
@@ -634,7 +660,7 @@ Page({
         loadAll: false //把“没有数据”设为false，隐藏  
       })
     }
-    console.log("that.data.addAft", that.data.addAft)
+    console.log("this.data.addAft", this.data.addAft)
     console.log("currentPage", currentPage)
     //云数据的请求
     wx.cloud.callFunction({
@@ -650,10 +676,7 @@ Page({
       success(res) {
         if (res.result === null) {
           that.getData()
-        } else {
-          that.data.resultLength = res.result.data.length
         }
-        console.log("that.data.resultLength", that.data.resultLength)
         if (res.result && res.result.data.length > 0) {
           console.log("请求成功", res.result.data)
           currentPage++
@@ -662,7 +685,7 @@ Page({
           var allData = res.result.data
           console.log(Batch_Data)
           for (let i = 0; i < allData.length; i++) {
-            if (that.data.leftH == that.data.rightH || that.data.leftH < that.data.rightH) { //判断左右两侧当前的累计高度，来确定item应该放置在左边还是右边
+            if (that.data.leftH <= that.data.rightH) { //判断左右两侧当前的累计高度，来确定item应该放置在左边还是右边
               that.data.leftList.push(allData[i]);
               that.data.leftH += allData[i].ShowHeight;
             } else {
@@ -673,8 +696,6 @@ Page({
           that.setData({
             leftList: that.data.leftList,
             rightList: that.data.rightList,
-            leftH: that.data.leftH,
-            right: that.data.rightH,
             noramalData: Batch_Data, //获取数据数组    
             loadMore: false, //把"上拉加载"的变量设为false，显示  
             DataNull: 1,
@@ -712,50 +733,37 @@ Page({
       }
     })
   },
+
+  // 页面跳转
+  navigate(e) {
+    var url = e.currentTarget.id
+    wx.navigateTo({
+      url: url + "/" + url,
+    })
+  },
+
   // 下拉刷新
   onPullDownRefresh() {
-    var that = this
     //var showLoading=0
-    wx.showNavigationBarLoading()              //在标题栏中显示加载
-    that.setData({
+    wx.showNavigationBarLoading() //在标题栏中显示加载
+    this.setData({
       showLoading: 0
     })
-    that.startAnimationInterval()
+    this.startAnimationInterval()
     console.log("下拉刷新")
-    //that.startAnimationInterval()
-    that.data.leftList = []
-    that.data.rightList = []
-    that.data.leftH = 0
-    that.data.rightH = 0
-    that.data.noramalData = []
-    that.data.addAft = 0
+    //this.startAnimationInterval()
+    this.data.leftList = []
+    this.data.rightList = []
+    this.data.leftH = 0
+    this.data.rightH = 0
+    this.data.noramalData = []
+    this.data.addAft = 0
     currentPage = 0
-    that.getData()
-    wx.hideNavigationBarLoading()             //完成停止加载
-    wx.stopPullDownRefresh()                  //停止下拉刷新
+    this.getData()
+    wx.hideNavigationBarLoading() //完成停止加载
+    wx.stopPullDownRefresh() //停止下拉刷新
   },
-  onShow: function () {
-    // console.log(app.globalData.List,21)
-    var index = this.data.directionIndex
-    if (this.data.direction == "Left") {
-      this.data.leftList = app.globalData.List ? app.globalData.List : this.data.leftList
-      this.data.leftList[index].CommentList = app.globalData.Comment //回复全局
-      this.data.leftList[index].Star = app.globalData.Star_count
-      this.data.leftList[index].Star_User = app.globalData.Star_User
-    } else if (this.data.direction == "Right") {
-      this.data.rightList = app.globalData.List ? app.globalData.List : this.data.rightList
-      this.data.rightList[index].CommentList = app.globalData.Comment //回复全局
-      this.data.rightList[index].Star = app.globalData.Star_count
-      this.data.rightList[index].Star_User = app.globalData.Star_User
-    }
-    this.setData({
-      leftList: this.data.leftList,
-      rightList: this.data.rightList
-    })
-    this.getNewInfo()
-    // console.log(this.data.leftList,"左");
-    // console.log(this.data.rightList,"右");
-  },
+
   onShareAppMessage: function (res) {
     return {
       title: 'WE校园',
