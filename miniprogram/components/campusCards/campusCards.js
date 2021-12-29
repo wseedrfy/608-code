@@ -101,14 +101,15 @@ Component({
           Time: content.Time,
           Star: Star_count,
           Star_User: Star_User,
-          // 上面三条为迎合旧点赞函数
           character: character,
           username: args.username,
           be_character: be_character,
           be_username: content.username,
           createTime: starTime,
           arcticle: content,
-          arcticle_id: content._id
+          arcticle_id: content._id,
+          _id: content._id,
+          username: args.username
         }
       }).then(console.log('触发云函数'))
       app.globalData.List = this.data.List

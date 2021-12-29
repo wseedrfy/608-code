@@ -176,6 +176,7 @@ swiper .wx-swiper-dot {
  
  .Send_Commend{
    display: flex;
+   padding-bottom: 20rpx;
    flex-direction: row;
    align-items: center;
  }
