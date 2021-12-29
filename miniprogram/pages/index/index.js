@@ -32,21 +32,6 @@ Page({
     },1500);
     console.log("over")
   },
-  // 活动跳转 (点击事件)
-//   activity:function () {
-//     var that = this
-//     console.log("触发activity函数");
-//     app.fadein(that, 'slideupshow', 0)  
-//     wx.setStorage({ key: 'activityDialog', data: that.data.activityDialog });  //覆盖status=0的缓存
-//     wx.switchTab({ url: '../more/more' })
-// },
-// 关闭活动通知 (点击事件)
-  // closeDialogAdd: function () {
-  //   var that = this
-  //   console.log("触发关闭函数");
-  //   app.fadein(that, 'slideupshow', 0)
-  //   wx.removeStorageSync('activityDialog')
-  // },
   async onLoad(options) {
     var that = this;
     var args = wx.getStorageSync('args')
@@ -58,82 +43,6 @@ Page({
         console.log(e)
       }
     }
-    // var timeNow = new Date().getTime();
-    
-  //   if (wx.getStorageSync('activityDialog')) {
-  //     var that = this;
-  //     var activityDialog = wx.getStorageSync('activityDialog');
-  //     let timeHour = (timeNow - activityDialog.time)/1000 /60/60 ;
-  //     console.log(timeHour);
-  //     if(timeHour >= 1 ) {
-  //       app.slideupshow(that, 'slideupshow', 450, 1);    // 弹窗出现动效
-  //       activityDialog.time = timeNow
-  //       wx.setStorageSync('activityDialog', activityDialog)
-  //     }else {
-  //       activityDialog.time = timeNow
-  //       wx.setStorageSync('activityDialog', activityDialog)
-  //     }
-  //     this.setData({ activityDialog });
-  //   } else {
-  //     wx.cloud.database().collection('activityDialog').orderBy('_createTime', 'desc').get({
-  //         success: function (res) {
-  //             console.log(res.data, "活动弹窗数据");
-  //             res.data[0].time = timeNow
-  //             that.setData({ activityDialog: res.data[0] });
-  //             app.slideupshow(that, 'slideupshow', 450, 1);    // 弹窗出现动效
-  //             wx.setStorage({ key: 'activityDialog', data: res.data[0] })  // 存入本地
-  //         }
-  //     })
-  // }
-    
-    // 以下 2021-12-25新增
-    // await wx.cloud.callFunction({
-    //   name:"CampusCircle",
-    //   data:{
-    //     type:"readUser",
-    //     currentPage:0,
-    //     nickname:args.nickName,
-    //     iconUrl:args.iconUrl
-    //   },
-    //   success(res){
-    //     console.log("res.result.data",res.result.data)
-    //     if(wx.getStorage('myTieZi')) {
-    //       const newTieZi = res.result.data;
-    //       const oldTieZi = wx.getStorage('myTieZi');
-    //       // 遍历新帖子，与旧帖子做比较，得到是否有新消息
-    //       for(let i = 0 ;i < newTieZi.length;i++) {
-    //         // 判断点赞数是否增加
-    //         if(newTieZi[i].Star.length > oldTieZi[i].Star.length) {
-    //           var addedInfo = [];
-    //           console.log("for循环star"+"第"+i+'次',newTieZi[i].Star,oldTieZi[i].Star);
-              
-    //         }
-    //       }
-    //     }
-        
-    //     if(wx.getStorageSync('myStar') === myStarAll) {
-    //       wx.removeStorageSync('newStar')
-    //       wx.hideTabBarRedDot({
-    //         index: 2,
-    //       })
-    //     }else {
-    //       console.log("myStar VS  Storage 看到这个log说明此时不相等",myStarAll,wx.getStorageSync('myStar'));
-    //       var newStar = myStarAll - wx.getStorageSync('myStar');
-    //       wx.setStorageSync('newStar', newStar)
-    //       // 判空
-    //       if(wx.getStorageSync('myStar')) {
-    //         wx.showTabBarRedDot({
-    //           index: 2,
-    //         })
-    //       }
-    //     }
-    //     wx.setStorageSync('myStar', myStarAll);
-    //   },
-    //   fail(res) {
-    //     console.log("请求失败", res)
-    //   }
-    // })
-    // 以上为新增代码
     await wx.cloud.callFunction({
       name: 'api',
       data: {

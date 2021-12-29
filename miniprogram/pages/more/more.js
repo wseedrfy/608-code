@@ -735,21 +735,24 @@ Page({
     wx.stopPullDownRefresh()                  //停止下拉刷新
   },
   onShow: function () {
-    // var index = this.data.directionIndex
-    // if (this.data.direction == "Left") {
-    //   this.data.leftList[index].CommentList = app.globalData.Comment //回复全局
-    //   this.data.leftList[index].Star = app.globalData.Star_count
-    //   this.data.leftList[index].Star_User = app.globalData.Star_User
-    // } else if (this.data.direction == "Right") {
-    //   this.data.rightList[index].CommentList = app.globalData.Comment //回复全局
-    //   this.data.rightList[index].Star = app.globalData.Star_count
-    //   this.data.rightList[index].Star_User = app.globalData.Star_User
-    // }
-    // this.setData({
-    //   leftList: this.data.leftList,
-    //   rightList: this.data.rightList
-    // })
-    // this.getNewInfo()
+    // console.log(app.globalData.List,21)
+    var index = this.data.directionIndex
+    if (this.data.direction == "Left") {
+      this.data.leftList = app.globalData.List ? app.globalData.List : this.data.leftList
+      this.data.leftList[index].CommentList = app.globalData.Comment //回复全局
+      this.data.leftList[index].Star = app.globalData.Star_count
+      this.data.leftList[index].Star_User = app.globalData.Star_User
+    } else if (this.data.direction == "Right") {
+      this.data.rightList = app.globalData.List ? app.globalData.List : this.data.rightList
+      this.data.rightList[index].CommentList = app.globalData.Comment //回复全局
+      this.data.rightList[index].Star = app.globalData.Star_count
+      this.data.rightList[index].Star_User = app.globalData.Star_User
+    }
+    this.setData({
+      leftList: this.data.leftList,
+      rightList: this.data.rightList
+    })
+    this.getNewInfo()
     // console.log(this.data.leftList,"左");
     // console.log(this.data.rightList,"右");
   },

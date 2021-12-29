@@ -74,6 +74,7 @@ Component({
       this.properties.List[index]=content
       console.log("this.properties.List[index]改变后",this.properties.List[index]);
       //更新后的数据本地刷新
+      // app.globalData.List = this.properties.List
       this.setData({
         List:this.properties.List
       })
