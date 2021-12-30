@@ -48,7 +48,6 @@ Page({
         }
       })
     }else if(options.type === "commonPage"){
-   
       if (args) {
         try {
           var onload = app.jsRun(args, args.otherPageCode[options.content])
@@ -63,8 +62,6 @@ Page({
         icon: 'none',
       })
     }
-
-    
   },
   onShareAppMessage: function (res) {
     return {
