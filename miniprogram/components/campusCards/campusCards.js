@@ -11,6 +11,10 @@ Component({
     direction:{
       type:String,
       value:""
+    },
+    type:{
+      type:String,
+      value:""
     }
     // data:{
     //   openusername:{}
@@ -30,6 +34,7 @@ Component({
     getStar_card(e) {
       var index = e.currentTarget.dataset.index //索引
       var content = this.properties.List[index] //点击页的数据
+      // console.log(content)
       var args = wx.getStorageSync('args')
       var Star_User = content.Star_User         //初始点赞用户
       var openusername = this.properties.openusername
@@ -61,18 +66,12 @@ Component({
       console.log("Star_count改变后",Star_count);
       //点赞后对本地数据进行更新
       //点赞用户更新
-      console.log("content.Star_User改变前",content.Star_User);
       content.Star_User = Star_User
-      console.log("content.Star_User改变后",content.Star_User);
 
       //点赞用户数更新
-      console.log("content.Star改变前",content.Star);
       content.Star = Star_count
-      console.log("content.Star改变后",content.Star);
 
-      console.log("this.properties.List[index]改变前",this.properties.List[index]);
       this.properties.List[index]=content
-      console.log("this.properties.List[index]改变后",this.properties.List[index]);
       //更新后的数据本地刷新
       // app.globalData.List = this.properties.List
       this.setData({
@@ -88,10 +87,14 @@ Component({
         iconUrl:content.iconUrl,
         nickName:content.nickName
       }
-      console.log("云函数前",this.data.List);
-      console.log("云函数前",Star_count);
-      console.log("云函数前",Star_User);
       let starTime = new Date().getTime();         // 点赞时间
+      console.log(this.properties.type,233)
+      if(this.properties.type === "left"){
+        app.globalData.leftList = this.properties.List
+      }else if(this.properties.type === "right"){
+        app.globalData.rightList = this.properties.List
+      }
+
       //点赞后对数据库数据进行更新
       wx.cloud.callFunction({   // 云函数更改点赞状态
         name: "CampusCircle",
@@ -115,7 +118,7 @@ Component({
       console.log("云函数之后",Star_count);
       console.log("云函数之后",Star_User);
 
-      app.globalData.List = this.data.List
+      // app.globalData.List = this.data.List
       //点赞数全局变量
       app.globalData.Star_count = Star_count
       //点赞数组全局变量
