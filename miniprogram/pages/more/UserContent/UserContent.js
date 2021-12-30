@@ -140,6 +140,10 @@ Page({
     // console.log(that.data.nickname);
     // console.log(that.data.iconUrl);
     //云数据的请求
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
     wx.cloud.callFunction({
       name: "CampusCircle",
       data: {
@@ -150,6 +154,7 @@ Page({
         username: that.data.username
       },
       success(res) {
+        wx.hideLoading()
         that.data.resultLength = res.result.data.length
         if (res.result.data && res.result.data.length > 0) {
           console.log("请求成功", res.result.data)
@@ -195,6 +200,10 @@ Page({
         }
       },
       fail(res) {
+        wx.showToast({
+          title: '请求失败',
+          icon: 'none',
+        })
         console.log("请求失败", res)
         that.setData({
           loadAll: false,
@@ -207,6 +216,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    
     // console.log(this.data.CommentList)
     var that =this 
     var i=0

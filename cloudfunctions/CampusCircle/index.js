@@ -65,6 +65,9 @@ async function read(event) {
   event.ShowId != "全部" ? obj[Label] = event.ShowId : '';
 
   try {
+    if(event.School === '茂名职业技术学院'){
+      return await db.collection('Campus-Circle').orderBy('Star', 'desc').where(obj).skip(skipPage).limit(10).get();
+    }
     return await db.collection('Campus-Circle').orderBy('Time', 'desc').where(obj).skip(skipPage).limit(10).get();
   } catch (e) {
     console.error(e);
