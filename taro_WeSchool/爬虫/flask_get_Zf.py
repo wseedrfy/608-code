@@ -53,18 +53,21 @@ def login():
             return {
                 "msg": '账号密码错误'
             }
-        elif '验证码' in returnData:
+        elif '账号已锁定无法登录' in returnData:
+            return {
+                "msg": '密码错误，您密码输入错误已达规定次数，账号已锁定无法登录，次日自动解锁！如忘记密码，请与教务处联系!'
+            }
+        elif '验证码不正确' in returnData:
             returnData, headers = login(username, password)
         elif '安全退出' in returnData:
             break
         else:
             return {
-                "msg": '异常'
+                "msg": '异常，请重试'
             }
     return {
         "msg": 'welcome'
     }
-
 
 # headers = {
 #     "Referer": "https://jwc.mmpt.edu.cn/xs_main.aspx?xh=" + username,
@@ -117,13 +120,17 @@ def getAllData():
             return {
                 "msg": '账号密码错误'
             }
-        elif '验证码' in returnData:
+        elif '账号已锁定无法登录' in returnData:
+            return {
+                "msg": '密码错误，您密码输入错误已达规定次数，账号已锁定无法登录，次日自动解锁！如忘记密码，请与教务处联系!'
+            }
+        elif '验证码不正确' in returnData:
             returnData, headers = login(username, password)
         elif '安全退出' in returnData:
             break
         else:
             return {
-                "msg": '异常'
+                "msg": '异常，请重试'
             }
     regname = re.compile(r'xm=(.*?)&')
     name = regname.findall(returnData)[0]
@@ -159,60 +166,49 @@ def getAllData():
             course_timetable_info_list.append(course_timetable_info_base)
 
     for course_timetable_info in course_timetable_info_list:
-        if len(course_timetable_info) == 4:
+        if len(course_timetable_info)==4:
             # 提取第几周、周几、第几节课等参数
             # 数据切割
             split_rule = '[第]'
             course_timetable_info_split = re.split(
                 split_rule, course_timetable_info[1])
+            if len(course_timetable_info_split)>2:
+                # print(course_timetable_info_split)
+                week_chinese = course_timetable_info_split[0]  # 获取星期
+                pitch_number = re.findall(
+                    r"\d+\.?\d*", course_timetable_info_split[1])  # 获取节次
 
-            # print(course_timetable_info_split)
-            week_chinese = course_timetable_info_split[0]  # 获取星期
-            pitch_number = re.findall(
-                r"\d+\.?\d*", course_timetable_info_split[1])  # 获取节次
+                # 对节次进行补零处理
+                for inde in range(2):
+                    pitch_number[inde] = pitch_number[inde].zfill(2)
 
-            # 对节次进行补零处理
-            for inde in range(2):
-                pitch_number[inde] = pitch_number[inde].zfill(2)
+                pitch_number = pitch_number[0] + pitch_number[1]
 
-            pitch_number = pitch_number[0] + pitch_number[1]
+                cycle = re.findall(
+                    r"\d+\.?\d*", course_timetable_info_split[2])  # 获取周次
+                cycle = list(map(int, cycle))
+                if '单' in course_timetable_info_split[2]:
+                    cycle.append(1)
+                elif '双' in course_timetable_info_split[2]:
+                    cycle.append(2)
+                else:
+                    cycle.append(0)
 
-            cycle = re.findall(
-                r"\d+\.?\d*", course_timetable_info_split[2])  # 获取周次
-            cycle = list(map(int, cycle))
-            if '单' in course_timetable_info_split[2]:
-                cycle.append(1)
-            elif '双' in course_timetable_info_split[2]:
-                cycle.append(2)
-            else:
-                cycle.append(0)
+                # 数字映射
+                week_map = {
+                    "周一": 1,
+                    "周二": 2,
+                    "周三": 3,
+                    "周四": 4,
+                    "周五": 5,
+                    "周六": 6,
+                    "周日": 7,
+                }
+                # 中文转换为数字
+                week = week_map[week_chinese]
 
-            # 数字映射
-            week_map = {
-                "周一": 1,
-                "周二": 2,
-                "周三": 3,
-                "周四": 4,
-                "周五": 5,
-                "周六": 6,
-                "周日": 7,
-            }
-            # 中文转换为数字
-            week = week_map[week_chinese]
-
-            if cycle[2] == 0:
-                for index in range(cycle[0], cycle[1] + 1):
-                    course_timetable_list.append({
-                        'jcdm': pitch_number,  # 第几节课
-                        'jxcdmc': course_timetable_info[3],  # 教室
-                        'kcmc': course_timetable_info[0],  # 课程名称
-                        'teaxms': course_timetable_info[2],  # 任课教师
-                        'xq': week,  # 星期几
-                        'zc': index  # 第几周
-                    })
-            elif cycle[2] == 1:
-                for index in range(cycle[0], cycle[1] + 1):
-                    if index % 2 != 0:
+                if cycle[2] == 0:
+                    for index in range(cycle[0], cycle[1] + 1):
                         course_timetable_list.append({
                             'jcdm': pitch_number,  # 第几节课
                             'jxcdmc': course_timetable_info[3],  # 教室
@@ -221,17 +217,28 @@ def getAllData():
                             'xq': week,  # 星期几
                             'zc': index  # 第几周
                         })
-            elif cycle[2] == 2:
-                for index in range(cycle[0], cycle[1] + 1):
-                    if index % 2 == 0:
-                        course_timetable_list.append({
-                            'jcdm': pitch_number,  # 第几节课
-                            'jxcdmc': course_timetable_info[3],  # 教室
-                            'kcmc': course_timetable_info[0],  # 课程名称
-                            'teaxms': course_timetable_info[2],  # 任课教师
-                            'xq': week,  # 星期几
-                            'zc': index  # 第几周
-                        })
+                elif cycle[2] == 1:
+                    for index in range(cycle[0], cycle[1] + 1):
+                        if index % 2 != 0:
+                            course_timetable_list.append({
+                                'jcdm': pitch_number,  # 第几节课
+                                'jxcdmc': course_timetable_info[3],  # 教室
+                                'kcmc': course_timetable_info[0],  # 课程名称
+                                'teaxms': course_timetable_info[2],  # 任课教师
+                                'xq': week,  # 星期几
+                                'zc': index  # 第几周
+                            })
+                elif cycle[2] == 2:
+                    for index in range(cycle[0], cycle[1] + 1):
+                        if index % 2 == 0:
+                            course_timetable_list.append({
+                                'jcdm': pitch_number,  # 第几节课
+                                'jxcdmc': course_timetable_info[3],  # 教室
+                                'kcmc': course_timetable_info[0],  # 课程名称
+                                'teaxms': course_timetable_info[2],  # 任课教师
+                                'xq': week,  # 星期几
+                                'zc': index  # 第几周
+                            })
 
     # 获取成绩页面数据
     # 先获取VIEWSTATE

@@ -131,9 +131,10 @@ Page({
   },
 
   search_Input: function (e) {
+    var that = this
     console.log("e.", e.detail.value)
     console.log("this.data.noramalData", this.data.noramalData)
-    const setEmptyStatus = () => {
+    const setEmptyStatus = (res) => {
       currentPage = 0
       this.data.leftList = []
       this.data.rightList = []
@@ -160,7 +161,7 @@ Page({
         },
         success: res => {
           if (res.result.data.length != 0) {
-            setEmptyStatus()
+            setEmptyStatus(res)
             this.data.tabitem[0].type = 1
             this.setData({
               leftList: this.data.leftList,
