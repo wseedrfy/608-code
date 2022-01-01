@@ -69,7 +69,7 @@
   width:20rpx;
   height:20rpx;
   position:sticky;
-  left: 270rpx;
+  left: 240rpx;
   bottom: 13rpx;
 }
 .commentImg{

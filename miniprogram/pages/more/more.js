@@ -131,9 +131,10 @@ Page({
   },
 
   search_Input: function (e) {
+    var that = this
     console.log("e.", e.detail.value)
     console.log("this.data.noramalData", this.data.noramalData)
-    const setEmptyStatus = () => {
+    const setEmptyStatus = (res) => {
       currentPage = 0
       this.data.leftList = []
       this.data.rightList = []
@@ -160,7 +161,7 @@ Page({
         },
         success: res => {
           if (res.result.data.length != 0) {
-            setEmptyStatus()
+            setEmptyStatus(res)
             this.data.tabitem[0].type = 1
             this.setData({
               leftList: this.data.leftList,
@@ -519,13 +520,14 @@ Page({
   onShow: function () {
     // console.log(app.globalData.List,21)
     var index = this.data.directionIndex
+    console.log(app.globalData.leftList, 244)
+    this.data.leftList = app.globalData.leftList || this.data.leftList 
+    this.data.rightList = app.globalData.rightList || this.data.rightList 
     if (this.data.direction == "Left") {
-      this.data.leftList = app.globalData.List ? app.globalData.List : this.data.leftList
       this.data.leftList[index].CommentList = app.globalData.Comment //回复全局
       this.data.leftList[index].Star = app.globalData.Star_count
       this.data.leftList[index].Star_User = app.globalData.Star_User
     } else if (this.data.direction == "Right") {
-      this.data.rightList = app.globalData.List ? app.globalData.List : this.data.rightList
       this.data.rightList[index].CommentList = app.globalData.Comment //回复全局
       this.data.rightList[index].Star = app.globalData.Star_count
       this.data.rightList[index].Star_User = app.globalData.Star_User

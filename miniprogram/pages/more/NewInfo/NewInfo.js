@@ -36,10 +36,14 @@ Page({
   },
   //访问网络,请求数据  
   getData() {
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
     let args = wx.getStorageSync('args')
     let be_character = {         // 用户自己
        iconUrl: args.iconUrl,
-       nickName: args.nickName
+       nickName: args.nickName,
     }
     let that = this;
     // 第一次加载数据
@@ -54,10 +58,12 @@ Page({
       data: {
         be_character:be_character,
         currentPage:currentPage,
+        be_username: args.username,
         pageSize:pageSize,
         type:'ReadControlLogs'
       },
       success(res) {
+        wx.hideLoading()
         if (res.result.data && res.result.data.length > 0) {
           console.log("请求成功", res.result.data)
           currentPage++
@@ -87,6 +93,10 @@ Page({
         }
       },
       fail(res) {
+        wx.showToast({
+          title: '请求失败',
+          icon: 'none',
+        })
         console.log("请求失败", res)
         that.setData({
           loadAll: false,

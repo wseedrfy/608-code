@@ -244,6 +244,10 @@ Page({
         "nickName": that.data.args.nickName,
         "username": that.data.args.username
       }
+      wx.showLoading({
+        title: '发送中',
+        mask: true
+      })
       this.data.CommentList.push(add)
       wx.cloud.callFunction({
         name: 'CampusCircle',
@@ -255,10 +259,15 @@ Page({
           type: 'writeComment'
         },
         success: res => {
+          wx.hideLoading()
           console.log("成功添加",res);
           that.ShowComment()
         },
         fail: err => {
+          wx.showToast({
+            title: '请求失败',
+            icon: 'none',
+          })
           console.error
         }
       })

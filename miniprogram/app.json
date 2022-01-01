@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/more/more",
     "pages/index/index",
+    "pages/more/more",
     "pages/curriculum/curriculum",
     "pages/myself/myself",
     "pages/login/login",
@@ -23,29 +23,30 @@
     "backgroundColor": "#F6F6F6"
   },
   "tabBar": {
+    "selectedColor":"#6eaddf",
     "list": [
       {
         "pagePath": "pages/index/index",
-        "iconPath": "/images/tabbar/basics.png",
-        "selectedIconPath": "/images/tabbar/basics_sel.png",
+        "iconPath": "/images/tabbar/主页.png",
+        "selectedIconPath": "/images/tabbar/主页_sel.png",
         "text": "首页"
       },
       {
         "pagePath": "pages/curriculum/curriculum",
-        "iconPath": "/images/tabbar/cur.png",
-        "selectedIconPath": "/images/tabbar/cur_sel.png",
+        "iconPath": "/images/tabbar/课程表.png",
+        "selectedIconPath": "/images/tabbar/课程表_sel.png",
         "text": "课表"
       },
       {
         "pagePath": "pages/more/more",
-        "iconPath": "/images/tabbar/circle.png",
-        "selectedIconPath": "/images/tabbar/circle_sel.png",
+        "iconPath": "/images/tabbar/圈子.png",
+        "selectedIconPath": "/images/tabbar/圈子_sel.png",
         "text": "校园圈"
       },
       {
         "pagePath": "pages/myself/myself",
-        "iconPath": "/images/tabbar/about.png",
-        "selectedIconPath": "/images/tabbar/about_sel.png",
+        "iconPath": "/images/tabbar/作者.png",
+        "selectedIconPath": "/images/tabbar/作者_sel.png",
         "text": "我的"
       }
     ]

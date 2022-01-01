@@ -16,6 +16,7 @@ Page({
     },
   },
   onLoad() {
+    
     var that = this
     var myselfData = wx.getStorageSync('myselfData')
     if(myselfData){

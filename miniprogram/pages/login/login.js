@@ -63,14 +63,6 @@ Page({
       success: (res) => {
         console.log(res.userInfo)
         console.log(that.data.school[that.data.index])
-        var data = {
-          url: 'login',
-          username: that.data.user,
-          password: that.data.pwd,
-          nickName: res.userInfo.nickName, 
-          iconUrl: res.userInfo.avatarUrl,
-          school: that.data.school[that.data.index]
-        }
         app.globalData.school = that.data.school[that.data.index]
         wx.cloud.callFunction({
           name: 'api',

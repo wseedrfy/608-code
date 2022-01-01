@@ -62,10 +62,14 @@ async function read(event) {
   var obj = {
     School: event.School
   }
-  event.ShowId != "全部" ? obj[Label] = event.ShowId : '';
+  event.ShowId != "全部" ? obj["Label"] = event.ShowId : '';
 
-  try {
-    return await db.collection('Campus-Circle').orderBy('Time', 'desc').where(obj).skip(skipPage).limit(10).get();
+  try {  
+
+    if(event.School === '茂名职业技术学院'){
+      return await db.collection('Campus-Circle').orderBy('indexFront', 'desc').orderBy('Star', 'desc').where(obj).skip(skipPage).limit(10).get();
+    }
+    return await db.collection('Campus-Circle').orderBy('indexFront', 'desc').orderBy('Time', 'desc').where(obj).skip(skipPage).limit(10).get();
   } catch (e) {
     console.error(e);
   }
