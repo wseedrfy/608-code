@@ -5,31 +5,29 @@
 </view>
 
 <view wx:if="{{campus_account!=true}}" class="page">
-  <view style="z-index:2; position:fixed; background-color: white;">
-    <view class="head">
-      <!-- 状态栏 -->
-      <view style="height: {{statusBarHeight}}px;" />
-      <!-- 导航栏 -->
-      <view class="head_second" style="height: {{lineHeight}}px;">
-        <!-- 头像 -->
-        <view class="avatarBox">
-          <image class="avatar" src="{{iconUrl}}" catchtap="naviToMyself"></image>
+  <view class="head">
+    <!-- 状态栏 -->
+    <view style="height: {{statusBarHeight}}px;" />
+    <!-- 导航栏 -->
+    <view class="head_second" style="height: {{lineHeight}}px;">
+      <!-- 头像 -->
+      <view class="avatarBox">
+        <image src="{{iconUrl}}" catchtap="naviToMyself"></image>
+      </view>
 
-        </view>
-        <!-- 搜索框 -->
-        <view class="searchFrame">
-          <image src="../../images/search.png" />
-          <input class="SearchInput" value="{{search}}" bindinput="search_Input" />
-        </view>
-        <!-- 消息列表 -->
-        <view class="newInfo">
-          <image src="../../images/information.png" bindtap="navigate" id="NewInfo"></image>
-          <!-- 消息提示 -->
-          <view class="redPointBox" catchtap="naviToNews" wx:if="{{NewInfo}}">
-            <view class="redPoint">
-              <text class="news">{{NewInfo}}</text>
-            </view>
-          </view>
+      <!-- 搜索框 -->
+      <view class="searchFrame">
+        <image src="../../images/search.png" />
+        <input value="{{search}}" bindinput="search_Input" />
+      </view>
+
+      <!-- 消息列表 -->
+      <!-- <view class="newInfo" style="{{'--NewInfo:' + '\"' +  NewInfo + '\"'}};"> -->
+      <view class="newInfo">
+        <image src="../../images/information.png" bindtap="navigate" id="NewInfo"></image>
+        <!-- 消息提示 -->
+        <view class="newInfo_redPoint" catchtap="naviToNews" wx:if="{{NewInfo}}">
+          <text>{{NewInfo}}</text>
         </view>
       </view>
     </view>

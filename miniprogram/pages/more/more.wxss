@@ -4,85 +4,89 @@ page{
   margin: 0;
   background-color: #f5f5f54d;
 }
+.head{
+  position:fixed; 
+  background-color: white;
+  z-index: 2;
+}
 .head_second {
   display: flex;
   align-items: center;
   font-size: 30rpx;
-  width: 750rpx;
-}
-.searchFrame{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 240rpx;
-  height: 50rpx;
-  line-height: 50rpx;
-  margin-left: 10rpx;
-  font-size: 25rpx;
-  border-radius: 15rpx;
-  background-color: rgba(202, 202, 202, 0.342);
+  width: 100vw;
 }
 .avatarBox {
-  position: relative;
+  display: flex;
+  align-items: center;
+  padding-left: 20rpx;
 }
-.avatar {
-  margin-left: 20rpx;
+.avatarBox image{
   width: 65rpx;
   height: 65rpx;
   border-radius: 50%;
 }
-.redPointBox {
-  position: absolute;
-  right: -11rpx;
-  top: -4rpx;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 35rpx;
-  height: 35rpx;
-  background-color: #fff;
-  border-radius: 50%;
-}
-.redPoint {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 30rpx;
-  height: 30rpx;
-  /* background-color: rgb(251, 114, 153); */
-  background-color:rgba(230,130,130,1);
-  border-radius: 60%;
-}
-.redPoint .news {
-  font-size: 20rpx;
-  color: #fff;
-}
-.head_second .newInfo {
-  position: relative;
-  display: flex;
-}
-.head_second .newInfo image {
-  position: relative;
-  width: 50rpx;
-  height: 50rpx;
-  margin-left: 10rpx;
-}
 
-.head_second .searchFrame {
+.searchFrame{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50rpx;
   width: 47%;
+  font-size: 25rpx;
+  border-radius: 15rpx;
+  background-color: rgba(202, 202, 202, 0.342);
   margin-left: 20rpx;
 }
-.head_second .searchFrame image {
-  position: relative;
+.searchFrame image {
   margin: 10rpx;
   width: 30rpx;
   height: 30rpx;
 }
-.SearchInput{
+.searchFrame input{
   width:95%;
   padding:0rpx 3rpx;
   color: rgb(142, 142, 142);
 }
+
+.newInfo {
+  position: relative;
+  display: flex;
+  margin-left: 10rpx;
+}
+/* .newInfo::after{
+  content: var(--NewInfo);
+  position: relative;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  background-color: rgba(230,130,130,1);
+  border-radius: 50%;
+  width: 30rpx;
+  height: 30rpx;
+  right: 25%;
+  color: white;
+} */
+.newInfo image {
+  width: 50rpx;
+  height: 50rpx;
+}
+.newInfo_redPoint {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 50%;
+  width: 30rpx;
+  height: 30rpx;
+  border-radius: 50%;
+  background-color:rgba(230,130,130,1);
+}
+.newInfo_redPoint text {
+  font-size: 20rpx;
+  color: #fff;
+}
+
 .content{
   display: flex;
   flex-direction: row;
