@@ -6,7 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    html : [{type: 'view', text: '模版错误啦'}]
+    html : [{type: 'view', text: '模版错误啦'}],
+    
   },
 
   /**
@@ -17,8 +18,9 @@ Page({
     var args = wx.getStorageSync('args')
     if (args) {
       try {
+        console.log(options)
         var onload = app.jsRun(args, args.otherPageCode[options.content])
-        onload(that)
+        onload(that, options)
       } catch (e) {
         console.log(e)
       }
@@ -103,7 +105,15 @@ parseTag(tag) {
           // 去空格再以= 分隔字符串  得到['属性名称','属性值']
           let c = classList[i].replace(/\s*/g, "").split("=");
           // 循环设置属性
-          if (c[1]) res[c[0]] = c[1].substring(1, c[1].length - 1);
+          let p = c[1].substring(1, c[1].length - 1)
+          try{
+            p = JSON.parse(c[1].substring(1, c[1].length - 1))
+          }catch{
+           
+          }
+
+          if (c[1]) res[c[0]] = p;
+
       }
   }
   return res;
@@ -116,7 +126,6 @@ parse(html) {
   let level = -1;
   let arr = [];
   let tagRE = /<[a-zA-Z\-\!\/](?:"[^"]*"['"]*|'[^']*'['"]*|[^'">])*>/g;
-
   html.replace(tagRE, function (tag, index) {
       // 判断第二个字符是不是'/'来判断是否open
       let isOpen = tag.charAt(1) !== "/";
@@ -143,6 +152,7 @@ parse(html) {
           if (parent) {
               parent.children.push(current);
           }
+          // console.log(current)
           arr[level] = current;
       }
       // 如果不是开标签，或者是空元素：</div><img>
@@ -151,7 +161,9 @@ parse(html) {
           level--;
       }
   });
+  // console.log(result)
   return result;
+
 }
 
 

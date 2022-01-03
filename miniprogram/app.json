@@ -1,4 +1,9 @@
 {
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
+  },
   "pages": [
     "pages/index/index",
     "pages/more/more",
@@ -52,5 +57,6 @@
     ]
   },
   "style": "v2",
+
   "sitemapLocation": "sitemap.json"
 }

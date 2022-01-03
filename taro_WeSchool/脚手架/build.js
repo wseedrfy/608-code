@@ -7,7 +7,7 @@ fs.readFile('dist/index.js', (err, buffer) => {
     let str = buffer.toString()
     // print(str)
     str = str.replace(/\\n/g,"");        
-    str = str.replace(/\\"/g,"");  
+    str = str.replace(/\\"/g,"'");  
     console.log(str);
 
     fs.writeFile('dist/index.js', str, { encoding: 'utf8' }, err => {})
