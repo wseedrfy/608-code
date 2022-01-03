@@ -63,35 +63,7 @@ Page({
 
   },
   click(){
-
-    console.log(a)
-    // let a = "asd";
-    {
-      // var a;
-    }
-
-  },
-  input(e) {
-    console.log(e.detail.value)
-    console.log(e.target.id)
-  },
-  h1() {
-    console.log("h1")
-  },
-  h2() {
-    console.log("h2")
-  },
-  h3() {
-    console.log("h3")
-  },
-  h4() {
-    console.log("h4")
-  },
-  h5() {
-    console.log("h5")
-  },
-  h6() {
-    console.log("h6")
+    this.cloudFunctionTest()
   },
 
   onShow() {
@@ -156,6 +128,18 @@ Page({
     context.arc(x, y, 3, 0, 2 * Math.PI);
     context.fill();
     context.stroke()
+  },
+
+  cloudFunctionTest(){
+    wx.cloud.callFunction({
+      name: "test",
+      data: {},
+      success(res){
+        console.log(res)
+      },
+      fali:console.error
+    })
+
   }
 
 })

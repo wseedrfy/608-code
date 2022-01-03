@@ -83,6 +83,7 @@ Page({
     app.loginState()
     this.kb(util.getweekString());
     this.initWeek()
+    this.initWlistPoint()
   },
 
   onShareAppMessage: function (res) {
@@ -110,15 +111,11 @@ Page({
     if (moveFlag) {
       if (endX - startX > 50) {
         moveFlag = false;
-        this.setData({
-          whichWeek: this.data.whichWeek - 1,
-        })
+        this.kb(this.data.whichWeek - 1);
       }
       if (startX - endX > 50) {
         moveFlag = false;
-        this.setData({
-          whichWeek: this.data.whichWeek + 1,
-        })
+        this.kb(this.data.whichWeek + 1);
       }
     }
   
@@ -135,38 +132,22 @@ Page({
     },
   // 触摸结束事件
   touchEnd: function (e) {
-    this.kb(this.data.whichWeek);
+    // this.kb(this.data.whichWeek);
     console.log(this.data.whichWeek)
     moveFlag = true; // 回复滑动事件
   },
-  // 上一周
-  prevWeekHandler: function (e) {
-    this.setData({
-      whichWeek: this.data.whichWeek - 1,
-    })
-    this.kb(this.data.whichWeek);
-  },
-  // 下一周
-  nextWeekHandler: function (e) {
-    this.setData({
-      whichWeek: this.data.whichWeek + 1,
-    })
-    this.kb(this.data.whichWeek);
-  },
+
   // 日期切换处理函数  返回时间格式 YYYY-MM-DD
   showDate(n) { 
     var date = new Date(wx.getStorageSync('configData').timeYear);
     date.setDate(date.getDate() + n);
     var month = date.getMonth() + 1
-    month = month > 10 ? month : month // 格式化月份
-    this.setData({
-      month
-    })
     var day = date.getDate()
     day = day > 9 ? day : "0" + day // 格式化日期
     date = "" + month + "/" + day;
-    return date;
+    return [month,date];
   },
+
   // 显示当前周的课表
   kb: function (whichWeek) {
     var that = this;
@@ -174,39 +155,28 @@ Page({
     whichWeek = whichWeek > 0 ? whichWeek : 1;
     var whichWeek_now = (Number(whichWeek) - 1) * 7;
     var arr = [];
-    for (var i = 0; i < 7; i++) {
-      arr.push(this.showDate(whichWeek_now + i));
-    }
-    if (whichWeek > '20') {
+
+    if (whichWeek > '20' || whichWeek < '1') {
       wx.showModal({
         showCancel: false,
         title: '提示',
         content: '超过范围'
       })
-      whichWeek = 20;
-    } else if (whichWeek < '1') {
-      whichWeek = 1;
+      return null;
+    }
+    
+    for (var i = 0; i < 7; i++) {
+      var [month, date] = this.showDate(whichWeek_now + i)
+      arr.push(date);
+      if(i == 6) this.setData({month})
     }
     var personalInformation = wx.getStorageSync('personalInformation')
     var curriculum = personalInformation.curriculum;
     var wlist = [];
     var zc = 0;
-    //处理的绿色小点点
-    var wlistPoint = new Array();
-    for (var i = 0; i < 20; i++) { 
-      wlistPoint[i] = new Array();
-      for (var j = 0; j < 35; j++) {
-        wlistPoint[i][j] = null;
-      }
-    }
+
     for (let i in curriculum) {
       zc = curriculum[i].zc;
-      for (let j = 0; j < 20; j++) {
-        if (j + 1 === Number(zc)) {
-          let bright_skjc = Number(curriculum[i].jcdm.substr(0, 2)) + 1
-          wlistPoint[j][((bright_skjc / 2 - 1) * 7 + Number(curriculum[i].xq)) - 1] = 1
-        }
-      }
       if (zc == whichWeek) {
         var kcmcc = curriculum[i].kcmc;
         if ((curriculum[i].kcmc + curriculum[i].jxcdmc).length > 20) {
@@ -226,13 +196,33 @@ Page({
     that.setData({
       arr,
       whichWeek,
-      wlist,
       multiIndex: [(Number(whichWeek) - 1), 0, 0, 0],
-      wlistPoint,
+      wlist
     })
 
   },
 
+  // 生成小绿点
+  initWlistPoint(){
+    var personalInformation = wx.getStorageSync('personalInformation')
+    var curriculum = personalInformation.curriculum;
+    //处理的绿色小点点
+    var wlistPoint = new Array();
+    for (var i = 0; i < 20; i++) { 
+      wlistPoint[i] = new Array();
+      for (var j = 0; j < 35; j++) {
+        wlistPoint[i][j] = null;
+      }
+    }
+    for (let i in curriculum) {
+      var zc = curriculum[i].zc;
+      let bright_skjc = Number(curriculum[i].jcdm.substr(0, 2)) + 1
+      wlistPoint[zc-1][((bright_skjc / 2 - 1) * 7 + Number(curriculum[i].xq)) - 1] = 1
+    }
+    this.setData({
+      wlistPoint
+    })
+  },
 
   // 点击时显示toast
   showCardView: function (e) {
