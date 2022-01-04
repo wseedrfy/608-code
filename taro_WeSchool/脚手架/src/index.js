@@ -7,7 +7,10 @@ function runCode(that, e) {
   wx.setNavigationBarTitle({ title: 'We校园-校内导航' });
 
   //that.data
-  that.data = {}
+  that.data = {
+    data: "hello world",
+    html: ""
+  }
 
   /**
    * 生命周期函数--监听页面加载
@@ -31,17 +34,23 @@ function runCode(that, e) {
   };
 
 
-  const html = 
-  `
-    <view class="gggg   hhh">
-      hello world
-    </view>
-  `
+
+  that.test = function() {
+    that.data.data = "sssss"
+    that.reSetPage()
+  }
 
   //每一次刷新建议重新调用
   that.reSetPage = function () {
+    that.data.html = 
+    `
+      <view class="gggg   hhh">
+        ${that.data.data}
+        <button bindtap="test">   </button>
+      </view>
+    `
     that.setData({
-      html: that.parse(html)
+      html: that.parse(that.data.html)
     });
   };
 
