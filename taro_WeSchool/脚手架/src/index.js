@@ -36,8 +36,11 @@ function runCode(that, e) {
 
 
   that.test = function() {
-    that.data.data = "sssss"
+    that.data.data = "sssss" + Math.ceil(Math.random()*10)
     that.reSetPage()
+    that.setData({
+      data: that.data.data
+    });
   }
 
   //每一次刷新建议重新调用
