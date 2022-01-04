@@ -30,26 +30,33 @@ fs.readFile('dist/index.js', (err, buffer) => {
         let p = allcss[i].match(regexp);
         s.add({[p[1]] : p[2]})
       }
-      // console.log(css);
+      // console.log(str);
+      
+      let allStrClass = str.match(/class(.*)="(.*)"/g) ?  str.match(/class(.*)="(.*)"/g) : []; 
 
+      allStrClass = [...allStrClass,  ...str.match(/class='(.*?)*?'/g)]
 
-      let allStrClass = str.match(/class(.*)="(.*)"/g); 
-      for (i in allStrClass ){
-        var regexp = /class(.*)="(.*)"/;
-        let p = allStrClass[i].match(regexp)[2];
+      console.log(allStrClass, 233)
+
+      for (i in allStrClass){
+        var regexp = /class='(.*?)'/;
+        let p = allStrClass[i].match(regexp)[1];
         let newStyle = p.split(/\s+/)
+        console.log(newStyle)
         let Style = ""
         for (j in newStyle ){
           for (let x of s) {
+            // console.log(Object.keys(x)[0])
             if(newStyle[j] === Object.keys(x)[0]){
               Style = Style + x[Object.keys(x)[0]]
               // break;
             }
           }  
         }
-        allStrClass[i] = allStrClass[i].replace( /class(.*)="(.*)"/g,  'style="' + Style + '"')
+        allStrClass[i] = allStrClass[i].replace( /class='(.*?)'/,  'style=\'' + Style + '\'')
+        // console.log(allStrClass[i])
       }
-      let allStrClass1 = str.match(/class(.*)="(.*)"/g); 
+      let allStrClass1 = str.match(/class='(.*?)*?'/g); 
       for(i in allStrClass1){
         // console.log(allStrClass1[i], allStrClass[i])
         str = str.replace(String(allStrClass1[i]), allStrClass[i])
