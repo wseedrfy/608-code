@@ -918,55 +918,55 @@
 </template>
 
 <template name="test-input1">
-    <input bindinput="{{item.bindinput}}"  src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <input value="{{item.value}}" bindinput="{{item.bindinput}}"  src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
     <text>{{item.text}}</text>
     </input>
 </template>
 
 <template name="test-input2">
-    <input bindinput="{{item.bindinput}}"  src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <input value="{{item.value}}" bindinput="{{item.bindinput}}"  src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
     <text>{{item.text}}</text>
     </input>
 </template>
 
 <template name="test-input3">
-    <input bindinput="{{item.bindinput}}"  src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <input value="{{item.value}}" bindinput="{{item.bindinput}}"  src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
     <text>{{item.text}}</text>
     </input>
 </template>
 
 <template name="test-input4">
-    <input bindinput="{{item.bindinput}}"  src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <input value="{{item.value}}" bindinput="{{item.bindinput}}"  src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
     <text>{{item.text}}</text>
     </input>
 </template>
 
 <template name="test-input5">
-    <input bindinput="{{item.bindinput}}"  src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <input value="{{item.value}}" bindinput="{{item.bindinput}}"  src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
     <text>{{item.text}}</text>
     </input>
 </template>
 
 <template name="test-input6">
-    <input bindinput="{{item.bindinput}}"  src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <input value="{{item.value}}" bindinput="{{item.bindinput}}"  src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
     <text>{{item.text}}</text>
     </input>
 </template>
 
 <template name="test-input7">
-    <input bindinput="{{item.bindinput}}"  src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <input value="{{item.value}}" bindinput="{{item.bindinput}}"  src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
     <text>{{item.text}}</text>
     </input>
 </template>
 
 <template name="test-input8">
-    <input bindinput="{{item.bindinput}}"  src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <input value="{{item.value}}" bindinput="{{item.bindinput}}"  src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
     <text>{{item.text}}</text>
     </input>
 </template>
 
 <template name="test-input9">
-    <input bindinput="{{item.bindinput}}"  src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <input value="{{item.value}}" bindinput="{{item.bindinput}}"  src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
     <text>{{item.text}}</text>
     </input>
 </template>

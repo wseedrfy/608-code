@@ -91,8 +91,21 @@ function runCode(that, e) {
     startY: 0,
     showModel: false,
     dates: "",
-    list: []
+    list: [],
+    dayName: "",
+    changeDay: ""
   }
+
+  that.showdates = function(e) {    //跳转到倒数日的详情页面
+    var index1 = e.currentTarget.id
+    var dates = that.data.list[index1]
+    var holidayName = dates.holidayName
+    var gapDays = dates.gapDays
+    var holidayDate = dates.holidayDate
+    wx.navigateTo({
+      url: "../calendar/addition/addition?Name=" + holidayName + "&gapDays=" + gapDays + "&Date=" + holidayDate,
+    })
+  },
 
   that.num_data = function (start_date1, end_date1) { //计算倒数日
     var start_date = new Date(start_date1.replace(/-/g, "/"));
@@ -101,7 +114,7 @@ function runCode(that, e) {
     var day = parseInt(days / (1000 * 60 * 60 * 24));
     return day * -1;
   },
-  
+
   that.terms = function () { //学年显示
     var year = '';
     if (new Date().getMonth() > 4) {
@@ -116,7 +129,7 @@ function runCode(that, e) {
      * 生命周期函数--监听页面加载
      */
     that.onShow = function () {
-
+      // that.setDataCalendar();
     };
 
   /**
@@ -139,7 +152,7 @@ function runCode(that, e) {
       title: '处理中',
       mask: true
     })
-    that.data.list.splice(e.currentTarget.dataset.index, 1)
+    that.data.list.splice(e.currentTarget.id, 1)
     app.globalData._adday = that.data.list
     wx.cloud.callFunction({
       name: 'readday',
@@ -153,7 +166,7 @@ function runCode(that, e) {
           title: '删除成功',
           icon: 'none',
         })
-        that.onShow()
+        that.setDataCalendar()
       },
       fail: err => {
         wx.showToast({
@@ -210,7 +223,7 @@ function runCode(that, e) {
             title: '添加成功',
             icon: 'none',
           })
-          that.onShow()
+          that.setDataCalendar()
         },
         fail: err => {
           wx.showToast({
@@ -231,7 +244,7 @@ function runCode(that, e) {
 
   that.edit =  function (e) {
     //保存到changeDay来调用状态
-    that.data.changeDay = e.currentTarget.dataset.index
+    that.data.changeDay = e.currentTarget.id
     that.data.dayName = app.globalData._adday[that.data.changeDay].holidayName
     that.data.dates = app.globalData._adday[that.data.changeDay].holidayDate
     that.reSetPage()
@@ -257,6 +270,7 @@ function runCode(that, e) {
         type: 'read'
       },
       success: res => {
+        res.result ? res.result : []
         app.globalData._adday = JSON.parse(res.result)
         that.setDataCalendar();
         wx.hideLoading({
@@ -327,16 +341,15 @@ function runCode(that, e) {
 
   that.feedbackHandler =  function () { //跳转到子页
     var showModel = that.data.showModel
-
-    that.data.changeDay = ""
-    that.data.dayName = ""
-    that.data.dates = ""
-    that.data.add_style = "add_hide"
     that.data.animation = wx.createAnimation({
       duration: 800,
       timingFunction: 'ease'
     });
     if (showModel) {
+      that.data.changeDay = ""
+      that.data.dayName = ""
+      that.data.dates = ""
+      that.data.add_style = "add_hide"
       that.data.animation.opacity(0).translateY('100%').step();
       that.reSetPage();
       setTimeout(function () {
@@ -402,11 +415,11 @@ function runCode(that, e) {
           </view>
       </view>
       
-      <view class="edit ${item.isTouchMove ? "touch-move-active" : ""} " catchtap="edit" id="${index}">
+      <view class="edit ${item.isTouchMove ? "touch-move-active" : ""} " bindtap="edit" id="${index}">
         <image  class="edit-image" src="../../images/edit.png"></image>
       </view>
 
-      <view class="del ${item.isTouchMove ? "touch-move-active" : ""} " catchtap="del" id="${index}">
+      <view class="del ${item.isTouchMove ? "touch-move-active" : ""} " bindtap="del" id="${index}">
         <image  class="del-image" src="../../images/del.png"></image>
       </view>
     </view>`
@@ -435,7 +448,7 @@ function runCode(that, e) {
       </view>
       <view class="course">  
         名称:
-        <input style="padding-top:2rpx;padding-left: 10rpx;" placeholder="名称"  bindinput="bindInputChange"></input>
+        <input value="${that.data.dayName} " style="padding-top:2rpx;padding-left: 10rpx;" placeholder="名称"  bindinput="bindInputChange"></input>
       </view>
       <view class="section" dates='1'>  
         <picker mode="date" start="1978-01-01" end="2050-1-23" bindchange="bindDateChange">  
