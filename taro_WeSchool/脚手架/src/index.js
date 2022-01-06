@@ -33,7 +33,7 @@ function runCode(that, e) {
 
 
   that.touchstart = function (e) { //开始触摸时 重置所有删除
-    this.data.list.forEach(function (v, i) {
+    that.data.list.forEach(function (v, i) {
       if (v.isTouchMove) //只操作为true的
         v.isTouchMove = false;
     })
@@ -81,7 +81,6 @@ function runCode(that, e) {
   }
 
   that.data = {
-    data: "hello world",
     html: "",
     jsonContent: {
       day: new Date().getDate(),
@@ -90,11 +89,20 @@ function runCode(that, e) {
     },
     startX: 0, //开始坐标
     startY: 0,
-    showModel: false
-
+    showModel: false,
+    dates: "",
+    list: []
   }
 
-  that.term = function () { //学年显示
+  that.num_data = function (start_date1, end_date1) { //计算倒数日
+    var start_date = new Date(start_date1.replace(/-/g, "/"));
+    var end_date = new Date(end_date1.replace(/-/g, "/"));
+    var days = end_date.getTime() - start_date.getTime();
+    var day = parseInt(days / (1000 * 60 * 60 * 24));
+    return day * -1;
+  },
+  
+  that.terms = function () { //学年显示
     var year = '';
     if (new Date().getMonth() > 4) {
       year = new Date().getFullYear() + '-' + (new Date().getFullYear() + 1) + '学年' + ' ' + '第' + 1 + '学期'
@@ -118,43 +126,214 @@ function runCode(that, e) {
 
   };
 
+  that.compare = function (property) {
+    return function (a, b) {
+      var value1 = a[property];
+      var value2 = b[property];
+      return value1 - value2;
+    }
+  },
+
+  that.del =  function (e) { //删除倒数日  
+    wx.showLoading({
+      title: '处理中',
+      mask: true
+    })
+    that.data.list.splice(e.currentTarget.dataset.index, 1)
+    app.globalData._adday = that.data.list
+    wx.cloud.callFunction({
+      name: 'readday',
+      data: {
+        _adday: JSON.stringify(that.data.list),
+        username: wx.getStorageSync('args').username,
+        type: 'write'
+      },
+      success: res => {
+        wx.showToast({
+          title: '删除成功',
+          icon: 'none',
+        })
+        that.onShow()
+      },
+      fail: err => {
+        wx.showToast({
+          title: '删除失败',
+          icon: 'none',
+        })
+      }
+    })
+  },
+
+
+  that.addSubmit =  function (e) {
+    //判断是否修改状态
+
+    wx.showLoading({
+      title: '处理中',
+      mask: true
+    })
+
+    if (that.data.dayName == null || that.data.dayName == "" || that.data.dayName == undefined) { //判断填写是否为空
+      wx.showToast({
+        title: '名称不能为空',
+        icon: 'none',
+        duration: 1000
+      })
+    } else if (that.data.dates == null || that.data.dates == "" || that.data.dates == undefined) {
+      wx.showToast({
+        title: '日期不能为空',
+        icon: 'none',
+        duration: 1000
+      })
+    } else {
+      var add = {
+        'holidayName': that.data.dayName,
+        'holidayDate': that.data.dates,
+      }
+      if (that.data.changeDay !== "") {
+        app.globalData._adday[that.data.changeDay].holidayName = that.data.dayName
+        app.globalData._adday[that.data.changeDay].holidayDate = that.data.dates
+      } else {
+
+        app.globalData._adday.push(add)
+      }
+
+      wx.cloud.callFunction({ //访问云函数
+        name: 'readday',
+        data: {
+          _adday: JSON.stringify(app.globalData._adday),
+          username: wx.getStorageSync('args').username,
+          type: 'write'
+        },
+        success: res => {
+          wx.showToast({
+            title: '添加成功',
+            icon: 'none',
+          })
+          that.onShow()
+        },
+        fail: err => {
+          wx.showToast({
+            title: '添加失败',
+            icon: 'none',
+          })
+        },
+        complete() {
+          that.data.changeDay = ""
+          that.data.dayName = ""
+          that.data.dates = ""
+          that.data.showModel = !that.data.showModel
+          that.reSetPage()
+        }
+      })
+    }
+  }
+
+  that.edit =  function (e) {
+    //保存到changeDay来调用状态
+    that.data.changeDay = e.currentTarget.dataset.index
+    that.data.dayName = app.globalData._adday[that.data.changeDay].holidayName
+    that.data.dates = app.globalData._adday[that.data.changeDay].holidayDate
+    that.reSetPage()
+    that.feedbackHandler()
+  }
+
+
+
   /**
    * 生命周期函数--监听页面加载
    */
   that.onload = function () {
-    that.term()
+    app.loginState();
+    that.terms();
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+    wx.cloud.callFunction({
+      name: 'readday',
+      data: {
+        username: wx.getStorageSync('args').username,
+        type: 'read'
+      },
+      success: res => {
+        app.globalData._adday = JSON.parse(res.result)
+        that.setDataCalendar();
+        wx.hideLoading({
+          success: (res) => {},
+        })
+      },
+      fail: err => {
+        console.log(err)
+      }
+    })
   };
 
 
-  that.test = function () {
-    that.data.data = "sssss" + Math.ceil(Math.random() * 10)
-    that.reSetPage()
-    that.setData({
-      data: that.data.data
-    });
-  }
+  that.setDataCalendar = function () { //页面渲染全部倒数日
+    var addday = app.globalData._adday;
+    var xlist = [];
+    var xlist1 = [];
+    var nowdate = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
+    for (let i = 0; i < addday.length; i++) {
+      var gapDays2 = that.num_data(addday[i].holidayDate, nowdate);
+      if (gapDays2 > 0) {
+        xlist.push({
+          holidayName: addday[i].holidayName,
+          holidayDate: addday[i].holidayDate,
+          gapDays: gapDays2,
+          holidayRestInfo: addday[i].holidayDate,
+          isTouchMove: false
+        })
+      } else {
+        xlist1.push({
+          holidayName: addday[i].holidayName,
+          holidayDate: addday[i].holidayDate,
+          gapDays: gapDays2,
+          holidayRestInfo: addday[i].holidayDate,
+          isTouchMove: false
+        })
+      }
+    }
 
-  that.data.list = [{
-    isTouchMove: false,
-    gapDays: 2,
-    holidayName: "2323"
+    var list = xlist.sort(that.compare("gapDays")).concat(xlist1.sort(that.compare("gapDays")).reverse())
+    app.globalData._adday = list
+    that.data.show = ""
+    that.data.list = list
+    that.reSetPage()
   },
-  {
-    isTouchMove: false,
-    gapDays: 2,
-    holidayName: "ddd"
-  }
-  ]
+
+  that.bindDateChange = function (e) { //获取倒数日日期
+      that.data.dates = e.detail.value
+      that.reSetPage()
+  },
+
+  that.bindInputChange = function (e) { //获取倒数日日期
+    that.data.dayName = e.detail.value
+    that.reSetPage()
+},
+
+  // that.data.list = [{
+  //   isTouchMove: false,
+  //   gapDays: 2,
+  //   holidayName: "2323"
+  // },
+  // {
+  //   isTouchMove: false,
+  //   gapDays: 2,
+  //   holidayName: "ddd"
+  // }
+  // ]
 
   that.feedbackHandler =  function () { //跳转到子页
-    var showModel = this.data.showModel
+    var showModel = that.data.showModel
 
     that.data.changeDay = ""
     that.data.dayName = ""
     that.data.dates = ""
     that.data.add_style = "add_hide"
     that.data.animation = wx.createAnimation({
-      duration: 1000,
+      duration: 800,
       timingFunction: 'ease'
     });
     if (showModel) {
@@ -163,7 +342,7 @@ function runCode(that, e) {
       setTimeout(function () {
         that.data.showModel = !showModel;
         that.reSetPage();
-      }, 800);
+      }, 700);
     } else {
       that.data.showModel = !showModel;
       that.data.animation.opacity(0).translateY('100%').step();
@@ -182,7 +361,7 @@ function runCode(that, e) {
     })*/
   }
   that.data.animation = wx.createAnimation({
-    duration: 1000,
+    duration: 800,
     timingFunction: 'ease'
   });
   that.data.animation.opacity(0).translateY('100%').step();
@@ -256,18 +435,18 @@ function runCode(that, e) {
       </view>
       <view class="course">  
         名称:
-        <input style="padding-top:2rpx;padding-left: 10rpx;" placeholder="名称"  model:value="{{dayName}}"></input>
+        <input style="padding-top:2rpx;padding-left: 10rpx;" placeholder="名称"  bindinput="bindInputChange"></input>
       </view>
-      <view class="section" bindtap='bindDateChange' dates='1'>  
-        <picker mode="date" value="${that.data.date}" start="1978-01-01" end="2050-1-23" bindchange="bindDateChange">  
+      <view class="section" dates='1'>  
+        <picker mode="date" start="1978-01-01" end="2050-1-23" bindchange="bindDateChange">  
           <view class="picker">  
-            日期:   ${that.data.date}  
+            日期:   ${that.data.dates}  
           </view>  
         </picker>  
       </view>
       <view class="add_btn">
-        <button bindtap="feedbackHandler">取 消</button>
-        <button bindtap="addSubmit" >保 存</button>
+        <button class="add_btn-button" bindtap="feedbackHandler">取 消</button>
+        <button class="add_btn-button" bindtap="addSubmit" >保 存</button>
       </view>
     </view>
 </view>
