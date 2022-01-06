@@ -152,6 +152,7 @@ Page({
       }
     }
     if (e.detail.value) {
+      console.log("search")
       wx.cloud.callFunction({
         name: "CampusCircle",
         data: {
@@ -346,6 +347,7 @@ Page({
     }
   },
   setTab: function (e) {
+    console.log(e)
     var arry = this.data.tabitem
     if (this.data.Showtabitem == 1) {
       arry[0].type = 0
@@ -390,59 +392,6 @@ Page({
     })
   },
 
-  formSubmit: function (e) { //添加与存储
-    let {
-      formTitle,
-      formText
-    } = e.detail.value
-
-    var that = this
-    if (!formTitle) {
-      wx.showToast({
-        title: '标题不能为空',
-        icon: 'none'
-      })
-    } else if (!formText) {
-      wx.showToast({
-        title: '文字不能为空',
-        icon: 'none'
-      })
-    } else if (that.data.photo.length == 0) {
-      wx.showToast({
-        title: '图片不能为空',
-        icon: 'none'
-      })
-    } else if (!that.data.choosenLabel) {
-      wx.showToast({
-        title: '标签不能为空',
-        icon: 'none'
-      })
-    } else if (!that.data.nickname && !that.data.iconUrl) {
-      wx.showToast({
-        title: '小主还没登录哟QwQ',
-        icon: 'none'
-      })
-    } else {
-      var add = {
-        "Cover": that.data.photo[0],
-        "AllPhoto": JSON.parse(JSON.stringify(that.data.photo)),
-        "Title": formTitle,
-        "Text": formText,
-        "CoverHeight": that.data.imageHeight,
-        "CoverWidth": that.data.imageWidth,
-        "Label": that.data.choosenLabel,
-        "Time": new Date().getTime(),
-        "nickName": that.data.nickname,
-        "School": that.data.school,
-        "iconUrl": that.data.iconUrl
-      }
-      console.log("that.data.nickname-Input", that.data.nickname)
-      that.data.noramalData.push(add)
-      var NewData = that.data.noramalData.length - 1
-      that.CalculateImage()
-      that.uploadimg(NewData)
-    }
-  },
 
   CalculateImage: function () {
     var that = this;
@@ -521,8 +470,8 @@ Page({
     // console.log(app.globalData.List,21)
     var index = this.data.directionIndex
     console.log(app.globalData.leftList, 244)
-    this.data.leftList = app.globalData.leftList || this.data.leftList 
-    this.data.rightList = app.globalData.rightList || this.data.rightList 
+    this.data.leftList = app.globalData.leftList || this.data.leftList
+    this.data.rightList = app.globalData.rightList || this.data.rightList
     if (this.data.direction == "Left") {
       this.data.leftList[index].CommentList = app.globalData.Comment //回复全局
       this.data.leftList[index].Star = app.globalData.Star_count
@@ -541,6 +490,61 @@ Page({
     // console.log(this.data.rightList,"右");
   },
 
+  
+  // 点击发布
+  formSubmit: function (e) { //添加与存储
+    let {
+      formTitle,
+      formText
+    } = e.detail.value
+
+    var that = this
+    if (!formTitle) {
+      wx.showToast({
+        title: '标题不能为空',
+        icon: 'none'
+      })
+    } else if (!formText) {
+      wx.showToast({
+        title: '文字不能为空',
+        icon: 'none'
+      })
+    } else if (that.data.photo.length == 0) {
+      wx.showToast({
+        title: '图片不能为空',
+        icon: 'none'
+      })
+    } else if (!that.data.choosenLabel) {
+      wx.showToast({
+        title: '标签不能为空',
+        icon: 'none'
+      })
+    } else if (!that.data.nickname && !that.data.iconUrl) {
+      wx.showToast({
+        title: '小主还没登录哟QwQ',
+        icon: 'none'
+      })
+    } else {
+      var add = {
+        "Cover": that.data.photo[0],
+        "AllPhoto": JSON.parse(JSON.stringify(that.data.photo)),
+        "Title": formTitle,
+        "Text": formText,
+        "CoverHeight": that.data.imageHeight,
+        "CoverWidth": that.data.imageWidth,
+        "Label": that.data.choosenLabel,
+        "Time": new Date().getTime(),
+        "nickName": that.data.nickname,
+        "School": that.data.school,
+        "iconUrl": that.data.iconUrl
+      }
+      console.log("that.data.nickname-Input", that.data.nickname)
+      that.data.noramalData.push(add)
+      var NewData = that.data.noramalData.length - 1
+      that.CalculateImage()
+      that.uploadimg(NewData)
+    }
+  },
   //将本地图片上传到云存储进行存储，后续通过fileid进行图片展示
   // 图片上传逻辑
   // 1.判断条件，是否符合上传条件
@@ -574,26 +578,7 @@ Page({
 
     }
   },
-  //下拉触底改变状态
-  onReachBottom: function () {
-    console.log("上拉触底事件")
-    let that = this
-    if (!that.data.loadMore) {
-      that.setData({
-        loadMore: true, //加载中  
-        loadAll: false //是否加载完所有数据
-      });
-      wx.showLoading({
-        title: '加载更多中',
-      })
-      this.getNewInfo(); // 上拉刷新，是否有新消息
-      that.getData()
-      console.log("currentPage-onReachBottom", currentPage)
-      wx.hideLoading()
-      //加载更多，这里做下延时加载
-
-    }
-  },
+  // 发布文章
   //将数据上传到数据库
   uploadData: function (NewData, fileIDs) {
     var that = this
@@ -648,6 +633,29 @@ Page({
       })
     }
   },
+
+
+  //下拉触底改变状态
+  onReachBottom: function () {
+    console.log("上拉触底事件")
+    let that = this
+    if (!that.data.loadMore) {
+      that.setData({
+        loadMore: true, //加载中  
+        loadAll: false //是否加载完所有数据
+      });
+      wx.showLoading({
+        title: '加载更多中',
+      })
+      this.getNewInfo(); // 上拉刷新，是否有新消息
+      that.getData()
+      console.log("currentPage-onReachBottom", currentPage)
+      wx.hideLoading()
+      //加载更多，这里做下延时加载
+
+    }
+  },
+
 
   //提高网络性能，分页加载数据
   getData: function () {
