@@ -1,5 +1,5 @@
 <template name="test-view1">
-    <view style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+   <view animation="{{item.animation}}" id="{{item.id}}" bindtouchstart="{{item.bindtouchstart}}" bindtouchmove="{{item.bindtouchmove}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -8,7 +8,7 @@
 </template>
 
 <template name="test-view2">
-    <view style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+   <view animation="{{item.animation}}" id="{{item.id}}"bindtouchstart="{{item.bindtouchstart}}" bindtouchmove="{{item.bindtouchmove}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -17,7 +17,7 @@
 </template>
 
 <template name="test-view3">
-    <view style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+   <view animation="{{item.animation}}" id="{{item.id}}" bindtouchstart="{{item.bindtouchstart}}" bindtouchmove="{{item.bindtouchmove}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -26,7 +26,53 @@
 </template>
 
 <template name="test-view4">
-    <view style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+ 
+   <view animation="{{item.animation}}" id="{{item.id}}"bindtouchstart="{{item.bindtouchstart}}" bindtouchmove="{{item.bindtouchmove}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </view>
+</template>
+
+<template name="test-view5">
+   <view animation="{{item.animation}}" id="{{item.id}}"bindtouchstart="{{item.bindtouchstart}}" bindtouchmove="{{item.bindtouchmove}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </view>
+</template>
+
+<template name="test-view6">
+   <view animation="{{item.animation}}" id="{{item.id}}"bindtouchstart="{{item.bindtouchstart}}" bindtouchmove="{{item.bindtouchmove}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </view>
+</template>
+
+<template name="test-view7">
+   <view animation="{{item.animation}}" id="{{item.id}}"bindtouchstart="{{item.bindtouchstart}}" bindtouchmove="{{item.bindtouchmove}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </view>
+</template>
+
+<template name="test-view8">
+   <view animation="{{item.animation}}" id="{{item.id}}"bindtouchstart="{{item.bindtouchstart}}" bindtouchmove="{{item.bindtouchmove}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </view>
+</template>
+
+<template name="test-view9">
+   <view animation="{{item.animation}}" id="{{item.id}}"bindtouchstart="{{item.bindtouchstart}}" bindtouchmove="{{item.bindtouchmove}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -35,7 +81,7 @@
 </template>
 
 <template name="test-navigator1">
-    <navigator style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <navigator url="{{item.url}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -44,7 +90,7 @@
 </template>
 
 <template name="test-navigator2">
-    <navigator style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <navigator url="{{item.url}}"style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -53,7 +99,7 @@
 </template>
 
 <template name="test-navigator3">
-    <navigator style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <navigator url="{{item.url}}"style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -62,7 +108,52 @@
 </template>
 
 <template name="test-navigator4">
-    <navigator style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <navigator url="{{item.url}}"style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </navigator>
+</template>
+
+<template name="test-navigator5">
+    <navigator url="{{item.url}}"style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </navigator>
+</template>
+
+<template name="test-navigator6">
+    <navigator url="{{item.url}}"style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </navigator>
+</template>
+
+<template name="test-navigator7">
+    <navigator url="{{item.url}}"style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </navigator>
+</template>
+
+<template name="test-navigator8">
+    <navigator url="{{item.url}}"style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </navigator>
+</template>
+
+<template name="test-navigator9">
+    <navigator url="{{item.url}}"style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -71,7 +162,7 @@
 </template>
 
 <template name="test-scroll-view1">
-    <scroll-view style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <scroll-view fast-deceleration="{{item.fast-deceleration}}" scroll-with-animation="{{item.scroll-with-animation}}"  scroll-x="{{item.scroll-x}}" scroll-into-view="{{item.scroll-into-view}}"  hidden="{{item.hidden}}"  style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -80,7 +171,7 @@
 </template>
 
 <template name="test-scroll-view2">
-    <scroll-view style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <scroll-view fast-deceleration="{{item.fast-deceleration}}" scroll-with-animation="{{item.scroll-with-animation}}"  scroll-x="{{item.scroll-x}}" scroll-into-view="{{item.scroll-into-view}}"  hidden="{{item.hidden}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -89,7 +180,7 @@
 </template>
 
 <template name="test-scroll-view3">
-    <scroll-view style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <scroll-view fast-deceleration="{{item.fast-deceleration}}" scroll-with-animation="{{item.scroll-with-animation}}"  scroll-x="{{item.scroll-x}}" scroll-into-view="{{item.scroll-into-view}}"  hidden="{{item.hidden}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -98,7 +189,52 @@
 </template>
 
 <template name="test-scroll-view4">
-    <scroll-view style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <scroll-view fast-deceleration="{{item.fast-deceleration}}" scroll-with-animation="{{item.scroll-with-animation}}"  scroll-x="{{item.scroll-x}}" scroll-into-view="{{item.scroll-into-view}}"  hidden="{{item.hidden}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </scroll-view>
+</template>
+
+<template name="test-scroll-view5">
+    <scroll-view fast-deceleration="{{item.fast-deceleration}}" scroll-with-animation="{{item.scroll-with-animation}}"  scroll-x="{{item.scroll-x}}" scroll-into-view="{{item.scroll-into-view}}"  hidden="{{item.hidden}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </scroll-view>
+</template>
+
+<template name="test-scroll-view6">
+    <scroll-view fast-deceleration="{{item.fast-deceleration}}" scroll-with-animation="{{item.scroll-with-animation}}"  scroll-x="{{item.scroll-x}}" scroll-into-view="{{item.scroll-into-view}}"  hidden="{{item.hidden}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </scroll-view>
+</template>
+
+<template name="test-scroll-view7">
+    <scroll-view fast-deceleration="{{item.fast-deceleration}}" scroll-with-animation="{{item.scroll-with-animation}}"  scroll-x="{{item.scroll-x}}" scroll-into-view="{{item.scroll-into-view}}"  hidden="{{item.hidden}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </scroll-view>
+</template>
+
+<template name="test-scroll-view8">
+    <scroll-view fast-deceleration="{{item.fast-deceleration}}" scroll-with-animation="{{item.scroll-with-animation}}"  scroll-x="{{item.scroll-x}}" scroll-into-view="{{item.scroll-into-view}}"  hidden="{{item.hidden}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </scroll-view>
+</template>
+
+<template name="test-scroll-view9">
+    <scroll-view fast-deceleration="{{item.fast-deceleration}}" scroll-with-animation="{{item.scroll-with-animation}}"  scroll-x="{{item.scroll-x}}" scroll-into-view="{{item.scroll-into-view}}"  hidden="{{item.hidden}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -107,7 +243,7 @@
 </template>
 
 <template name="test-label1">
-    <label style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <label style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -116,7 +252,7 @@
 </template>
 
 <template name="test-label2">
-    <label style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <label style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -125,7 +261,7 @@
 </template>
 
 <template name="test-label3">
-    <label style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <label style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -134,7 +270,52 @@
 </template>
 
 <template name="test-label4">
-    <label style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <label style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </label>
+</template>
+
+<template name="test-label5">
+    <label style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </label>
+</template>
+
+<template name="test-label6">
+    <label style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </label>
+</template>
+
+<template name="test-label7">
+    <label style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </label>
+</template>
+
+<template name="test-label8">
+    <label style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </label>
+</template>
+
+<template name="test-label9">
+    <label style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -143,7 +324,7 @@
 </template>
 
 <template name="test-form1">
-    <form style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <form style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -152,7 +333,7 @@
 </template>
 
 <template name="test-form2">
-    <form style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <form style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -161,7 +342,7 @@
 </template>
 
 <template name="test-form3">
-    <form style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <form style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -170,7 +351,52 @@
 </template>
 
 <template name="test-form4">
-    <form style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <form style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </form>
+</template>
+
+<template name="test-form5">
+    <form style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </form>
+</template>
+
+<template name="test-form6">
+    <form style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </form>
+</template>
+
+<template name="test-form7">
+    <form style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </form>
+</template>
+
+<template name="test-form8">
+    <form style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </form>
+</template>
+
+<template name="test-form9">
+    <form style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -179,7 +405,7 @@
 </template>
 
 <template name="test-span1">
-    <span style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <span style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -188,7 +414,7 @@
 </template>
 
 <template name="test-span2">
-    <span style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <span style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -197,7 +423,7 @@
 </template>
 
 <template name="test-span3">
-    <span style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <span style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -206,7 +432,52 @@
 </template>
 
 <template name="test-span4">
-    <span style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <span style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </span>
+</template>
+
+<template name="test-span5">
+    <span style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </span>
+</template>
+
+<template name="test-span6">
+    <span style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </span>
+</template>
+
+<template name="test-span7">
+    <span style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </span>
+</template>
+
+<template name="test-span8">
+    <span style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </span>
+</template>
+
+<template name="test-span9">
+    <span style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -215,7 +486,7 @@
 </template>
 
 <template name="test-switch1">
-    <switch style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <switch style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -224,7 +495,7 @@
 </template>
 
 <template name="test-switch2">
-    <switch style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <switch style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -233,7 +504,7 @@
 </template>
 
 <template name="test-switch3">
-    <switch style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <switch style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -242,7 +513,52 @@
 </template>
 
 <template name="test-switch4">
-    <switch style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <switch style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </switch>
+</template>
+
+<template name="test-switch5">
+    <switch style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </switch>
+</template>
+
+<template name="test-switch6">
+    <switch style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </switch>
+</template>
+
+<template name="test-switch7">
+    <switch style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </switch>
+</template>
+
+<template name="test-switch8">
+    <switch style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </switch>
+</template>
+
+<template name="test-switch9">
+    <switch style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -251,7 +567,7 @@
 </template>
 
 <template name="test-picker1">
-    <picker style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <picker bindchange="{{item.bindchange}}" mode="{{item.mode}}" start="{{item.start}}" end="{{item.end}}" value="{{item.date}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -260,7 +576,7 @@
 </template>
 
 <template name="test-picker2">
-    <picker style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <picker bindchange="{{item.bindchange}}" mode="{{item.mode}}" start="{{item.start}}" end="{{item.end}}" value="{{item.date}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -269,7 +585,7 @@
 </template>
 
 <template name="test-picker3">
-    <picker style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <picker bindchange="{{item.bindchange}}" mode="{{item.mode}}" start="{{item.start}}" end="{{item.end}}" value="{{item.value}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -278,7 +594,52 @@
 </template>
 
 <template name="test-picker4">
-    <picker style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <picker bindchange="{{item.bindchange}}" mode="{{item.mode}}" start="{{item.start}}" end="{{item.end}}" value="{{item.date}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </picker>
+</template>
+
+<template name="test-picker5">
+    <picker bindchange="{{item.bindchange}}" mode="{{item.mode}}" start="{{item.start}}" end="{{item.end}}" value="{{item.date}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </picker>
+</template>
+
+<template name="test-picker6">
+    <picker bindchange="{{item.bindchange}}" mode="{{item.mode}}" start="{{item.start}}" end="{{item.end}}" value="{{item.date}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </picker>
+</template>
+
+<template name="test-picker7">
+    <picker bindchange="{{item.bindchange}}" mode="{{item.mode}}" start="{{item.start}}" end="{{item.end}}" value="{{item.date}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </picker>
+</template>
+
+<template name="test-picker8">
+    <picker bindchange="{{item.bindchange}}" mode="{{item.mode}}" start="{{item.start}}" end="{{item.end}}" value="{{item.date}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </picker>
+</template>
+
+<template name="test-picker9">
+    <picker bindchange="{{item.bindchange}}" mode="{{item.mode}}" start="{{item.start}}" end="{{item.end}}" value="{{item.date}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -287,7 +648,7 @@
 </template>
 
 <template name="test-cover-view1">
-    <cover-view style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <cover-view style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -296,7 +657,7 @@
 </template>
 
 <template name="test-cover-view2">
-    <cover-view style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <cover-view style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -305,9 +666,8 @@
 </template>
 
 <template name="test-cover-view3">
-    <cover-view style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
-
-        {{item.bindtap}}
+    <cover-view style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
         </block>
@@ -315,8 +675,52 @@
 </template>
 
 <template name="test-cover-view4">
+    <cover-view style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </cover-view>
+</template>
 
-    <cover-view style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+<template name="test-cover-view5">
+    <cover-view style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </cover-view>
+</template>
+
+<template name="test-cover-view6">
+    <cover-view style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </cover-view>
+</template>
+
+<template name="test-cover-view7">
+    <cover-view style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </cover-view>
+</template>
+
+<template name="test-cover-view8">
+    <cover-view style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </cover-view>
+</template>
+
+<template name="test-cover-view9">
+    <cover-view style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -325,7 +729,7 @@
 </template>
 
 <template name="test-map1">
-    <map id="navi_map" longitude="{{item.latitude}}" latitude="{{item.longitude}}" scale="18" markers="{{item.markers}}" polyline="{{item.polyline}}" bindmarkertap="makertap" style='width:100%' show-location subkey="JLHBZ-JQELU-I7HVD-B2XSN-5VU3Z-BZFDK" enable-3D="true" show-compass style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <map id="navi_map" longitude="{{item.longitude}}" latitude="{{item.latitude}}" scale="18" markers="{{item.markers}}" polyline="{{item.polyline}}" bindmarkertap="makertap" style='width:100%' show-location subkey="JLHBZ-JQELU-I7HVD-B2XSN-5VU3Z-BZFDK" enable-3D="true" show-compass style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -336,14 +740,11 @@
 <template name="test-map2">
     <map id="navi_map" longitude="{{item.longitude}}" latitude="{{item.latitude}}" scale="18" markers="{{item.markers}}" polyline="{{item.polyline}}" bindmarkertap="makertap" style='width:100%' show-location subkey="JLHBZ-JQELU-I7HVD-B2XSN-5VU3Z-BZFDK" enable-3D="true" show-compass style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
         <text>{{item.text}}</text>
-
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
         </block>
     </map>
 </template>
-
-
 
 <template name="test-map3">
     <map id="navi_map" longitude="{{item.longitude}}" latitude="{{item.latitude}}" scale="18" markers="{{item.markers}}" polyline="{{item.polyline}}" bindmarkertap="makertap" style='width:100%' show-location subkey="JLHBZ-JQELU-I7HVD-B2XSN-5VU3Z-BZFDK" enable-3D="true" show-compass style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
@@ -363,158 +764,376 @@
     </map>
 </template>
 
-<template name="test-images1">
-    <images src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+<template name="test-map5">
+    <map id="navi_map" longitude="{{item.longitude}}" latitude="{{item.latitude}}" scale="18" markers="{{item.markers}}" polyline="{{item.polyline}}" bindmarkertap="makertap" style='width:100%' show-location subkey="JLHBZ-JQELU-I7HVD-B2XSN-5VU3Z-BZFDK" enable-3D="true" show-compass style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
         <text>{{item.text}}</text>
-    </images>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </map>
 </template>
 
-<template name="test-images2">
-    <images src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+<template name="test-map6">
+    <map id="navi_map" longitude="{{item.longitude}}" latitude="{{item.latitude}}" scale="18" markers="{{item.markers}}" polyline="{{item.polyline}}" bindmarkertap="makertap" style='width:100%' show-location subkey="JLHBZ-JQELU-I7HVD-B2XSN-5VU3Z-BZFDK" enable-3D="true" show-compass style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
         <text>{{item.text}}</text>
-    </images>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </map>
 </template>
 
-<template name="test-images3">
-    <images src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+<template name="test-map7">
+    <map id="navi_map" longitude="{{item.longitude}}" latitude="{{item.latitude}}" scale="18" markers="{{item.markers}}" polyline="{{item.polyline}}" bindmarkertap="makertap" style='width:100%' show-location subkey="JLHBZ-JQELU-I7HVD-B2XSN-5VU3Z-BZFDK" enable-3D="true" show-compass style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
         <text>{{item.text}}</text>
-    </images>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </map>
 </template>
 
-<template name="test-images4">
-    <images src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+<template name="test-map8">
+    <map id="navi_map" longitude="{{item.longitude}}" latitude="{{item.latitude}}" scale="18" markers="{{item.markers}}" polyline="{{item.polyline}}" bindmarkertap="makertap" style='width:100%' show-location subkey="JLHBZ-JQELU-I7HVD-B2XSN-5VU3Z-BZFDK" enable-3D="true" show-compass style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
         <text>{{item.text}}</text>
-    </images>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </map>
+</template>
+
+<template name="test-map9">
+    <map id="navi_map" longitude="{{item.longitude}}" latitude="{{item.latitude}}" scale="18" markers="{{item.markers}}" polyline="{{item.polyline}}" bindmarkertap="makertap" style='width:100%' show-location subkey="JLHBZ-JQELU-I7HVD-B2XSN-5VU3Z-BZFDK" enable-3D="true" show-compass style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
+    </map>
+</template>
+
+<template name="test-image1">
+    <image src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+    </image>
+</template>
+
+<template name="test-image2">
+    <image src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+    </image>
+</template>
+
+<template name="test-image3">
+    <image src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+    </image>
+</template>
+
+<template name="test-image4">
+    <image src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+    </image>
+</template>
+
+<template name="test-image5">
+    <image src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+    </image>
+</template>
+
+<template name="test-image6">
+    <image src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+    </image>
+</template>
+
+<template name="test-image7">
+    <image src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+    </image>
+</template>
+
+<template name="test-image8">
+    <image src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+    </image>
+</template>
+
+<template name="test-image9">
+    <image src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+    </image>
 </template>
 
 <template name="test-text1">
-    <text style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <text src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
     </text>
 </template>
 
 <template name="test-text2">
-    <text style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <text src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
     </text>
 </template>
 
 <template name="test-text3">
-    <text style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <text src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
     </text>
 </template>
 
 <template name="test-text4">
-    <text style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <text src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+    </text>
+</template>
+
+<template name="test-text5">
+    <text src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+    </text>
+</template>
+
+<template name="test-text6">
+    <text src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+    </text>
+</template>
+
+<template name="test-text7">
+    <text src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+    </text>
+</template>
+
+<template name="test-text8">
+    <text src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+    </text>
+</template>
+
+<template name="test-text9">
+    <text src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
     </text>
 </template>
 
 <template name="test-input1">
-    <input style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <input value="{{item.value}}" bindinput="{{item.bindinput}}"  src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
     <text>{{item.text}}</text>
     </input>
 </template>
 
 <template name="test-input2">
-    <input style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <input value="{{item.value}}" bindinput="{{item.bindinput}}"  src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
     <text>{{item.text}}</text>
     </input>
 </template>
 
 <template name="test-input3">
-    <input style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <input value="{{item.value}}" bindinput="{{item.bindinput}}"  src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
     <text>{{item.text}}</text>
     </input>
 </template>
 
 <template name="test-input4">
-    <input style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <input value="{{item.value}}" bindinput="{{item.bindinput}}"  src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <text>{{item.text}}</text>
+    </input>
+</template>
+
+<template name="test-input5">
+    <input value="{{item.value}}" bindinput="{{item.bindinput}}"  src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <text>{{item.text}}</text>
+    </input>
+</template>
+
+<template name="test-input6">
+    <input value="{{item.value}}" bindinput="{{item.bindinput}}"  src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <text>{{item.text}}</text>
+    </input>
+</template>
+
+<template name="test-input7">
+    <input value="{{item.value}}" bindinput="{{item.bindinput}}"  src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <text>{{item.text}}</text>
+    </input>
+</template>
+
+<template name="test-input8">
+    <input value="{{item.value}}" bindinput="{{item.bindinput}}"  src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <text>{{item.text}}</text>
+    </input>
+</template>
+
+<template name="test-input9">
+    <input value="{{item.value}}" bindinput="{{item.bindinput}}"  src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
     <text>{{item.text}}</text>
     </input>
 </template>
 
 <template name="test-block1">
-    <block style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <block src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
     </block>
 </template>
 
 <template name="test-block2">
-    <block style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <block src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
     </block>
 </template>
 
 <template name="test-block3">
-    <block style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <block src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
     </block>
 </template>
 
 <template name="test-block4">
-    <block style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <block src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+    </block>
+</template>
+
+<template name="test-block5">
+    <block src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+    </block>
+</template>
+
+<template name="test-block6">
+    <block src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+    </block>
+</template>
+
+<template name="test-block7">
+    <block src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+    </block>
+</template>
+
+<template name="test-block8">
+    <block src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+    </block>
+</template>
+
+<template name="test-block9">
+    <block src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
     </block>
 </template>
 
 <template name="test-button1">
-    <button style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <button src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
     </button>
 </template>
 
 <template name="test-button2">
-    <button style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <button src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
     </button>
 </template>
 
 <template name="test-button3">
-    <button style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <button src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
     </button>
 </template>
 
 <template name="test-button4">
-    <button style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <button src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+    </button>
+</template>
+
+<template name="test-button5">
+    <button src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+    </button>
+</template>
+
+<template name="test-button6">
+    <button src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+    </button>
+</template>
+
+<template name="test-button7">
+    <button src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+    </button>
+</template>
+
+<template name="test-button8">
+    <button src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+    </button>
+</template>
+
+<template name="test-button9">
+    <button src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
     </button>
 </template>
 
 <template name="test-cover-image1">
-    <cover-image style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <cover-image src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
     </cover-image>
 </template>
 
 <template name="test-cover-image2">
-    <cover-image style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <cover-image src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
     </cover-image>
 </template>
 
 <template name="test-cover-image3">
-    <cover-image style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <cover-image src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
     </cover-image>
 </template>
 
 <template name="test-cover-image4">
-    <cover-image style="margin-top: 5px; width: 80rpx;height: 80rpx;" src="image/staticMap.png" />
-    <cover-image style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <cover-image src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
     </cover-image>
 </template>
 
 <template name="test-cover-image5">
-    <cover-image src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <cover-image src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
     </cover-image>
 </template>
 
-<view class="all">
+<template name="test-cover-image6">
+    <cover-image src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+    </cover-image>
+</template>
+
+<template name="test-cover-image7">
+    <cover-image src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+    </cover-image>
+</template>
+
+<template name="test-cover-image8">
+    <cover-image src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+    </cover-image>
+</template>
+
+<template name="test-cover-image9">
+    <cover-image src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+        <text>{{item.text}}</text>
+    </cover-image>
+</template>
+
+<view animation="{{item.animation}}" id="{{item.id}}"class="all">
     <block wx:for="{{html}}">
         <template is="{{'test-'+item.type+1}}" data="{{ item, deep:1 }}"></template>
     </block>

@@ -1,16 +1,16 @@
 p = ["view",  "navigator" ,"scroll-view", "label" ,"form" ,"span", "switch", "picker", "cover-view", "map"]
 
-p1 = ["images", "text", "input" ,  "block" ,  "button", "cover-image"  ]
+p1 = ["image", "text", "input" ,  "block" ,  "button", "cover-image"  ]
 
 b = ''
 
 html = ""
 for  index, b in enumerate(p) :
 
-    for i in range(1,5):
+    for i in range(1,10):
         html += '''
     <template name="test-''' + b +  str(i) + '''">
-    <'''+b+''' style="{{item.style}}" class="{{item.class}}" catchtap="{{'undefined'?'':item.bindtap}}">
+    <'''+b+''' data-index={{item.data-index}} style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
         <template is="{{ 'test-'+childrenItem.type+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -21,10 +21,10 @@ for  index, b in enumerate(p) :
 
 for  index, b in enumerate(p1) :
 
-    for i in range(1,5):
+    for i in range(1,10):
         html += '''
     <template name="test-''' + b +  str(i) + '''">
-        <'''+b+''' style="{{item.style}}" class="{{item.class}}" catchtap="{{'undefined'?'':item.bindtap}}">
+        <'''+b+''' data-index={{item.data-index}} src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
             <text>{{item.text}}</text>
         </'''+b+'''>
     </template>
