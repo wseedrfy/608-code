@@ -1,6 +1,6 @@
 <import src="../../template/showCommonPage/template.wxml"></import>
 
-<template is="head-block" wx:if="{{list.length != 0}}"
+<template is="head-block" 
   data="{{ type: headerType, index, array, title:title , text: text }}">
   
 </template>
