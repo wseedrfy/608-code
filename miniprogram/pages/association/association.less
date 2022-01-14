@@ -1,0 +1,214 @@
+page {}
+
+.wrap {
+    background-image: linear-gradient(#1e2266, #ffe7e7);
+
+    .caption {
+        padding: 24rpx;
+
+        .title {
+            font-weight: 700;
+            text-align : center;
+            color      : white;
+        }
+
+        .tip {
+            padding-top: 18rpx;
+            font-size  : 28rpx;
+            color      : rgb(224, 224, 224);
+        }
+    }
+
+    .list_wrap {
+        padding                : 24rpx;
+        background-color       : white;
+        border-top-right-radius: 32rpx;
+        border-top-left-radius : 32rpx;
+
+        .list_item {
+            display       : flex;
+            flex-direction: row;
+            padding       : 8rpx;
+
+            .left {
+                flex: 1;
+            }
+
+            .rigth {
+                flex        : 3;
+                padding-left: 24rpx;
+            }
+        }
+
+        .submit {
+            display         : flex;
+            justify-content : center;
+            align-content   : center;
+            text-align      : center;
+            border-radius   : 48rpx;
+            margin-top      : 52rpx;
+            width           : 80%;
+            color           : white;
+            background-color: #3188c3;
+        }
+    }
+}
+
+.test_wrap {
+    padding-top    : 20%;
+    display        : flex;
+    flex-direction : column;
+    text-align     : center;
+    align-items    : center;
+    justify-content: center;
+
+    .test_img {
+        image {
+            height: 180rpx;
+            width : 180rpx;
+        }
+    }
+
+    .test_tip {}
+}
+
+.asso_wrap {
+    .mess_item {
+        padding      : 24rpx;
+        border-bottom: 1rpx solid rgb(192, 192, 192);
+        margin-left  : 12rpx;
+        margin-right : 12rpx;
+
+        .mess_wrap {
+            display       : flex;
+            flex-direction: row;
+            padding       : 6rpx;
+            font-size: 34rpx;
+
+            .title {
+                flex       : 1;
+                font-weight: 600;
+            }
+
+            .mess {
+                padding-left: 24rpx;
+                flex        : 3;
+                color       : rgb(133, 133, 133);
+            }
+        }
+    }
+
+    .bt_list {
+        display       : flex;
+        flex-direction: column;
+        padding-top   : 48rpx;
+
+        .new_bt {
+            background-color: #4a6f94;
+            text-align      : center;
+            margin-left     : 24rpx;
+            margin-right    : 24rpx;
+            border-radius   : 24rpx;
+            padding         : 8rpx;
+            color           : white;
+        }
+    }
+}
+
+// 弹窗
+.commodity_screen {
+    width     : 100%;
+    height    : 100%;
+    position  : fixed;
+    top       : 0;
+    left      : 0;
+    background: #000;
+    opacity   : 0.2;
+    overflow  : hidden;
+    z-index   : 1000;
+    color     : #fff;
+}
+
+/*对话框 */
+.commodity_attr_box {
+    position        : relative;
+    position        : fixed;
+    display         : flex;
+    flex-direction  : column;
+    bottom          : 0;
+    width           : 100%;
+    background-color: rgb(255, 255, 255);
+    padding         : 15rpx 0;
+    z-index         : 99999;
+    border-radius   : 20rpx;
+
+    // width      : 100%;
+    // overflow   : hidden;
+    // position   : fixed;
+    // bottom     : 0;
+    // left       : 0;
+    // z-index    : 2000;
+    // background : #fff;
+    // padding-top: 20rpx;
+    .caption {
+        text-align: center;
+        font-size : 34rpx;
+    }
+
+    .activite_img {
+        background-color: rgba(241, 229, 201, 0.26);
+        text-align      : center;
+
+        image {
+            padding: 96rpx;
+            width  : 90rpx;
+            height : 90rpx;
+        }
+    }
+
+    .input_wrap {
+        padding  : 12rpx;
+        font-size: 32rpx;
+
+        .title_input {
+            width      : 100%;
+            font-size  : 30rpx;
+            margin     : 10rpx;
+            font-weight: 700;
+
+            input {}
+        }
+
+        .detail_input {
+            width    : 100%;
+            height   : 320rpx;
+            font-size: 30rpx;
+            margin   : 10rpx;
+
+            textarea {}
+        }
+    }
+
+    .edit_wrap {
+        display       : flex;
+        flex-direction: row;
+
+        .cancel {
+            background-color: rgba(214, 214, 214, 0.37);
+            box-shadow      : 0px 0px 4px 0px #c7c7c7;
+            color           : rgb(0, 0, 0);
+            width           : 200rpx !important;
+            margin          : 0rpx 10rpx 0rpx 5rpx;
+        }
+
+        .confirm {
+            border-radius   : 24rpx;
+            background-color: rgb(128, 190, 226);
+            box-shadow      : 0px 0px 4px 0px #c7c7c7;
+            color           : white;
+            width           : 530rpx !important;
+            margin          : 10rpx;
+            margin          : 0rpx 10rpx 0rpx 5rpx;
+        }
+    }
+}
