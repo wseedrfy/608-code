@@ -1,3 +1,6 @@
+page {
+  background-color: #f6f6f6;
+}
 .wrap {
   background-image: linear-gradient(#1e2266, #ffe7e7);
 }
@@ -31,6 +34,8 @@
 .wrap .list_wrap .list_item .rigth {
   flex: 3;
   padding-left: 24rpx;
+  background-color: #eeeeee;
+  border-radius: 26rpx;
 }
 .wrap .list_wrap .submit {
   display: flex;
@@ -60,6 +65,9 @@
   border-bottom: 1rpx solid #c0c0c0;
   margin-left: 12rpx;
   margin-right: 12rpx;
+  border-radius: 24rpx;
+  margin-top: 24rpx;
+  background-color: white;
 }
 .asso_wrap .mess_item .mess_wrap {
   display: flex;
@@ -87,6 +95,36 @@
   margin-left: 24rpx;
   margin-right: 24rpx;
   border-radius: 24rpx;
+  padding: 8rpx;
+  color: white;
+}
+.asso_wrap .bt_list .act_bt {
+  text-align: center;
+  background-color: #538b53;
+  margin-top: 24rpx;
+  margin-left: 24rpx;
+  margin-right: 24rpx;
+  padding: 8rpx;
+  color: white;
+  border-radius: 24rpx;
+}
+.asso_wrap .bt_list .race_bt {
+  text-align: center;
+  margin-top: 24rpx;
+  margin-left: 24rpx;
+  margin-right: 24rpx;
+  border-radius: 24rpx;
+  background-color: #6f538b;
+  padding: 8rpx;
+  color: white;
+}
+.asso_wrap .bt_list .del_bt {
+  text-align: center;
+  margin-top: 24rpx;
+  margin-left: 24rpx;
+  margin-right: 24rpx;
+  border-radius: 24rpx;
+  background-color: #b02e2e;
   padding: 8rpx;
   color: white;
 }

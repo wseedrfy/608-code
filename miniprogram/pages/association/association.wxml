@@ -28,7 +28,10 @@
         </view>
     </view>
     <view class="bt_list">
-        <view class="new_bt" bind:tap="clickme">发布信息</view>
+        <view class="new_bt" bind:tap="clickme">活动发布</view>
+        <view class="act_bt">招新报名</view>
+        <view class="race_bt">赛事发布</view>
+        <view class="del_bt" bind:tap="delete">注销身份</view>
     </view>
 </view>
 <!-- 发布弹窗 -->

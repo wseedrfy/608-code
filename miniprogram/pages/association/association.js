@@ -215,6 +215,23 @@ Page({
   confirm(e){
     console.log(e);
   },
+  // 注销社团
+  delete(){
+    wx.showModal({
+      title: '警告',
+      content: '注销负责人身份',
+      showCancel: true,
+      cancelText: '取消',
+      cancelColor: '#000000',
+      confirmText: '确定',
+      confirmColor: '#3CC51F',
+      success: (result) => {
+        if(result.confirm){
+          
+        }
+      },
+    });
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
