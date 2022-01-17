@@ -1,4 +1,4 @@
-p = ["view",  "navigator" ,"scroll-view", "label" ,"form" ,"span", "switch", "picker", "cover-view", "map"]
+p = ["canvas"]
 
 p1 = ["image", "text", "input" ,  "block" ,  "button", "cover-image"  ]
 
