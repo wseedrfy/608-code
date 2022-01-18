@@ -1,0 +1,141 @@
+page {
+  background-color: #f6f6f6;
+}
+.wrap .top_wrap {
+  border-radius: 24rpx;
+  padding: 24rpx;
+  background-color: white;
+  margin: 24rpx;
+}
+.wrap .top_wrap .img {
+  background-color: rgba(241, 229, 201, 0.26);
+  text-align: center;
+  justify-content: center;
+  align-content: center;
+}
+.wrap .top_wrap .img image {
+  padding: 96rpx;
+  width: 90rpx;
+  height: 90rpx;
+}
+.wrap .top_wrap .title {
+  text-align: center;
+  padding: 12rpx;
+  font-size: 32rpx;
+}
+.wrap .mess_item {
+  padding: 24rpx;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  margin: 24rpx;
+  border-radius: 24rpx;
+  font-size: 32rpx;
+}
+.wrap .mess_item .title {
+  text-align: center;
+  font-weight: 700;
+  padding: 12rpx;
+}
+.wrap .mess_item .content_item {
+  display: flex;
+  flex-direction: row;
+  margin: 12rpx;
+}
+.wrap .mess_item .content_item .name {
+  flex: 4;
+  background-color: #ebebeb;
+  padding: 8rpx;
+  border-radius: 12rpx;
+}
+.wrap .mess_item .content_item .operation {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.wrap .mess_item .content_item .operation .delete {
+  color: white;
+  padding: 8rpx;
+  border-radius: 12rpx;
+  background-color: red;
+  margin: 8rpx;
+}
+.wrap .mess_item .content_item .operation .write {
+  color: #d8d8d8;
+  padding: 8rpx;
+  border-radius: 12rpx;
+  margin: 8rpx;
+  background-color: royalblue;
+}
+.wrap .mess_item .add {
+  border-radius: 42rpx;
+  margin: 24rpx;
+  font-size: 48rpx;
+  text-align: center;
+  color: #979797;
+  border: 1rpx solid #979797;
+}
+.wrap .bt_wrap {
+  padding: 48rpx;
+}
+.wrap .bt_wrap .send {
+  text-align: center;
+  background-color: #536f8b;
+  margin-left: 24rpx;
+  margin-right: 24rpx;
+  border-radius: 24rpx;
+  padding: 6rpx;
+  color: white;
+}
+/*使屏幕变暗  */
+.commodity_screen {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #000;
+  opacity: 0.2;
+  overflow: hidden;
+  z-index: 1000;
+  color: #fff;
+}
+/*对话框 */
+.commodity_attr_box {
+  border-radius: 24rpx;
+  width: 100%;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 2000;
+  background: #fff;
+  padding-top: 20rpx;
+  display: flex;
+  flex-direction: column;
+}
+.commodity_attr_box .title {
+  font-size: 32rpx;
+  text-align: center;
+  padding: 12rpx;
+}
+.commodity_attr_box .input {
+  margin: 12rpx;
+  padding: 12rpx;
+}
+.commodity_attr_box .input textarea {
+  height: 200rpx;
+}
+.commodity_attr_box .bt_wrap {
+  padding: 24rpx;
+}
+.commodity_attr_box .bt_wrap .add {
+  border-radius: 24rpx;
+  color: white;
+  padding: 6rpx;
+  text-align: center;
+  background-color: #53538b;
+}

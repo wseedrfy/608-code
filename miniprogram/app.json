@@ -6,6 +6,7 @@
   },
   "pages": [
     "pages/association/association",
+    "pages/association/freshman/freshman",
     "pages/index/index",
     "pages/more/more",
     "pages/curriculum/curriculum",

@@ -1,6 +1,7 @@
 // pages/association/association.js
 let school = ''
 let db = wx.cloud.database()
+let card=""//学号
 Page({
 
   /**
@@ -49,7 +50,7 @@ Page({
   onLoad: function (options) {
     let res = wx.getStorageSync('args');
     let list = this.data.list
-    let card = res.username
+    card = res.username
     school = res.school
     list[3].value = card
     this.setData({
@@ -229,6 +230,18 @@ Page({
         if(result.confirm){
           
         }
+      },
+    });
+  },
+
+
+
+  // 跳转
+  freshman(){
+    wx.navigateTo({
+      url: '/pages/association/freshman/freshman',
+      success: (result)=>{
+        
       },
     });
   },
