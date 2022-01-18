@@ -5,6 +5,8 @@ const util = require("../../utils/util")
 // 获取应用实例
 const app = getApp()
 
+
+
 Page({
   data: {
     time: {
@@ -60,8 +62,9 @@ Page({
           var onload = app.jsRun(new_args, new_args.jsCode)
           wx.setStorageSync('args', new_args)
           try {
-            onload(that)
-          } catch {
+            onload(that, options)
+          } catch(e) {
+            console.log(e)
             that.setData({
               msg: '有超级bug，请联系开发查看函数'
             })
