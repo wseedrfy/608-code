@@ -5,14 +5,9 @@
     }
   },
   "pages": [
-<<<<<<< HEAD
     "pages/association/association",
     "pages/association/freshman/freshman",
-=======
-
->>>>>>> 714fb19c8b8e6197faf457f2c4bd5d78d2df64b7
     "pages/index/index",
-    "pages/association/association",
     "pages/more/more",
     "pages/curriculum/curriculum",
     "pages/myself/myself",

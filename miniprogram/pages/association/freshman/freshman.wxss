@@ -21,7 +21,8 @@ page {
 .wrap .top_wrap .title {
   text-align: center;
   padding: 12rpx;
-  font-size: 32rpx;
+  font-size: 28rpx;
+  font-weight: 700;
 }
 .wrap .mess_item {
   padding: 24rpx;
@@ -83,7 +84,6 @@ page {
 }
 .wrap .bt_wrap .send {
   text-align: center;
-  background-color: #536f8b;
   margin-left: 24rpx;
   margin-right: 24rpx;
   border-radius: 24rpx;

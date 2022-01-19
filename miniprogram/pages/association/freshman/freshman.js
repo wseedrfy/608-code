@@ -9,6 +9,7 @@ Page({
     freshman: [],
     showModalStatus: false,
     add_content: "",
+    sendStatus: false,//发布状态
   },
 
   /**
@@ -26,18 +27,22 @@ Page({
             count: count,
             school: school,
             nickName: nickName,
-            freshman: []
+            freshman: [],
+            sendStatus: false,
           }
         }).then(res => {
           this.setData({
-            freshman: []
+            freshman: [],
+            sendStatus: false,
           })
         })
       }
       else {
         db.collection("associationMess").where({ count: count }).get().then(res => {
           this.setData({
-            freshman: res.data[0].freshman
+            freshman: res.data[0].freshman,
+            sendStatus: res.data[0].sendStatus,
+            imgUrl: res.data[0].imgUrl
           })
         })
       }
@@ -45,7 +50,25 @@ Page({
   },
   // 弹窗
   clickme() {
-    this.showModal();
+    if (this.data.sendStatus == true) {
+      wx.showModal({
+        title: '提示',
+        content: '已发布不可修改',
+        showCancel: true,
+        cancelText: '取消',
+        cancelColor: '#000000',
+        confirmText: '确定',
+        confirmColor: '#3CC51F',
+        success: (result) => {
+          if (result.confirm) {
+
+          }
+        },
+      });
+    }
+    else {
+      this.showModal();
+    }
   },
   //显示对话框
   showModal: function () {
@@ -92,7 +115,7 @@ Page({
   // 输入内容
   content(e) {
     this.setData({
-      add_content:e.detail.value
+      add_content: e.detail.value
     })
   },
   // 提交
@@ -142,17 +165,17 @@ Page({
     }
   },
   // 删除内容
-  delete(e){
-    let id=e.currentTarget.dataset.item.id
-    let freshman=this.data.freshman
-    let newFreshman=[]
-    for(let i=0;i<freshman.length;i++){
-      if(freshman[i].id!=id){
+  delete(e) {
+    let id = e.currentTarget.dataset.item.id
+    let freshman = this.data.freshman
+    let newFreshman = []
+    for (let i = 0; i < freshman.length; i++) {
+      if (freshman[i].id != id) {
         newFreshman.push(freshman[i])
       }
     }
     this.setData({
-      freshman:newFreshman
+      freshman: newFreshman
     })
     wx.showToast({
       title: '删除成功',
@@ -160,16 +183,146 @@ Page({
       image: '',
       duration: 1500,
       mask: false,
-      success: (result)=>{
-        db.collection("associationMess").where({count:count}).update({
-          data:{
-            freshman:newFreshman
+      success: (result) => {
+        db.collection("associationMess").where({ count: count }).update({
+          data: {
+            freshman: newFreshman
           }
         })
       },
     });
   },
+  // 发布状态选择
+  send() {
+    let sendStatus = this.data.sendStatus
+    if (sendStatus == false) {
+      wx.showModal({
+        title: '提示',
+        content: '确定发布',
+        showCancel: true,
+        cancelText: '取消',
+        cancelColor: '#000000',
+        confirmText: '确定',
+        confirmColor: '#3CC51F',
+        success: (result) => {
+          if (result.confirm) {
+            db.collection("associationMess").where({ count: count }).update({
+              data: {
+                sendStatus: true
+              }
+            }).then(res => {
+              this.setData({
+                sendStatus: true
+              })
+            })
+          }
+        },
+      });
+    }
+    else {
+      wx.showModal({
+        title: '提示',
+        content: '撤回发布问卷',
+        showCancel: true,
+        cancelText: '取消',
+        cancelColor: '#000000',
+        confirmText: '确定',
+        confirmColor: '#3CC51F',
+        success: (result) => {
+          if (result.confirm) {
+            db.collection("associationMess").where({ count: count }).update({
+              data: {
+                sendStatus: false
+              }
+            }).then(res => {
+              this.setData({
+                sendStatus: false
+              })
+            })
+          }
+        },
+      });
+    }
+  },
+  // 招新海报
+  uploadImg() {
+    let id = Date.parse(new Date())
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success: (res) => {
+        wx.cloud.uploadFile({
+          cloudPath: id + '.png',
+          filePath: res.tempFilePaths[0]
+        }).then(res => {
+          db.collection("associationMess").where({ count: count }).update({
+            data: {
+              imgUrl: res.fileID
+            }
+          }).then(res => {
+            wx.showToast({
+              title: '上传成功',
+              icon: 'none',
+              image: '',
+              duration: 1500,
+              mask: false,
+              success: (result) => {
+                this.setData({
+                  imgUrl: res.fileID
+                })
+              },
+            });
+          })
+        })
+      },
+    });
+  },
+  // 加载图片
+  previewImage(e) {
+    wx.previewImage({
+      current: e.currentTarget.dataset.src,
+      urls: [e.currentTarget.dataset.src],
+      success: (result) => {
 
+      },
+    });
+  },
+  // 删除海报
+  deleteImg() {
+    if (this.data.sendStatus == true) {
+      wx.showModal({
+        title: '提示',
+        content: '已发布不可修改',
+        showCancel: true,
+        cancelText: '取消',
+        cancelColor: '#000000',
+        confirmText: '确定',
+        confirmColor: '#3CC51F',
+        success: (result) => {
+          if (result.confirm) {
+
+          }
+        },
+      });
+    }
+    else {
+      wx.showModal({
+        title: '提示',
+        content: '删除海报',
+        showCancel: true,
+        cancelText: '取消',
+        cancelColor: '#000000',
+        confirmText: '确定',
+        confirmColor: '#3CC51F',
+        success: (result) => {
+          if (result.confirm) {
+
+          }
+        },
+      });
+    }
+  },
 
 
   /**
