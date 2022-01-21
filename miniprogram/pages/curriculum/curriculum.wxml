@@ -55,7 +55,7 @@
       animation="{{ani1}}">
       <!-- 滑块部分 -->
 
-      <view class=' wx-isclass' wx:if="{{wlist.length == 0}}">今天没有课，出去玩吧</view>
+      <view class=' wx-isclass' wx:if="{{wlist.length == 0}}" style="background-image: url({{backgroundUrl}});">今天没有课，出去玩吧</view>
       <scroll-view wx:if="{{wlist.length != 0}}">
         <!-- 套一个盒子 timeTableBox -->
         <view class="timeTableBox">
@@ -164,7 +164,7 @@
   </view>
 
   <!-- 背景蒙版 -->
-  <!-- <view wx:if="{{isAnimate}}" class="add_background"  bindtouchstart="touchStartCurri" bindtouchmove="touchMoveCurri" bindtouchend="touchEndCurri"></view> -->
+  <!-- <view wx:if="{{isAnimate}}" class="curriLeft_background" bindtap="ggggg"></view> -->
   <!-- 设置 -->
   <view class="curriLeft" bindtouchstart="touchStartCurri" bindtouchmove="touchMoveCurri" bindtouchend="touchEndCurri" animation="{{curriLeft}}" >
     <!-- 填充 -->

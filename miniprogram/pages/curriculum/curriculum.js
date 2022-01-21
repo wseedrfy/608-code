@@ -118,21 +118,18 @@ Page({
     })
   },
   resetBgcCurri() {
-    console.log('resetBgcCurri');
     try {
-      wx.removeStorageSync({
-        key:'curriBgc',
-        success(res) {
-          console.log(res);
-          wx.showToast({
-            title: '已重置背景',
-          })
-        }
-      })
+      wx.removeStorageSync('curriBgc')
     } catch (e){
       console.log(e);
     }
-    
+    this.setData({
+      backgroundUrl: 'https://z3.ax1x.com/2021/08/14/fszRhT.jpg'
+    })
+    wx.showToast({
+      title: '已重置背景',
+      icon: 'none'
+    })
   },
   showCurriculumPoint: function () {
     this.setData({
@@ -353,9 +350,12 @@ Page({
       })
     }
   },
+  ggggg(){
+    console.log("111111");
+  },
   // 弹出 - 设置页面
   seetingHandler: function (e) {
- 
+    console.log("已点击设置按钮");
     // 封装 timetable 和 curriLeft 的动画
     const animationFunc = (px,scale,opacity) => {
       
@@ -375,7 +375,7 @@ Page({
         curriLeft,
         isAnimate: !this.data.isAnimate
       })
-
+      console.log(this.data.isAnimate);
       // this.data.isAnimate = !this.data.isAnimate;     // 更新 isAnimate 状态
     }
     this.data.isAnimate ? animationFunc(0,1,0) : animationFunc(250,0.9,1)
@@ -549,21 +549,24 @@ Page({
     // console.log("进入函数");
     let allCurriculum = wx.getStorageSync('personalInformation').curriculum;
 
-    for (var i = 0; i < deCurriculum.length; i++) {
-      for (var g = 0; g < allCurriculum.length; g++) {
-        if (deCurriculum[i].zc == "全部") {
-          if (allCurriculum[g].kcmc == deCurriculum[i].kcmc) {
-            allCurriculum.splice(g, 1);
-            g--;
-          }
-        } else {
-          if (allCurriculum[g].kcmc == deCurriculum[i].kcmc && allCurriculum[g].jcdm == deCurriculum[i].jcdm && allCurriculum[g].zc == deCurriculum[i].zc && allCurriculum[g].xq == deCurriculum[i].xq) {
-            allCurriculum.splice(g, 1);
-            g--;
+    if(deCurriculum.length && allCurriculum.length) {
+      for (var i = 0; i < deCurriculum.length; i++) {
+        for (var g = 0; g < allCurriculum.length; g++) {
+          if (deCurriculum[i].zc == "全部") {
+            if (allCurriculum[g].kcmc == deCurriculum[i].kcmc) {
+              allCurriculum.splice(g, 1);
+              g--;
+            }
+          } else {
+            if (allCurriculum[g].kcmc == deCurriculum[i].kcmc && allCurriculum[g].jcdm == deCurriculum[i].jcdm && allCurriculum[g].zc == deCurriculum[i].zc && allCurriculum[g].xq == deCurriculum[i].xq) {
+              allCurriculum.splice(g, 1);
+              g--;
+            }
           }
         }
       }
     }
+    
     for (var i = 0; i < addCurriculum.length; i++) {
       allCurriculum.push(addCurriculum[i]);
     }
