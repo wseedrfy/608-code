@@ -1,135 +1,165 @@
-function runCode(that) {
+"use strict";
 
-    that.data.array = ['公选课', '2019-2020-1']
+function runCode(that, options) {
+    var i;
+    if (args.SchoolIndex.iconList) {
+        for (i in args.SchoolIndex.iconList) {
+            args.SchoolIndex.iconList[i].icon = util.getStorageImage(args.SchoolIndex.iconList[i].icon);
+        }
+    }
+    wx.setStorageSync('configData', Object.assign({ "timeYear": args.StartTime, "msg": "暂未登录哟" }, args.SchoolIndex));
+    that.onShow = function () {
+        console.log(wx.getStorageSync("configData"));
+        that.setData(wx.getStorageSync('configData'));
+    };
+    that.onShow();
+    if(!options){
+      options = {}
+    }
+    if (options.school === '广东石油化工学院') {
+        var input = options.passoword;
+        var output = "";
+        var chr1, chr2, chr3;
+        var enc1, enc2, enc3, enc4;
+        i = 0;
 
-    that.showList = function (id) {
- 
-        // kcdlmc: "公共选修课" xdfsmc: "任选"
-        var a = 0,
-            b = 0,
-            c = 0,
-            d = 0,
-            k = 0,
-            f = 0;
-        var isCourse = 'none';
-        var i = 0
-        var data = [],
-            color = [],
-            achievement = that.data.achievement;
-        console.log(achievement)
+        input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
 
-        for (i = 0; i < achievement.length; i++) {
+        var _keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+        while (i < input.length) {
 
-            if (achievement[i].xnxqmc == that.data.array[id] || (achievement[i].kcdlmc == "公共选修课" && id == 0)) {
-                a = Number(achievement[i].xf) + a;
-                b = Number(achievement[i].cjjd) + b;
-                c = Number(achievement[i].xf) * Number(achievement[i].cjjd) + c;
-                if (achievement[i].kcdlmc != "公共选修课") {
-                    d = Number(achievement[i].xf) + d;
-                    k = Number(achievement[i].cjjd) + k;
-                    f = Number(achievement[i].xf) * Number(achievement[i].cjjd) + f;
+            enc1 = _keyStr.indexOf(input.charAt(i++));
+            enc2 = _keyStr.indexOf(input.charAt(i++));
+            enc3 = _keyStr.indexOf(input.charAt(i++));
+            enc4 = _keyStr.indexOf(input.charAt(i++));
+
+            chr1 = enc1 << 2 | enc2 >> 4;
+            chr2 = (enc2 & 15) << 4 | enc3 >> 2;
+            chr3 = (enc3 & 3) << 6 | enc4;
+
+            output = output + String.fromCharCode(chr1);
+
+            if (enc3 != 64) {
+                output = output + String.fromCharCode(chr2);
+            }
+            if (enc4 != 64) {
+                output = output + String.fromCharCode(chr3);
+            }
+        }
+
+        var string = "";
+        i = 0;
+        var c = c1 = c2 = 0;
+
+        while (i < output.length) {
+
+            c = output.charCodeAt(i);
+
+            if (c < 128) {
+                string += String.fromCharCode(c);
+                i++;
+            } else if (c > 191 && c < 224) {
+                c2 = output.charCodeAt(i + 1);
+                string += String.fromCharCode((c & 31) << 6 | c2 & 63);
+                i += 2;
+            } else {
+                c2 = output.charCodeAt(i + 1);
+                c3 = output.charCodeAt(i + 2);
+                string += String.fromCharCode((c & 15) << 12 | (c2 & 63) << 6 | c3 & 63);
+                i += 3;
+            }
+        }
+
+        // An highlighted block
+        wx.showModal({
+            title: '温馨提示',
+            content: '迁移需要中，需要请求您昵称、头像、地区及性别, 用于校园圈',
+            success: function success(res) {
+                
+                if (res.confirm) {
+                    wx.getUserProfile({
+                        desc: "获取你的昵称、头像、地区及性别",
+                        success: function success(res) {
+                            wx.showLoading({
+                                title: '迁移中',
+                                mask: true
+                              })
+                            wx.cloud.callFunction({
+                                name: 'api',
+                                data: {
+                                    url: 'login',
+                                    username: options.username,
+                                    password: string,
+                                    nickName: res.userInfo.nickName,
+                                    iconUrl: res.userInfo.avatarUrl,
+                                    school: options.school
+                                },
+                                success: function success(res) {
+                                  wx.hideLoading()
+                                    if (res.result.msg == "welcome") {
+                                        wx.showLoading({
+                                            title: '迁移成功，等待加载页面',
+                                            mask: true
+                                          })
+                                        wx.reLaunch({
+                                            url: '/pages/index/index'
+                                        });
+                                    } else {
+                                        console.log(res.result);
+                                        wx.showToast({
+                                            icon: 'none',
+                                            title: "登录失败" + res.result.msg
+                                        });
+                                        wx.redirectTo({
+                                            url: '/pages/login/login'
+                                        });
+                                    }
+                                },
+                                fail: function fail(err) {
+                                  wx.hideLoading()
+                                    wx.showModal({
+                                        title: '迁移失败',
+                                        showCancel: true, //是否显示取消按钮
+                                        content: "是否要登录",
+                                        cancelText: "否", //默认是“取消”
+                                        // cancelColor: 'skyblue', //取消文字的颜色
+                                        confirmText: "是", //默认是“确定”
+                                        // confirmColor: 'red', //确定文字的颜色
+                                        success: function success(res) {
+                                            if (!res.cancel) {
+                                                wx.redirectTo({
+                                                    url: '/pages/login/login'
+                                                });
+                                            } else {}
+                                        },
+                                        fail: function fail(res) {}, //接口调用失败的回调函数
+                                        complete: function complete(res) {} //接口调用结束的回调函数（调用成功、失败都会执行）
+                                    });
+                                }
+                            });
+                        },
+                        fail: function fail(res) {
+                            //拒绝授权
+                            wx.showToast({
+                              icon: 'none',
+                              title: '授权失败，需要你自己重新登录或者去We广油迁移',
+                            })
+                            return;
+                        }
+                    });
+                } else if (res.cancel) {
+                    //拒绝授权 showErrorModal是自定义的提示
+                    wx.showToast({
+                      icon: 'none',
+                      title: '授权失败，需要你自己重新登录或者去We广油迁移',
+                    })
+                    return;
                 }
-
-                data.push(achievement[i]);
             }
+        });
 
-
-        }
-        var pj_credit = c / a;
-        var pj_credit2;
-        if (data[0] === undefined) {
-            isCourse = '';
-            msg = "此类无成绩"
-            that.setData({
-                isCourse: isCourse,
-                msg: msg,
-                list: data,
-                index: id,
-                headerType: 'picker',
-                text: ["此类无成绩"],
-            })
-        } else {
-
-            d ? (pj_credit2 = f / d) : (pj_credit2 = 0)
-
-            // 颜色
-            for (i = 0; i < data.length; i++) {
-                if (parseInt(data[i].zcj) >= 90) {
-                    color.push("#11c1f3");
-                } else if (parseInt(data[i].zcj) >= 80) {
-                    color.push("#33cd5f");
-                } else if (parseInt(data[i].zcj) >= 70) {
-                    color.push("#886aea");
-                } else if (parseInt(data[i].zcj) >= 60) {
-                    color.push("#ffc900");
-                } else {
-                    color.push("#CC0000");
-                }
-                data[i].title = data[i].kcmc.replace(/&ldquo;/g, "").replace(/&rdquo;/g, "")
-                data[i].score = data[i].zcj
-                data[i].text = [data[i].xdfsmc, '学分:' + data[i].xf, '绩点:' + data[i].cjjd, '状态:' + data[i].ksxzmc]
-            }
-            that.setData({
-                headerType: 'picker',
-                text: ['学分:' + a, '平均绩点:' + pj_credit.toFixed(2), '无公选:' + pj_credit2.toFixed(2)],
-                isCourse: isCourse,
-                index: id,
-                list: data,
-                color: color,
-                msg: ''
-            })
-        }
-        wx.setNavigationBarTitle({
-            title: 'We校园-成绩',    //页面标题
-        })
-
+        // console.log(string)
 
     }
-
-    that.totalJD = function () {
-        var zxf = 0;
-        var cjjd = 0
-        var i = 0
-        var achievement = that.data.achievement
-        for (i = 0; i < achievement.length; i++) {
-            if (achievement[i].kcdlmc != "公共选修课") {
-                zxf += Number(achievement[i].xf);
-                cjjd += Number(achievement[i].xf) * Number(achievement[i].cjjd);
-            }
-        }
-        console.log("总学分:" + zxf, "总绩点:" + (cjjd / zxf).toFixed(2))
-    }
-
-    var achievement = wx.getStorageSync('personalInformation').achievement;
-
-    achievement.sort(function (a, b) { return String(b.cjjd).localeCompare(String(a.cjjd), 'zh') })
-    if(achievement.length === 0){
-        that.setData({msg: "你暂无成绩哟"})
-    }
-
-
-    // 选出所有年份
-    for (i = 0; i < achievement.length; i++) {
-
-        if (!that.data.array.includes(achievement[i].xnxqmc)) {
-            that.data.array.push(achievement[i].xnxqmc);
-        }
-    }
-    // 年份从大到小
-    that.data.array.sort()
-    that.data.array.reverse()
-
-    that.bindPickerChange = function (e) {
-        console.log(e)
-        this.showList(e.detail.value)
-    }
-
-    that.setData({
-        array: that.data.array,
-        achievement: achievement
-    })
-
-    that.showList(1)
-    that.totalJD()
 }
 module.exports = runCode;

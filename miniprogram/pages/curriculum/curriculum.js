@@ -1,6 +1,7 @@
-const app = getApp()
-var startX, endX;
-var moveFlag = true;
+const app = getApp();
+const time = require("../../utils/time.js");
+var startX, endX, startXCurri, endXCurri;
+var moveFlag, moveFlagCurri = true;
 var util = require("../../utils/util.js")
 
 Page({
@@ -59,9 +60,77 @@ Page({
     Week: ["一", "二", "三", "四", "五", "六", "七"], // 星期 [1,2,3,4,5,6,7]
     WeekIndex: 0,
     addSubmitStyle: false,
-    showscroll: false
+    showscroll: false,
+    curriculumAll: [],              // 用户添加/隐藏后，得到的课表
+    curriFunc: [                   // 课表功能
+      {text:"导入最新课程表",click:"importCurri"},
+      {text:"手动添加课程",click:"feedbackHandler"},
+      {text:"修改课程",click:"addCourseHandler"},
+      {text:"分享课程表",click:"shareCurri"},
+      {text:"自定义背景",click:"bgcCurri"},
+      {text:"重置背景",click:"resetBgcCurri"}
+    ],
+    isAnimate: false,               // 控制动效
+    // CSS中使用变量
+    backgroundUrl: 'https://z3.ax1x.com/2021/08/14/fszRhT.jpg',
   },
+  importCurri() {
+    console.log('importCurri');
+  },
+  shareCurri() {
+    console.log('shareCurri');
+  },
+  bgcCurri() {
+    console.log('bgcCurri');
+    let that = this;
 
+    wx.chooseMedia({
+      count: 1,
+      mediaType: ['image'],
+      sourceType: ['album'],
+      success(res) {
+        
+        console.log(res.tempFiles[0].tempFilePath);
+        wx.saveFile({
+          tempFilePath: res.tempFiles[0].tempFilePath,
+          success(result){
+            wx.showLoading({
+              title: '处理中...',
+            })
+            // 重新渲染页面
+            that.setData({
+              backgroundUrl : result.savedFilePath
+            })
+            wx.setStorageSync('curriBgc',  result.savedFilePath)
+            wx.hideLoading()
+            // console.log(result.savedFilePath);
+          },
+          fail(error) {
+            wx.showToast({
+              title: '请求失败'+ error,
+            })
+          }
+      })
+      },
+      fail(err) {
+        console.log(err);
+      }
+    })
+  },
+  resetBgcCurri() {
+    try {
+      wx.removeStorageSync('curriBgc')
+    } catch (e){
+      console.log(e);
+    }
+    this.setData({
+      backgroundUrl: 'https://z3.ax1x.com/2021/08/14/fszRhT.jpg'
+    })
+    wx.showToast({
+      title: '已重置背景',
+      icon: 'none'
+    })
+  },
   showCurriculumPoint: function () {
     this.setData({
       showscroll: !this.data.showscroll,
@@ -70,16 +139,34 @@ Page({
   },
 
   onLoad: function (options) {
-    var courseTime = wx.getStorageSync('args').courseTime
+    var courseTime = wx.getStorageSync('args').courseTime;
     this.kb(util.getweekString());
-    var that = this;
     this.setData({
       weekNow: util.getweekString(),
-      courseTime: courseTime? courseTime : that.data.courseTime
+      courseTime: courseTime? courseTime : that.data.courseTime,
     })
+
+    console.log(this.data.backgroundUrl);
+    // 从本地缓存获取backgroundUrl
+    let fileUrl = wx.getStorageSync('curriBgc');
+    let that = this;
+    const getUrlFromLoad = (fileUrl) => {
+      
+      wx.getSavedFileList({
+        success(res) {
+          for(let i in res.fileList) {
+
+            res.fileList[i].filePath == fileUrl ? that.setData({backgroundUrl:res.fileList[i].filePath}) : ''
+          }
+        }
+      })
+      console.log(that.data.backgroundUrl);
+    }
+    fileUrl ?  getUrlFromLoad(fileUrl) : ''
   },
 
   onShow: function (options) {
+
     app.loginState()
     this.kb(util.getweekString());
     this.initWeek()
@@ -118,8 +205,6 @@ Page({
         this.kb(this.data.whichWeek + 1);
       }
     }
-  
-
   },
     // 点击上面课表进行切换
     clickWeek: function (e) {
@@ -151,6 +236,7 @@ Page({
   // 显示当前周的课表
   kb: function (whichWeek) {
     var that = this;
+    let args = wx.getStorageSync('args')
     // 处理上面日期
     whichWeek = whichWeek > 0 ? whichWeek : 1;
     var whichWeek_now = (Number(whichWeek) - 1) * 7;
@@ -170,8 +256,9 @@ Page({
       arr.push(date);
       if(i == 6) this.setData({month})
     }
-    var personalInformation = wx.getStorageSync('personalInformation')
-    var curriculum = personalInformation.curriculum;
+    // var personalInformation = wx.getStorageSync('personalInformation')
+    // var curriculum = personalInformation.curriculum;
+    var curriculum = this.changeCurriculum(args.addCurriculumLogs, args.ConcealCurriculumLogs);
     var wlist = [];
     var zc = 0;
 
@@ -192,6 +279,7 @@ Page({
         })
       }
     }
+    // console.log(wlist,"初始wlist");
 
     that.setData({
       arr,
@@ -216,8 +304,11 @@ Page({
     }
     for (let i in curriculum) {
       var zc = curriculum[i].zc;
-      let bright_skjc = Number(curriculum[i].jcdm.substr(0, 2)) + 1
-      wlistPoint[zc-1][((bright_skjc / 2 - 1) * 7 + Number(curriculum[i].xq)) - 1] = 1
+      // console.log(curriculum[i].jcdm);
+      if(curriculum[i].jcdm) {
+        let bright_skjc = Number(curriculum[i].jcdm.substr(0, 2)) + 1
+        wlistPoint[zc-1][((bright_skjc / 2 - 1) * 7 + Number(curriculum[i].xq)) - 1] = 1
+      }
     }
     this.setData({
       wlistPoint
@@ -258,6 +349,55 @@ Page({
         showAdd: !showAdd
       })
     }
+  },
+  ggggg(){
+    console.log("111111");
+  },
+  // 弹出 - 设置页面
+  seetingHandler: function (e) {
+    console.log("已点击设置按钮");
+    // 封装 timetable 和 curriLeft 的动画
+    const animationFunc = (px,scale,opacity) => {
+      
+      var timetableAnimation = wx.createAnimation({
+        duration: 500,
+        timingFunction: 'ease',
+        delay: 50,
+      }).translateX(px).scale(scale).opacity(1).step().export();
+      this.setData({timetableAnimation})
+
+      var curriLeft = wx.createAnimation({
+        duration: 500,
+        timingFunction: 'ease',
+        delay: 50,
+      }).translateX(px).opacity(opacity).step().export();
+      this.setData({
+        curriLeft,
+        isAnimate: !this.data.isAnimate
+      })
+      console.log(this.data.isAnimate);
+      // this.data.isAnimate = !this.data.isAnimate;     // 更新 isAnimate 状态
+    }
+    this.data.isAnimate ? animationFunc(0,1,0) : animationFunc(250,0.9,1)
+  },
+  // 触摸开始事件
+  touchStartCurri: function (e) {
+    startXCurri = e.touches[0].pageX; // 获取触摸时的原点
+    moveFlagCurri = true;
+  },
+  // 触摸移动事件
+  touchMoveCurri: function (e) {
+    endXCurri = e.touches[0].pageX; // 获取触摸时的原点
+    if (moveFlagCurri) {
+      if (startXCurri - endXCurri > 5) {
+        moveFlagCurri = false;
+        this.seetingHandler();
+      }
+    }
+  },
+  // 触摸结束事件
+  touchEndCurri: function (e) {
+    moveFlagCurri = true; // 回复滑动事件
   },
 
 
@@ -323,13 +463,15 @@ Page({
   },
   // 新增课程按钮
   addSubmit(e) {
-    var that = this
+    let that = this;
+    let args = wx.getStorageSync('args');
+      
+    // args
     wx.showLoading({
       title: '处理中',
       mask: true
     })
     var week = []
-    var tt = JSON.parse(JSON.stringify(getApp().globalData._add));
     for (var i = 0; i < 18; i++) {
       if (this.data.week[i][0])
         week.push(i + 1)
@@ -363,29 +505,28 @@ Page({
           'xq': time.formatDay(this.data.Week[this.data.WeekIndex]),
           'zc': String(week[i])
         }
-
-        tt.push(add)
+        
+        args.addCurriculumLogs.push(add)
       }
+      // 更新本地缓存
+      wx.setStorageSync('args', args);
+      // console.log(args.addCurriculumLogs, 233);
+      // 更新后台数据
       wx.cloud.callFunction({
-        name: 'weLoading',
+        name: "curriculum",
         data: {
-          _add: JSON.stringify(tt),
-          username: getApp().globalData.username,
-          type: 'add'
+          type: "addCurriculumLogs",
+          username: args.username,
+          nickName: args.nickName,
+          addCurriculumLogs: args.addCurriculumLogs,
         },
         success: res => {
+          console.log(res);
           wx.showToast({
             title: '添加成功',
             icon: 'none',
           })
-          getApp().globalData._add = tt;
-          var curriculum = app.changeCurriculum(getApp().globalData._add, getApp().globalData._de, getApp().globalData.curriculum1);
-          getApp().globalData.curriculum = curriculum;
           that.onShow()
-          wx.setStorage({
-            key: 'oldTime',
-            data: "1"
-          })
         },
         fail: err => {
           wx.showToast({
@@ -399,7 +540,37 @@ Page({
           })
         }
       })
+
+
     }
+  },
+  // 处理课表增删
+  changeCurriculum: function (addCurriculum, deCurriculum) {
+    // console.log("进入函数");
+    let allCurriculum = wx.getStorageSync('personalInformation').curriculum;
+
+    if(deCurriculum.length && allCurriculum.length) {
+      for (var i = 0; i < deCurriculum.length; i++) {
+        for (var g = 0; g < allCurriculum.length; g++) {
+          if (deCurriculum[i].zc == "全部") {
+            if (allCurriculum[g].kcmc == deCurriculum[i].kcmc) {
+              allCurriculum.splice(g, 1);
+              g--;
+            }
+          } else {
+            if (allCurriculum[g].kcmc == deCurriculum[i].kcmc && allCurriculum[g].jcdm == deCurriculum[i].jcdm && allCurriculum[g].zc == deCurriculum[i].zc && allCurriculum[g].xq == deCurriculum[i].xq) {
+              allCurriculum.splice(g, 1);
+              g--;
+            }
+          }
+        }
+      }
+    }
+    
+    for (var i = 0; i < addCurriculum.length; i++) {
+      allCurriculum.push(addCurriculum[i]);
+    }
+    return allCurriculum;
   },
   checkSubmit() {
     var week = []

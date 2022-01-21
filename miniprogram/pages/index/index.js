@@ -5,6 +5,8 @@ const util = require("../../utils/util")
 // 获取应用实例
 const app = getApp()
 
+
+
 Page({
   data: {
     time: {
@@ -12,11 +14,6 @@ Page({
       month: new Date().getMonth(),
       day: new Date().getDay(),
     },
-    model:{
-      title: "圣诞树下的悄悄话",
-      src: "../../images/model.png",
-      time: "*活动时间: 2021.12.24-12.26"
-    }
   },
   onPullDownRefresh(){
     wx.showNavigationBarLoading() //在标题栏中显示加载
@@ -60,8 +57,9 @@ Page({
           var onload = app.jsRun(new_args, new_args.jsCode)
           wx.setStorageSync('args', new_args)
           try {
-            onload(that)
-          } catch {
+            onload(that, options)
+          } catch(e) {
+            console.log(e)
             that.setData({
               msg: '有超级bug，请联系开发查看函数'
             })

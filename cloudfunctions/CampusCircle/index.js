@@ -47,7 +47,7 @@ async function addRecord(event, type, content){
       be_character_username: event.be_username,
       type: type,
       content: content,
-      status: 1,
+      status: 0,
       createTime: event.createTime,
       arcticle: event.arcticle,
       arcticle_id: event.arcticle_id
@@ -217,7 +217,7 @@ async function StarControlLogs(event) {
       arcticle_id: event.arcticle_id
     }).update({
       data: {
-        status: _.mul(-1),
+        status: _.mul(-1),      // 2022-1-17   -1时不该自乘-1，应当变成0；后续再改这个bug
         createTime: event.createTime
       }
     })
