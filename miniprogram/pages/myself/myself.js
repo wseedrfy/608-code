@@ -51,7 +51,7 @@ Page({
   },
   onShow() {
     let that = this;
-    app.slideupshow(that,'slideupshow',500,1)
+    app.slideupshow(that,'slideupshow',500,1);
   },
   school(e) {
     if(!this.data.isLogin) {
