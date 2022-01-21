@@ -112,11 +112,13 @@ App({
     var select = wx.createAnimation({
       duration: 500,
       timingFunction: 'ease',
+      delay: 80
     });
     select.translateX(px).opacity(opacity).step()
     var json = '{"' + param + '":""}'
     json = JSON.parse(json);
     json[param] = select.export()
+    console.log(json);
     that.setData(json)
   },
 
