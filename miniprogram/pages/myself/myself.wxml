@@ -1,106 +1,101 @@
-<view class="container" animation="{{slideupshow}}">
-  <!-- 状态栏 -->
-  <view style="z-index:2; position:fixed; background-color: rgb(122, 159, 204);"/>
-  <view style=" background-color: rgb(122, 159, 204);" >
+<view class="container">
+  <!-- 头部 -->
+  <view class="head">
     <!-- 状态栏 -->
-    <view style="height: {{statusBarHeight}}px;" />
+    <view style="height: {{statusBarHeight}}px;"></view>
     <!-- 导航栏 -->
-    <view  bindtap="showCurriculumPoint" class="cur-week" style="height: {{lineHeight}}px;" >
-    </view>
+    <view style="height: {{lineHeight}}px;"></view>
   </view>
-  <!-- 背景图片区域 -->
-  <view class="bgcImage">
-    <!-- 用户信息区域 -->
+
+  <!-- 用户信息区域 -->
+  <view class="info">
     <view class="userInfo">
       <!-- 头像 -->
-      <view class="userAvatar">
-        <view wx:if="{{isLogin}}">
-          <image class="userAvatarImg" src="{{storageInfo.iconUrl}}" alt="" />
-        </view>
-        <view wx:if="{{isLogin==false}}"><open-data type="userAvatarUrl"></open-data></view>
+      <view class="userInfo_avatar">
+        <image wx:if="{{isLogin}}" src="{{storageInfo.iconUrl}}" alt="" />
+        <open-data wx:else type="userAvatarUrl"></open-data>
       </view>
-      <!-- 未登录状态 -->
-      <view class="userInfoTxt" wx:if="{{isLogin == false}}" bindtap="login">
+
+      <view class="userInfo_text" bindtap="login">
         <view class="left">
           <!-- 姓名 -->
-          <view class="userName">
-            你还没登录哟!
-          </view>
-          <view class="userAcademy">点击登录账号</view>
-        </view>
-      </view>
-      <!-- 登录状态 -->
-      <view class="userInfoTxt" wx:if="{{isLogin == true}}">
-        <view class="left">
-          <!-- 姓名 -->
-          <view class="userName">
-            {{storageInfo.nickName}}
+          <view>
+            <text>{{isLogin ? storageInfo.nickName : "你还没登录哟!"}}</text>
           </view>
           <!-- 学号 -->
-          <view class="userAcademy">
-            <view class="guestAcademy">学号：{{ isLogin? storageInfo.username : ''}}</view>
+          <view>
+            <text wx:if="{{!isLogin}}">点击登录账号</text>
+            <view wx:else>学号：{{storageInfo.username}}</view>
           </view>
         </view>
-        <view class="right" style="margin-right: 40rpx;">
-          <view class="studyDate" style="margin-bottom: 10rpx;margin-top: 8rpx;">{{studyDate}}</view>
-          <view class="studyWeek">{{studyWeek}}</view>
+
+        <view class="right" wx:if="{{isLogin}}">
+          <view>{{studyDate}}</view>
+          <view>{{studyWeek}}</view>
         </view>
+
       </view>
+
     </view>
   </view>
 
-  <!-- 中间待定功能/学校模块 -->
-  <view class="moduleAdd">
-    <view class="firstModule moduleItem">
-      <view class="text">0</view>
-      <view class="fundamention">待定功能</view>
-    </view>
-    <view class="secondModule moduleItem">
-      <view class="text">{{storageInfo.school ? storageInfo.school : '暂未登录'}}</view>
-      <view class="fundamention">学校</view>
-    </view>
-  </view>
-  <!-- 学校/学号Dialog -->
-  <view class="demoBox">
-    <!-- 学校 -->
-    <view class="demoUser" catchtap="school">
-      <view class="left">
-        <image src="images/class.png"></image>
-        <text class="title">学校</text>
+  <view class="blocks">
+
+    <!-- 中间待定功能/学校模块 -->
+    <view class="moduleAdd">
+      <view class="firstModule moduleItem">
+        <view class="text">0</view>
+        <view class="fundamention">待定功能</view>
       </view>
-      <view class="right">
-        <text>{{isLogin ? storageInfo.school : '暂未登录'}}</text>
-        <!-- <image src="{{right || '/pages/myself/images/right.png'}}"></image> -->
-      </view>
-      
-    </view>
-    <!-- 学号 -->
-    <view class="demoUser" catchtap="academy">
-      <view class="left">
-        <image src="images/academy.png"></image>
-        <text class="title">学号</text>
-      </view>
-      <view class="right">
-        <text>{{isLogin ? storageInfo.username : '暂未登录'}}</text>
-        <!-- <image src="{{right || '/pages/myself/images/right.png'}}"></image> -->
+      <view class="secondModule moduleItem">
+        <view class="text">{{storageInfo.school ? storageInfo.school : '暂未登录'}}</view>
+        <view class="fundamention">学校</view>
       </view>
     </view>
-  </view>
-  <!--  关于我们...Dialog -->
-  <view class="more">
-    <block wx:for="{{list}}" wx:key="index">
-      <button class="more_item" catchtap="{{item.click}}" open-type="{{item.id==4?'share':''}}">
+
+    <!-- 学校/学号Dialog -->
+    <view class="demoBox">
+      <!-- 学校 -->
+      <view class="demoUser" catchtap="school">
         <view class="left">
-          <image src="{{item.icon}}"></image>
-          <text class="title">{{item.title}}</text>
+          <image src="images/class.png"></image>
+          <text class="title">学校</text>
         </view>
         <view class="right">
-          <text>{{item.intro}}</text>
-          <image src="{{right || '/pages/myself/images/right.png'}}"></image>
+          <text>{{isLogin ? storageInfo.school : '暂未登录'}}</text>
         </view>
-      </button>
-    </block>
-  </view> 
-  <view>
+
+      </view>
+      <!-- 学号 -->
+      <view class="demoUser" catchtap="academy">
+        <view class="left">
+          <image src="images/academy.png"></image>
+          <text class="title">学号</text>
+        </view>
+        <view class="right">
+          <text>{{isLogin ? storageInfo.username : '暂未登录'}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!--  关于我们...Dialog -->
+    <view class="more">
+      <block wx:for="{{list}}" wx:key="index">
+        <button class="more_item" catchtap="{{item.click}}" open-type="{{item.id==4?'share':''}}">
+          <view class="left">
+            <image src="{{item.icon}}"></image>
+            <text class="title">{{item.title}}</text>
+          </view>
+          <view class="right">
+            <text>{{item.intro}}</text>
+            <image src="{{right || '/pages/myself/images/right.png'}}"></image>
+          </view>
+        </button>
+      </block>
+    </view>
+
   </view>
+
+
+
 </view>

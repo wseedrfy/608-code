@@ -4,75 +4,96 @@ page {
 
 .container {
   position: absolute;
-  top: -500px;
-  opacity: 0;
-  padding: 0 0;
+  animation: blinds .6s ease-in-out 1 normal;
+  width: 100%;
 }
 
-image {
-  color: #fff;
+@keyframes blinds {
+  0% {
+    top: -500px;
+    opacity: 0;
+  }
+  100% {
+    top: 0px;
+    opacity: 1;
+  }
 }
-.bgcImage {
-  position: relative;
-  width: 100%;
+
+/* 头部 */
+.head{
+  background-color: rgb(122, 159, 204);
+}
+
+.info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 150rpx;
   background-color: rgb(122, 159, 204);
 }
 
 .userInfo {
-  position: absolute;
-  left: 30rpx;
-  top: 25rpx;
   display: flex;
   justify-content: space-between;
-}
-/* 头像 */
-.userAvatar {
-  display: flex;
-  overflow: hidden;
-  width: 100rpx;
-  height: 100rpx;
-  border-radius: 50%;
-  border: 5rpx solid rgba(171, 199, 233, 0.6);
+  width: 95%;
 }
 
-.userAvatar .userAvatarImg {
-  display: flex;
+/* 头像 */
+.userInfo_avatar {
+  border: 5rpx solid rgba(171, 199, 233, 0.6);
+}
+.userInfo_avatar, 
+.userInfo_avatar image {
   overflow: hidden;
   width: 100rpx;
   height: 100rpx;
   border-radius: 50%;
-  background-color: #fff;
 }
+
 /* 角色信息text */
-.userInfoTxt {
+.userInfo_text {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 585rpx;
-  margin: 10rpx 0 0 20rpx;
+  align-items: center;
+  flex: .96;
   color: rgb(233, 253, 253);
 }
-.userInfoTxt .left .userName {
+.userInfo_text .left>view:nth-child(1){
   margin-bottom: 10rpx;
 }
-.userInfoTxt .left .userAcademy {
+.userInfo_text .left>view:nth-child(2){
   font-size: 23rpx;
   color: rgb(212, 223, 238);
 }
-.userInfoTxt .right {
+.userInfo_text .right {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-right: 40rpx;
   font-size: 23rpx;
   color: rgb(212, 223, 238);
 }
+.userInfo_text .right>view:nth-child(1){
+  margin-bottom: 10rpx;
+  margin-top: 8rpx;
+}
+
+.blocks{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 15rpx 20rpx;
+}
+.moduleAdd,.demoBox,.more{
+  width: 100%;
+  margin: 10rpx 0;
+}
+
 /* ModuleAdd模块 */
 .moduleAdd {
   display: flex;
   flex-direction: row;
-  width: 710rpx;
-  margin: 20rpx 20rpx;
   background-color: #fff;
   border-radius: 15rpx;
 }
@@ -84,7 +105,7 @@ image {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  width: 355rpx;
+  width: 50%;
   margin: 30rpx 0 30rpx 0;
 }
 .moduleAdd .moduleItem .text {
@@ -98,12 +119,14 @@ image {
   font-weight: 400;
   color: rgb(164, 163, 165);
 }
+
 /* demo */
 .demoBox {
-  width: 710rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   border-radius: 15rpx;
   background-color: #fff;
-  margin: 20rpx 0 20rpx 20rpx;
 }
 .demoUser {
   display: flex;
@@ -112,8 +135,7 @@ image {
   align-items: center;
   width: 650rpx;
   height: 100rpx;
-  border-bottom: 1rpx solid rgb(122, 159, 204,0.3);
-  margin-left: 30rpx;
+  border-bottom: 1rpx solid rgb(122, 159, 204, 0.3);
 }
 .demoUser:last-child {
   border-bottom: 0;
@@ -131,7 +153,7 @@ image {
 }
 .demoUser .left .title {
   font-size: 25rpx;
-  color:black
+  color: black
 }
 .demoUser .right {
   display: flex;
@@ -149,12 +171,11 @@ image {
   height: 30rpx;
   margin-top: 2rpx;
 }
+
 /* more -> 第二个Dialog */
 .more {
-  width: 710rpx;
   border-radius: 15rpx;
   background-color: #fff;
-  margin: 20rpx 0 20rpx 20rpx;
 }
 .more_item {
   display: flex;
@@ -163,8 +184,7 @@ image {
   align-items: center;
   width: 650rpx;
   height: 100rpx;
-  border-bottom: 1rpx solid rgb(122, 159, 204,0.3);
-  margin-left: 30rpx;
+  border-bottom: 1rpx solid rgb(122, 159, 204, 0.3);
 }
 .more_item:last-child {
   border-bottom: 0;
@@ -172,7 +192,6 @@ image {
 .more_item .left {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   align-items: center;
 }
 .more_item .left image {
@@ -182,12 +201,11 @@ image {
 }
 .more_item .left .title {
   font-size: 25rpx;
-  color:black
+  color: black
 }
 .more_item .right {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   align-items: center;
 }
 .more_item .right text {
@@ -201,27 +219,55 @@ image {
   margin-top: 2rpx;
 }
 
-button{
-  font-size:32rpx;
-  color : rgba(52,144,248,1);
-  height:100%;
-  line-height:100rpx;
+button {
+  font-size: 32rpx;
+  color: rgba(52, 144, 248, 1);
+  height: 100%;
+  line-height: 100rpx;
   background: transparent;
   /* background-color:#fff; */
 
 }
-button::after{
+
+button::after {
   border-color: transparent;
 }
-.more_item{
+
+.more_item {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   width: 650rpx !important;
-  height:100rpx;
-  border-bottom: 1rpx solid rgba(122,159,204,0.3);
+  height: 100rpx;
+  border-bottom: 1rpx solid rgba(122, 159, 204, 0.3);
   margin-left: 30rpx;
-  padding: 0!important;
-  font-weight: 400!important;
+  padding: 0 !important;
+  font-weight: 400 !important;
+}
+
+
+@media (prefers-color-scheme: dark) {
+  page {
+    min-height: 100vh;
+    filter: invert(90%) !important;
+    background-color: rgb(25, 25, 25) !important;
+    color: rgb(25, 25, 25);
   }
+
+  .info,
+  .head {
+    filter: invert(80%) !important;
+    background-color: rgba(122, 159, 204,0.5);
+  }
+
+  .info image{
+    filter: invert(0%) !important;
+  }
+
+  .more .left{
+    filter: invert(90%) !important;
+  }
+
+
+}

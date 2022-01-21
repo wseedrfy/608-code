@@ -2,6 +2,10 @@ page {
   background-color: rgb(255, 255, 255);
 }
 
+.all{
+  min-height: 100vh;
+}
+
 /* 头部 */
 .cur-week {
   display: flex;
@@ -223,8 +227,6 @@ page {
 
 .pd2 {
   justify-content: space-between;
-  height: 100%;
-  padding: 65vh 0;
   box-sizing: border-box;
 }
 
@@ -458,6 +460,19 @@ button {
   }
 
   .add_background {
+    filter: invert(90%) !important;
+  }
+  .kb{
+    /* 色块亮度调为75% */
+    filter: brightness(75%);
+  }
+  .weekscroll{
+    filter: invert(0%) !important;
+  }
+  .week_point view{
+    opacity: 0.8;
+  }
+  .wx-isclass{
     filter: invert(90%) !important;
   }
 

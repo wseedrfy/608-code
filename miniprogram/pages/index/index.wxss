@@ -197,3 +197,10 @@ page{
   height: 80%;
   /* background-color: rgb(255, 255, 255); */
 }
+
+
+@media (prefers-color-scheme: dark) {
+  .wx-remind text{
+    filter: invert(90%) !important;
+  }
+}
