@@ -20,6 +20,7 @@
     "pages/physical/physical",
     "pages/physical/detail/detail",
     "pages/about/about",
+    "pages/journal/journal",
     "pages/dynamic/dynamic",
     "pages/test/test"
   ],
