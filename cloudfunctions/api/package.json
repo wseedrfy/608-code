@@ -18,6 +18,7 @@
     "image-size": "^1.0.0",
     "querystring": "^0.2.0",
     "sync-request": "^6.1.0",
-    "wx-server-sdk": "~2.5.3"
+    "wx-server-sdk": "~2.5.3",
+    "xlsx": "^0.17.5"
   }
 }
