@@ -691,13 +691,13 @@ Page({
         if (this.data.shortrun > 10.1 || this.data.shortrun == 0)
           shortrun = 0
         else if (this.data.shortrun >= 9.1) {
-          shortrun = 60 - Math.ceil(((this.data.shortrun - 9.1) / 0.2)) * 10
+          shortrun = 60 - Math.ceil(((this.data.shortrun - 9.1).toFixed(2) / 0.2)) * 10
         }
         else if (this.data.shortrun >= 7.1) {
-          shortrun = 80 - Math.ceil(((this.data.shortrun - 7.1) / 0.2)) * 2
+          shortrun = 80 - Math.ceil(((this.data.shortrun - 7.1).toFixed(2) / 0.2)) * 2
         }
         else if (this.data.shortrun >= 6.7) {
-          shortrun = 100 - Math.ceil(((this.data.shortrun - 6.7) / 0.1)) * 5
+          shortrun = 100 - Math.ceil(((this.data.shortrun - 6.7).toFixed(2) / 0.1)) * 5
         }
         else
           shortrun = 100
@@ -706,13 +706,13 @@ Page({
         if (this.data.shortrun > 10)
           shortrun = 0
         else if (this.data.shortrun >= 9) {
-          shortrun = 60 - Math.ceil(((this.data.shortrun - 9) / 0.2)) * 10
+          shortrun = 60 - Math.ceil(((this.data.shortrun - 9).toFixed(2) / 0.2)) * 10
         }
         else if (this.data.shortrun >= 7.0) {
-          shortrun = 80 - Math.ceil(((this.data.shortrun - 7) / 0.2)) * 2
+          shortrun = 80 - Math.ceil(((this.data.shortrun - 7).toFixed(2) / 0.2)) * 2
         }
         else if (this.data.shortrun >= 6.6) {
-          shortrun = 100 - Math.ceil(((this.data.shortrun - 6.6) / 0.1)) * 5
+          shortrun = 100 - Math.ceil(((this.data.shortrun - 6.6).toFixed(2) / 0.1)) * 5
         }
         else
           shortrun = 100
@@ -723,16 +723,16 @@ Page({
         if (this.data.shortrun > 11.3)
           shortrun = 0
         else if (this.data.shortrun >= 10.3) {
-          shortrun = 60 - Math.ceil(((this.data.shortrun - 10.3) / 0.2)) * 10
+          shortrun = 60 - Math.ceil(((this.data.shortrun - 10.3).toFixed(2) / 0.2)) * 10
         }
         else if (this.data.shortrun >= 8.3) {
-          shortrun = 80 - Math.ceil(((this.data.shortrun - 8.3) / 0.2)) * 2
+          shortrun = 80 - Math.ceil(((this.data.shortrun - 8.3).toFixed(2) / 0.2)) * 2
         }
         else if (this.data.shortrun >= 7.7) {
-          shortrun = 100 - Math.ceil(((this.data.shortrun - 7.7) / 0.3)) * 5
+          shortrun = 90 - Math.ceil(((this.data.shortrun - 7.7).toFixed(2) / 0.3)) * 5
         }
         else if (this.data.shortrun >= 7.5) {
-          shortrun = 100 - Math.ceil(((this.data.shortrun - 7.5) / 0.1)) * 5
+          shortrun = 100 - Math.ceil(((this.data.shortrun - 7.5).toFixed(2) / 0.1)) * 5
         }
         else
           shortrun = 100
@@ -741,16 +741,16 @@ Page({
         if (this.data.shortrun > 11.2)
           shortrun = 0
         else if (this.data.shortrun >= 10.2) {
-          shortrun = 60 - Math.ceil(((this.data.shortrun - 10.2) / 0.2)) * 10
+          shortrun = 60 - Math.ceil(((this.data.shortrun - 10.2).toFixed(2) / 0.2)) * 10
         }
         else if (this.data.shortrun >= 8.2) {
-          shortrun = 80 - Math.ceil(((this.data.shortrun - 8.2) / 0.2)) * 2
+          shortrun = 80 - Math.ceil(((this.data.shortrun - 8.2).toFixed(2) / 0.2)) * 2
         }
-        else if (this.data.shortrun >= 7.6) {
-          shortrun = 100 - Math.ceil(((this.data.shortrun - 7.6) / 0.3)) * 5
+        else if (this.data.shortrun > 7.6) {
+          shortrun = 90 - Math.ceil(((this.data.shortrun - 7.6).toFixed(2) / 0.3)) * 5
         }
         else if (this.data.shortrun >= 7.4) {
-          shortrun = 100 - Math.ceil(((this.data.shortrun - 7.4) / 0.1)) * 5
+          shortrun = 100 - Math.ceil(((this.data.shortrun - 7.4).toFixed(2) / 0.1)) * 5
         }
         else
           shortrun = 100
