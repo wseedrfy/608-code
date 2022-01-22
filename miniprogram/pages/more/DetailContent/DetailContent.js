@@ -18,7 +18,6 @@ Page({
     ShowReplyComment:0,
     ReplyCom_input:"",
     obtainIndex:0,
-
     Starurl: "../../../images/zan1.png",
     Star_count: 0,
   },

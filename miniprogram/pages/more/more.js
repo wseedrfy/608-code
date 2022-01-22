@@ -684,7 +684,7 @@ Page({
         currentPage: currentPage,
         ShowId: that.data.Label,
         addAft: that.data.addAft,
-        School: that.data.school
+        School: that.data.school=="游客登录" ? "广东石油化工学院":that.data.school //游客模式校园圈初始化
       },
       success(res) {
         if (res.result === null) {

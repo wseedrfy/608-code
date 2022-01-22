@@ -89,7 +89,7 @@ Page({
   },
 
   login(e) {
-    if (!this.data.isLogin) {
+    // if (this.data.isLogin) {
       wx.showModal({
         title: '提示',
         content: '请确定是否注销/登录',
@@ -104,7 +104,7 @@ Page({
           }
         }
       })
-    }
+    // }
 
   },
 
