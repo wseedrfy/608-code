@@ -1,13 +1,13 @@
 page {
   background-color: rgb(255, 255, 255);
 }
-.container {
-  background-color: rgb(81,81,81);
-  position: relative;
+
+.all{
+  min-height: 100vh;
 }
+
 /* 头部 */
 .cur-week {
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -82,20 +82,10 @@ page {
   margin-left: 20rpx;
 }
 
-.seeting-btn {
-  position: absolute;
-  top: 18rpx;
-  left: 0;
-  width: 50rpx;
-  height: 48rpx;
-}
 .feedback-btn {
-  position: absolute;
-  top: 18rpx;
-  left: 60rpx;
   width: 50rpx;
   height: 48rpx;
-  margin-left: 15rpx;
+  margin-right: 20rpx;
 }
 
 .week-selector {
@@ -167,13 +157,10 @@ page {
 
 /* 时间表 */
 .timetable {
+  position: relative;
   display: flex;
   /* height: 1200rpx; */
   width: 100%;
-  /* 课表默认背景 */
-  background-image: url('https://z3.ax1x.com/2021/08/14/fszRhT.jpg'); 
-  background-size: auto 100%;
-  background-repeat: no-repeat;
 }
 
 .left {
@@ -231,19 +218,15 @@ page {
   overflow: hidden;
   position: absolute;
   /* display: flex; */
-  width: 100%;
+  width: 730rpx;
   text-align: center;
   font-size: 40rpx;
   color: #1cbbb4;
-  /* margin-top: 20rpx; */
-  background-color: #fff;
-  height: 100%;
+  margin-top: 20rpx;
 }
 
 .pd2 {
   justify-content: space-between;
-  height: 100%;
-  padding: 65vh 0;
   box-sizing: border-box;
 }
 
@@ -445,40 +428,6 @@ button {
 .add_hide {
   animation: add_hide .5s;
 }
-.timeTableBox {
-  height: 100%;
-  background-color: #fff;
-}
-/* 设置 */
-.curriLeft {
-  position: absolute;
-  left: -250px;
-  top: 0;
-  width: 488rpx;
-  height: 100%;
-  opacity: 0;
-  color: #fff;
-  z-index: 99999;
-}
-.curriRight {
-  border-top-left-radius: 100rpx
-}
-.funcBox {
-  border-bottom: 1rpx solid #73b4ef;
-  line-height: 100rpx;
-  z-index: 99999;
-  /* width: 80%; */
-}
-.funcBox text {
-  margin-left: 50rpx;
-}
-
-
-
-
-
-
-
 
 /*自定义动画*/
 @keyframes add_show {
@@ -511,6 +460,19 @@ button {
   }
 
   .add_background {
+    filter: invert(90%) !important;
+  }
+  .kb{
+    /* 色块亮度调为75% */
+    filter: brightness(75%);
+  }
+  .weekscroll{
+    filter: invert(0%) !important;
+  }
+  .week_point view{
+    opacity: 0.8;
+  }
+  .wx-isclass{
     filter: invert(90%) !important;
   }
 

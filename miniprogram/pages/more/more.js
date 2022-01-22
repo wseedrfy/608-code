@@ -703,6 +703,8 @@ Page({
               that.data.rightH += allData[i].ShowHeight;
             }
           }
+          app.globalData.leftList = that.data.leftList
+          app.globalData.rightList = that.data.rightList
           that.setData({
             leftList: that.data.leftList,
             rightList: that.data.rightList,

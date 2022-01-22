@@ -10,9 +10,9 @@ function runCode(that) {
     }
     wx.setStorageSync('configData', Object.assign(args.SchoolIndex, { "timeYear": args.StartTime }))
     that.onShow = function () {
-        var course = []; var msg = ""; var zc = 0; var personalInformation = wx.getStorageSync('personalInformation')
+        var course = []; var msg = ""; var zc = 0; var  = wx.getStorageSync('')
         var configData = wx.getStorageSync('configData')
-        var curriculum = personalInformation.curriculum; 
+        var curriculum = .curriculum; 
         if (!curriculum) {
             that.setData(Object.assign({ msg: '内容存在问题，请联系开发', }, configData))
             return
@@ -24,8 +24,8 @@ function runCode(that) {
             } if (zc == util.getweekString() && curriculum[y].xq == xq) 
             { course.push({ day: '今天', time: '第' + curriculum[y].jcdm[1] + '节', name: curriculum[y].kcmc, site: curriculum[y].jxcdmc, }) } course.sort(function (b, a) { return b.time.localeCompare(a.time, 'zh') })
         } 
-        personalInformation.curriculum = curriculum; 
-        wx.setStorageSync('personalInformation', personalInformation)
+        .curriculum = curriculum; 
+        wx.setStorageSync('', )
         if (course.length == 0) { msg = "今天没有课哟～" } that.setData(Object.assign({ course: course, show: '', msg: msg, }, configData))
     }
     that.onShow()
@@ -40,8 +40,8 @@ function runCode(that) {
                         var header = { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', 'Accept': 'application/json, text/javascript, */*; q=0.01', 'Cookie': res.cookies[0] }
                         for (var k = 0; k < urlData.length; k++) { PromiseAllArr.push(new Promise(function (resolve, reject) { wx.request({ url: urlData[k].url, data: urlData[k].data, method: 'post', header: header, success: function (getinfo) { return resolve(getinfo.data); }, fail: function (error) { return error; }, complete: function (complete) { return complete; } }) })) }              //*********************Promise存好了，现在来用      
                         Promise.all(PromiseAllArr).then(function (values) {
-                            var personalInformation = { achievement: values[0].rows, quality: values[1].rows, curriculum: values[2].rows, classTask: values[3].rows, }                //处理课表为0的问题，导致账户进不去           
-                            if (personalInformation.curriculum.length == 0) { personalInformation.curriculum = [{ "kcmc": "test", "jcdm": "" }] } wx.setStorageSync('personalInformation', personalInformation)
+                            var  = { achievement: values[0].rows, quality: values[1].rows, curriculum: values[2].rows, classTask: values[3].rows, }                //处理课表为0的问题，导致账户进不去           
+                            if (.curriculum.length == 0) { .curriculum = [{ "kcmc": "test", "jcdm": "" }] } wx.setStorageSync('', )
                             that.onShow()
                             wx.showToast({ title: '加载完成', icon: 'none', });
                         }).catch(function (reason) {

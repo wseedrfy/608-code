@@ -5,6 +5,7 @@ cloud.init()
 // 云函数入口函数
 const login = require('./login/index');
 const indexLoading = require('./indexLoading/index');
+const sloveExcel = require('./sloveExcel/index');
 exports.main = async (event, context) => {
 
   var data
@@ -15,5 +16,10 @@ exports.main = async (event, context) => {
   if(event.url === 'login'){
     data = await login.main(event)
   }
+
+  if(event.url === 'sloveExcel'){
+    data = await sloveExcel.main(event)
+  }
+
   return data
 }

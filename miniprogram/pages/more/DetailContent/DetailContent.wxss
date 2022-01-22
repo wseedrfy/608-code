@@ -452,7 +452,11 @@ swiper .wx-swiper-dot {
   }
 }
 
-
+@media (prefers-color-scheme: dark) {
+  .ShowImg{
+    filter: invert(1) !important;
+  }
+}
  
  
 
