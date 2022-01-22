@@ -61,10 +61,10 @@
     <view class="DataNull" wx:if="{{DataNull==0}}">-无更多内容-</view>
   </scroll-view>
 
-  <view class="img-button content_btn content_btn_add" bindtap="add">
+  <view class="img-button content_btn content_btn_add" style="display:{{school=='游客登录'?'none':''}}" bindtap="add" >
     <image src="/images/btn_feed@2x.png"></image>
   </view>
-  <view class="img-button content_btn content_btn_user" bindtap="navigate" id="UserContent">
+  <view class="img-button content_btn content_btn_user" bindtap="navigate" style="display:{{school=='游客登录'?'none':''}}" id="UserContent">
     <image src="../../images/User.png"></image>
   </view>
   <view class="edit" wx:if="{{showModel}}">

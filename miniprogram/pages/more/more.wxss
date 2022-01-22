@@ -127,6 +127,7 @@ page{
 }
 .content_btn_add{
   bottom:180rpx;
+  /* display: none; */
 }
 .content_btn_user{
   bottom:80rpx;

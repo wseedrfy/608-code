@@ -38,7 +38,7 @@
     <view class="comment">
       <view class="All_Comment" wx:if="{{CommentNum!=0}}">共 {{CommentNum}} 条评论</view>
       <view class="All_Comment" wx:if="{{CommentNum==0}}">这里还没有评论哟~</view>
-      <form bindsubmit="formSubmit" bindreset="formReset">
+      <form  bindsubmit="formSubmit" bindreset="formReset" style="display:{{args.school=='游客登录'?'none':''}}" >
         <view class="Send_Commend" bindtap="Comment_Inputting">
           <image src="{{args.iconUrl}}" class="text_user"/>
           <span class="{{isChecked?'old_Comment_second':'new_Comment_second'}}">

@@ -20,6 +20,19 @@ Page({
       index: e.detail.value,
       url: that.data.urls[e.detail.value]
     })
+    console.log(this.data.school[this.data.index])
+    if(this.data.school[this.data.index]=="游客登录"){
+      that.setData({
+        user:"guest",
+        pwd:"test"
+      })
+    }
+    else{
+      that.setData({
+        user:"",
+        pwd:""
+      })
+    }
   },
 
   async onLoad() {
@@ -31,11 +44,18 @@ Page({
     var that = this;
     var res = (await schoolLoading.where({}).get()).data
     res.forEach(e => {
-      if(e.schoolName !== '空'){
+      if(e.schoolName !== '空'|"游客登录"){
         this.data.school.push(e.schoolName)
         this.data.urls.push(e.url)
       }
+      // else{
+      //   that.setData({
+      //     user:123,
+      //     pwd:"ssd"
+      //   })
+      // }
     })
+
     this.setData({res: res, school: that.data.school});
     wx.hideLoading()
   },
@@ -64,36 +84,57 @@ Page({
         console.log(res.userInfo)
         console.log(that.data.school[that.data.index])
         app.globalData.school = that.data.school[that.data.index]
-        wx.cloud.callFunction({
-          name: 'api',
-          data: {
-            url: 'login',
-            username: that.data.user,
-            password: that.data.pwd,
-            nickName: res.userInfo.nickName, 
-            iconUrl: res.userInfo.avatarUrl,
-            school: that.data.school[that.data.index]
-          },
-          success: res => {
-            if (res.result.msg == "welcome") {
-              wx.reLaunch({
-                url: '/pages/index/index'
-              })
-            } else {
-              console.log(res.result)
+        if( that.data.school[that.data.index]!="游客登录"){
+          wx.cloud.callFunction({
+            name: 'api',
+            data: {
+              url: 'login',
+              username: that.data.user,
+              password: that.data.pwd,
+              nickName: res.userInfo.nickName, 
+              iconUrl: res.userInfo.avatarUrl,
+              school: that.data.school[that.data.index]
+            },
+            success: res => {
+              if (res.result.msg == "welcome") {
+                console.log(res.result)
+                wx.reLaunch({
+                  url: '/pages/index/index'
+                })
+              } else {
+                console.log(res.result)
+                wx.showToast({
+                  icon: 'none',
+                  title: res.result.msg,
+                })
+              }
+            },
+            fail: err => {
               wx.showToast({
                 icon: 'none',
-                title: res.result.msg,
+                title: '校园网关闭或者服务器异常',
               })
             }
-          },
-          fail: err => {
-            wx.showToast({
-              icon: 'none',
-              title: '校园网关闭或者服务器异常',
+          })
+        }
+        else{
+          if(that.data.pwd=="test"&&that.data.user=="guest"){//游客模式
+            wx.reLaunch({
+              url: '/pages/index/index'
             })
           }
-        })
+          else if (that.data.pwd=="test"&&that.data.user=="developer"){
+            wx.reLaunch({
+              url: '/pages/index/index' //开发模式
+            })
+          }
+          else{
+            wx.showToast({
+              icon: 'none',
+              title: '游客登录账号或密码错误~,请重试',
+            })
+          }
+        }
       },
       fail: (res) => {
         wx.showToast({
