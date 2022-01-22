@@ -106,19 +106,20 @@ Page({
   // 获取新消息总数
   getNewInfo() {
     var that = this;
-    const agrs = wx.getStorageSync('args')
+    const agrs = wx.getStorageSync('args')  //--------------规范书写（学习）
     // 被评论者信息
     let be_character = {
-      userName: this.data.content.username,
+      userName: this.data.content.username, //--------------不知道有啥用，打印出来是undefined
       iconUrl: agrs.iconUrl,
       nickName: agrs.nickName
     }
-    wx.cloud.database().collection('New-Information').where({
-      be_character: be_character,
-      status: 0
+    wx.cloud.database().collection('New-Information').where({ //------------请求数据库
+      be_character: be_character, //------------------评论者信息
+      status: 0 //-------------------三种状态：“0”：用户还没看消息列表；“1”：用户已经看到了消息列表；“-1”：取消点赞和评论
     }).count().then(res => {
+      console.log("res.total",res.total)  //----------------新消息提示数目
       that.setData({
-        NewInfo: res.total
+        NewInfo: res.total  
       })
     })
   },
@@ -134,7 +135,7 @@ Page({
     var that = this
     console.log("e.", e.detail.value)
     console.log("this.data.noramalData", this.data.noramalData)
-    const setEmptyStatus = (res) => {
+    const setEmptyStatus = (res) => { //-------------设置空状态
       currentPage = 0
       this.data.leftList = []
       this.data.rightList = []
@@ -162,7 +163,7 @@ Page({
         },
         success: res => {
           if (res.result.data.length != 0) {
-            setEmptyStatus(res)
+            setEmptyStatus(res)  //--------将搜索出来的内容展示出来
             this.data.tabitem[0].type = 1
             this.setData({
               leftList: this.data.leftList,
@@ -275,6 +276,7 @@ Page({
       url: "UserContent/UserContent",
     })
   },
+  //-----------------------后期优化：两个list合并，用type进行区分(280-285)
   leftDirection: function () {
     this.data.direction = "Left"
   },
@@ -349,7 +351,7 @@ Page({
   setTab: function (e) {
     console.log(e)
     var arry = this.data.tabitem
-    if (this.data.Showtabitem == 1) {
+    if (this.data.Showtabitem == 1) { //---------------用于解决：一开始“全部”按钮亮起，点击其他按钮时，“全部”按钮也会亮起的bug
       arry[0].type = 0
       console.log("2333")
     }
@@ -361,6 +363,7 @@ Page({
     this.setData({
       tabitem: arry,
     })
+    //--------------------------将原本的清空，即初始化（366-373）
     arry[index].type = 0
     currentPage = 0
     this.data.leftList = []
@@ -749,6 +752,7 @@ Page({
   // 页面跳转
   navigate(e) {
     var url = e.currentTarget.id
+    console.log("url",url)
     wx.navigateTo({
       url: url + "/" + url,
     })

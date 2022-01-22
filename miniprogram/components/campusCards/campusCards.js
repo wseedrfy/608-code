@@ -31,9 +31,10 @@ Component({
       this.triggerEvent('ShowContent', e.currentTarget.dataset.index)
     },
     //点击事件
-    getStar_card(e) {
+    getStar_card(e) {     //--------------------Starif：false:未点赞；true：已点赞
       var index = e.currentTarget.dataset.index //索引
       var content = this.properties.List[index] //点击页的数据
+      console.log("getStar_card,content",content)
       // console.log(content)
       var args = wx.getStorageSync('args')
       var Star_User = content.Star_User         //初始点赞用户
@@ -43,6 +44,7 @@ Component({
       }
       var Starif = false
       //判断是不是为点赞过的usernameid
+      ///--------------------------------------取消点赞（48-54）
       for (var i = 0 ;i<Star_User.length;i++){
         if(Star_User[i].username == openusername.username){
           Starif = true
@@ -50,6 +52,7 @@ Component({
           break
         }
       }
+      console.log("Starif",!Starif)
       if (!Starif) {
         openusername.Star_time = new Date().getTime()
         console.log(openusername,"要把它推进Star_User了")
@@ -71,7 +74,7 @@ Component({
       //点赞用户数更新
       content.Star = Star_count
 
-      this.properties.List[index]=content
+      this.properties.List[index]=content   //----------------------更新list[index]信息
       //更新后的数据本地刷新
       // app.globalData.List = this.properties.List
       this.setData({
