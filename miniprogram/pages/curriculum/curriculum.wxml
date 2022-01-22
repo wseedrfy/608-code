@@ -1,6 +1,6 @@
 <view class="container">
 
-  <view class="curriRight" animation="{{timetableAnimation}}" style="overflow: {{isAnimate ? 'hidden' : ''}}; border-bottom-left-radius: {{isAnimate ? '100rpx' : ''}}; ">
+  <view class="curriRight" animation="{{timetableAnimation}}" style="overflow: {{isAnimate ? 'hidden' : ''}}; border-bottom-left-radius: {{isAnimate ? '30rpx' : ''}}; ">
     <!-- 头部 -->
     <view style="z-index:2; position:fixed; background-color: white;border-top-left-radius: 30rpx;">
       <view class="head">
@@ -60,7 +60,7 @@
         <!-- 套一个盒子 timeTableBox -->
         <view class="timeTableBox">
           <view class="timetable" style="background-image: url({{backgroundUrl}});">
-          <view>
+          <view style="margin-bottom: 49rpx;">
             <view wx:for="{{[1,2,3,4,5,6,7,8,9,10,11]}}" wx:key="unique" class="left">
               <view>{{item}}</view>
               <view class="after-left1">{{courseTime[index]}}</view>

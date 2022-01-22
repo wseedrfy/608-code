@@ -38,7 +38,9 @@
           <text><text class='iconfont icon-dingwei'></text>{{item.site}}</text>
         </view>
       </view>
-      <view wx:if="{{msg}}" class='wx-isclass'>{{msg}}</view>
+      <view wx:if="{{msg}}" class='wx-isclass'>
+        <text>{{msg}}</text>
+      </view>
     </view>
   </view>
 </view>

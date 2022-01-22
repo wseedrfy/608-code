@@ -88,3 +88,15 @@
   left: 2rpx;
   color:rgba(0,0,0,0.4)
 }
+
+
+@media (prefers-color-scheme: dark) {
+
+  .pic{
+    background-color: initial;
+    filter: invert(90%) !important;
+  }
+  .Show_Image{
+    
+  }
+}

@@ -20,18 +20,22 @@
     "pages/physical/physical",
     "pages/physical/detail/detail",
     "pages/about/about",
+    "pages/journal/journal",
     "pages/dynamic/dynamic",
     "pages/test/test"
   ],
   "window": {
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "We校园",
-    "navigationBarTextStyle": "black",
-    "backgroundColor": "#F6F6F6"
+    
+    "backgroundColor": "@backgroundColor",
+    "backgroundTextStyle": "@backgroundTextStyle",
+    "navigationBarBackgroundColor": "@navBackgroundColor",
+    "navigationBarTextStyle": "@navTextStyle"
   },
   "tabBar": {
+    "color": "@color",
     "selectedColor":"#6eaddf",
+    "backgroundColor": "@backgroundColor",
     "list": [
       {
         "pagePath": "pages/index/index",
@@ -59,6 +63,10 @@
       }
     ]
   },
-  "style": "v2",
-  "sitemapLocation": "sitemap.json"
+  
+  "sitemapLocation": "sitemap.json",
+  "themeLocation": "theme.json",
+  "darkmode": true,
+  "style": "v2"
+  
 }

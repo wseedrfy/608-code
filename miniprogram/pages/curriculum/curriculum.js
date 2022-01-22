@@ -100,12 +100,12 @@ Page({
       success(res) {
         
         console.log(res.tempFiles[0].tempFilePath,"临时本地地址");
-        let FileManager = wx.getFileSystemManager();
-        let userFilePath = `${wx.env.USER_DATA_PATH}/curriBgc.jpg`;
-        let FilePath = FileManager.saveFileSync(res.tempFiles[0].tempFilePath,userFilePath);
+        let fs = wx.getFileSystemManager();
+        let FilePath = fs.saveFileSync(res.tempFiles[0].tempFilePath);
 
+        console.log(fs.getFileInfo(FilePath),"文件信息"); 
         console.log(FilePath,"本地缓存地址");
-        console.log(FileManager.readFileSync(FilePath)); 
+        // console.log(FileManager.readFileSync(FilePath)); 
         wx.showLoading({
           title: '处理中...',
         })
@@ -367,7 +367,7 @@ Page({
         duration: 350,
         timingFunction: 'ease',
         delay: 50,
-      }).translateX(px).scale(scale).opacity(opacity1).height(height).width(width).step().export();
+      }).width(width).translateX(px).scale(scale).opacity(opacity1).height(height).step().export();
       this.setData({timetableAnimation})
 
       var curriLeft = wx.createAnimation({
@@ -382,7 +382,7 @@ Page({
       console.log(this.data.isAnimate);
       // this.data.isAnimate = !this.data.isAnimate;     // 更新 isAnimate 状态
     }
-    this.data.isAnimate ? animationFunc(0,1,1,0,"100%","100%",) : animationFunc(270,0.9,0.7,1,"105%",150)
+    this.data.isAnimate ? animationFunc(0,1,1,0,"100%","100%",) : animationFunc(270,0.9,0.7,1,"100%",150)
   },
   // 触摸开始事件
   touchStartCurri: function (e) {

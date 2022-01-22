@@ -465,7 +465,7 @@ button {
 }
 .curriRight {
   height: 100vh;
-  border-top-left-radius: 100rpx;
+  border-top-left-radius: 30rpx;
   box-shadow: -10rpx 0 30rpx 20rpx rgb(73, 73, 73);
 }
 .funcBox {

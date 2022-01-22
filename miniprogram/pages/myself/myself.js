@@ -1,8 +1,6 @@
 // index.js
 // 获取应用实例
-const app = getApp()
 var util = require("../../utils/util.js")
-var pagecount = 1
 Page({
   data: {
     statusBarHeight: getApp().globalData.statusBarHeight,
@@ -50,8 +48,7 @@ Page({
     this.handleStudyWeek();
   },
   onShow() {
-    let that = this;
-    app.slideupshow(that,'slideupshow',500,1);
+    
   },
   school(e) {
     if(!this.data.isLogin) {
@@ -92,20 +89,22 @@ Page({
   },
 
   login(e) {
-    wx.showModal({
-      title: '提示',
-      content: '请确定是否注销/登录',
-      success (res) {
-        if (res.confirm) {
-          console.log('用户点击确定')
-          wx.redirectTo({
-            url: '/pages/login/login'
-          })
-        } else if (res.cancel) {
-          console.log('用户点击取消')
+    if (!this.data.isLogin) {
+      wx.showModal({
+        title: '提示',
+        content: '请确定是否注销/登录',
+        success (res) {
+          if (res.confirm) {
+            console.log('用户点击确定')
+            wx.redirectTo({
+              url: '/pages/login/login'
+            })
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
         }
-      }
-    })
+      })
+    }
 
   },
 
