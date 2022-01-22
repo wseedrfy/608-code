@@ -167,6 +167,7 @@ page {
 
 /* 时间表 */
 .timetable {
+  /* position: absolute; */
   display: flex;
   /* height: 1200rpx; */
   width: 100%;
@@ -237,7 +238,7 @@ page {
   color: #1cbbb4;
   /* margin-top: 20rpx; */
   background-color: #fff;
-  height: 100%;
+  height: 660px;
   background-size: auto 100%;
   background-repeat: no-repeat;
 }
@@ -454,16 +455,18 @@ button {
 /* 设置 */
 .curriLeft {
   position: absolute;
-  left: -260px;
+  left: -270px;
   top: 0;
   width: 488rpx;
   height: 100%;
   opacity: 0;
   color: #fff;
-  z-index: 99999;
+  z-index: 999999;
 }
 .curriRight {
-  border-top-left-radius: 100rpx
+  height: 100vh;
+  border-top-left-radius: 100rpx;
+  box-shadow: -10rpx 0 30rpx 20rpx rgb(73, 73, 73);
 }
 .funcBox {
   border-bottom: 1rpx solid #73b4ef;
@@ -471,17 +474,33 @@ button {
   z-index: 99999;
   /* width: 80%; */
 }
+.funcBoxIcon {
+  width: 40rpx;
+  height: 40rpx;
+  margin-left: 30rpx;
+  margin-top: 10rpx;
+  padding-top: 10rpx;
+}
 .funcBox text {
-  margin-left: 50rpx;
+  margin-left: 20rpx;
 }
 .curriLeft_background {
   position: absolute;
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: #000;
-  opacity: 0.3;
-  z-index: 999999;
+  /* background-color: #000; */
+  /* opacity: 0.3; */
+  z-index: 999;
+}
+.curriLeft .fontTtext {
+  position: absolute;
+  bottom: 10rpx;
+  left: 50rpx;
+  padding: 10rpx;
+  border: 1rpx solid #fff;
+  font-size: 30rpx;
+  color: #fff;
 }
 
 
