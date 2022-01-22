@@ -28,12 +28,12 @@
 
       <view class="login_user">
         <label>帐号</label>
-        <input type="text" id="user" placeholder="请输入学号" bindinput="input" />
+        <input type="text" id="user" placeholder="请输入学号" value="{{user}}" bindinput="input" />
       </view>
 
       <view class="login_pwd">
         <label>密码</label>
-        <input type="text" id="pwd" password="true" placeholder="请输入教务系统密码" bindinput="input" bindconfirm="login" />
+        <input type="text" id="pwd" password="true" value="{{pwd}}" placeholder="请输入教务系统密码" bindinput="input" bindconfirm="login" />
       </view>
     </view>
 
