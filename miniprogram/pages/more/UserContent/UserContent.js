@@ -2,6 +2,7 @@
 var util = require("../../../utils/util.js")
 var app = getApp()
 let currentPage = 0 // 当前第几页,0代表第一页 
+const args = wx.getStorageSync('args')
 Page({
 
   /**
@@ -216,69 +217,49 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
-    // console.log(this.data.CommentList)
     var that =this 
     var i=0
     that.data.leftList=[],
     that.data.rightList=[],
     that.data.leftH=0,
-    that.data.rightH=0,
-    wx.getStorage({
-      key:"args",
-      success(res){
-        var data = res.data
-        console.log(data,"141")
-        var school = data.school
-        var nickname =data.nickName
-        var iconUrl =data.iconUrl
-        // var username =data.username
-        console.log(school)
-        that.setData({
-          school:school,
-          nickname:nickname,
-          username: data.username,
-          iconUrl:iconUrl,
-          // openusername:username
-          openusername:{
-            username: data.username,
-            iconUrl: data.iconUrl,
-            nickName: data.nickName
-          }
-        })
-        console.log(that.data.openusername)
-        if(i==0){
-          currentPage=0
-          that.getData()
-          i++
+    that.data.rightH=0
+    var school = args.school
+    var nickname =args.nickName
+    var iconUrl =args.iconUrl
+    console.log(school)
+    if(school && nickname && iconUrl){
+      that.setData({
+        school:school,
+        nickname:nickname,
+        username: args.username,
+        iconUrl:iconUrl,
+        // openusername:username
+        openusername:{
+          username: args.username,
+          iconUrl: args.iconUrl,
+          nickName: args.nickName
         }
-      },fail(res){
-        that.setData({
-          DataNull:0,
-        })
-        wx.showModal({
-          title: '提示',
-          content: '小主还没登录哟QwQ',
-          success (res) {
-            if (res.confirm) {
-              console.log('用户点击确定')
-            } else if (res.cancel) {
-              console.log('用户点击取消')
-            }
-          }, fail(res) {
-            that.setData({
-              DataNull: 0,
-            })
-            wx.showModal({
-              title: '提示',
-              content: '小主还没登录哟QwQ',
-              success(res) {
-                if (res.confirm) {
-                  console.log('用户点击确定')
-                } else if (res.cancel) {
-                  console.log('用户点击取消')
-                }
-              }, fail(res) {
+      })
+      console.log(that.data.openusername)
+      if(i==0){
+        currentPage=0
+        that.getData()
+        i++
+      }
+    }else{
+      that.setData({
+        DataNull: 0,
+      })
+      wx.showModal({
+        title: '提示',
+        content: '小主还没登录哟QwQ',
+        success(res) {
+          if (res.confirm) {
+            console.log('用户点击确定')
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }, fail(res) {
           that.setData({
             DataNull: 0,
           })
@@ -294,12 +275,9 @@ Page({
             }
           })
         }
-            })
-          }
-        })
-      }
-    })
-      },
+      })
+    }
+  },
     
 
   /**

@@ -1,4 +1,5 @@
 // pages/more/more.js
+const args = wx.getStorageSync('args')
 var app = getApp()
 let currentPage = 0 // 当前第几页,0代表第一页 
 // 旋转初始化
@@ -106,12 +107,11 @@ Page({
   // 获取新消息总数
   getNewInfo() {
     var that = this;
-    const agrs = wx.getStorageSync('args')  //--------------规范书写（学习）
     // 被评论者信息
     let be_character = {
       userName: this.data.content.username, //--------------不知道有啥用，打印出来是undefined
-      iconUrl: agrs.iconUrl,
-      nickName: agrs.nickName
+      iconUrl: args.iconUrl,
+      nickName: args.nickName
     }
     wx.cloud.database().collection('New-Information').where({ //------------请求数据库
       be_character: be_character, //------------------评论者信息
@@ -421,8 +421,10 @@ Page({
     app.loginState() //判断登录
     this.getNewInfo() // 获取新消息通知
     //加载缓存获得学校和用户名和头像
-    var data = wx.getStorageSync('args')
-    this.data.tabitem = data.tabitem ? data.tabitem.map(e => {
+    //var data = wx.getStorageSync('args')------------------------------焯！
+    console.log("this.data.tabitem",this.data.tabitem)
+    console.log("args.tabitem",args.tabitem)
+    this.data.tabitem = args.tabitem ? args.tabitem.map(e => {
       return {
         title: e,
         type: 0
@@ -434,8 +436,8 @@ Page({
     // 默认选中第一个 “全部”
     this.data.tabitem[0].type = 1
     // 封号
-    var campus_account = data.campus_account ? data.campus_account : false
-    var describe = data.describe ? data.describe : false
+    var campus_account = args.campus_account ? args.campus_account : false
+    var describe = args.describe ? args.describe : false
     //判断封号
     if (campus_account === true) {
       wx.showModal({
@@ -452,18 +454,18 @@ Page({
       })
     }
     this.setData({
-      school: data.schoolName,
+      school: args.schoolName,
       menu,
-      username: data.username,
-      nickname: data.nickName,
-      iconUrl: data.iconUrl,
+      username: args.username,
+      nickname: args.nickName,
+      iconUrl: args.iconUrl,
       tabitem: this.data.tabitem,
       campus_account: campus_account,
       describe: describe,
       openusername: {
-        username: data.username,
-        iconUrl: data.iconUrl,
-        nickName: data.nickName
+        username: args.username,
+        iconUrl: args.iconUrl,
+        nickName: args.nickName
       }
     })
     this.onPullDownRefresh()
