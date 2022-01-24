@@ -1,0 +1,67 @@
+page {
+    background-color: #f6f6f6;
+}
+
+.wrap {
+    font-size: 32rpx;
+
+    .caption {
+        text-align: center;
+        padding   : 12rpx;
+    }
+
+    .item_wrap {
+        .match_wrap {
+            display         : flex;
+            flex-direction  : row;
+            padding         : 12rpx;
+            background-color: white;
+            margin          : 12rpx;
+            border-radius   : 12rpx;
+
+            .left_Wrap {
+                flex: 4;
+
+                .name {
+                    font-weight: 700;
+                    .tip{
+                        padding-left: 12rpx;
+                        font-weight: 500;
+                    }
+                }
+            }
+
+            .right_wrap {
+                flex: 1;
+                color: white;
+                text-align: center;
+                align-items: center;
+                justify-content: center;
+
+                .change {
+                    background-color: blue;
+                    width           : 100rpx;
+                    margin: 6rpx;
+                    border-radius: 8rpx;
+
+                }
+
+                .delete {
+                    background-color: red;
+                    width           : 100rpx;
+                    margin: 6rpx;
+                    border-radius: 8rpx;
+
+                }
+            }
+        }
+    }
+    .add{
+        text-align: center;
+        padding: 24rpx;
+        background-color: rgb(221, 221, 221);
+        margin: 12rpx;
+        border-radius: 12rpx;
+        font-size: 36rpx;
+    }
+}

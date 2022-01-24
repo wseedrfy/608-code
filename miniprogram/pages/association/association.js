@@ -216,6 +216,15 @@ Page({
   confirm(e){
     console.log(e);
   },
+  // 赛事
+  match(){
+    wx.navigateTo({
+      url: '/pages/association/match/match',
+      success: (result)=>{
+        
+      },
+    });
+  },
   // 注销社团
   delete(){
     wx.showModal({

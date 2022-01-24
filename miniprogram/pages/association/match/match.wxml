@@ -1,0 +1,15 @@
+<view class="wrap">
+    <view class="caption">编辑赛事</view>
+    <view class="item_wrap">
+        <view class="match_wrap" wx:for="{{3}}">
+            <view class="left_Wrap">
+                <view class="name">海报设计大赛<text class="tip">[状态:未发布]</text></view>
+            </view>
+            <view class="right_wrap">
+                <view class="change">编辑</view>
+                <view class="delete">删除</view>
+            </view>
+        </view>
+        <view class="add" bind:tap="goDetail">+</view>
+    </view>
+</view>

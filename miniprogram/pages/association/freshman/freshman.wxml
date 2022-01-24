@@ -6,15 +6,15 @@
         <view class="img_1" wx:else>
             <swiper indicator-dots='true' indicator-color="#fff" indicator-active-color='red' current="{{current}}">
                 <block >
-                    <swiper-item bind:longpress="deleteImg">
+                    <swiper-item bind:longpress="changeImg">
                         <image data-src="{{imgUrl}}" src="{{imgUrl}}" mode="aspectFill" style="z-index: 11;width:100%;height:100%" bindtap="previewImage"/>
                     </swiper-item>
                 </block>
             </swiper>
         </view>
-        <view class="title">[招新海报]</view>
+        <view class="title">[招新海报]长按修改</view>
     </view>
-    <view class="mess_item">
+    <view  class="mess_item">
         <view class="title">招新问卷[{{sendStatus==false?'未发布':'已发布'}}]</view>
         <view class="content_item" wx:for="{{freshman}}">
             <view class="name">{{index+1}}.{{item.content}}</view>
@@ -24,7 +24,7 @@
             </view>
         </view>
         <view class="add" bind:tap="clickme">+</view>
-    </view>
+    </view >
     <view class="bt_wrap">
         <view class="send" bind:tap="send" style="{{sendStatus==false?'background-color: #536f8b;':'background-color: #8b538b;'}}">
             {{sendStatus==false?'发布招新':'撤回问卷'}}
