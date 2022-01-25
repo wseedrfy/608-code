@@ -9,4 +9,42 @@
                 </block>
             </swiper>
     </view>
+    <view class="content_wrap">
+        <view class="top_wrap">
+            <view class="title">标题</view>
+            <input maxlength="-1" placeholder="赛事标题"/>
+        </view>
+        <view class="mid_wrap">
+            <view class="title">描述</view>
+            <input maxlength="-1" placeholder="赛事内容描述" />
+        </view>
+    </view>
+    <view class="question_wrap">
+        <view class="title">问题</view>
+        <view class="item_wrap">
+            <view class="item" wx:for="{{3}}">
+                <view class="list_1">1.题目</view>
+                <view class="list_2">删除</view>
+            </view>
+            <view class="add_question" bind:tap="clickme">+添加问题</view>
+        </view>
+    </view>
+    <view class="bt_wrap">
+        <view class="keep">保存</view>
+        <view class="send">保存并发布</view>
+    </view>
 </view>
+<!-- 弹窗 -->
+ <view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
+  <!--弹出框  -->
+  <view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
+      <view class="title">题目类型</view>
+      <view class="change_wrap">
+          <view class="item" wx:for="{{changeArr}}">
+              <view class="img">
+                  <image src="{{item.src}}" />
+              </view>
+              <view class="change_title">{{item.name}}</view>
+          </view>
+      </view>
+  </view>

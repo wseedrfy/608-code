@@ -164,6 +164,14 @@ page {
   font-weight: bold;
 }
 
+.backgroundUrl {
+  position: absolute;
+  top: 0;
+  /* left: 50rpx; */
+  width: 100%;
+  height: 100%;
+  
+}
 
 /* 时间表 */
 .timetable {
@@ -172,7 +180,6 @@ page {
   /* height: 1200rpx; */
   width: 100%;
   /* 课表默认背景 */
-  background-image: url('https://z3.ax1x.com/2021/08/14/fszRhT.jpg'); 
   background-size: auto 100%;
   background-repeat: no-repeat;
 }
@@ -187,6 +194,7 @@ page {
   height: 110rpx;
   font-size: 12pt;
   color: #4d4d4d;
+  margin-bottom: 6rpx;
 }
 
 .after-left1 {
@@ -238,9 +246,19 @@ page {
   color: #1cbbb4;
   /* margin-top: 20rpx; */
   background-color: #fff;
-  height: 660px;
-  background-size: auto 100%;
-  background-repeat: no-repeat;
+}
+.wx-isclass .txt {
+  position: absolute;
+  top: 0;
+  left: 25%;
+  z-index: 1;
+}
+.wx-isclass .FirbackgroundUrl {
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
 }
 
 .pd2 {
