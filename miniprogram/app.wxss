@@ -37,9 +37,12 @@ page {
   
   button,
   switch,
-  scroll-view,
-  image{
+  scroll-view{
     filter: invert(90%) !important;
+  }
+
+  image{
+    filter: invert(100%) !important;
   }
 
   .data-score {
@@ -53,3 +56,4 @@ page {
   }
 
 }
+

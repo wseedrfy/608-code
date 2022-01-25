@@ -56,3 +56,12 @@
   -webkit-line-clamp: 2; 
   -webkit-box-orient: vertical;
 }
+
+@media (prefers-color-scheme: dark) {
+  .swiper-disabled{
+    filter: invert(100%) !important;
+  }
+  .inform{
+    background-color: #f5f4f4;
+  }
+}
