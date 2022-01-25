@@ -37,7 +37,10 @@ page {
   
   button,
   switch,
-  scroll-view,
+  scroll-view{
+    filter: invert(90%) !important;
+  }
+
   image{
     filter: invert(100%) !important;
   }
@@ -53,3 +56,4 @@ page {
   }
 
 }
+

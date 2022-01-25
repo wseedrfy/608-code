@@ -54,13 +54,20 @@
     <view style="z-index: -1;" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd"
       animation="{{ani1}}">
       <!-- 滑块部分 -->
-
-      <view class=' wx-isclass' wx:if="{{wlist.length == 0}}" style="background-image: url({{backgroundUrl}});">今天没有课，出去玩吧</view>
+      
+      <view class=' wx-isclass' wx:if="{{wlist.length == 0}}">
+      <view class="txt">今天没有课，出去玩吧</view>
+      <!-- image背景图片 -->
+      <image src="{{backgroundUrl}}" class="FirbackgroundUrl" mode="heightFix"></image>
+      </view>
+      
       <scroll-view wx:if="{{wlist.length != 0}}">
+        <!-- image背景图片 -->
+        <image src="{{backgroundUrl}}" class="backgroundUrl" mode="heightFix"></image>
         <!-- 套一个盒子 timeTableBox -->
         <view class="timeTableBox">
-          <view class="timetable" style="background-image: url({{backgroundUrl}});">
-          <view style="margin-bottom: 49rpx;">
+          <view class="timetable">
+          <view style="margin-bottom: 49rpx;" style="z-index: 1;">
             <view wx:for="{{[1,2,3,4,5,6,7,8,9,10,11]}}" wx:key="unique" class="left">
               <view>{{item}}</view>
               <view class="after-left1">{{courseTime[index]}}</view>
