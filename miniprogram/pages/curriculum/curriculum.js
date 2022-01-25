@@ -98,8 +98,9 @@ Page({
       mediaType: ['image'],
       sourceType: ['album'],
       success(res) {
-        
+        console.log(res)
         console.log(res.tempFiles[0].tempFilePath,"临时本地地址");
+
         let fs = wx.getFileSystemManager();
         let FilePath = fs.saveFileSync(res.tempFiles[0].tempFilePath);
 

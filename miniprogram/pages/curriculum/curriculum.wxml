@@ -54,7 +54,6 @@
     <view style="z-index: -1;" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd"
       animation="{{ani1}}">
       <!-- 滑块部分 -->
-
       <view class=' wx-isclass' wx:if="{{wlist.length == 0}}" style="background-image: url({{backgroundUrl}});">今天没有课，出去玩吧</view>
       <scroll-view wx:if="{{wlist.length != 0}}">
         <!-- 套一个盒子 timeTableBox -->

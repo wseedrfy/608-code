@@ -383,16 +383,18 @@ swiper .wx-swiper-dot {
 
   .head{
     position:fixed; 
+    background-color: #faf9f9;
   }
   scroll-view{
     filter: invert(100%) !important;
   }
   .Choose_Label{
-    filter: invert(90%) !important;
+    filter: invert(100%) !important;
     /* background-color: rgba(255, 255, 255, 0.1); */
   }
 
   .Label_limit{
-    filter: invert(90%) !important;
+    filter: invert(100%) !important;
+    color: #fff;
   }
 }
