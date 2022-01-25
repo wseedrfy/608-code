@@ -1,5 +1,5 @@
 const util = require("../../../utils/util");
-
+const args = wx.getStorageSync('args')
 var currentPage = 0 // 当前第几页,0代表第一页 
 var pageSize = 10 //每页显示多少数据 
 Page({
@@ -40,7 +40,6 @@ Page({
       title: '加载中',
       mask: true
     })
-    let args = wx.getStorageSync('args')
     let be_character = {         // 用户自己
        iconUrl: args.iconUrl,
        nickName: args.nickName,

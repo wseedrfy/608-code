@@ -27,6 +27,7 @@
         <image src="../../images/information.png" bindtap="navigate" id="NewInfo"></image>
         <!-- 消息提示 -->
         <view class="newInfo_redPoint" catchtap="naviToNews" wx:if="{{NewInfo}}">
+          <!-- !!!!!!!!!!!!naviToNews没用 -->
           <text>{{NewInfo}}</text>
         </view>
       </view>

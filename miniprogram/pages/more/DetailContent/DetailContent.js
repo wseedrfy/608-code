@@ -1,5 +1,6 @@
 var util = require("../../../utils/util.js")
 var app = getApp()
+const args = wx.getStorageSync('args')
 Page({
   data: {
     isChecked: true,
@@ -7,7 +8,6 @@ Page({
     InputComment: " ",
     CommentList: [],
     ContentTime:0,      // 新增-回复
-
     showEdit: false,    // 控制评论区弹窗显示
     comEdit: false,     // 评论区复制/删除弹窗
     comReply:false,
@@ -61,7 +61,7 @@ Page({
       let username = this.data.CommentList[index].username;  // 该评论的评论者学号
       let ShowDelCom = 0;
       // 判断是否本人的评论 -> 凭学号
-      if(username == this.data.args.username) {
+      if(username == args.username) {
         ShowDelCom = 1;
       }
       this.setData({
@@ -76,7 +76,6 @@ Page({
   DelComment: function () {
     var index = this.data.Commentindex
     var that = this
-    const args = this.data.args;
     const content = this.data.content;
     let character = {
       userName: args.username,
@@ -239,9 +238,9 @@ Page({
       let add = {
         "InputComment": e.detail.value.InputComment,
         "CommentTime": new Date().getTime(),
-        "iconUser": that.data.args.iconUrl,   
-        "nickName": that.data.args.nickName,
-        "username": that.data.args.username
+        "iconUser": args.iconUrl,  
+        "nickName": args.nickName,
+        "username": args.username
       }
       wx.showLoading({
         title: '发送中',
@@ -276,9 +275,9 @@ Page({
       // 12-27新增：将评论以记录形式上传
       // 处理得到评论者信息
       let character = {
-        userName:this.data.args.username,
-        iconUrl:this.data.args.iconUrl,
-        nickName:this.data.args.nickName
+        userName:args.username,
+        iconUrl:args.iconUrl,
+        nickName:args.nickName
       }
       // 被评论者信息
       let be_character = {
@@ -365,23 +364,25 @@ Page({
   onLoad: function (options) {
     var that = this;
     var content = JSON.parse(options.content)  // 将JSON帖子信息转成对象
+    var more=0
     that.setData({ content })
     console.log(content,"options");
-
-    var more = options.del
-    var that = this
+    // 被评论者信息
+    if(args.iconUrl===content.iconUrl && args.nickName===content.nickName && args.username===content.username){
+      more=1
+      console.log("match")
+    }
+    //var more = options.del  //--------------不理解为啥要改。改成了（371-376）,识别发布者是不是“我”,是就弹出“编辑”icon
     var Time = util.timeago(that.data.content.Time, 'Y年M月D日')
-    var data = wx.getStorageSync('args')
-    that.data.username = data.username
+    that.data.username = args.username
     var openusername = {
-      username:data.username,
-      iconUrl:data.iconUrl,
-      nickName:data.nickName
+      username:args.username,
+      iconUrl:args.iconUrl,
+      nickName:args.nickName
     }
     this.data.Star = content.Star
     this.data.ContentTime = content.Time
     this.data.CardID = content._id
-    // console.log(this.data.CardID,233)
     wx.cloud.callFunction({
       name: 'CampusCircle',
       data: {
@@ -415,11 +416,6 @@ Page({
       }
     });
 
-
-    // 点赞判断
-    this.setData({ args: wx.getStorageSync('args')})
-    console.log("我得到args并赋值了",this.data.args);
-
     // 判空
     if (content.Star_User == undefined || !content.Star_User) {
       content.Star_User = []
@@ -451,9 +447,9 @@ Page({
     var openusername = this.data.openusername
 
     let character = {                            // 处理得到点赞者信息
-      userName:this.data.args.username,
-      iconUrl:this.data.args.iconUrl,
-      nickName:this.data.args.nickName
+      userName:args.username,
+      iconUrl:args.iconUrl,
+      nickName:args.nickName
     }
     let be_character = {                         // 被点赞者信息
       userName:this.data.content.username,       // 学号来查找
@@ -507,7 +503,6 @@ Page({
     if (!Starif) {
       //push到username
       openusername.Star_time = new Date().getTime()
-      console.log(this.data.args);
       console.log(this.data.content);
 
       Star_User.push(openusername)

@@ -251,19 +251,39 @@ button::after {
   page {
     min-height: 100vh;
     filter: invert(90%) !important;
-    background-color: rgb(25, 25, 25) !important;
+    background-color: #fff;
     color: rgb(25, 25, 25);
+  }
+
+  .moduleAdd{
+    background-color: #f5f4f4;
+  }
+  .moduleAdd{
+    background-color: #f5f4f4;
+  }
+
+  .demoBox{
+    background-color: #f5f4f4;
+  }
+
+  .more{
+    background-color: #f5f4f4;
   }
 
   .info,
   .head {
-    filter: invert(80%) !important;
+    filter: invert(100%) !important;
     background-color: rgba(122, 159, 204,0.5);
   }
 
   .info image{
     filter: invert(0%) !important;
   }
+
+  image{
+    filter: invert(100%) !important;
+  }
+
 
   .more .left{
     filter: invert(90%) !important;

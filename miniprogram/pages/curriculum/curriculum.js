@@ -63,12 +63,13 @@ Page({
     showscroll: false,
     curriculumAll: [],              // 用户添加/隐藏后，得到的课表
     curriFunc: [                   // 课表功能
-      {text:"导入最新课程表",click:"importCurri"},
-      {text:"手动添加课程",click:"feedbackHandler"},
-      {text:"修改课程",click:"addCourseHandler"},
-      {text:"分享课程表",click:"shareCurri"},
-      {text:"自定义背景",click:"bgcCurri"},
-      {text:"重置背景",click:"resetBgcCurri"}
+      {text:"导入最新课程表",icon:"./images/x2.png",click:"importCurri"},
+      {text:"手动添加课程",icon:"./images/x3.png",click:"feedbackHandler"},
+      {text:"修改课程",icon:"./images/x4.png",click:"addCourseHandler"},
+      {text:"分享课程表",icon:"./images/x5.png",click:"shareCurri"},
+      {text:"自定义背景",icon:"./images/x6.png",click:"bgcCurri"},
+      {text:"重置背景",icon:"./images/considerBgc.png",click:"resetBgcCurri"},
+      {text:"返 回",icon:"./images/left.png",click:"seetingHandler"}
     ],
     isAnimate: false,               // 控制动效
     // CSS中使用变量
@@ -76,9 +77,17 @@ Page({
   },
   importCurri() {
     console.log('importCurri');
+    wx.showToast({
+      title: '开发中...敬请期待',
+      icon: 'none'
+    })
   },
   shareCurri() {
     console.log('shareCurri');
+    wx.showToast({
+      title: '开发中...敬请期待',
+      icon: 'none'
+    })
   },
   bgcCurri() {
     console.log('bgcCurri');
@@ -90,27 +99,24 @@ Page({
       sourceType: ['album'],
       success(res) {
         
-        console.log(res.tempFiles[0].tempFilePath);
-        wx.saveFile({
-          tempFilePath: res.tempFiles[0].tempFilePath,
-          success(result){
-            wx.showLoading({
-              title: '处理中...',
-            })
-            // 重新渲染页面
-            that.setData({
-              backgroundUrl : result.savedFilePath
-            })
-            wx.setStorageSync('curriBgc',  result.savedFilePath)
-            wx.hideLoading()
-            // console.log(result.savedFilePath);
-          },
-          fail(error) {
-            wx.showToast({
-              title: '请求失败'+ error,
-            })
-          }
-      })
+        console.log(res.tempFiles[0].tempFilePath,"临时文件路径");
+        let fs = wx.getFileSystemManager();
+        let FilePath = fs.saveFileSync(res.tempFiles[0].tempFilePath);
+
+        console.log(fs.getFileInfo(FilePath),"文件信息"); 
+        console.log(FilePath,"本地文件路径");
+        // console.log(FileManager.readFileSync(FilePath)); 
+        wx.showLoading({
+          title: '处理中...',
+        })
+        // 重新渲染页面
+        that.setData({
+          backgroundUrl : FilePath
+        })
+        // 将缓存地址存入
+        wx.setStorageSync('curriBgc',  FilePath);
+        wx.hideLoading();
+
       },
       fail(err) {
         console.log(err);
@@ -146,7 +152,6 @@ Page({
       courseTime: courseTime? courseTime : that.data.courseTime,
     })
 
-    console.log(this.data.backgroundUrl);
     // 从本地缓存获取backgroundUrl
     let fileUrl = wx.getStorageSync('curriBgc');
     let that = this;
@@ -357,20 +362,20 @@ Page({
   seetingHandler: function (e) {
     console.log("已点击设置按钮");
     // 封装 timetable 和 curriLeft 的动画
-    const animationFunc = (px,scale,opacity) => {
+    const animationFunc = (px,scale,opacity1,opacity2,height,width) => {
       
       var timetableAnimation = wx.createAnimation({
-        duration: 500,
+        duration: 350,
         timingFunction: 'ease',
         delay: 50,
-      }).translateX(px).scale(scale).opacity(1).step().export();
+      }).width(width).translateX(px).scale(scale).opacity(opacity1).height(height).step().export();
       this.setData({timetableAnimation})
 
       var curriLeft = wx.createAnimation({
-        duration: 500,
+        duration: 350,
         timingFunction: 'ease',
         delay: 50,
-      }).translateX(px).opacity(opacity).step().export();
+      }).translateX(px).opacity(opacity2).step().export();
       this.setData({
         curriLeft,
         isAnimate: !this.data.isAnimate
@@ -378,7 +383,7 @@ Page({
       console.log(this.data.isAnimate);
       // this.data.isAnimate = !this.data.isAnimate;     // 更新 isAnimate 状态
     }
-    this.data.isAnimate ? animationFunc(0,1,0) : animationFunc(250,0.9,1)
+    this.data.isAnimate ? animationFunc(0,1,1,0,"100%","100%",) : animationFunc(270,0.9,0.7,1,"100%",150)
   },
   // 触摸开始事件
   touchStartCurri: function (e) {
@@ -389,7 +394,7 @@ Page({
   touchMoveCurri: function (e) {
     endXCurri = e.touches[0].pageX; // 获取触摸时的原点
     if (moveFlagCurri) {
-      if (startXCurri - endXCurri > 5) {
+      if (startXCurri - endXCurri > 15) {
         moveFlagCurri = false;
         this.seetingHandler();
       }
@@ -549,7 +554,7 @@ Page({
     // console.log("进入函数");
     let allCurriculum = wx.getStorageSync('personalInformation').curriculum;
 
-    if(deCurriculum.length && allCurriculum.length) {
+    if(deCurriculum) {
       for (var i = 0; i < deCurriculum.length; i++) {
         for (var g = 0; g < allCurriculum.length; g++) {
           if (deCurriculum[i].zc == "全部") {
@@ -566,9 +571,10 @@ Page({
         }
       }
     }
-    
-    for (var i = 0; i < addCurriculum.length; i++) {
-      allCurriculum.push(addCurriculum[i]);
+    if(addCurriculum) {
+      for (var i = 0; i < addCurriculum.length; i++) {
+        allCurriculum.push(addCurriculum[i]);
+      }
     }
     return allCurriculum;
   },
