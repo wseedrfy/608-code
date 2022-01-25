@@ -1,3 +1,7 @@
+page {
+    background-color: #f6f6f6;
+}
+
 .wrap {
     .img {
         background-color: rgba(241, 229, 201, 0.26);
@@ -9,4 +13,134 @@
             height : 90rpx;
         }
     }
+
+    .content_wrap {
+        padding         : 24rpx;
+        font-size       : 30rpx;
+        background-color: white;
+        margin          : 24rpx;
+        border-radius   : 24rpx;
+
+        .top_wrap {
+            .title {}
+
+            input {}
+        }
+
+        .mid_wrap {
+            .title {}
+
+            input {}
+        }
+    }
+
+    .question_wrap {
+        font-size       : 30rpx;
+        padding         : 24rpx;
+        margin          : 12rpx;
+        background-color: white;
+        border-radius   : 24rpx;
+
+        .title {
+            color: rgb(114, 114, 114);
+        }
+
+        .item_wrap {
+            .item {
+                display       : flex;
+                flex-direction: row;
+                padding       : 6rpx;
+
+                .list_1 {
+                    flex              : 5;
+                    overflow          : hidden;
+                    text-overflow     : ellipsis;
+                    display           : -webkit-box;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 1;
+                }
+
+                .list_2 {
+                    flex: 1;
+                }
+            }
+            .add_question{
+                padding: 8rpx;
+                text-align: center;
+                color: blue;
+            }
+        }
+    }
+    .bt_wrap{
+        display: flex;
+        flex-direction: column;
+        font-size: 32rpx;
+        color: white;
+        .keep{
+            text-align: center;
+            margin-left: 24rpx;
+            margin-right: 24rpx;
+            background-color: red;
+            padding: 12rpx;
+            border-radius: 24rpx;
+        }
+        .send{
+            background-color: rebeccapurple;
+            text-align: center;
+            margin-left: 24rpx;
+            margin-right: 24rpx;
+            margin-top: 8rpx;
+            padding: 12rpx;
+            border-radius: 24rpx;
+        }
+    }
 }
+.commodity_screen {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #000;
+    opacity: 0.2;
+    overflow: hidden;
+    z-index: 1000;
+    color: #fff;
+  }
+  /*对话框 */
+  .commodity_attr_box {
+    height: 300rpx;
+    width: 100%;
+    overflow: hidden;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 2000;
+    background: #fff;
+    padding-top: 20rpx;
+    border-radius: 24rpx;
+    .title{
+        text-align: center;
+        color: rgb(59, 179, 226);
+        font-size: 30rpx;
+    }
+    .change_wrap{
+        display: flex;
+        flex-direction: row;
+        .item{
+            flex: 1;
+            .img{
+                text-align: center;
+                image{
+                    height: 120rpx;
+                    width: 120rpx;
+                    padding: 24rpx;
+                }
+            }
+            .change_title{
+                text-align: center;
+                font-size: 30rpx;
+            }
+        }
+    }
+  }
