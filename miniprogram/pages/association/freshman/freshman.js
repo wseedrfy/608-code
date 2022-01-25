@@ -256,9 +256,10 @@ Page({
           cloudPath: id + '.png',
           filePath: res.tempFilePaths[0]
         }).then(res => {
+          let imgUrl = res.fileID
           db.collection("associationMess").where({ count: count }).update({
             data: {
-              imgUrl: res.fileID
+              imgUrl: imgUrl
             }
           }).then(res => {
             wx.showToast({
@@ -268,8 +269,9 @@ Page({
               duration: 1500,
               mask: false,
               success: (result) => {
+                console.log('成功');
                 this.setData({
-                  imgUrl: res.fileID
+                  imgUrl: imgUrl
                 })
               },
             });
@@ -289,7 +291,7 @@ Page({
     });
   },
   // 删除海报
-  deleteImg() {
+  changeImg() {
     if (this.data.sendStatus == true) {
       wx.showModal({
         title: '提示',
@@ -307,20 +309,7 @@ Page({
       });
     }
     else {
-      wx.showModal({
-        title: '提示',
-        content: '删除海报',
-        showCancel: true,
-        cancelText: '取消',
-        cancelColor: '#000000',
-        confirmText: '确定',
-        confirmColor: '#3CC51F',
-        success: (result) => {
-          if (result.confirm) {
-
-          }
-        },
-      });
+      this.uploadImg()
     }
   },
 

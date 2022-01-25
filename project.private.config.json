@@ -119,6 +119,23 @@
           "pathName": "pages/association/freshman/freshman",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "社团首页",
+          "pathName": "pages/association/association",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "赛事编辑",
+          "pathName": "pages/association/match/match",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "赛事详情",
+          "pathName": "pages/association/match_detail/match_detail",
+          "scene": null
         }
       ]
     }
