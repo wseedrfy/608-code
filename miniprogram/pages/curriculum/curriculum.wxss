@@ -246,16 +246,18 @@ page {
   color: #1cbbb4;
   /* margin-top: 20rpx; */
   background-color: #fff;
-  height: 693px;
 }
 .wx-isclass .txt {
   position: absolute;
+  top: 0;
   left: 25%;
   z-index: 1;
 }
 .wx-isclass .FirbackgroundUrl {
 
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
   height: 100%;
 }
 
