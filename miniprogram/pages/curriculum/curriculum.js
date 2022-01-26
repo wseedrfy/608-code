@@ -98,13 +98,14 @@ Page({
       mediaType: ['image'],
       sourceType: ['album'],
       success(res) {
-        
-        console.log(res.tempFiles[0].tempFilePath,"临时文件路径");
+        console.log(res)
+        console.log(res.tempFiles[0].tempFilePath,"临时本地地址");
+
         let fs = wx.getFileSystemManager();
         let FilePath = fs.saveFileSync(res.tempFiles[0].tempFilePath);
 
         console.log(fs.getFileInfo(FilePath),"文件信息"); 
-        console.log(FilePath,"本地文件路径");
+        console.log(FilePath,"本地缓存地址");
         // console.log(FileManager.readFileSync(FilePath)); 
         wx.showLoading({
           title: '处理中...',
@@ -113,7 +114,6 @@ Page({
         that.setData({
           backgroundUrl : FilePath
         })
-        // 将缓存地址存入
         wx.setStorageSync('curriBgc',  FilePath);
         wx.hideLoading();
 
