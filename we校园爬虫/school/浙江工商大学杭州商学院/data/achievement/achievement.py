@@ -1,41 +1,55 @@
+import requests
+from pyquery import PyQuery as pq
 import re
-import threading
-from urllib.parse import quote
 
 achievements = []
 
-def achievement(session, username, name, headers):
-    # 先获取VIEWSTATE
-    try:
-        headers['Referer'] = 'https://jwc.mmpt.edu.cn/xscjcx.aspx?xh=' + str(username) + "&xm=" + quote(
-            name) + '&gnmkdm=N121605'
-        res = session.get('https://jwc.mmpt.edu.cn/xscjcx.aspx?xh=' +
-                          str(username) + "&xm=" + name + '&gnmkdm=N121605',
-                          headers=headers)
 
-        get_achievement_html = res.text
-        VIEWSTATE_reg = "<input type=\"hidden\" name=\"__VIEWSTATE\" value=\"(.*?)\" />"
-        VIEWSTATE = re.findall(VIEWSTATE_reg, get_achievement_html)
-        # 获取成绩
-        res = session.post(
-            'https://jwc.mmpt.edu.cn/xscjcx.aspx?xh=' +
-            str(username) + "&xm=" + name + '&gnmkdm=N121605',
-            data={
-                "btn_zcj": "历年成绩",
-                "__VIEWSTATE": VIEWSTATE,
-                "ddl_kcxz": ""
-            },
-            headers=headers
-        )
-        threads = [threading.Thread(target=gkk, args=(res.text,)), threading.Thread(target=every, args=(res.text,))]
+def achievement(sessions: requests.session(), name, username):
+    i = 0
+    cookies = sessions.cookies.values()
+    cookie = f"ASP.NET_SessionId={cookies[0]};zjgs=20111114"
+    url = f'http://jxgl.zjhzcc.edu.cn/xscjcx.aspx?xh={username}&xm={name}&gnmkdm=N121604'
+    headers_change = {
+        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 '
+                      'Safari/537.36',
+        'Referer': url,
+        'Cookie': cookie
+    }
 
-        for t in threads:
-            t.start()
-        # print(html)
-        return achievements
-    except:
-        print('茂职成绩有问题')
-        return achievements
+    # dataform
+
+    html = sessions.get(url,
+                        headers=headers_change)
+    data = {
+        '__VIEWSTATE': '',
+        'ddlXN': '',
+        'ddlXQ': '',
+        'ddl_kcxz': '',
+        'hidLanguage': '',
+        '__VIEWSTATEGENERATOR': '',
+        'btn_zcj': '历年成绩'
+    }
+    doc = pq(html.text)
+    __VIEWSTATE = doc('#__VIEWSTATE').attr('value')
+    __VIESTATEATE = doc('#__VIEWSTATEGENERATOR').attr('value')
+    # print(__VIEWSTATE)
+    # print(__VIEWSTATE)
+    data['__VIEWSTATE'] = __VIEWSTATE
+    # print(__VIEWSTATE)
+    data['__VIEWSTATEGENERATOR'] = __VIESTATEATE
+    cj = sessions.post(url,
+                       data=data)
+    html = cj.text
+    # print(html)
+    i += 1
+    if  "Internal Server Error" in html:
+        return 'Internal Server Error'
+    every(html)
+    gkk(html)
+    # print(achievements)
+    # print(len(achievements))
+    return achievements
 
 
 def every(html):
@@ -76,4 +90,3 @@ def gkk(html):
                 "cjjd": float(index[6]),  # 绩点
             }
         )
-
