@@ -1,5 +1,6 @@
 // pages/dynamic/dynamic.js
 const app = getApp()
+
 Page({
 
   /**
@@ -17,10 +18,10 @@ Page({
     var args = wx.getStorageSync('args')
     if (args) {
       try {
-        console.log( args.otherPageCode[options.content])
-
-        var onload1 = app.jsRun(args, args.otherPageCode[options.content].replace('\\\\', '\\'))
-
+        // console.log( args.otherPageCode[options.content])
+        // console.log(str);\
+        var onload1 = app.jsRun(args,args.otherPageCode[options.content].replace(/\\\\/g,"\\"))
+        
         const onloadDict = onload1()
         for(let i in onloadDict){
           this[i] = onloadDict[i]
