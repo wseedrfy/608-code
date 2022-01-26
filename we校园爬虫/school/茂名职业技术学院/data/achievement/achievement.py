@@ -2,10 +2,11 @@ import re
 import threading
 from urllib.parse import quote
 
-achievements = []
+
 
 def achievement(session, username, name, headers):
     # 先获取VIEWSTATE
+    achievements = []
     try:
         headers['Referer'] = 'https://jwc.mmpt.edu.cn/xscjcx.aspx?xh=' + str(username) + "&xm=" + quote(
             name) + '&gnmkdm=N121605'
@@ -27,7 +28,7 @@ def achievement(session, username, name, headers):
             },
             headers=headers
         )
-        threads = [threading.Thread(target=gkk, args=(res.text,)), threading.Thread(target=every, args=(res.text,))]
+        threads = [threading.Thread(target=gkk, args=(res.text,achievements)), threading.Thread(target=every, args=(res.text,achievements))]
 
         for t in threads:
             t.start()
@@ -38,7 +39,7 @@ def achievement(session, username, name, headers):
         return achievements
 
 
-def every(html):
+def every(html,achievements):
     ever = re.findall(
         r'<td>(.*?)</td><td>(.*?)</td><td>(.*?)</td><td>(.*?)</td><td>任意(.*?)课</td><td>(.*?)</td><td>(.*?)</td><td>('
         r'.*?)</td><td>(.*?)</td><td>(.*?)</td>',
@@ -58,7 +59,7 @@ def every(html):
         )
 
 
-def gkk(html):
+def gkk(html,achievements):
     test = re.findall(r'<td>(.*?)</td><td>(.*?)</td><td>(.*?)</td><td>(.*?)</td><td>('
                       r'.*?)课</td><td>&nbsp;</td><td>(.*?)</td><td>(.*?)</td><td>('
                       r'.*?)</td><td>0</td><td>&nbsp;</td>', html)

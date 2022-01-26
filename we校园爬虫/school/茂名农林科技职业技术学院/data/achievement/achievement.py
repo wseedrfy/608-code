@@ -2,28 +2,30 @@ import time
 from datetime import datetime
 import threading
 
-achievements = []
+
 
 
 def achievement(session):
-    # try:
-    currentYear = datetime.now().year
-    # print(type(currentYear))
-    max = (currentYear - 2017) * 2
-    threads = []
-    for i in range(1, max):
-        threads.append(threading.Thread(target=get_achievement, args=(session, i)))
-    for t in threads:
-        t.start()
-    for t in threads:
-        t.join()
-    return achievements
-    # except:
-    #     print("茂名农林科技职业技术学院成绩有问题")
-    #     return achievements
+    achievements = []
+    try:
+
+        currentYear = datetime.now().year
+        # print(type(currentYear))
+        max = (currentYear - 2017) * 2
+        threads = []
+        for i in range(1, max):
+            threads.append(threading.Thread(target=get_achievement, args=(session, i,achievements)))
+        for t in threads:
+            t.start()
+        for t in threads:
+            t.join()
+        return achievements
+    except:
+        print("茂名农林科技职业技术学院成绩有问题")
+        return achievements
 
 
-def get_achievement(session, i):
+def get_achievement(session, i,achievements):
     time = {
         1: "2017-2018-1",
         2: "2018-2019-1",
