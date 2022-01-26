@@ -135,6 +135,12 @@
         {
           "name": "赛事详情",
           "pathName": "pages/association/match_detail/match_detail",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "增加问题",
+          "pathName": "pages/association/add_question/add_question",
           "scene": null
         }
       ]

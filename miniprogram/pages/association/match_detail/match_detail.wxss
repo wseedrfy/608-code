@@ -42,6 +42,7 @@ page {
 }
 .wrap .question_wrap .item_wrap .item .list_2 {
   flex: 1;
+  color: red;
 }
 .wrap .question_wrap .item_wrap .add_question {
   padding: 8rpx;

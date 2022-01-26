@@ -18,7 +18,11 @@ Page({
         src:"../img/dan_change.png",
         name:"填空",
       },
-    ]
+    ],
+    title:"",
+    detail:"",
+    tempContent:[],
+    content:""
   },
 
   /**
@@ -73,18 +77,67 @@ Page({
       })
     }.bind(this), 200)
   },
+  // 详情页
+  goAdd(e){
+    let type=e.currentTarget.dataset.item.name
+    wx.navigateTo({
+      url: '/pages/association/add_question/add_question?type='+type,
+    })
+    this.setData({
+      content:""
+    })
+  },
+  title(e){
+    this.setData({
+      title:e.detail.value
+    })
+  },
+  detail(e){
+    this.setData({
+      detail:e.detail.value
+    })
+  },
+  // 删除
+  delete(e){
+    // console.log(e);
+    let index=e.currentTarget.dataset.index
+    this.data.tempContent.splice(index,1)
+    this.setData({
+      tempContent:this.data.tempContent
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
 
   },
+  // 编辑
+  toFixed(e){
+    // console.log(e);
+    let content=e.currentTarget.dataset.item
+    let type=content.type
+    wx.navigateTo({
+      url: '/pages/association/add_question/add_question?type='+type+'&fiexed='+true+'&content='+JSON.stringify(content),
+      success: (result)=>{
+        this.setData({
+          content:""
+        })
+      },
+    });
+  },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    // console.log(this.data.tempContent);
+    if(this.data.content){
+      this.data.tempContent.push(this.data.content)
+      this.setData({
+        tempContent:this.data.tempContent
+      })
+    }
   },
 
   /**

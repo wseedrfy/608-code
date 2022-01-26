@@ -11,6 +11,7 @@
     "pages/association/freshman/freshman",
     "pages/association/match/match",
     "pages/association/match_detail/match_detail",
+    "pages/association/add_question/add_question",
     "pages/more/more",
     "pages/curriculum/curriculum",
     "pages/myself/myself",
