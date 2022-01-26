@@ -135,6 +135,31 @@
         {
           "name": "赛事详情",
           "pathName": "pages/association/match_detail/match_detail",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/dynamic/dynamic",
+          "pathName": "pages/dynamic/dynamic",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/test1/test1",
+          "pathName": "pages/test1/test1",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/index/index",
+          "pathName": "pages/HOT/HotTop/HotTop",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/HOT/HotTop/HotTop",
+          "pathName": "pages/HOT/HotTop/HotTop",
+          "query": "",
           "scene": null
         }
       ]

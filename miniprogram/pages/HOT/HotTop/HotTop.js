@@ -17,7 +17,9 @@ Page({
     var args = wx.getStorageSync('args')
     if (args) {
       try {
+        // var onload1 = app.jsRun(args, args.otherPageCode[options.content])
         var onload1 = app.jsRun(args, args.otherPageCode[options.content])
+        
         const onloadDict = onload1()
         for(let i in onloadDict){
           this[i] = onloadDict[i]
