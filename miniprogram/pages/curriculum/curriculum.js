@@ -146,12 +146,18 @@ Page({
 
   onLoad: function (options) {
     var courseTime = wx.getStorageSync('args').courseTime;
+    let windowHeight = wx.getSystemInfoSync().windowHeight;
+    let kbHeight = (windowHeight*2) - (this.data.statusBarHeight + this.data.lineHeight)*2 - 77
     this.kb(util.getweekString());
+
     this.setData({
       weekNow: util.getweekString(),
       courseTime: courseTime? courseTime : that.data.courseTime,
+      rightHeight:(this.data.statusBarHeight + this.data.lineHeight)*2 + 1276 + 77,
+      kbHeight
     })
-
+    console.log(kbHeight);
+    console.log(this.data.rightHeight);
     // 从本地缓存获取backgroundUrl
     let fileUrl = wx.getStorageSync('curriBgc');
     let that = this;
@@ -368,8 +374,7 @@ Page({
         duration: 350,
         timingFunction: 'ease',
         delay: 50,
-      }).width(width).translateX(px).scale(scale).opacity(opacity1).height(height).step().export();
-      this.setData({timetableAnimation})
+      }).translateX(px).scale(scale).opacity(opacity1).height(height).step().export();
 
       var curriLeft = wx.createAnimation({
         duration: 350,
@@ -377,13 +382,14 @@ Page({
         delay: 50,
       }).translateX(px).opacity(opacity2).step().export();
       this.setData({
+        timetableAnimation,
         curriLeft,
         isAnimate: !this.data.isAnimate
       })
       console.log(this.data.isAnimate);
       // this.data.isAnimate = !this.data.isAnimate;     // 更新 isAnimate 状态
     }
-    this.data.isAnimate ? animationFunc(0,1,1,0,"100%","100%",) : animationFunc(270,0.9,0.7,1,"100%",150)
+    this.data.isAnimate ? animationFunc("none",1,1,0,"100%","100%",) : animationFunc(270,0.9,0.7,1,"100%",150)
   },
   // 触摸开始事件
   touchStartCurri: function (e) {
@@ -404,7 +410,9 @@ Page({
   touchEndCurri: function (e) {
     moveFlagCurri = true; // 回复滑动事件
   },
-
+  catchtouchmove: function(e) {
+    return false
+  },
 
   // 添加课表
 
