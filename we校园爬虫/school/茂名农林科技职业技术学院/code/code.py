@@ -10,8 +10,9 @@ def code_ocr(session):
 
     try:
 
-        image_url = 'school/茂名农林科技职业技术学院/code/NL_code.png'
+        image_url = 'NL_code.png'
         res = session.get('http://campus.gdnlxy.cn/campus-xmain/api/main-vcode')
+        # print(1)
         cookies = res.cookies.items()
         status_code = res.status_code
         if res.status_code == 200:
