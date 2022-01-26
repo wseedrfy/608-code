@@ -1,14 +1,14 @@
 import time,json
 import threading
-achievements = []
+
 def achievement(session):
     year = time.localtime().tm_year  # 获取当前时间
-
+    achievements = []
     try:
         print(time.time())
         threads = []
         for yeara in range(2018, year):
-            threads.append(threading.Thread(target=get_achievement,args=(session,yeara)))
+            threads.append(threading.Thread(target=get_achievement,args=(session,yeara,achievements)))
         for t in threads:
             t.start()
         for t in threads:
@@ -18,7 +18,7 @@ def achievement(session):
     except:
         print('广科院成绩有异常')
         return achievements
-def get_achievement(session,yeara):
+def get_achievement(session,yeara,achievements):
     achievement_data = {
         "xnm": str(yeara),  # 学年
         "xqm": ""  # 学期末

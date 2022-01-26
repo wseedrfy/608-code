@@ -284,3 +284,35 @@
 .help-a text{
   word-break: break-all;
 }
+.url_text{
+  color:rgb(45, 165, 230);
+}
+@media (prefers-color-scheme: dark) {
+  input{
+    filter: invert(100%) !important;
+    color: white;
+  }
+  .title_bg{
+    filter: invert(90%) !important;
+  }
+  .title_text{
+    filter: invert(100%) !important;
+  }
+  .help{
+    filter: invert(60%) !important;
+  }
+  .url_text{
+    filter: invert(90%) !important;
+  }
+  .wave{
+    filter: invert(0%) !important;
+  }
+  .help-q{
+    filter: invert(100%) !important;
+  }
+  .box{
+    filter: invert(0%) !important;
+    background-color: #dddcdc;
+    box-shadow: 0 0 50px rgba(255, 255, 255, 0.35);
+  }
+}

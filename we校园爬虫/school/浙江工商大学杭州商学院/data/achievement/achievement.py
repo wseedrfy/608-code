@@ -2,10 +2,9 @@ import requests
 from pyquery import PyQuery as pq
 import re
 
-achievements = []
-
 
 def achievement(sessions: requests.session(), name, username):
+    achievements = []
     i = 0
     cookies = sessions.cookies.values()
     cookie = f"ASP.NET_SessionId={cookies[0]};zjgs=20111114"
@@ -43,16 +42,16 @@ def achievement(sessions: requests.session(), name, username):
     html = cj.text
     # print(html)
     i += 1
-    if  "Internal Server Error" in html:
+    if "Internal Server Error" in html:
         return 'Internal Server Error'
-    every(html)
-    gkk(html)
+    every(html, achievements)
+    gkk(html, achievements)
     # print(achievements)
     # print(len(achievements))
     return achievements
 
 
-def every(html):
+def every(html, achievements):
     ever = re.findall(
         r'<td>(.*?)</td><td>(.*?)</td><td>(.*?)</td><td>(.*?)</td><td>任意(.*?)课</td><td>(.*?)</td><td>(.*?)</td><td>('
         r'.*?)</td><td>(.*?)</td><td>(.*?)</td>',
@@ -72,7 +71,7 @@ def every(html):
         )
 
 
-def gkk(html):
+def gkk(html, achievements):
     test = re.findall(r'<td>(.*?)</td><td>(.*?)</td><td>(.*?)</td><td>(.*?)</td><td>('
                       r'.*?)课</td><td>&nbsp;</td><td>(.*?)</td><td>(.*?)</td><td>('
                       r'.*?)</td><td>0</td><td>&nbsp;</td>', html)

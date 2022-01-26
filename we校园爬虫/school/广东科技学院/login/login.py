@@ -7,9 +7,11 @@ from school.广东科技学院.code.code import code_ocr
 
 def login(session, username, password):
     def login_test(session, username, password):
+
         code, cookie, nowTime = code_ocr(session)
         res = session.get('http://gkwst8.gjob.info:9903/xtgl/login_getPublicKey.html?time=' + nowTime)
         res_json = json.loads(res.text)
+        print(1)
         modulus = res_json['modulus']
         exponent = res_json['exponent']
         rsa = RSAJS.RSAKey()

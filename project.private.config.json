@@ -139,8 +139,38 @@
           "scene": null
         },
         {
+<<<<<<< HEAD
           "name": "增加问题",
           "pathName": "pages/association/add_question/add_question",
+=======
+          "name": "pages/dynamic/dynamic",
+          "pathName": "pages/dynamic/dynamic",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/test1/test1",
+          "pathName": "pages/test1/test1",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/index/index",
+          "pathName": "pages/HOT/HotTop/HotTop",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/HOT/HotTop/HotTop",
+          "pathName": "pages/HOT/HotTop/HotTop",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/HOT/HotTop/HotTop",
+          "pathName": "pages/HOT/HotTop/HotTop",
+          "query": "type=commonPage&content=%2Fpages%2FHOT%2FHotTop%2FHotTop",
+>>>>>>> 05a6ca5a07d9f78b6f22fef9ac70bf33b932f696
           "scene": null
         }
       ]

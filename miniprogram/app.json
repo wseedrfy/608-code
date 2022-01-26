@@ -25,11 +25,11 @@
     "pages/about/about",
     "pages/journal/journal",
     "pages/dynamic/dynamic",
-    "pages/test/test"
+    "pages/test/test",
+    "pages/test1/test1"
   ],
   "window": {
     "navigationBarTitleText": "We校园",
-    
     "backgroundColor": "@backgroundColor",
     "backgroundTextStyle": "@backgroundTextStyle",
     "navigationBarBackgroundColor": "@navBackgroundColor",
@@ -37,7 +37,7 @@
   },
   "tabBar": {
     "color": "@color",
-    "selectedColor":"#6eaddf",
+    "selectedColor": "#6eaddf",
     "backgroundColor": "@tabBackgroundColor",
     "list": [
       {
@@ -66,10 +66,8 @@
       }
     ]
   },
-  
   "sitemapLocation": "sitemap.json",
   "themeLocation": "theme.json",
   "darkmode": true,
   "style": "v2"
-  
 }
