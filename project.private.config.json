@@ -161,6 +161,12 @@
           "pathName": "pages/HOT/HotTop/HotTop",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "pages/HOT/HotTop/HotTop",
+          "pathName": "pages/HOT/HotTop/HotTop",
+          "query": "type=commonPage&content=%2Fpages%2FHOT%2FHotTop%2FHotTop",
+          "scene": null
         }
       ]
     }
