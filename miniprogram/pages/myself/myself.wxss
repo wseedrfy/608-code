@@ -248,16 +248,16 @@ button::after {
 
 
 @media (prefers-color-scheme: dark) {
+  .container{
+    background-color: #fff;
+    filter: invert(2%) !important;
+  }
   page {
     min-height: 100vh;
-    filter: invert(90%) !important;
     background-color: #fff;
     color: rgb(25, 25, 25);
   }
 
-  .moduleAdd{
-    background-color: #f5f4f4;
-  }
   .moduleAdd{
     background-color: #f5f4f4;
   }
@@ -273,7 +273,7 @@ button::after {
   .info,
   .head {
     filter: invert(100%) !important;
-    background-color: rgba(122, 159, 204,0.5);
+    background-color: rgba(122, 159, 204,0.7);
   }
 
   .info image{
