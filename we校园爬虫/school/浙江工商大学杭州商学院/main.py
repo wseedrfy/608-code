@@ -16,7 +16,6 @@ def getData_ZJGSHZ(username, password):
     while True:
         session = requests.session()
         name, res = login(session, username, password)
-
         if res != {'msg': 'welcome'}:
             return res
         get_data = data(username, name, session)

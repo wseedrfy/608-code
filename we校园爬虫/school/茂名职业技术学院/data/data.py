@@ -5,10 +5,8 @@ from school.茂名职业技术学院.data.curriculum.curriculum import curriculu
 
 
 def data(session, username, name, headers):
-    t= time.time()
     achievements=achievement(session, username, name, headers)
     curriculums=curriculum(session, username, name, headers)
-    print(time.time()-t)
     return {
         "achievement": achievements,
         "curriculum": curriculums
