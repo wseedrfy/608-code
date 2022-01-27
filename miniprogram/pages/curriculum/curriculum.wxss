@@ -1,9 +1,13 @@
 page {
   background-color: rgb(255, 255, 255);
+  /* overflow-y: hidden; */
+  overflow-x: hidden;
 }
 .container {
   background-color: rgb(81,81,81);
   position: relative;
+  /* overflow: scroll; */
+  height: calc();
 }
 /* 头部 */
 .cur-week {
@@ -165,8 +169,7 @@ page {
 }
 
 .backgroundUrl {
-  position: absolute;
-  top: 0;
+  position: fixed;
   /* left: 50rpx; */
   width: 100%;
   height: 100%;
@@ -246,6 +249,7 @@ page {
   color: #1cbbb4;
   /* margin-top: 20rpx; */
   background-color: #fff;
+  height: 100%;
 }
 .wx-isclass .txt {
   position: absolute;
@@ -255,9 +259,9 @@ page {
 }
 .wx-isclass .FirbackgroundUrl {
 
-  position: absolute;
-  top: 0;
+  position: fixed;
   left: 0;
+  width: 100%;
   height: 100%;
 }
 
@@ -268,7 +272,9 @@ page {
   box-sizing: border-box;
 }
 
-
+.kbScroll {
+  /* height: 1000rpx; */
+}
 /* 添加课表 */
 view,
 text,
@@ -469,6 +475,7 @@ button {
 .timeTableBox {
   height: 100%;
   background-color: #fff;
+  
 }
 /* 设置 */
 .curriLeft {
@@ -482,9 +489,10 @@ button {
   z-index: 999999;
 }
 .curriRight {
-  height: 100vh;
-  border-top-left-radius: 30rpx;
+  /* height: 100vh; */
+  /* height: 1276rpx; */
   box-shadow: -10rpx 0 30rpx 20rpx rgb(73, 73, 73);
+  /* overflow-y: hidden; */
 }
 .funcBox {
   border-bottom: 1rpx solid #73b4ef;

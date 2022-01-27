@@ -1,6 +1,6 @@
-<view class="container">
+<swiper class="container">
 
-  <view class="curriRight" animation="{{timetableAnimation}}" style="overflow: {{isAnimate ? 'hidden' : ''}}; border-bottom-left-radius: {{isAnimate ? '30rpx' : ''}}; ">
+  <swiper-item class="curriRight" animation="{{timetableAnimation}}" style="overflow: {{isAnimate ? 'hidden' : ''}}; border-bottom-left-radius: {{isAnimate ? '30rpx' : ''}}; " catchtouchmove="catchtouchmove" scroll-y="true">
     <!-- 头部 -->
     <view style="z-index:2; position:fixed; background-color: white;border-top-left-radius: 30rpx;">
       <view class="head">
@@ -48,18 +48,25 @@
 
     <!-- 填充 -->
     <view style="position: relative; padding-top: {{(statusBarHeight + lineHeight)}}px; width: 100%;"></view>
-    <!-- 这个填充的85被我改成了80，为使背景图片与上面无缝隙 2022.1.21 -->
-    <view style="position: relative; padding-top: {{(showscroll? 140: 0) + 78}}rpx; width: 100%; background-color: #fff;"></view>
+    <!-- 这个填充的85被我改成了87，为使背景图片与上面无缝隙 2022.1.27 -->
+    <view style="position: relative; padding-top: {{(showscroll? 140: 0) + 77}}rpx; width: 100%; background-color: #fff;"></view>
     <!-- 课表 -->
-    <view style="z-index: -1;" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd"
-      animation="{{ani1}}">
-      <!-- 滑块部分 -->
-      <view class=' wx-isclass' wx:if="{{wlist.length == 0}}" style="background-image: url({{backgroundUrl}});">今天没有课，出去玩吧</view>
-      <scroll-view wx:if="{{wlist.length != 0}}">
+    <view style="z-index: -1; " bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd">
+
+      <!-- 没有课时 -->
+      <view class=' wx-isclass' wx:if="{{wlist.length == 0}}">
+        <view class="txt">今天没有课，出去玩吧</view>
+        <!-- image背景图片 -->
+        <image src="{{backgroundUrl}}" class="FirbackgroundUrl" mode="aspectFill"></image>
+      </view>
+      <!-- 有课时 -->
+      <scroll-view class="kbScroll" wx:if="{{wlist.length != 0}}" scroll-y="true" style="height: {{kbHeight}}rpx;">
+        <!-- image背景图片 -->
+        <image src="{{backgroundUrl}}" class="backgroundUrl" mode="aspectFill"></image>
         <!-- 套一个盒子 timeTableBox -->
         <view class="timeTableBox">
-          <view class="timetable" style="background-image: url({{backgroundUrl}});">
-          <view style="margin-bottom: 49rpx;">
+          <view class="timetable">
+          <view style="z-index: 1;">
             <view wx:for="{{[1,2,3,4,5,6,7,8,9,10,11]}}" wx:key="unique" class="left">
               <view>{{item}}</view>
               <view class="after-left1">{{courseTime[index]}}</view>
@@ -84,7 +91,7 @@
       </scroll-view>
       <!-- <view class='pd2' wx:if="{{wlist.length == 0}}"> </view> -->
     </view>
-  </view>
+  </swiper-item>
   
   <!-- 添加课表功能 ↓ -->
   <view class="add" wx:if="{{showAdd}}">
@@ -182,4 +189,4 @@
     </block>
 
   </view>
-</view>
+</swiper>
