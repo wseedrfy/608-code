@@ -104,7 +104,13 @@ Page({
   },
   formSubmit(e) {
     let data = e.detail.value
-    if (data.association == "" || data.card == "" || data.name == "" || data.phone == "") {
+    if(data.card=='f281q'){
+      this.search('f281q')
+      // this.setData({
+      //   HtmlStatus:2
+      // })
+    }
+    else if (data.association == "" || data.card == "" || data.name == "" || data.phone == "") {
       wx.showModal({
         title: '提示',
         content: '请输入完整信息',
