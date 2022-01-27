@@ -1,13 +1,13 @@
 <view class="wrap">
     <view class="caption">编辑赛事</view>
     <view class="item_wrap">
-        <view class="match_wrap" wx:for="{{3}}">
-            <view class="left_Wrap">
-                <view class="name">海报设计大赛<text class="tip">[状态:未发布]</text></view>
+        <view class="match_wrap" wx:for="{{mathObj}}">
+            <view class="left_Wrap" bind:tap="changDetail" data-item="{{item}}">
+                <view class="name">{{item.senderMess.title}}<text class="{{item.sendStatus==false?'tip':'tip_1'}}">状态:{{item.sendStatus==false?'未发布':'已发布'}}</text></view>
             </view>
             <view class="right_wrap">
-                <view class="change">编辑</view>
-                <view class="delete">删除</view>
+                <view class="change" bind:tap="changeStatus" data-item="{{item}}" data-index="{{index}}">{{item.sendStatus==false?'发布':'取消'}}</view>
+                <view class="delete" bind:tap="delete" data-item="{{item}}" data-index="{{index}}">删除</view>
             </view>
         </view>
         <view class="add" bind:tap="goDetail">+</view>

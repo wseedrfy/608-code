@@ -87,7 +87,15 @@ page {
 .asso_wrap .bt_list {
   display: flex;
   flex-direction: column;
-  padding-top: 48rpx;
+  margin: 24rpx;
+  padding: 24rpx;
+  border-bottom: 1rpx solid #c0c0c0;
+  margin-left: 12rpx;
+  margin-right: 12rpx;
+  border-radius: 24rpx;
+  margin-top: 24rpx;
+  background-color: white;
+  font-size: 34rpx;
 }
 .asso_wrap .bt_list .new_bt {
   background-color: #4a6f94;
@@ -118,7 +126,16 @@ page {
   padding: 8rpx;
   color: white;
 }
-.asso_wrap .bt_list .del_bt {
+.asso_wrap .dele_list {
+  display: flex;
+  flex-direction: column;
+  padding-left: 24rpx;
+  padding-right: 24rpx;
+  margin-left: 12rpx;
+  margin-right: 12rpx;
+  font-size: 34rpx;
+}
+.asso_wrap .dele_list .del_bt {
   text-align: center;
   margin-top: 24rpx;
   margin-left: 24rpx;

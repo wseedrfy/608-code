@@ -219,7 +219,7 @@ Page({
   // 赛事
   match(){
     wx.navigateTo({
-      url: '/pages/association/match/match',
+      url: '/pages/association/match/match?count='+card,
       success: (result)=>{
         
       },
