@@ -76,7 +76,7 @@ page {
   line-height:60rpx;
   width:500rpx;
   overflow:hidden;
-  text-overflow:elipsis;
+  text-overflow:ellipsis;
   white-space:nowrap;
 }
 .block_bottom{
@@ -291,5 +291,20 @@ button{
   }
   .add_weekBtn label{
     filter: invert(80%) !important;
+  }
+  .block_kcmc {
+    /* color: #EEE8AA; */
+    filter: invert(90%);
+  }
+  .weui-input {
+    color: #EEE8AA;
+    letter-spacing: 2rpx;
+    filter: invert(20%);
+  }
+  .head-right {
+    filter: opacity(0.9);
+  }
+  .head {
+    background-color: rgb(13, 13, 13);
   }
 }
