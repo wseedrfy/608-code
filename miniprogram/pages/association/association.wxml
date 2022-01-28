@@ -6,7 +6,7 @@
     </view>
     <view class="list_wrap">
         <form bindsubmit="formSubmit">
-            <view class="list_item" wx:for="{{list}}">
+            <view class="list_item" wx:for="{{list}}" wx:key="item">
                 <view class="left">{{item.title}}</view>
                 <input placeholder="{{item.placeholder}}" class="rigth" name="{{item.id}}" type="{{item.type}}" value="{{item.value}}" />
             </view>
@@ -22,15 +22,18 @@
 </view>
 <view class="asso_wrap" wx:elif="{{HtmlStatus==2}}">
     <view class="mess_item">
-        <view class="mess_wrap" wx:for="{{assoMess}}">
+        <view class="mess_wrap" wx:for="{{assoMess}}" wx:key="item">
             <view class="title">{{item.name}}</view>
             <view class="mess">{{item.detail}}</view>
         </view>
     </view>
     <view class="bt_list">
         <view class="new_bt" bind:tap="clickme">活动发布</view>
-        <view class="act_bt" bind:tap="freshman">招新报名</view>
-        <view class="race_bt" bind:tap="match">赛事发布</view>
+        <view class="act_bt" bind:tap="freshman">招新报名 ></view>
+        <view class="race_bt" bind:tap="match">赛事发布 ></view>
+        <!-- <view class="del_bt" bind:tap="delete">注销身份</view> -->
+    </view>
+    <view class="dele_list">
         <view class="del_bt" bind:tap="delete">注销身份</view>
     </view>
 </view>
