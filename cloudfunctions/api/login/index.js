@@ -9,14 +9,16 @@ exports.main = async (event) => {
     const returnData = await loginSchool.main(event)
 
     if (returnData.msg === "welcome") {
+  
       const isHave = (await db.collection("user").where({
         openid: wxContext.OPENID
       }).get()).data.length
+          console.log(isHave)
       if (isHave === 0) {
         await db.collection('user').add({
           data: {
             openid: wxContext.OPENID,
-            username: Number(event.username),
+            username: event.username,
             password: event.password,
             school: event.school,
             iconUrl: event.iconUrl,
@@ -24,12 +26,12 @@ exports.main = async (event) => {
           }
         })
       } else {
-        console.log(event)
+ 
         await db.collection('user').where({
           openid: wxContext.OPENID
         }).update({
           data: {
-            username: Number(event.username),
+            username: event.username,
             password: event.password,
             school: event.school,
             iconUrl: event.iconUrl,

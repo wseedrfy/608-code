@@ -26,6 +26,8 @@
     "pages/journal/journal",
     "pages/dynamic/dynamic",
     "pages/test/test",
+    "pages/HOT/HotTop/HotTop",
+    "pages/HOT/HotNoTop/HotNoTop",
     "pages/test1/test1"
   ],
   "window": {
