@@ -1,13 +1,12 @@
 page {
   background-color: rgb(255, 255, 255);
   /* overflow-y: hidden; */
-  overflow-x: hidden;
+  overflow-y: hidden;
 }
 .container {
-  background-color: rgb(81,81,81);
+  background-color: rgb(122, 159, 204);
   position: relative;
   /* overflow: scroll; */
-  height: calc();
 }
 /* 头部 */
 .cur-week {
@@ -272,9 +271,6 @@ page {
   box-sizing: border-box;
 }
 
-.kbScroll {
-  /* height: 1000rpx; */
-}
 /* 添加课表 */
 view,
 text,
@@ -323,7 +319,7 @@ button {
   background-color: #fff;
   border-radius: 50rpx;
   padding: 50rpx 0;
-  z-index: 99999;
+  z-index: 99999999;
 }
 
 .add_title {
@@ -473,29 +469,27 @@ button {
   animation: add_hide .5s;
 }
 .timeTableBox {
-  height: 100%;
   background-color: #fff;
-  
 }
 /* 设置 */
 .curriLeft {
   position: absolute;
-  left: -270px;
-  top: 0;
+  left: -260px;
+  top: 20px;
   width: 488rpx;
   height: 100%;
   opacity: 0;
-  color: #fff;
-  z-index: 999999;
+  color: rgb(233, 253, 253);
+  z-index: 10;
 }
 .curriRight {
   /* height: 100vh; */
   /* height: 1276rpx; */
-  box-shadow: -10rpx 0 30rpx 20rpx rgb(73, 73, 73);
+  box-shadow: -10rpx 0 30rpx 20rpx rgb(111, 149, 196);
   /* overflow-y: hidden; */
 }
 .funcBox {
-  border-bottom: 1rpx solid #73b4ef;
+  border-bottom: 1rpx solid rgb(133, 95, 55,0.4) ;
   line-height: 100rpx;
   z-index: 99999;
   /* width: 80%; */
@@ -517,7 +511,7 @@ button {
   height: 100%;
   /* background-color: #000; */
   /* opacity: 0.3; */
-  z-index: 999;
+  z-index: 9;
 }
 .curriLeft .fontTtext {
   position: absolute;
@@ -562,6 +556,15 @@ button {
 }
 
 @media (prefers-color-scheme: dark) {
+  .container {
+    background-color: #fff;
+  }
+  .curriLeft {
+    color: rgb(54, 53, 53);
+  }
+  .curriRight {
+    box-shadow: -10rpx 0 30rpx 20rpx #ccc !important;
+  }
   .add_weekBtn label {
     filter: invert(80%) !important;
   }
@@ -570,4 +573,26 @@ button {
     filter: invert(90%) !important;
   }
 
+  .weekscroll {
+    filter: invert(100%) !important;
+    background-color: #000 !important;
+  }
+
+  .kbScroll {
+    
+    filter: invert(0%) !important;
+  }
+  .kb {
+    /* filter: invert(85%) !important; */
+    filter: grayscale(0%) contrast(90%) 
+  }
+  .smalltext {
+    color: 	#EEE8AA !important;
+    filter: invert(100%);       
+    /* filter: contrast(20%); */
+  }
+  .backgroundUrl {
+    background-color: #161717;
+    filter: invert(100%) !important;
+  }
 }

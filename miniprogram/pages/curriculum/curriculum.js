@@ -73,7 +73,8 @@ Page({
     ],
     isAnimate: false,               // 控制动效
     // CSS中使用变量
-    backgroundUrl: 'https://z3.ax1x.com/2021/08/14/fszRhT.jpg',
+    backgroundUrl: '',
+    red: `red`
   },
   importCurri() {
     console.log('importCurri');
@@ -371,16 +372,16 @@ Page({
     const animationFunc = (px,scale,opacity1,opacity2,height,width) => {
       
       var timetableAnimation = wx.createAnimation({
-        duration: 350,
+        duration: 400,
         timingFunction: 'ease',
         delay: 50,
       }).translateX(px).scale(scale).opacity(opacity1).height(height).step().export();
 
       var curriLeft = wx.createAnimation({
-        duration: 350,
+        duration: 400,
         timingFunction: 'ease',
         delay: 50,
-      }).translateX(px).opacity(opacity2).step().export();
+      }).translateX(px).translateY(-20).opacity(opacity2).step().export();
       this.setData({
         timetableAnimation,
         curriLeft,
@@ -389,7 +390,7 @@ Page({
       console.log(this.data.isAnimate);
       // this.data.isAnimate = !this.data.isAnimate;     // 更新 isAnimate 状态
     }
-    this.data.isAnimate ? animationFunc("none",1,1,0,"100%","100%",) : animationFunc(270,0.9,0.7,1,"100%",150)
+    this.data.isAnimate ? animationFunc("none",1,1,0,"100%","100%",) : animationFunc(260,0.8,0.7,1,"100%",150)
   },
   // 触摸开始事件
   touchStartCurri: function (e) {
@@ -400,7 +401,7 @@ Page({
   touchMoveCurri: function (e) {
     endXCurri = e.touches[0].pageX; // 获取触摸时的原点
     if (moveFlagCurri) {
-      if (startXCurri - endXCurri > 15) {
+      if (startXCurri - endXCurri > 50) {
         moveFlagCurri = false;
         this.seetingHandler();
       }
