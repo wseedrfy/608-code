@@ -74,7 +74,6 @@ Page({
     isAnimate: false,               // 控制动效
     // CSS中使用变量
     backgroundUrl: '',
-    red: `red`
   },
   importCurri() {
     console.log('importCurri');
@@ -131,7 +130,7 @@ Page({
       console.log(e);
     }
     this.setData({
-      backgroundUrl: 'https://z3.ax1x.com/2021/08/14/fszRhT.jpg'
+      backgroundUrl: ''
     })
     wx.showToast({
       title: '已重置背景',

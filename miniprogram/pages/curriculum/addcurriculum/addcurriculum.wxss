@@ -296,6 +296,9 @@ button{
     /* color: #EEE8AA; */
     filter: invert(90%);
   }
+  .iconfont {
+    filter: invert(30%);
+  }
   .weui-input {
     color: #EEE8AA;
     letter-spacing: 2rpx;

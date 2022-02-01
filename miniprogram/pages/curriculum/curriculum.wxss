@@ -483,10 +483,7 @@ button {
   z-index: 10;
 }
 .curriRight {
-  /* height: 100vh; */
-  /* height: 1276rpx; */
   box-shadow: -10rpx 0 30rpx 20rpx rgb(111, 149, 196);
-  /* overflow-y: hidden; */
 }
 .funcBox {
   border-bottom: 1rpx solid rgb(133, 95, 55,0.4) ;
@@ -557,13 +554,15 @@ button {
 
 @media (prefers-color-scheme: dark) {
   .container {
-    background-color: #fff;
+    /* 由于app.js，这里要取反颜色 */
+    background-color: rgb(133, 96, 51);
   }
   .curriLeft {
-    color: rgb(54, 53, 53);
+    /* 由于app.js，这里要取反颜色 */
+    color: #000;
   }
   .curriRight {
-    box-shadow: -10rpx 0 30rpx 20rpx #ccc !important;
+    box-shadow: -10rpx 0 30rpx 20rpx rgb(160, 111, 51);
   }
   .add_weekBtn label {
     filter: invert(80%) !important;
@@ -572,27 +571,41 @@ button {
   .add_background {
     filter: invert(90%) !important;
   }
-
+  /* 头部 */
+  .head {
+    background-color: rgb(245, 245, 245) !important;
+  }
+  .top {
+    background-color: rgb(245, 245, 245) !important;
+    border-bottom: 1rpx solid rgba(32, 32, 32, 0.5);
+  }
+  /* 顶部选周Scroll-view */
   .weekscroll {
     filter: invert(100%) !important;
-    background-color: #000 !important;
+    background-color: rgb(10, 10, 10) !important;
   }
-
+  .weekscroll_week {
+    filter: invert(100%) !important;
+  }
+  .weekscroll_week .week_point {
+    filter: invert(100%) !important;
+  }
+  .weekscroll_week .weekscroll_week_text {
+    filter: invert(50%) !important;
+  }
+  /* 课表区域Scroll-view */
   .kbScroll {
-    
     filter: invert(0%) !important;
   }
   .kb {
-    /* filter: invert(85%) !important; */
-    filter: grayscale(0%) contrast(90%) 
+    filter: brightness(80%) invert(15%)
   }
   .smalltext {
-    color: 	#EEE8AA !important;
-    filter: invert(100%);       
-    /* filter: contrast(20%); */
+    /* color: 	#EEE8AA !important;    米黄色 */
+    filter: invert(88%);       
   }
   .backgroundUrl {
-    background-color: #161717;
+    background-color: rgb(10, 10, 10);
     filter: invert(100%) !important;
   }
 }
