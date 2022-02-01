@@ -1,11 +1,9 @@
 Component({
-  options: {
-    multipleSlots: true // 在组件定义时的选项中启用多slot支持
-  },
   data: {
-    slideShow: 'false',
+    slideShow: false,
     slideWidth: '', //滑块宽
     slideLeft: 0, //滑块位置
+    iconList2: []
   },
   properties: {
     iconList: {
@@ -13,20 +11,34 @@ Component({
       value: []
     }
   },
+  pageLifetimes: {
+    show: function() {
+      console.log(this.data.iconList2)
+      this.setStorageData(this.data.iconList2)
+    },
+    hide: function() {
+      // 页面被隐藏
+    },
+    resize: function(size) {
+      // 页面尺寸变化
+    }
+  },
   lifetimes: {
-
+    
     ready: function() {
+ 
       this.setStorageData(this.data.iconList)
 
       // 在组件实例进入页面节点树时执行
     },
-    detached: function() {
+    created: function() {
+      // this.setStorageData(this.data.iconList)
       // 在组件实例被从页面节点树移除时执行
     },
   },
   methods: {
     setStorageData: function (iconList1) {
-
+        this.data.iconList2 = iconList1
         var lll = iconList1
         var iconList = []
         var aa = []
@@ -46,9 +58,9 @@ Component({
             }
           }
         }
-
+        
         this.setData({
-          iconList: iconList, // indexData.iconList,
+          iconList1: iconList, // indexData.iconList,
         });
         // 初始化scroll-view
         this.getRatio();
@@ -59,7 +71,7 @@ Component({
     getRatio() {
 
       var self = this;
-      if (self.data.iconList.length <= 1) {
+      if (self.data.iconList1.length <= 1) {
         this.setData({
           slideShow: false
         })
@@ -68,7 +80,7 @@ Component({
         const barWidth = 90; // 固定长度是90rpx
         const iconWidth = 182.5; // 一个图标的宽度为182.5rpx
 
-        var _totalIcon = Math.ceil(self.data.iconList[1].length / 2) + 4 // 总的横向个数
+        var _totalIcon = Math.ceil(self.data.iconList1[1].length / 2) + 4 // 总的横向个数
         var onelength = barWidth / _totalIcon // 一个图标 所占滚条的宽度
         var _showLength = barWidth - onelength * (_totalIcon - 4) // 红色滑条的长度(保留两位小数)
 
