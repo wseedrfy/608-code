@@ -20,6 +20,7 @@ Page({
       try {
         // console.log( args.otherPageCode[options.content])
         // console.log(str);\
+        
         var onload1 = app.jsRun(args,args.otherPageCode[options.content].replace(/\\\\/g,"\\"))
         
         const onloadDict = onload1()

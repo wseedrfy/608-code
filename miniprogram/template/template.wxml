@@ -739,7 +739,7 @@
 </template>
 
 <template name="test-map1">
-    <map id="navi_map" longitude="{{item.longitude}}" latitude="{{item.latitude}}" scale="18" markers="{{item.markers}}" polyline="{{item.polyline}}" bindmarkertap="makertap" style='width:100%' show-location subkey="JLHBZ-JQELU-I7HVD-B2XSN-5VU3Z-BZFDK" enable-3D="true" show-compass style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <map id="navi_map" longitude="{{item.longitude}}" latitude="{{item.latitude}}" scale="18" markers="{{item.markers}}" polyline="{{item.polyline}}" bindmarkertap="makertap" style='width:100%' show-location  enable-3D="true" show-compass style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
         <text></text>{{item.text}}
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type1+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -748,7 +748,7 @@
 </template>
 
 <template name="test-map2">
-    <map id="navi_map" longitude="{{item.longitude}}" latitude="{{item.latitude}}" scale="18" markers="{{item.markers}}" polyline="{{item.polyline}}" bindmarkertap="makertap" style='width:100%' show-location subkey="JLHBZ-JQELU-I7HVD-B2XSN-5VU3Z-BZFDK" enable-3D="true" show-compass style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <map id="navi_map" longitude="{{item.longitude}}" latitude="{{item.latitude}}" scale="18" markers="{{item.markers}}" polyline="{{item.polyline}}" bindmarkertap="makertap" style='width:100%' show-location  enable-3D="true" show-compass style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
         <text></text>{{item.text}}
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type1+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -757,7 +757,7 @@
 </template>
 
 <template name="test-map3">
-    <map id="navi_map" longitude="{{item.longitude}}" latitude="{{item.latitude}}" scale="18" markers="{{item.markers}}" polyline="{{item.polyline}}" bindmarkertap="makertap" style='width:100%' show-location subkey="JLHBZ-JQELU-I7HVD-B2XSN-5VU3Z-BZFDK" enable-3D="true" show-compass style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <map id="navi_map" longitude="{{item.longitude}}" latitude="{{item.latitude}}" scale="18" markers="{{item.markers}}" polyline="{{item.polyline}}" bindmarkertap="makertap" style='width:100%' show-location  enable-3D="true" show-compass style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
         <text></text>{{item.text}}
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type1+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -766,7 +766,7 @@
 </template>
 
 <template name="test-map4">
-    <map id="navi_map" longitude="{{item.longitude}}" latitude="{{item.latitude}}" scale="18" markers="{{item.markers}}" polyline="{{item.polyline}}" bindmarkertap="makertap" style='width:100%' show-location subkey="JLHBZ-JQELU-I7HVD-B2XSN-5VU3Z-BZFDK" enable-3D="true" show-compass style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <map id="navi_map" longitude="{{item.longitude}}" latitude="{{item.latitude}}" scale="18" markers="{{item.markers}}" polyline="{{item.polyline}}" bindmarkertap="makertap" style='width:100%' show-location  enable-3D="true" show-compass style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
         <text></text>{{item.text}}
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type1+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -775,7 +775,7 @@
 </template>
 
 <template name="test-map5">
-    <map id="navi_map" longitude="{{item.longitude}}" latitude="{{item.latitude}}" scale="18" markers="{{item.markers}}" polyline="{{item.polyline}}" bindmarkertap="makertap" style='width:100%' show-location subkey="JLHBZ-JQELU-I7HVD-B2XSN-5VU3Z-BZFDK" enable-3D="true" show-compass style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <map id="navi_map" longitude="{{item.longitude}}" latitude="{{item.latitude}}" scale="18" markers="{{item.markers}}" polyline="{{item.polyline}}" bindmarkertap="makertap" style='width:100%' show-location  enable-3D="true" show-compass style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
         <text></text>{{item.text}}
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type1+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -784,7 +784,7 @@
 </template>
 
 <template name="test-map6">
-    <map id="navi_map" longitude="{{item.longitude}}" latitude="{{item.latitude}}" scale="18" markers="{{item.markers}}" polyline="{{item.polyline}}" bindmarkertap="makertap" style='width:100%' show-location subkey="JLHBZ-JQELU-I7HVD-B2XSN-5VU3Z-BZFDK" enable-3D="true" show-compass style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <map id="navi_map" longitude="{{item.longitude}}" latitude="{{item.latitude}}" scale="18" markers="{{item.markers}}" polyline="{{item.polyline}}" bindmarkertap="makertap" style='width:100%' show-location  enable-3D="true" show-compass style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
         <text></text>{{item.text}}
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type1+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -793,7 +793,7 @@
 </template>
 
 <template name="test-map7">
-    <map id="navi_map" longitude="{{item.longitude}}" latitude="{{item.latitude}}" scale="18" markers="{{item.markers}}" polyline="{{item.polyline}}" bindmarkertap="makertap" style='width:100%' show-location subkey="JLHBZ-JQELU-I7HVD-B2XSN-5VU3Z-BZFDK" enable-3D="true" show-compass style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <map id="navi_map" longitude="{{item.longitude}}" latitude="{{item.latitude}}" scale="18" markers="{{item.markers}}" polyline="{{item.polyline}}" bindmarkertap="makertap" style='width:100%' show-location  enable-3D="true" show-compass style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
         <text></text>{{item.text}}
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type1+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -802,7 +802,7 @@
 </template>
 
 <template name="test-map8">
-    <map id="navi_map" longitude="{{item.longitude}}" latitude="{{item.latitude}}" scale="18" markers="{{item.markers}}" polyline="{{item.polyline}}" bindmarkertap="makertap" style='width:100%' show-location subkey="JLHBZ-JQELU-I7HVD-B2XSN-5VU3Z-BZFDK" enable-3D="true" show-compass style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <map id="navi_map" longitude="{{item.longitude}}" latitude="{{item.latitude}}" scale="18" markers="{{item.markers}}" polyline="{{item.polyline}}" bindmarkertap="makertap" style='width:100%' show-location  enable-3D="true" show-compass style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
         <text></text>{{item.text}}
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type1+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -811,7 +811,7 @@
 </template>
 
 <template name="test-map9">
-    <map id="navi_map" longitude="{{item.longitude}}" latitude="{{item.latitude}}" scale="18" markers="{{item.markers}}" polyline="{{item.polyline}}" bindmarkertap="makertap" style='width:100%' show-location subkey="JLHBZ-JQELU-I7HVD-B2XSN-5VU3Z-BZFDK" enable-3D="true" show-compass style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
+    <map id="navi_map" longitude="{{item.longitude}}" latitude="{{item.latitude}}" scale="18" markers="{{item.markers}}" polyline="{{item.polyline}}" bindmarkertap="makertap" style='width:100%' show-location  enable-3D="true" show-compass style="{{item.style}}" class="{{item.class}}" catchtap="{{undefined?'':item.bindtap}}">
         <text></text>{{item.text}}
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type1+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
