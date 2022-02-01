@@ -14,6 +14,8 @@ Page({
       month: new Date().getMonth(),
       day: new Date().getDay(),
     },
+    statusBarHeight: getApp().globalData.statusBarHeight,
+    lineHeight: getApp().globalData.lineHeight,
   },
   onPullDownRefresh(){
     wx.showNavigationBarLoading() //在标题栏中显示加载

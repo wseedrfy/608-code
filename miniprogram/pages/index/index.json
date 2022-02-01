@@ -4,5 +4,6 @@
     "inform": "/components/inform/inform"
   },
   "navigationBarTitleText": "We校园",
-  "enablePullDownRefresh": true
+  "enablePullDownRefresh": true,
+  "navigationStyle": "custom"
 }

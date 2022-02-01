@@ -1,24 +1,41 @@
 <!--index.wxml-->
 
 <view class="container">
+  <view class="mask" style="height: {{statusBarHeight + lineHeight + 320}}px;"></view>
+  <view class="mask2" style="top: {{statusBarHeight + lineHeight + 320}}px;"></view>
+  <view class="head">
+    <!-- 状态栏 -->
+    <view style="height: {{statusBarHeight}}px;"></view>
+    <!-- 导航栏 -->
+    <view style="height: {{lineHeight}}px; text-align: center;"></view>
+  </view>
+  <view class="adContainer">
+    <ad unit-id="adunit-f9948326373ca9ac"></ad>
+  </view>
+
   <!-- 弹窗 -->
-  <view class="dialogAdd" style="display: {{activityDialog.status == 0 ? 'flex' : 'none'}}; background-image: url({{activityDialog.dialogAdd_bgc}});width: {{activityDialog.width}}rpx;height: {{activityDialog.height}}rpx;" animation="{{slideupshow}}" >
+  <view class="dialogAdd" style="display: {{activityDialog.status == 0 ? 'flex' : 'none'}}; background-image: url({{activityDialog.dialogAdd_bgc}});width: {{activityDialog.width}}rpx;height: {{activityDialog.height}}rpx;" animation="{{slideupshow}}">
     <!-- 点击参与按钮 bindtap:activity 在动态JS里 -->
     <view class="dialogAdd_btn" style="background-image: url({{activityDialog.dialogAdd_btn.picUrl}});width: {{activityDialog.dialogAdd_btn.width}}rpx;height: {{activityDialog.dialogAdd_btn.height}}rpx;top: {{activityDialog.dialogAdd_btn.top*1.82}}rpx;left: {{activityDialog.dialogAdd_btn.left*1.82}}rpx;" bindtap="activity"></view>
     <!-- 点击关闭 bindtap:closeDialogAdd 在动态JS里 -->
     <view class="dialogAdd_close" style="background-image: url({{activityDialog.dialogAdd_close.picUrl}}); width: {{activityDialog.dialogAdd_close.width}}rpx; height: {{activityDialog.dialogAdd_close.height}}rpx; top: {{activityDialog.dialogAdd_close.top}}rpx;left: {{activityDialog.dialogAdd_close.left}}rpx;" bindtap="closeDialogAdd"></view>
   </view>
 
-  <view style="margin-left:10rpx">
+  <view style="margin-left:20rpx; margin-top: 10rpx;">
     <iconBar iconList="{{iconList}}"></iconBar>
   </view>
   <!-- 通知拦 -->
-  <view wx:if="{{inform}}" style="margin-top:15rpx">
+  <view wx:if="{{inform}}" style="margin-top:17rpx">
     <inform inform="{{inform}}"></inform>
   </view>
+
+
+
   <!-- 上课提醒 -->
-  <view class="wx-remind">
+  <view class="wx-remind" style="margin-top:17rpx">
+
     <view class="wx-remind-header">
+
       <view class="wx-remind-title">
         <text>上课提醒</text>
         <text>{{time.month+1}}-{{time.date}} 周{{time.day != 0 ? time.day : 7}}</text>
@@ -43,4 +60,14 @@
       </view>
     </view>
   </view>
+
+  <!-- 其他功能 -->
+  <view class="other">
+    <view class="countdown">
+      <view class="wx-remind-mask">
+      </view>
+    </view>
+  </view>
+
+
 </view>
