@@ -257,7 +257,7 @@ page {
 }
 .wx-isclass .txt {
   position: absolute;
-  top: 0;
+  top: 20rpx;
   left: 25%;
   z-index: 1;
 }

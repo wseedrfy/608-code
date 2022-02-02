@@ -149,7 +149,7 @@ Page({
     let kbHeight = (windowHeight*2) - (this.data.statusBarHeight + this.data.lineHeight)*2 - 77
     this.kb(util.getweekString());
     this.setData({
-      weekNow: 1,
+      weekNow: util.getweekString(),
       courseTime: courseTime? courseTime : that.data.courseTime,
       rightHeight:(this.data.statusBarHeight + this.data.lineHeight)*2 + 1276 + 77,
       kbHeight
