@@ -5,6 +5,9 @@
     }
   },
   "pages": [
+    "pages/tomato/index/index",
+    "pages/tomato/rank/rank",
+    "pages/tomato/logs/logs",
     "pages/index/index",
     "pages/curriculum/addcurriculum/addcurriculum",
     "pages/association/association",
