@@ -143,15 +143,13 @@ Page({
       whichWeek: this.data.whichWeek
     })
   },
-
   onLoad: function (options) {
     var courseTime = wx.getStorageSync('args').courseTime;
     let windowHeight = wx.getSystemInfoSync().windowHeight;
     let kbHeight = (windowHeight*2) - (this.data.statusBarHeight + this.data.lineHeight)*2 - 77
     this.kb(util.getweekString());
-
     this.setData({
-      weekNow: util.getweekString(),
+      weekNow: 1,
       courseTime: courseTime? courseTime : that.data.courseTime,
       rightHeight:(this.data.statusBarHeight + this.data.lineHeight)*2 + 1276 + 77,
       kbHeight

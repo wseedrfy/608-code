@@ -9,6 +9,9 @@ page {
   /* overflow: scroll; */
 }
 /* 头部 */
+.head {
+  background-image: linear-gradient( #bae4f5 , #ffffff);
+}
 .cur-week {
   position: relative;
   display: flex;
@@ -51,7 +54,9 @@ page {
   height: 128rpx;
   margin-top: 7rpx;
 }
-
+.weekscroll_week_click {
+  background-color: rgb(188,187,193);
+}
 .week_point {
   display: flex;
   flex-direction: row;
@@ -485,8 +490,13 @@ button {
 .curriRight {
   box-shadow: -10rpx 0 30rpx 20rpx rgb(111, 149, 196);
 }
+.curriRight_Animate {
+  overflow:hidden;
+  border-bottom-left-radius: 30rpx;
+  border-top-left-radius: 30rpx;
+}
 .funcBox {
-  border-bottom: 1rpx solid rgb(133, 95, 55,0.4) ;
+  border-bottom: 1rpx solid rgb(133, 95, 55,0.2) ;
   line-height: 100rpx;
   z-index: 99999;
   /* width: 80%; */
@@ -561,6 +571,9 @@ button {
     /* 由于app.js，这里要取反颜色 */
     color: #000;
   }
+  .curriLeft .funcBox {
+    border-bottom: 1rpx solid rgb(122, 160, 200,0.2) ;
+  }
   .curriRight {
     box-shadow: -10rpx 0 30rpx 20rpx rgb(160, 111, 51);
   }
@@ -574,6 +587,7 @@ button {
   /* 头部 */
   .head {
     background-color: rgb(245, 245, 245) !important;
+    background-image: linear-gradient( #F5F5F5 , #F5F5F5);
   }
   .top {
     background-color: rgb(245, 245, 245) !important;
@@ -587,22 +601,26 @@ button {
   .weekscroll_week {
     filter: invert(100%) !important;
   }
+  .weekscroll_week_click {
+    background-color: #fff;
+  }
   .weekscroll_week .week_point {
     filter: invert(100%) !important;
   }
   .weekscroll_week .weekscroll_week_text {
     filter: invert(50%) !important;
   }
+  .top-text-strong,
+  .after-left-strong {
+    color: rgb(140,75,16);
+    font-weight: bold;
+  }
   /* 课表区域Scroll-view */
   .kbScroll {
     filter: invert(0%) !important;
   }
   .kb {
-    filter: brightness(80%) invert(15%)
-  }
-  .smalltext {
-    /* color: 	#EEE8AA !important;    米黄色 */
-    filter: invert(88%);       
+    filter:invert(90%)
   }
   .backgroundUrl {
     background-color: rgb(10, 10, 10);

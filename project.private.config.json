@@ -29,6 +29,12 @@
                     "pathName": "pages/curriculum/addcurriculum/addcurriculum",
                     "query": "",
                     "scene": null
+                },
+                {
+                    "name": "个人信息",
+                    "pathName": "pages/myself/myself",
+                    "query": "",
+                    "scene": null
                 }
             ]
         }
