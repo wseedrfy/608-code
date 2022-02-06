@@ -7,26 +7,26 @@
 <!-- 不可滑动页 -->
 <view>
   <view wx:if="{{navState==0}}" class="style-default">
-    <ec-canvas id="mychart-dom-pie" canvas-id="mychart-pie" ec="{{ ec }}"></ec-canvas>
+    <ec-canvas type="2d" id="mychart-dom-pie" canvas-id="mychart-pie" ec="{{ ec }}"></ec-canvas>
   </view>
   <view wx:elif="{{navState==1}}" class="style-default">
-    <ec-canvas id="mychart-dom-multi-bar" canvas-id="mychart-multi-bar" ec="{{ ecBar }}"></ec-canvas>
+    <ec-canvas type="2d" id="mychart-dom-multi-bar" canvas-id="mychart-multi-bar" ec="{{ ecBar }}"></ec-canvas>
   </view>
   <view wx:else="{{navState==2}}" class="style-default">3</view>
 </view>
 <!-- 滑动页 -->
-<swiper bindchange="bindchange" current="{{navState}}" class="box">
+<swiper bindchange="bindchange" current="{{navState}}" class="box" duration="500">
 
     <swiper-item >
       <view class="style-roll">
-        <ec-canvas  id="mychart-dom-pie" canvas-id="mychart-pie" ec="{{ ec }}"></ec-canvas>
+        <ec-canvas type="2d" id="mychart-dom-pie" canvas-id="mychart-pie" ec="{{ ec }}"></ec-canvas>
         <text>左右可滑动1</text>
       </view>
     </swiper-item>
 
     <swiper-item>
       <view class="style-roll">
-        <ec-canvas id="mychart-dom-multi-bar" canvas-id="mychart-multi-bar" ec="{{ ecBar }}"></ec-canvas>
+        <ec-canvas type="2d" id="mychart-dom-multi-bar" canvas-id="mychart-multi-bar" ec="{{ ecBar }}"></ec-canvas>
         <text>左右可滑动2</text>
       </view>
     </swiper-item>

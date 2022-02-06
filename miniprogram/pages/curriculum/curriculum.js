@@ -387,7 +387,7 @@ Page({
       console.log(this.data.isAnimate);
       // this.data.isAnimate = !this.data.isAnimate;     // 更新 isAnimate 状态
     }
-    this.data.isAnimate ? animationFunc("none",1,1,0,"100%","100%",) : animationFunc(260,0.8,0.7,1,"100%",150)
+    this.data.isAnimate ? animationFunc("none",1,1,0,"100%","100%",) : animationFunc(260,0.85,0.7,1,"100%",150)
   },
   // 触摸开始事件
   touchStartCurri: function (e) {

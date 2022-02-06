@@ -5,10 +5,11 @@
     }
   },
   "pages": [
+    "pages/index/index",
     "pages/tomato/index/index",
     "pages/tomato/rank/rank",
     "pages/tomato/logs/logs",
-    "pages/index/index",
+    "pages/tomato/text/text",
     "pages/curriculum/addcurriculum/addcurriculum",
     "pages/association/association",
     "pages/association/freshman/freshman",
