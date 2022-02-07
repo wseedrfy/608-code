@@ -615,6 +615,14 @@ button {
     color: rgb(140,75,16);
     font-weight: bold;
   }
+  .top {
+    border-bottom: 1rpx solid rgb(245, 245, 245);
+  }
+  .filler {
+    /* filter: invert(100%) !important; */
+    background-color: rgb(245, 245, 245) !important;
+    /* background-color: #000 ; */
+  }
   /* 课表区域Scroll-view */
   .kbScroll {
     filter: invert(0%) !important;
