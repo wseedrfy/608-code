@@ -32,7 +32,8 @@ page {
   /* overflow-anchor:initial; */
   height: 140rpx;
   width: 750rpx;
-  background-color: rgb(237, 237, 237);
+  /* background-color: rgb(237, 237, 237); */
+  background-color: #fff;
   white-space: nowrap;
 }
 
@@ -509,7 +510,7 @@ button {
   padding-top: 10rpx;
 }
 .funcBox text {
-  margin-left: 20rpx;
+  margin-left: 40rpx;
 }
 .curriLeft_background {
   position: absolute;

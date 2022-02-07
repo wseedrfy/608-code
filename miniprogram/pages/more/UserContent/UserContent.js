@@ -143,19 +143,16 @@ Page({
       data: {
         type: "readUser",
         currentPage: currentPage,
-        nickname: that.data.nickname,
-        iconUrl: that.data.iconUrl,
         username: that.data.username
       },
       success(res) {
-        wx.hideLoading()
-        that.data.resultLength = res.result.data.length
+        wx.hideLoading();
+        that.data.resultLength = res.result.data.length;
         if (res.result.data && res.result.data.length > 0) {
-          console.log("请求成功", res.result.data)
-          currentPage++
-          //把新请求到的数据添加到noramalData里  
-          // var allData = res.result.data
-          that.data.List=res.result.data
+          console.log("请求成功", res.result.data);
+          currentPage++;
+          //把新请求到的数据添加到 noramalData 里  
+          that.data.List = res.result.data;
           for (let i = 0; i < that.data.List.length; i++) {
             if (that.data.leftH == that.data.rightH || that.data.leftH < that.data.rightH) {//判断左右两侧当前的累计高度，来确定item应该放置在左边还是右边
               that.data.List[i].type="left"
@@ -211,21 +208,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that =this 
-    var i=0
-    that.data.List=[]
-    that.data.leftH=0,
-    that.data.rightH=0
-    var school = args.school
-    var nickname =args.nickName
-    var iconUrl =args.iconUrl
-    console.log(school)
-    if(school && nickname && iconUrl){
+    let that =this 
+    let i=0
+    that.data.List = [];
+    that.data.leftH = 0;
+    that.data.rightH = 0;
+
+    if(args.school && args.nickname && args.iconUrl){
       that.setData({
-        school:school,
-        nickname:nickname,
+        school:args.school,
+        nickname:args.nickname,
         username: args.username,
-        iconUrl:iconUrl,
+        iconUrl:args.iconUrl,
         // openusername:username
         openusername:{
           username: args.username,
@@ -234,10 +228,10 @@ Page({
         }
       })
       console.log(that.data.openusername)
-      if(i==0){
-        currentPage=0
-        that.getData()
-        i++
+      if(i == 0){
+        currentPage = 0;
+        that.getData();
+        i++;
       }
     }else{
       that.setData({
@@ -246,28 +240,6 @@ Page({
       wx.showModal({
         title: '提示',
         content: '小主还没登录哟QwQ',
-        success(res) {
-          if (res.confirm) {
-            console.log('用户点击确定')
-          } else if (res.cancel) {
-            console.log('用户点击取消')
-          }
-        }, fail(res) {
-          that.setData({
-            DataNull: 0,
-          })
-          wx.showModal({
-            title: '提示',
-            content: '小主还没登录哟QwQ',
-            success(res) {
-              if (res.confirm) {
-                console.log('用户点击确定')
-              } else if (res.cancel) {
-                console.log('用户点击取消')
-              }
-            }
-          })
-        }
       })
     }
   },

@@ -63,9 +63,9 @@ Page({
     showscroll: false,
     curriculumAll: [],              // 用户添加/隐藏后，得到的课表
     curriFunc: [                   // 课表功能
-      {text:"导入最新课程表",icon:"./images/x2.png",click:"importCurri"},
+      {text:"导入最新课程",icon:"./images/x2.png",click:"importCurri"},
       {text:"手动添加课程",icon:"./images/x3.png",click:"feedbackHandler"},
-      {text:"修改课程",icon:"./images/x4.png",click:"addCourseHandler"},
+      {text:"修改课程管理",icon:"./images/x4.png",click:"addCourseHandler"},
       {text:"分享课程表",icon:"./images/x5.png",click:"shareCurri"},
       {text:"自定义背景",icon:"./images/x6.png",click:"bgcCurri"},
       {text:"重置背景",icon:"./images/considerBgc.png",click:"resetBgcCurri"},

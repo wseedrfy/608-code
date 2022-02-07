@@ -183,7 +183,7 @@
     <!-- 设置页功能 -->
     <block wx:for="{{curriFunc}}" wx:key="index">
       <view class="funcBox" catchtap="{{item.click}}">
-        <image class="funcBoxIcon" src="{{item.icon}}"></image>
+        <!-- <image class="funcBoxIcon" src="{{item.icon}}"></image> -->
         <text>{{item.text}}</text>
       </view>
     </block>
