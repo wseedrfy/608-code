@@ -74,7 +74,6 @@ Page({
     isAnimate: false,               // 控制动效
     // CSS中使用变量
     backgroundUrl: '',
-    red: `red`
   },
   importCurri() {
     console.log('importCurri');
@@ -131,7 +130,7 @@ Page({
       console.log(e);
     }
     this.setData({
-      backgroundUrl: 'https://z3.ax1x.com/2021/08/14/fszRhT.jpg'
+      backgroundUrl: ''
     })
     wx.showToast({
       title: '已重置背景',
@@ -144,13 +143,11 @@ Page({
       whichWeek: this.data.whichWeek
     })
   },
-
   onLoad: function (options) {
     var courseTime = wx.getStorageSync('args').courseTime;
     let windowHeight = wx.getSystemInfoSync().windowHeight;
     let kbHeight = (windowHeight*2) - (this.data.statusBarHeight + this.data.lineHeight)*2 - 77
     this.kb(util.getweekString());
-
     this.setData({
       weekNow: util.getweekString(),
       courseTime: courseTime? courseTime : that.data.courseTime,
@@ -390,7 +387,7 @@ Page({
       console.log(this.data.isAnimate);
       // this.data.isAnimate = !this.data.isAnimate;     // 更新 isAnimate 状态
     }
-    this.data.isAnimate ? animationFunc("none",1,1,0,"100%","100%",) : animationFunc(260,0.8,0.7,1,"100%",150)
+    this.data.isAnimate ? animationFunc("none",1,1,0,"100%","100%",) : animationFunc(260,0.85,0.7,1,"100%",150)
   },
   // 触摸开始事件
   touchStartCurri: function (e) {

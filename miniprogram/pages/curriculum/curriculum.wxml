@@ -1,8 +1,8 @@
 <swiper class="container">
 
-  <swiper-item class="curriRight" animation="{{timetableAnimation}}" style="overflow: {{isAnimate ? 'hidden' : ''}}; border-bottom-left-radius: {{isAnimate ? '30rpx' : ''}}; border-top-left-radius: {{isAnimate ? '30rpx' : ''}};" catchtouchmove="catchtouchmove" scroll-y="true">
+  <swiper-item class="curriRight {{isAnimate ? 'curriRight_Animate' : ''}}" animation="{{timetableAnimation}}" catchtouchmove="catchtouchmove" scroll-y="true">
     <!-- 头部 -->
-    <view style="z-index:2; position:fixed; background-color: white;border-top-left-radius: 30rpx;">
+    <view style="z-index:2; position:fixed; background-color: white;">
       <view class="head">
         <!-- 状态栏 -->
         <view style="height: {{statusBarHeight}}px;" />
@@ -20,11 +20,11 @@
       </view>
 
       <!-- 课表弹出 -->
-      <scroll-view fast-deceleration="true" scroll-with-animation="true" class="weekscroll" scroll-x="true" scroll-into-view="index{{whichWeek}}"  hidden="{{!showscroll}}">
+      <scroll-view fast-deceleration="true" scroll-with-animation="true" class="weekscroll" scroll-x="true" scroll-into-view="index{{whichWeek}}"  hidden="{{!showscroll}}" >
         <!-- 显示一个周 -->
         <view id="index{{index+3}}" class="weekscroll_week_contain" wx:key="item" wx:for="{{wlistPoint}}">
-          <view  bindtap="clickWeek" id="{{index}}" class="weekscroll_week" style="background-color: {{ index+1 === whichWeek ? 'rgb(188,187,193)' : null}};">
-            <view >第{{index+1}}周</view>
+          <view  bindtap="clickWeek" id="{{index}}" class="weekscroll_week {{ index+1 === whichWeek ? 'weekscroll_week_click' : ''}}">
+            <view class="weekscroll_week_text">第{{index+1}}周</view>
             <!-- 显示一堆小圆点的容器 -->
             <view class="week_point">
               <view wx:for="{{item}}" wx:for-index="index1" wx:key="idx" style="background-color: {{item ? 'rgb(56,201,153)' : '#D4D4D4'}};">
@@ -62,7 +62,7 @@
       <!-- 有课时 -->
       <scroll-view enhanced="{{true}}" bounces="{{false}}" show-scrollbar="{{false}}" class="kbScroll" wx:if="{{wlist.length != 0}}" scroll-y="{{true}}" style="height: {{kbHeight}}rpx;" >
         <!-- image背景图片 -->
-        <image src="{{backgroundUrl}}" class="backgroundUrl" mode="aspectFill"></image>
+        <image src="{{backgroundUrl}}" class="backgroundUrl" mode="aspectFill" style="height: {{kbHeight}}rpx;"></image>
         <!-- 套一个盒子 timeTableBox -->
         <view class="timeTableBox">
           <view class="timetable">
