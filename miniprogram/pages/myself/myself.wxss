@@ -260,15 +260,15 @@ button::after {
   }
 
   .moduleAdd{
-    background-color: #f5f4f4;
+    background-color: rgba(246,244,244, 0.7);
   }
 
   .demoBox{
-    background-color: #f5f4f4;
+    background-color: rgba(246,244,244, 0.7);
   }
 
   .more{
-    background-color: #f5f4f4;
+    background-color: rgba(246,244,244, 0.7);
   }
 
   .info,

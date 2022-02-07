@@ -9,11 +9,11 @@
 
     <!-- 导航栏 -->
     <view style="height: {{lineHeight}}px;  justify-content: center;flex-direction: row; display: flex; align-items: center;">
-    <switch checked="{{theme}}" bindchange="switch1Change" color="#88d5f3" style="position: absolute; left: 20rpx; font-size: 30rpx;"></switch>
-    <view style="height: 18rpx;"></view>
-   
+      <switch checked="{{theme}}" bindchange="switch1Change" color="#88d5f3" style="position: absolute; left: 20rpx; font-size: 30rpx;"></switch>
+      <view style="height: 18rpx;"></view>
+
       <text class="weSchool">We校园</text>
-      
+
     </view>
   </view>
   <view class="adContainer">
@@ -71,7 +71,43 @@
   <!-- 其他功能 -->
   <view class="other">
     <view class="countdown">
+
       <view class="wx-remind-mask">
+        <view class="otherkp">
+          <view>
+            <view style="height: 130rpx; display: flex; justify-content: center;width: 180rpx; font-size: 92rpx; color: #c5ddbc;">xx<text style="margin-top:50rpx; font-size: 30rpx">天</text></view>
+          </view>
+        </view>
+        <view class="zt">
+          （点进设置倒数日哟）
+          <view style="font-size: 24rpx; color: #a9a9a9; margin-top:40rpx">
+            2022-0x-0x
+          </view>
+          <view style="font-size: 24rpx;color: #a9a9a9; ">
+            星期六
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="countdown">
+
+      <view class="wx-remind-mask">
+        <view style="position: absolute; margin-left: 170rpx; margin-top:75rpx">
+          <view>
+
+
+            <view style="height: 130rpx; display: flex; justify-content: center;width: 180rpx; font-size: 50rpx; color: #c5ddbc;">未打卡</view>
+          </view>
+        </view>
+        <view class="zt">
+          打卡
+          <view style="font-size: 24rpx; color: #a9a9a9; margin-top:40rpx">
+            2022-03-03
+          </view>
+          <view style="font-size: 24rpx;color: #a9a9a9; ">
+            星期6
+          </view>
+        </view>
       </view>
     </view>
   </view>
