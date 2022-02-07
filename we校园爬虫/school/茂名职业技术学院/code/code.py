@@ -6,7 +6,7 @@ def code_ocr(session):
     status_code=0
     code, cookies='',''
     try:
-        image_url = 'school/茂名职业技术学院/code/MZ_code.png'
+        image_url = 'MZ_code.png'
         res = session.get('https://jwc.mmpt.edu.cn/CheckCode.aspx')
         cookies = res.cookies.items()
         status_code = res.status_code

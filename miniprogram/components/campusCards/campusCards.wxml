@@ -25,6 +25,7 @@ module.exports.getStar = getStar;
     <image class="Show_Image" lazy-load src='{{item.Cover}}' mode="aspectFill"
       style="height: {{item.ShowHeight > 500 ? 500+'rpx':item.ShowHeight+'rpx'}};" binderror="binderrorimg"
       bindload='onLazyLoad'></image>
+    <view>
     <span class="pic_Title">
       <span style="vertical-align: middle;" class="pic_Label">{{item.Label}}</span><text>{{item.Title}}</text>
     </span>
@@ -40,5 +41,6 @@ module.exports.getStar = getStar;
         <span class="commentNum">{{item.CommentList?item.CommentList.length:0}}</span>
       </div>
     </div>
+  </view>
   </view>
 </block>

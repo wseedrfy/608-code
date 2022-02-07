@@ -53,7 +53,7 @@
   position: absolute;
   /* background-color: #58dfab;
   background-image: linear-gradient( #58dfab 90%, #ffffff);默认方向自下向上 */
-  background-color: #4169E1;
+  background-color: #5A94A0;
   /* background-color: rgba(85,85,180,0.8); */
   /* background-color: #483D8B; */
   /* background-image:linear-gradient(to left,rgba(85,85,180,0.3) 15%  , rgba(85,90,120,0.5) 50%,  rgba(85,90,120,0.5) 0%,rgba(85,85,120,0.3) 85%); */
@@ -162,7 +162,7 @@
   /* background-color: rgb(88, 223, 171); */
   /* background-color: rgb(45, 165, 230); */
   /* background-color: rgba(85,85,180,0.8); */
-  background-color: #4169E1;
+  background-color: #5A94A0;
   color: white;
   border: none;
   outline: none;
@@ -283,4 +283,36 @@
 }
 .help-a text{
   word-break: break-all;
+}
+.url_text{
+  color:rgb(45, 165, 230);
+}
+@media (prefers-color-scheme: dark) {
+  input{
+    filter: invert(100%) !important;
+    color: white;
+  }
+  .title_bg{
+    filter: invert(90%) !important;
+  }
+  .title_text{
+    filter: invert(100%) !important;
+  }
+  .help{
+    filter: invert(60%) !important;
+  }
+  .url_text{
+    filter: invert(90%) !important;
+  }
+  .wave{
+    filter: invert(0%) !important;
+  }
+  .help-q{
+    filter: invert(100%) !important;
+  }
+  .box{
+    filter: invert(0%) !important;
+    background-color: #dddcdc;
+    box-shadow: 0 0 50px rgba(255, 255, 255, 0.35);
+  }
 }

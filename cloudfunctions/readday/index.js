@@ -13,7 +13,7 @@ exports.main = async (event, context) => {
     if(data.data[0] === undefined){
       db.collection('daysmatter').add({
         data: {
-          _user: Number(event.username),
+          _user: event.username,
           _adday: '[]',
         },
         success(res) {

@@ -7,7 +7,7 @@ def code_ocr(session):
     cookies=''
     nowTime = str(round(time.time() * 1000))
     try:
-        image_url = 'school/广东科技学院/code/GKY_code.png'
+        image_url = 'GKY_code.png'
         res = session.get('http://gkwst8.gjob.info:9903/kaptcha?time=' + nowTime)
         cookies = res.cookies.items()
         status_code = res.status_code

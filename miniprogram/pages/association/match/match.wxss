@@ -23,8 +23,20 @@ page {
   font-weight: 700;
 }
 .wrap .item_wrap .match_wrap .left_Wrap .name .tip {
-  padding-left: 12rpx;
   font-weight: 500;
+  background-color: #4b4b4b;
+  padding: 6rpx;
+  margin-left: 3rpx;
+  color: white;
+  border-radius: 8rpx;
+}
+.wrap .item_wrap .match_wrap .left_Wrap .name .tip_1 {
+  font-weight: 500;
+  background-color: #37cd32;
+  padding: 6rpx;
+  margin-left: 3rpx;
+  color: white;
+  border-radius: 8rpx;
 }
 .wrap .item_wrap .match_wrap .right_wrap {
   flex: 1;

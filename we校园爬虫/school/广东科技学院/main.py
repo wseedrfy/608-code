@@ -6,14 +6,13 @@ from school.广东科技学院.data.data import data
 
 def login_GKY(username, password):
     session = requests.session()
-    code, cookie, nowTime = code_ocr(session)
-    return login(session, username, password, code, nowTime)
+
+    return login(session, username, password)
 
 
 def getData_GKY(username, password):
     session = requests.session()
-    code, cookie, nowTime = code_ocr(session)
-    msg = login(session, username, password, code, nowTime)
+    msg = login(session, username, password)
     if msg != {"msg": 'welcome'}:
         return msg
     return data(session)

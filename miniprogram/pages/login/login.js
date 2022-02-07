@@ -84,7 +84,7 @@ Page({
         console.log(res.userInfo)
         console.log(that.data.school[that.data.index])
         app.globalData.school = that.data.school[that.data.index]
-        if( that.data.school[that.data.index]!="游客登录"){
+
           wx.cloud.callFunction({
             name: 'api',
             data: {
@@ -116,25 +116,7 @@ Page({
               })
             }
           })
-        }
-        else{
-          if(that.data.pwd=="test"&&that.data.user=="guest"){//游客模式
-            wx.reLaunch({
-              url: '/pages/index/index'
-            })
-          }
-          else if (that.data.pwd=="test"&&that.data.user=="developer"){
-            wx.reLaunch({
-              url: '/pages/index/index' //开发模式
-            })
-          }
-          else{
-            wx.showToast({
-              icon: 'none',
-              title: '游客登录账号或密码错误~,请重试',
-            })
-          }
-        }
+
       },
       fail: (res) => {
         wx.showToast({
@@ -156,6 +138,7 @@ Page({
       this.hideHelp();
     }
   },
+
   showHelp: function (e) {
     this.setData({
       'help_status': true

@@ -93,7 +93,7 @@
 @media (prefers-color-scheme: dark) {
 
   .pic{
-    background-color: #f5f4f4;
+    background-color: #f1eded;
     filter: invert(100%) !important;
   }
   .Show_Image{

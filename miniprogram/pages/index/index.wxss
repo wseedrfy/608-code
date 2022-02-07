@@ -1,9 +1,34 @@
 /**index.wxss**/
 page{
-  
+  background-color: #f6f6f6;
   font-family: Helvetica Neue, Helvetica, sans-serif;
 }
-.container {
+
+.adContainer {
+  margin-left: 21rpx;
+  width: 94%;
+  background-color: #f6f6f6;
+  
+}
+.weSchool{
+  color: #164870;
+}
+
+.mask{
+
+  position: absolute;
+  width: 100%;
+  z-index: -1;
+  opacity: 0.8;
+  background-color: #f6f6f6;
+}
+.mask2{
+
+  position: absolute;
+  width: 100%;
+  opacity: 0.8;
+  height: 500rpx;
+  z-index: -1;
   background-color: #f6f6f6;
 }
 /* 弹窗 */
@@ -35,23 +60,26 @@ page{
 }
 /* 弹窗 ↑ */
 .wx-remind {
-  background: #fff;
+  background-color: rgba(255,255,255,0.7);
   padding: 20rpx 31rpx 50rpx 31rpx;
   border-radius: 20rpx;
-  margin-left: 10rpx;
-  margin-top: 15rpx;
-  width: 670rpx;
+  margin-left: 20rpx;
+  margin-top: 17rpx;
+  width: 650rpx;
 }
 
 .wx-remind-header {
+
   display: flex;
 }
 
 .wx-remind-title {
+  z-index: 100;
   flex: 1;
 }
 
 .wx-remind-title text:nth-child(1) {
+  
   display: block;
   font-size: 32rpx;
   /* padding-bottom:2rpx; */
@@ -64,6 +92,7 @@ page{
 }
 
 .wx-remind-detail {
+  
   justify-content: space-between;
   align-items: center;
   display: flex;
@@ -78,6 +107,7 @@ page{
 }
 
 .wx-remind-class {
+  
   display: flex;
   margin-top: 15rpx;
   color: #28cbb8;
@@ -198,8 +228,44 @@ page{
   /* background-color: rgb(255, 255, 255); */
 }
 
+.wx-remind-mask{
+  position: absolute;
+  height: 70rpx;
+  width: 48.7%;
+  border-radius: 20rpx;
+  z-index: 100;
+  opacity: 0.35s;
+  background-image: linear-gradient( #bae4f5 , #ffffff);
+}
+.countdown{
+  width: 50%;
+  background-color: #fff;
+  border-radius: 20rpx;
+  height: 200rpx;
+}
+
+.other{
+  margin-top: 17rpx;
+  border-radius: 20rpx;
+  margin-left: 20rpx;
+
+  height: 200rpx;
+  width: 730rpx;
+}
 
 @media (prefers-color-scheme: dark) {
+  .wx-remind-mask{
+    filter: invert(100%) !important;
+    background-image: linear-gradient( #324349 , #0d0d0d);
+  }
+  .adContainer ad{
+
+      filter: invert(90%) !important;
+    
+  }
+  .weSchool{
+    color: #000000;
+  }
   page{
     background-color: #fff;
   }

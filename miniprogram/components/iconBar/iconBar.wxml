@@ -1,10 +1,22 @@
-<view class="iconnBar">
-  <view class="iconn" wx:for="{{iconList}}" wx:key="key" >
-    <view class="iconn_item" id="{{item.url}}">
-      <navigator url='{{item.url}}' class="iconn_item_url" open-type="{{item.type === 'tab跳转'? 'switchTab' : 'navigate'}}">
-        <image class="iconn_item_image" src="{{item.icon}}"></image>
-        <text>{{item.name}}</text>
-      </navigator>
+<view class="scroll1">
+  <scroll-view class="scroll" scroll-x="true" enable-flex="false" enhanced="true" bounces="true" show-scrollbar="false" fast-deceleration="false" bindscroll="getleft">
+    <view class="scroll_view">
+    
+      <view class="iconn" wx:for="{{iconList1}}" wx:key="key" wx:for-item="block" style="flex-direction: {{index > 0 ? 'column':'row'}}; width: {{ block.length%2==0 ? (block.length/2)*182.5 : ((block.length+1)/2)*182.5}}rpx;">
+        <view class="iconn_item" wx:for="{{block}}" wx:key="id" id="{{item.url}}">
+          <navigator url='{{item.url}}' class="iconn_item_url">
+          
+            <image class="iconn_item_image" src="{{item.icon}}"></image>
+            <text>{{item.name}}</text>
+          </navigator>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+  <!-- 横向滚轴 -->
+  <view wx:if="{{slideShow}}" class="slide">
+    <view class='slide-bar'>
+      <view class="slide-show" style="width:{{slideWidth}}rpx; left:{{slideLeft<=1 ? 0 : slidable-slideLeft<=1? slidable : slideLeft}}rpx;"></view>
     </view>
   </view>
 </view>

@@ -1,12 +1,52 @@
 <view class="wrap">
     <view class="img">
-        <image src="/images/Camera-3.png" hidden="{{false}}"/>
-            <swiper indicator-dots='true' indicator-color="#fff" indicator-active-color='red' current="{{current}}" hidden="{{true}}">
-                <block wx:for="{{photo}}" wx:key="photo">
-                    <swiper-item >
-                        <image data-src="{{item}}" src="{{item}}" mode="aspectFill" style="z-index: 11;width:600rpx;height:100%"/>
-                    </swiper-item>
-                </block>
-            </swiper>
+        <image src="/images/Camera-3.png" hidden="{{imgUrl}}" bind:tap="addImg" />
+        <swiper indicator-dots='true' indicator-color="#fff" indicator-active-color='red' current="{{current}}" hidden="{{!imgUrl}}">
+            <block>
+                <swiper-item>
+                    <image data-src="{{imgUrl}}" src="{{imgUrl}}" mode="aspectFill" style="z-index: 11;width:600rpx;height:100%;" />
+                </swiper-item>
+            </block>
+        </swiper>
+    </view>
+    <view class="content_wrap">
+        <view class="top_wrap">
+            <view class="title">标题</view>
+            <input maxlength="-1" placeholder="赛事标题" bind:input="title" value="{{title}}"/>
+        </view>
+        <view class="mid_wrap">
+            <view class="title">描述</view>
+            <input maxlength="-1" placeholder="赛事内容描述" bind:input="detail" value="{{contentDetail}}"/>
+        </view>
+    </view>
+    <view class="question_wrap">
+        <view class="title">问题</view>
+        <view class="item_wrap">
+            <view class="item" wx:for="{{tempContent}}">
+                <view class="list_1" bind:tap="toFixed" data-item="{{item}}">
+                    {{index+1}}.{{item.title}}
+                </view>
+                <view class="list_2" bind:tap="delete" data-index="{{index}}">删除</view>
+            </view>
+            <view class="add_question" bind:tap="clickme">+添加问题</view>
+        </view>
+    </view>
+    <view class="bt_wrap">
+        <view class="keep" bindtap="hold" data-status="{{false}}">保存</view>
+        <view class="send" bindtap="holdSend" data-status="{{true}}">保存并发布</view>
+    </view>
+</view>
+<!-- 弹窗 -->
+<view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
+<!-- 弹出框 -->
+<view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
+    <view class="title">题目类型</view>
+    <view class="change_wrap">
+        <view class="item" wx:for="{{changeArr}}" data-item="{{item}}" bind:tap="goAdd">
+            <view class="img">
+                <image src="{{item.src}}" />
+            </view>
+            <view class="change_title">{{item.name}}</view>
+        </view>
     </view>
 </view>

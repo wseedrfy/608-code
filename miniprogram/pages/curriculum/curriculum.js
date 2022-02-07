@@ -73,7 +73,7 @@ Page({
     ],
     isAnimate: false,               // 控制动效
     // CSS中使用变量
-    backgroundUrl: 'https://z3.ax1x.com/2021/08/14/fszRhT.jpg',
+    backgroundUrl: '',
   },
   importCurri() {
     console.log('importCurri');
@@ -98,13 +98,14 @@ Page({
       mediaType: ['image'],
       sourceType: ['album'],
       success(res) {
-        
-        console.log(res.tempFiles[0].tempFilePath,"临时文件路径");
+        console.log(res)
+        console.log(res.tempFiles[0].tempFilePath,"临时本地地址");
+
         let fs = wx.getFileSystemManager();
         let FilePath = fs.saveFileSync(res.tempFiles[0].tempFilePath);
 
         console.log(fs.getFileInfo(FilePath),"文件信息"); 
-        console.log(FilePath,"本地文件路径");
+        console.log(FilePath,"本地缓存地址");
         // console.log(FileManager.readFileSync(FilePath)); 
         wx.showLoading({
           title: '处理中...',
@@ -113,7 +114,6 @@ Page({
         that.setData({
           backgroundUrl : FilePath
         })
-        // 将缓存地址存入
         wx.setStorageSync('curriBgc',  FilePath);
         wx.hideLoading();
 
@@ -130,7 +130,7 @@ Page({
       console.log(e);
     }
     this.setData({
-      backgroundUrl: 'https://z3.ax1x.com/2021/08/14/fszRhT.jpg'
+      backgroundUrl: ''
     })
     wx.showToast({
       title: '已重置背景',
@@ -143,15 +143,19 @@ Page({
       whichWeek: this.data.whichWeek
     })
   },
-
   onLoad: function (options) {
     var courseTime = wx.getStorageSync('args').courseTime;
+    let windowHeight = wx.getSystemInfoSync().windowHeight;
+    let kbHeight = (windowHeight*2) - (this.data.statusBarHeight + this.data.lineHeight)*2 - 77
     this.kb(util.getweekString());
     this.setData({
       weekNow: util.getweekString(),
       courseTime: courseTime? courseTime : that.data.courseTime,
+      rightHeight:(this.data.statusBarHeight + this.data.lineHeight)*2 + 1276 + 77,
+      kbHeight
     })
-
+    console.log(kbHeight);
+    console.log(this.data.rightHeight);
     // 从本地缓存获取backgroundUrl
     let fileUrl = wx.getStorageSync('curriBgc');
     let that = this;
@@ -365,25 +369,25 @@ Page({
     const animationFunc = (px,scale,opacity1,opacity2,height,width) => {
       
       var timetableAnimation = wx.createAnimation({
-        duration: 350,
+        duration: 400,
         timingFunction: 'ease',
         delay: 50,
-      }).width(width).translateX(px).scale(scale).opacity(opacity1).height(height).step().export();
-      this.setData({timetableAnimation})
+      }).translateX(px).scale(scale).opacity(opacity1).height(height).step().export();
 
       var curriLeft = wx.createAnimation({
-        duration: 350,
+        duration: 400,
         timingFunction: 'ease',
         delay: 50,
-      }).translateX(px).opacity(opacity2).step().export();
+      }).translateX(px).translateY(-20).opacity(opacity2).step().export();
       this.setData({
+        timetableAnimation,
         curriLeft,
         isAnimate: !this.data.isAnimate
       })
       console.log(this.data.isAnimate);
       // this.data.isAnimate = !this.data.isAnimate;     // 更新 isAnimate 状态
     }
-    this.data.isAnimate ? animationFunc(0,1,1,0,"100%","100%",) : animationFunc(270,0.9,0.7,1,"100%",150)
+    this.data.isAnimate ? animationFunc("none",1,1,0,"100%","100%",) : animationFunc(260,0.85,0.7,1,"100%",150)
   },
   // 触摸开始事件
   touchStartCurri: function (e) {
@@ -394,7 +398,7 @@ Page({
   touchMoveCurri: function (e) {
     endXCurri = e.touches[0].pageX; // 获取触摸时的原点
     if (moveFlagCurri) {
-      if (startXCurri - endXCurri > 15) {
+      if (startXCurri - endXCurri > 50) {
         moveFlagCurri = false;
         this.seetingHandler();
       }
@@ -404,7 +408,9 @@ Page({
   touchEndCurri: function (e) {
     moveFlagCurri = true; // 回复滑动事件
   },
-
+  catchtouchmove: function(e) {
+    return false
+  },
 
   // 添加课表
 

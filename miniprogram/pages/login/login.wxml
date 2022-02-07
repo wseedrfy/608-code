@@ -28,7 +28,7 @@
 
       <view class="login_user">
         <label>帐号</label>
-        <input type="text" id="user" placeholder="请输入学号" value="{{user}}" bindinput="input" />
+        <input  type="text" id="user" placeholder="请输入学号" value="{{user}}" bindinput="input" />
       </view>
 
       <view class="login_pwd">
@@ -60,8 +60,7 @@
         <view class="help-a">
           <view>
             <text>忘记密码请到教务系统</text>
-            
-            <text style="color:rgb(45, 165, 230);" catchtap="copy">网站为：{{url}}重置找回密码</text>
+            <text class="url_text" catchtap="copy">网站为：{{url}}重置找回密码</text>
             <text>。</text>
           </view>
           <text>找回后使用教务系统密码登录即可。</text>

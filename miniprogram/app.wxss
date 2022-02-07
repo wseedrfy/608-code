@@ -27,7 +27,7 @@ page {
 @media (prefers-color-scheme: dark) {
   page{
     min-height: 100vh;
-    filter: invert(90%) !important;
+    filter: invert(95%) !important;
     background-color: rgb(25, 25, 25) !important;
     color: rgb(25, 25, 25) ; 
   }
