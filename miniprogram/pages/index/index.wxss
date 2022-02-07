@@ -10,9 +10,12 @@ page{
   background-color: #f6f6f6;
   
 }
+.weSchool{
+  color: #164870;
+}
 
 .mask{
-  /* background-image: linear-gradient( #a5e6ff , #88d5f3); */
+
   position: absolute;
   width: 100%;
   z-index: -1;
@@ -20,7 +23,7 @@ page{
   background-color: #f6f6f6;
 }
 .mask2{
-  /* background-image: linear-gradient(  #93d7f1, #f6f6f6); */
+
   position: absolute;
   width: 100%;
   opacity: 0.8;
@@ -251,10 +254,17 @@ page{
 }
 
 @media (prefers-color-scheme: dark) {
+  .wx-remind-mask{
+    filter: invert(100%) !important;
+    background-image: linear-gradient( #324349 , #0d0d0d);
+  }
   .adContainer ad{
 
       filter: invert(90%) !important;
     
+  }
+  .weSchool{
+    color: #000000;
   }
   page{
     background-color: #fff;
