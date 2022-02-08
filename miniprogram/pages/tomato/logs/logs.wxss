@@ -113,3 +113,28 @@
     bottom: 0rpx;
     left: 235rpx;
 }
+.nav{
+    display: flex;
+    justify-content: space-around;
+    padding: 20rpx;
+    background-color: white;
+    font-size: 30rpx;
+  }
+  .nav-switch-style{
+    color: #E7624F;
+  }
+  .ec_page .ec_box1{
+    height: 800rpx;
+    width: 100%;
+    background-color: #E7624F;
+  }
+  .ec_page .ec_box2{
+    height: 800rpx;
+    width: 100%;
+    background-color: #E7624F;
+  }
+  /* ec-canvas {
+    width: 800rpx;
+    height: 800rpx;
+    background-color: #E7624F;
+  } */

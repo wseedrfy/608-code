@@ -6,7 +6,12 @@
   </view>
 </view>
 
-<view class="detail">
+<view class="nav">
+<view bindtap="navSwitch" data-index="0" class="{{navState==0 ? 'nav-switch-style':''}}">番茄记录</view>
+<view bindtap="navSwitch" data-index="1" class="{{navState==1 ? 'nav-switch-style':''}}">统计图</view>
+</view>
+
+<view wx:if="{{navState==0}}" class="detail">
   <view class="detail_title">
     <view class="detail_title_text">分类统计</view>
     <view class="detail_title_type">
@@ -22,11 +27,12 @@
       <view class="list_item_time">{{item.time}}分钟</view>
     </view>
   </view>
-
-  <!-- <view class="detail_list" wx:if="{{list.length == 0}}">
-    暂无数据
-  </view> -->
-
 </view>
-<!-- <view class="start" bindtap="updata">上传数据</view>
-<view class="start2" bindtap="download">同步数据到本地</view> -->
+
+<view wx:if="{{navState==1}}" class="ec_page">
+<view class="ec_box1">
+  <ec-canvas id="mychart-dom-pie" canvas-id="mychart-pie" ec="{{ ecPie }}"></ec-canvas>
+</view>
+<view>-----------------------------分界盒子-----------------------------</view>
+<view class="ec_box2"><ec-canvas ec="{{ecBar}}"></ec-canvas></view>
+</view>

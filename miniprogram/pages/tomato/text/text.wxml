@@ -17,14 +17,14 @@
 <!-- 滑动页 -->
 <swiper bindchange="bindchange" current="{{navState}}" class="box">
 
-    <swiper-item >
+    <swiper-item style="width: {{canvas_width}}px;height: {{canvas_width+30}}px;">
       <view class="style-roll">
         <ec-canvas  id="mychart-dom-pie" canvas-id="mychart-pie" ec="{{ ec }}"></ec-canvas>
         <text>左右可滑动1</text>
       </view>
     </swiper-item>
 
-    <swiper-item>
+    <swiper-item style="width: {{canvas_width}}px;height: {{canvas_width+30}}px;">
       <view class="style-roll">
         <ec-canvas id="mychart-dom-multi-bar" canvas-id="mychart-multi-bar" ec="{{ ecBar }}"></ec-canvas>
         <text>左右可滑动2</text>
