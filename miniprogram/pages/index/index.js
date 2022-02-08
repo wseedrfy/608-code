@@ -9,6 +9,7 @@ const app = getApp()
 
 Page({
   data: {
+    theme: false,
     time: {
       date: new Date().getDate(),
       month: new Date().getMonth(),
@@ -16,6 +17,7 @@ Page({
     },
     statusBarHeight: getApp().globalData.statusBarHeight,
     lineHeight: getApp().globalData.lineHeight,
+    adHidden: false
   },
   onPullDownRefresh(){
     wx.showNavigationBarLoading() //在标题栏中显示加载
@@ -81,6 +83,15 @@ Page({
     return {
       title: 'WE校园',
     }
+  },
+  switch1Change: function(res){
+    this.setData({
+      theme: res.detail.value
+    })
+  },
+  adClose(){
+    console.log("adClose")
+    this.setData({adHidden: true})
   },
   onShareTimeline: function(res) {
     return {

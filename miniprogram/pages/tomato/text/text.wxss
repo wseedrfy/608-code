@@ -23,6 +23,7 @@
     text-align: center;
     height: 800rpx;
     width: 100%;
+    overflow-x: scroll;
   }
   .textbox{
     height: 90rpx;

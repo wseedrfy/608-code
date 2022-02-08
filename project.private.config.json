@@ -35,6 +35,18 @@
                     "pathName": "pages/myself/myself",
                     "query": "",
                     "scene": null
+                },
+                {
+                    "name": "番茄时钟",
+                    "pathName": "pages/tomato/index/index",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "echart_demo",
+                    "pathName": "pages/tomato/text/text",
+                    "query": "",
+                    "scene": null
                 }
             ]
         }

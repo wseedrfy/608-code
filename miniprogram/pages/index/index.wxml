@@ -1,16 +1,23 @@
 <!--index.wxml-->
 
 <view class="container">
-  <view class="mask" style="height: {{statusBarHeight + lineHeight + 320}}px;"></view>
-  <view class="mask2" style="top: {{statusBarHeight + lineHeight + 320}}px;"></view>
+  <view class="mask" style=" height: {{statusBarHeight + lineHeight + 320}}px; {{theme ? '  background-image: linear-gradient( #a5e6ff , #88d5f3); ': ''}}"></view>
+  <view class="mask2" style="top: {{statusBarHeight + lineHeight + 320}}px; {{theme ? '  background-image: linear-gradient(  #93d7f1, #f6f6f6);' : ''}}"></view>
   <view class="head">
     <!-- 状态栏 -->
-    <view style="height: {{statusBarHeight}}px;"></view>
+    <view style="  height: {{statusBarHeight}}px;"></view>
+
     <!-- 导航栏 -->
-    <view style="height: {{lineHeight}}px; text-align: center;"></view>
+    <view style="height: {{lineHeight}}px;  justify-content: center;flex-direction: row; display: flex; align-items: center;">
+    <switch checked="{{theme}}" bindchange="switch1Change" color="#88d5f3" style="position: absolute; left: 20rpx; font-size: 30rpx;"></switch>
+    <view style="height: 18rpx;"></view>
+   
+      <text class="weSchool">We校园</text>
+      
+    </view>
   </view>
   <view class="adContainer">
-    <ad unit-id="adunit-f9948326373ca9ac"></ad>
+    <ad unit-id="adunit-f9948326373ca9ac" bindclose="adClose" style="{{adHidden?'display: none !important':''}}"></ad>
   </view>
 
   <!-- 弹窗 -->

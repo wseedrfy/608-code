@@ -63,9 +63,9 @@ Page({
     showscroll: false,
     curriculumAll: [],              // 用户添加/隐藏后，得到的课表
     curriFunc: [                   // 课表功能
-      {text:"导入最新课程表",icon:"./images/x2.png",click:"importCurri"},
+      {text:"导入最新课程",icon:"./images/x2.png",click:"importCurri"},
       {text:"手动添加课程",icon:"./images/x3.png",click:"feedbackHandler"},
-      {text:"修改课程",icon:"./images/x4.png",click:"addCourseHandler"},
+      {text:"修改课程管理",icon:"./images/x4.png",click:"addCourseHandler"},
       {text:"分享课程表",icon:"./images/x5.png",click:"shareCurri"},
       {text:"自定义背景",icon:"./images/x6.png",click:"bgcCurri"},
       {text:"重置背景",icon:"./images/considerBgc.png",click:"resetBgcCurri"},
@@ -98,14 +98,14 @@ Page({
       mediaType: ['image'],
       sourceType: ['album'],
       success(res) {
-        console.log(res)
-        console.log(res.tempFiles[0].tempFilePath,"临时本地地址");
+        // console.log(res)
+        // console.log(res.tempFiles[0].tempFilePath,"临时本地地址");
 
         let fs = wx.getFileSystemManager();
         let FilePath = fs.saveFileSync(res.tempFiles[0].tempFilePath);
 
-        console.log(fs.getFileInfo(FilePath),"文件信息"); 
-        console.log(FilePath,"本地缓存地址");
+        // console.log(fs.getFileInfo(FilePath),"文件信息"); 
+        // console.log(FilePath,"本地缓存地址");
         // console.log(FileManager.readFileSync(FilePath)); 
         wx.showLoading({
           title: '处理中...',
@@ -387,7 +387,7 @@ Page({
       console.log(this.data.isAnimate);
       // this.data.isAnimate = !this.data.isAnimate;     // 更新 isAnimate 状态
     }
-    this.data.isAnimate ? animationFunc("none",1,1,0,"100%","100%",) : animationFunc(260,0.8,0.7,1,"100%",150)
+    this.data.isAnimate ? animationFunc("none",1,1,0,"100%","100%",) : animationFunc(260,0.85,0.7,1,"100%",150)
   },
   // 触摸开始事件
   touchStartCurri: function (e) {

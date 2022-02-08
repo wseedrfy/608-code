@@ -150,7 +150,7 @@ Page({
     
     //监听滑块
     bindchange(e) {
-      // console.log(e.detail.current)
+      console.log(e.detail.current)
       let index = e.detail.current;
       this.setData({
         navState:index

@@ -756,7 +756,7 @@ Page({
     var url = e.currentTarget.id
     console.log("url",url)
     wx.navigateTo({
-      url: url + "/" + url,
+      url: "pages/" + url + "/" + url,
     })
   },
 
