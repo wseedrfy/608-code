@@ -6,34 +6,126 @@
   },
   "pages": [
     "pages/index/index",
-    "pages/tomato/index/index",
-    "pages/tomato/rank/rank",
-    "pages/tomato/logs/logs",
-    "pages/tomato/text/text",
-    "pages/curriculum/addcurriculum/addcurriculum",
-    "pages/association/association",
-    "pages/association/freshman/freshman",
-    "pages/association/match/match",
-    "pages/association/match_detail/match_detail",
-    "pages/association/add_question/add_question",
-    "pages/more/more",
     "pages/curriculum/curriculum",
+    "pages/more/more",
     "pages/myself/myself",
-    "pages/login/login",
-    "pages/more/DetailContent/DetailContent",
-    "pages/more/UserContent/UserContent",
-    "pages/more/NewInfo/NewInfo",
-    "pages/common/common",
-    "pages/physical/physical",
-    "pages/physical/detail/detail",
-    "pages/about/about",
-    "pages/journal/journal",
-    "pages/dynamic/dynamic",
     "pages/test/test",
-    "pages/HOT/HotTop/HotTop",
-    "pages/HOT/HotNoTop/HotNoTop",
     "pages/test1/test1"
   ],
+  "subPackages": [
+    {
+      "name": "login",
+      "root": "pages/login",
+      "pages": ["login"]
+    },
+    {
+      "name": "physical",
+      "root": "pages/physical",
+      "pages": [
+        "physical",
+        "detail/detail"
+      ]
+    },
+    {
+      "name": "common",
+      "root": "pages/common",
+      "pages": ["common"]
+    },
+    {
+      "name": "dynamic",
+      "root": "pages/dynamic",
+      "pages": ["dynamic"]
+    },
+    {
+      "name": "HOT",
+      "root": "pages/HOT",
+      "pages": [
+        "HotTop/HotTop",
+        "HotNoTop/HotNoTop"
+      ]
+    },
+    {
+      "name": "tomato",
+      "root": "pages/tomato",
+      "pages": [
+        "index/index",
+        "rank/rank",
+        "logs/logs",
+        "text/text"
+      ]
+    },
+    {
+      "name": "association",
+      "root": "pages/association",
+      "pages": [
+        "association",
+        "freshman/freshman",
+        "match/match",
+        "match_detail/match_detail",
+        "add_question/add_question"
+      ]
+    },
+
+    {
+      "name": "curriculum",
+      "root": "pages/curriculum/addcurriculum",
+      "pages": ["addcurriculum"]
+    },
+
+    {
+      "name": "more",
+      "root": "pages/more/pages",
+      "pages": [
+        "DetailContent/DetailContent",
+        "UserContent/UserContent",
+        "NewInfo/NewInfo"
+      ]
+    },
+
+    {
+      "name": "about",
+      "root": "pages/about",
+      "pages": ["about"]
+    },
+    {
+      "name": "journal",
+      "root": "pages/journal",
+      "pages": ["journal"]
+    }
+  ],
+  "preloadRule": {
+    "pages/index/index": {
+      "network": "all",
+      "packages": [
+        "login",
+        "physical",
+        "common",
+        "dynamic",
+        "HOT",
+        "tomato",
+        "association"
+      ]
+    },
+    "pages/curriculum/curriculum": {
+      "network": "all",
+      "packages": [
+        "curriculum"
+      ]
+    },
+    "pages/more/more": {
+      "network": "all",
+      "packages": [
+        "more"
+      ]
+    },
+    "pages/myself/myself": {
+      "network": "all",
+      "packages": [
+        "about",
+        "journal"
+      ]
+    }
+  },
   "window": {
     "navigationBarTitleText": "We校园",
     "backgroundColor": "@backgroundColor",

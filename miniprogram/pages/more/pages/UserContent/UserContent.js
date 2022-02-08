@@ -1,5 +1,5 @@
 // pages/more/UserContent/UserContent.js
-var util = require("../../../utils/util.js")
+var util = require("../../../../utils/util.js")
 var app = getApp()
 let currentPage = 0 // 当前第几页,0代表第一页 
 const args = wx.getStorageSync('args')
