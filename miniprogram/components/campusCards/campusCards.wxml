@@ -1,6 +1,5 @@
 <wxs module="m1">
 var getStar = function(item,openusername) {
-  var max=undefined
   if(!item.Star_User||item.Star_User.length===0){ //---------------没有赞的时候，点赞icon不变红
     //判断空
     max='../../images/zan1.png'//初始化
@@ -14,18 +13,19 @@ var getStar = function(item,openusername) {
       else{
         max='../../images/zan1.png' //------------"我"没有点赞，点赞icon不变红
       }
+    var starSrc = '../../images/zan1.png'
     }
+
+    return starSrc;
   }
   return max;
 }
-module.exports.getStar = getStar;
+  module.exports.getStar = getStar;
 </wxs>
-<block wx:for="{{List}}" wx:key="index">
-  <view class="pic" bindtap="ShowContent" data-index="{{index}}">
-    <image class="Show_Image" lazy-load src='{{item.Cover}}' mode="aspectFill"
-      style="height: {{item.ShowHeight > 500 ? 500+'rpx':item.ShowHeight+'rpx'}};" binderror="binderrorimg"
-      bindload='onLazyLoad'></image>
-    <view>
+
+<view class="pic" bindtap="ShowContent">
+  <image class="Show_Image" lazy-load src='{{item.Cover}}' mode="aspectFill" style="height: {{item.ShowHeight > 500 ? 500+'rpx':item.ShowHeight+'rpx'}};" binderror="binderrorimg" bindload='onLazyLoad'></image>
+  <view>
     <span class="pic_Title">
       <span style="vertical-align: middle;" class="pic_Label">{{item.Label}}</span><text>{{item.Title}}</text>
     </span>
@@ -33,8 +33,9 @@ module.exports.getStar = getStar;
     <span class="text_username">{{item.nickName}}</span>
     <div class="comment">
       <div style="margin-right:6px;">
+
         <image src="{{m1.getStar(item,openusername)}}" catchtap="getStar_card" class="commentImg" data-index="{{index}}" />
-        <span class="commentNum">{{item.Star?item.Star:0}}</span>
+        <span class="commentNum">{{item.Star_User?item.Star_User.length:0}}</span>
       </div>
       <div style="margin-right:6px;">
         <image src="../../images/comment.png" class="commentImg" />
@@ -42,5 +43,4 @@ module.exports.getStar = getStar;
       </div>
     </div>
   </view>
-  </view>
-</block>
+</view>
