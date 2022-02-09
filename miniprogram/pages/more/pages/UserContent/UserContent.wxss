@@ -1,20 +1,14 @@
 /* pages/more/UserContent/UserContent.wxss */
+
 .content{
   display: flex;
   flex-direction: row;
   justify-content: center;
   overflow: hidden;
-  margin:10rpx;
+  flex-wrap: wrap;
+  align-content: flex-start;
 }
- 
-.left{
-  width: 360rpx;
-}
- 
-.right{
-  width: 360rpx;
-  margin-left: 10rpx;
-}
+
 .Show_Image{
   width:360rpx;
 }
@@ -24,6 +18,8 @@
   background-color: rgb(255, 255, 255);
   margin-bottom: 10rpx;
   overflow: hidden;
+  margin: 5rpx;
+  height: fit-content;
 }
 
 .pic_Title{

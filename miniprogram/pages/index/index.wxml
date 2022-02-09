@@ -17,7 +17,7 @@
     </view>
   </view>
   <view class="adContainer">
-    <ad unit-id="adunit-f9948326373ca9ac"></ad>
+    <ad unit-id="adunit-f9948326373ca9ac" bindclose="adClose" style="{{adHidden?'display: none !important':''}}"></ad>
   </view>
 
   <!-- 弹窗 -->

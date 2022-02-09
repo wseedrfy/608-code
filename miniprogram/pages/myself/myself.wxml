@@ -13,7 +13,8 @@
       <!-- 头像 -->
       <view class="userInfo_avatar">
         <image wx:if="{{isLogin}}" src="{{storageInfo.iconUrl}}" alt="" />
-        <open-data wx:else type="userAvatarUrl"></open-data>
+        <image src="./images/logo.jpg"></image>
+        <!-- <open-data wx:else type="userAvatarUrl"></open-data> -->
       </view>
 
       <view class="userInfo_text" bindtap="login">

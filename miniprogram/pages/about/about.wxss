@@ -10,49 +10,6 @@
   font-size: 11pt;
 }
 
-.header {
-  position: relative;
-  width: 100%;
-  height: 400rpx;
-  text-align: center;
-  box-sizing: border-box;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.header .title {
-  position: relative;
-  width: 600rpx;
-  height: 200rpx;
-  z-index: 3;
-  opacity: 0.95;
-}
-
-.black-cover {
-  position: absolute;
-  z-index: 2;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #888;
-  opacity: 0.18;
-}
-
-.logo {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  width: 100%;
-  height: 750rpx;
-  border-radius: 10rpx;
-  margin-top: -175rpx;
-  filter: blur(5px);
-}
-
 .content {
   flex: 1;
 }
@@ -101,22 +58,6 @@
   opacity: 0.8;
 }
 
-.update-log::after {
-  content: '';
-  position: absolute;
-  right: -3px;
-  top: -1px;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #e55c5c;
-}
-
-.log-list {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-}
 
 .describe {
   width: 100%;
@@ -169,7 +110,7 @@
   font-size: 9pt;
   line-height: 150%;
   text-align: center;
-  margin: 50rpx 0 15rpx;
+  margin-bottom: 15rpx;
   color: #c2c2c2;
 }
 
@@ -197,14 +138,20 @@
   box-shadow: 5rpx 5rpx 15rpx #ccc;
 }
 
+.avatarGroup{
+  margin-bottom: 15rpx;
+}
+
 .oneAvatar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   float: left;
-  width: 110rpx;
-  height: 140rpx;
+  width: 20%;
+  height: 170rpx;
   font-size: 26rpx;
-  margin-right: 5px;
-  margin-bottom: 15px;
 }
 
 .button-sp-area {
