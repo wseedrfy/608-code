@@ -12,7 +12,7 @@
     <view class="head_second" style="height: {{lineHeight}}px;">
       <!-- 头像 -->
       <view class="avatarBox">
-        <image src="{{iconUrl}}" catchtap="naviToMyself"></image>
+        <image src="{{iconUrl}}" catchtap="navigate" id="myself"></image>
       </view>
 
       <!-- 搜索框 -->

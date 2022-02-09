@@ -1,28 +1,25 @@
-// pages/more/more.js
 const args = wx.getStorageSync('args')
 var app = getApp()
-let currentPage = 0 // 当前第几页,0代表第一页 
+var currentPage = 0                   // 当前第几页,0代表第一页 
+
 // 旋转初始化
+const _ANIMATION_TIME = 400;          // 动画播放一次的时长ms
 var _animation = wx.createAnimation({
   duration: _ANIMATION_TIME,
   timingFunction: 'linear',
   delay: 0,
   transformOrigin: '50% 50% 0'
 })
-var _animationIndex = 0; // 动画执行次数index（当前执行了多少次）
-var _animationIntervalId = -1; // 动画定时任务id，通过setInterval来达到无限旋转，记录id，用于结束定时任务
-const _ANIMATION_TIME = 400; // 动画播放一次的时长ms
+var _animationIndex = 0;              // 动画执行次数index（当前执行了多少次）
+var _animationIntervalId = -1;        // 动画定时任务id，通过setInterval来达到无限旋转，记录id，用于结束定时任务
+
 Page({
-  /**
-   * 页面的初始数据
-   */
   data: {
+    // 1. 配置性变量
     statusBarHeight: getApp().globalData.statusBarHeight,
     lineHeight: getApp().globalData.lineHeight,
     rectHeight: getApp().globalData.rectHeight,
-    noramalData: [],
-    current: 0,
-    tabitem: [{
+    tabitem: [{                       // 配置标签
         title: "全部",
         type: 0
       },
@@ -67,11 +64,17 @@ Page({
         type: 0
       }
     ],
+    loadMore: false,                  // "上拉加载"的变量，默认false，隐藏  
+    loadAll: false,                   // "没有数据"的变量，默认false，隐藏 
+
+    // 2. 看不懂的变量
+    noramalData: [],
+    current: 0,
     info: {
       licensePicUrls: [],
     },
     hideHidden: true,
-    menu: [], // 发布栏的选择
+    menu: [],                         // 发布栏的选择
     //imgShow:false,
     leftList: [],
     rightList: [],
@@ -87,8 +90,6 @@ Page({
     rightH: 0,
     photo: [],
     DataNull: 0,
-    loadMore: false, //"上拉加载"的变量，默认false，隐藏  
-    loadAll: false, //“没有数据”的变量，默认false，隐藏 
     fileIDs: [],
     addAft: 0,
     Showtabitem: 1,
@@ -99,7 +100,7 @@ Page({
     campus_account: false,
     describe: "",
     content: "",
-    openusername: {}, //点赞人的对象
+    openusername: {},                   //点赞人的对象
     // rotateIndex: '',
     // animationData: {}
   },
@@ -124,14 +125,272 @@ Page({
     })
   },
 
-  // 跳转到个人信息页面
-  naviToMyself() {
-    wx.switchTab({
-      url: '/pages/myself/myself',
+  // 1. 跳转页面
+  navigate(e) {
+    let url = e.currentTarget.id;
+    switch (url) {
+      case 'myself':
+        wx.switchTab({
+          url: "../myself/myself",
+        });
+      default:
+        wx.navigateTo({
+          url: `pages/${url}/${url}`
+        })
+    }
+  },
+  // 2. 操作数据库
+  getData() {                         // 2.1 提高网络性能，分页加载数据
+
+    let that = this;
+    // console.log("this.data.noramalData", this.data.noramalData)
+    this.data.noramalData = []
+    // console.log("ShowId", this.data.Label)
+    // 第一次加载数据
+    if (currentPage == 1) {
+      this.setData({
+        loadMore: true, //把"上拉加载"的变量设为true，显示  
+        loadAll: false //把“没有数据”设为false，隐藏  
+      })
+    }
+    console.log("this.data.addAft", this.data.addAft)
+    console.log("currentPage", currentPage)
+    //云数据的请求
+    wx.cloud.callFunction({
+      name: "CampusCircle",
+      data: {
+        type: "read",
+        username: that.data.username,
+        currentPage: currentPage,
+        ShowId: that.data.Label,
+        addAft: that.data.addAft,
+        //游客模式校园圈初始化
+        School: that.data.school=="游客登录" ? "广东石油化工学院":that.data.school
+      },
+      success(res) {
+        if (res.result === null) {
+          that.getData();
+        }
+        if (res.result && res.result.data.length > 0) {
+          console.log("请求成功", res.result.data);
+          currentPage++;
+          //把新请求到的数据添加到noramalData里  
+          let Batch_Data = that.data.noramalData.concat(res.result.data);
+          var allData = res.result.data;
+          console.log(Batch_Data);
+          for (let i = 0; i < allData.length; i++) {
+            if (that.data.leftH <= that.data.rightH) { //判断左右两侧当前的累计高度，来确定item应该放置在左边还是右边
+              that.data.leftList.push(allData[i]);
+              that.data.leftH += allData[i].ShowHeight;
+            } else {
+              that.data.rightList.push(allData[i]);
+              that.data.rightH += allData[i].ShowHeight;
+            }
+          }
+          app.globalData.leftList = that.data.leftList;
+          app.globalData.rightList = that.data.rightList;
+          that.setData({
+            leftList: that.data.leftList,
+            rightList: that.data.rightList,
+            noramalData: Batch_Data, //获取数据数组    
+            loadMore: false, //把"上拉加载"的变量设为false，显示  
+            DataNull: 1,
+            showLoading: 1
+          });
+          if (res.result.data.length < 10) {
+            that.setData({
+              loadMore: false, //隐藏加载中。。
+              loadAll: true, //所有数据都加载完了
+              DataNull: 0,
+              showLoading: 1
+            });
+          }
+        } else {
+          if (that.data.leftH == 0 && that.data.rightH == 0) {
+            that.setData({
+              leftList: [],
+              rightList: [],
+            })
+          }
+          that.setData({
+            loadAll: true, //把“没有数据”设为true，显示  
+            loadMore: false, //把"上拉加载"的变量设为false，隐藏  
+            DataNull: 0,
+            showLoading: 1
+          });
+        }
+      },
+      fail(res) {
+        console.log("请求失败", res)
+        that.setData({
+          loadAll: false,
+          loadMore: false
+        });
+      }
     })
   },
 
-  search_Input: function (e) {
+  formSubmit(e) {                     // 2.2 添加与存储 (发布点击事件)
+    let {formTitle, formText} = e.detail.value;
+
+    if (!formTitle) {
+      wx.showToast({
+        title: '标题不能为空',
+        icon: 'none'
+      })
+    } else if (!formText) {
+      wx.showToast({
+        title: '文字不能为空',
+        icon: 'none'
+      })
+    } else if (this.data.photo.length == 0) {
+      wx.showToast({
+        title: '图片不能为空',
+        icon: 'none'
+      })
+    } else if (!this.data.choosenLabel) {
+      wx.showToast({
+        title: '标签不能为空',
+        icon: 'none'
+      })
+    } else if (!this.data.nickname && !this.data.iconUrl) {
+      wx.showToast({
+        title: '小主还没登录哟QwQ',
+        icon: 'none'
+      })
+    } else {
+      let add = {
+        "Cover": this.data.photo[0],
+        "AllPhoto": JSON.parse(JSON.stringify(this.data.photo)),
+        "Title": formTitle,
+        "Text": formText,
+        "CoverHeight": this.data.imageHeight,
+        "CoverWidth": this.data.imageWidth,
+        "Label": this.data.choosenLabel,
+        "Time": new Date().getTime(),
+        "nickName": this.data.nickname,
+        "School": this.data.school,
+        "iconUrl": this.data.iconUrl
+      }
+      console.log("this.data.nickname-Input", this.data.nickname);
+      this.data.noramalData.push(add);
+      let NewData = this.data.noramalData.length - 1;
+      this.CalculateImage();
+
+      // 将本地图片上传到云存储，后续通过fileid进行图片展示
+      let that = this;
+      (function(NewData) {
+        /**
+        * 图片上传逻辑
+        * 1. 判断条件，是否符合上传条件
+        * 2. 自定义函数上传图片到云存储
+        * 3. 将所有信息保存到数据库
+        */
+        wx.showLoading({
+          title: '加载中',
+          mask: true
+        })
+        var path = that.data.noramalData[NewData].AllPhoto
+        console.log(path)
+        var fileIDs = []
+        for (var i = 0; i < path.length; i++) {
+          wx.compressImage({
+            src: path[i], // 图片路径
+            quality: 20, // 压缩质量,
+            success(res) {
+              console.log(res)
+              wx.cloud.uploadFile({
+                cloudPath: 'CampusCircle_images/' + new Date().getTime() + Math.floor(Math.random() * 150) + '.png',
+                filePath: res.tempFilePath,
+              }).then(res => {
+                fileIDs.push(res.fileID)
+                console.log(fileIDs)
+                that.uploadData(NewData, fileIDs)
+              })
+            }
+          })
+        }
+      })(NewData)
+
+    }
+  },
+  
+  uploadData(NewData, fileIDs) {      // 2.21 将数据上传到数据库 (发布文章)
+    var that = this
+    if (fileIDs.length == that.data.noramalData[NewData].AllPhoto.length) {
+      console.log("NewData", NewData)
+      console.log("that.data.noramalData[NewData].AllPhoto.length", that.data.noramalData[NewData].AllPhoto.length)
+      console.log("fileIDs-Aft.length", fileIDs.length)
+      wx.cloud.callFunction({
+        name: 'CampusCircle',
+        data: {
+          Cover: fileIDs[0],
+          AllPhoto: fileIDs,
+          Title: that.data.noramalData[NewData].Title,
+          Text: that.data.noramalData[NewData].Text,
+          CoverHeight: that.data.noramalData[NewData].CoverHeight,
+          CoverWidth: that.data.noramalData[NewData].CoverWidth,
+          Label: that.data.noramalData[NewData].Label,
+          Time: that.data.noramalData[NewData].Time,
+          ShowHeight: that.data.noramalData[NewData].ShowHeight,
+          School: that.data.noramalData[NewData].School,
+          nickName: that.data.noramalData[NewData].nickName,
+          username: that.data.username,
+          iconUrl: that.data.noramalData[NewData].iconUrl,
+          Star: 0,
+          type: 'write'
+        },
+        success: res => {
+          console.log("add", res)
+          wx.showToast({
+            duration: 4000,
+            title: '添加成功'
+          })
+          that.onLoad()
+          that.data.addAft = 1
+        },
+        fail: err => {
+          wx.showToast({
+            icon: 'none',
+            title: '出错啦！请稍后重试'
+          })
+          console.error
+        },
+        complete() {
+          that.setData({
+            photo: [],
+            Input_Title: "",
+            Input_Text: "",
+            choosenLabel: " ",
+            showModel: !that.data.showModel,
+          })
+        }
+      })
+    }
+  },
+
+  // 3. 点击事件 
+  clickMenu: function (e) {           // 3.1 
+    var that = this;
+    // 获取当前的状态，是否隐藏的值
+    var staues = that.data.hideHidden;
+    console.log("111", staues);
+    // 第几个状态
+    that.setData({
+      hideHidden: !staues,
+    })
+  },
+  clickMenuSecond: function (e) {     // 3.2 
+    var that = this;
+    console.log("打印索引值233", e.currentTarget.dataset.index);
+    // 获取索引值
+    var index = e.currentTarget.dataset.index;
+    console.log("that.data.arrayMenu.menu[index].cent", that.data.menu[index])
+    that.setData({
+      choosenLabel: that.data.menu[index],
+    })
+  },
+  search_Input: function (e) {        // 3.3 搜索框逻辑
     var that = this
     console.log("e.", e.detail.value)
     console.log("this.data.noramalData", this.data.noramalData)
@@ -213,38 +472,32 @@ Page({
       });
     }
   },
-  onReady: function () {
-    _animationIndex = 0;
-    _animationIntervalId = -1;
-    this.data.animation = '';
-  },
-  /**
-   * 实现image旋转动画，每次旋转 120*n度
-   */
-  rotateAni: function (n) {
+  
+  // 4. 动效
+  rotateAni: function (n) {           // 4.1 实现image旋转动画，每次旋转 120*n度
     _animation.rotate(120 * (n)).step()
     this.setData({
       animation: _animation.export()
     })
   },
-  /**
-   * 开始旋转
-   */
-  startAnimationInterval: function () {
-    var that = this;
+
+  startAnimationInterval: function () {  // 4.2 开始旋转
+    
+    let that = this;
     that.rotateAni(++_animationIndex); // 进行一次旋转
     _animationIntervalId = setInterval(function () {
       that.rotateAni(++_animationIndex);
     }, _ANIMATION_TIME); // 每间隔_ANIMATION_TIME进行一次旋转
-    console.log("begin")
+    console.log("begin旋转")
   },
-  stopAnimationInterval: function () {
+  stopAnimationInterval: function () {   // 4.3 停止旋转
     if (_animationIntervalId > 0) {
       clearInterval(_animationIntervalId);
       _animationIntervalId = 0;
-      console.log("stop")
+      console.log("stop旋转")
     }
   },
+
   binderrorimg: function () {
     var errorImg = " "
     errorImg = "./Errimages.png" //我们构建一个对象
@@ -270,12 +523,7 @@ Page({
       })
     }
   },
-  User() {
-    //TurnPage=1
-    wx.navigateTo({
-      url: "UserContent/UserContent",
-    })
-  },
+  
   //-----------------------后期优化：两个list合并，用type进行区分(280-285)
   leftDirection: function () {
     this.data.direction = "Left"
@@ -374,26 +622,7 @@ Page({
     this.data.addAft = 0
     this.getData()
   },
-  clickMenu: function (e) {
-    var that = this;
-    // 获取当前的状态，是否隐藏的值
-    var staues = that.data.hideHidden;
-    console.log("111", staues);
-    // 第几个状态
-    that.setData({
-      hideHidden: !staues,
-    })
-  },
-  clickMenuSecond: function (e) {
-    var that = this;
-    console.log("打印索引值233", e.currentTarget.dataset.index);
-    // 获取索引值
-    var index = e.currentTarget.dataset.index;
-    console.log("that.data.arrayMenu.menu[index].cent", that.data.menu[index])
-    that.setData({
-      choosenLabel: that.data.menu[index],
-    })
-  },
+  
 
 
   CalculateImage: function () {
@@ -495,274 +724,14 @@ Page({
     // console.log(this.data.rightList,"右");
   },
 
+  onReady: function () {
+    _animationIndex = 0;
+    _animationIntervalId = -1;
+    this.data.animation = '';
+  },
   
-  // 点击发布
-  formSubmit: function (e) { //添加与存储
-    let {
-      formTitle,
-      formText
-    } = e.detail.value
-
-    var that = this
-    if (!formTitle) {
-      wx.showToast({
-        title: '标题不能为空',
-        icon: 'none'
-      })
-    } else if (!formText) {
-      wx.showToast({
-        title: '文字不能为空',
-        icon: 'none'
-      })
-    } else if (that.data.photo.length == 0) {
-      wx.showToast({
-        title: '图片不能为空',
-        icon: 'none'
-      })
-    } else if (!that.data.choosenLabel) {
-      wx.showToast({
-        title: '标签不能为空',
-        icon: 'none'
-      })
-    } else if (!that.data.nickname && !that.data.iconUrl) {
-      wx.showToast({
-        title: '小主还没登录哟QwQ',
-        icon: 'none'
-      })
-    } else {
-      var add = {
-        "Cover": that.data.photo[0],
-        "AllPhoto": JSON.parse(JSON.stringify(that.data.photo)),
-        "Title": formTitle,
-        "Text": formText,
-        "CoverHeight": that.data.imageHeight,
-        "CoverWidth": that.data.imageWidth,
-        "Label": that.data.choosenLabel,
-        "Time": new Date().getTime(),
-        "nickName": that.data.nickname,
-        "School": that.data.school,
-        "iconUrl": that.data.iconUrl
-      }
-      console.log("that.data.nickname-Input", that.data.nickname)
-      that.data.noramalData.push(add)
-      var NewData = that.data.noramalData.length - 1
-      that.CalculateImage()
-      that.uploadimg(NewData)
-    }
-  },
-  //将本地图片上传到云存储进行存储，后续通过fileid进行图片展示
-  // 图片上传逻辑
-  // 1.判断条件，是否符合上传条件
-  // 2.自定义函数上传图片到云存储
-  // 3.将所有信息保存到数据库
-  uploadimg: function (NewData) {
-    wx.showLoading({
-      title: '加载中',
-      mask: true
-    })
-    var path = this.data.noramalData[NewData].AllPhoto
-    console.log(path)
-    var fileIDs = []
-    var that = this
-    for (var i = 0; i < path.length; i++) {
-      wx.compressImage({
-        src: path[i], // 图片路径
-        quality: 20, // 压缩质量,
-        success(res) {
-          console.log(res)
-          wx.cloud.uploadFile({
-            cloudPath: 'CampusCircle_images/' + new Date().getTime() + Math.floor(Math.random() * 150) + '.png',
-            filePath: res.tempFilePath,
-          }).then(res => {
-            fileIDs.push(res.fileID)
-            console.log(fileIDs)
-            that.uploadData(NewData, fileIDs)
-          })
-        }
-      })
-
-    }
-  },
-  // 发布文章
-  //将数据上传到数据库
-  uploadData: function (NewData, fileIDs) {
-    var that = this
-    if (fileIDs.length == that.data.noramalData[NewData].AllPhoto.length) {
-      console.log("NewData", NewData)
-      console.log("that.data.noramalData[NewData].AllPhoto.length", that.data.noramalData[NewData].AllPhoto.length)
-      console.log("fileIDs-Aft.length", fileIDs.length)
-      wx.cloud.callFunction({
-        name: 'CampusCircle',
-        data: {
-          Cover: fileIDs[0],
-          AllPhoto: fileIDs,
-          Title: that.data.noramalData[NewData].Title,
-          Text: that.data.noramalData[NewData].Text,
-          CoverHeight: that.data.noramalData[NewData].CoverHeight,
-          CoverWidth: that.data.noramalData[NewData].CoverWidth,
-          Label: that.data.noramalData[NewData].Label,
-          Time: that.data.noramalData[NewData].Time,
-          ShowHeight: that.data.noramalData[NewData].ShowHeight,
-          School: that.data.noramalData[NewData].School,
-          nickName: that.data.noramalData[NewData].nickName,
-          username: that.data.username,
-          iconUrl: that.data.noramalData[NewData].iconUrl,
-          Star: 0,
-          type: 'write'
-        },
-        success: res => {
-          console.log("add", res)
-          wx.showToast({
-            duration: 4000,
-            title: '添加成功'
-          })
-          that.onLoad()
-          that.data.addAft = 1
-        },
-        fail: err => {
-          wx.showToast({
-            icon: 'none',
-            title: '出错啦！请稍后重试'
-          })
-          console.error
-        },
-        complete() {
-          that.setData({
-            photo: [],
-            Input_Title: "",
-            Input_Text: "",
-            choosenLabel: " ",
-            showModel: !that.data.showModel,
-          })
-        }
-      })
-    }
-  },
-
-
-  //下拉触底改变状态
-  onReachBottom: function () {
-    console.log("上拉触底事件")
-    let that = this
-    if (!that.data.loadMore) {
-      that.setData({
-        loadMore: true, //加载中  
-        loadAll: false //是否加载完所有数据
-      });
-      wx.showLoading({
-        title: '加载更多中',
-      })
-      this.getNewInfo(); // 上拉刷新，是否有新消息
-      that.getData()
-      console.log("currentPage-onReachBottom", currentPage)
-      wx.hideLoading()
-      //加载更多，这里做下延时加载
-
-    }
-  },
-
-
-  //提高网络性能，分页加载数据
-  getData: function () {
-    let that = this;
-    // console.log("this.data.noramalData", this.data.noramalData)
-    this.data.noramalData = []
-    // console.log("ShowId", this.data.Label)
-    //第一次加载数据
-    if (currentPage == 1) {
-      this.setData({
-        loadMore: true, //把"上拉加载"的变量设为true，显示  
-        loadAll: false //把“没有数据”设为false，隐藏  
-      })
-    }
-    console.log("this.data.addAft", this.data.addAft)
-    console.log("currentPage", currentPage)
-    //云数据的请求
-    wx.cloud.callFunction({
-      name: "CampusCircle",
-      data: {
-        type: "read",
-        username: that.data.username,
-        currentPage: currentPage,
-        ShowId: that.data.Label,
-        addAft: that.data.addAft,
-        School: that.data.school=="游客登录" ? "广东石油化工学院":that.data.school //游客模式校园圈初始化
-      },
-      success(res) {
-        if (res.result === null) {
-          that.getData()
-        }
-        if (res.result && res.result.data.length > 0) {
-          console.log("请求成功", res.result.data)
-          currentPage++
-          //把新请求到的数据添加到noramalData里  
-          let Batch_Data = that.data.noramalData.concat(res.result.data)
-          var allData = res.result.data
-          console.log(Batch_Data)
-          for (let i = 0; i < allData.length; i++) {
-            if (that.data.leftH <= that.data.rightH) { //判断左右两侧当前的累计高度，来确定item应该放置在左边还是右边
-              that.data.leftList.push(allData[i]);
-              that.data.leftH += allData[i].ShowHeight;
-            } else {
-              that.data.rightList.push(allData[i]);
-              that.data.rightH += allData[i].ShowHeight;
-            }
-          }
-          app.globalData.leftList = that.data.leftList
-          app.globalData.rightList = that.data.rightList
-          that.setData({
-            leftList: that.data.leftList,
-            rightList: that.data.rightList,
-            noramalData: Batch_Data, //获取数据数组    
-            loadMore: false, //把"上拉加载"的变量设为false，显示  
-            DataNull: 1,
-            showLoading: 1
-          });
-          if (res.result.data.length < 10) {
-            that.setData({
-              loadMore: false, //隐藏加载中。。
-              loadAll: true, //所有数据都加载完了
-              DataNull: 0,
-              showLoading: 1
-            });
-          }
-        } else {
-          if (that.data.leftH == 0 && that.data.rightH == 0) {
-            that.setData({
-              leftList: [],
-              rightList: [],
-            })
-          }
-          that.setData({
-            loadAll: true, //把“没有数据”设为true，显示  
-            loadMore: false, //把"上拉加载"的变量设为false，隐藏  
-            DataNull: 0,
-            showLoading: 1
-          });
-        }
-      },
-      fail(res) {
-        console.log("请求失败", res)
-        that.setData({
-          loadAll: false,
-          loadMore: false
-        });
-      }
-    })
-  },
-
-  // 页面跳转
-  navigate(e) {
-    var url = e.currentTarget.id
-    console.log("url",url)
-    wx.navigateTo({
-      url: "pages/" + url + "/" + url,
-    })
-  },
-
-  // 下拉刷新
-  onPullDownRefresh() {
-    //var showLoading=0
+  onPullDownRefresh() {     // 下拉刷新
+    //var showLoading=0 
     wx.showNavigationBarLoading() //在标题栏中显示加载
     this.setData({
       showLoading: 0
@@ -781,7 +750,25 @@ Page({
     wx.hideNavigationBarLoading() //完成停止加载
     wx.stopPullDownRefresh() //停止下拉刷新
   },
+  
+  onReachBottom() {         // 上拉触底改变状态
+    console.log("上拉触底事件")
+    if (!this.data.loadMore) {
+      this.setData({
+        loadMore: true, // 加载中  
+        loadAll: false  // 是否加载完所有数据
+      });
+      wx.showLoading({
+        title: '加载更多中',
+      })
+      this.getNewInfo();                      // 上拉刷新，是否有新消息
+      this.getData();
+      console.log("currentPage-onReachBottom", currentPage)
+      wx.hideLoading();
+      //加载更多，这里做下延时加载
 
+    }
+  },
   onShareAppMessage: function (res) {
     return {
       title: 'WE校园',
