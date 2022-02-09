@@ -145,17 +145,41 @@ Page({
   },
   onLoad: function (options) {
     var courseTime = wx.getStorageSync('args').courseTime;
-    let windowHeight = wx.getSystemInfoSync().windowHeight;
-    let kbHeight = (windowHeight*2) - (this.data.statusBarHeight + this.data.lineHeight)*2 - 77
+
+    
+    let screenHeight = wx.getSystemInfoSync().screenHeight;
+    // (屏幕高度 - 状态栏 - 头部 - 周次高度)
+    let kbHeight = (screenHeight - this.data.statusBarHeight - this.data.lineHeight - 80);
+
+    // 特殊：适配机型高度
+    let model = wx.getSystemInfoSync().model;
+    switch (model) {
+      case 'iPhone X':
+        kbHeight = 610;
+      case 'iPhone 12/13 mini':
+        kbHeight = 610;
+      case 'iPhone 12/13 (Pro)':
+        kbHeight = 640;
+      case 'Windows':
+        kbHeight = 640;
+      case 'iPad':
+        kbHeight = 870;
+      case 'iPad Pro 10.5-inch':
+        kbHeight = 960;
+      case 'iPad Pro 12.9-inch':
+        kbHeight = 1200;
+      default:
+        break;
+    }
+
     this.kb(util.getweekString());
     this.setData({
       weekNow: util.getweekString(),
       courseTime: courseTime? courseTime : that.data.courseTime,
-      rightHeight:(this.data.statusBarHeight + this.data.lineHeight)*2 + 1276 + 77,
       kbHeight
     })
-    console.log(kbHeight);
-    console.log(this.data.rightHeight);
+    console.log(`课表滑动区域高度：${kbHeight}px`);
+    console.log(model);
     // 从本地缓存获取backgroundUrl
     let fileUrl = wx.getStorageSync('curriBgc');
     let that = this;
