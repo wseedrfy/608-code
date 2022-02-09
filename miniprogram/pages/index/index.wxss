@@ -229,34 +229,43 @@ page{
 }
 
 .wx-remind-mask{
+ 
   position: absolute;
   height: 70rpx;
   width: 48.7%;
-  border-radius: 20rpx;
+  border-radius: 13rpx;
   z-index: 100;
-  opacity: 0.35s;
-  background-image: linear-gradient( #bae4f5 , #ffffff);
+
 }
 .countdown{
-  width: 50%;
-  background-color: #fff;
+  border-style: solid;
+  border-color: rgba(135,206,235, 0.13);
+  width: 47.5%;
+  margin-right: 5rpx;
+  background-color: rgba(255,255,255,0.6);
   border-radius: 20rpx;
   height: 200rpx;
 }
 
 .other{
-  margin-top: 17rpx;
+  margin-top: 12rpx;
   border-radius: 20rpx;
   margin-left: 20rpx;
-
+  display: flex;
+  flex-direction: row;
   height: 200rpx;
   width: 730rpx;
 }
-
+.zt {
+  font-size: 30rpx;margin-left: 20rpx;margin-top: 25rpx; color: #393939;
+}
+.otherkp{
+  position: absolute; margin-left: 170rpx; margin-top:75rpx
+}
 @media (prefers-color-scheme: dark) {
   .wx-remind-mask{
     filter: invert(100%) !important;
-    background-image: linear-gradient( #324349 , #0d0d0d);
+    /* background-image: linear-gradient( #324349 , #0d0d0d); */
   }
   .adContainer ad{
 
@@ -269,7 +278,18 @@ page{
   page{
     background-color: #fff;
   }
+  .countdown{
+
+    border-color: rgba(103, 135, 148, 0.04);
+    margin-right: 10rpx;
+    background-color:rgba(246,244,244, 0.7);
+    border-radius: 20rpx;
+    height: 200rpx;
+  }
   
+  .zt{
+    color: #fff;
+  }
   .wx-remind{
     background-color: #f5f4f4;
   }
