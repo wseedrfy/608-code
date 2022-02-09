@@ -21,8 +21,10 @@ function initChart(canvas, width, height, dpr) {
       },
       type: 'pie',
       center: ['50%', '50%'],
-      radius: ['20%', '40%'],
-      data: [{
+      radius: ['0%', '55%'],
+      data: 
+      // series_data
+      [{
         value: 55,
         name: '北京'
       }, {
@@ -158,15 +160,10 @@ Page({
             //   console.log(that.data.storageInfo.username)
             },
             fail(err) {
-              console.log("失败失败失败");
+              console.log("学号获取失败失败失败");
             }
           });
-        //   let username = wx.getStorageSync('args').username 
-        //   wx.cloud.database().collection("totaltime").where({username:username}).get().then(res=>{
-        //     that.setData({
-        //          logsa:res.data[0].logs
-        //      })
-        //   });
+
     },
     updata(){
         wx.showLoading({

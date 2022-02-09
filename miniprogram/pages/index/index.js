@@ -97,6 +97,11 @@ Page({
     return {
       title: 'WE校园'
     }
-  }
+  },
+  tomato(){
+    wx.navigateTo({
+      url: '../tomato/index/index',
+    })
+  },
   
 })
