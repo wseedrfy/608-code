@@ -24,14 +24,14 @@
   background-color: rgb(255, 255, 255);
   margin-bottom: 10rpx;
   overflow: hidden;
-  background-image:  linear-gradient( #ffffff 70% , #b7e7fa);
+  background-image:  linear-gradient( #ffffff 75% , #fde2ec);
 }
 .pic_Label{
   /* color:rgb(252, 219, 129);
   margin-right: 5px;
   font-size: 24rpx; */
   color:white;
-  background-color: rgba(230,130,130,1);
+  background-color: rgb(255, 185, 185);
   font-size:20rpx;
   padding:4rpx 8rpx;
   /* margin: 0rpx auto ; */

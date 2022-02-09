@@ -93,7 +93,7 @@ page{
   justify-content: center;
   overflow: hidden;
   margin:10rpx;
-  background-color: rgba(153, 153, 153, 0.15);
+
 }
 .showLoading{
   width: 45rpx;
