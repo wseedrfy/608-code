@@ -20,7 +20,7 @@
   <image class="Show_Image" lazy-load src='{{item.Cover}}' mode="aspectFill" style="height: {{item.ShowHeight > 500 ? 500+'rpx':item.ShowHeight+'rpx'}};" binderror="binderrorimg" bindload='onLazyLoad'></image>
   <view>
     <span class="pic_Title">
-      <span class="pic_Label">表白墙/卖宿友</span><span class="pic_Label">秀出好看的照片</span><text style="color: #e5404f;">哈哈哈</text>
+     <text class="text_title">哈哈哈</text>
     </span>
     <image src="{{item.iconUrl}}" class="text_user" />
     <span class="text_username">{{item.nickName}}</span>

@@ -26,12 +26,15 @@
   overflow: hidden;
   background-image:  linear-gradient( #ffffff 75% , #fde2ec);
 }
+.text_title{
+  color: #e5404f;
+}
 .pic_Label{
   /* color:rgb(252, 219, 129);
   margin-right: 5px;
   font-size: 24rpx; */
   color:white;
-  background-color: rgb(255, 185, 185);
+  background-color: rgb(230, 173, 173);
   font-size:20rpx;
   padding:4rpx 8rpx;
   /* margin: 0rpx auto ; */
@@ -95,7 +98,12 @@
 
   .pic{
     background-color: #f1eded;
+    filter: invert(100%) !important;  background-image:  linear-gradient( #ffffff 75% , #fde2ec);
+    background-image:  linear-gradient( #ffffff 90% , #ffffff );
+  }
+  .text_title{
     filter: invert(100%) !important;
+    color: #cab3b4;
   }
   .Show_Image{
     /* background-color: #fff; */
