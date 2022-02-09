@@ -1,107 +1,122 @@
+var app = getApp()
+class cardFunction {
+
+}
 Component({
-  data: {
-    slideShow: false,
-    slideWidth: '', //滑块宽
-    slideLeft: 0, //滑块位置
-    iconList2: []
-  },
+
   properties: {
-    iconList: {
-      type: Array,
-      value: []
-    }
-  },
-  pageLifetimes: {
-    show: function() {
-      console.log(this.data.iconList2)
-      this.setStorageData(this.data.iconList2)
+    item: {
+      type: Object,
+      value: [],
     },
-    hide: function() {
-      // 页面被隐藏
+    openusername: {
+      type: Object,
     },
-    resize: function(size) {
-      // 页面尺寸变化
+    direction: {
+      type: String,
+      value: ""
+    },
+    type: {
+      type: String,
+      value: ""
     }
+    // data:{
+    //   openusername:{}
+    // }
   },
-  lifetimes: {
-    
-    ready: function() {
- 
-      this.setStorageData(this.data.iconList)
 
-      // 在组件实例进入页面节点树时执行
-    },
-    created: function() {
-      // this.setStorageData(this.data.iconList)
-      // 在组件实例被从页面节点树移除时执行
-    },
-  },
   methods: {
-    setStorageData: function (iconList1) {
-        this.data.iconList2 = iconList1
-        var lll = iconList1
-        var iconList = []
-        var aa = []
 
-        if (lll.length <= 8) {
-          for (let i = 0; i < lll.length; i++)
-            aa.push(lll[i])
-
-          iconList.push(aa)
-        } else {
-          for (let i = 0; i < lll.length; i++) {
-            aa.push(lll[i])
-            // 前八个一组，后面所有为一组
-            if (i == 7 || i == lll.length - 1) {
-              iconList.push(aa)
-              aa = []
-            }
-          }
-        }
-        
-        this.setData({
-          iconList1: iconList, // indexData.iconList,
-        });
-        // 初始化scroll-view
-        this.getRatio();
-      
-
-    },
-    // 计算 scroll-view 滚条参数及滑动比例
-    getRatio() {
-
-      var self = this;
-      if (self.data.iconList1.length <= 1) {
-        this.setData({
-          slideShow: false
-        })
-      } else {
-        // 与index.css中 .slide-bar{width}对应
-        const barWidth = 90; // 固定长度是90rpx
-        const iconWidth = 182.5; // 一个图标的宽度为182.5rpx
-
-        var _totalIcon = Math.ceil(self.data.iconList1[1].length / 2) + 4 // 总的横向个数
-        var onelength = barWidth / _totalIcon // 一个图标 所占滚条的宽度
-        var _showLength = barWidth - onelength * (_totalIcon - 4) // 红色滑条的长度(保留两位小数)
-
-        // 一个图标 实际宽度:滚条所占宽度 （后面转化单位 px → rpx ）
-        var _ratio = onelength / iconWidth * (750 / this.data.windowWidth)
-
-        this.setData({
-          slideWidth: _showLength,
-          slidable: barWidth - _showLength, // barWidth / 2 - onelength,
-          slideShow: true,
-          slideRatio: _ratio
-        })
-      }
-    },
-    // 刷新滚条位置
-    getleft(e) {
-  
-      // console.log(l, (e.detail.scrollLeft * this.data.slideRatio).toFixed(2), l * this.data.slideRatio)
-      this.setData({
-        slideLeft: (e.detail.scrollLeft * this.data.slideRatio).toFixed(2)
+    ShowContent: function (e) {
+      //对数据进行更新
+      var content = JSON.stringify(this.data.item)
+      wx.navigateTo({
+        url: "../../pages/more/pages/DetailContent/DetailContent?content=" + content,
       })
     },
+    //点击事件
+    getStar_card(e) { //--------------------Starif：false:未点赞；true：已点赞
+      var content = this.data.item
+      var args = wx.getStorageSync('args')
+      var Star_User = content.Star_User //初始点赞用户
+      var openusername = this.properties.openusername
+      if (!Star_User) { //判断点赞人有没有在数组里面
+        Star_User = []
+      }
+      var Starif = false
+      //判断是不是为点赞过的usernameid
+      ///--------------------------------------取消点赞（48-54）
+      for (var i = 0; i < Star_User.length; i++) {
+        if (Star_User[i].username == openusername.username) {
+          Starif = true
+          Star_User.splice(Star_User.indexOf(Star_User[i]), 1) //改变了 Star_User  --> content.Star_User
+          break
+        }
+      }
+      if (!Starif) {
+        openusername.Star_time = new Date().getTime()
+        Star_User.push(openusername) // 改变了 Star_User  
+        wx.showToast({
+          title: '点赞成功',
+          icon: "none"
+        })
+      }
+      var Star_count = Star_User.length
+      //点赞后对本地数据进行更新
+      //点赞用户更新
+      content.Star_User = Star_User
+
+      //点赞用户数更新
+      content.Star = Star_count
+
+      let character = { // 处理得到点赞者信息
+        userName: args.username,
+        iconUrl: args.iconUrl,
+        nickName: args.nickName
+      }
+      let be_character = { // 被点赞者信息
+        userName: content.username,
+        iconUrl: content.iconUrl,
+        nickName: content.nickName
+      }
+      let starTime = new Date().getTime(); // 点赞时间
+
+      app.globalData.allList.forEach(e => {
+        if (e._id === content._id) {
+          e.Star_count = Star_count
+          e.Star_User = Star_User
+        }
+      })
+      var that = this
+      //点赞后对数据库数据进行更新
+      wx.cloud.callFunction({ // 云函数更改点赞状态
+        name: "CampusCircle",
+        data: {
+          type: "StarControlLogs",
+          Time: content.Time,
+          Star: Star_count,
+          Star_User: Star_User,
+          character: character,
+          username: args.username,
+          be_character: be_character,
+          be_username: content.username,
+          createTime: starTime,
+          arcticle: content,
+          arcticle_id: content._id,
+          _id: content._id,
+          username: args.username
+        }
+      }).then( )
+      that.setData({
+        item : {
+          ...that.data.item,
+          Star: Star_count,
+        },
+        Star_User: Star_User,
+      })
+
+      // app.globalData.List = this.data.List
+    },
+    onLazyLoad(info) {},
   }
 })

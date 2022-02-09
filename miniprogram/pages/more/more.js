@@ -121,6 +121,9 @@ Page({
     var allList =  this.data.allList;
     app.globalData.allList = allList;
     for (let i = 0; i < allList.length; i++) {
+      if(that.data.leftList.includes(allList[i]) ||that.data.rightList.includes(allList[i]) ){
+        continue
+      }
       if (that.data.leftH <= that.data.rightH) { //判断左右两侧当前的累计高度，来确定item应该放置在左边还是右边
         that.data.leftList.push(allList[i]);
         that.data.leftH += allList[i].ShowHeight;

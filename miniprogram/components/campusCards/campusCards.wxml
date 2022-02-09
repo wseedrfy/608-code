@@ -1,25 +1,18 @@
 <wxs module="m1">
-var getStar = function(item,openusername) {
-  if(!item.Star_User||item.Star_User.length===0){ //---------------没有赞的时候，点赞icon不变红
-    //判断空
-    max='../../images/zan1.png'//初始化
-  }
-  else{
-    for(var i=0;i<item.Star_User.length;i++){
-      if(item.Star_User[i].username===openusername.username){  //---item.Star_User[i].username点赞人的用户名，openusername.username“我”的账号名，若两个相等，则点赞icon变红。
-        max='../../images/zan.png'
-        break
-      }
-      else{
-        max='../../images/zan1.png' //------------"我"没有点赞，点赞icon不变红
-      }
+  var getStar = function (item, openusername) {
     var starSrc = '../../images/zan1.png'
+    if (item.Star_User) {
+      item.Star_User.forEach(function (e) {
+
+        if (e.username === openusername.username) {
+          starSrc = '../../images/zan.png'
+        }
+
+      })
     }
 
     return starSrc;
   }
-  return max;
-}
   module.exports.getStar = getStar;
 </wxs>
 

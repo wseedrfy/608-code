@@ -51,11 +51,12 @@
   <!-- 页面主体 -->
   <scroll-view>
     <view class='content'>
-    
+
       <view class="left" bindtap="leftDirection">
 
         <view wx:for="{{leftList}}">
-          <campusCards item="{{item}}" type="left" bind:ShowContent="getBackData" openusername="{{openusername}}" direction="{{direction}}"></campusCards>
+          <loveCards wx:if="{{item.Title == '闲聊'}}" item="{{item}}" type="left" bind:ShowContent="getBackData" openusername="{{openusername}}" direction="{{direction}}"></loveCards>
+          <campusCards wx:else="" item="{{item}}" type="left" bind:ShowContent="getBackData" openusername="{{openusername}}" direction="{{direction}}"></campusCards>
         </view>
       </view>
       <view class="right" bindtap="rightDirection">
