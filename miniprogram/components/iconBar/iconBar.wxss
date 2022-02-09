@@ -15,7 +15,7 @@
   align-items: center;
   /* width: 25%; */
   width: 142rpx;
-  padding: 15rpx 0 10rpx 0;
+  padding: 17rpx 0 10rpx 0;
   height: calc(150rpx - 30rpx);
 }
 
