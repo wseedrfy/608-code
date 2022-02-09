@@ -1,4 +1,4 @@
-// pages/testdaka/testdaka.js
+// pages/testdaka/index/index.js
 Page({
 
     /**
