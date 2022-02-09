@@ -145,17 +145,42 @@ Page({
   },
   onLoad: function (options) {
     var courseTime = wx.getStorageSync('args').courseTime;
-    let windowHeight = wx.getSystemInfoSync().windowHeight;
-    let kbHeight = (windowHeight*2) - (this.data.statusBarHeight + this.data.lineHeight)*2 - 77
+
+    let windowHeight = wx.getSystemInfoSync().windowHeight
+    let width = wx.getSystemInfoSync().windowWidth;
+    // 屏幕高度 - (状态栏 + 头部) - 周次
+    // +2 是为适配边框
+    let kbHeight = (windowHeight - (this.data.lineHeight + this.data.statusBarHeight) - 80*(width/750))+2;
+
+    // 特殊：适配机型高度
+    // let model = wx.getSystemInfoSync().model;
+    // switch (model) {
+    //   case 'iPhone X':
+    //     kbHeight = 610;
+    //   case 'iPhone 12/13 mini':
+    //     kbHeight = 610;
+    //   case 'iPhone 12/13 (Pro)':
+    //     kbHeight = 640;
+    //   case 'Windows':
+    //     kbHeight = 640;
+    //   case 'iPad':
+    //     kbHeight = 870;
+    //   case 'iPad Pro 10.5-inch':
+    //     kbHeight = 960;
+    //   case 'iPad Pro 12.9-inch':
+    //     kbHeight = 1200;
+    //   default:
+    //     kbHeight = kbHeight;
+    //     break;
+    // }
+
     this.kb(util.getweekString());
     this.setData({
       weekNow: util.getweekString(),
       courseTime: courseTime? courseTime : that.data.courseTime,
-      rightHeight:(this.data.statusBarHeight + this.data.lineHeight)*2 + 1276 + 77,
       kbHeight
     })
-    console.log(kbHeight);
-    console.log(this.data.rightHeight);
+    console.log(`课表滑动区域高度：${kbHeight}px`);
     // 从本地缓存获取backgroundUrl
     let fileUrl = wx.getStorageSync('curriBgc');
     let that = this;
