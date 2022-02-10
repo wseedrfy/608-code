@@ -9,7 +9,7 @@ const app = getApp()
 
 Page({
   data: {
-    theme: false,
+    theme: true,
     dark : wx.getSystemInfoSync().theme,
     time: {
       date: new Date().getDate(),
@@ -40,11 +40,14 @@ Page({
     console.log("over")
   },
   async onLoad(options) {
-
+    
     var that = this;
     wx.onThemeChange(function (e) {
       that.setData({ dark:  e.theme  });
     })
+    if(wx.getStorageSync('theme') !== undefined){
+      that.setData({ theme:  wx.getStorageSync('theme') });
+    }
     var args = wx.getStorageSync('args')
     if (args) {
       try {
@@ -90,7 +93,7 @@ Page({
     }
   },
   switch1Change: function(res){
-
+    wx.setStorageSync('theme', res.detail.value)
     this.setData({
       theme: res.detail.value
     })
