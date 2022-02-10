@@ -166,10 +166,12 @@ Page({
         wx.switchTab({
           url: "../myself/myself",
         });
+        break;
       default:
         wx.navigateTo({
           url: `pages/${url}/${url}`
         })
+        break;
     }
   },
 

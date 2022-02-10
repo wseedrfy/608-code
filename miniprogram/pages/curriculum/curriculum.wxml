@@ -58,8 +58,9 @@
         <!-- image背景图片 -->
         <image src="{{backgroundUrl}}" class="backgroundUrl" mode="aspectFill" style="height: {{kbHeight}}px;"></image>
 
-        <view class="timeTableBox">
-          <view class="timetable">
+        <!-- 当kbScroll高度超过693时，则给左侧时间栏高度kbScroll -->
+        <view class="timeTableBox" style="height: {{kbHeight > 693 ? kbHeight : ''}}px;">
+          <view class="timetable" style="height: {{kbHeight > 693 ? kbHeight : ''}}px;">
             <view style="z-index: 1;">
               <!-- 遮罩层 - 为修复 fixed 与 scroll-view 不兼容问题 -->
               <view class="curriLeft_background"></view>
@@ -79,8 +80,8 @@
         <!-- image背景图片 -->
         <image src="{{backgroundUrl}}" class="backgroundUrl" mode="aspectFill" style="height: {{kbHeight}}px;"></image>
         <!-- 套一个盒子 timeTableBox -->
-        <view class="timeTableBox">
-          <view class="timetable">
+        <view class="timeTableBox" style="height: {{kbHeight > 693 ? kbHeight : ''}};">
+          <view class="timetable" style="height: {{kbHeight > 693 ? kbHeight : ''}}px;">
             <view style="z-index: 1;">
               <!-- 遮罩层 - 为修复 fixed 与 scroll-view 不兼容问题 -->
               <view class="curriLeft_background"></view>
