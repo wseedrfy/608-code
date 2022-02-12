@@ -19,56 +19,13 @@ Page({
     statusBarHeight: getApp().globalData.statusBarHeight,
     lineHeight: getApp().globalData.lineHeight,
     rectHeight: getApp().globalData.rectHeight,
-    tabitem: [{ // 配置标签
-        title: "全部",
-        type: 0
-      },
-      {
-        title: "日常",
-        type: 0
-      },
-      {
-        title: "情墙",
-        type: 0
-      },
-      {
-        title: "学习",
-        type: 0
-      },
-      {
-        title: "地点",
-        type: 0
-      },
-      {
-        title: "二手",
-        type: 0
-      },
-      {
-        title: "社团",
-        type: 0
-      },
-      {
-        title: "拾领",
-        type: 0
-      },
-      {
-        title: "活动",
-        type: 0
-      },
-      {
-        title: "吐槽",
-        type: 0
-      },
-      {
-        title: "探店",
-        type: 0
-      }
+    tabitem: [        // 标签
     ],
-    loadMore: false, // "上拉加载"的变量，默认false，隐藏  
-    loadAll: false, // "没有数据"的变量，默认false，隐藏 
+    loadMore: false,  // "上拉加载"的变量，默认false，隐藏  
+    loadAll: false,   // "没有数据"的变量，默认false，隐藏 
 
-    allList: [], //列表的内容
-    current: 0, //单个第x张照片
+    allList: [],      // 列表的内容
+    current: 0,       // 单个第x张照片
     hideHidden: true,
     menu: [], // 发布栏的选择
     leftList: [], // 左列表
