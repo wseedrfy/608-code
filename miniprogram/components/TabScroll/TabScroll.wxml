@@ -1,9 +1,29 @@
-<scroll-view scroll-x="true">
+<scroll-view scroll-x="true" hidden="{{type != '校友圈标签'}}">
     <view class="Choose_Label" scroll-x="true">
-        <view class="underLine"></view>
-        <view wx:for="{{tabItem}}" wx:key="index" class="Label-text {{item.type == 1?'activity':''}}" data-title="{{item.title}}" data-index="{{index}}" bindtap="setTab" name="formTabitem">
-        <view class="Label_limit">{{item.title}}</view>
+        <!-- 下划线 -->
+        <view class="underLineBox" 
+        style="width: {{underLine_width[activeItem]}}rpx; left:{{underLine_left[activeItem]}}rpx;">
+            <view class="underLine" style="width: {{underLine_width[activeItem] - 30}}rpx;"></view>
+        </view>
+
+        <view wx:for="{{tabItem}}" wx:key="index" 
+        class="Label-text {{item.type == 1?'activeTab':''}}" 
+        data-title="{{item.title}}" data-index="{{index}}" 
+        bindtap="setTab" name="formTabitem">
+            <view class="Label_limit" style="width: {{tabItemLength[index]*18}}rpx;">{{item.title}}</view>
         </view>
     </view>
 </scroll-view>
-<view class="Line"></view>
+
+<scroll-view scroll-x="true" hidden="{{type != '发布页面标签'}}">
+    <view class="Choose_Label" scroll-x="true">
+
+        <view wx:for="{{tabItem}}" wx:key="index" 
+        class="Label-text {{item.type == 1?'activity':''}}" 
+        style="width: {{tabItemLength[index]*40}}rpx;"
+        data-title="{{item.title}}" data-index="{{index}}" 
+        bindtap="setTab" name="formTabitem">
+            <view class="Label_limit">{{item.title}}</view>
+        </view>
+    </view>
+</scroll-view>

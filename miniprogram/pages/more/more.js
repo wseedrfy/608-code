@@ -527,18 +527,19 @@ Page({
     }
   },
 
-  setTab: function (e) {
-    var index = e.currentTarget.dataset.index
-    this.data.Label = this.data.tabitem[index].title
+  setTab: function (e) {            // 该函数仅在组件中调用
+    var index = e.detail.currentTarget.dataset.index;
+    this.data.Label = this.data.tabitem[index].title;
+    // 初始化 - 全部置零
     this.data.tabitem.forEach(element => {
       element.type = 0
     });
-    this.data.tabitem[index].type = 1
+    this.data.tabitem[index].type = 1;
     this.setData({
       tabitem: this.data.tabitem,
     })
     this.RightLeftSolution(true)
-    this.getData()
+    this.getData();
   },
 
   CalculateImage: function () {

@@ -67,6 +67,11 @@ page{
   right: 25%;
   color: white;
 } */
+.Line{
+  background: #9b9b9b48;
+  width: 100%;
+  height: 1rpx;
+}
 .newInfo image {
   width: 50rpx;
   height: 50rpx;

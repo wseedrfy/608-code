@@ -27,7 +27,6 @@
         <image src="../../images/information.png" bindtap="navigate" id="NewInfo"></image>
         <!-- 消息提示 -->
         <view class="newInfo_redPoint" id="NewInfo" catchtap="navigate" wx:if="{{NewInfo}}">
-          <!-- !!!!!!!!!!!!naviToNews没用 -->
           <text>{{NewInfo}}</text>
         </view>
       </view>
@@ -40,7 +39,8 @@
 
   <view class="Line"></view>
   <!-- 标签 -->
-  <TabScroll tabItem="{{tabitem}}"></TabScroll>
+  <TabScroll type="校友圈标签" tabItem="{{tabitem}}" bind:setTab="setTab"></TabScroll>
+  <view class="Line"></view>
   <!-- 页面主体 -->
   <scroll-view style="background-color: rgba(153, 153, 153, 0.11);">
     <view class='content'>
