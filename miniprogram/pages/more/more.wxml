@@ -12,7 +12,7 @@
     <view class="head_second" style="height: {{lineHeight}}px;">
       <!-- 头像 -->
       <view class="avatarBox">
-        <image src="{{iconUrl}}" catchtap="naviToMyself"></image>
+        <image src="{{iconUrl}}" catchtap="navigate" id="myself"></image>
       </view>
 
       <!-- 搜索框 -->
@@ -26,8 +26,7 @@
       <view class="newInfo">
         <image src="../../images/information.png" bindtap="navigate" id="NewInfo"></image>
         <!-- 消息提示 -->
-        <view class="newInfo_redPoint" catchtap="naviToNews" wx:if="{{NewInfo}}">
-          <!-- !!!!!!!!!!!!naviToNews没用 -->
+        <view class="newInfo_redPoint" id="NewInfo" catchtap="navigate" wx:if="{{NewInfo}}">
           <text>{{NewInfo}}</text>
         </view>
       </view>
@@ -40,32 +39,32 @@
 
   <view class="Line"></view>
   <!-- 标签 -->
-  <scroll-view scroll-x="true">
-    <view class="Choose_Label" scroll-x="true">
-      <view wx:for="{{tabitem}}" wx:key="index" class="Label-text {{item.type == 1?'activity':''}}" data-title="{{item.title}}" data-index="{{index}}" bindtap="setTab" name="formTabitem">
-        <view class="Label_limit">{{item.title}}</view>
-      </view>
-    </view>
-  </scroll-view>
+  <TabScroll type="校友圈标签" tabItem="{{tabitem}}" bind:setTab="setTab"></TabScroll>
   <view class="Line"></view>
-
   <!-- 页面主体 -->
-  <scroll-view>
+  <scroll-view style="background-color: rgba(153, 153, 153, 0.11);">
     <view class='content'>
+
       <view class="left" bindtap="leftDirection">
-        <campusCards List="{{leftList}}" type="left" bind:ShowContent="getBackData" openusername="{{openusername}}" direction="{{direction}}"></campusCards>
+
+        <view wx:for="{{leftList}}" wx:key="leftList">
+          <loveCards wx:if="{{item.Title == '闲聊'}}" item="{{item}}" type="left" bind:ShowContent="getBackData" openusername="{{openusername}}" direction="{{direction}}"></loveCards>
+          <campusCards wx:else="" item="{{item}}" type="left" bind:ShowContent="getBackData" openusername="{{openusername}}" direction="{{direction}}"></campusCards>
+        </view>
       </view>
       <view class="right" bindtap="rightDirection">
-        <campusCards List="{{rightList}}" type="right" bind:ShowContent="getBackData" openusername="{{openusername}}" direction="{{direction}}"></campusCards>
+        <view wx:for="{{rightList}}" wx:key="rightList">
+          <campusCards item="{{item}}" type="right" bind:ShowContent="getBackData" openusername="{{openusername}}" direction="{{direction}}"></campusCards>
+        </view>
       </view>
     </view>
     <view class="DataNull" wx:if="{{DataNull==0}}">-无更多内容-</view>
   </scroll-view>
 
-  <view class="img-button content_btn content_btn_add" style="display:{{school=='游客登录'?'none':''}}" bindtap="add" >
+  <view class="img-button content_btn content_btn_add" style="display:{{school==''?'none':''}}" bindtap="add">
     <image src="/images/btn_feed@2x.png"></image>
   </view>
-  <view class="img-button content_btn content_btn_user" bindtap="navigate" style="display:{{school=='游客登录'?'none':''}}" id="UserContent">
+  <view class="img-button content_btn content_btn_user" bindtap="navigate" style="display:{{school==''?'none':''}}" id="UserContent">
     <image src="../../images/User.png"></image>
   </view>
   <view class="edit" wx:if="{{showModel}}">

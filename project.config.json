@@ -1,6 +1,4 @@
 {
-    "miniprogramRoot": "miniprogram/",
-    "cloudfunctionRoot": "cloudfunctions/",
     "description": "项目配置文件",
     "packOptions": {
         "ignore": []
@@ -22,7 +20,7 @@
         "checkInvalidKey": true,
         "checkSiteMap": true,
         "uploadWithSourceMap": true,
-        "compileHotReLoad": true,
+        "compileHotReLoad": false,
         "lazyloadPlaceholderEnable": false,
         "useMultiFrameRuntime": true,
         "useApiHook": true,
@@ -43,29 +41,21 @@
         "showES6CompileOption": false,
         "useCompilerPlugins": false
     },
+    "compileType": "miniprogram",
+    "libVersion": "2.21.2",
     "appid": "wxf84451020f439de9",
     "projectname": "We%E6%A0%A1%E5%9B%AD",
-    "libVersion": "2.21.2",
+    "miniprogramRoot": "miniprogram/",
+    "cloudfunctionRoot": "cloudfunctions/",
     "cloudfunctionTemplateRoot": "cloudfunctionTemplate",
-    "compileType": "miniprogram",
+    "watchOptions": {
+        "ignore": []
+    },
     "debugOptions": {
         "hidedInDevtools": []
     },
     "scripts": {},
-    "staticServerOptions": {
-        "baseURL": "",
-        "servePath": ""
-    },
-    "isGameTourist": false,
-    "simulatorType": "wechat",
-    "simulatorPluginLibVersion": {},
     "condition": {
-        "search": {
-            "list": []
-        },
-        "conversation": {
-            "list": []
-        },
         "plugin": {
             "list": []
         },
@@ -80,7 +70,38 @@
                 {
                     "id": -1,
                     "name": "db guide",
-                    "pathName": "pages/databaseGuide/databaseGuide"
+                    "pathName": "pages/databaseGuide/databaseGuide",
+                    "query": ""
+                },
+                {
+                    "name": "课表",
+                    "pathName": "pages/curriculum/curriculum",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "修改课程",
+                    "pathName": "pages/curriculum/addcurriculum/addcurriculum",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "个人信息",
+                    "pathName": "pages/myself/myself",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "番茄时钟",
+                    "pathName": "pages/tomato/index/index",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "echart_demo",
+                    "pathName": "pages/tomato/text/text",
+                    "query": "",
+                    "scene": null
                 }
             ]
         }

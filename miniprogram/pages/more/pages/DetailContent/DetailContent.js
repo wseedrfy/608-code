@@ -18,14 +18,15 @@ Page({
     ShowReplyComment:0,
     ReplyCom_input:"",
     obtainIndex:0,
-    Starurl: "../../../images/zan1.png",
+    iconUrl: '',
+    Starurl: "../../../../images/zan1.png",
     Star_count: 0,
   },
   
   More: function () {
     var showEdit = this.data.showEdit
     var that = this
-    console.log("33333")
+
     if (showEdit) {
       this.setData({
         edit_style: "edit_hide"
@@ -320,7 +321,6 @@ Page({
     var Show = []
     let length = this.data.CommentList.length
     var copyList = JSON.parse(JSON.stringify(this.data.CommentList))
-    let content = this.data.content;
     for (let i = 0; i < this.data.CommentList.length; i++) {
       if (copyList[i].replyList) {
         var replylen = copyList[i].replyList.length
@@ -344,9 +344,15 @@ Page({
         replyList: copyList[i].replyList
       })
     }
-    console.log(Show,"打印show看看");
-    app.globalData.Comment = this.data.CommentList
-    console.log("app.globalData.Comment", app.globalData.Comment)
+
+    app.globalData.allList.forEach(e => {
+      if(e){
+        if (e._id === this.data.CardID) {
+          console.log(233)
+          e.CommentList = this.data.CommentList
+        }
+      }
+    })
     this.setData({
       ShowList: Show,
       CommentNum: length,
@@ -393,12 +399,9 @@ Page({
       },
       complete: res => {
         // this.data.Star = res
-        app.globalData.Star_User=res.result.data[0].Star_User
-        app.globalData.Star_count = res.result.data[0].Star
         this.data.CommentList = res.result.data[0].CommentList
         this.data.Star_User = res.result.data[0].Star_User
         this.data.Star_count = res.result.data[0].Star_count
-        console.log("res.result.data[0].CommentList", this.data.CommentList)
         if (this.data.CommentList) {
           this.setData({
             content: content
@@ -425,12 +428,13 @@ Page({
       })
     }
     this.setData({
+      iconUrl: args.iconUrl,
       openusername:openusername
     })
     for(var i = 0;i<content.Star_User.length;i++){
       if(content.Star_User[i].username===openusername.username){
         that.setData({
-          Starurl: "../../../images/zan.png",
+          Starurl: "../../../../images/zan.png",
         })
       }
     }
@@ -470,7 +474,7 @@ Page({
         Starif = true
         Star_User.splice(Star_User.indexOf(openusername), 1)
         that.setData({
-        Starurl: "../../../images/zan1.png",
+        Starurl: "../../../../images/zan1.png",
       })
       wx.cloud.callFunction({   // 云函数更改点赞状态
         name: "CampusCircle",
@@ -503,15 +507,13 @@ Page({
     if (!Starif) {
       //push到username
       openusername.Star_time = new Date().getTime()
-      console.log(this.data.content);
-
       Star_User.push(openusername)
         wx.showToast({
           title: '点赞成功',
           icon: "none"
         })
         that.setData({
-          Starurl: "../../../images/zan.png",
+          Starurl: "../../../../images/zan.png",
         })
         var Star_count = Star_User.length
         wx.cloud.callFunction({
@@ -536,8 +538,15 @@ Page({
           }
         })
     }
-    app.globalData.Star_count =  Star_User.length
-    app.globalData.Star_User = Star_User
+    app.globalData.allList.forEach(e => {
+      if(e){
+        if (e._id === this.data.CardID) {
+          e.Star =  Star_User.length
+          e.Star_User = Star_User
+        }
+      }
+    })
+
   },
   onShow: function () {
     this.ShowComment()
