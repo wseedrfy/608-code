@@ -54,12 +54,13 @@
     <view style="z-index: -1; " bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd">
 
       <!-- 没有课时 -->
-      <scroll-view class="kbScroll" enhanced="{{true}}" bounces="{{false}}" show-scrollbar="{{false}}" wx:if="{{wlist.length == 0}}" scroll-y="{{true}}" style="height: {{kbHeight}}rpx;">
+      <scroll-view class="kbScroll" enhanced="{{true}}" bounces="{{false}}" show-scrollbar="{{false}}" wx:if="{{wlist.length == 0}}" scroll-y="{{true}}" style="height: {{kbHeight}}px;">
         <!-- image背景图片 -->
-        <image src="{{backgroundUrl}}" class="backgroundUrl" mode="aspectFill" style="height: {{kbHeight}}rpx;"></image>
+        <image src="{{backgroundUrl}}" class="backgroundUrl" mode="aspectFill" style="height: {{kbHeight}}px;"></image>
 
-        <view class="timeTableBox">
-          <view class="timetable">
+        <!-- 当kbScroll高度超过693时，则给左侧时间栏高度kbScroll -->
+        <view class="timeTableBox" style="height: {{kbHeight > 693 ? kbHeight : ''}}px;">
+          <view class="timetable" style="height: {{kbHeight > 693 ? kbHeight : ''}}px;">
             <view style="z-index: 1;">
               <!-- 遮罩层 - 为修复 fixed 与 scroll-view 不兼容问题 -->
               <view class="curriLeft_background"></view>
@@ -75,12 +76,12 @@
       </scroll-view>
       
       <!-- 有课时 -->
-      <scroll-view enhanced="{{true}}" bounces="{{false}}" show-scrollbar="{{false}}" class="kbScroll" wx:if="{{wlist.length != 0}}" scroll-y="{{true}}" style="height: {{kbHeight}}rpx;" >
+      <scroll-view enhanced="{{true}}" bounces="{{false}}" show-scrollbar="{{false}}" class="kbScroll" wx:if="{{wlist.length != 0}}" scroll-y="{{true}}" style="height: {{kbHeight}}px;" >
         <!-- image背景图片 -->
-        <image src="{{backgroundUrl}}" class="backgroundUrl" mode="aspectFill" style="height: {{kbHeight}}rpx;"></image>
+        <image src="{{backgroundUrl}}" class="backgroundUrl" mode="aspectFill" style="height: {{kbHeight}}px;"></image>
         <!-- 套一个盒子 timeTableBox -->
-        <view class="timeTableBox">
-          <view class="timetable">
+        <view class="timeTableBox" style="height: {{kbHeight > 693 ? kbHeight : ''}};">
+          <view class="timetable" style="height: {{kbHeight > 693 ? kbHeight : ''}}px;">
             <view style="z-index: 1;">
               <!-- 遮罩层 - 为修复 fixed 与 scroll-view 不兼容问题 -->
               <view class="curriLeft_background"></view>

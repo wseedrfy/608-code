@@ -3,32 +3,32 @@
 <view class="container">
   <view class="mask" style=" height: {{statusBarHeight + lineHeight + 320}}px; {{theme ? '  background-image: linear-gradient( #a5e6ff , #88d5f3); ': ''}}"></view>
   <view class="mask2" style="top: {{statusBarHeight + lineHeight + 320}}px; {{theme ? '  background-image: linear-gradient(  #93d7f1, #f6f6f6);' : ''}}"></view>
-  <view class="head">
+  <view class="head" style="  background-image: {{dark == 'dark'? 'linear-gradient( #fff , #fff) ' : theme ? 'linear-gradient( #a5e6ff , #b4e6fb) ':  'linear-gradient( #f6f6f6 , #f6f6f6)'}};">
     <!-- 状态栏 -->
     <view style="  height: {{statusBarHeight}}px;"></view>
 
     <!-- 导航栏 -->
-    <view style="height: {{lineHeight}}px;  justify-content: center;flex-direction: row; display: flex; align-items: center;">
-      <switch checked="{{theme}}" bindchange="switch1Change" color="#88d5f3" style="position: absolute; left: 20rpx; font-size: 30rpx;"></switch>
+    <view style="width:750rpx; height: {{lineHeight}}px;  justify-content: center;flex-direction: row; display: flex; align-items: center;">
+      <switch checked="{{theme}}" bindchange="switch1Change" color="{{dark == 'dark' ? '#000' : '#88d5f3'}}" style="position: absolute; left: 20rpx; font-size: 30rpx;"></switch>
       <view style="height: 18rpx;"></view>
 
       <text class="weSchool">We校园</text>
 
     </view>
   </view>
-  <view class="adContainer">
-    <ad unit-id="adunit-f9948326373ca9ac" bindclose="adClose" style="{{adHidden?'display: none !important':''}}"></ad>
+  <view class="adContainer" style="padding-top: {{statusBarHeight + lineHeight}}px;">
+    <ad unit-id="adunit-f9948326373ca9ac"></ad>
   </view>
 
   <!-- 弹窗 -->
-  <view class="dialogAdd" style="display: {{activityDialog.status == 0 ? 'flex' : 'none'}}; background-image: url({{activityDialog.dialogAdd_bgc}});width: {{activityDialog.width}}rpx;height: {{activityDialog.height}}rpx;" animation="{{slideupshow}}">
+  <view class="dialogAdd" style=" display: {{activityDialog.status == 0 ? 'flex' : 'none'}}; background-image: url({{activityDialog.dialogAdd_bgc}});width: {{activityDialog.width}}rpx;height: {{activityDialog.height}}rpx;" animation="{{slideupshow}}">
     <!-- 点击参与按钮 bindtap:activity 在动态JS里 -->
     <view class="dialogAdd_btn" style="background-image: url({{activityDialog.dialogAdd_btn.picUrl}});width: {{activityDialog.dialogAdd_btn.width}}rpx;height: {{activityDialog.dialogAdd_btn.height}}rpx;top: {{activityDialog.dialogAdd_btn.top*1.82}}rpx;left: {{activityDialog.dialogAdd_btn.left*1.82}}rpx;" bindtap="activity"></view>
     <!-- 点击关闭 bindtap:closeDialogAdd 在动态JS里 -->
     <view class="dialogAdd_close" style="background-image: url({{activityDialog.dialogAdd_close.picUrl}}); width: {{activityDialog.dialogAdd_close.width}}rpx; height: {{activityDialog.dialogAdd_close.height}}rpx; top: {{activityDialog.dialogAdd_close.top}}rpx;left: {{activityDialog.dialogAdd_close.left}}rpx;" bindtap="closeDialogAdd"></view>
   </view>
 
-  <view style="margin-left:20rpx; margin-top: 10rpx;">
+  <view style=" margin-left:20rpx; margin-top: 10rpx;">
     <iconBar iconList="{{iconList}}"></iconBar>
   </view>
   <!-- 通知拦 -->
@@ -70,12 +70,13 @@
 
   <!-- 其他功能 -->
   <view class="other">
-    <view class="countdown">
+
+    <view class="countdown" style="border-color:{{theme ?' rgba(135,206,235, 0.13)': '#fcfbfb'}};">
 
       <view class="wx-remind-mask">
         <view class="otherkp">
           <view>
-            <view style="height: 130rpx; display: flex; justify-content: center;width: 180rpx; font-size: 92rpx; color: #c5ddbc;">xx<text style="margin-top:50rpx; font-size: 30rpx">天</text></view>
+            <view class="kpt">xx<text style="margin-top:50rpx; font-size: 30rpx">天</text></view>
           </view>
         </view>
         <view class="zt">
@@ -89,23 +90,22 @@
         </view>
       </view>
     </view>
-    <view class="countdown">
+    <view class="countdown" style="border-color:{{theme?' rgba(135,206,235, 0.13)': '#fcfbfb'}};">
 
       <view class="wx-remind-mask">
-        <view style="position: absolute; margin-left: 170rpx; margin-top:75rpx">
-          <view>
-
-
-            <view style="height: 130rpx; display: flex; justify-content: center;width: 180rpx; font-size: 50rpx; color: #c5ddbc;">未打卡</view>
-          </view>
-        </view>
         <view class="zt">
           打卡
-          <view style="font-size: 24rpx; color: #a9a9a9; margin-top:40rpx">
-            2022-03-03
+          <view style="font-size: 24rpx; color: #a9a9a9; margin-top:10rpx">
+            今日任务（dsd行
+            <text style="color: #35e6f3;"> 未打卡</text>
           </view>
-          <view style="font-size: 24rpx;color: #a9a9a9; ">
-            星期6
+          <view style="font-size: 24rpx; color: #a9a9a9; margin-top:10rpx">
+            今日任务倒时（撒打... 
+            <text style="color: #35e6f3;"> 未计时</text>
+          </view>
+          <view style="font-size: 24rpx; color: #a9a9a9; margin-top:10rpx">
+            今日任务倒时（好是... 
+            <text style="color: #4afa61;"> 20分钟</text>
           </view>
         </view>
       </view>

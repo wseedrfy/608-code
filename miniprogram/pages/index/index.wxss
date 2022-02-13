@@ -7,13 +7,20 @@ page{
 .adContainer {
   margin-left: 21rpx;
   width: 94%;
-  background-color: #f6f6f6;
+  /* background-color: #f6f6f6; */
   
+}
+.head{
+  position: fixed;
+  z-index: 2;
+  /* background-image: linear-gradient(#b5e9fd , #b4e6fb); */
 }
 .weSchool{
   color: #164870;
 }
-
+.kpt{
+  height: 130rpx; display: flex; justify-content: center;width: 180rpx; font-size: 92rpx; color: #c5ddbc;
+}
 .mask{
 
   position: absolute;
@@ -239,16 +246,15 @@ page{
 }
 .countdown{
   border-style: solid;
-  border-color: rgba(135,206,235, 0.13);
-  width: 47.5%;
-  margin-right: 5rpx;
+  width: 45.8%;
+  margin-right: 15rpx;
   background-color: rgba(255,255,255,0.6);
   border-radius: 20rpx;
   height: 200rpx;
 }
 
 .other{
-  margin-top: 12rpx;
+  margin-top: 17rpx;
   border-radius: 20rpx;
   margin-left: 20rpx;
   display: flex;
@@ -303,5 +309,9 @@ page{
 
   .wx-remind-title{
     filter: invert(90%) !important;
+  }
+
+  .kpt{
+     color: #49a8a5;
   }
 }

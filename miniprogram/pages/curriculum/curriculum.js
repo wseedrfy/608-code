@@ -145,17 +145,20 @@ Page({
   },
   onLoad: function (options) {
     var courseTime = wx.getStorageSync('args').courseTime;
-    let windowHeight = wx.getSystemInfoSync().windowHeight;
-    let kbHeight = (windowHeight*2) - (this.data.statusBarHeight + this.data.lineHeight)*2 - 77
+
+    let windowHeight = wx.getSystemInfoSync().windowHeight
+    let width = wx.getSystemInfoSync().windowWidth;
+    // 屏幕高度 - (状态栏 + 头部) - 周次
+    // +2 是为适配边框
+    let kbHeight = (windowHeight - (this.data.lineHeight + this.data.statusBarHeight) - 80*(width/750))+2;
+
     this.kb(util.getweekString());
     this.setData({
       weekNow: util.getweekString(),
       courseTime: courseTime? courseTime : that.data.courseTime,
-      rightHeight:(this.data.statusBarHeight + this.data.lineHeight)*2 + 1276 + 77,
       kbHeight
     })
-    console.log(kbHeight);
-    console.log(this.data.rightHeight);
+    console.log(`课表滑动区域高度：${kbHeight}px`);
     // 从本地缓存获取backgroundUrl
     let fileUrl = wx.getStorageSync('curriBgc');
     let that = this;

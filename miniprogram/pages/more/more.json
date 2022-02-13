@@ -1,6 +1,8 @@
 {
   "usingComponents": {
-    "campusCards": "../../components/campusCards/campusCards"
+    "campusCards": "../../components/campusCards/campusCards",
+    "loveCards": "../../components/loveCards/loveCards",
+    "TabScroll": "../../components/TabScroll/TabScroll"
   },
   "navigationStyle":"custom",
   "enablePullDownRefresh": true

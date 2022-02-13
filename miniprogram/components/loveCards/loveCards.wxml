@@ -1,0 +1,39 @@
+<wxs module="m1">
+  var getStar = function (item, openusername) {
+    var starSrc = '../../images/zan1.png'
+    if (item.Star_User) {
+      item.Star_User.forEach(function (e) {
+
+        if (e.username === openusername.username) {
+          starSrc = '../../images/zan.png'
+        }
+
+      })
+    }
+
+    return starSrc;
+  }
+  module.exports.getStar = getStar;
+</wxs>
+
+<view class="pic" bindtap="ShowContent">
+  <image class="Show_Image" lazy-load src='{{item.Cover}}' mode="aspectFill" style="height: {{item.ShowHeight > 500 ? 500+'rpx':item.ShowHeight+'rpx'}};" binderror="binderrorimg" bindload='onLazyLoad'></image>
+  <view>
+    <span class="pic_Title">
+     <text class="text_title">哈哈哈</text>
+    </span>
+    <image src="{{item.iconUrl}}" class="text_user" />
+    <span class="text_username">{{item.nickName}}</span>
+    <div class="comment">
+      <div style="margin-right:6px;">
+
+        <image src="{{m1.getStar(item,openusername)}}" catchtap="getStar_card" class="commentImg" data-index="{{index}}" />
+        <span class="commentNum">{{item.Star_User?item.Star_User.length:0}}</span>
+      </div>
+      <div style="margin-right:6px;">
+        <image src="../../images/comment.png" class="commentImg" />
+        <span class="commentNum">{{item.CommentList?item.CommentList.length:0}}</span>
+      </div>
+    </div>
+  </view>
+</view>

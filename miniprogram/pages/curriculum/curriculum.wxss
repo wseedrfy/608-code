@@ -467,6 +467,7 @@ button {
   animation: add_hide .5s;
 }
 .timeTableBox {
+  /* height: 100vh; */
   /* position:sticky; */
   background-color: #fff;
 }
