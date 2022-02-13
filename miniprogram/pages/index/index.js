@@ -113,5 +113,10 @@ Page({
       url: '../tomato/index/index',
     })
   },
+  daka(){
+    wx.navigateTo({
+      url: '../testdaka/index/index',
+    })
+  },
   
 })

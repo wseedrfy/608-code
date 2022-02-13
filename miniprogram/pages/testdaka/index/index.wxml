@@ -1,2 +1,113 @@
-<!--pages/testdaka/index/index.wxml-->
-<text>pages/testdaka/index/index.wxml</text>
+<view class="bg">
+
+<view class="dayclock">
+     <view class="dayclock_title">
+         <view class="dayclock_column"><image class="dayclock_column_left" src="../images/tishi.png"></image></view>
+         <view class="dayclock_column"><view class="dayclock_column_center">我的每日打卡</view></view>
+         <view class="dayclock_column"><image class="dayclock_column_right" src="../images/tianjia.png"></image></view>
+     </view>
+     <view class="dayclock_data"><view class="border">
+         <view class="dayclock_data_column_1">
+              <view class="dayclock_data_slide">
+                    <image class="dayclock_data_slide_image" src="../images/right.png"></image>
+              </view>
+         </view>
+         <view class="dayclock_data_column_2">
+              <view class="dayclock_data_column_2_task">看电视剧</view>
+              <view class="dayclock_data_column_2_cycle">
+                   <view class="dayclock_data_column_2_cycle_week">周一、周二、周三、周四、周五</view>
+                   <view class="dayclock_data_column_2_cycle_time">6：00-8：00</view>
+                   
+              </view>
+         </view>
+         <view class="dayclock_data_column_3"><view class="dayclock_data_column_text">待完成</view></view>
+     </view></view>
+     <view class="dayclock_data"><view class="border">
+         <view class="dayclock_data_column_1">
+              <view class="dayclock_data_slide" style="background-color: #EDD68B;">
+                    <image class="dayclock_data_slide_image" src="../images/right.png"></image>
+              </view>
+         </view>
+         <view class="dayclock_data_column_2">
+              <view class="dayclock_data_column_2_task">看电视剧</view>
+              <view class="dayclock_data_column_2_cycle">
+                   <view class="dayclock_data_column_2_cycle_week">周一、周二、周三、周四、周五</view>
+                   <view class="dayclock_data_column_2_cycle_time">6：00-8：00</view>
+                   
+              </view>
+         </view>
+         <view class="dayclock_data_column_3"><view class="dayclock_data_column_text">待补签</view></view>
+     </view></view>
+     <view class="dayclock_data"><view class="border">
+         <view class="dayclock_data_column_1">
+               <image class="dayclock_data_slide_image" src="../images/complete.png" style="margin-right:14rpx ;"></image>
+         </view>
+         <view class="dayclock_data_column_2">
+              <view class="dayclock_data_column_2_task">看电视剧</view>
+              <view class="dayclock_data_column_2_cycle">
+                   <view class="dayclock_data_column_2_cycle_week">周一、周二、周三、周四、周五</view>
+                   <view class="dayclock_data_column_2_cycle_time">6：00-8：00</view>
+                   
+              </view>
+         </view>
+         <view class="dayclock_data_column_3"><view class="dayclock_data_column_text">待完成</view></view>
+     </view></view>
+     <view class="dayclock_bottom"></view>
+</view>
+<view class="dayclock" >
+     <view class="dayclock_title">
+         <view class="dayclock_data_column_1"><image class="dayclock_column_left" src="../images/tishi.png"></image></view>
+         <view class="dayclock_data_column_2"><view class="dayclock_column_center">我参与的小组打卡</view></view>
+         <view class="dayclock_data_column_3">
+              <image class="dayclock_column_right_more" src="../images/more.png"></image>
+              <image class="dayclock_column_right" src="../images/tianjia.png"></image>         
+         </view>
+     </view>
+     <view class="dayclock_data"><view class="border">
+         <view class="dayclock_data_column_1">
+              <view class="dayclock_data_slide">
+                    <image class="dayclock_data_slide_image" src="../images/right.png"></image>
+              </view>
+         </view>
+         <view class="dayclock_data_column_2">
+              <view class="dayclock_data_column_2_task">看电视剧</view>
+              <view class="dayclock_data_column_2_cycle">
+                   <view class="dayclock_data_column_2_cycle_week">周一、周二、周三、周四、周五</view>
+                   <view class="dayclock_data_column_2_cycle_time">6：00-8：00</view>
+                   
+              </view>
+         </view>
+         <view class="dayclock_data_column_3"><view class="dayclock_data_column_text">待完成</view></view>
+     </view></view>
+     <view class="dayclock_bottom"></view>
+</view>
+<view class="dayclock" >
+     <view class="dayclock_title">
+         <view class="dayclock_data_column_1"><image class="dayclock_column_left" src="../images/tishi.png"></image></view>
+         <view class="dayclock_data_column_2"><view class="dayclock_column_center">我监督的小组打卡</view></view>
+         <view class="dayclock_data_column_3">
+               <image class="dayclock_column_right_more" src="../images/more.png"></image>
+               <image class="dayclock_column_right" src="../images/tianjia.png"></image>
+         </view>
+     </view>
+     <view class="dayclock_data"><view class="border">
+         <view class="dayclock_data_column_1">
+              <view class="dayclock_data_slide">
+                    <image class="dayclock_data_slide_image" src="../images/right.png"></image>
+              </view>
+         </view>
+         <view class="dayclock_data_column_2">
+              <view class="dayclock_data_column_2_task">看电视剧</view>
+              <view class="dayclock_data_column_2_cycle">
+                   <view class="dayclock_data_column_2_cycle_week">周一、周二、周三、周四、周五</view>
+                   <view class="dayclock_data_column_2_cycle_time">6：00-8：00</view>
+                   
+              </view>
+         </view>
+         <view class="dayclock_data_column_3"><view class="dayclock_data_column_text">待完成</view></view>
+     </view></view>
+     <view class="dayclock_bottom"></view>
+</view>
+
+</view>
+

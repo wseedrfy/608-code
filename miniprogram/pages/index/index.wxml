@@ -111,6 +111,9 @@
       </view>
     </view>
   </view>
-<view class="wx-remind-detail" bindtap="tomato"><text>test</text></view>
+  <!-- 测试用，不要删 -->
+<!-- <view class="wx-remind-detail" bindtap="tomato"><text>test1</text></view>
+<view class="wx-remind-detail" bindtap="daka"><text>test2</text></view> -->
+
 
 </view>
