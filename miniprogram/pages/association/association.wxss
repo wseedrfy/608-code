@@ -62,7 +62,7 @@ page {
 }
 .asso_wrap .mess_item {
   padding: 24rpx;
-  border-bottom: 1rpx solid #c0c0c0;
+  border-bottom: 1rpx solid #dfdfdf;
   margin-left: 12rpx;
   margin-right: 12rpx;
   border-radius: 24rpx;
@@ -80,51 +80,62 @@ page {
   font-weight: 600;
 }
 .asso_wrap .mess_item .mess_wrap .mess {
+  padding: 12rpx;
   padding-left: 24rpx;
   flex: 3;
   color: #858585;
+  background-color: #eeeeee;
+  border-radius: 24rpx;
+  justify-content: center;
+  align-items: center;
 }
 .asso_wrap .bt_list {
-  display: flex;
-  flex-direction: column;
-  margin: 24rpx;
+  font-size: 32rpx;
   padding: 24rpx;
-  border-bottom: 1rpx solid #c0c0c0;
-  margin-left: 12rpx;
-  margin-right: 12rpx;
-  border-radius: 24rpx;
-  margin-top: 24rpx;
   background-color: white;
-  font-size: 34rpx;
-}
-.asso_wrap .bt_list .new_bt {
-  background-color: #4a6f94;
-  text-align: center;
-  margin-left: 24rpx;
-  margin-right: 24rpx;
-  border-radius: 24rpx;
-  padding: 8rpx;
-  color: white;
-}
-.asso_wrap .bt_list .act_bt {
-  text-align: center;
-  background-color: #538b53;
   margin-top: 24rpx;
-  margin-left: 24rpx;
-  margin-right: 24rpx;
-  padding: 8rpx;
-  color: white;
+  border-radius: 24rpx;
+  border-top: 1rpx solid #dfdfdf;
+}
+.asso_wrap .bt_list .bt_title_wrap {
+  display: flex;
+  flex-direction: row;
+}
+.asso_wrap .bt_list .bt_title_wrap .bt_title {
+  flex: 3;
+  font-weight: 700;
+}
+.asso_wrap .bt_list .bt_title_wrap .bt_tip {
+  flex: 2;
+  color: #c7c7c7;
+}
+.asso_wrap .bt_list .bt_list_wrap {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  padding: 24rpx;
   border-radius: 24rpx;
 }
-.asso_wrap .bt_list .race_bt {
-  text-align: center;
-  margin-top: 24rpx;
-  margin-left: 24rpx;
-  margin-right: 24rpx;
-  border-radius: 24rpx;
-  background-color: #6f538b;
-  padding: 8rpx;
-  color: white;
+.asso_wrap .bt_list .bt_list_wrap .act_bt {
+  flex: 1;
+}
+.asso_wrap .bt_list .bt_list_wrap .act_bt image {
+  height: 120rpx;
+  width: 120rpx;
+}
+.asso_wrap .bt_list .bt_list_wrap .race_bt {
+  flex: 1;
+}
+.asso_wrap .bt_list .bt_list_wrap .race_bt image {
+  height: 120rpx;
+  width: 120rpx;
+}
+.asso_wrap .bt_list .bt_list_wrap .delete_bt {
+  flex: 1;
+}
+.asso_wrap .bt_list .bt_list_wrap .delete_bt image {
+  height: 120rpx;
+  width: 120rpx;
 }
 .asso_wrap .dele_list {
   display: flex;

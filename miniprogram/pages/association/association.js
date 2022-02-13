@@ -253,8 +253,10 @@ Page({
 
   // 跳转
   freshman(){
+    let assoMess=this.data.assoMess
+    assoMess=JSON.stringify(assoMess)
     wx.navigateTo({
-      url: '/pages/association/freshman/freshman',
+      url: '/pages/association/freshman/freshman?assoMess='+assoMess,
       success: (result)=>{
         
       },
