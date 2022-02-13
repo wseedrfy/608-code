@@ -20,6 +20,34 @@ Page({
     lineHeight: getApp().globalData.lineHeight,
     rectHeight: getApp().globalData.rectHeight,
     tabitem: [        // 标签
+      {
+        title: "全部" ,
+        type: 0,
+      },{
+        title: "开端👍",
+        type: 0,
+      },{
+        title: "日常",
+        type: 0,
+      },{
+        title: "晒出课表🤣",
+        type: 0,
+      },{
+        title: "树洞👂",
+        type: 0,
+      },{
+        title: "2022新年Flag🚩",
+        type: 0,
+      },{
+        title: "2021回顾◀",
+        type: 0,
+      },{
+        title: "三行情书❤️",
+        type: 0,
+      },{
+        title: "故事屋⭐️",
+        type: 0,
+      }
     ],
     loadMore: false,  // "上拉加载"的变量，默认false，隐藏  
     loadAll: false,   // "没有数据"的变量，默认false，隐藏 
@@ -571,9 +599,9 @@ Page({
         type: 0
       }
     }) : this.data.tabitem // that.data.tabitem是兜底数据
-    var menu = (this.data.tabitem.map(e => e.title)).splice(0, 1)
+    var menu = (this.data.tabitem.map(e => e.title)).splice(0, 1);
     // 默认选中第一个 “全部”
-    this.data.tabitem[0].type = 1
+    this.data.tabitem[0].type = 1;
     // 封号
     var campus_account = args.campus_account ? args.campus_account : false
     var describe = args.describe ? args.describe : false
