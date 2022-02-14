@@ -1,2 +1,17 @@
 <!--pages/testdaka/record/record.wxml-->
-<text>pages/testdaka/record/record.wxml</text>
+<form bindsubmit="existDaka">
+    <input name="task" placeholder="请输入今日任务~" />
+    <input name="startTime" placeholder="起始时间" />
+    <input name="endTime" placeholder="终止时间" />
+    <checkbox-group name="cycle">
+        <checkbox value="Monday">星期一</checkbox>
+        <checkbox value="Tuesday">星期二</checkbox>
+        <checkbox value="Wednesday">星期三</checkbox>
+    </checkbox-group>
+
+    <view>
+    <input name="lable1" placeholder="标签"/>
+    </view>
+    <button type="primary" form-type="submit">提交</button>
+    <button type="primary" form-type="reset">重置</button>
+</form>

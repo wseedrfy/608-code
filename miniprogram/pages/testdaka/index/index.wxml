@@ -1,2 +1,2 @@
 <!--pages/testdaka/index/index.wxml-->
-<text>pages/testdaka/index/index.wxml</text>
+<button type="primary" bindtap="allowDaka">打卡</button>

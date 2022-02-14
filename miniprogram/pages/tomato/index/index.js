@@ -167,7 +167,7 @@ Page({
                 //          logsa:res.data[0].logs
                 //      })
                 // })
-                //拿数据库的logs
+                //拿数据库的logs 
                 wx.cloud.database().collection("totaltime").where({username:username}).get().then(res=>{
                     let name = storageInfo.nickName
                     let touxiangurl = storageInfo.iconUrl

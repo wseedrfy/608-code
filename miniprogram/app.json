@@ -6,13 +6,13 @@
     },
     "pages": [
         "pages/index/index",
+        "pages/testdaka/index/index",
+        "pages/testdaka/record/record",
         "pages/curriculum/curriculum",
         "pages/more/more",
         "pages/myself/myself",
         "pages/test/test",
-        "pages/test1/test1",
-        "pages/testdaka/index/index",
-        "pages/testdaka/record/record"
+        "pages/test1/test1"
     ],
     "subPackages": [
         {

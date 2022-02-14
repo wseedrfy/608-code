@@ -1,4 +1,6 @@
 // pages/testdaka/index/index.js
+const db = wx.cloud.database();
+
 Page({
 
     /**
@@ -8,11 +10,29 @@ Page({
 
     },
 
+    
+
+    //获取当天时间，看是否可以打卡
+    allowDaka(res){
+        console.log(res);
+        var nowDate = new Date();
+        var day = nowDate.getDay();
+        //获取res的里面的关于打卡周期的信息
+        //查询daka_record表看cycle是否在里面
+        
+        
+        console.log(day);
+    },
+
+    //打卡
+    daka(){
+
+    },
+
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-
     },
 
     /**
