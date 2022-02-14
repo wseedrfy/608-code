@@ -1,2 +1,26 @@
 <!--pages/testdaka/record/record.wxml-->
-<text>pages/testdaka/record/record.wxml</text>
+<view class="bg">
+
+<view class="dakatop">
+    <view class="dakatop_box">
+        <image class="dakatop_box_image" src="../images/renwu.png"></image>
+        <input class="dakatop_box_input" type="text" placeholder="请输入打卡任务"/>
+    </view>
+    <view class="dakatop_box">
+        <image class="dakatop_box2_image" src="../images/dakatime.png"></image>
+        <view class="dakatop_box2_input">
+            <!-- <input class="dakatop_box2_input_left" type="time"/>
+            <image class="dakatop_box2_input_image"></image>
+            <input class="dakatop_box2_input_rigt" type="time"/> -->
+        </view>
+    </view>
+    <view class="dakatop_box2"></view>
+</view>
+<view class="dakacenter">
+    <view></view>
+    <view></view>
+</view>
+<view class="dakaconfirm"></view>
+<view class="dakacancel"></view>
+
+</view>

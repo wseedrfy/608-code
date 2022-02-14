@@ -4,7 +4,7 @@
      <view class="dayclock_title">
          <view class="dayclock_column"><image class="dayclock_column_left" src="../images/tishi.png"></image></view>
          <view class="dayclock_column"><view class="dayclock_column_center">我的每日打卡</view></view>
-         <view class="dayclock_column"><image class="dayclock_column_right" src="../images/tianjia.png"></image></view>
+         <view class="dayclock_column"><image class="dayclock_column_right" src="../images/tianjia.png" bindtap="add_task"></image></view>
      </view>
      <view class="dayclock_data"><view class="border">
          <view class="dayclock_data_column_1">
