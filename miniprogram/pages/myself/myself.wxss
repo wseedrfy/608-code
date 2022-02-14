@@ -185,7 +185,7 @@ page {
   align-items: center;
   width: 650rpx;
   height: 100rpx;
-  border-bottom: 1rpx solid rgb(122, 159, 204, 0.3);
+  /* border-bottom: 1rpx solid rgb(122, 159, 204, 0.0); */
 }
 .more_item:last-child {
   border-bottom: 0;

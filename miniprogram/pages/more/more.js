@@ -19,56 +19,41 @@ Page({
     statusBarHeight: getApp().globalData.statusBarHeight,
     lineHeight: getApp().globalData.lineHeight,
     rectHeight: getApp().globalData.rectHeight,
-    tabitem: [{ // 配置标签
-        title: "全部",
-        type: 0
-      },
+    tabitem: [        // 标签
       {
+        title: "全部" ,
+        type: 0,
+      },{
+        title: "开端👍",
+        type: 0,
+      },{
         title: "日常",
-        type: 0
-      },
-      {
-        title: "情墙",
-        type: 0
-      },
-      {
-        title: "学习",
-        type: 0
-      },
-      {
-        title: "地点",
-        type: 0
-      },
-      {
-        title: "二手",
-        type: 0
-      },
-      {
-        title: "社团",
-        type: 0
-      },
-      {
-        title: "拾领",
-        type: 0
-      },
-      {
-        title: "活动",
-        type: 0
-      },
-      {
-        title: "吐槽",
-        type: 0
-      },
-      {
-        title: "探店",
-        type: 0
+        type: 0,
+      },{
+        title: "晒出课表🤣",
+        type: 0,
+      },{
+        title: "树洞👂",
+        type: 0,
+      },{
+        title: "2022新年Flag🚩",
+        type: 0,
+      },{
+        title: "2021回顾◀",
+        type: 0,
+      },{
+        title: "三行情书❤️",
+        type: 0,
+      },{
+        title: "故事屋⭐️",
+        type: 0,
       }
     ],
-    loadMore: false, // "上拉加载"的变量，默认false，隐藏  
-    loadAll: false, // "没有数据"的变量，默认false，隐藏 
+    loadMore: false,  // "上拉加载"的变量，默认false，隐藏  
+    loadAll: false,   // "没有数据"的变量，默认false，隐藏 
 
-    allList: [], //列表的内容
-    current: 0, //单个第x张照片
+    allList: [],      // 列表的内容
+    current: 0,       // 单个第x张照片
     hideHidden: true,
     menu: [], // 发布栏的选择
     leftList: [], // 左列表
@@ -166,10 +151,12 @@ Page({
         wx.switchTab({
           url: "../myself/myself",
         });
+        break;
       default:
         wx.navigateTo({
           url: `pages/${url}/${url}`
         })
+        break;
     }
   },
 
@@ -568,18 +555,19 @@ Page({
     }
   },
 
-  setTab: function (e) {
-    var index = e.currentTarget.dataset.index
-    this.data.Label = this.data.tabitem[index].title
+  setTab: function (e) {            // 该函数仅在组件中调用
+    var index = e.detail.currentTarget.dataset.index;
+    this.data.Label = this.data.tabitem[index].title;
+    // 初始化 - 全部置零
     this.data.tabitem.forEach(element => {
       element.type = 0
     });
-    this.data.tabitem[index].type = 1
+    this.data.tabitem[index].type = 1;
     this.setData({
       tabitem: this.data.tabitem,
     })
     this.RightLeftSolution(true)
-    this.getData()
+    this.getData();
   },
 
   CalculateImage: function () {
@@ -611,9 +599,9 @@ Page({
         type: 0
       }
     }) : this.data.tabitem // that.data.tabitem是兜底数据
-    var menu = (this.data.tabitem.map(e => e.title)).splice(0, 1)
+    var menu = (this.data.tabitem.map(e => e.title)).splice(0, 1);
     // 默认选中第一个 “全部”
-    this.data.tabitem[0].type = 1
+    this.data.tabitem[0].type = 1;
     // 封号
     var campus_account = args.campus_account ? args.campus_account : false
     var describe = args.describe ? args.describe : false

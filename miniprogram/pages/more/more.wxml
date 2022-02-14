@@ -26,8 +26,7 @@
       <view class="newInfo">
         <image src="../../images/information.png" bindtap="navigate" id="NewInfo"></image>
         <!-- 消息提示 -->
-        <view class="newInfo_redPoint" catchtap="naviToNews" wx:if="{{NewInfo}}">
-          <!-- !!!!!!!!!!!!naviToNews没用 -->
+        <view class="newInfo_redPoint" id="NewInfo" catchtap="navigate" wx:if="{{NewInfo}}">
           <text>{{NewInfo}}</text>
         </view>
       </view>
@@ -40,13 +39,7 @@
 
   <view class="Line"></view>
   <!-- 标签 -->
-  <scroll-view scroll-x="true">
-    <view class="Choose_Label" scroll-x="true">
-      <view wx:for="{{tabitem}}" wx:key="index" class="Label-text {{item.type == 1?'activity':''}}" data-title="{{item.title}}" data-index="{{index}}" bindtap="setTab" name="formTabitem">
-        <view class="Label_limit">{{item.title}}</view>
-      </view>
-    </view>
-  </scroll-view>
+  <TabScroll type="校友圈标签" tabItem="{{tabitem}}" bind:setTab="setTab"></TabScroll>
   <view class="Line"></view>
   <!-- 页面主体 -->
   <scroll-view style="background-color: rgba(153, 153, 153, 0.11);">
@@ -54,13 +47,13 @@
 
       <view class="left" bindtap="leftDirection">
 
-        <view wx:for="{{leftList}}">
+        <view wx:for="{{leftList}}" wx:key="leftList">
           <loveCards wx:if="{{item.Title == '闲聊'}}" item="{{item}}" type="left" bind:ShowContent="getBackData" openusername="{{openusername}}" direction="{{direction}}"></loveCards>
           <campusCards wx:else="" item="{{item}}" type="left" bind:ShowContent="getBackData" openusername="{{openusername}}" direction="{{direction}}"></campusCards>
         </view>
       </view>
       <view class="right" bindtap="rightDirection">
-        <view wx:for="{{rightList}}">
+        <view wx:for="{{rightList}}" wx:key="rightList">
           <campusCards item="{{item}}" type="right" bind:ShowContent="getBackData" openusername="{{openusername}}" direction="{{direction}}"></campusCards>
         </view>
       </view>

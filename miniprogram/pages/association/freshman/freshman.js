@@ -10,12 +10,14 @@ Page({
     showModalStatus: false,
     add_content: "",
     sendStatus: false,//发布状态
+    date: null
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let assoMess = JSON.parse(options.assoMess)
     let res = wx.getStorageSync("args");
     count = Number(res.username)
     let school = res.school
@@ -29,11 +31,14 @@ Page({
             nickName: nickName,
             freshman: [],
             sendStatus: false,
+            assoMess: assoMess
           }
         }).then(res => {
           this.setData({
             freshman: [],
             sendStatus: false,
+            school: school,
+            assoMess: assoMess
           })
         })
       }
@@ -42,7 +47,14 @@ Page({
           this.setData({
             freshman: res.data[0].freshman,
             sendStatus: res.data[0].sendStatus,
-            imgUrl: res.data[0].imgUrl
+            imgUrl: res.data[0].imgUrl,
+            CoverHeight: res.data[0].CoverHeight,
+            CoverWidth: res.data[0].CoverWidth,
+            ShowHeight: res.data[0].ShowHeight,
+            school: school,
+            assoMess: assoMess,
+            date: res.data[0].date,
+            add_title: res.data[0].title
           })
         })
       }
@@ -196,33 +208,93 @@ Page({
   send() {
     let sendStatus = this.data.sendStatus
     if (sendStatus == false) {
-      wx.showModal({
-        title: '提示',
-        content: '确定发布',
-        showCancel: true,
-        cancelText: '取消',
-        cancelColor: '#000000',
-        confirmText: '确定',
-        confirmColor: '#3CC51F',
-        success: (result) => {
-          if (result.confirm) {
-            db.collection("associationMess").where({ count: count }).update({
-              data: {
-                sendStatus: true
-              }
-            }).then(res => {
-              this.setData({
-                sendStatus: true
-              })
-            })
-          }
-        },
-      });
+      if (this.data.date == null) {
+        wx.showModal({
+          title: '提示',
+          content: '设置截至时间',
+          showCancel: true,
+          cancelText: '取消',
+          cancelColor: '#000000',
+          confirmText: '确定',
+          confirmColor: '#3CC51F',
+          success: (result) => {
+            if (result.confirm) {
+
+            }
+          },
+        });
+      }
+      else {
+        wx.showModal({
+          title: '提示',
+          content: '确定发布',
+          showCancel: true,
+          cancelText: '取消',
+          cancelColor: '#000000',
+          confirmText: '确定',
+          confirmColor: '#3CC51F',
+          success: (result) => {
+            if (result.confirm) {
+              wx.showLoading({
+                title: "发布中...",
+                mask: true,
+                success: (result) => {
+                  wx.cloud.callFunction({
+                    name: "associationSend",
+                    data: {
+                      type: 0,
+                      AllPhoto: [this.data.imgUrl],
+                      // CommentList:null,
+                      Cover: this.data.imgUrl,
+                      CoverHeight: this.data.CoverHeight,
+                      CoverWidth: this.data.CoverWidth,
+                      // Label:'社团招新',
+                      School: this.data.school,
+                      ShowHeight: this.data.ShowHeight,
+                      // Star:null,
+                      // Star_User:null,
+                      // Text:null,
+                      // Time:Date.now(),
+                      Title: this.data.add_title,
+                      index: count + '社团'
+                      // iconUrl:null,
+                      // nickName:null,
+                      // username:null
+                    }
+                  }).then(res => {
+                    // console.log(res);
+                    db.collection("associationMess").where({ count: count }).update({
+                      data: {
+                        sendStatus: true
+                      }
+                    }).then(res => {
+                      wx.hideLoading();
+                      wx.showToast({
+                        title: '发布成功',
+                        icon: 'none',
+                        image: '',
+                        duration: 1500,
+                        mask: false,
+                        success: (result) => {
+
+                        },
+                      });
+                      this.setData({
+                        sendStatus: true
+                      })
+                    })
+                  })
+                },
+              });
+            }
+          },
+        });
+      }
     }
     else {
       wx.showModal({
         title: '提示',
-        content: '撤回发布问卷',
+        content: '撤回招新问卷',
         showCancel: true,
         cancelText: '取消',
         cancelColor: '#000000',
@@ -230,15 +302,32 @@ Page({
         confirmColor: '#3CC51F',
         success: (result) => {
           if (result.confirm) {
-            db.collection("associationMess").where({ count: count }).update({
-              data: {
-                sendStatus: false
-              }
-            }).then(res => {
-              this.setData({
-                sendStatus: false
-              })
-            })
+            wx.showLoading({
+              title: "撤回中...",
+              mask: true,
+              success: (result) => {
+                wx.cloud.callFunction({
+                  name: "associationSend",
+                  data: {
+                    type: 1,
+                    count: count
+                  }
+                }).then(res => {
+                  wx.showToast({
+                    title: '已撤回',
+                    icon: 'none',
+                    image: '',
+                    duration: 1500,
+                    mask: false,
+                    success: (result) => {
+                      this.setData({
+                        sendStatus: false
+                      })
+                    },
+                  });
+                })
+              },
+            });
           }
         },
       });
@@ -257,25 +346,39 @@ Page({
           filePath: res.tempFilePaths[0]
         }).then(res => {
           let imgUrl = res.fileID
-          db.collection("associationMess").where({ count: count }).update({
-            data: {
-              imgUrl: imgUrl
-            }
-          }).then(res => {
-            wx.showToast({
-              title: '上传成功',
-              icon: 'none',
-              image: '',
-              duration: 1500,
-              mask: false,
-              success: (result) => {
-                console.log('成功');
-                this.setData({
-                  imgUrl: imgUrl
-                })
-              },
-            });
-          })
+          // 计算图片
+          wx.getImageInfo({
+            src: imgUrl,
+            success: (res) => {
+              // console.log(res);
+              let CoverHeight = res.height + 'rpx'
+              let CoverWidth = res.width
+              let ShowHeight = res.height
+              db.collection("associationMess").where({ count: count }).update({
+                data: {
+                  imgUrl: imgUrl,
+                  CoverHeight,
+                  CoverWidth,
+                  ShowHeight
+                }
+              }).then(res => {
+                wx.showToast({
+                  title: '上传成功',
+                  icon: 'none',
+                  image: '',
+                  duration: 1500,
+                  mask: false,
+                  success: (result) => {
+                    console.log('成功');
+                    this.setData({
+                      imgUrl: imgUrl
+                    })
+                  },
+                });
+              })
+            },
+          });
+
         })
       },
     });
@@ -312,7 +415,79 @@ Page({
       this.uploadImg()
     }
   },
+  // 选择时间
+  changeDate(e) {
+    db.collection("associationMess").where({ count: count }).update({
+      data: {
+        date: e.detail.value
+      }
+    }).then(res => {
+      this.setData({
+        date: e.detail.value
+      })
+    })
+  },
+  // 招新标题
+  getTitle(e) {
+    this.setData({
+      add_title: e.detail.value
+    })
+  },
+  // 确认修改标题
+  add_title() {
+    if (this.data.add_title == "") {
+      wx.showToast({
+        title: '请输入标题',
+        icon: 'none',
+        image: '',
+        duration: 1500,
+        mask: false,
+        success: (result) => {
 
+        },
+      });
+    }
+    else if (this.data.sendStatus == true) {
+      wx.showModal({
+        title: '提示',
+        content: '发布后不可修改',
+        showCancel: true,
+        cancelText: '取消',
+        cancelColor: '#000000',
+        confirmText: '确定',
+        confirmColor: '#3CC51F',
+        success: (result) => {
+          if (result.confirm) {
+
+          }
+        },
+      });
+    }
+    else {
+      wx.showLoading({
+        title: "修改中",
+        mask: true,
+        success: (result) => {
+          db.collection("associationMess").where({ count: count }).update({
+            data: {
+              title: this.data.add_title
+            }
+          }).then(res => {
+            wx.showToast({
+              title: '修改成功',
+              icon: 'none',
+              image: '',
+              duration: 1500,
+              mask: false,
+              success: (result) => {
+                wx.hideLoading();
+              },
+            });
+          })
+        },
+      });
+    }
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成

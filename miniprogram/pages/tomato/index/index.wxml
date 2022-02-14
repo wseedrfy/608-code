@@ -16,7 +16,8 @@
      </view>
   </view>
     <view class="start" bindtap="start">开始专注</view>
-    <view class="start" bindtap="text">test</view>
+    <view class="start" bindtap="res">test</view>
+    <view class="start" bindtap="changeType">先这个</view>
     <view class="nav-head1">
        <view class="img-button feedback-btn" bindtap="statistics">
        <image src="../../../images/tomato/tongji.png"></image>

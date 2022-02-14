@@ -278,4 +278,15 @@ Page({
           url: '../text/text',
         })
     },
+    changeType: function(e) {
+            let username = wx.getStorageSync('args').username
+            wx.cloud.database().collection("totaltime").where({username:username}).get().then(res=>{
+                let logs = res.data[0].logs
+                //console.log(this.data.list)
+            })
+    },
+    res(res){
+        console.log(res)
+    },
+        
 })
