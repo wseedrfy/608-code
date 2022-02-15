@@ -110,7 +110,7 @@ Page({
   },
   tomato(){
     wx.navigateTo({
-      url: '../tomato/index/index',
+      url: '../association/association',
     })
   },
   daka(){

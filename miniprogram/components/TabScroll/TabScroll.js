@@ -39,10 +39,10 @@ Component({
                 if(SHUANG_ZI_JIE || DAN_ZI_JIE) {
                     tabItemLength[index] = SHUANG_ZI_JIE.length * 2 + DAN_ZI_JIE.length * 0.8 + Emoji.length * 0.8
                 }
-                console.log(Emoji,Emoji.length);
+
                 // 处理得到 underLine_width ------ 18是多次实验得到，30是内边距
                 underLine_width[index] = tabItemLength[index] * 18 + 28;
-                // console.log(underLine_width);
+
                 // 处理得到 underLine_left
                 const accumulate_Width = () => {
                     let accumulate_Width = 0;
@@ -52,7 +52,6 @@ Component({
                     return accumulate_Width;
                 }
                 underLine_left[index] = accumulate_Width();
-                // console.log(underLine_left,accumulate_Width());
             })
 
             this.setData({ 
@@ -70,7 +69,6 @@ Component({
             this.setData({
                 activeItem:e.currentTarget.dataset["index"],
             })
-            console.log(this.data.activeItem);
             this.triggerEvent("setTab", e)
         }
     }

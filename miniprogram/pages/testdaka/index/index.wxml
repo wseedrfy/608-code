@@ -1,5 +1,7 @@
-<view class="bg">
+<!-- 测试用 -->
+<!-- <button type="primary" bindtap="allowDaka">打卡</button> -->
 
+<view class="bg">
 <view class="dayclock">
      <view class="dayclock_title">
          <view class="dayclock_column"><image class="dayclock_column_left" src="../images/tishi.png"></image></view>
@@ -110,4 +112,3 @@
 </view>
 
 </view>
-

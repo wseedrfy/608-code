@@ -1,4 +1,5 @@
 <!--pages/testdaka/record/record.wxml-->
+<form bindsubmit="">
 <view class="bg">
 
 <view class="dakatop">
@@ -9,18 +10,72 @@
     <view class="dakatop_box">
         <image class="dakatop_box2_image" src="../images/dakatime.png"></image>
         <view class="dakatop_box2_input">
-            <!-- <input class="dakatop_box2_input_left" type="time"/>
-            <image class="dakatop_box2_input_image"></image>
-            <input class="dakatop_box2_input_rigt" type="time"/> -->
+            <view class="dakatop_box2_input_left">
+                <picker mode="time" value="{{starttime}}" bindchange="bindstattimeChange">
+                <view class="picker" placeholder="请输入开始时间">{{starttime}}</view>
+                </picker>
+            </view>
+            
+
+            <image class="dakatop_box2_input_image" src="../images/start_end.png"></image>
+
+            <view class="dakatop_box2_input_rigt">
+                <picker mode="time" value="{{endtime}}"  bindchange="bindendtimeChange">
+                <view class="picker2" placeholder="请输入结束时间">{{endtime}}</view>
+                </picker>    
+            </view>
+        
         </view>
     </view>
-    <view class="dakatop_box2"></view>
+    <view class="dakatop_box2">
+        <image class="dakatop_cycle_image" src="../images/cycle.png"></image>
+        <!-- <input class="dakatop_box_input" type="text" placeholder="请选择周期"></input> -->
+        <view class="dakatop_box2_cycle">
+            <checkbox-group name="cycle">
+                <label class="checkboxcycle" wx:for="{{cycleitems}}">
+                    <checkbox class="checkboxcycle" value="{{item.value}}">{{item.name}}</checkbox>
+                </label>
+            </checkbox-group> 
+        </view>
+    </view>
 </view>
 <view class="dakacenter">
-    <view></view>
-    <view></view>
+    <view class="dakatop_box">
+        <image class="dakatop_box_image" src="../images/biaoqian.png"></image>
+        <input class="dakatop_box_input" type="text" placeholder="请选择标签"/>
+        <image class="dakacenter_tag_image" src="../images/add.png"></image>
+        <image class="dakacenter_tag_image2" src="../images/selet.png"></image>
+    </view>
+    <view class="dakacenter_buttom">
+        <view class="dakacenter_buttom_topbox">
+            <image class="dakacenter_buttom_topbox_right" src="../images/hotrank.png"></image>
+            <view class="dakacenter_buttom_topbox_left">热度榜</view>
+        </view>
+        <view class="dakacenter_buttom_buttombox">
+            <view class="dakacenter_buttom_buttombox_tag"></view>
+            <view wx:for="{{items}}" data-id="{{index}}" class="checkbox{{item.checked?'checkedActive':''}}" bindtap='userCheck'>{{item.value}}</view>
+        </view>
+    </view>
 </view>
-<view class="dakaconfirm"></view>
-<view class="dakacancel"></view>
+<view class="dakaconfirm" ><button class="dakaconfirm_button" formType="submit">确定</button></view>
+<view class="dakacancel" bindtap="cancel">取消</view>
 
 </view>
+</form>
+
+<!-- <form bindsubmit="existDaka">
+    <input name="task" placeholder="请输入今日任务~" />
+    <input name="startTime" placeholder="起始时间" />
+    <input name="endTime" placeholder="终止时间" />
+    <checkbox-group name="cycle">
+        <checkbox value="Monday">星期一</checkbox>
+        <checkbox value="Tuesday">星期二</checkbox>
+        <checkbox value="Wednesday">星期三</checkbox>
+    </checkbox-group>
+
+    <view>
+    <input name="lable1" placeholder="标签"/>
+    </view>
+    <button type="primary" form-type="submit">提交</button>
+    <button type="primary" form-type="reset">重置</button>
+</form> -->
