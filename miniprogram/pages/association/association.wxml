@@ -27,6 +27,7 @@
             <view class="mess">{{item.detail}}</view>
         </view>
     </view>
+    <!-- 我的社团 -->
     <view class="bt_list">
         <view class="bt_title_wrap">
             <view class="bt_title">我的社团</view>
@@ -41,18 +42,44 @@
                 <image src="img/match.png" />
                 <view class="tip_content">赛事发布</view>
             </view>
+            <view class="delete_bt" >
+                <image src="img/change.png" />
+                <view class="tip_content">编辑资料</view>
+            </view>
             <view class="delete_bt" bind:tap="delete">
                 <image src="img/delete.png" />
                 <view class="tip_content">注销身份</view>
             </view>
         </view>
-        <!-- <view class="new_bt" bind:tap="clickme">活动发布</view> -->
-        <!-- <view class="act_bt" bind:tap="freshman">招新报名 ></view>
-        <view class="race_bt" bind:tap="match">赛事发布 ></view> -->
-        <!-- <view class="del_bt" bind:tap="delete">注销身份</view> -->
+        <view class="data_title_wrap">
+            <view class="data_title">社团数据</view>
+            <view class="data_tip">我的数据看板</view>
+        </view>
+        <view class="bt_list_wrap">
+            <view class="act_bt" >
+                <image src="img/freshman.png" />
+                <view class="tip_content">招新数据</view>
+            </view>
+            <view class="race_bt" >
+                <image src="img/match.png" />
+                <view class="tip_content">赛事反馈</view>
+            </view>
+            <view class="delete_bt" >
+                <image src="img/delete.png" />
+                <view class="tip_content">推广数据</view>
+            </view>
+            <view class="delete_bt">
+                <image src="img/delete.png" />
+                <view class="tip_content">创作中心</view>
+            </view>
+        </view>
     </view>
-    <!-- <view class="dele_list">
-        <view class="del_bt" bind:tap="delete">注销身份</view>
+    <!-- 数据 -->
+    <!-- <view class="data_wrap">
+        <view class="data_title_wrap">
+            <view class="data_title">我的数据</view>
+            <view class="data_tip">社团数据看报</view>
+        </view>
     </view> -->
 </view>
 <!-- 发布弹窗 -->

@@ -62,7 +62,6 @@ page {
 }
 .asso_wrap .mess_item {
   padding: 24rpx;
-  border-bottom: 1rpx solid #dfdfdf;
   margin-left: 12rpx;
   margin-right: 12rpx;
   border-radius: 24rpx;
@@ -88,6 +87,7 @@ page {
   border-radius: 24rpx;
   justify-content: center;
   align-items: center;
+  line-height: 32rpx;
 }
 .asso_wrap .bt_list {
   font-size: 32rpx;
@@ -96,6 +96,7 @@ page {
   margin-top: 24rpx;
   border-radius: 24rpx;
   border-top: 1rpx solid #dfdfdf;
+  margin: 12rpx;
 }
 .asso_wrap .bt_list .bt_title_wrap {
   display: flex;
@@ -104,10 +105,13 @@ page {
 .asso_wrap .bt_list .bt_title_wrap .bt_title {
   flex: 3;
   font-weight: 700;
+  font-size: 30rpx;
+  padding-left: 24rpx;
 }
 .asso_wrap .bt_list .bt_title_wrap .bt_tip {
   flex: 2;
   color: #c7c7c7;
+  font-size: 28rpx;
 }
 .asso_wrap .bt_list .bt_list_wrap {
   display: flex;
@@ -120,22 +124,37 @@ page {
   flex: 1;
 }
 .asso_wrap .bt_list .bt_list_wrap .act_bt image {
-  height: 120rpx;
-  width: 120rpx;
+  height: 100rpx;
+  width: 100rpx;
 }
 .asso_wrap .bt_list .bt_list_wrap .race_bt {
   flex: 1;
 }
 .asso_wrap .bt_list .bt_list_wrap .race_bt image {
-  height: 120rpx;
-  width: 120rpx;
+  height: 100rpx;
+  width: 100rpx;
 }
 .asso_wrap .bt_list .bt_list_wrap .delete_bt {
   flex: 1;
 }
 .asso_wrap .bt_list .bt_list_wrap .delete_bt image {
-  height: 120rpx;
-  width: 120rpx;
+  height: 100rpx;
+  width: 100rpx;
+}
+.asso_wrap .bt_list .data_title_wrap {
+  display: flex;
+  flex-direction: row;
+}
+.asso_wrap .bt_list .data_title_wrap .data_title {
+  flex: 3;
+  font-weight: 700;
+  font-size: 30rpx;
+  padding-left: 24rpx;
+}
+.asso_wrap .bt_list .data_title_wrap .data_tip {
+  flex: 2;
+  color: #c7c7c7;
+  font-size: 28rpx;
 }
 .asso_wrap .dele_list {
   display: flex;
