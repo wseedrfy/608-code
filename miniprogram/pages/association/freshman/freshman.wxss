@@ -79,6 +79,24 @@ page {
   color: #979797;
   border: 1rpx solid #979797;
 }
+.wrap .add_man_wrap {
+  padding: 24rpx;
+  font-size: 32rpx;
+  background-color: white;
+  margin: 24rpx;
+  border-radius: 24rpx;
+}
+.wrap .add_man_wrap .inp_wrap {
+  display: flex;
+  flex-direction: row;
+}
+.wrap .add_man_wrap .inp_wrap input {
+  font-weight: 700;
+  flex: 4;
+}
+.wrap .add_man_wrap .inp_wrap .add_title {
+  flex: 1;
+}
 .wrap .bt_wrap {
   padding: 48rpx;
 }
@@ -89,6 +107,17 @@ page {
   border-radius: 24rpx;
   padding: 6rpx;
   color: white;
+}
+.wrap .bt_wrap .changeTime {
+  text-align: center;
+  margin-left: 24rpx;
+  margin-right: 24rpx;
+  border-radius: 24rpx;
+  padding: 6rpx;
+  color: white;
+  margin-top: 24rpx;
+  font-size: 32rpx;
+  background-color: #c7ffa1;
 }
 /*使屏幕变暗  */
 .commodity_screen {

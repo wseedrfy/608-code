@@ -2,8 +2,57 @@
 const util = require('../../../utils/util.js')
 const app = getApp(); //全局变量
 
+import * as echarts from '../ec-canvas/echarts';
+function initChart(canvas, width, height, dpr) {
+  const chart = echarts.init(canvas, null, {
+    width: width,
+    height: height,
+    devicePixelRatio: dpr // new
+  });
+  canvas.setChart(chart);
+
+  var option = {
+    backgroundColor: "",
+    series: [{
+      label: {
+        normal: {
+          fontSize: 14
+        }
+      },
+      type: 'pie',
+      center: ['50%', '50%'],
+      radius: ['0%', '55%'],
+      data: 
+      // series_data
+      [{
+        value: 55,
+        name: '北京'
+      }, {
+        value: 20,
+        name: '武汉'
+      }, {
+        value: 10,
+        name: '杭州'
+      }, {
+        value: 20,
+        name: '广州'
+      }, {
+        value: 38,
+        name: '上海'
+      }]
+    }]
+  };
+
+  chart.setOption(option);
+  return chart;
+}
+
 Page({
     data: {
+        ecPie: {
+            onInit: initChart
+          },
+        navState: 0,//导航状态
         logsa:[{a:1},{b:2}],
         total:0,
         totalTime:0,
@@ -111,15 +160,10 @@ Page({
             //   console.log(that.data.storageInfo.username)
             },
             fail(err) {
-              console.log("失败失败失败");
+              console.log("学号获取失败失败失败");
             }
           });
-        //   let username = wx.getStorageSync('args').username 
-        //   wx.cloud.database().collection("totaltime").where({username:username}).get().then(res=>{
-        //     that.setData({
-        //          logsa:res.data[0].logs
-        //      })
-        //   });
+
     },
     updata(){
         wx.showLoading({
@@ -167,6 +211,13 @@ Page({
         }
         this.setData({
             activeIndex: index
+        })
+    },
+    navSwitch: function(e) {
+        //console.log(e.currentTarget.dataset)
+        let index = e.currentTarget.dataset.index;
+        this.setData({
+          navState:index
         })
     },
 })

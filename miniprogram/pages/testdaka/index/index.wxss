@@ -1,1 +1,128 @@
 /* pages/testdaka/index/index.wxss */
+.bg{
+    background-color:  #F4F4F4;
+    height: 100vh;
+    width: 100%;
+}
+.dayclock{
+    width: 690rpx;
+    height: auto;
+    background: #FFFFFF;
+    border-radius: 20rpx;
+    margin:0rpx 30rpx 20rpx 30rpx;
+    position: relative;
+    top: 20rpx;
+}
+.dayclock .dayclock_title{
+    width: 100%;
+    height: 109rpx;
+    border-bottom: 2rpx solid #E5E5E5;
+}
+.dayclock_bottom{
+    height: 30rpx;
+}
+.dayclock_column{
+    float: left;
+    width: 33.3%;
+    height: 100%;
+}
+.dayclock_column_left{
+    height: 40rpx;
+    width: 40rpx;
+    padding: 35rpx 0 35rpx 26rpx;
+
+}
+.dayclock_column_center{
+    padding: 35rpx 0;
+    text-align: center;
+    font-size: 32rpx;    
+    font-weight: 549;
+    color: #666666;
+}
+.dayclock_column_right{
+    height: 40rpx;
+    width: 40rpx;
+    padding: 35rpx 35rpx 35rpx 0;
+    float: right;
+}
+.dayclock_column_right_more{
+    height: 40rpx;
+    width: 40rpx;
+    padding: 35rpx 30rpx 35rpx 14rpx;
+}
+.dayclock_data{
+    position: relative;
+    height: 100rpx;
+    width: 100%;
+}
+.dayclock_data .border:after{
+        content: '';
+        position: absolute;
+        left: 30rpx;
+        bottom: 0;
+        height: 2rpx;
+        width: 630rpx;
+        background-color: #E5E5E5;
+}
+.dayclock_data_column_1{
+        float: left;
+        width: 21.9%;
+        height: 100rpx;
+}
+.dayclock_data_column_2{
+        float: left;
+        width: 55%;
+        height: 100rpx;
+}
+.dayclock_data_column_3{
+        float: left;
+        width: 22.9%;
+        height: 100rpx;
+}
+.dayclock_data_slide{
+        margin: 5rpx 0;
+        width: 145rpx;
+        height: 90rpx;
+        background: #74D5D3;
+        border-radius: 0px 45px 45px 0px;
+}
+.dayclock_data_slide_image{
+        float: right;
+        margin: 10rpx 10rpx 10rpx auto;
+        height: 70rpx;
+        width: 70rpx;
+}
+.dayclock_data_column_text{
+        font-size: 38rpx;
+        font-weight: 800;       
+        color: #EDD68B;
+        opacity: 0.47;
+        /* padding: 31rpx 0; */
+        /* height: 100rpx; */
+        line-height: 100rpx;
+        /* padding: 24rpx 0; */
+}
+.dayclock_data_column_2_task{
+    margin: 16rpx auto 0 22rpx;
+    font-size: 26rpx;
+    font-family: Source Han Sans CN;
+    font-weight: 500;
+    color: #666666;
+}
+.dayclock_data_column_2_cycle{
+    margin: 6rpx auto auto 22rpx;
+    font-size: 17rpx;
+    font-family: Source Han Sans CN;
+    font-weight: 500;
+    color: #666666;
+}
+.dayclock_data_column_2_cycle_week{
+     float: left;
+     width: auto;
+     padding-right: 20rpx;
+}
+.dayclock_data_column_2_cycle_time{
+    float: left;
+    width: auto;
+    
+}

@@ -167,7 +167,7 @@ Page({
                 //          logsa:res.data[0].logs
                 //      })
                 // })
-                //拿数据库的logs
+                //拿数据库的logs 
                 wx.cloud.database().collection("totaltime").where({username:username}).get().then(res=>{
                     let name = storageInfo.nickName
                     let touxiangurl = storageInfo.iconUrl
@@ -278,4 +278,15 @@ Page({
           url: '../text/text',
         })
     },
+    changeType: function(e) {
+            let username = wx.getStorageSync('args').username
+            wx.cloud.database().collection("totaltime").where({username:username}).get().then(res=>{
+                let logs = res.data[0].logs
+                //console.log(this.data.list)
+            })
+    },
+    res(res){
+        console.log(res)
+    },
+        
 })

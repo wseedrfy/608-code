@@ -107,6 +107,16 @@ Page({
     return {
       title: 'WE校园'
     }
-  }
+  },
+  tomato(){
+    wx.navigateTo({
+      url: '../association/association',
+    })
+  },
+  daka(){
+    wx.navigateTo({
+      url: '../testdaka/index/index',
+    })
+  },
   
 })

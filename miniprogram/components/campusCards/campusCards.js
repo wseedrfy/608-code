@@ -61,13 +61,13 @@ Component({
           icon: "none"
         })
       }
-      var Star_count = Star_User.length
+      var Star_count = Star_User.length;
       //点赞后对本地数据进行更新
       //点赞用户更新
-      content.Star_User = Star_User
+      content.Star_User = Star_User;
 
       //点赞用户数更新
-      content.Star = Star_count
+      content.Star = Star_count;
 
       let character = { // 处理得到点赞者信息
         userName: args.username,

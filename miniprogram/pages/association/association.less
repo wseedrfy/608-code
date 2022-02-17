@@ -37,10 +37,10 @@ page {
             }
 
             .rigth {
-                flex        : 3;
-                padding-left: 24rpx;
+                flex            : 3;
+                padding-left    : 24rpx;
                 background-color: rgb(238, 238, 238);
-                border-radius: 26rpx;
+                border-radius   : 26rpx;
             }
         }
 
@@ -78,19 +78,19 @@ page {
 
 .asso_wrap {
     .mess_item {
-        padding      : 24rpx;
-        border-bottom: 1rpx solid rgb(192, 192, 192);
-        margin-left  : 12rpx;
-        margin-right : 12rpx;
-        border-radius: 24rpx;
-        margin-top: 24rpx;
+        padding         : 24rpx;
+        // border-bottom   : 1rpx solid rgb(223, 223, 223);
+        margin-left     : 12rpx;
+        margin-right    : 12rpx;
+        border-radius   : 24rpx;
+        margin-top      : 24rpx;
         background-color: white;
 
         .mess_wrap {
             display       : flex;
             flex-direction: row;
             padding       : 6rpx;
-            font-size: 34rpx;
+            font-size     : 34rpx;
 
             .title {
                 flex       : 1;
@@ -98,74 +98,120 @@ page {
             }
 
             .mess {
-                padding-left: 24rpx;
-                flex        : 3;
-                color       : rgb(133, 133, 133);
+                padding         : 12rpx;
+                padding-left    : 24rpx;
+                flex            : 3;
+                color           : rgb(133, 133, 133);
+                background-color: #eeeeee;
+                border-radius   : 24rpx;
+                justify-content : center;
+                align-items     : center;
+                line-height: 32rpx;
             }
         }
     }
 
     .bt_list {
+        font-size       : 32rpx;
+        padding         : 24rpx;
+        background-color: white;
+        margin-top      : 24rpx;
+        border-radius   : 24rpx;
+        border-top      : 1rpx solid rgb(223, 223, 223);
+        margin: 12rpx;
+
+        .bt_title_wrap {
+            display       : flex;
+            flex-direction: row;
+
+            .bt_title {
+                flex       : 3;
+                font-weight: 700;
+                font-size: 30rpx;
+                padding-left: 24rpx;
+            }
+
+            .bt_tip {
+                flex : 2;
+                color: #c7c7c7;
+                font-size: 28rpx;
+            }
+        }
+
+        .bt_list_wrap {
+            display       : flex;
+            flex-direction: row;
+            text-align    : center;
+            padding       : 24rpx;
+            border-radius : 24rpx;
+
+            .act_bt {
+                flex: 1;
+
+                image {
+                    height: 100rpx;
+                    width : 100rpx;
+                }
+
+                .tip_content {}
+            }
+
+            .race_bt {
+                flex: 1;
+
+                image {
+                    height: 100rpx;
+                    width : 100rpx;
+                }
+
+                .tip_content {}
+            }
+            .delete_bt{
+                flex: 1;
+                image {
+                    height: 100rpx;
+                    width : 100rpx;
+                }
+
+                .tip_content {}
+            }
+        }
+        .data_title_wrap{
+            display: flex;
+            flex-direction: row;
+            .data_title{
+                flex: 3;
+                font-weight: 700;
+                font-size: 30rpx;
+                padding-left: 24rpx;
+            }
+            .data_tip{
+                flex: 2;
+                color: #c7c7c7;
+                font-size: 28rpx;
+            }
+        }
+
+    }
+
+    .dele_list {
         display       : flex;
         flex-direction: column;
-        margin: 24rpx;
-        padding      : 24rpx;
-        border-bottom: 1rpx solid rgb(192, 192, 192);
-        margin-left  : 12rpx;
-        margin-right : 12rpx;
-        border-radius: 24rpx;
-        margin-top: 24rpx;
-        background-color: white;
-        font-size: 34rpx;
+        padding-left  : 24rpx;
+        padding-right : 24rpx;
+        margin-left   : 12rpx;
+        margin-right  : 12rpx;
+        font-size     : 34rpx;
 
-        .new_bt {
-            background-color: #4a6f94;
+        .del_bt {
             text-align      : center;
+            margin-top      : 24rpx;
             margin-left     : 24rpx;
             margin-right    : 24rpx;
             border-radius   : 24rpx;
+            background-color: #b02e2e;
             padding         : 8rpx;
             color           : white;
-        }
-        .act_bt{
-            text-align: center;
-            background-color: #538b53;
-            margin-top: 24rpx;
-            margin-left: 24rpx;
-            margin-right: 24rpx;
-            padding: 8rpx;
-            color: white;
-            border-radius: 24rpx;
-        }
-        .race_bt{
-            text-align: center;
-            margin-top: 24rpx;
-            margin-left: 24rpx;
-            margin-right: 24rpx;
-            border-radius: 24rpx;
-            background-color: #6f538b;
-            padding: 8rpx;
-            color: white;
-        }
-        
-    }
-    .dele_list{
-        display       : flex;
-        flex-direction: column;
-        padding-left: 24rpx;
-        padding-right: 24rpx;
-        margin-left  : 12rpx;
-        margin-right : 12rpx;
-        font-size: 34rpx;
-        .del_bt{
-            text-align: center;
-            margin-top: 24rpx;
-            margin-left: 24rpx;
-            margin-right: 24rpx;
-            border-radius: 24rpx;
-            background-color: #b02e2e;
-            padding: 8rpx;
-            color: white;
         }
     }
 }
