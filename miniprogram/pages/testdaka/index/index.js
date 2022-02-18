@@ -16,8 +16,6 @@ Page({
         })
     },
 
-    
-
     // 获取当天时间，看是否可以打卡
     // 注意：当滑动时执行：故不用进行判断是否重复打卡
     allowDaka(res){
@@ -78,7 +76,7 @@ Page({
         return "根据任务日历，今日不可打卡"
     },
 
-    //打卡：打卡后记得把滑动键锁死，不让其动。避免再次触发打卡函数
+    //杰哥看这里：还未解决的问题：打卡后记得把滑动键锁死，不让其动。避免再次触发打卡函数
     daka(username, task){
         db.collection("daka_status").where({
             username:username,
@@ -92,6 +90,11 @@ Page({
         console.log('今日打卡成功！');
     },
 
+    //滑动删除
+    delDaka(res){
+        
+    },
+
     //获取数据交与页面渲染
     getDaka_record(){
         let username = wx.getStorageSync('args').username;
@@ -99,8 +102,8 @@ Page({
             username:username
         }).get().then(res=>{
             var data = res.data;
-            //语法问题1：如此返回wxml通过wx:for是否能获取的到
-            //还未处理的问题2：如何获取到打卡的状态然后一起返回
+            //杰哥看这里：语法问题1：如此返回wxml通过wx:for是否能获取的到
+            //杰哥看这里：还未处理的问题2：如何获取到打卡的状态然后一起返回
             return data;
         })
     },
