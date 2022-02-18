@@ -59,7 +59,6 @@
 </view>
 <view class="dakaconfirm" ><button class="dakaconfirm_button" formType="submit">确定</button></view>
 <view class="dakacancel" bindtap="cancel">取消</view>
-
 </view>
 </form>
 
