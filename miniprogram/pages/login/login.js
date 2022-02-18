@@ -14,28 +14,28 @@ Page({
     urls: []
   },
 
-  bindPickerChange: function(e) {
+  bindPickerChange: function (e) {
     var that = this
     this.setData({
       index: e.detail.value,
       url: that.data.urls[e.detail.value]
     })
     console.log(this.data.school[this.data.index])
-    if(this.data.school[this.data.index]=="游客登录"){
+    if (this.data.school[this.data.index] == "游客登录") {
       that.setData({
-        user:"guest",
-        pwd:"test"
+        user: "guest",
+        pwd: "test"
       })
-    }
-    else{
+    } else {
       that.setData({
-        user:"",
-        pwd:""
+        user: "",
+        pwd: ""
       })
     }
   },
 
   async onLoad() {
+
     wx.showLoading({
       title: '加载基础信息中',
       mask: true
@@ -44,20 +44,57 @@ Page({
     var that = this;
     var res = (await schoolLoading.where({}).get()).data
     res.forEach(e => {
-      if(e.schoolName !== '空'|"游客登录"){
+      if (e.schoolName !== '空' | "游客登录") {
         this.data.school.push(e.schoolName)
         this.data.urls.push(e.url)
       }
-      // else{
-      //   that.setData({
-      //     user:123,
-      //     pwd:"ssd"
-      //   })
-      // }
     })
 
-    this.setData({res: res, school: that.data.school});
-    wx.hideLoading()
+    this.setData({
+      res: res,
+      school: that.data.school
+    });
+    wx.hideLoading();
+    wx.getLocation({
+      type: 'wgs84',
+      success(res) {
+        const Rad =  (d)  => { //根据经纬度判断距离
+          return d * Math.PI / 180.0;
+        }
+        const getDistance = (lat1 = 0, lng1 = 0, lat2 = 0, lng2 = 0) => {
+          var radLat1 = Rad(lat1);
+          var radLat2 = Rad(lat2);
+          var a = radLat1 - radLat2;
+          var b = Rad(lng1) - Rad(lng2);
+          var s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) + Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)));
+          s = s * 6378.137;
+          s = Math.round(s * 10000) / 10000;
+          s = s.toFixed(2) //保留两位小数
+          // console.log('经纬度计算的距离:' + s)
+          return s
+        }
+        that.data.res.forEach(e => { e.distance = Number(getDistance(res.latitude, res.longitude, e.location ? e.location.latitude : 0, e.location ? e.location.longitude : 0))})
+        that.data.res.sort(function (a, b) { return a.distance - b.distance})
+        // that.data.res.reverse()
+        console.log(that.data.res)
+        that.data.school = []
+        that.data.urls = []
+        that.data.res.forEach(e => {
+          if (e.schoolName !== '空' | "游客登录") {
+            that.data.school.push(e.schoolName)
+            that.data.urls.push(e.url)
+          }
+        })
+        that.setData({
+          school: that.data.school
+        });
+      },
+      fail(res) {
+        console.log(res)
+      }
+    })
+
+
   },
 
   login: function (e) {
@@ -85,37 +122,37 @@ Page({
         console.log(that.data.school[that.data.index])
         app.globalData.school = that.data.school[that.data.index]
 
-          wx.cloud.callFunction({
-            name: 'api',
-            data: {
-              url: 'login',
-              username: that.data.user,
-              password: that.data.pwd,
-              nickName: res.userInfo.nickName, 
-              iconUrl: res.userInfo.avatarUrl,
-              school: that.data.school[that.data.index]
-            },
-            success: res => {
-              if (res.result.msg == "welcome") {
-                console.log(res.result)
-                wx.reLaunch({
-                  url: '/pages/index/index'
-                })
-              } else {
-                console.log(res.result)
-                wx.showToast({
-                  icon: 'none',
-                  title: res.result.msg,
-                })
-              }
-            },
-            fail: err => {
+        wx.cloud.callFunction({
+          name: 'api',
+          data: {
+            url: 'login',
+            username: that.data.user,
+            password: that.data.pwd,
+            nickName: res.userInfo.nickName,
+            iconUrl: res.userInfo.avatarUrl,
+            school: that.data.school[that.data.index]
+          },
+          success: res => {
+            if (res.result.msg == "welcome") {
+              console.log(res.result)
+              wx.reLaunch({
+                url: '/pages/index/index'
+              })
+            } else {
+              console.log(res.result)
               wx.showToast({
                 icon: 'none',
-                title: '校园网关闭或者服务器异常',
+                title: res.result.msg,
               })
             }
-          })
+          },
+          fail: err => {
+            wx.showToast({
+              icon: 'none',
+              title: '校园网关闭或者服务器异常',
+            })
+          }
+        })
 
       },
       fail: (res) => {

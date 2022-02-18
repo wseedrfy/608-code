@@ -69,7 +69,7 @@
   </view>
 
   <!-- 其他功能 -->
-  <view class="other">
+  <!-- <view class="other">
 
     <view class="countdown" style="border-color:{{theme ?' rgba(135,206,235, 0.13)': '#fcfbfb'}};">
 
@@ -110,7 +110,7 @@
         </view>
       </view>
     </view>
-  </view>
+  </view> -->
   <!-- 测试用，不要删 -->
 <!-- <view class="wx-remind-detail" bindtap="tomato"><text>test1</text></view>
 <view class="wx-remind-detail" bindtap="daka"><text>test2</text></view> -->
