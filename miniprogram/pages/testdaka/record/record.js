@@ -74,9 +74,8 @@ Page({
         .then(res=>{
             if(res.data.length != 0){
                 console.log(res);
-                //问题1：回调提示信息
-                //语法问题2：自动调用重置按钮
-                //问题：异步问题
+                //杰哥看这里：语法问题2：如何自动调用重置按钮（要清空之前填的，因为打卡任务重复了叫用户重新填）
+                //杰哥看这里：问题：如何将下面该语句返回
                 console.log('该任务已经存在，请重新设置');
             }else{
                 this.saveRecord(username, data)
