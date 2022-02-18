@@ -69,13 +69,14 @@ Page({
           var s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) + Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)));
           s = s * 6378.137;
           s = Math.round(s * 10000) / 10000;
-          s = s.toFixed(2) + '公里' //保留两位小数
-          console.log('经纬度计算的距离:' + s)
+          s = s.toFixed(2) //保留两位小数
+          // console.log('经纬度计算的距离:' + s)
           return s
         }
-        that.data.res.forEach(e => { e.distance = getDistance(res.latitude, res.longitude, e.location ? e.location.latitude : 0, e.location ? e.location.longitude : 0)})
-        that.data.res.sort(function (b, a) { return b.distance.localeCompare(a.distance, 'zh')})
-        that.data.res.reverse()
+        that.data.res.forEach(e => { e.distance = Number(getDistance(res.latitude, res.longitude, e.location ? e.location.latitude : 0, e.location ? e.location.longitude : 0))})
+        that.data.res.sort(function (a, b) { return a.distance - b.distance})
+        // that.data.res.reverse()
+        console.log(that.data.res)
         that.data.school = []
         that.data.urls = []
         that.data.res.forEach(e => {
