@@ -7,7 +7,7 @@
         <image class="dakatop_box_image" src="../images/renwu.png"></image>
         <input class="dakatop_box_input" type="text" placeholder="请输入打卡任务"/>
     </view>
-    <view class="dakatop_box">
+    <view class="dakatop_box1">
         <image class="dakatop_box2_image" src="../images/dakatime.png"></image>
         <view class="dakatop_box2_input">
             <view class="dakatop_box2_input_left">
@@ -42,7 +42,14 @@
 <view class="dakacenter">
     <view class="dakatop_box">
         <image class="dakatop_box_image" src="../images/biaoqian.png"></image>
-        <input class="dakatop_box_input" type="text" placeholder="请选择标签"/>
+        <!-- 选择标签 -->
+        <view class="dakatop_box_input_2"> 
+            <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+                <view class="{{ bqshuru==0?'meibq':'bqpicker'}}">
+                {{array[index]}}
+                </view>
+            </picker>
+        </view>
         <image class="dakacenter_tag_image" src="../images/add.png"></image>
         <image class="dakacenter_tag_image2" src="../images/selet.png"></image>
     </view>
@@ -52,7 +59,6 @@
             <view class="dakacenter_buttom_topbox_left">热度榜</view>
         </view>
         <view class="dakacenter_buttom_buttombox">
-            <view class="dakacenter_buttom_buttombox_tag"></view>
             <view wx:for="{{items}}" data-id="{{index}}" class="checkbox{{item.checked?'checkedActive':''}}" bindtap='userCheck'>{{item.value}}</view>
         </view>
     </view>

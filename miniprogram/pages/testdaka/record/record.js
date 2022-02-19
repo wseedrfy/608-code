@@ -23,13 +23,57 @@ Page({
             { name: '周六', value: 'Saturday' },
             { name: '周日', value: 'Sunday' },
         ],
+        bqshuru:0,
+        array: ['请点击选择标签','学习', '工作', '阅读', '思考','运动'],
+        objectArray: [
+            {
+              id: 0,
+              name: '请点击选择标签'
+            },
+            {
+              id: 1,
+              name: '学习'
+            },
+            {
+              id: 2,
+              name: '工作'
+            },
+            {
+              id: 3,
+              name: '阅读'
+            },
+            {
+              id: 4,
+              name: '思考'
+            },
+            {
+              id: 5,
+              name: '运动'
+            }
+        ],
+        index: 0,
         items:[
-            {'value': 'SAT'},
-            {'value': 'SSAT'},
-            {'value': 'TOEFL'},
-            {'value': '雅思'},
+            {'value': '四级'},
+            {'value': '六级'},
+            {'value': '跑步'},
+            {'value': '篮球'},
           ],
       
+    },
+    bindPickerChange(e){
+        console.log('picker发送选择改变，携带值为', e.detail.value)
+        this.setData({
+            index: e.detail.value
+        })
+        let index = this.data.index
+        if( index == 0){
+            console.log('未选择标签')
+        }else{
+            this.setData({
+                bqshuru:1
+            })
+            console.log('bqshuru:',this.data.bqshuru)
+        }
     },
     userCheck:function(e){//热榜标签复选框
         let index = e.currentTarget.dataset.id;//获取用户当前选中的索引值

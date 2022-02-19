@@ -1,7 +1,9 @@
 /* pages/testdaka/index/index.wxss */
 .bg{
     background-color:  #F4F4F4;
-    height: 100vh;
+    /* height: 100vh; */
+    height: auto;
+    height: 165vh;
     width: 100%;
 }
 .dayclock{
