@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
     "description": "项目配置文件",
     "packOptions": {
         "ignore": []
@@ -41,69 +40,6 @@
         "minifyWXML": true,
         "showES6CompileOption": false,
         "useCompilerPlugins": false
-=======
-  "description": "项目配置文件",
-  "packOptions": {
-    "ignore": []
-  },
-  "setting": {
-    "urlCheck": false,
-    "es6": false,
-    "enhance": true,
-    "postcss": true,
-    "preloadBackgroundData": false,
-    "minified": true,
-    "newFeature": false,
-    "coverView": true,
-    "nodeModules": false,
-    "autoAudits": true,
-    "showShadowRootInWxmlPanel": true,
-    "scopeDataCheck": false,
-    "uglifyFileName": false,
-    "checkInvalidKey": true,
-    "checkSiteMap": true,
-    "uploadWithSourceMap": true,
-    "compileHotReLoad": true,
-    "lazyloadPlaceholderEnable": false,
-    "useMultiFrameRuntime": true,
-    "useApiHook": true,
-    "useApiHostProcess": true,
-    "babelSetting": {
-      "ignore": [],
-      "disablePlugins": [],
-      "outputPath": ""
-    },
-    "enableEngineNative": false,
-    "useIsolateContext": true,
-    "userConfirmedBundleSwitch": false,
-    "packNpmManually": false,
-    "packNpmRelationList": [],
-    "minifyWXSS": true,
-    "disableUseStrict": false,
-    "minifyWXML": true,
-    "showES6CompileOption": false,
-    "useCompilerPlugins": false
-  },
-  "compileType": "miniprogram",
-  "libVersion": "2.21.2",
-  "appid": "wxf84451020f439de9",
-  "projectname": "We%E6%A0%A1%E5%9B%AD",
-  "miniprogramRoot": "miniprogram/",
-  "cloudfunctionRoot": "cloudfunctions/",
-  "cloudfunctionTemplateRoot": "cloudfunctionTemplate",
-  "watchOptions": {
-    "ignore": []
-  },
-  "debugOptions": {
-    "hidedInDevtools": []
-  },
-  "scripts": {},
-  "simulatorType": "wechat",
-  "simulatorPluginLibVersion": {},
-  "condition": {
-    "plugin": {
-      "list": []
->>>>>>> dc7c4f09cd985126a84c26edde2bd40490ab40ff
     },
     "compileType": "miniprogram",
     "libVersion": "2.21.2",

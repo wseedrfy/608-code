@@ -39,10 +39,7 @@ fs.readFile('dist/index.js', (err, buffer) => {
   
   })
 `
-  fs.writeFile('../../pages/HOT/HotTest/HotTest.js', str, {
-    encoding: 'utf8'
-  }, err => {})
-  fs.writeFile('../../pages/HOT/HotTest/HotTest.wxss', "", {
+  fs.writeFile('../pages/index/index.js', str, {
     encoding: 'utf8'
   }, err => {})
 })
