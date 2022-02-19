@@ -1,4 +1,47 @@
 {
+<<<<<<< HEAD
+    "description": "项目配置文件",
+    "packOptions": {
+        "ignore": []
+    },
+    "setting": {
+        "urlCheck": false,
+        "es6": false,
+        "enhance": true,
+        "postcss": true,
+        "preloadBackgroundData": false,
+        "minified": true,
+        "newFeature": false,
+        "coverView": true,
+        "nodeModules": false,
+        "autoAudits": false,
+        "showShadowRootInWxmlPanel": true,
+        "scopeDataCheck": false,
+        "uglifyFileName": false,
+        "checkInvalidKey": true,
+        "checkSiteMap": true,
+        "uploadWithSourceMap": true,
+        "compileHotReLoad": true,
+        "lazyloadPlaceholderEnable": false,
+        "useMultiFrameRuntime": true,
+        "useApiHook": true,
+        "useApiHostProcess": true,
+        "babelSetting": {
+            "ignore": [],
+            "disablePlugins": [],
+            "outputPath": ""
+        },
+        "enableEngineNative": false,
+        "useIsolateContext": true,
+        "userConfirmedBundleSwitch": false,
+        "packNpmManually": false,
+        "packNpmRelationList": [],
+        "minifyWXSS": true,
+        "disableUseStrict": false,
+        "minifyWXML": true,
+        "showES6CompileOption": false,
+        "useCompilerPlugins": false
+=======
   "description": "项目配置文件",
   "packOptions": {
     "ignore": []
@@ -13,7 +56,7 @@
     "newFeature": false,
     "coverView": true,
     "nodeModules": false,
-    "autoAudits": false,
+    "autoAudits": true,
     "showShadowRootInWxmlPanel": true,
     "scopeDataCheck": false,
     "uglifyFileName": false,
@@ -55,55 +98,76 @@
     "hidedInDevtools": []
   },
   "scripts": {},
+  "simulatorType": "wechat",
+  "simulatorPluginLibVersion": {},
   "condition": {
     "plugin": {
       "list": []
+>>>>>>> dc7c4f09cd985126a84c26edde2bd40490ab40ff
     },
-    "game": {
-      "list": []
+    "compileType": "miniprogram",
+    "libVersion": "2.21.2",
+    "appid": "wxf84451020f439de9",
+    "projectname": "WeSchool",
+    "miniprogramRoot": "miniprogram/",
+    "cloudfunctionRoot": "cloudfunctions/",
+    "cloudfunctionTemplateRoot": "cloudfunctionTemplate",
+    "watchOptions": {
+        "ignore": []
     },
-    "gamePlugin": {
-      "list": []
+    "debugOptions": {
+        "hidedInDevtools": []
     },
-    "miniprogram": {
-      "list": [
-        {
-          "id": -1,
-          "name": "db guide",
-          "pathName": "pages/databaseGuide/databaseGuide",
-          "query": ""
+    "scripts": {},
+    "condition": {
+        "plugin": {
+            "list": []
         },
-        {
-          "name": "课表",
-          "pathName": "pages/curriculum/curriculum",
-          "query": "",
-          "scene": null
+        "game": {
+            "list": []
         },
-        {
-          "name": "修改课程",
-          "pathName": "pages/curriculum/addcurriculum/addcurriculum",
-          "query": "",
-          "scene": null
+        "gamePlugin": {
+            "list": []
         },
-        {
-          "name": "个人信息",
-          "pathName": "pages/myself/myself",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "番茄时钟",
-          "pathName": "pages/tomato/index/index",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "echart_demo",
-          "pathName": "pages/tomato/text/text",
-          "query": "",
-          "scene": null
+        "miniprogram": {
+            "list": [
+                {
+                    "id": -1,
+                    "name": "db guide",
+                    "pathName": "pages/databaseGuide/databaseGuide",
+                    "query": ""
+                },
+                {
+                    "name": "课表",
+                    "pathName": "pages/curriculum/curriculum",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "修改课程",
+                    "pathName": "pages/curriculum/addcurriculum/addcurriculum",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "个人信息",
+                    "pathName": "pages/myself/myself",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "番茄时钟",
+                    "pathName": "pages/tomato/index/index",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "echart_demo",
+                    "pathName": "pages/tomato/text/text",
+                    "query": "",
+                    "scene": null
+                }
+            ]
         }
-      ]
     }
-  }
 }

@@ -1,17 +1,17 @@
 <!--pages/testdaka/record/record.wxml-->
-<form bindsubmit="">
+<form bindsubmit="saveRecord">
 <view class="bg">
 
 <view class="dakatop">
     <view class="dakatop_box">
         <image class="dakatop_box_image" src="../images/renwu.png"></image>
-        <input class="dakatop_box_input" type="text" placeholder="请输入打卡任务"/>
+        <input name="task" class="dakatop_box_input" type="text" placeholder="请输入打卡任务"/>
     </view>
     <view class="dakatop_box1">
         <image class="dakatop_box2_image" src="../images/dakatime.png"></image>
         <view class="dakatop_box2_input">
             <view class="dakatop_box2_input_left">
-                <picker mode="time" value="{{starttime}}" bindchange="bindstattimeChange">
+                <picker mode="time" name="startTime" value="{{starttime}}" bindchange="bindstattimeChange">
                 <view class="picker" placeholder="请输入开始时间">{{starttime}}</view>
                 </picker>
             </view>
@@ -20,7 +20,7 @@
             <image class="dakatop_box2_input_image" src="../images/start_end.png"></image>
 
             <view class="dakatop_box2_input_rigt">
-                <picker mode="time" value="{{endtime}}"  bindchange="bindendtimeChange">
+                <picker mode="time" name="endTime" value="{{endtime}}"  bindchange="bindendtimeChange">
                 <view class="picker2" placeholder="请输入结束时间">{{endtime}}</view>
                 </picker>    
             </view>
@@ -40,18 +40,18 @@
     </view>
 </view>
 <view class="dakacenter">
-    <view class="dakatop_box">
+    <view class="dakatop_box"> 
         <image class="dakatop_box_image" src="../images/biaoqian.png"></image>
         <!-- 选择标签 -->
         <view class="dakatop_box_input_2"> 
-            <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+            <picker bindchange="bindPickerChange" name="lable1" value="{{index}}" range="{{array}}">
                 <view class="{{ bqshuru==0?'meibq':'bqpicker'}}">
                 {{array[index]||'请点击选择标签' }}
                 </view>
             </picker>
         </view>
-        <image class="dakacenter_tag_image" src="../images/add.png"></image>
-        <image class="dakacenter_tag_image2" src="../images/selet.png"></image>
+        <!-- <image class="dakacenter_tag_image" src="../images/add.png"></image>
+        <image class="dakacenter_tag_image2" src="../images/selet.png"></image> -->
     </view>
     <view class="dakacenter_buttom">
         <view class="dakacenter_buttom_topbox">

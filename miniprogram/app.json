@@ -6,9 +6,9 @@
   },
   "pages": [
     "pages/index/index",
+    "pages/testdaka/record/record",
     "pages/login/login",
     "pages/testdaka/index/index",
-    "pages/testdaka/record/record",
     "pages/curriculum/curriculum",
     "pages/more/more",
     "pages/myself/myself",

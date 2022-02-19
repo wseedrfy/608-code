@@ -1,6 +1,7 @@
 // pages/testdaka/record/record.js
 const _=wx.cloud.database().command
 const db = wx.cloud.database()
+
 //数据还没做接口
 //热度榜标签有bug，待修复
 //sumit按钮还没绑定函数 form标签上我没写sumit的函数
@@ -59,7 +60,7 @@ Page({
             {'value': '跑步'},
             {'value': '篮球'},
           ],
-      
+        lable2:""
     },
     bindPickerChange(e){
         console.log('picker发送选择改变，携带值为', e.detail.value)
@@ -86,12 +87,15 @@ Page({
           this.data.items[index].checked = true;
         }
         this.setData({ items: this.data.items})
-     
+        var reduArr = new Array();
         //返回用户选中的值
         let value = checkBox.filter((item,index)=>{
-          return item.checked == true;
+          if(item.checked == true){
+            reduArr.push(item.value);
+          }
         })
-        console.log(value)
+        this.data.lable2=reduArr
+        console.log(reduArr);
     },
     bindstattimeChange: function (e) {//用户输入开始时间传参
         console.log('用户输入开始时间，携带值为', e.detail.value)
@@ -105,42 +109,45 @@ Page({
           endtime: e.detail.value
         })
     },
-    existDaka(res){
-        // 获取学号
-        let username = wx.getStorageSync('args').username 
+    // existDaka(res){
+    //     // 获取学号
+    //     let username = wx.getStorageSync('args').username 
 
-        var data = res.detail.value
-        // console.log(data);
-        var task = data.task
-        // 避免设置相同的任务
-        db.collection('daka_record').where({
-            task:task,
-            username:username
-        }).get()
-        .then(res=>{
-            if(res.data.length != 0){
-                console.log(res);
-                //杰哥看这里：语法问题2：如何自动调用重置按钮（要清空之前填的，因为打卡任务重复了叫用户重新填）
-                //杰哥看这里：问题：如何将下面该语句返回
-                console.log('该任务已经存在，请重新设置');
-            }else{
-                this.saveRecord(username, data)
-            }
-        })
-    },
+    //     var data = res.detail.value
+    //     // console.log(data);
+    //     var task = data.task
+    //     // 避免设置相同的任务
+    //     db.collection('daka_record').where({
+    //         task:task,
+    //         username:username
+    //     }).get()
+    //     .then(res=>{
+    //         if(res.data.length != 0){
+    //             console.log(res);
+    //             //杰哥看这里：语法问题2：如何自动调用重置按钮（要清空之前填的，因为打卡任务重复了叫用户重新填）
+    //             //杰哥看这里：问题：如何将下面该语句返回
+    //             console.log('该任务已经存在，请重新设置');
+    //         }else{
+    //             this.saveRecord(username, data)
+    //         }
+    //     })
+    // },
 
-    saveRecord(username, data){
+    saveRecord(res){
+      // 获取学号
+      console.log(res);
+      let username = wx.getStorageSync('args').username 
+      var value = res.detail.value
         //1.存入打卡任务记录表
         db.collection('daka_record').add({
             data: {
-                task:data.task,
+                task:value.task,
                 // 标签可以为空 
-                lable1:data.table1,
-                lable2:data.table2,
-                lable3:data.lable3,
-                cycle: data.cycle,
-                startTime: data.startTime,
-                endTime: data.endTime,
+                lable1:value.lable1,
+                lable2:this.data.lable2,
+                cycle: value.cycle,
+                startTime: value.startTime,
+                endTime: value.endTime,
                 username:username
             }
         }).then(res=>{
@@ -150,7 +157,7 @@ Page({
         //2.存入打卡状态表
         db.collection('daka_status').add({
             data: {
-                task:data.task,
+                task:value.task,
                 //设置任务后初始化为false未打卡
                 isDaka:false,
                 username:username,
