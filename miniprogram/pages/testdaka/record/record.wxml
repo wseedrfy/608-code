@@ -46,7 +46,7 @@
         <view class="dakatop_box_input_2"> 
             <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
                 <view class="{{ bqshuru==0?'meibq':'bqpicker'}}">
-                {{array[index]}}
+                {{array[index]||'请点击选择标签' }}
                 </view>
             </picker>
         </view>

@@ -24,7 +24,8 @@ Page({
             { name: '周日', value: 'Sunday' },
         ],
         bqshuru:0,
-        array: ['请点击选择标签','学习', '工作', '阅读', '思考','运动'],
+        array: [],
+        default:'请点击选择标签',
         objectArray: [
             {
               id: 0,
@@ -65,6 +66,7 @@ Page({
         this.setData({
             index: e.detail.value
         })
+        
         let index = this.data.index
         if( index == 0){
             console.log('未选择标签')
@@ -162,22 +164,31 @@ Page({
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad: function (options) {
+    onLoad(){
+      let arraydata=this.data.array
+      let array=['学习', '工作', '阅读', '思考','运动']
+      if(arraydata==''){
 
+        this.setData({
+          array:array
+        })
+        console.log('onload');
+      }; 
+      
     },
 
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
     onReady: function () {
-
+      
     },
 
     /**
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-
+      console.log('onshow');
     },
 
     /**
