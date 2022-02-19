@@ -92,7 +92,18 @@ Page({
 
     //滑动删除
     delDaka(res){
-        
+        var data = res.detail.value;
+        //根据信息删除打卡记录表
+        //不能删除打卡状态表，因为统计用
+        let username = wx.getStorageSync('args').username;
+        db.collection("daka_record").where({
+            username:username,
+            task:data.task
+        }).remove().then(res=>{
+            console.log(res);
+        })
+        //问题：刷新页面
+        this.onLoad();
     },
 
     //获取数据交与页面渲染
