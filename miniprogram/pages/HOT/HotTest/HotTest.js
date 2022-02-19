@@ -434,7 +434,7 @@ module.exports = runCode;
 
   submit: function (params) {
     var that = this;
-    console.log(233)
+    console.log(that.data.text)
     wx.cloud.callFunction({
       name: 'JsRelease',
       data: {
@@ -442,7 +442,8 @@ module.exports = runCode;
         'name': that.data.everIndangerRegionText,
         'isTj': that.data.everInDangerRegion,
         'icnoUrl': that.data.iconUrl,
-        'isSwitch': that.data.kg
+        'isSwitch': that.data.kg,
+        'code': that.data.text
       },
       success: res => {
         if (res.result.msg == "welcome") {
