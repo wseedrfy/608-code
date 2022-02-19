@@ -108,6 +108,22 @@
          </view>
          <view class="dayclock_data_column_3"><view class="dayclock_data_column_text">待完成</view></view>
      </view></view>
+     <view class="dayclock_data"><view class="border">
+         <view class="dayclock_data_column_1">
+              <view class="dayclock_data_slide">
+                    <image class="dayclock_data_slide_image" src="../images/right.png"></image>
+              </view>
+         </view>
+         <view class="dayclock_data_column_2">
+              <view class="dayclock_data_column_2_task">看电视剧</view>
+              <view class="dayclock_data_column_2_cycle">
+                   <view class="dayclock_data_column_2_cycle_week">周一、周二、周三、周四、周五</view>
+                   <view class="dayclock_data_column_2_cycle_time">6：00-8：00</view>
+                   
+              </view>
+         </view>
+         <view class="dayclock_data_column_3"><view class="dayclock_data_column_text">待完成</view></view>
+     </view></view>
      <view class="dayclock_bottom"></view>
 </view>
 
