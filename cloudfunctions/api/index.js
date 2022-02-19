@@ -6,6 +6,7 @@ cloud.init()
 const login = require('./login/index');
 const indexLoading = require('./indexLoading/index');
 const sloveExcel = require('./sloveExcel/index');
+const coverBottom = require('./coverBottom/index');
 exports.main = async (event, context) => {
 
   var data
@@ -19,6 +20,10 @@ exports.main = async (event, context) => {
 
   if(event.url === 'sloveExcel'){
     data = await sloveExcel.main(event)
+  }
+
+  if(event.url === 'coverBottom'){
+    data = await coverBottom.main(event)
   }
 
   return data
