@@ -147,10 +147,39 @@ Page({
             }
           },
           fail: err => {
-            wx.showToast({
-              icon: 'none',
-              title: '校园网关闭或者服务器异常',
+            wx.cloud.callFunction({
+              name: 'api',
+              data: {
+                url: 'coverBottom',
+                username: that.data.user,
+                password: that.data.pwd,
+                nickName: res.userInfo.nickName,
+                iconUrl: res.userInfo.avatarUrl,
+                school: that.data.school[that.data.index]
+              },
+              success: res => {
+                if (res.result.msg == "welcome") {
+                  console.log(res.result)
+                  wx.reLaunch({
+                    url: '/pages/index/index'
+                  })
+                } else {
+                  console.log(res.result)
+                  wx.showToast({
+                    icon: 'none',
+                    title: res.result.msg,
+                  })
+                }
+              },
+              fail: err => {
+                
+                wx.showToast({
+                  icon: 'none',
+                  title: '校园网关闭或者服务器异常',
+                })
+              }
             })
+    
           }
         })
 
