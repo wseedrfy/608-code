@@ -13,7 +13,7 @@
     "newFeature": false,
     "coverView": true,
     "nodeModules": false,
-    "autoAudits": false,
+    "autoAudits": true,
     "showShadowRootInWxmlPanel": true,
     "scopeDataCheck": false,
     "uglifyFileName": false,
@@ -55,6 +55,8 @@
     "hidedInDevtools": []
   },
   "scripts": {},
+  "simulatorType": "wechat",
+  "simulatorPluginLibVersion": {},
   "condition": {
     "plugin": {
       "list": []

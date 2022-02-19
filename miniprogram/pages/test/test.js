@@ -5,55 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    parent: [{
-      class: "first",
-      type: "view",
-      text: "tes233t",
-      bindtap: '',
-      child: [{
-        type: "text",
-        bindtap: "h2",
-        text: "请输入"
-      },
-      {
-        type: "input",
-        bindtap: "input",
-        text: "标签广告",
-        id: "ad"
-      }
-      ]
-    },
-    {
-      type: "view",
-      bindtap: "h4",
-      text: "test2",
-      child: [{
-        type: "view",
-        bindtap: "h5",
-        text: "hhhhhh",
-        child: [{
-          type: "view",
-          bindtap: "h6",
-          text: "gggg",
-          child: [{
-            type: "text",
-            bindtap: "h2",
-            text: "请输入"
-          },
-          {
-            type: "input",
-            bindtap: "input",
-            text: "标签广告",
-            id: "ad"
-          }
-          ]
-        }]
-      }]
-    }
-    ],
-    node: [],
-    arg:[["a", "b"], [1, 2, 3]],
-    num: 5
+
   },
 
   /**
@@ -62,84 +14,53 @@ Page({
   onLoad: function (options) {
 
   },
-  click(){
-    this.cloudFunctionTest()
-  },
 
-  onShow() {
-    var personalInformation = wx.getStorageSync('personalInformation')
-    var curriculum = personalInformation.curriculum;
-    console.log(curriculum)
-    this.draw(curriculum)
-  },
-
-  async draw(curriculum) {
-
-    const query = wx.createSelectorQuery()
-    query.select('#myCanvas')
-      .fields({
-        node: true,
-        size: true
-      })
-      .exec((res) => {
-        console.log(res[0].node)
-        const canvas = res[0].node
-        const context = canvas.getContext('2d')
-        console.log(context)
-
-        const dpr = wx.getSystemInfoSync().pixelRatio
-        canvas.width = res[0].width * dpr
-        canvas.height = res[0].height * dpr
-        context.scale(dpr, dpr)
-
-        context.strokeStyle = "#D4D4D4"
-        context.fillStyle = "#D4D4D4"; // 填充颜色
-        for (let i = 1; i < 8; i++) {
-          for (let j = 1; j < 6; j++) {
-            this.point(context, i * 8, j * 8)
-          }
-        }
-
-        context.strokeStyle = "#38C999" // 边框颜色
-        context.fillStyle = "#38C999"; // 填充颜色
-
-        for (let i = 0; i < curriculum.length; i++) {
-          let list = curriculum;
-          let jc = 0;
-          switch (list[i].jcdm) {
-            case "0102": jc = 1; break;
-            case "0304": jc = 2; break;
-            case "0506": jc = 3; break;
-            case "0708": jc = 4; break;
-            case "0910": jc = 5; break;
-          }
-          if (list[i].zc == 1) {
-            this.point(context, list[i].xq * 8,  jc * 8)
-          }
-        }
-        this.point(context, 60, 65)
-      })
-
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
 
   },
 
-  point(context, x, y) {
-    context.beginPath();
-    context.arc(x, y, 3, 0, 2 * Math.PI);
-    context.fill();
-    context.stroke()
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+
   },
 
-  cloudFunctionTest(){
-    wx.cloud.callFunction({
-      name: "test",
-      data: {},
-      success(res){
-        console.log(res)
-      },
-      fali:console.error
-    })
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
 
   }
-
 })
