@@ -9,18 +9,13 @@ Page({
     data: {
         currentIndex: 0, // 列表操作项的index
         taskdata:[
-            {
-                task_name:'看电视',
-                task_cycle:['周一','周二','周三','周四','周五'],
-                task_start_time:'6:00',
-                task_end_time:'8:00'
-            },
-            {
-                task_name:'看电视',
-                task_cycle:['周一','周二','周三','周四','周五'],
-                task_start_time:'6:00',
-                task_end_time:'8:00'
-            }
+            // {
+            //     task_name:'看电视',
+            //     task_cycle:['周一','周二','周三','周四','周五'],
+            //     task_start_time:'6:00',
+            //     task_end_time:'8:00'
+            //     task_isDaka:false
+            // },
         ],
     },
        // 手指触摸动作开始
@@ -237,7 +232,9 @@ Page({
             dakaArr.push(obj);
         }
         console.log(dakaArr);
-        this.data.taskdata = dakaArr;
+        this.setData({
+            taskdata:dakaArr
+        })
         console.log(this.data.taskdata);
     },
 
@@ -255,12 +252,12 @@ Page({
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad: function (options) {
+    onLoad() {
         this.getDaka_record();
         wx.setNavigationBarTitle({
             title: 'we打卡',
-          });
-          movedistance = 0; // 解决切换到其它页面再返回该页面动画失效的问题
+        });
+        movedistance = 0; // 解决切换到其它页面再返回该页面动画失效的问题
     },
 
     
@@ -274,7 +271,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-
+        // this.getDaka_record();
     },
 
     /**

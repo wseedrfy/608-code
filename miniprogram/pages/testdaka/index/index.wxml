@@ -22,7 +22,7 @@
                    <view class="dayclock_data_column_2_cycle_time">- {{item.task_end_time}}</view>
               </view>
          </view>
-         <view class="dayclock_data_column_3"><view class="dayclock_data_column_text">待完成</view></view>
+         <view class="dayclock_data_column_3"><view class="dayclock_data_column_text">{{task_isDaka==true?'已完成':'待完成'}}</view></view>
          <view class="operation">左边打卡盒子</view>
          <view class="operation2">右边删除盒子</view>
      </view></view>
