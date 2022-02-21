@@ -15,16 +15,16 @@
               </view>
          </view>
          <view class="dayclock_data_column_2">
-              <view class="dayclock_data_column_2_task">{{item.task_name}}</view>
+              <view class="dayclock_data_column_2_task" data-task="{{item.task_name}}" bindtap="12345">{{item.task_name}}</view>
               <view class="dayclock_data_column_2_cycle">
                    <view class="dayclock_data_column_2_cycle_week">{{item.task_cycle}}</view>
                    <view class="dayclock_data_column_2_cycle_time">{{item.task_start_time}} -</view>
                    <view class="dayclock_data_column_2_cycle_time">- {{item.task_end_time}}</view>
               </view>
          </view>
-         <view class="dayclock_data_column_3"><view class="dayclock_data_column_text">{{task_isDaka==true?'已完成':'待完成'}}</view></view>
-         <view class="operation">左边打卡盒子</view>
-         <view class="operation2">右边删除盒子</view>
+         <view class="dayclock_data_column_3"><view class="dayclock_data_column_text" style="color: {{ task_isDaka==true?  '#74D5D3' : ''}};">{{task_isDaka==true?'已完成':'待完成'}}</view></view>
+         <view class="operation"><image class="operation_daka_image" src="../images/edit.png"></image></view>
+         <view class="operation2"><image class="operation2_del_image" src="../images/del.png"></image></view>
      </view></view>
      <view class="dayclock_data"><view class="border">
          <view class="dayclock_data_column_1">

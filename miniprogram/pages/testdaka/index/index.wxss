@@ -134,28 +134,30 @@
     width: 32rpx;
 }
 .operation {
-    background: #EDD68B;
+    border-radius: 50%;
     position: absolute;
-    top: 0;
-    left: -300rpx;
-    height: 100rpx;
+    top: 4rpx;
+    left: -130rpx;
+    height: 90rpx;
     text-align: center;
-    color: #fff;
     line-height: 152rpx;
-    display: flex;                                                                                                         
+    display:flex;
+    padding: 20rpx;
+    box-sizing: border-box;
+    align-items:center;                                                                                            
   }
    
   .operation view {
     width: 100rpx;
   }
   .operation2{
+    border-radius: 50%;
     position: absolute;
-    top: 0;
-    right: -300rpx;
-    height: 100rpx;
+    top: 4rpx;
+    right: -130rpx;
+    height: 85rpx;
     text-align: center;
-    background-color: black;
-    color: #fff;
+    background-color: #FFFFFF;
     line-height: 152rpx;
     display: flex;
     padding: 20rpx;
@@ -164,4 +166,12 @@
   }
   .operation2 view {
     width: 100rpx;
+  }
+  .operation_daka_image{
+    height: 45rpx;
+    width: 45rpx;
+  }
+  .operation2_del_image{
+    height: 40rpx;
+    width: 45rpx;
   }
