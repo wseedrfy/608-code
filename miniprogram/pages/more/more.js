@@ -57,7 +57,6 @@ Page({
     allList: [],      // 列表的内容
     current: 0,       // 单个第x张照片
     hideHidden: true,
-    menu: [], // 发布栏的选择
     leftList: [], // 左列表
     rightList: [], // 右列表
 
@@ -75,8 +74,8 @@ Page({
     rightH: 0,
 
 
-    DataNull: 0, //这个是状态，最后显示是否是全部数据
-    addAft: 0, //这个是状态，防止用户发布内容回到第一页
+    DataNull: 0, // 这个是状态，最后显示是否是全部数据
+    addAft: 0,   // 这个是状态，防止用户发布内容回到第一页
 
     direction: " ",
     directionIndex: 0,
@@ -84,10 +83,10 @@ Page({
     showLoading: 0,
     animation: '',
 
-    campus_account: false, //封号状态
-    describe: "", // 封号简介
-    content: {}, // 个人信息
-    openusername: {}, //点赞人的对象
+    campus_account: false, // 封号状态
+    describe: "",          // 封号简介
+    content: {},           // 个人信息
+    openusername: {},      //点赞人的对象
   },
 
   //处理左右结构
@@ -129,13 +128,9 @@ Page({
   getNewInfo() {
     var that = this;
     // 被评论者信息
-    let be_character = {
-      userName: this.data.content.username, //--------------不知道有啥用，打印出来是undefined
-      iconUrl: args.iconUrl,
-      nickName: args.nickName
-    }
+
     wx.cloud.database().collection('New-Information').where({ //------------请求数据库
-      be_character: be_character, //------------------评论者信息
+      be_character_username: args.username, //------------------被评论者学号
       status: 0 //-------------------三种状态：“0”：用户还没看消息列表；“1”：用户已经看到了消息列表；“-1”：取消点赞和评论
     }).count().then(res => {
       console.log("res.total", res.total) //----------------新消息提示数目
@@ -383,11 +378,10 @@ Page({
     })
   },
 
-  clickMenuSecond: function (e) { // 3.2 
-    var that = this;
+  chooseTab: function (e) { // 3.2 “我的发布页面” 标签选择,仅 TabScroll 组件内调用
+    let that = this;
     // 获取索引值
-    var index = e.currentTarget.dataset.index;
-    console.log("that.data.arrayMenu.menu[index].cent", that.data.menu[index])
+    let index = e.currentTarget.dataset.index;
     that.setData({
       choosenLabel: that.data.menu[index],
     })
@@ -651,7 +645,6 @@ Page({
         type: 0
       }
     }) : this.data.tabitem // that.data.tabitem是兜底数据
-    var menu = (this.data.tabitem.map(e => e.title)).splice(0, 1);
     // 默认选中第一个 “全部”
     this.data.tabitem[0].type = 1;
 
@@ -676,7 +669,6 @@ Page({
 
     this.setData({
       school: args.schoolName,
-      menu,
       username: args.username,
       nickname: args.nickName,
       iconUrl: args.iconUrl,
