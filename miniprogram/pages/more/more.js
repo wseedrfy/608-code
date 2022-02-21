@@ -381,7 +381,7 @@ Page({
   chooseTab: function (e) { // 3.2 “我的发布页面” 标签选择,仅 TabScroll 组件内调用
     let that = this;
     // 获取索引值
-    let index = e.currentTarget.dataset.index;
+    let index = e.detail.currentTarget.dataset.index;
     that.setData({
       choosenLabel: that.data.menu[index],
     })
@@ -645,7 +645,8 @@ Page({
         type: 0
       }
     }) : this.data.tabitem // that.data.tabitem是兜底数据
-    let menu = this.data.tabitem.map(e => {
+
+    let menu = this.data.tabitem.slice(1).map(e => {   // 获取发布页面标签menu
       return e.title
     })
     // 默认选中第一个 “全部”

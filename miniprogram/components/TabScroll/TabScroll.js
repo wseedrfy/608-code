@@ -4,13 +4,17 @@ Component({
      * 组件的属性列表
      */
     properties: {
+        type: {                     // 调用组件类型
+            type: String,
+            value: ''
+        },
         tabItem: {                  // 传入的标签数组
             type: Array,
             value: []
         },
-        type: {                     // 调用组件类型
-            type: String,
-            value: ''
+        menu: {                     // 发布页面选择标签
+            type: Array,
+            value: []
         }
     },
 
@@ -72,11 +76,8 @@ Component({
             })
             this.triggerEvent("setTab", e)
         },
-        clickMenuSecond(e) {
-            this.setData({
-                activeItem:e.currentTarget.dataset["index"],
-            })
-            this.triggerEvent("setTab", e)
-        }
+        chooseTab(e) { 
+            this.triggerEvent("chooseTab", e)
+        },
     }
 })
