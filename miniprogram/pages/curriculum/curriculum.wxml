@@ -3,7 +3,7 @@
   <swiper-item class="curriRight {{isAnimate ? 'curriRight_Animate' : ''}}" animation="{{timetableAnimation}}" catchtouchmove="catchtouchmove" scroll-y="true">
     <!-- 头部 -->
     <view style="z-index:2; position:fixed; background-color: white;">
-      <view class="head">
+      <view class="head {{theme ? 'head_theme' : ''}}">
         <!-- 状态栏 -->
         <view style="height: {{statusBarHeight}}px;" />
         <!-- 导航栏 -->
@@ -51,7 +51,7 @@
     <!-- 这个填充的85被我改成了87，为使背景图片与上面无缝隙 2022.1.27 -->
     <view class="filler" style="position: relative; padding-top: {{(showscroll? 140: 0) + 80}}rpx; width: 100%; background-color: #fff;"></view>
     <!-- 课表 -->
-    <view style="z-index: -1; " bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd">
+    <view style="z-index: -1; background-color: #fff; " bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd">
 
       <!-- 没有课时 -->
       <scroll-view class="kbScroll" enhanced="{{true}}" bounces="{{false}}" show-scrollbar="{{false}}" wx:if="{{wlist.length == 0}}" scroll-y="{{true}}" style="height: {{kbHeight}}px;">
@@ -76,32 +76,30 @@
       </scroll-view>
       
       <!-- 有课时 -->
-      <scroll-view enhanced="{{true}}" bounces="{{false}}" show-scrollbar="{{false}}" class="kbScroll" wx:if="{{wlist.length != 0}}" scroll-y="{{true}}" style="height: {{kbHeight}}px;" >
+      <scroll-view enhanced="{{true}}" bounces="{{true}}" show-scrollbar="{{false}}" class="kbScroll" wx:if="{{wlist.length != 0}}" scroll-y="{{true}}" style="height: {{kbHeight}}px;" >
         <!-- image背景图片 -->
         <image src="{{backgroundUrl}}" class="backgroundUrl" mode="aspectFill" style="height: {{kbHeight}}px;"></image>
         <!-- 套一个盒子 timeTableBox -->
-        <view class="timeTableBox" style="height: {{kbHeight > 693 ? kbHeight : ''}};">
-          <view class="timetable" style="height: {{kbHeight > 693 ? kbHeight : ''}}px;">
-            <view style="z-index: 1;">
-              <!-- 遮罩层 - 为修复 fixed 与 scroll-view 不兼容问题 -->
-              <view class="curriLeft_background"></view>
-              <view wx:for="{{[1,2,3,4,5,6,7,8,9,10,11]}}" wx:key="unique" class="left">
-                <view>{{item}}</view>
-                <view class="after-left1">{{courseTime[index]}}</view>
+        <view class="timetable" style="height: {{kbHeight > 693 ? kbHeight : ''}}px;">
+          <view style="z-index: 1;">
+            <!-- 遮罩层 - 为修复 fixed 与 scroll-view 不兼容问题 -->
+            <view class="curriLeft_background"></view>
+            <view wx:for="{{[1,2,3,4,5,6,7,8,9,10,11]}}" wx:key="unique" class="left">
+              <view>{{item}}</view>
+              <view class="after-left1">{{courseTime[index]}}</view>
+            </view>
+          </view>
+
+          <!--课表-->
+          <view wx:for="{{wlist}}" wx:key="unique" class="kbcontain">
+            <view class="kb" bindtap="showCardView" data-index="{{index}}"
+              style="top: {{(item.skjc-1)*110}}rpx; left:{{(item.xqj-1)*100}}rpx; height:{{item.skcd*110-5}}rpx; background-color:{{colorArrays[index%20]}}; z-index:10">
+              <view class="smalltext">{{item.kcmc}}@{{item.jxcdmc}}
               </view>
             </view>
-
-            <!--课表-->
-            <view wx:for="{{wlist}}" wx:key="unique" class="kbcontain">
-              <view class="kb" bindtap="showCardView" data-index="{{index}}"
-                style="top: {{(item.skjc-1)*110}}rpx; left:{{(item.xqj-1)*100}}rpx; height:{{item.skcd*110-5}}rpx; background-color:{{colorArrays[index%20]}}; z-index:0">
-                <view class="smalltext">{{item.kcmc}}@{{item.jxcdmc}}
-                </view>
-              </view>
-              <!-- Todo 重叠课程右上角三角形 -->
-              <view wx-if="{{isScheduled[index]&&hasData[item.Course_Time][item.Course_Start]>1}}" class="triangle-topright"
-                style="margin-left:{{(item.Course_Time-1)*99+(item.Course_Time==3?78:77)}}rpx;margin-top:{{(item.Course_Start-1)*100+5}}rpx;border-color: {{colorArrays[item.Course_Color%20]}}; z-index:{{1000*index}};">
-              </view>
+            <!-- Todo 重叠课程右上角三角形 -->
+            <view wx-if="{{isScheduled[index]&&hasData[item.Course_Time][item.Course_Start]>1}}" class="triangle-topright"
+              style="margin-left:{{(item.Course_Time-1)*99+(item.Course_Time==3?78:77)}}rpx;margin-top:{{(item.Course_Start-1)*100+5}}rpx;border-color: {{colorArrays[item.Course_Color%20]}}; z-index:{{1000*index}};">
             </view>
           </view>
         </view>

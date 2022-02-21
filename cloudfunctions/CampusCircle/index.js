@@ -1,5 +1,5 @@
 // 云函数入口文件
-const cloud = require('../JsRelease/node_modules/wx-server-sdk')
+const cloud = require('wx-server-sdk');
 
 cloud.init()
 const db = cloud.database();
@@ -32,7 +32,7 @@ exports.main = async (event, context) => {
     case "CancelCommentControlLogs":
       return await CancelCommentControlLogs(event); // 删除评论
     case "ReadControlLogs":
-      return await ReadControlLogs(event); // 
+      return await ReadControlLogs(event); // 读取新消息 New-Info
   }
 
 }
@@ -201,27 +201,40 @@ async function StarControlLogs(event) {
     be_character_username: event.be_username,
     type: '点赞',
     arcticle_id: event.arcticle_id
-  }).count()
-  console.log(data1.total, "这是data1,用于查找记录");
+  }).get()
+  console.log(data1.data[0], "这是data1,用于查找记录");
 
-  if (data1.total == 0) { //没有记录，add点赞
+  if (data1.data[0] == undefined) {         // 没有记录，add点赞
     await addRecord(event, "点赞", "")
   }
 
-  if (data1.total == 1) { //有记录，判断是取消点赞/点赞
-
-    return await db.collection('New-Information').where({
-      character_username: event.username,
-      be_character_username: event.be_username,
-      type: '点赞',
-      arcticle_id: event.arcticle_id
-    }).update({
-      data: {
-        status: _.mul(-1),      // 2022-1-17   -1时不该自乘-1，应当变成0；后续再改这个bug
-        createTime: event.createTime
-      }
-    })
-
+  if (data1.data[0] != undefined) {         // 有记录，判断是取消点赞/点赞
+    
+    if(data1.data[0].status == -1 ){        // status等于 -1 时，变成 0
+      return await db.collection('New-Information').where({
+        character_username: event.username,
+        be_character_username: event.be_username,
+        type: '点赞',
+        arcticle_id: event.arcticle_id
+      }).update({
+        data: {
+          status: 0,
+          createTime: event.createTime
+        }
+      })
+    }else {                                // status等于 0||1 时，变成 -1
+      return await db.collection('New-Information').where({
+        character_username: event.username,
+        be_character_username: event.be_username,
+        type: '点赞',
+        arcticle_id: event.arcticle_id
+      }).update({
+        data: {
+          status: -1,
+          createTime: event.createTime
+        }
+      })
+    }
   }
 }
 
@@ -246,7 +259,7 @@ async function CancelCommentControlLogs(event) {
         createTime: event.createTime
       }
     }).then((res) => {
-      console.log(res, "点赞状态更新成功");
+      console.log(res, "删除评论成功");
     })
   } catch (e) {
     console.log(e);
@@ -256,7 +269,7 @@ async function CancelCommentControlLogs(event) {
 async function ReadControlLogs(event) {
   const data = await db.collection('New-Information').orderBy('createTime', 'desc').where({
       be_character_username: event.be_username,
-      status: _.gte(0)
+      status: _.gte(0)      // 大于等于零
     })
     .skip(event.currentPage * event.pageSize)
     .limit(event.pageSize)

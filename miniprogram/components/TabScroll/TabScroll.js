@@ -36,6 +36,7 @@ Component({
                 const SHUANG_ZI_JIE = item["title"].match(/[\u4e00-\u9fa5+]/g) || '';
                 const DAN_ZI_JIE = item["title"].match(/[\w]/g) || '';
                 const Emoji = item["title"].match(/[^\w\u4e00-\u9fa5+][^\s]/g) || '';
+                
                 if(SHUANG_ZI_JIE || DAN_ZI_JIE) {
                     tabItemLength[index] = SHUANG_ZI_JIE.length * 2 + DAN_ZI_JIE.length * 0.8 + Emoji.length * 0.8
                 }
@@ -66,6 +67,12 @@ Component({
      */
     methods: {
         setTab(e) {
+            this.setData({
+                activeItem:e.currentTarget.dataset["index"],
+            })
+            this.triggerEvent("setTab", e)
+        },
+        clickMenuSecond(e) {
             this.setData({
                 activeItem:e.currentTarget.dataset["index"],
             })

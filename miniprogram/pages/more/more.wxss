@@ -2,7 +2,6 @@
 page{
   width: 100%;
   margin: 0;
-  /* background-color: #f5f5f54d; */
 }
 .head{
   position:fixed; 
@@ -362,5 +361,9 @@ swiper .wx-swiper-dot {
   .Label_limit{
     filter: invert(100%) !important;
     color: #fff;
+  }
+
+  .newInfo_redPoint {
+    filter: invert(100%) !important;
   }
 }

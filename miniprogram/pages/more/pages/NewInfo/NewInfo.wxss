@@ -1,11 +1,11 @@
 /* pages/more/NewInfo/NewInfo.wxss *//* pages/more/News/News.wxss */
 page {
-   padding-left: 20rpx;
+   /* padding-left: 20rpx; */
 }
 .demo {
    display: flex;
    width: 100%;
-   padding-top: 20rpx;
+   padding: 20rpx 0 0 20rpx;
    border-bottom: 1rpx solid #ccc;
    /* justify-content: space-between; */
 }
@@ -63,5 +63,5 @@ page {
    color: #2c2c2cb4;
    display: flex;
    justify-content: center;
-   margin-top: 30rpx;
+   margin-top: 15rpx;
  }
