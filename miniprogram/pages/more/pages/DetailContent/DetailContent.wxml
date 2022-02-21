@@ -3,13 +3,13 @@
     <view class="user">
       <image src="{{content.iconUrl}}" class="user_iconUrl"/>
       <span class="user_nickname">{{content.nickName}}</span>
-      <image src="../../../images/more.png" class="more" wx:if="{{more==1}}" bindtap="More"/>
+      <image src="../../../../images/more.png" class="more" wx:if="{{more==1}}" bindtap="More"/>
       <view class="CardMore" wx:if="{{showEdit}}">
         <view class="CardMore_background" bindtap="More"></view>
         <view class="CardMore_contain {{edit_style}}" >
           <view class="CardMore_Title">编辑卡片</view>
           <view class="DelCard" bindtap="DelCard">
-            <image src="../../../images/del.png" class="DelCard"/>
+            <image src="../../../../images/del.png" class="DelCard"/>
           </view>
         </view>
       </view>

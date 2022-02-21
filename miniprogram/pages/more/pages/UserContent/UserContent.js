@@ -22,102 +22,7 @@ Page({
     directionIndex:0,
     openusername:{}
   },
-  // getStar_left_card:function(e){
-  //   this.data.direction="Left"
-  //   var index = e.currentTarget.dataset.index //索引
-  //   var List  = this.data.leftList
-  //   this.get_Star(index,List)
-  // },
-  // getStar_right_card:function(e){
-  //   this.data.direction="right"
-  //   var index = e.currentTarget.dataset.index //索引
-  //   var List  = this.data.rightList
-  //   this.get_Star(index,List)
-  // },
-  // get_Star:function(index,List) {
-  //   var content = List[index] //点击页的数据
-  //   var Star_User = content.Star_User //初始点赞用户
-  //   var openusername = this.data.openusername
-  //   if (!Star_User) {
-  //     Star_User = []
-  //   }
-  //   var Starif = false
-  //   //判断是不是为点赞过的usernameid
-  //   for (var i = 0 ;i<Star_User.length;i++){
-  //     if(Star_User[i].username===openusername.username){
-  //       Starif = true
-  //       Star_User.splice(Star_User.indexOf(openusername), 1)
-  //     }
-  //   }
-  //   if (!Starif) {
-  //     openusername.Star_time = new Date().getTime()
-  //     //push到usernameid
-  //     Star_User.push(openusername)
-  //     wx.showToast({
-  //       title: '点赞成功',
-  //       icon: "none"
-  //     })
-  //     console.log(Star_User)
-  //   }
-  //   var Star_count = Star_User.length
-  //   //点赞后对本地数据进行更新
-
-  //   //点赞用户更新
-  //   content.Star_User = Star_User
-  //   //点赞用户数更新
-  //   content.Star = Star_count
-  //   console.log(content, 244)
-  //   if( this.data.direction==="Left"){
-  //         //更新后的数据本地刷新
-  //     this.setData({
-  //       leftList:List
-  //     })
-  //   }
-  //   else if (this.data.direction==="right"){
-  //     this.setData({
-  //       rightList:List
-  //     })
-  //   }
-  //   console.log("Star_count", Star_count)
-  //   //点赞后对数据库数据进行更新
-  //   wx.cloud.callFunction({
-  //     name: "CampusCircle",
-  //     data: {
-  //       type: "starCount",
-  //       username: that.data.username,
-  //       _id: content._id,
-  //       Star: Star_count,
-  //       Star_User: Star_User
-  //     },
-  //     success(res) {
-  //       console.log(res)
-  //     }
-  //   })
-  //   //点赞数
-  //   app.globalData.Star_count = Star_count
-  //   //点赞数组
-  //   app.globalData.Star_User = Star_User
-  // },
-  // ShowContentLeft:function(e){
-  //   this.data.direction="Left"
-  //   var index=e.currentTarget.dataset.index
-  //   var del=1
-  //   this.data.directionIndex=index
-  //   var content=JSON.stringify(this.data.leftList[index])
-  //    wx.navigateTo({
-  //      url: "../DetailContent/DetailContent?content=" + content + "&del=" + del,
-  //    })
-  // },
-  // ShowContentRight: function (e) {
-  //   this.data.direction = "Right"
-  //   var index = e.currentTarget.dataset.index
-  //   var del = 1
-  //   this.data.directionIndex = index
-  //   var content = JSON.stringify(this.data.rightList[index])
-  //   wx.navigateTo({
-  //     url: "../DetailContent/DetailContent?content=" + content + "&del=" + del,
-  //   })
-  // },
+ 
   onLazyLoad(info) {
     console.log(info)
   },
@@ -152,20 +57,22 @@ Page({
           console.log("请求成功", res.result.data);
           currentPage++;
           //把新请求到的数据添加到 noramalData 里  
-          that.data.List = res.result.data;
-          for (let i = 0; i < that.data.List.length; i++) {
-            if (that.data.leftH == that.data.rightH || that.data.leftH < that.data.rightH) {//判断左右两侧当前的累计高度，来确定item应该放置在左边还是右边
-              that.data.List[i].type="left"
-              that.data.leftH += that.data.List[i].ShowHeight;
+          var allList =   res.result.data;
+          for (let i = 0; i < allList.length; i++) {
+            if(that.data.leftList.includes(allList[i]) ||that.data.rightList.includes(allList[i]) ){
+              continue
+            }
+            if (that.data.leftH <= that.data.rightH) { //判断左右两侧当前的累计高度，来确定item应该放置在左边还是右边
+              that.data.leftList.push(allList[i]);
+              that.data.leftH += allList[i].ShowHeight;
             } else {
-              that.data.List[i].type="right"
-              that.data.rightH += that.data.List[i].ShowHeight;
+              that.data.rightList.push(allList[i]);
+              that.data.rightH += allList[i].ShowHeight;
             }
           }
-          console.log("that.data.leftH",that.data.leftH)
-          console.log("that.data.rightH",that.data.rightH)
           that.setData({
-            List:that.data.List,
+            leftList: that.data.leftList,
+            rightList: that.data.rightList,
             leftH: that.data.leftH,
             right: that.data.rightH,
             loadMore: false, //把"上拉加载"的变量设为false，显示  
@@ -213,8 +120,8 @@ Page({
     that.data.List = [];
     that.data.leftH = 0;
     that.data.rightH = 0;
-
-    if(args.school && args.nickName && args.iconUrl){
+    const args = wx.getStorageSync('args')
+    if(args.username){
       that.setData({
         school:args.school,
         nickname:args.nickname,
@@ -227,10 +134,9 @@ Page({
           nickName: args.nickName
         }
       })
-      console.log(that.data.openusername)
       if(i == 0){
         currentPage = 0;
-        that.getData();
+        // that.getData();
         i++;
       }
     }else{
@@ -249,30 +155,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    //  currentPage=0
-    //  this.getData()
-    // console.log(app.globalData.Comment)
-
-
-
-
-    // if(this.data.direction=="Left"){
-    //   var index=this.data.directionIndex
-    //   this.data.leftList[index].CommentList=app.globalData.Comment
-    //   console.log("this.data.leftList[index]",this.data.leftList[index])
-    //   this.setData({
-    //     leftList: this.data.leftList,
-    //     rightList: this.data.rightList
-    //   })
-    // } else if (this.data.direction == "Right") {
-    //   var index = this.data.directionIndex
-    //   this.data.rightList[index].CommentList = app.globalData.Comment
-    //   console.log("this.data.rightList[index]", this.data.rightList[index])
-    //   this.setData({
-    //     leftList: this.data.leftList,
-    //     rightList: this.data.rightList
-    //   })
-    // }
+    this.setData({
+      leftList : [],
+      rightList: [],
+      leftH: 0,
+      rightH: 0
+    })
+    this.getData();
   },
 
   /**
