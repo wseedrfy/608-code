@@ -473,7 +473,7 @@ Page({
         });
         let index = tabItemType.indexOf(1) + 1;
 
-        if(index >= tabItemType.length) {                        // 处理边界，不得大于tabitem长度
+        if(index >= tabItemType.length) {        // 处理边界，不得大于tabitem长度
           index = tabItemType.length - 1;
           return;
         }
