@@ -1,7 +1,4 @@
-/* pages/more/NewInfo/NewInfo.wxss *//* pages/more/News/News.wxss */
-page {
-   /* padding-left: 20rpx; */
-}
+
 .demo {
    display: flex;
    width: 100%;
