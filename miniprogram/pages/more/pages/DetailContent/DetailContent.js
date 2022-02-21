@@ -195,7 +195,7 @@ Page({
               let beforePage_ = pages[pages.length - 3]; //获取上个页面的实例对象
               console.log("beforePage", beforePage_)
               beforePage.onLoad();
-              beforePage_.onPullDownRefresh()
+              // beforePage_.onPullDownRefresh()
               wx.navigateBack({
                 delta: 1,
               })
