@@ -71,6 +71,12 @@ Component({
                 activeItem:e.currentTarget.dataset["index"],
             })
             this.triggerEvent("setTab", e)
+        },
+        clickMenuSecond(e) {
+            this.setData({
+                activeItem:e.currentTarget.dataset["index"],
+            })
+            this.triggerEvent("setTab", e)
         }
     }
 })

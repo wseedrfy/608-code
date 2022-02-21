@@ -22,7 +22,6 @@
       </view>
 
       <!-- 消息列表 -->
-      <!-- <view class="newInfo" style="{{'--NewInfo:' + '\"' +  NewInfo + '\"'}};"> -->
       <view class="newInfo">
         <image src="../../images/information.png" bindtap="navigate" id="NewInfo"></image>
         <!-- 消息提示 -->
@@ -82,6 +81,7 @@
             </block>
           </swiper>
         </view>
+
         <view class='MenuDiv' bindtap='clickMenu'>
           <span class='rightimg-top'>
             分类:
@@ -89,14 +89,9 @@
           <span class="choosenLabel">
             {{choosenLabel}}
           </span>
-          <scroll-view scroll-x="true" class="choose_First">
-            <view class="Choosen" scroll-x="true" hidden='{{hideHidden}}'>
-              <view wx:for="{{menu}}" wx:key="index" class="Label-text" data-index="{{index}}" catchtap="clickMenuSecond">
-                <view class="Label_limit">{{item}}</view>
-              </view>
-            </view>
-          </scroll-view>
+          <TabScroll type="发布页面标签" tabItem="{{tabitem}}" bind:chooseTab="chooseTab"></TabScroll>
         </view>
+
         <view class="Line"></view>
         <view class="edit_pic_Title">
           <input placeholder="标题 闲聊/求助/组队..." value="{{Input_Title}}" name="formTitle"></input>
