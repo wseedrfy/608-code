@@ -67,10 +67,10 @@ Page({
         let array =this.data.array
         let index =e.detail.value
         this.setData({
-            index,
+            index, 
             qxbq:array[index]
         })
-        
+         
         let index1 = this.data.index
         if( index1 !=-1){
           this.setData({
@@ -178,6 +178,39 @@ Page({
       let username = wx.getStorageSync('args').username 
       var value = res.detail.value
       
+      //给周期变中文名
+      var cycle = value.cycle;
+      var cycleChinese = [];
+      for(var i = 0; i < cycle.length; i++){
+        if(cycle[0] == 'Everyday'){
+          cycleChinese.push("每天");
+          break;
+        }
+
+        switch (cycle[i]){
+          case 'Monday':
+            cycleChinese.push("周一")
+            break;
+          case 'Tuesday':
+            cycleChinese.push("周二")
+            break;
+          case 'Wednesday':
+            cycleChinese.push("周三")
+            break;
+          case 'Thursday':
+            cycleChinese.push("周四")
+            break;
+          case 'Friday':
+            cycleChinese.push("周五")
+            break;
+          case 'Saturday':
+            cycleChinese.push("周六")
+            break;
+          case 'Sunday':
+            cycleChinese.push("周日")
+            break;
+        }
+      }
       //获取lable1的真实值
       var realLable1;
       switch(value.lable1){
@@ -202,7 +235,7 @@ Page({
                 // 标签可以为空 
                 lable1:realLable1,
                 lable2:this.data.lable2,
-                cycle: value.cycle,
+                cycle: cycleChinese,
                 startTime: value.startTime,
                 endTime: value.endTime,
                 username:username,
@@ -221,17 +254,19 @@ Page({
                 isDaka:false,
                 username:username,
                 count:0,
-                hashId:this.hash(username+value.task+uid)
+                hashId:this.hash(username+value.task+uid),
             }
         }).then(res=>{
             console.log(res);
             wx.hideLoading();
-        }).then(res=>{
+        })
+        .then(res=>{
           wx.navigateBack({
             delta: 1
           })
         })
     },
+    
     cancel(){
       wx.navigateBack({
         delta: 1
