@@ -41,7 +41,7 @@
   <TabScroll type="校友圈标签" tabItem="{{tabitem}}" bind:setTab="setTab" id="TabScroll"></TabScroll>
   <view class="Line"></view>
   <!-- 页面主体 -->
-  <scroll-view style="background-color: rgba(153, 153, 153, 0.11);" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd">
+  <scroll-view style="background-color: rgba(153, 153, 153, 0.11); min-height: 100vh;" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd">
     <view class='content'>
       <view class="left" bindtap="leftDirection">
         <view wx:for="{{leftList}}" wx:key="leftList">
@@ -56,7 +56,7 @@
         </view>
       </view>
     </view>
-    <view class="DataNull" wx:if="{{DataNull==0}}" style="width: 100vw; height: 100vh;">-无更多内容-</view>
+    <view class="DataNull" wx:if="{{DataNull==0}}">-无更多内容-</view>
   </scroll-view>
 
   <view class="img-button content_btn content_btn_add" style="display:{{school==''?'none':''}}" bindtap="add">
@@ -89,7 +89,7 @@
           <span class="choosenLabel">
             {{choosenLabel}}
           </span>
-          <TabScroll type="发布页面标签" tabItem="{{tabitem}}" bind:chooseTab="chooseTab"></TabScroll>
+          <TabScroll type="发布页面标签" menu="{{menu}}" bind:chooseTab="chooseTab"></TabScroll>
         </view>
 
         <view class="Line"></view>

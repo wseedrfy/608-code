@@ -61,7 +61,8 @@ Page({
     rightList: [], // 右列表
 
     formTitle: ' ', // 发布页面标题
-    formText: ' ',// 发布页面内容
+    formText: ' ',  // 发布页面内容
+    menu: [],       // 发布页面标签
     showModel: false,
     Label: '全部',
     photo: [],
@@ -127,7 +128,6 @@ Page({
   // 获取新消息总数
   getNewInfo() {
     var that = this;
-    // 被评论者信息
 
     wx.cloud.database().collection('New-Information').where({ //------------请求数据库
       be_character_username: args.username, //------------------被评论者学号
@@ -645,6 +645,9 @@ Page({
         type: 0
       }
     }) : this.data.tabitem // that.data.tabitem是兜底数据
+    let menu = this.data.tabitem.map(e => {
+      return e.title
+    })
     // 默认选中第一个 “全部”
     this.data.tabitem[0].type = 1;
 
@@ -668,6 +671,7 @@ Page({
     }
 
     this.setData({
+      menu,
       school: args.schoolName,
       username: args.username,
       nickname: args.nickName,
