@@ -285,6 +285,9 @@ button::after {
     filter: invert(100%) !important;
   }
 
+  .jt{
+    filter: invert(10%) !important;
+  }
 
 
 
