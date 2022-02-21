@@ -46,7 +46,7 @@
         <view class="dakatop_box_input_2"> 
             <picker bindchange="bindPickerChange" name="lable1" value="{{index}}" range="{{array}}">
                 <view class="{{ bqshuru==0?'meibq':'bqpicker'}}">
-                {{array[index]||'请点击选择标签' }}
+                {{qxbq}}
                 </view>
             </picker>
         </view>
@@ -56,7 +56,7 @@
     <view class="dakacenter_buttom">
         <view class="dakacenter_buttom_topbox">
             <image class="dakacenter_buttom_topbox_right" src="../images/hotrank.png"></image>
-            <view class="dakacenter_buttom_topbox_left">热度榜</view>
+            <view class="dakacenter_buttom_topbox_left">标签热度榜</view>
         </view>
         <view class="dakacenter_buttom_buttombox">
             <view wx:for="{{items}}" data-id="{{index}}" class="checkbox{{item.checked?'checkedActive':''}}" bindtap='userCheck'>{{item.value}}</view>

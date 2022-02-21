@@ -25,8 +25,8 @@ Page({
             { name: '周日', value: 'Sunday' },
         ],
         bqshuru:0,
-        array: [],
-        default:'请点击选择标签',
+        array: ['学习', '工作', '阅读', '思考','运动'],
+        qxbq:'请点击选择标签',
         objectArray: [
             {
               id: 0,
@@ -64,18 +64,21 @@ Page({
     },
     bindPickerChange(e){
         console.log('picker发送选择改变，携带值为', e.detail.value)
+        let array =this.data.array
+        let index =e.detail.value
         this.setData({
-            index: e.detail.value
+            index,
+            qxbq:array[index]
         })
         
-        let index = this.data.index
-        if( index == 0){
-            console.log('未选择标签')
+        let index1 = this.data.index
+        if( index1 !=-1){
+          this.setData({
+            bqshuru:1
+          })
+          console.log('bqshuru:',this.data.bqshuru)
         }else{
-            this.setData({
-                bqshuru:1
-            })
-            console.log('bqshuru:',this.data.bqshuru)
+            console.log('erro!!!')
         }
     },
     userCheck:function(e){//热榜标签复选框
@@ -134,6 +137,9 @@ Page({
     // },
 
     saveRecord(res){
+      wx.showLoading({
+        title: '提交数据中',
+      })
       // 获取学号
       console.log(res);
       let username = wx.getStorageSync('args').username 
@@ -165,23 +171,22 @@ Page({
             }
         }).then(res=>{
             console.log(res);
+            wx.hideLoading();
+        }).then(res=>{
+          wx.navigateBack({
+            delta: 1
+          })
         })
     },
-
+    cancel(){
+      wx.navigateBack({
+        delta: 1
+      })
+    },
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad(){
-      let arraydata=this.data.array
-      let array=['学习', '工作', '阅读', '思考','运动']
-      if(arraydata==''){
-
-        this.setData({
-          array:array
-        })
-        console.log('onload');
-      }; 
-      
     },
 
     /**
