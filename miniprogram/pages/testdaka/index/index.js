@@ -8,7 +8,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-        taskdaka:[]
+        taskdata:[]
     },
     add_task(){
         wx.navigateTo({
@@ -180,7 +180,7 @@ Page({
             dakaArr.push(obj);
         }
         console.log(dakaArr);
-        this.data.taskdaka = dakaArr;
+        this.data.taskdata = dakaArr;
         // console.log(this.data.taskdaka);
     },
 
