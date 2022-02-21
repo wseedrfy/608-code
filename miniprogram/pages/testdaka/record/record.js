@@ -112,6 +112,7 @@ Page({
           endtime: e.detail.value
         })
     },
+
     // existDaka(res){
     //     // 获取学号
     //     let username = wx.getStorageSync('args').username 
@@ -135,6 +136,38 @@ Page({
     //         }
     //     })
     // },
+    guid() {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+          var r = Math.random() * 16 | 0,
+              v = c == 'x' ? r : (r & 0x3 | 0x8);
+          return v.toString(16);
+      });
+  },
+
+  hash(input){
+    var I64BIT_TABLE = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-'.split('');
+
+     var hash = 5389;
+     var i = input.length - 1;
+      
+     if(typeof input == 'string'){
+      for (; i > -1; i--)
+       hash += (hash << 5) + input.charCodeAt(i);
+     }
+     else{
+      for (; i > -1; i--)
+       hash += (hash << 5) + input[i];
+     }
+     var value = hash & 0x7FFFFFFF;
+      
+     var retValue = '';
+     do{
+      retValue += I64BIT_TABLE[value & 0x3F];
+     }
+     while(value >>= 1);
+      
+     return retValue;
+    },
 
     saveRecord(res){
       wx.showLoading({
@@ -144,17 +177,37 @@ Page({
       console.log(res);
       let username = wx.getStorageSync('args').username 
       var value = res.detail.value
+      
+      //获取lable1的真实值
+      var realLable1;
+      switch(value.lable1){
+        case '0':
+          realLable1 = '未选择任何标签'
+        case '1':
+          realLable1 = '学习'
+        case '2':
+          realLable1 = '工作'
+        case '3':
+          realLable1 = '阅读'
+        case '4':
+          realLable1 = '思考'
+        case '5':
+          realLable1 = '运动'
+      }
+      var uid = this.guid();
         //1.存入打卡任务记录表
         db.collection('daka_record').add({
             data: {
                 task:value.task,
                 // 标签可以为空 
-                lable1:value.lable1,
+                lable1:realLable1,
                 lable2:this.data.lable2,
                 cycle: value.cycle,
                 startTime: value.startTime,
                 endTime: value.endTime,
-                username:username
+                username:username,
+                uuid:uid,
+                hashId:this.hash(username+value.task+uid),
             }
         }).then(res=>{
             console.log(res);
@@ -167,7 +220,8 @@ Page({
                 //设置任务后初始化为false未打卡
                 isDaka:false,
                 username:username,
-                count:0
+                count:0,
+                hashId:this.hash(username+value.task+uid)
             }
         }).then(res=>{
             console.log(res);
@@ -186,7 +240,7 @@ Page({
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad(){
+    onLoad: function (options) {
     },
 
     /**
