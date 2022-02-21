@@ -1,8 +1,8 @@
 <!--index.wxml-->
 
 <view class="container">
-  <view class="mask" style=" height: {{statusBarHeight + lineHeight + 320}}px; {{theme ? '  background-image: linear-gradient( #a5e6ff , #88d5f3); ': ''}}"></view>
-  <view class="mask2" style="top: {{statusBarHeight + lineHeight + 320}}px; {{theme ? '  background-image: linear-gradient(  #93d7f1, #f6f6f6);' : ''}}"></view>
+  <view class="mask" style=" height: {{statusBarHeight + lineHeight + 320}}px; {{theme ? '  background-image: linear-gradient( #a5e6ff , #a4dff6); ': ''}}"></view>
+  <view class="mask2" style="top: {{statusBarHeight + lineHeight + 320}}px; {{theme ? '  background-image: linear-gradient(  #a4dff6, #f6f6f6);' : ''}}"></view>
   <view class="head" style="  background-image: {{dark == 'dark'? 'linear-gradient( #fff , #fff) ' : theme ? 'linear-gradient( #a5e6ff , #b4e6fb) ':  'linear-gradient( #f6f6f6 , #f6f6f6)'}};">
     <!-- 状态栏 -->
     <view style="  height: {{statusBarHeight}}px;"></view>

@@ -56,6 +56,7 @@
     position: relative;
     height: 100rpx;
     width: 100%;
+    background-color: #fff;
 }
 .dayclock_data .border:after{
         content: '';
@@ -128,3 +129,39 @@
     width: auto;
     
 }
+.dayclock_data_column_2_cycle_time_start{
+    height:22.4rpx;
+    width: 32rpx;
+}
+.operation {
+    background: #EDD68B;
+    position: absolute;
+    top: 0;
+    left: -300rpx;
+    height: 100rpx;
+    text-align: center;
+    color: #fff;
+    line-height: 152rpx;
+    display: flex;                                                                                                         
+  }
+   
+  .operation view {
+    width: 100rpx;
+  }
+  .operation2{
+    position: absolute;
+    top: 0;
+    right: -300rpx;
+    height: 100rpx;
+    text-align: center;
+    background-color: black;
+    color: #fff;
+    line-height: 152rpx;
+    display: flex;
+    padding: 20rpx;
+    box-sizing: border-box;
+    align-items: center;
+  }
+  .operation2 view {
+    width: 100rpx;
+  }
