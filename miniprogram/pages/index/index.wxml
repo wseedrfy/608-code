@@ -115,5 +115,5 @@
 <view class="wx-remind-detail" bindtap="tomato"><text>test1</text></view>
 <view class="wx-remind-detail" bindtap="daka"><text>test2</text></view>
 
-
 </view>
+

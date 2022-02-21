@@ -1,7 +1,9 @@
 const args = wx.getStorageSync('args')
 var app = getApp()
 var currentPage = 0 // 当前第几页,0代表第一页 
-
+// 控制标签切换,翻页
+var startX,endX;
+var moveFlag = true;
 // 旋转初始化
 const _ANIMATION_TIME = 400; // 动画播放一次的时长ms
 var _animation = wx.createAnimation({
@@ -438,6 +440,52 @@ Page({
     }
   },
 
+  touchStart(e) {              // 滑动事件
+    startX = e.touches[0].pageX;     // 获取触摸时的原点
+    moveFlag = true;
+    // console.log(1);
+  },
+  touchMove(e) {
+    endX = e.touches[0].pageX;       // 获取触摸时的原点
+    if(moveFlag) {
+      if(endX - startX > 50) {
+        console.log(233);
+        moveFlag = false;
+        // 激活上一个标签
+        let tabItemType = this.data.tabitem.map(item => {
+          return item.type
+        });
+        let index = tabItemType.indexOf(1) - 1;
+
+        if(index < 0) {                        // 处理边界，不得小于0
+          index = 0;
+          return;
+        }
+        
+        this.selectComponent("#TabScroll").setData({ activeItem: index });
+        this.setTab(index);
+      }
+      if(startX - endX > 50) {
+        moveFlag = false;
+        // 激活下一个标签
+        let tabItemType = this.data.tabitem.map(item => {
+          return item.type
+        });
+        let index = tabItemType.indexOf(1) + 1;
+
+        if(index >= tabItemType.length) {                        // 处理边界，不得大于tabitem长度
+          index = tabItemType.length - 1;
+          return;
+        }
+        
+        this.selectComponent("#TabScroll").setData({ activeItem: index });
+        this.setTab(index);
+      }
+    }
+  },
+  touchEnd(e) {
+    moveFlag = true;
+  },
   // 4. 动效
   rotateAni: function (n) { // 4.1 实现image旋转动画，每次旋转 120*n度
     _animation.rotate(120 * (n)).step()
@@ -556,7 +604,13 @@ Page({
   },
 
   setTab: function (e) {            // 该函数仅在组件中调用
-    var index = e.detail.currentTarget.dataset.index;
+    if(e.detail) {
+      var index = e.detail.currentTarget.dataset.index
+    }else {
+      var index = e
+    }
+    // let index = e.detail.currentTarget.dataset.index || e;
+    console.log(index);
     this.data.Label = this.data.tabitem[index].title;
     // 初始化 - 全部置零
     this.data.tabitem.forEach(element => {
@@ -566,6 +620,7 @@ Page({
     this.setData({
       tabitem: this.data.tabitem,
     })
+    console.log(this.data.tabitem);
     this.RightLeftSolution(true)
     this.getData();
   },
@@ -602,6 +657,7 @@ Page({
     var menu = (this.data.tabitem.map(e => e.title)).splice(0, 1);
     // 默认选中第一个 “全部”
     this.data.tabitem[0].type = 1;
+
     // 封号
     var campus_account = args.campus_account ? args.campus_account : false
     var describe = args.describe ? args.describe : false
@@ -620,6 +676,7 @@ Page({
         }
       })
     }
+
     this.setData({
       school: args.schoolName,
       menu,

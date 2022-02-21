@@ -14,15 +14,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: all 0.5s ease 0s;
+  transition: all 0.3s ease 0s;
 }
 .Choose_Label .underLine {
-    height: 3rpx;
-    position: absolute;
-    /* bottom: 5rpx; */
-    background-color: #000;
-    border-radius: 2rpx;
-    transition: all 0.3s ease 0s;
+  height: 3rpx;
+  position: absolute;
+  /* bottom: 5rpx; */
+  background-color: #000;
+  border-radius: 2rpx;
+  transition: all 0.1s ease 0s;
   }
 .Label-text{
   /* margin: 0rpx 45rpx 0rpx 0rpx; */

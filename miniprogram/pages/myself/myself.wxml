@@ -14,7 +14,6 @@
       <view class="userInfo_avatar">
         <image wx:if="{{isLogin}}" src="{{storageInfo.iconUrl}}" alt="" />
         <image src="./images/logo.jpg"></image>
-        <!-- <open-data wx:else type="userAvatarUrl"></open-data> -->
       </view>
 
       <view class="userInfo_text" bindtap="login">
@@ -82,7 +81,7 @@
     <!--  关于我们...Dialog -->
     <view class="more">
       <block wx:for="{{list}}" wx:key="index">
-        <button class="more_item" catchtap="{{item.click}}" open-type="{{item.id==4?'share':''}}">
+        <view class="more_item" catchtap="{{item.click}}" open-type="{{item.id==4?'share':''}}">
           <view class="left">
             <image src="{{item.icon}}"></image>
             <text class="title">{{item.title}}</text>
@@ -91,7 +90,7 @@
             <text>{{item.intro}}</text>
             <image src="{{right || '/pages/myself/images/right.png'}}"></image>
           </view>
-        </button>
+        </view>
       </block>
     </view>
 

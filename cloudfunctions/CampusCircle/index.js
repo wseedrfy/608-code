@@ -246,7 +246,7 @@ async function CancelCommentControlLogs(event) {
         createTime: event.createTime
       }
     }).then((res) => {
-      console.log(res, "点赞状态更新成功");
+      console.log(res, "删除评论成功");
     })
   } catch (e) {
     console.log(e);

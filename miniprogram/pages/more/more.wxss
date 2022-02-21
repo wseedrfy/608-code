@@ -363,4 +363,8 @@ swiper .wx-swiper-dot {
     filter: invert(100%) !important;
     color: #fff;
   }
+
+  .newInfo_redPoint {
+    filter: invert(100%) !important;
+  }
 }
