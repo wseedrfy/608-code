@@ -646,7 +646,7 @@ Page({
       }
     }) : this.data.tabitem // that.data.tabitem是兜底数据
 
-    let menu = this.data.tabitem.splice(1).map(e => {   // 获取发布页面标签menu
+    let menu = this.data.tabitem.slice(1).map(e => {   // 获取发布页面标签menu
       return e.title
     })
     // 默认选中第一个 “全部”
