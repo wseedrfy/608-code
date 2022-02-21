@@ -1,14 +1,69 @@
 // pages/testdaka/index/index.js
 const db = wx.cloud.database();
 const _ = db.command;
-
+let movedistance = 0;
 Page({
-
     /**
      * 页面的初始数据
      */
     data: {
-        taskdata:[]
+        taskdata:[],
+
+        currentIndex: 0, // 列表操作项的index
+        taskdata:[
+            // {
+            //     task_name:'看电视',
+            //     task_cycle:['周一','周二','周三','周四','周五'],
+            //     task_start_time:'6:00',
+            //     task_end_time:'8:00'
+            //     task_isDaka:false
+            // },
+        ],
+    },
+       // 手指触摸动作开始
+    touchstartX(e) {
+        this.setData({
+            currentIndex: e.currentTarget.dataset.index
+          });
+          console.log( e.currentTarget.dataset.index)
+          console.log( e.touches[0].clientX)
+          console.log(e)
+          // 获取触摸X坐标
+          this.recordX = e.touches[0].clientX;
+    },
+        // 点击操作
+    resetX() {
+        this.slideAnimation(0, 500);
+    },
+    // 手指触摸后移动
+    touchmoveX(e) {
+        let currentX = e.touches[0].clientX;
+        movedistance =  currentX-this.recordX; // 获取移动距离
+        this.slideAnimation(movedistance, 500);
+    },
+    // 手指触摸动作结束
+    touchendX() {
+        let recordX;
+        if (movedistance <=-200) { // 移动达到距离就动画显示全部操作项
+          recordX = -150;
+        } else if (movedistance >= 200) { // 移动未达到距离即还原
+          recordX = 300;
+        }else if (-200<movedistance<200){
+          recordX=0
+        }
+        this.slideAnimation(recordX, 500);
+    },
+    // 滑动动画
+    slideAnimation(recordX, time) {
+        let animation = wx.createAnimation({
+          duration: time,
+          timingFunction: 'ease'
+        });
+        animation.translate(recordX + 'rpx', 0).step()
+        this.setData({
+          animation: animation.export()
+        })
+>>>>>>> 0c9d5d2696cb2c352d99d7d403f426f6edd10509
     },
     add_task(){
         wx.navigateTo({
@@ -180,8 +235,10 @@ Page({
             dakaArr.push(obj);
         }
         console.log(dakaArr);
-        this.data.taskdata = dakaArr;
-        // console.log(this.data.taskdaka);
+        this.setData({
+            taskdata:dakaArr
+        })
+        console.log(this.data.taskdata);
     },
 
 
@@ -198,8 +255,12 @@ Page({
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad: function (options) {
+    onLoad() {
         this.getDaka_record();
+        wx.setNavigationBarTitle({
+            title: 'we打卡',
+        });
+        movedistance = 0; // 解决切换到其它页面再返回该页面动画失效的问题
     },
 
     
@@ -213,7 +274,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-
+        // this.getDaka_record();
     },
 
     /**
