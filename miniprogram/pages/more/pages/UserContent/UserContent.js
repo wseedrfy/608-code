@@ -214,7 +214,7 @@ Page({
     that.data.leftH = 0;
     that.data.rightH = 0;
 
-    if(args.school && args.nickname && args.iconUrl){
+    if(args.school && args.nickName && args.iconUrl){
       that.setData({
         school:args.school,
         nickname:args.nickname,
