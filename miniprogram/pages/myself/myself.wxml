@@ -88,7 +88,7 @@
           </view>
           <view class="right">
             <text>{{item.intro}}</text>
-            <image src="{{right || '/pages/myself/images/right.png'}}"></image>
+            <image class="jt" src="{{right || '/pages/myself/images/right.png'}}"></image>
           </view>
         </view>
       </block>
