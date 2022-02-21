@@ -287,9 +287,5 @@ button::after {
 
 
 
-  .more .left{
-    filter: invert(90%) !important;
-  }
-
 
 }
