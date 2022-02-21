@@ -3,7 +3,6 @@
     "packOptions": {
         "ignore": []
     },
-<<<<<<< HEAD
     "setting": {
         "urlCheck": false,
         "es6": false,
@@ -41,38 +40,6 @@
         "showES6CompileOption": false,
         "useCompilerPlugins": false,
         "ignoreUploadUnusedFiles": true
-=======
-    "enableEngineNative": false,
-    "useIsolateContext": true,
-    "userConfirmedBundleSwitch": false,
-    "packNpmManually": false,
-    "packNpmRelationList": [],
-    "minifyWXSS": true,
-    "disableUseStrict": false,
-    "minifyWXML": true,
-    "showES6CompileOption": false,
-    "useCompilerPlugins": false
-  },
-  "compileType": "miniprogram",
-  "libVersion": "2.22.0",
-  "appid": "wxf84451020f439de9",
-  "projectname": "We%E6%A0%A1%E5%9B%AD",
-  "miniprogramRoot": "miniprogram/",
-  "cloudfunctionRoot": "cloudfunctions/",
-  "cloudfunctionTemplateRoot": "cloudfunctionTemplate",
-  "watchOptions": {
-    "ignore": []
-  },
-  "debugOptions": {
-    "hidedInDevtools": []
-  },
-  "scripts": {},
-  "simulatorType": "wechat",
-  "simulatorPluginLibVersion": {},
-  "condition": {
-    "plugin": {
-      "list": []
->>>>>>> d9b7d7ad383c1d66773d0871e57a5550fe1a6d83
     },
     "compileType": "miniprogram",
     "libVersion": "2.22.0",
@@ -91,7 +58,6 @@
     "simulatorType": "wechat",
     "simulatorPluginLibVersion": {},
     "condition": {
-<<<<<<< HEAD
         "plugin": {
             "list": []
         },
@@ -161,57 +127,4 @@
             }
         }
     }
-=======
-      "plugin": {
-        "list": []
-      },
-      "game": {
-        "list": []
-      },
-      "gamePlugin": {
-        "list": []
-      },
-      "miniprogram": {
-        "list": [
-          {
-            "id": -1,
-            "name": "db guide",
-            "pathName": "pages/databaseGuide/databaseGuide",
-            "query": ""
-          },
-          {
-            "name": "课表",
-            "pathName": "pages/curriculum/curriculum",
-            "query": "",
-            "scene": null
-          },
-          {
-            "name": "修改课程",
-            "pathName": "pages/curriculum/addcurriculum/addcurriculum",
-            "query": "",
-            "scene": null
-          },
-          {
-            "name": "个人信息",
-            "pathName": "pages/myself/myself",
-            "query": "",
-            "scene": null
-          },
-          {
-            "name": "番茄时钟",
-            "pathName": "pages/tomato/index/index",
-            "query": "",
-            "scene": null
-          },
-          {
-            "name": "echart_demo",
-            "pathName": "pages/tomato/text/text",
-            "query": "",
-            "scene": null
-          }
-        ]
-      }
-    }
-  }
->>>>>>> d9b7d7ad383c1d66773d0871e57a5550fe1a6d83
 }
