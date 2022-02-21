@@ -449,7 +449,6 @@ Page({
     endX = e.touches[0].pageX;       // 获取触摸时的原点
     if(moveFlag) {
       if(endX - startX > 50) {
-        console.log(233);
         moveFlag = false;
         // 激活上一个标签
         let tabItemType = this.data.tabitem.map(item => {
@@ -609,8 +608,7 @@ Page({
     }else {
       var index = e
     }
-    // let index = e.detail.currentTarget.dataset.index || e;
-    console.log(index);
+
     this.data.Label = this.data.tabitem[index].title;
     // 初始化 - 全部置零
     this.data.tabitem.forEach(element => {
@@ -620,7 +618,6 @@ Page({
     this.setData({
       tabitem: this.data.tabitem,
     })
-    console.log(this.data.tabitem);
     this.RightLeftSolution(true)
     this.getData();
   },
