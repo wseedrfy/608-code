@@ -92,10 +92,11 @@ Page({
         // db.collection('daka_record').where()
         if(cycle.length == 1 && cycle[0] == '每天'){
             this.daka(hashid);
-            console.log("真打卡好了");
+            // console.log("真打卡好了");
             return;
         }
 
+        //细节：先判断周期能不能打再进行是否二次打卡判断
         for(var i = 0; i < cycle.length; i++){
             if(cycle[i] == '周一'){
                 if(day == 1){
@@ -146,24 +147,47 @@ Page({
     },
 
     //杰哥看这里：还未解决的问题：打卡后记得把滑动键锁死，不让其动。避免再次触发打卡函数
-    daka(hashid){
-        //获取当天是星期几
-        var nowDate = new Date();
-        var day = nowDate.getDay();
+    async daka(hashid){
+        let result = await db.collection("daka_status").where({
+            hashId:hashid
+        }).get()
 
-        db.collection("daka_status").where({
+        var daka_lastTime = result.data[0].daka_lastTime;
+        //细节坑：预防第一次打卡没有daka_lastTime的情况
+        if(daka_lastTime != null){
+            console.log(daka_lastTime);
+
+            //获取最后一次打卡的日期
+            var lastTime_year = daka_lastTime.getFullYear();
+            var lastTIme_month = daka_lastTime.getMonth()+1;
+            var lastTime_day = daka_lastTime.getDate();
+            // console.log("最后一次打卡时间是几号："+lastTime_day);
+            //获取当天日期
+            var nowDate = new Date();
+            var nowYear = nowDate.getFullYear();
+            var nowMonth = nowDate.getMonth()+1;
+            var nowDay = nowDate.getDate();
+            // console.log("今天是" + nowDay + "号");
+
+            if(lastTime_year == nowYear && lastTIme_month == nowMonth && lastTime_day == nowDay){
+                console.log("爷！您可不能一天打两次卡啊");
+                return;
+            }
+        }
+        
+        await db.collection("daka_status").where({
             hashId:hashid
         }).update({
             data:{
                 isDaka:true,
                 //次数自增1
                 count:_.inc(1),
-                daka_lastTime:nowDate,
+                daka_lastTime:new Date(),
             }
         })
 
         this.setData({showModel:true});
-        console.log('今日打卡成功！');
+        console.log('今日真打卡成功了！');
     },
 
     //滑动删除
@@ -196,7 +220,7 @@ Page({
         //根据username获取到该用户的所有打卡记录
         const res = await db.collection("daka_record").where({username:username}).get()
         let data = res.data
-        for(var i =0;i<res.data.length;i++){
+        for(var i = 0; i < res.data.length; i++){
             var hashid = data[i].hashId
             var obj = {
                 task_name:data[i].task,
@@ -238,20 +262,20 @@ Page({
             console.log(result2.data[0].daka_lastTime);
             //防止刚建立好的任务没有进行第一次打卡，就会导致没有daka_lastTime字段
             if(result2.data[0].daka_lastTime != null){
-                    var daka_lastTime = result2.data[0].daka_lastTime;
+                var daka_lastTime = result2.data[0].daka_lastTime;
                 // console.log(daka_lastTime);
 
                 //获取最后一次打卡的日期
                 var lastTime_year = daka_lastTime.getFullYear();
                 var lastTIme_month = daka_lastTime.getMonth()+1;
                 var lastTime_day = daka_lastTime.getDate();
-                console.log("最后一次打卡时间是几号："+lastTime_day);
+                // console.log("最后一次打卡时间是几号："+lastTime_day);
                 //获取当天日期
                 var nowDate = new Date();
                 var nowYear = nowDate.getFullYear();
                 var nowMonth = nowDate.getMonth()+1;
                 var nowDay = nowDate.getDate();
-                console.log("今天是" + nowDay + "号");
+                // console.log("今天是" + nowDay + "号");
 
                 if(lastTime_year == nowYear && lastTIme_month == nowMonth && lastTime_day == nowDay){
                     db.collection("daka_status").where({
@@ -261,7 +285,7 @@ Page({
                             isDaka:true
                         }
                     })
-                    console.log("今天已经打卡了~");
+                    // console.log("今天已经打卡了~");
                 }else{
                     db.collection("daka_status").where({
                         hashId:hashid
