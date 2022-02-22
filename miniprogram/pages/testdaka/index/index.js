@@ -7,6 +7,7 @@ Page({
      * 页面的初始数据
      */
     data: {
+        showModel:false,
         currentIndex: 0, // 列表操作项的index
         taskdata:[
             // {
@@ -141,7 +142,7 @@ Page({
             }
         }
         
-        return "根据任务日历，今日不可打卡"
+        console.log("根据任务周期，今日不可以打卡！");
     },
 
     //杰哥看这里：还未解决的问题：打卡后记得把滑动键锁死，不让其动。避免再次触发打卡函数
@@ -161,6 +162,7 @@ Page({
             }
         })
 
+        this.setData({showModel:true});
         console.log('今日打卡成功！');
     },
 
@@ -226,44 +228,50 @@ Page({
             username:username
         }).get()
         let data = result1.data;
-        // console.log(data);
+        // console.log(data);\
+        console.log(data.length);
         for(var i = 0; i < data.length; i++){
             var hashid = data[i].hashId;
             let result2 = await db.collection("daka_status").where({
                 hashId:hashid
             }).get()
-            var daka_lastTime = result2.data[0].daka_lastTime;
+            console.log(result2.data[0].daka_lastTime);
+            //防止刚建立好的任务没有进行第一次打卡，就会导致没有daka_lastTime字段
+            if(result2.data[0].daka_lastTime != null){
+                    var daka_lastTime = result2.data[0].daka_lastTime;
+                // console.log(daka_lastTime);
 
-            //获取最后一次打卡的日期
-            var lastTime_year = daka_lastTime.getFullYear();
-            var lastTIme_month = daka_lastTime.getMonth()+1;
-            var lastTime_day = daka_lastTime.getDate();
-            console.log("最后一次打卡时间是几号："+lastTime_day);
-            //获取当天日期
-            var nowDate = new Date();
-            var nowYear = nowDate.getFullYear();
-            var nowMonth = nowDate.getMonth()+1;
-            var nowDay = nowDate.getDate();
-            console.log("今天是" + nowDay + "号");
+                //获取最后一次打卡的日期
+                var lastTime_year = daka_lastTime.getFullYear();
+                var lastTIme_month = daka_lastTime.getMonth()+1;
+                var lastTime_day = daka_lastTime.getDate();
+                console.log("最后一次打卡时间是几号："+lastTime_day);
+                //获取当天日期
+                var nowDate = new Date();
+                var nowYear = nowDate.getFullYear();
+                var nowMonth = nowDate.getMonth()+1;
+                var nowDay = nowDate.getDate();
+                console.log("今天是" + nowDay + "号");
 
-            if(lastTime_year == nowYear && lastTIme_month == nowMonth && lastTime_day == nowDay){
-                db.collection("daka_status").where({
-                    hashId:hashid
-                }).update({
-                    data:{
-                        isDaka:true
-                    }
-                })
-                console.log("今天已经打卡了~");
-            }else{
-                db.collection("daka_status").where({
-                    hashId:hashid
-                }).update({
-                    data:{
-                        isDaka:false
-                    }
-                })
-                console.log("今天还没打卡咧~");
+                if(lastTime_year == nowYear && lastTIme_month == nowMonth && lastTime_day == nowDay){
+                    db.collection("daka_status").where({
+                        hashId:hashid
+                    }).update({
+                        data:{
+                            isDaka:true
+                        }
+                    })
+                    console.log("今天已经打卡了~");
+                }else{
+                    db.collection("daka_status").where({
+                        hashId:hashid
+                    }).update({
+                        data:{
+                            isDaka:false
+                        }
+                    })
+                    console.log("今天还没打卡咧~");
+                }
             }
         }
     },
@@ -273,7 +281,6 @@ Page({
      */
     async onLoad() {
         await this.jdugeDaka_status();
-        await this.getDaka_record();
         wx.setNavigationBarTitle({
             title: 'we打卡',
         });
@@ -290,7 +297,8 @@ Page({
     /**
      * 生命周期函数--监听页面显示
      */
-    onShow: function () {
+    async onShow() {
+        await this.getDaka_record();
         // this.getDaka_record();
     },
 

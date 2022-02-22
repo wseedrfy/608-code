@@ -136,6 +136,8 @@ Page({
     //         }
     //     })
     // },
+
+    //生成一个活着都不会出现重复的一大串字符
     guid() {
       return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
           var r = Math.random() * 16 | 0,
