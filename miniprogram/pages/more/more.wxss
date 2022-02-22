@@ -1,5 +1,5 @@
 /* pages/more/more.wxss */
-page{
+.page{
   width: 100%;
   margin: 0;
 }
@@ -324,7 +324,11 @@ swiper .wx-swiper-dot {
   image{
     filter: invert(1) !important;
   }
+  .Label_limit{
+    background-color: #ffffff;
+    filter: invert(100%) !important;
 
+  }
   .head{
     position:fixed; 
     background-color: #faf9f9;

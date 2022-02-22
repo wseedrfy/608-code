@@ -328,7 +328,14 @@ page{
   .wx-remind{
     background-color: #f5f4f4;
   }
+  .mask{
+    background-color: #fff;
+  }
+  .mask2{
+    background-color: #fff;
+  }
   .container{
+    filter: invert(0%) !important;
     background-color: #fff;
   }
 

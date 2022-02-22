@@ -61,7 +61,7 @@ App({
     // 获取设备信息
     wx.getSystemInfo({
       success: res => {
-        
+        this.globalData.windowHeight = res.windowHeight
         this.globalData.rectHeight = rect.height;     // 胶囊高度
         let windowWidth = res.windowWidth;            // 获取屏幕宽度
         let statusBarHeight = res.statusBarHeight;    // 获取状态栏的高度
