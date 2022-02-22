@@ -493,6 +493,7 @@ Page({
   },
   /*添加内容图标按钮*/
   add() {
+    
     var showModel = this.data.showModel
     var that = this
     if (showModel) {

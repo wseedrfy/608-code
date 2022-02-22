@@ -98,7 +98,7 @@
 
   .pic{
     background-color: #f1eded;
-    filter: invert(100%) !important;  background-image:  linear-gradient( #ffffff 75% , #fde2ec);
+    filter: invert(0%) !important;  background-image:  linear-gradient( #ffffff 75% , #fde2ec);
     background-image:  linear-gradient( #ffffff 90% , #ffffff );
   }
   .text_title{

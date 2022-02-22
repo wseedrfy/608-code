@@ -85,7 +85,7 @@
       filter: invert(100%) !important;
     }
     .Choose_Label{
-      filter: invert(100%) !important;
+      /* filter: invert(100%) !important; */
       /* background-color: rgba(255, 255, 255, 0.1); */
     }
     .choose_First{
@@ -103,6 +103,9 @@
 
     /* 发布页面标签 */
     .choose_First {
+      filter: invert(100%) !important;
+    }
+    .choose_First .Choosen {
       color: #fff;
       filter: invert(100%) !important;
     }
