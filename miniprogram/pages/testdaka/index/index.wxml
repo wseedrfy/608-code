@@ -25,7 +25,7 @@
          </view>
          <view class="dayclock_data_column_3"><view class="dayclock_data_column_text">{{task_isDaka==true?'已完成':'待完成'}}</view></view>
          <view class="operation" id="{{index}}" bindtap="allowDaka">左边打卡盒子</view>
-         <view class="operation2">右边删除盒子</view>
+         <view class="operation2" id="{{index}}" bindtap="delDaka">右边删除盒子</view>
      </view></view>
      <view class="dayclock_data"><view class="border">
          <view class="dayclock_data_column_1">

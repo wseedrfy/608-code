@@ -8,13 +8,25 @@ exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
 
   var isHave = (await db.collection("user").where({
-    school: event.school,
-    password: event.password,
     username: event.username,
+    password: event.password,
+    school: event.school,
   }).get()).data
   console.log(isHave)
   if(isHave.length >= 1){
+    await db.collection('user').where({
+      openid: wxContext.OPENID
+    }).update({
+      data: {
+        username: event.username,
+        password: event.password,
+        school: event.school,
+        iconUrl: event.iconUrl,
+        nickName: event.nickName
+      }
+    })
     return{msg: 'welcome'}
+    
   }else{
     return{msg: '校园网关闭或者服务器异常'}
   }

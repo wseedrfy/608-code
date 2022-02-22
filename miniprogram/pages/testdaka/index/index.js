@@ -7,6 +7,7 @@ Page({
      * 页面的初始数据
      */
     data: {
+        showModel:false,
         currentIndex: 0, // 列表操作项的index
         taskdata:[
             // {
@@ -23,9 +24,9 @@ Page({
         this.setData({
             currentIndex: e.currentTarget.dataset.index
           });
-          console.log( e.currentTarget.dataset.index)
-          console.log( e.touches[0].clientX)
-          console.log(e)
+        //   console.log( e.currentTarget.dataset.index)
+        //   console.log( e.touches[0].clientX)
+        //   console.log(e)
           // 获取触摸X坐标
           this.recordX = e.touches[0].clientX;
     },
@@ -141,7 +142,7 @@ Page({
             }
         }
         
-        return "根据任务日历，今日不可打卡"
+        console.log("根据任务周期，今日不可以打卡！");
     },
 
     //杰哥看这里：还未解决的问题：打卡后记得把滑动键锁死，不让其动。避免再次触发打卡函数
@@ -161,23 +162,29 @@ Page({
             }
         })
 
+        this.setData({showModel:true});
         console.log('今日打卡成功！');
     },
 
     //滑动删除
     delDaka(res){
-        var data = res.detail.value;
+        //子腾兄秒法：获取index来获取到页面的数据
+        var id = Number(res.target.id);
+        var taskdata = this.data.taskdata;
+        var data = taskdata[id];
+        var hashid = data.task_hashId;
+        // console.log(data);
+        
         //根据信息删除打卡记录表
         //不能删除打卡状态表，因为统计用
-        let username = wx.getStorageSync('args').username;
+        //根据hashId来进行删除
         db.collection("daka_record").where({
-            username:username,
-            task:data.task
+            hashId:hashid
         }).remove().then(res=>{
             console.log(res);
         })
         //问题：刷新页面
-        this.onLoad();
+        // this.onLoad();
     },
 
     //子腾兄总结：这个就是async await的一个比较好的应用 在写的函数前面写async进行异步声明 在异步函数前面写await进行同步声明，代码整洁度比较高，但是这样性能可能差点。
@@ -213,6 +220,7 @@ Page({
         console.log(this.data.taskdata);
     },
 
+    //渲染页面前判断各数据的打卡状态
      async jdugeDaka_status(){
         let username = wx.getStorageSync('args').username;
 
@@ -220,42 +228,50 @@ Page({
             username:username
         }).get()
         let data = result1.data;
-        // console.log(data);
+        // console.log(data);\
+        console.log(data.length);
         for(var i = 0; i < data.length; i++){
             var hashid = data[i].hashId;
             let result2 = await db.collection("daka_status").where({
                 hashId:hashid
             }).get()
-            var daka_lastTime = result2.data[0].daka_lastTime;
+            console.log(result2.data[0].daka_lastTime);
+            //防止刚建立好的任务没有进行第一次打卡，就会导致没有daka_lastTime字段
+            if(result2.data[0].daka_lastTime != null){
+                    var daka_lastTime = result2.data[0].daka_lastTime;
+                // console.log(daka_lastTime);
 
-            //获取最后一次打卡的日期
-            var lastTime_year = daka_lastTime.getFullYear();
-            var lastTIme_month = daka_lastTime.getMonth()+1;
-            var lastTime_day = daka_lastTime.getDay();
-            //获取当天日期
-            var nowDate = new Date();
-            var nowYear = nowDate.getFullYear();
-            var nowMonth = nowDate.getMonth()+1;
-            var nowDay = nowDate.getDay();
+                //获取最后一次打卡的日期
+                var lastTime_year = daka_lastTime.getFullYear();
+                var lastTIme_month = daka_lastTime.getMonth()+1;
+                var lastTime_day = daka_lastTime.getDate();
+                console.log("最后一次打卡时间是几号："+lastTime_day);
+                //获取当天日期
+                var nowDate = new Date();
+                var nowYear = nowDate.getFullYear();
+                var nowMonth = nowDate.getMonth()+1;
+                var nowDay = nowDate.getDate();
+                console.log("今天是" + nowDay + "号");
 
-            if(lastTime_year == nowYear && lastTIme_month == nowMonth && lastTime_day == nowDay){
-                db.collection("daka_status").where({
-                    hashId:hashid
-                }).update({
-                    data:{
-                        isDaka:true
-                    }
-                })
-                console.log("今天已经打卡了~");
-            }else{
-                db.collection("daka_status").where({
-                    hashId:hashid
-                }).update({
-                    data:{
-                        isDaka:false
-                    }
-                })
-                console.log("今天还没打卡咧~");
+                if(lastTime_year == nowYear && lastTIme_month == nowMonth && lastTime_day == nowDay){
+                    db.collection("daka_status").where({
+                        hashId:hashid
+                    }).update({
+                        data:{
+                            isDaka:true
+                        }
+                    })
+                    console.log("今天已经打卡了~");
+                }else{
+                    db.collection("daka_status").where({
+                        hashId:hashid
+                    }).update({
+                        data:{
+                            isDaka:false
+                        }
+                    })
+                    console.log("今天还没打卡咧~");
+                }
             }
         }
     },
@@ -263,9 +279,8 @@ Page({
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad() {
-        this.jdugeDaka_status();
-        this.getDaka_record();
+    async onLoad() {
+        await this.jdugeDaka_status();
         wx.setNavigationBarTitle({
             title: 'we打卡',
         });
@@ -282,7 +297,8 @@ Page({
     /**
      * 生命周期函数--监听页面显示
      */
-    onShow: function () {
+    async onShow() {
+        await this.getDaka_record();
         // this.getDaka_record();
     },
 
