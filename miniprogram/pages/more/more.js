@@ -673,7 +673,7 @@ Page({
 
   onShow: function () {
     this.data.allList = app.globalData.allList || [];
-    this.onPullDownRefresh();
+    this.RightLeftSolution();
     this.getNewInfo()
   },
 
