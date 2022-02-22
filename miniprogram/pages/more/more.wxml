@@ -1,4 +1,4 @@
-<!--pages/more/more.wxml-->
+
 <!-- 封号 -->
 <view class="title" wx:if="{{campus_account}}">
   <!-- <view>{{describe}}</view> -->
@@ -24,7 +24,7 @@
       <!-- 消息列表 -->
       <view class="newInfo">
         <image src="../../images/information.png" bindtap="navigate" id="NewInfo"></image>
-        <!-- 消息提示 -->
+        <!-- 消息提示 - 数字 -->
         <view class="newInfo_redPoint" id="NewInfo" catchtap="navigate" wx:if="{{NewInfo}}">
           <text>{{NewInfo}}</text>
         </view>
@@ -41,30 +41,21 @@
   <TabScroll type="校友圈标签" tabItem="{{tabitem}}" bind:setTab="setTab" id="TabScroll"></TabScroll>
   <view class="Line"></view>
   <!-- 页面主体 -->
-  <scroll-view style="background-color: rgba(153, 153, 153, 0.11); min-height: 100vh;" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd">
-    <view class='content'>
-      <view class="left" bindtap="leftDirection">
-        <view wx:for="{{leftList}}" wx:key="leftList">
-          <loveCards wx:if="{{item.Title == '闲聊'}}" item="{{item}}" type="left" bind:ShowContent="getBackData" openusername="{{openusername}}" direction="{{direction}}"></loveCards>
-          <campusCards wx:else="" item="{{item}}" type="left" bind:ShowContent="getBackData" openusername="{{openusername}}" direction="{{direction}}"></campusCards>
-        </view>
-      </view>
+  <waterFlowCards 
+  leftList="{{leftList}}"
+  rightList="{{rightList}}" 
+  openusername="{{openusername}}" 
+  tabitem="{{tabitem}}"
+  DataNull="{{DataNull}}"></waterFlowCards>
 
-      <view class="right" bindtap="rightDirection">
-        <view wx:for="{{rightList}}" wx:key="rightList">
-          <campusCards item="{{item}}" type="right" bind:ShowContent="getBackData" openusername="{{openusername}}" direction="{{direction}}"></campusCards>
-        </view>
-      </view>
-    </view>
-    <view class="DataNull" wx:if="{{DataNull==0}}">-无更多内容-</view>
-  </scroll-view>
-
-  <view class="img-button content_btn content_btn_add" style="display:{{school==''?'none':''}}" bindtap="add">
+  <!-- 发布按钮 -->
+  <view class="img-button content_btn content_btn_add" style="display:{{school=='游客登录'?'none':'fixed'}}" bindtap="add">
     <image src="/images/btn_feed@2x.png"></image>
   </view>
-  <view class="img-button content_btn content_btn_user" bindtap="navigate" style="display:{{school==''?'none':''}}" id="UserContent">
+  <view class="img-button content_btn content_btn_user" bindtap="navigate" style="display:{{school=='游客登录'?'none':'fixed'}}" id="UserContent">
     <image src="../../images/User.png"></image>
   </view>
+
   <view class="edit" wx:if="{{showModel}}">
     <view class="edit_background" bindtap="add"></view>
     <view class="edit_contain {{add_style}}">
@@ -89,7 +80,7 @@
           <span class="choosenLabel">
             {{choosenLabel}}
           </span>
-          <TabScroll type="发布页面标签" menu="{{menu}}" bind:chooseTab="chooseTab"></TabScroll>
+          <TabScroll class="TabScrollSub" type="发布页面标签" menu="{{menu}}" bind:chooseTab="chooseTab"></TabScroll>
         </view>
 
         <view class="Line"></view>

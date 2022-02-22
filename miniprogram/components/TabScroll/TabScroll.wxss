@@ -83,4 +83,10 @@
       filter: invert(100%) !important;
       color: #fff;
     }
+
+    /* 发布页面标签 */
+    .choose_First {
+      color: #fff;
+      filter: invert(100%) !important;
+    }
   }

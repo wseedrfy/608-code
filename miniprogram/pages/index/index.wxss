@@ -280,11 +280,11 @@ page{
   }
   
   .wx-class-title{
-    filter: invert(97%) !important;
+    filter: invert(95%) !important;
   }
 
   .wx-class-time {
-    filter: invert(97%) !important;
+    filter: invert(95%) !important;
     color: #fff !important;
   }
 

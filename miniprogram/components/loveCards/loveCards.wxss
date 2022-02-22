@@ -105,9 +105,6 @@
     filter: invert(100%) !important;
     color: #cab3b4;
   }
-  .Show_Image{
-    /* background-color: #fff; */
-  }
   .pic_Label{
     filter: invert(100%) !important;
   }

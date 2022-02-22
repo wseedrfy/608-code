@@ -25,7 +25,7 @@
          </view>
          <view class="dayclock_data_column_3"><view class="dayclock_data_column_text" style="color: {{ task_isDaka==true?  '#74D5D3' : ''}};">{{task_isDaka==true?'已完成':'待完成'}}</view></view>
          <view class="operation" id="{{index}}" bindtap="allowDaka"><image class="operation_daka_image" src="../images/edit.png"></image></view>
-         <view class="operation2"><image class="operation2_del_image" src="../images/del.png"></image></view>
+         <view class="operation2" id="{{index}}" bindtap="delDaka"><image class="operation2_del_image" src="../images/del.png"></image></view>
      </view></view>
      <view class="dayclock_data"><view class="border">
          <view class="dayclock_data_column_1">

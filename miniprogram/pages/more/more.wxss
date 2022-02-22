@@ -91,27 +91,11 @@ page{
   color: #fff;
 }
 
-.content{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  overflow: hidden;
-  margin:10rpx;
-
-}
 .showLoading{
   width: 45rpx;
   height: 45rpx;
   position: relative;
   left: 355rpx;
-}
-.left{
-  width: 360rpx;
-}
- 
-.right{
-  width: 360rpx;
-  margin-left: 10rpx;
 }
 
 .img-button {
@@ -298,12 +282,7 @@ page{
   bottom: 13rpx;
   left: 7rpx;
 } 
-.DataNull{
-  font-size: 26rpx;
-  color: #2c2c2cb4;
-  display: flex;
-  justify-content: center;
-}
+
 
 swiper{
   width: 100%;
@@ -364,6 +343,21 @@ swiper .wx-swiper-dot {
   }
 
   .newInfo_redPoint {
+    filter: invert(100%) !important;
+  }
+  /* 发布页面 */
+  .TabScrollSub {
+    color: #fff;
+    filter: invert(100%) !important;
+  }
+  .choosenLabel {
+    color: #fff;
+    filter: invert(100%) !important;
+  }
+  .edit_pic_Title,
+  .edit_background,
+  .edit_pic_Text {
+    color: #fff;
     filter: invert(100%) !important;
   }
 }
