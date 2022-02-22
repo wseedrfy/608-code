@@ -2,7 +2,6 @@
 page{
   background-color: #f6f6f6;
   font-family: Helvetica Neue, Helvetica, sans-serif;
-
 }
 
 .adContainer {
@@ -279,10 +278,6 @@ page{
       filter: invert(90%) !important;
     
   }
-
-  .container{
-    filter: invert(0%) !important;
-  }
   
   .wx-class-title{
     filter: invert(95%) !important;
@@ -325,12 +320,6 @@ page{
     background-color:rgba(246,244,244, 0.7);
     border-radius: 20rpx;
     height: 200rpx;
-  }
-  .mask{
-    background-color: #fff;
-  }
-  .mask2{
-    background-color: #fff;
   }
   
   .zt{
