@@ -1,9 +1,7 @@
 const args = wx.getStorageSync('args')
 var app = getApp()
 var currentPage = 0 // 当前第几页,0代表第一页 
-// 控制标签切换,翻页
-var startX,endX;
-var moveFlag = true;
+
 // 旋转初始化
 const _ANIMATION_TIME = 400; // 动画播放一次的时长ms
 var _animation = wx.createAnimation({
@@ -57,8 +55,8 @@ Page({
     allList: [],      // 列表的内容
     current: 0,       // 单个第x张照片
     hideHidden: true,
-    leftList: [], // 左列表
-    rightList: [], // 右列表
+    leftList: [],     // 左列表
+    rightList: [],    // 右列表
 
     formTitle: ' ', // 发布页面标题
     formText: ' ',  // 发布页面内容
@@ -105,12 +103,30 @@ Page({
       return
     }
     var that = this;
-    var allList =  this.data.allList;
+    var allList = this.data.allList;
     app.globalData.allList = allList;
+
     for (let i = 0; i < allList.length; i++) {
-      if(that.data.leftList.includes(allList[i]) ||that.data.rightList.includes(allList[i]) ){
-        continue
+      // 边界判断: 如果该数据已存在，则continue
+      if(that.data.leftList || that.data.rightList) {
+        let leftListID = that.data.leftList.map(item => {
+          return item._id
+        })
+        let rightListID = that.data.rightList.map(item => {
+          return item._id
+        })
+
+        if(leftListID.includes(allList[i]._id) || rightListID.includes(allList[i]._id)) {
+          console.log("eeee");
+          continue
+        }
       }
+
+      if(that.data.leftList.includes(allList[i]) || that.data.rightList.includes(allList[i]) ) {
+          console.log("continue");
+          continue
+        }
+
       if (that.data.leftH <= that.data.rightH) { //判断左右两侧当前的累计高度，来确定item应该放置在左边还是右边
         that.data.leftList.push(allList[i]);
         that.data.leftH += allList[i].ShowHeight;
@@ -123,6 +139,8 @@ Page({
       leftList: that.data.leftList,
       rightList: that.data.rightList,
     })
+
+    // console.log(that.data.leftList,that.data.rightList);
   },
 
   // 获取新消息总数
@@ -133,7 +151,7 @@ Page({
       be_character_username: args.username, //------------------被评论者学号
       status: 0 //-------------------三种状态：“0”：用户还没看消息列表；“1”：用户已经看到了消息列表；“-1”：取消点赞和评论
     }).count().then(res => {
-      console.log("res.total", res.total) //----------------新消息提示数目
+      // console.log("res.total", res.total) //----------------新消息提示数目
       that.setData({
         NewInfo: res.total
       })
@@ -163,8 +181,8 @@ Page({
     // 第一次加载数据
     if (currentPage == 1) {
       this.setData({
-        loadMore: true, //把"上拉加载"的变量设为true，显示  
-        loadAll: false //把“没有数据”设为false，隐藏  
+        loadMore: true, // 把"上拉加载"的变量设为true，显示  
+        loadAll: false  // 把“没有数据”设为false，隐藏  
       })
     }
     //云数据的请求
@@ -190,6 +208,7 @@ Page({
             DataNull: 1,
             showLoading: 1
           });
+          // console.log(that.data.allList);
           if (res.result.data.length < 10) {
             that.setData({
               loadMore: false, //隐藏加载中。。
@@ -207,8 +226,8 @@ Page({
             })
           } // 修改222
           that.setData({
-            loadAll: true, //把“没有数据”设为true，显示  
-            loadMore: false, //把"上拉加载"的变量设为false，隐藏  
+            loadAll: true,   // 把“没有数据”设为true，显示  
+            loadMore: false, // 把"上拉加载"的变量设为false，隐藏  
             DataNull: 0,
             showLoading: 1
           });
@@ -434,51 +453,7 @@ Page({
     }
   },
 
-  touchStart(e) {              // 滑动事件
-    startX = e.touches[0].pageX;     // 获取触摸时的原点
-    moveFlag = true;
-    // console.log(1);
-  },
-  touchMove(e) {
-    endX = e.touches[0].pageX;       // 获取触摸时的原点
-    if(moveFlag) {
-      if(endX - startX > 50) {
-        moveFlag = false;
-        // 激活上一个标签
-        let tabItemType = this.data.tabitem.map(item => {
-          return item.type
-        });
-        let index = tabItemType.indexOf(1) - 1;
-
-        if(index < 0) {                        // 处理边界，不得小于0
-          index = 0;
-          return;
-        }
-        
-        this.selectComponent("#TabScroll").setData({ activeItem: index });
-        this.setTab(index);
-      }
-      if(startX - endX > 50) {
-        moveFlag = false;
-        // 激活下一个标签
-        let tabItemType = this.data.tabitem.map(item => {
-          return item.type
-        });
-        let index = tabItemType.indexOf(1) + 1;
-
-        if(index >= tabItemType.length) {        // 处理边界，不得大于tabitem长度
-          index = tabItemType.length - 1;
-          return;
-        }
-        
-        this.selectComponent("#TabScroll").setData({ activeItem: index });
-        this.setTab(index);
-      }
-    }
-  },
-  touchEnd(e) {
-    moveFlag = true;
-  },
+  
   // 4. 动效
   rotateAni: function (n) { // 4.1 实现image旋转动画，每次旋转 120*n度
     _animation.rotate(120 * (n)).step()
@@ -635,28 +610,27 @@ Page({
 
   //以本地数据为例，实际开发中数据整理以及加载更多等实现逻辑可根据实际需求进行实现   
   onLoad: function () {
-    currentPage = 0
-    app.loginState() //判断登录
-    this.getNewInfo() // 获取新消息通知
-    //加载缓存获得学校和用户名和头像
-    this.data.tabitem = args.tabitem ? args.tabitem.map(e => {
+    currentPage = 0;
+    app.loginState()        // 判断登录
+    this.getNewInfo()       // 获取新消息通知
+
+    // 处理标签
+    this.data.tabitem = args.tabitem ? args.tabitem.map(e => { // 加载缓存获得学校和用户名和头像
       return {
         title: e,
         type: 0
       }
-    }) : this.data.tabitem // that.data.tabitem是兜底数据
-
+    }) : this.data.tabitem;                         // that.data.tabitem是兜底数据
+    this.data.tabitem[0].type = 1;                  // 默认选中第一个 “全部”
     let menu = this.data.tabitem.slice(1).map(e => {   // 获取发布页面标签menu
       return e.title
     })
-    // 默认选中第一个 “全部”
-    this.data.tabitem[0].type = 1;
-
+    
     // 封号
     var campus_account = args.campus_account ? args.campus_account : false
     var describe = args.describe ? args.describe : false
-    //判断封号
-    if (campus_account === true) {
+    
+    if (campus_account === true) {    // 判断封号
       wx.showModal({
         title: "提示",
         content: describe,
@@ -690,9 +664,8 @@ Page({
   },
 
   onShow: function () {
-
     this.data.allList = app.globalData.allList || [];
-    this.RightLeftSolution()
+    this.RightLeftSolution();
     this.getNewInfo()
   },
 
@@ -702,19 +675,19 @@ Page({
     this.data.animation = '';
   },
 
-  onPullDownRefresh() { // 下拉刷新
+  onPullDownRefresh() {         // 下拉刷新
     //var showLoading=0 
-    wx.showNavigationBarLoading() //在标题栏中显示加载
+    wx.showNavigationBarLoading()   // 在标题栏中显示加载
     this.setData({
       showLoading: 0
     })
-    currentPage = 0
+    currentPage = 0;
     this.startAnimationInterval()
     console.log("下拉刷新")
-    this.data.addAft = 0
+    this.data.addAft = 0;
     this.getData()
-    wx.hideNavigationBarLoading() //完成停止加载
-    wx.stopPullDownRefresh() //停止下拉刷新
+    wx.hideNavigationBarLoading()   // 完成停止加载
+    wx.stopPullDownRefresh()        // 停止下拉刷新
   },
 
   onReachBottom() { // 上拉触底改变状态
