@@ -19,6 +19,7 @@ Page({
     statusBarHeight: getApp().globalData.statusBarHeight,
     lineHeight: getApp().globalData.lineHeight,
     rectHeight: getApp().globalData.rectHeight,
+    windowHeight: getApp().globalData.windowHeight,
     tabitem: [        // 标签
       {
         title: "全部" ,

@@ -18,6 +18,7 @@ Page({
     },
     statusBarHeight: getApp().globalData.statusBarHeight,
     lineHeight: getApp().globalData.lineHeight,
+    windowHeight: getApp().globalData.windowHeight,
     adHidden: false
   },
   onPullDownRefresh(){
