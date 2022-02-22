@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<view class="head" style="  background-image: {{dark == 'dark'? 'linear-gradient( #fff , #fff) ' : theme ? 'linear-gradient( #a5e6ff , #b4e6fb) ':  'linear-gradient( #f6f6f6 , #f6f6f6)'}};">
+<view class="head" style="  background-image: {{dark == 'dark'? 'linear-gradient( #fff , #fff) ' : theme ? 'linear-gradient( #b4e6fb , #b6e7fb) ':  'linear-gradient( #f6f6f6 , #f6f6f6)'}};">
     <!-- 状态栏 -->
     <view style="  height: {{statusBarHeight}}px;"></view>
 

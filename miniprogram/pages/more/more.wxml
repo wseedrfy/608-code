@@ -30,7 +30,7 @@
       </view>
     </view>
 </view>
-<scroll-view  bindscrolltolower="onReachBottom" bindscrolltoupper="onPullDownRefresh" upper-threshold="1" scroll-y="true" style="height: {{windowHeight }}px;" wx:if="{{campus_account!=true}}" class="page">
+<scroll-view  bindscrolltolower="onReachBottom" bindscrolltoupper="onPullDownRefresh"  scroll-y="true" style="height: {{windowHeight }}px;" wx:if="{{campus_account!=true}}" class="page">
 
   <view style="position: relative; padding-top: {{ 3 + (statusBarHeight + lineHeight)}}px; width: 100%;"></view>
   <view style="position: relative; padding-top: {{(showscroll? 140: 0) }}rpx; width: 100%;"></view>
@@ -75,19 +75,23 @@
         </view>
 
         <view class='MenuDiv' bindtap='clickMenu'>
+        
           <span class='rightimg-top'>
             分类:
           </span>
           <span class="choosenLabel">
             {{choosenLabel}}
           </span>
-          <TabScroll class="TabScrollSub" type="发布页面标签" menu="{{menu}}" bind:chooseTab="chooseTab"></TabScroll>
+  
+          <TabScroll  class="TabScrollSub" type="发布页面标签" menu="{{menu}}" bind:chooseTab="chooseTab"></TabScroll>
+ 
+   
         </view>
-
-        <view class="Line"></view>
-        <view class="edit_pic_Title">
-          <input placeholder="标题 闲聊/求助/组队..." value="{{Input_Title}}" name="formTitle"></input>
-        </view>
+        
+        <span wx:if="{{nm}}" class='rightimg-top'>
+            匿名:   <switch bindchange="switchChange" checked="{{isNm}}" style="padding-left:20rpx; padding-bottom: 10rpx;"></switch>
+          </span>
+  
         <view class="Line"></view>
         <view class="edit_pic_Text">
           <textarea placeholder="添加正文" value="{{Input_Text}}" name="formText" maxlength="-1"></textarea>
