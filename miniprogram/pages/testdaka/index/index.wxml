@@ -23,9 +23,9 @@
                    <view class="dayclock_data_column_2_cycle_time">- {{item.task_end_time}}</view>
               </view>
          </view>
-         <view class="dayclock_data_column_3"><view class="dayclock_data_column_text" style="color: {{ task_isDaka==true?  '#74D5D3' : ''}};">{{task_isDaka==true?'已完成':'待完成'}}</view></view>
-         <view class="operation" id="{{index}}" bindtap="allowDaka"><image class="operation_daka_image" src="../images/edit.png"></image></view>
-         <view class="operation2" id="{{index}}" bindtap="delDaka"><image class="operation2_del_image" src="../images/del.png"></image></view>
+         <view class="dayclock_data_column_3"><view class="dayclock_data_column_text" style="color: {{ item.task_isDaka==true?  '#74D5D3' : ''}};">{{item.task_isDaka==true?'已完成':'待完成'}}</view></view>
+         <view class="operation" id="{{index}}" bindtap="daka_prompt"><image class="operation_daka_image" src="../images/edit.png"></image></view>
+         <view class="operation2" id="{{index}}" bindtap="daka_delpromp"><image class="operation2_del_image" src="../images/del.png"></image></view>
      </view></view>
      <view class="dayclock_data"><view class="border">
          <view class="dayclock_data_column_1">
@@ -132,6 +132,7 @@
 
 </view>
 
+<!-- if动态判断showModel2 -->
 <view class="complete" wx:if="{{showModel2}}">
      <view class="complete_bg"></view>
      <view class="complete_share">
@@ -141,7 +142,7 @@
                <view class="complete_share_box_button">校友圈一键分享</view>
           </view>
      </view>
-     <image class="complete_share_close" src="../images/close.png"></image>
+     <image class="complete_share_close" bindtap="complete_share_close" src="../images/close.png"></image>
 </view>
 
 <view class="attention" wx:if="{{showModel3}}">

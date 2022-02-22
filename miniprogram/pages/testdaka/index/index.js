@@ -9,7 +9,7 @@ Page({
     data: {
         showModel3:false,
         dakacount:'19',
-        // showModel2:true,
+        showModel2:false,
         currentIndex: 0, // 列表操作项的index
         taskdata:[
             // {
@@ -21,6 +21,11 @@ Page({
             // },
         ],
     },
+
+    complete_share_close(){
+        this.setData({showModel2:false});
+    },
+
     attention(){
         let that=this
         let showModal3=that.data.showModel3
@@ -87,11 +92,12 @@ Page({
 
     // 获取当天时间，看是否可以打卡
     // 注意：当滑动时执行：故不用进行判断是否重复打卡
-    allowDaka(res){
+    async allowDaka(res){
         console.log(res);
 
         //子腾兄秒法：获取index来获取到页面的数据
         var id = Number(res.target.id);
+        console.log(id);
         var taskdata = this.data.taskdata;
         var data = taskdata[id];
         console.log(data);
@@ -108,7 +114,7 @@ Page({
         // db.collection('daka_record').where()
         if(cycle.length == 1 && cycle[0] == '每天'){
             this.daka(hashid);
-            // console.log("真打卡好了");
+            console.log("真打卡好了");
             return;
         }
 
@@ -159,7 +165,12 @@ Page({
             }
         }
         
-        console.log("根据任务周期，今日不可以打卡！");
+        await wx.showToast({
+            title: '根据任务开放时间，今日不能打卡~',
+            icon: 'none',
+            duration: 2000
+        })
+        // console.log("根据任务周期，今日不可以打卡！");
     },
 
     //杰哥看这里：还未解决的问题：打卡后记得把滑动键锁死，不让其动。避免再次触发打卡函数
@@ -168,8 +179,8 @@ Page({
             hashId:hashid
         }).get()
 
-        var daka_lastTime = result.data[0].daka_lastTime;
         //细节坑：预防第一次打卡没有daka_lastTime的情况
+        var daka_lastTime = result.data[0].daka_lastTime;
         if(daka_lastTime != null){
             console.log(daka_lastTime);
 
@@ -186,7 +197,12 @@ Page({
             // console.log("今天是" + nowDay + "号");
 
             if(lastTime_year == nowYear && lastTIme_month == nowMonth && lastTime_day == nowDay){
-                console.log("爷！您可不能一天打两次卡啊");
+                await wx.showToast({
+                    title: '您今儿个打过卡了',
+                    icon: 'none',
+                    duration: 2000
+                })
+                // console.log("爷！您可不能一天打两次卡啊");
                 return;
             }
         }
@@ -202,8 +218,47 @@ Page({
             }
         })
 
-        this.setData({showModel:true});
-        console.log('今日真打卡成功了！');
+        //要是能成功打卡就打开弹窗可以选择分享
+        this.setData({showModel2:true});
+        // console.log('今日真打卡成功了！');
+    },
+
+    //打卡提示
+    daka_prompt(res){
+        let that = this;
+        console.log(res);
+        
+        wx.showModal({
+            title: '提示',
+            content: '是否确定打卡？',
+            success(abc) {
+              if (abc.confirm) {
+                that.allowDaka(res);
+                that.onShow();
+                that.slideAnimation(0, 500);
+              } else if (abc.cancel) {
+                console.log('用户点击取消')
+              }
+            }
+        });
+    },
+
+    //打卡删除提示
+    daka_delpromp(res){
+        let that = this;
+        wx.showModal({
+            title: '提示',
+            content: '是否删除该打卡任务？',
+            success(abc) {
+              if (abc.confirm) {
+                that.delDaka(res);
+                that.onShow();
+                that.slideAnimation(0, 500);
+              } else if (abc.cancel) {
+                console.log('用户点击取消')
+              }
+            }
+        });
     },
 
     //滑动删除
