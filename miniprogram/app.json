@@ -81,6 +81,7 @@
       "pages": [
         "DetailContent/DetailContent",
         "UserContent/UserContent",
+        "UserCenter/index",
         "NewInfo/NewInfo"
       ]
     },
