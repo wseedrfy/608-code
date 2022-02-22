@@ -7,7 +7,9 @@ Page({
      * 页面的初始数据
      */
     data: {
-        showModel:false,
+        showModel3:false,
+        dakacount:'19',
+        // showModel2:true,
         currentIndex: 0, // 列表操作项的index
         taskdata:[
             // {
@@ -18,6 +20,20 @@ Page({
             //     task_isDaka:false
             // },
         ],
+    },
+    attention(){
+        let that=this
+        let showModal3=that.data.showModel3
+        if(showModal3==false){
+            this.setData({
+                showModel3:true,
+                })
+        }else{
+            this.setData({
+                showModel3:false,
+                })
+        }
+        
     },
        // 手指触摸动作开始
     touchstartX(e) {
