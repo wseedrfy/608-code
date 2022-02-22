@@ -58,6 +58,16 @@
     justify-content: center;
   }
 
+  .Label_limit1{
+    width: auto;
+    padding: 0 15rpx;
+    /* height: 5rpx; */
+    display: flex;
+    align-items: center;
+    white-space:nowrap;
+    justify-content: center;
+  }
+
 /* 发布页面标签 */
 .choose_First{
   background-color: rgba(236, 236, 236, 0.219);
@@ -75,12 +85,28 @@
       filter: invert(100%) !important;
     }
     .Choose_Label{
-      filter: invert(100%) !important;
+      /* filter: invert(100%) !important; */
       /* background-color: rgba(255, 255, 255, 0.1); */
     }
-  
+    .choose_First{
+      background-color: rgba(51, 51, 51, 0.219);
+    }
     .Label_limit{
       filter: invert(100%) !important;
       color: #fff;
+    }
+
+    .Label_limit1{
+      filter: invert(0%) !important;
+      color: #fff;
+    }
+
+    /* 发布页面标签 */
+    .choose_First {
+      filter: invert(100%) !important;
+    }
+    .choose_First .Choosen {
+      color: #fff;
+      filter: invert(100%) !important;
     }
   }

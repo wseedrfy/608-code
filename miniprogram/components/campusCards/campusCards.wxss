@@ -94,12 +94,13 @@
 
   .pic{
     background-color: #f1eded;
-    filter: invert(100%) !important;
-  }
-  .Show_Image{
-    /* background-color: #fff; */
+    /* filter: invert(100%) !important; */
   }
   .pic_Label{
+    filter: invert(100%) !important;
+  }
+  .pic_Title {
+    color: #fff;
     filter: invert(100%) !important;
   }
 }

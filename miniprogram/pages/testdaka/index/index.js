@@ -7,7 +7,9 @@ Page({
      * 页面的初始数据
      */
     data: {
-        showModel:false,
+        showModel3:false,
+        dakacount:'19',
+        // showModel2:true,
         currentIndex: 0, // 列表操作项的index
         taskdata:[
             // {
@@ -18,6 +20,20 @@ Page({
             //     task_isDaka:false
             // },
         ],
+    },
+    attention(){
+        let that=this
+        let showModal3=that.data.showModel3
+        if(showModal3==false){
+            this.setData({
+                showModel3:true,
+                })
+        }else{
+            this.setData({
+                showModel3:false,
+                })
+        }
+        
     },
        // 手指触摸动作开始
     touchstartX(e) {
@@ -32,22 +48,22 @@ Page({
     },
         // 点击操作
     resetX() {
-        this.slideAnimation(0, 500);
+        this.slideAnimation(0, 500);//（点击后距左边距离，到达点击后距左边距离的速度越小越快）
     },
     // 手指触摸后移动
     touchmoveX(e) {
         let currentX = e.touches[0].clientX;
         movedistance =  currentX-this.recordX; // 获取移动距离
-        this.slideAnimation(movedistance, 500);
+        this.slideAnimation(movedistance, 500);//右边的数字是移动速度
     },
     // 手指触摸动作结束
     touchendX() {
         let recordX;
-        if (movedistance <=-200) { // 移动达到距离就动画显示全部操作项
-          recordX = -150;
-        } else if (movedistance >= 200) { // 移动未达到距离即还原
-          recordX = 300;
-        }else if (-200<movedistance<200){
+        if (movedistance <=-100) { // 移动达到距离就动画显示全部操作项
+          recordX = -130;           //滑动后右边显示的范围
+        } else if (movedistance >= 100) { 
+          recordX = 130;            //滑动后左边显示的范围
+        }else if (-100<movedistance<100){// 移动未达到距离即还原
           recordX=0
         }
         this.slideAnimation(recordX, 500);
@@ -310,7 +326,10 @@ Page({
         });
         movedistance = 0; // 解决切换到其它页面再返回该页面动画失效的问题
     },
-
+    12345(e){
+        let value =e.currentTarget.dataset.task;
+        console.log(value)
+    },
     
     /**
      * 生命周期函数--监听页面初次渲染完成

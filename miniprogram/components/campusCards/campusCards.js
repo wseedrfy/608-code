@@ -12,17 +12,10 @@ Component({
     openusername: {
       type: Object,
     },
-    direction: {
-      type: String,
-      value: ""
-    },
     type: {
       type: String,
       value: ""
     }
-    // data:{
-    //   openusername:{}
-    // }
   },
 
   methods: {

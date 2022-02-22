@@ -1,4 +1,4 @@
-<scroll-view style="background-color: rgba(153, 153, 153, 0.11);">
+<scroll-view style="background-color: rgba(153, 153, 153, 0.11); min-height: 100vh;" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd">
     <view class='content'>
       <view class="left" bindtap="leftDirection">
         <view wx:for="{{leftList}}" wx:key="leftList">
@@ -13,5 +13,5 @@
         </view>
       </view>
     </view>
-    <view class="DataNull" wx:if="{{DataNull==0}}" style="width: 100vw; height: 100vh;">-无更多内容-</view>
+    <view class="DataNull" wx:if="{{DataNull==0}}">-无更多内容-</view>
   </scroll-view>
