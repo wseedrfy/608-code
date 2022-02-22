@@ -346,10 +346,7 @@ swiper .wx-swiper-dot {
     filter: invert(100%) !important;
   }
   /* 发布页面 */
-  .TabScrollSub {
-    color: #fff;
-    filter: invert(100%) !important;
-  }
+
   .choosenLabel {
     color: #fff;
     filter: invert(100%) !important;

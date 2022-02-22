@@ -86,6 +86,9 @@
 
     /* 发布页面标签 */
     .choose_First {
+      filter: invert(100%) !important;
+    }
+    .choose_First .Choosen {
       color: #fff;
       filter: invert(100%) !important;
     }
