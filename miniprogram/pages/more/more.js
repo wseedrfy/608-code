@@ -686,7 +686,7 @@ Page({
   onPullDownRefresh() { // 下拉刷新
     clearTimeout(this.TimeOut);
     wx.showNavigationBarLoading() // 在标题栏中显示加载
-    this.RightLeftSolution(true)
+
     this.setData({
       showLoading: 0
     })
@@ -697,6 +697,7 @@ Page({
   
       console.log("下拉刷新")
       this.data.addAft = 0;
+      this.RightLeftSolution(true)
       this.getData()
       wx.hideNavigationBarLoading() // 完成停止加载
       wx.stopPullDownRefresh() // 停止下拉刷新
