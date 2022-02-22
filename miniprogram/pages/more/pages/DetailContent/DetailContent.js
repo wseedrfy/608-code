@@ -374,7 +374,7 @@ Page({
     that.setData({ content })
     console.log(content,"options");
     // 被评论者信息
-    if(args.iconUrl===content.iconUrl && args.nickName===content.nickName && args.username===content.username){
+    if(args.username===content.username){
       more=1
       console.log("match")
     }

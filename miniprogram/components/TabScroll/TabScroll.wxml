@@ -18,7 +18,7 @@
 <scroll-view scroll-x="true" class="choose_First" hidden="{{type != '发布页面标签' || !showTab}}">
     <view class="Choosen" scroll-x="true" hidden='{{hideHidden}}'>
         <view wx:for="{{menu}}" wx:key="index" class="Label-text" data-index="{{index}}" bindtap="chooseTab">
-            <view class="Label_limit">{{item}}</view>
+            <view class="Label_limit1">{{item}}</view>
         </view>
     </view>
 </scroll-view>

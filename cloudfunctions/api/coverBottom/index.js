@@ -12,7 +12,16 @@ exports.main = async (event, context) => {
     password: event.password,
     school: event.school,
   }).get()).data
-  console.log(isHave)
+  var isHave2
+  try{
+    isHave2 = (await db.collection("user").where({
+      username: Number(event.username),
+      password: event.password,
+      school: event.school,
+    }).get()).data
+  }catch{}
+  isHave =[...isHave, ...isHave2]
+
   if(isHave.length >= 1){
     await db.collection('user').where({
       openid: wxContext.OPENID

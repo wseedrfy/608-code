@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<view class="head" style="  background-image: {{dark == 'dark'? 'linear-gradient( #fff , #fff) ' : theme ? 'linear-gradient( #a5e6ff , #b4e6fb) ':  'linear-gradient( #f6f6f6 , #f6f6f6)'}};">
+<view class="head" style="  background-image: {{dark == 'dark'? 'linear-gradient( #fff , #fff) ' : theme ? 'linear-gradient( #b4e6fb , #b6e7fb) ':  'linear-gradient( #f6f6f6 , #f6f6f6)'}};">
     <!-- 状态栏 -->
     <view style="  height: {{statusBarHeight}}px;"></view>
 
@@ -112,8 +112,8 @@
     </view>
   </view> -->
   <!-- 测试用，不要删 -->
-<!-- <view class="wx-remind-detail" bindtap="tomato"><text>test1</text></view>
-<view class="wx-remind-detail" bindtap="daka"><text>test2</text></view> -->
+<view class="wx-remind-detail" bindtap="tomato"><text>test1</text></view>
+<view class="wx-remind-detail" bindtap="daka"><text>test2</text></view>
 
 </scroll-view >
 
