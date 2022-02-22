@@ -13,7 +13,7 @@
         "newFeature": false,
         "coverView": true,
         "nodeModules": false,
-        "autoAudits": true,
+        "autoAudits": false,
         "showShadowRootInWxmlPanel": true,
         "scopeDataCheck": false,
         "uglifyFileName": false,
@@ -49,10 +49,10 @@
     "cloudfunctionRoot": "cloudfunctions/",
     "cloudfunctionTemplateRoot": "cloudfunctionTemplate",
     "watchOptions": {
-      "ignore": []
+        "ignore": []
     },
     "debugOptions": {
-      "hidedInDevtools": []
+        "hidedInDevtools": []
     },
     "scripts": {},
     "simulatorType": "wechat",

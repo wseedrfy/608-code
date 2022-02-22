@@ -23,9 +23,9 @@ Page({
         this.setData({
             currentIndex: e.currentTarget.dataset.index
           });
-          console.log( e.currentTarget.dataset.index)
-          console.log( e.touches[0].clientX)
-          console.log(e)
+        //   console.log( e.currentTarget.dataset.index)
+        //   console.log( e.touches[0].clientX)
+        //   console.log(e)
           // 获取触摸X坐标
           this.recordX = e.touches[0].clientX;
     },
@@ -166,18 +166,23 @@ Page({
 
     //滑动删除
     delDaka(res){
-        var data = res.detail.value;
+        //子腾兄秒法：获取index来获取到页面的数据
+        var id = Number(res.target.id);
+        var taskdata = this.data.taskdata;
+        var data = taskdata[id];
+        var hashid = data.task_hashId;
+        // console.log(data);
+        
         //根据信息删除打卡记录表
         //不能删除打卡状态表，因为统计用
-        let username = wx.getStorageSync('args').username;
+        //根据hashId来进行删除
         db.collection("daka_record").where({
-            username:username,
-            task:data.task
+            hashId:hashid
         }).remove().then(res=>{
             console.log(res);
         })
         //问题：刷新页面
-        this.onLoad();
+        // this.onLoad();
     },
 
     //子腾兄总结：这个就是async await的一个比较好的应用 在写的函数前面写async进行异步声明 在异步函数前面写await进行同步声明，代码整洁度比较高，但是这样性能可能差点。
@@ -213,6 +218,7 @@ Page({
         console.log(this.data.taskdata);
     },
 
+    //渲染页面前判断各数据的打卡状态
      async jdugeDaka_status(){
         let username = wx.getStorageSync('args').username;
 
@@ -231,12 +237,14 @@ Page({
             //获取最后一次打卡的日期
             var lastTime_year = daka_lastTime.getFullYear();
             var lastTIme_month = daka_lastTime.getMonth()+1;
-            var lastTime_day = daka_lastTime.getDay();
+            var lastTime_day = daka_lastTime.getDate();
+            console.log("最后一次打卡时间是几号："+lastTime_day);
             //获取当天日期
             var nowDate = new Date();
             var nowYear = nowDate.getFullYear();
             var nowMonth = nowDate.getMonth()+1;
-            var nowDay = nowDate.getDay();
+            var nowDay = nowDate.getDate();
+            console.log("今天是" + nowDay + "号");
 
             if(lastTime_year == nowYear && lastTIme_month == nowMonth && lastTime_day == nowDay){
                 db.collection("daka_status").where({
@@ -263,9 +271,9 @@ Page({
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad() {
-        this.jdugeDaka_status();
-        this.getDaka_record();
+    async onLoad() {
+        await this.jdugeDaka_status();
+        await this.getDaka_record();
         wx.setNavigationBarTitle({
             title: 'we打卡',
         });
