@@ -89,7 +89,7 @@ Page({
     content: {}, // 个人信息
     openusername: {}, //点赞人的对象
   },
-
+  TimeOut: 1,
   //处理左右结构
   RightLeftSolution(empty = false) {
     if (empty) {
@@ -684,7 +684,7 @@ Page({
   },
 
   onPullDownRefresh() { // 下拉刷新
-    //var showLoading=0 
+    clearTimeout(this.TimeOut);
     wx.showNavigationBarLoading() // 在标题栏中显示加载
     this.RightLeftSolution(true)
     this.setData({
@@ -692,11 +692,17 @@ Page({
     })
     currentPage = 0;
     this.startAnimationInterval()
-    console.log("下拉刷新")
-    this.data.addAft = 0;
-    this.getData()
-    wx.hideNavigationBarLoading() // 完成停止加载
-    wx.stopPullDownRefresh() // 停止下拉刷新
+    this.TimeOut = setTimeout(()=>{
+
+  
+      console.log("下拉刷新")
+      this.data.addAft = 0;
+      this.getData()
+      wx.hideNavigationBarLoading() // 完成停止加载
+      wx.stopPullDownRefresh() // 停止下拉刷新
+    }, 1000)
+    //var showLoading=0 
+   
   },
 
   switchChange: function (res) {
