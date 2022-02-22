@@ -4,13 +4,17 @@ Component({
      * 组件的属性列表
      */
     properties: {
+        type: {                     // 调用组件类型
+            type: String,
+            value: ''
+        },
         tabItem: {                  // 传入的标签数组
             type: Array,
             value: []
         },
-        type: {                     // 调用组件类型
-            type: String,
-            value: ''
+        menu: {                     // 发布页面选择标签
+            type: Array,
+            value: []
         }
     },
 
@@ -36,6 +40,7 @@ Component({
                 const SHUANG_ZI_JIE = item["title"].match(/[\u4e00-\u9fa5+]/g) || '';
                 const DAN_ZI_JIE = item["title"].match(/[\w]/g) || '';
                 const Emoji = item["title"].match(/[^\w\u4e00-\u9fa5+][^\s]/g) || '';
+                
                 if(SHUANG_ZI_JIE || DAN_ZI_JIE) {
                     tabItemLength[index] = SHUANG_ZI_JIE.length * 2 + DAN_ZI_JIE.length * 0.8 + Emoji.length * 0.8
                 }
@@ -70,6 +75,9 @@ Component({
                 activeItem:e.currentTarget.dataset["index"],
             })
             this.triggerEvent("setTab", e)
-        }
+        },
+        chooseTab(e) { 
+            this.triggerEvent("chooseTab", e)
+        },
     }
 })

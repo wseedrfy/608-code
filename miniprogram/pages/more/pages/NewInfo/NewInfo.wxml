@@ -11,7 +11,7 @@
             </view>
             <view class="body" >
                <!-- 点赞 -->
-               <image class="zan" src="../../../images/love.png" wx:if="{{item.type == '点赞'}}"></image>
+               <image class="zan" src="../../../../images/love.png" wx:if="{{item.type == '点赞'}}"></image>
                <!-- 回复内容 -->
                <text class="comment" wx:if="{{item.type == '评论'}}"><text class="zzz">"</text>{{item.content}}<text class="zzz">"</text></text>
             </view>
