@@ -12,8 +12,7 @@
     "pages/curriculum/curriculum",
     "pages/more/more",
     "pages/myself/myself",
-    "pages/test/test",
-    "pages/test1/test1"
+    "pages/test/test"
   ],
   "subPackages": [
     {
