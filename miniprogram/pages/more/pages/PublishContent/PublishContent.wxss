@@ -133,3 +133,31 @@
   top: 3rpx;
   box-shadow:0px 0px 4px rgba(153, 153, 153, 0.507) inset;
 }
+
+/* 暗黑处理 */
+@media (prefers-color-scheme: dark) {
+  /* 头部 */
+  .head {
+    background-image: linear-gradient( #f6f6f6 , #f6f6f6) !important;
+  }
+  /* 通道 */
+  .choose_Channel .left image,
+  .choose_Channel .left text{
+    filter: invert(1) !important;
+  }
+  .choose_Channel .right image,
+  .choose_Channel .right text {
+    filter: invert(0.3) !important;
+  }
+
+  /* 主体 */
+  .mainBody .mainTitle,
+  .mainBody .mainText {
+    filter: invert(1) !important;
+  }
+
+  /* 按钮 */
+  .publish {
+    filter: invert(1) !important;
+  }
+}
