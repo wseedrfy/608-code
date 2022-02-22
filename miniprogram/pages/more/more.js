@@ -199,6 +199,9 @@ Page({
         School: that.data.school == "游客登录" ? "广东石油化工学院" : that.data.school
       },
       success(res) {
+        console.log(res)
+    console.log(111)
+
         if (res.result && res.result.data.length > 0) {
           currentPage++;
           //把新请求到的数据添加到allList里  
@@ -314,7 +317,7 @@ Page({
         for (var i = 0; i < path.length; i++) {
           wx.compressImage({
             src: path[i], // 图片路径
-            quality: 20, // 压缩质量,
+            quality: 50, // 压缩质量,
             success(res) {
               console.log(res)
               wx.cloud.uploadFile({
@@ -519,7 +522,7 @@ Page({
     var that = this;
     if (that.data.photo.length == 0) {
       wx.chooseImage({
-        count: 2,
+        count: 6,
         sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有  
         sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有  
         success: (res) => {
