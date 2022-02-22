@@ -453,8 +453,31 @@ swiper .wx-swiper-dot {
 }
 
 @media (prefers-color-scheme: dark) {
+  .wx-swiper-dot {
+    filter: invert(100%) !important;
+  }
   .ShowImg{
     filter: invert(1) !important;
+  }
+  .content_Title,
+  .content_Text {
+    color: #fff;
+    filter: invert(100%) !important;
+  }
+  .content_LabelBox {
+    filter: invert(100%) !important;
+  }
+  .new_Comment_second textarea{
+    color: #fff;
+    filter: invert(100%) !important;
+  }
+  .Comment_Content {
+    color: #fff;
+    filter: invert(100%) !important;
+  }
+  .Sending {
+    color: #fff;
+    filter: invert(100%) !important;
   }
 }
  

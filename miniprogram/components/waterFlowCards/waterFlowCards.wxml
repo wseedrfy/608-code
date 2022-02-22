@@ -1,0 +1,20 @@
+<scroll-view style="background-color: rgba(153, 153, 153, 0.11); min-height: 100vh;" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd">
+    <view class='content'>
+
+      <view class="left">
+        <view wx:for="{{leftList}}" wx:key="leftList">
+          <loveCards wx:if="{{item.Title == '闲聊'}}" item="{{item}}" type="left" bind:ShowContent="getBackData" openusername="{{openusername}}"></loveCards>
+          <campusCards wx:else="" item="{{item}}" type="left" bind:ShowContent="getBackData" openusername="{{openusername}}"></campusCards>
+        </view>
+      </view>
+
+      <view class="right">
+        <view wx:for="{{rightList}}" wx:key="rightList">
+          <campusCards item="{{item}}" type="right" bind:ShowContent="getBackData" openusername="{{openusername}}"></campusCards>
+        </view>
+      </view>
+
+    </view>
+    <!-- 边界处理 -->
+    <view class="DataNull" wx:if="{{DataNull==0}}">-无更多内容-</view>
+</scroll-view>
