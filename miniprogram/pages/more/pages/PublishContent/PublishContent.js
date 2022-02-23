@@ -22,6 +22,11 @@ Page({
         imageHeight: 0,
         imageWidth: 0,
     },
+    navigationBack(){
+      wx.navigateBack({
+        delta:1
+      })
+    },
     // 点击事件 - 点击出现TabScroll
     showTab() {                    
         this.setData({ showTab: !this.data.showTab })
@@ -40,9 +45,8 @@ Page({
         let that = this;
         wx.chooseMedia({                                // 上传图片
             count: 6,
-            mediaType:['image'],
+            mediaType:'image',
             sourceType:['album','camera'],
-            camera: 'camera',
             sizeType: ['original', 'compressed'],       // 可选择原图、压缩图
             success: (res) => {
                 let photo = that.data.photo.concat(res.tempFiles);
@@ -61,20 +65,9 @@ Page({
     },
     // 点击事件 - 取消按钮
     cancel() {
-      wx.showModal({
-        content: '是否取消发布？',
-        cancelColor: 'cancelColor',
-        success(res) {
-          if(res.confirm) {
-            wx.switchTab({
-              url: '../../more'
-            })
-          }else if(res.cancel) {
-            return ;
-          }
-        }
+      wx.navigateBack({
+        delta:1
       })
-      
     },
     // 点击事件 - 发布
     formSubmit(e) {
