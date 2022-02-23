@@ -3,8 +3,8 @@
 
       <view class="left">
         <view wx:for="{{leftList}}" wx:key="leftList">
-          <loveCards wx:if="{{item.Title == '闲聊'}}" item="{{item}}" type="left" bind:ShowContent="getBackData" openusername="{{openusername}}"></loveCards>
-          <campusCards wx:else="" item="{{item}}" type="left" bind:ShowContent="getBackData" openusername="{{openusername}}"></campusCards>
+          <!-- <loveCards wx:if="{{item.Title == '闲聊'}}" item="{{item}}" type="left" bind:ShowContent="getBackData" openusername="{{openusername}}"></loveCards> -->
+          <campusCards  item="{{item}}" type="left" bind:ShowContent="getBackData" openusername="{{openusername}}"></campusCards>
         </view>
       </view>
 

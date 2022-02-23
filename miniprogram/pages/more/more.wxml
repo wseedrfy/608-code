@@ -30,17 +30,19 @@
       </view>
     </view>
 </view>
-<scroll-view  bindscrolltolower="onReachBottom" bindscrolltoupper="onPullDownRefresh" upper-threshold="1" scroll-y="true" style="height: {{windowHeight }}px;" wx:if="{{campus_account!=true}}" class="page">
+<scroll-view  bindscrolltolower="onReachBottom" bindscrolltoupper="onPullDownRefresh"  scroll-y="true" style="height: {{windowHeight }}px;" wx:if="{{campus_account!=true}}" class="page">
 
   <view style="position: relative; padding-top: {{ 3 + (statusBarHeight + lineHeight)}}px; width: 100%;"></view>
   <view style="position: relative; padding-top: {{(showscroll? 140: 0) }}rpx; width: 100%;"></view>
+
   <!-- 加载 - 小圆圈 -->
   <image class="showLoading" mode="aspectFit" animation="{{animation}}" src='../../images/loading.png' wx:if="{{showLoading==0}}"></image>
+  <view class="Line"></view>
 
-  <view class="Line"></view>
   <!-- 标签 -->
-  <TabScroll type="校友圈标签" tabItem="{{tabitem}}" bind:setTab="setTab" id="TabScroll"></TabScroll>
+  <TabScroll type="校友圈标签" tabItem="{{tabitem}}" bind:setTab="setTab" id="TabScroll" showTab="false"></TabScroll>
   <view class="Line"></view>
+
   <!-- 页面主体 -->
   <waterFlowCards 
   leftList="{{leftList}}"
@@ -50,9 +52,10 @@
   DataNull="{{DataNull}}"></waterFlowCards>
 
   <!-- 发布按钮 -->
-  <view class="img-button content_btn content_btn_add" style="display:{{school=='游客登录'?'none':'fixed'}}" bindtap="add">
+  <view class="img-button content_btn content_btn_add" style="display:{{school=='游客登录'?'none':'fixed'}}" bindtap="navigate" id="PublishContent">
     <image src="/images/btn_feed@2x.png"></image>
   </view>
+  <!-- 我的发布按钮 -->
   <view class="img-button content_btn content_btn_user" bindtap="navigate" style="display:{{school=='游客登录'?'none':'fixed'}}" id="UserContent">
     <image src="../../images/User.png"></image>
   </view>
@@ -75,19 +78,23 @@
         </view>
 
         <view class='MenuDiv' bindtap='clickMenu'>
+        
           <span class='rightimg-top'>
             分类:
           </span>
           <span class="choosenLabel">
             {{choosenLabel}}
           </span>
-          <TabScroll class="TabScrollSub" type="发布页面标签" menu="{{menu}}" bind:chooseTab="chooseTab"></TabScroll>
+  
+          <TabScroll  class="TabScrollSub" type="发布页面标签" menu="{{menu}}" bind:chooseTab="chooseTab"></TabScroll>
+ 
+   
         </view>
-
-        <view class="Line"></view>
-        <view class="edit_pic_Title">
-          <input placeholder="标题 闲聊/求助/组队..." value="{{Input_Title}}" name="formTitle"></input>
-        </view>
+        
+        <span wx:if="{{nm}}" class='rightimg-top'>
+            匿名:   <switch bindchange="switchChange" checked="{{isNm}}" style="padding-left:20rpx; padding-bottom: 10rpx;"></switch>
+          </span>
+  
         <view class="Line"></view>
         <view class="edit_pic_Text">
           <textarea placeholder="添加正文" value="{{Input_Text}}" name="formText" maxlength="-1"></textarea>

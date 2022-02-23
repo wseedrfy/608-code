@@ -158,9 +158,11 @@ Page({
     this.setData({
       leftList : [],
       rightList: [],
+      List:[],
       leftH: 0,
-      rightH: 0
+      rightH: 0,
     })
+    currentPage = 0
     this.getData();
   },
 
