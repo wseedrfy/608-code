@@ -1,3 +1,6 @@
+//开发者需注意：假如测试的时候把所对应的任务的在daka_status表里所对应的数据删除后，会出现bug打不了卡。但页面上仍有（因为渲染是根据daka_record表渲染的）
+// 原理分析：打卡会操作daka_status表，删了会空指针报错，
+
 // pages/testdaka/record/record.js
 const _=wx.cloud.database().command
 const db = wx.cloud.database()
@@ -144,9 +147,9 @@ Page({
               v = c == 'x' ? r : (r & 0x3 | 0x8);
           return v.toString(16);
       });
-  },
+    },
 
-  hash(input){
+    hash(input){
     var I64BIT_TABLE = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-'.split('');
 
      var hash = 5389;
@@ -172,101 +175,138 @@ Page({
     },
 
     saveRecord(res){
-      wx.showLoading({
-        title: '提交数据中',
-      })
-      // 获取学号
-      console.log(res);
-      let username = wx.getStorageSync('args').username 
       var value = res.detail.value
-      
-      //给周期变中文名
+      var task = value.task;
+      var startTime = value.startTime;
+      var endTime = value.endTime;
       var cycle = value.cycle;
-      var cycleChinese = [];
-      for(var i = 0; i < cycle.length; i++){
-        if(cycle[0] == 'Everyday'){
-          cycleChinese.push("每天");
-          break;
-        }
-
-        switch (cycle[i]){
-          case 'Monday':
-            cycleChinese.push("周一")
-            break;
-          case 'Tuesday':
-            cycleChinese.push("周二")
-            break;
-          case 'Wednesday':
-            cycleChinese.push("周三")
-            break;
-          case 'Thursday':
-            cycleChinese.push("周四")
-            break;
-          case 'Friday':
-            cycleChinese.push("周五")
-            break;
-          case 'Saturday':
-            cycleChinese.push("周六")
-            break;
-          case 'Sunday':
-            cycleChinese.push("周日")
-            break;
-        }
-      }
-      //获取lable1的真实值
-      var realLable1;
-      switch(value.lable1){
-        case '0':
-          realLable1 = '未选择任何标签'
-        case '1':
-          realLable1 = '学习'
-        case '2':
-          realLable1 = '工作'
-        case '3':
-          realLable1 = '阅读'
-        case '4':
-          realLable1 = '思考'
-        case '5':
-          realLable1 = '运动'
-      }
-      var uid = this.guid();
-        //1.存入打卡任务记录表
-        db.collection('daka_record').add({
-            data: {
-                task:value.task,
-                // 标签可以为空 
-                lable1:realLable1,
-                lable2:this.data.lable2,
-                cycle: cycleChinese,
-                startTime: value.startTime,
-                endTime: value.endTime,
-                username:username,
-                uuid:uid,
-                hashId:this.hash(username+value.task+uid),
-            }
-        }).then(res=>{
-            console.log(res);
+      var lable1 = value.lable1;
+      
+      if(task == "" || task == null || task == undefined){
+        wx.showToast({
+          title: '任务不能为空~',
+          icon: 'none',
+          duration: 1000
         })
-
+      }else if(startTime == "输入开始时间"){
+        wx.showToast({
+          title: '请选择您的开始时间~',
+          icon: 'none',
+          duration: 1000
+        })
+      }else if(endTime == "输入结束时间"){
+        wx.showToast({
+          title: '请选择您的结束时间~',
+          icon: 'none',
+          duration: 1000
+        })
+      }else if(cycle.length == 0){
+        wx.showToast({
+          title: '打卡周期不能为空~',
+          icon: 'none',
+          duration: 1000
+        })
+      }else if(lable1 == "" || lable1 == null || lable1 == undefined){
+        wx.showToast({
+          title: '请选择您的标签~',
+          icon: 'none',
+          duration: 1000
+        })
+      }else{
+        wx.showLoading({
+          title: '提交数据中',
+        })
+        // 获取学号
+        console.log(res);
+        let username = wx.getStorageSync('args').username 
+        
+        //给周期变中文名
+        var cycleChinese = [];
+        for(var i = 0; i < cycle.length; i++){
+          if(cycle[0] == 'Everyday'){
+            cycleChinese.push("每天");
+            break;
+          }
+  
+          switch (cycle[i]){
+            case 'Monday':
+              cycleChinese.push("周一")
+              break;
+            case 'Tuesday':
+              cycleChinese.push("周二")
+              break;
+            case 'Wednesday':
+              cycleChinese.push("周三")
+              break;
+            case 'Thursday':
+              cycleChinese.push("周四")
+              break;
+            case 'Friday':
+              cycleChinese.push("周五")
+              break;
+            case 'Saturday':
+              cycleChinese.push("周六")
+              break;
+            case 'Sunday':
+              cycleChinese.push("周日")
+              break;
+          }
+        }
+        //获取lable1的真实值
+        var realLable1;
+        switch(value.lable1){
+          case '0':
+            realLable1 = '未选择任何标签'
+          case '1':
+            realLable1 = '学习'
+          case '2':
+            realLable1 = '工作'
+          case '3':
+            realLable1 = '阅读'
+          case '4':
+            realLable1 = '思考'
+          case '5':
+            realLable1 = '运动'
+        }
+        var uid = this.guid();
+          //1.存入打卡任务记录表
+        db.collection('daka_record').add({
+              data: {
+                  task:value.task,
+                  // 标签可以为空 
+                  lable1:realLable1,
+                  lable2:this.data.lable2,
+                  cycle: cycleChinese,
+                  startTime: value.startTime,
+                  endTime: value.endTime,
+                  username:username,
+                  uuid:uid,
+                  hashId:this.hash(username+value.task+uid),
+              }
+          }).then(res=>{
+              console.log(res);
+        })
+  
         //2.存入打卡状态表
         db.collection('daka_status').add({
-            data: {
-                task:value.task,
-                //设置任务后初始化为false未打卡
-                isDaka:false,
-                username:username,
-                count:0,
-                hashId:this.hash(username+value.task+uid),
-            }
-        }).then(res=>{
-            console.log(res);
-            wx.hideLoading();
-        })
-        .then(res=>{
-          wx.navigateBack({
-            delta: 1
+              data: {
+                  task:value.task,
+                  //设置任务后初始化为false未打卡
+                  isDaka:false,
+                  username:username,
+                  count:0,
+                  hashId:this.hash(username+value.task+uid),
+              }
+          }).then(res=>{
+              console.log(res);
+              wx.hideLoading();
           })
-        })
+          .then(res=>{
+            wx.navigateBack({
+              delta: 1
+            })
+          })
+      }
     },
     
     cancel(){
