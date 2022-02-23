@@ -4,7 +4,10 @@
         <!-- 状态栏 -->
         <view style="height: {{statusBarHeight}}px;" />
         <!-- 导航栏 -->
-        <view class="navigation" style="height: {{lineHeight}}px;">发布动态</view>
+        <view class="navigation" style="height: {{lineHeight}}px;">
+            <image class="navigationBack" src="./images/back.png" bindtap="navigationBack"></image>
+            发布动态
+        </view>
     </view>
     <!-- 填充 -->
     <view style="position: relative; padding-top: {{ 3 + (statusBarHeight + lineHeight)}}px; width: 100%;"></view>
@@ -49,7 +52,7 @@
             <view class="chooseImageBox">
                 <block wx:for="{{photo}}" wx:key="photoIndex">     <!-- 渲染已选择图片 -->
                     <view class="beChoosen_ImageBox">
-                        <image class="beChoosen_Image" src="{{item.tempFilePath}}" bindtap="preViewImage" data-index="{{index}}"></image>
+                        <image class="beChoosen_Image" src="{{item.tempFilePath}}" bindtap="preViewImage" data-index="{{index}}" mode="aspectFill"></image>
                         <view class="del_beChoosen_Image" bindtap="del_beChoosen_Image" data-index="{{index}}">×</view>
                     </view>
                 </block>

@@ -3,15 +3,23 @@
 }
 /* 1. 头部 */
 .head{
-    width: 100%;
-    position:fixed; 
-    z-index: 2;
-    color: #000;
+  width: 100%;
+  position:fixed; 
+  z-index: 2;
+  color: #000;
 }
 .navigation {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.navigationBack {
+  position: absolute;
+  left: 30rpx;
+  top: 25rpx;
+  width: 35rpx;
+  height: 35rpx;
 }
 /* 2. 选择频道 */
 .choose_Channel {
@@ -182,7 +190,7 @@
   .head {
     background-image: linear-gradient( #f6f6f6 , #f6f6f6) !important;
   }
-  /* 通道 */
+  /* 频道 */
   .choose_Channel .left image,
   .choose_Channel .left text{
     filter: invert(1) !important;
@@ -191,7 +199,9 @@
   .choose_Channel .right text {
     filter: invert(0.3) !important;
   }
-
+  .choose_First {
+    filter: invert(0) !important;
+  }
   /* 主体 */
   .mainBody .mainTitle,
   .mainBody .mainText {
