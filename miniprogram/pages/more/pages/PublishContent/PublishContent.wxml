@@ -47,7 +47,12 @@
             </view>
             
             <block wx:for="{{photo}}" wx:key="photoIndex">     <!-- 渲染已选择图片 -->
-                <image class="beChoosen_Image" src="{{item.tempFilePath}}"></image>
+
+                <view class="beChoosen_ImageBox">
+                    <image class="beChoosen_Image" src="{{item.tempFilePath}}"></image>
+                    <view class="del_beChoosen_Image" bindtap="del_beChoosen_Image" data-index="{{index}}">×</view>
+                </view>
+                
             </block>
             <view class="chooseImage" bindtap="chooseImage">   <!-- 放入图片 -->
                 <image src="./images/jia.png"></image>

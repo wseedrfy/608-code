@@ -82,12 +82,31 @@
   width: 100%;
   height: 1rpx;
 }
-.beChoosen_Image {
+.beChoosen_ImageBox {
   display: inline-block;
+  position: relative;
+  width: 150rpx;
+  height: 150rpx;
+  margin-right: 20rpx;
+}
+.beChoosen_Image {
   width: 150rpx;
   height: 150rpx;
   border-radius: 15rpx;
-  margin-right: 20rpx;
+}
+.del_beChoosen_Image {
+  position: absolute;
+  top: 5rpx;
+  right: 5rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25rpx;
+  height: 25rpx;
+  border-radius: 50%;
+  background-color: rgb(10, 10, 10,0.3);
+  font-size: 25rpx;
+  color: #fff;
 }
 .chooseImage {
   width: 150rpx;
@@ -155,7 +174,9 @@
   .mainBody .mainText {
     filter: invert(1) !important;
   }
-
+  .del_beChoosen_Image {
+    filter: invert(1) !important;
+  }
   /* 按钮 */
   .publish {
     filter: invert(1) !important;
