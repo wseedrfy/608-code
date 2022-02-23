@@ -4,7 +4,10 @@
         <!-- 状态栏 -->
         <view style="height: {{statusBarHeight}}px;" />
         <!-- 导航栏 -->
-        <view class="navigation" style="height: {{lineHeight}}px;">发布动态</view>
+        <view class="navigation" style="height: {{lineHeight}}px;">
+            <image class="navigationBack" src="./images/back.png" bindtap="navigationBack"></image>
+            发布动态
+        </view>
     </view>
     <!-- 填充 -->
     <view style="position: relative; padding-top: {{ 3 + (statusBarHeight + lineHeight)}}px; width: 100%;"></view>
@@ -46,22 +49,26 @@
                 <textarea placeholder="记录这一刻...." value="{{Input_Text}}" name="formText" maxlength="-1"></textarea>
             </view>
             
-            <block wx:for="{{photo}}" wx:key="photoIndex">     <!-- 渲染已选择图片 -->
+            <view class="chooseImageBox">
+                <block wx:for="{{photo}}" wx:key="photoIndex">     <!-- 渲染已选择图片 -->
+                    <view class="beChoosen_ImageBox">
+                        <image class="beChoosen_Image" src="{{item.tempFilePath}}" bindtap="preViewImage" data-index="{{index}}" mode="aspectFill"></image>
+                        <view class="del_beChoosen_Image" bindtap="del_beChoosen_Image" data-index="{{index}}">×</view>
+                    </view>
+                </block>
 
-                <view class="beChoosen_ImageBox">
-                    <image class="beChoosen_Image" src="{{item.tempFilePath}}"></image>
-                    <view class="del_beChoosen_Image" bindtap="del_beChoosen_Image" data-index="{{index}}">×</view>
+                <view class="chooseImage" bindtap="chooseImage">   <!-- 放入图片 -->
+                    <image src="./images/jia.png"></image>
                 </view>
-                
-            </block>
-            <view class="chooseImage" bindtap="chooseImage">   <!-- 放入图片 -->
-                <image src="./images/jia.png"></image>
             </view>
-            
+
         </view>
 
         <!-- 发布按钮 -->
         <view class="publishBox">   
+            <button class="cancel" hover-class="btn_hover" bindtap="cancel">
+                <text>取消</text>
+            </button>
             <button class="publish" form-type="submit" hover-class="btn_hover">
                 <text>发布动态</text>
             </button>

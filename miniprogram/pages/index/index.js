@@ -42,6 +42,7 @@ Page({
   },
   async onLoad(options) {
     
+
     var that = this;
     wx.onThemeChange(function (e) {
       that.setData({ dark:  e.theme  });

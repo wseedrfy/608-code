@@ -13,6 +13,6 @@ def login_MZ(username, password):
 def getData_MZ(username, password):
     session = requests.session()
     name,headers,msg = login(session, username, password)
-    if msg != {"msg": 'welcome'}:
+    if msg['msg'] != 'welcome':
         return msg
-    return data(session, username, name, headers)
+    return data(session,password, username, name, headers,msg)

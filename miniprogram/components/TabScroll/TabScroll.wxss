@@ -84,9 +84,7 @@
     scroll-view{
       filter: invert(100%) !important;
     }
-    .choose_First{
-      background-color: rgba(51, 51, 51, 0.219);
-    }
+    
     .Label_limit{
       filter: invert(100%) !important;
       color: #fff;
@@ -99,7 +97,8 @@
 
     /* 发布页面标签 */
     .choose_First {
-      filter: invert(100%) !important;
+      background-color: rgba(245, 245, 245) !important;
+      filter: invert(0) !important;
     }
     .choose_First .Choosen {
       color: #fff;

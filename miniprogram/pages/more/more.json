@@ -1,7 +1,8 @@
 {
   "usingComponents": {
     "TabScroll": "../../components/TabScroll/TabScroll",
-    "waterFlowCards": "../../components/waterFlowCards/waterFlowCards"
+    "waterFlowCards": "../../components/waterFlowCards/waterFlowCards",
+    "PublishContent": "../../components/PublishContent/PublishContent"
   },
   "navigationStyle":"custom",
   "enablePullDownRefresh": true

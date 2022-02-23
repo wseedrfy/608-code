@@ -1,12 +1,10 @@
 import requests
-from school.广东科技学院.code.code import code_ocr
 from school.广东科技学院.login.login import login
 from school.广东科技学院.data.data import data
 
 
 def login_GKY(username, password):
     session = requests.session()
-
     return login(session, username, password)
 
 
