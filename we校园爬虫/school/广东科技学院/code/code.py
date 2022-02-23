@@ -1,10 +1,12 @@
 import ddddocr
 import time
+
+
 ###识别技术
 def code_ocr(session):
-    status_code=0
+    status_code = 0
     code = ''
-    cookies=''
+    cookies = ''
     nowTime = str(round(time.time() * 1000))
     try:
         image_url = 'GKY_code.png'
@@ -17,8 +19,8 @@ def code_ocr(session):
         image = open(image_url, 'rb')
         ocr = ddddocr.DdddOcr()
         code = ocr.classification(image.read())
-        return code, cookies,nowTime
+        return code, cookies, nowTime
     except:
-        print('错误,验证码的返回值为',status_code)
+        print('错误,验证码的返回值为', status_code)
         print("广东科技学院验证码有问题")
-        return code, cookies,nowTime
+        return code, cookies, nowTime

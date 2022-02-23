@@ -18,6 +18,6 @@ def code_ocr(session):
         code = ocr.classification(image.read())
         return code, cookies
     except:
-        print('错误,验证码的返回值为',status_code)
-        print("茂职验证码有问题")
+        # print('错误,验证码的返回值为',status_code)
+        # print("茂职验证码有问题")
         return code, cookies

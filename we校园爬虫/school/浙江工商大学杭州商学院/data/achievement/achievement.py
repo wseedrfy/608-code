@@ -1,25 +1,17 @@
+import re
+import time
+
+# from lib.redis_command import connect_redis, hmset
 import requests
 from pyquery import PyQuery as pq
-import re
 
 
 def achievement(sessions: requests.session(), name, username):
     achievements = []
-    i = 0
-    cookies = sessions.cookies.values()
-    cookie = f"ASP.NET_SessionId={cookies[0]};zjgs=20111114"
+    # r = connect_redis(None, None, None)
+
     url = f'http://jxgl.zjhzcc.edu.cn/xscjcx.aspx?xh={username}&xm={name}&gnmkdm=N121604'
-    headers_change = {
-        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 '
-                      'Safari/537.36',
-        'Referer': url,
-        'Cookie': cookie
-    }
 
-    # dataform
-
-    html = sessions.get(url,
-                        headers=headers_change)
     data = {
         '__VIEWSTATE': '',
         'ddlXN': '',
@@ -29,25 +21,44 @@ def achievement(sessions: requests.session(), name, username):
         '__VIEWSTATEGENERATOR': '',
         'btn_zcj': '历年成绩'
     }
+
+    cookies = sessions.cookies.values()
+    cookie = f"ASP.NET_SessionId={cookies[0]};zjgs=20111114"
+
+    headers_change = {
+        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 '
+                      'Safari/537.36',
+        'Referer': url,
+        'Cookie': cookie
+    }
+
+    html = sessions.get(url,
+                        headers=headers_change)
+
     doc = pq(html.text)
     __VIEWSTATE = doc('#__VIEWSTATE').attr('value')
     __VIESTATEATE = doc('#__VIEWSTATEGENERATOR').attr('value')
-    # print(__VIEWSTATE)
-    # print(__VIEWSTATE)
+
+
     data['__VIEWSTATE'] = __VIEWSTATE
-    # print(__VIEWSTATE)
     data['__VIEWSTATEGENERATOR'] = __VIESTATEATE
+    # r.close()
+    # print('redis链接:', time.time() - t)
+    t = time.time()
+
     cj = sessions.post(url,
                        data=data)
+    # print('POST请求', time.time() - t)
+
     html = cj.text
     # print(html)
-    i += 1
     if "Internal Server Error" in html:
         return 'Internal Server Error'
+    t = time.time()
     every(html, achievements)
     gkk(html, achievements)
-    # print(achievements)
-    # print(len(achievements))
+    # print('解析网页',time.time()-t)
+
     return achievements
 
 
@@ -89,3 +100,5 @@ def gkk(html, achievements):
                 "cjjd": float(index[6]),  # 绩点
             }
         )
+
+
