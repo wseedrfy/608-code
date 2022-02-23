@@ -107,6 +107,7 @@ Page({
     var that = this;
     var allList = this.data.allList;
     app.globalData.allList = allList;
+    console.log(app.globalData.allList,"这是global.allList");
 
     for (let i = 0; i < allList.length; i++) {
       // 边界判断: 如果该数据已存在，则continue

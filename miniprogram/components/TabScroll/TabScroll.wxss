@@ -84,10 +84,6 @@
     scroll-view{
       filter: invert(100%) !important;
     }
-    .Choose_Label{
-      /* filter: invert(100%) !important; */
-      /* background-color: rgba(255, 255, 255, 0.1); */
-    }
     .choose_First{
       background-color: rgba(51, 51, 51, 0.219);
     }
