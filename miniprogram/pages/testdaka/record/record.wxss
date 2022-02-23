@@ -17,9 +17,8 @@
 .dakatop_box{
     width: 630rpx;
     height: 151.3rpx;
-    /* background: yellow; */
-    position: relative;
-    left: 30rpx;
+    display: flex;
+    margin-left:30rpx;
     border-bottom: 2rpx solid #E5E5E5;
 }
 .dakatop_box1{
@@ -47,9 +46,7 @@
     padding: 47.65rpx 0 47.65rpx 30rpx;
 }
 .dakatop_box_input{
-    height: auto;
     float: left;
-    width: auto;
     margin: 53rpx auto 53rpx 30rpx;
     font-size: 31rpx;
     font-weight: 500;

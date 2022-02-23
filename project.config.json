@@ -21,7 +21,6 @@
     "checkSiteMap": true,
     "uploadWithSourceMap": true,
     "compileHotReLoad": false,
-    "lazyloadPlaceholderEnable": false,
     "useMultiFrameRuntime": true,
     "useApiHook": true,
     "useApiHostProcess": true,
@@ -35,10 +34,7 @@
     "packNpmManually": false,
     "packNpmRelationList": [],
     "minifyWXSS": true,
-    "disableUseStrict": false,
-    "minifyWXML": true,
-    "showES6CompileOption": false,
-    "useCompilerPlugins": false
+    "showES6CompileOption": false
   },
   "compileType": "miniprogram",
   "libVersion": "2.22.0",
@@ -58,72 +54,50 @@
   "simulatorPluginLibVersion": {},
   "condition": {
     "plugin": {
-      "list": []
-    },
-    "compileType": "miniprogram",
-    "libVersion": "2.21.2",
-    "appid": "wxf84451020f439de9",
-    "projectname": "WeSchool",
-    "miniprogramRoot": "miniprogram/",
-    "cloudfunctionRoot": "cloudfunctions/",
-    "cloudfunctionTemplateRoot": "cloudfunctionTemplate",
-    "watchOptions": {
-      "ignore": []
-    },
-    "debugOptions": {
-      "hidedInDevtools": []
-    },
-    "scripts": {},
-    "condition": {
-      "plugin": {
-        "list": []
-      },
-      "game": {
-        "list": []
-      },
-      "gamePlugin": {
-        "list": []
-      },
-      "miniprogram": {
-        "list": [
-          {
-            "id": -1,
-            "name": "db guide",
-            "pathName": "pages/databaseGuide/databaseGuide",
-            "query": ""
-          },
-          {
-            "name": "课表",
-            "pathName": "pages/curriculum/curriculum",
-            "query": "",
-            "scene": null
-          },
-          {
-            "name": "修改课程",
-            "pathName": "pages/curriculum/addcurriculum/addcurriculum",
-            "query": "",
-            "scene": null
-          },
-          {
-            "name": "个人信息",
-            "pathName": "pages/myself/myself",
-            "query": "",
-            "scene": null
-          },
-          {
-            "name": "番茄时钟",
-            "pathName": "pages/tomato/index/index",
-            "query": "",
-            "scene": null
-          },
-          {
-            "name": "echart_demo",
-            "pathName": "pages/tomato/text/text",
-            "query": "",
-            "scene": null
-          }
-        ]
-      }
+                "list": []
+            },
+            "gamePlugin": {
+                "list": []
+            },
+            "miniprogram": {
+                "list": [
+                    {
+                        "id": -1,
+                        "name": "db guide",
+                        "pathName": "pages/databaseGuide/databaseGuide",
+                        "query": ""
+                    },
+                    {
+                        "name": "课表",
+                        "pathName": "pages/curriculum/curriculum",
+                        "query": "",
+                        "scene": null
+                    },
+                    {
+                        "name": "修改课程",
+                        "pathName": "pages/curriculum/addcurriculum/addcurriculum",
+                        "query": "",
+                        "scene": null
+                    },
+                    {
+                        "name": "个人信息",
+                        "pathName": "pages/myself/myself",
+                        "query": "",
+                        "scene": null
+                    },
+                    {
+                        "name": "番茄时钟",
+                        "pathName": "pages/tomato/index/index",
+                        "query": "",
+                        "scene": null
+                    },
+                    {
+                        "name": "echart_demo",
+                        "pathName": "pages/tomato/text/text",
+                        "query": "",
+                        "scene": null
+                    }
+                ]
+            }
+        }
     }
-  }
-}

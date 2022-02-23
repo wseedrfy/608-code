@@ -11,8 +11,8 @@
      
      <view class="dayclock_data" wx:for="{{taskdata}}" bindtouchstart="touchstartX" bindtap="resetX" bindtouchmove="touchmoveX" bindtouchend="touchendX" animation="{{currentIndex === index ?animation : ''}}" data-index="{{index}}"><view class="border">
          <view class="dayclock_data_column_1">
-              <view class="{{task_isDaka==true?'dayclock_data_column_1 ':'dayclock_data_slide'}}">
-                    <image class="dayclock_data_slide_image" src="../images/right.png"></image>
+              <view class="dayclock_data_slide" style="background:{{item.task_isDaka==true?  '#fff' : '#74D5D3'}};">
+                    <image class="dayclock_data_slide_image" src="{{item.task_isDaka==true?  '../images/complete.png' : '../images/right.png'}}"></image>
               </view>
          </view>
          <view class="dayclock_data_column_2">
@@ -24,10 +24,10 @@
               </view>
          </view>
          <view class="dayclock_data_column_3"><view class="dayclock_data_column_text" style="color: {{ item.task_isDaka==true?  '#74D5D3' : ''}};">{{item.task_isDaka==true?'已完成':'待完成'}}</view></view>
-         <view class="operation" id="{{index}}" bindtap="daka_prompt"><image class="operation_daka_image" src="../images/edit.png"></image></view>
-         <view class="operation2" id="{{index}}" bindtap="daka_delpromp"><image class="operation2_del_image" src="../images/del.png"></image></view>
+         <view class="operation" id="{{index}}" catchtap="daka_prompt"><image class="operation_daka_image" src="../images/edit.png"></image></view>
+         <view class="operation2" id="{{index}}" catchtap="daka_delpromp"><image class="operation2_del_image" src="../images/del.png"></image></view>
      </view></view>
-     <view class="dayclock_data"><view class="border">
+     <!-- <view class="dayclock_data"><view class="border">
          <view class="dayclock_data_column_1">
               <view class="dayclock_data_slide" style="background-color: #EDD68B;">
                     <image class="dayclock_data_slide_image" src="../images/right.png"></image>
@@ -42,8 +42,8 @@
               </view>
          </view>
          <view class="dayclock_data_column_3"><view class="dayclock_data_column_text">待补签</view></view>
-     </view></view>
-     <view class="dayclock_data"><view class="border">
+     </view></view> -->
+     <!-- <view class="dayclock_data"><view class="border">
          <view class="dayclock_data_column_1">
                <image class="dayclock_data_slide_image" src="../images/complete.png" style="margin-right:14rpx ;"></image>
          </view>
@@ -56,10 +56,10 @@
               </view>
          </view>
          <view class="dayclock_data_column_3"><view class="dayclock_data_column_text">待完成</view></view>
-     </view></view>
+     </view></view> -->
      <view class="dayclock_bottom"></view>
 </view>
-<view class="dayclock" >
+<!-- <view class="dayclock" >
      <view class="dayclock_title">
          <view class="dayclock_data_column_1"><image class="dayclock_column_left" src="../images/tishi.png"></image></view>
          <view class="dayclock_data_column_2"><view class="dayclock_column_center">我参与的小组打卡</view></view>
@@ -85,8 +85,8 @@
          <view class="dayclock_data_column_3"><view class="dayclock_data_column_text">待完成</view></view>
      </view></view>
      <view class="dayclock_bottom"></view>
-</view>
-<view class="dayclock" >
+</view> -->
+<!-- <view class="dayclock" >
      <view class="dayclock_title">
          <view class="dayclock_data_column_1"><image class="dayclock_column_left" src="../images/tishi.png"></image></view>
          <view class="dayclock_data_column_2"><view class="dayclock_column_center">我监督的小组打卡</view></view>
@@ -128,7 +128,7 @@
          <view class="dayclock_data_column_3"><view class="dayclock_data_column_text">待完成</view></view>
      </view></view>
      <view class="dayclock_bottom"></view>
-</view>
+</view> -->
 
 </view>
 
