@@ -376,6 +376,7 @@ Page({
   //以本地数据为例，实际开发中数据整理以及加载更多等实现逻辑可根据实际需求进行实现   
   onLoad: function () {
     currentPage = 0;
+
     app.loginState() // 判断登录
     this.getNewInfo() // 获取新消息通知
 

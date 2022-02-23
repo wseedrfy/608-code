@@ -23,7 +23,9 @@ Component({
     ShowContent: function (e) {
       //对数据进行更新
       var content = JSON.stringify(this.data.item)
+ 
       wx.navigateTo({
+    
         url: "./pages/DetailContent/DetailContent?content=" + content,
         fail(){
           wx.navigateTo({

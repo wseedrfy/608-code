@@ -133,6 +133,12 @@ Page({
             school: that.data.school[that.data.index]
           },
           success: res => {
+            if( that.data.school[that.data.index]=="茂名职业技术学院"){
+              wx.reportEvent("school", {
+                School:that.data.school[that.data.index],
+                status:res.result.msg
+              })
+            }
             if (res.result.msg == "welcome") {
               console.log(res.result)
               wx.reLaunch({
