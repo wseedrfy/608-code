@@ -112,5 +112,5 @@ def curriculum(session, username, name, headers):
                                 })
         return course_timetable_list
     except:
-        print('茂职课表有问题')
+        # print('茂职课表有问题')
         return course_timetable_list

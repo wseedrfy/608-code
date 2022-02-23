@@ -35,7 +35,7 @@ def achievement(session, username, name, headers):
         # print(html)
         return achievements
     except:
-        print('茂职成绩有问题')
+
         return achievements
 
 

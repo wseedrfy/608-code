@@ -1,3 +1,5 @@
+import time
+
 import requests
 from lib import RSAJS
 from pyquery import PyQuery as pq
@@ -12,7 +14,11 @@ def login(sessions: requests.session(), username, password):
     def login_test(sessions, username, password):
         status_code = 0
         try:
+            t = time.time()
             code = code_ocr(sessions)
+            # print('验证码识别',time.time()-t)
+            t = time.time()
+
             res = sessions.get('http://jxgl.zjhzcc.edu.cn')
             status_code = res.status_code
             # r = 'id=\"txtKeyModulus\" style=\"display:none\" value=\"(.*?)\"'
@@ -39,8 +45,13 @@ def login(sessions: requests.session(), username, password):
                 "txtKeyModulus": modulus
             }
             # print(data)
+            # print('获取重要信息',time.time()-t)
+            # t=time.time()
+
             res = sessions.post('http://jxgl.zjhzcc.edu.cn/default2.aspx', data=data)
             status_code = res.status_code
+            # print('登录POST请求',time.time()-t)
+
             # print(res.text)
 
             return res.text
@@ -54,7 +65,7 @@ def login(sessions: requests.session(), username, password):
     name = ' '
     while True:
         if '用户名或密码不正确！' in returnData:
-            return name , {
+            return name, {
                 "msg": '账号密码错误'
             }
         elif "安全退出" in returnData:
@@ -62,17 +73,17 @@ def login(sessions: requests.session(), username, password):
             # print(returnData)
             break
         elif '账号已锁定无法登录' in returnData:
-            return name ,  {
+            return name, {
                 "msg": '密码错误，您密码输入错误已达规定次数，账号已锁定无法登录，次日自动解锁！如忘记密码，请与教务处联系!'
             }
         elif '密码错误' in returnData:
-            return name ,  {
+            return name, {
                 "msg": '密码错误'
             }
         elif '验证码' in returnData:
-            returnData=login_test(sessions, username, password)
+            returnData = login_test(sessions, username, password)
         else:
-            return name ,  {
+            return name, {
                 "msg": '异常，请重试'
             }
     regname = re.compile(r'xm=(.*?)&')
