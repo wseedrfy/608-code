@@ -1,8 +1,20 @@
 <view class="all">
 
   <view class="container">
+    <view class="head">
+        <!-- 状态栏 -->
+        <view style="height: {{statusBarHeight}}px;" />
+        <!-- 导航栏 -->
+        <view class="cur-week" style="height: {{lineHeight}}px;" >
+          <view bindtap="back" style="display: flex;  align-items: center; margin-left: 30rpx; color: #fff; font-size: 55rpx;">{{'<'}}</view>
+        </view>
+      </view>
     <view class="title">
-      <view class="title_bg"></view>
+
+      <view class="title_bg">    
+ 
+         </view>
+      
       <view class="title_text">
         <text>We校园</text>
       </view>

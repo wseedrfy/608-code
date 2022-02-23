@@ -11,6 +11,7 @@ Page({
   data: {
     theme: true,
     dark : wx.getSystemInfoSync().theme,
+    ad: true,
     time: {
       date: new Date().getDate(),
       month: new Date().getMonth(),
@@ -51,6 +52,9 @@ Page({
       that.setData({ theme:  wx.getStorageSync('theme') });
     }
     var args = wx.getStorageSync('args')
+    this.setData({
+      ad: args.ad
+    })
     if (args) {
       try {
         var onload = app.jsRun(args, args.jsCode)
