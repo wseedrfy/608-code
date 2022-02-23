@@ -137,8 +137,13 @@ swiper{
   box-shadow:0px 0px 4px rgba(153, 153, 153, 0.507) inset;
  }
  .add_show{
-    animation: add_show .5s;
+    animation: add_show .15s;
 }
 .add_hide{
-    animation: add_hide .5s;
+    animation: add_hide .3s;
+}
+@media (prefers-color-scheme: dark) {
+    .edit_contain {
+        filter: invert(1) !important;
+    }
 }

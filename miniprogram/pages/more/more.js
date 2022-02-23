@@ -95,6 +95,7 @@ Page({
   },
   show_PublishContent(e){
     this.selectComponent('#PublishContent').add();    // 控制显隐
+    this.setData({ showPopUps: !this.data.showPopUps });
   },
   //处理左右结构
   RightLeftSolution(empty = false) {
