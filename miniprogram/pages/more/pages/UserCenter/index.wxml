@@ -1,0 +1,97 @@
+<!--index.wxml-->
+<!--用户头像和昵称-->
+ <!-- <image class="background" src="https://s2.loli.net/2022/02/09/nsT8MXBPzRrbxfW.png"></image>
+  -->
+<view class="all">
+
+ <view class="header">
+  
+
+<view class="user-pic">
+
+    <open-data type="userAvatarUrl" ></open-data>
+  </view>
+
+  <view class="user-name">
+
+ <view>
+    <open-data type="userNickName"></open-data>
+  </view>
+   <text class="name">小红书号:4962265877</text>
+  
+  </view>
+ 
+ </view>
+ <view class="zz">
+ <view class="zh">
+  一半山河湖海，一半远方和你
+ </view>
+
+ <view class="zh2">
+ <image class="zh2-1" src="images/n.png" style="width:25rpx; height:30rpx;"></image>
+  <text class="zh2-1">广东广州</text>
+  <text class="zh2-1">潮玩博主</text>
+ </view>
+
+
+
+ <view class="zh3">
+<view class="zz2">
+
+  <view class="zh3-1">
+
+   <view class="zh3-1-1">1</view>
+   <view class="zh3-1-2">关注</view>
+  
+  </view>
+
+  <view class="zh3-1">
+
+<view class="zh3-1-1">1</view>
+   <view class="zh3-1-2">关注</view>
+  
+
+</view>
+
+<view class="zh3-1">
+
+
+  <view class="zh3-1-1">456</view>
+   <view class="zh3-1-2">关注与收藏</view>
+  
+</view>
+
+</view>
+
+<view class="zh3-2">
+ 关注
+</view>
+<view class="zh3-3">
+<image src="images/l.png" style="width: 22px; height:20px;"></image>
+</view>
+
+
+ </view>
+</view>
+</view>
+
+
+<view class="f">
+<view class="case-page">
+
+<view class="top">
+<text class="z1">笔记</text>
+<text class="z2">收藏</text>
+</view>
+<view class="list-masonry">
+
+  <view class="item-masonry" wx:for="{{item}}">
+    <image src="{{item.url}}" mode="widthFix"></image>
+    <text>{{item.title}}</text>
+   
+  </view>
+
+</view>
+
+</view>
+</view>

@@ -324,6 +324,9 @@ swiper .wx-swiper-dot {
   image{
     filter: invert(1) !important;
   }
+  .content_btn{
+    filter: invert(1) !important;
+  }
   .Label_limit{
     background-color: #ffffff;
     filter: invert(100%) !important;

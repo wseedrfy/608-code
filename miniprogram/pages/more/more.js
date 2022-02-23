@@ -89,7 +89,7 @@ Page({
     content: {}, // 个人信息
     openusername: {}, //点赞人的对象
   },
-
+  TimeOut: 1,
   //处理左右结构
   RightLeftSolution(empty = false) {
     if (empty) {
@@ -107,6 +107,7 @@ Page({
     var that = this;
     var allList = this.data.allList;
     app.globalData.allList = allList;
+    console.log(app.globalData.allList,"这是global.allList");
 
     for (let i = 0; i < allList.length; i++) {
       // 边界判断: 如果该数据已存在，则continue
@@ -673,7 +674,7 @@ Page({
 
   onShow: function () {
     this.data.allList = app.globalData.allList || [];
-    this.onPullDownRefresh();
+    this.RightLeftSolution();
     this.getNewInfo()
   },
 
@@ -684,19 +685,26 @@ Page({
   },
 
   onPullDownRefresh() { // 下拉刷新
-    //var showLoading=0 
+    clearTimeout(this.TimeOut);
     wx.showNavigationBarLoading() // 在标题栏中显示加载
-    this.RightLeftSolution(true)
+
     this.setData({
       showLoading: 0
     })
     currentPage = 0;
     this.startAnimationInterval()
-    console.log("下拉刷新")
-    this.data.addAft = 0;
-    this.getData()
-    wx.hideNavigationBarLoading() // 完成停止加载
-    wx.stopPullDownRefresh() // 停止下拉刷新
+    this.TimeOut = setTimeout(()=>{
+
+  
+      console.log("下拉刷新")
+      this.data.addAft = 0;
+      this.RightLeftSolution(true)
+      this.getData()
+      wx.hideNavigationBarLoading() // 完成停止加载
+      wx.stopPullDownRefresh() // 停止下拉刷新
+    }, 1000)
+    //var showLoading=0 
+   
   },
 
   switchChange: function (res) {
