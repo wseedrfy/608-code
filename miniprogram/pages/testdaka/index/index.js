@@ -45,7 +45,7 @@ Page({
         this.setData({
             currentIndex: e.currentTarget.dataset.index
           });
-        //   console.log( e.currentTarget.dataset.index)
+          console.log( e.currentTarget.dataset.index)
         //   console.log( e.touches[0].clientX)
         //   console.log(e)
           // 获取触摸X坐标
@@ -96,7 +96,7 @@ Page({
         console.log(res);
 
         //子腾兄秒法：获取index来获取到页面的数据
-        var id = Number(res.target.id);
+        var id = Number(res.currentTarget.id);
         console.log(id);
         var taskdata = this.data.taskdata;
         var data = taskdata[id];
@@ -115,6 +115,7 @@ Page({
         if(cycle.length == 1 && cycle[0] == '每天'){
             this.daka(hashid);
             console.log("真打卡好了");
+            this.onShow();
             return;
         }
 
@@ -170,10 +171,11 @@ Page({
             icon: 'none',
             duration: 2000
         })
+        
         // console.log("根据任务周期，今日不可以打卡！");
     },
 
-    //杰哥看这里：还未解决的问题：打卡后记得把滑动键锁死，不让其动。避免再次触发打卡函数
+
     async daka(hashid){
         let result = await db.collection("daka_status").where({
             hashId:hashid
@@ -227,14 +229,12 @@ Page({
     daka_prompt(res){
         let that = this;
         console.log(res);
-        
         wx.showModal({
             title: '提示',
             content: '是否确定打卡？',
             success(abc) {
               if (abc.confirm) {
                 that.allowDaka(res);
-                that.onShow();
                 that.slideAnimation(0, 500);
               } else if (abc.cancel) {
                 console.log('用户点击取消')
@@ -245,6 +245,9 @@ Page({
 
     //打卡删除提示
     daka_delpromp(res){
+        let taskdata=this.data.taskdata
+        console.log(res);
+        console.log(res.currentTarget.id);
         let that = this;
         wx.showModal({
             title: '提示',
@@ -252,7 +255,7 @@ Page({
             success(abc) {
               if (abc.confirm) {
                 that.delDaka(res);
-                that.onShow();
+                that.data.taskdata.splice(res.currentTarget.id, 1);
                 that.slideAnimation(0, 500);
               } else if (abc.cancel) {
                 console.log('用户点击取消')
@@ -263,8 +266,9 @@ Page({
 
     //滑动删除
     delDaka(res){
+        // let that=this;
         //子腾兄秒法：获取index来获取到页面的数据
-        var id = Number(res.target.id);
+        var id = Number(res.currentTarget.id);
         var taskdata = this.data.taskdata;
         var data = taskdata[id];
         var hashid = data.task_hashId;
@@ -277,9 +281,11 @@ Page({
             hashId:hashid
         }).remove().then(res=>{
             console.log(res);
+            // that.onLoad();
         })
+
+        console.log('删除：',id)
         //问题：刷新页面
-        // this.onLoad();
     },
 
     //子腾兄总结：这个就是async await的一个比较好的应用 在写的函数前面写async进行异步声明 在异步函数前面写await进行同步声明，代码整洁度比较高，但是这样性能可能差点。
@@ -377,7 +383,7 @@ Page({
     async onLoad() {
         await this.jdugeDaka_status();
         wx.setNavigationBarTitle({
-            title: 'we打卡',
+            title: 'We打卡',
         });
         movedistance = 0; // 解决切换到其它页面再返回该页面动画失效的问题
     },
