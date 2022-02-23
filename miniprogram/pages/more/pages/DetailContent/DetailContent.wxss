@@ -12,6 +12,8 @@
 }
 .user{
   width: 100%;
+  display: flex;
+  padding:10rpx;
 }
 .user_iconUrl{
   width:58rpx;
@@ -23,12 +25,14 @@
   position: relative;
   bottom: 15rpx;
   left: 15rpx;
-  color:rgba(128,128,128,0.4)
+  top:6rpx;
+  color:rgba(128,128,128,0.4);
+  white-space: nowrap;
 }
 .more{
   width:58rpx;
   height: 58rpx;
-  margin-left: 570rpx;
+  margin-left: 550rpx;
   position:flex;
   /* top: 6rpx; */
 }
@@ -112,6 +116,7 @@ swiper .wx-swiper-dot {
    color: rgb(61, 61, 61);
  }
  .text_user{
+
    width:58rpx;
    height: 58rpx;
    border-radius: 100rpx;
@@ -453,8 +458,31 @@ swiper .wx-swiper-dot {
 }
 
 @media (prefers-color-scheme: dark) {
+  .wx-swiper-dot {
+    filter: invert(100%) !important;
+  }
   .ShowImg{
     filter: invert(1) !important;
+  }
+  .content_Title,
+  .content_Text {
+    color: #fff;
+    filter: invert(100%) !important;
+  }
+  .content_LabelBox {
+    filter: invert(100%) !important;
+  }
+  .new_Comment_second textarea{
+    color: #fff;
+    filter: invert(100%) !important;
+  }
+  .Comment_Content {
+    color: #fff;
+    filter: invert(100%) !important;
+  }
+  .Sending {
+    color: #fff;
+    filter: invert(100%) !important;
   }
 }
  

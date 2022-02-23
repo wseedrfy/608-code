@@ -74,6 +74,7 @@ Page({
     isAnimate: false,               // 控制动效
     // CSS中使用变量
     backgroundUrl: '',
+    theme: false,                   // 主题控制
   },
   importCurri() {
     console.log('importCurri');
@@ -153,36 +154,40 @@ Page({
     let kbHeight = (windowHeight - (this.data.lineHeight + this.data.statusBarHeight) - 80*(width/750))+2;
 
     this.kb(util.getweekString());
+    
     this.setData({
       weekNow: util.getweekString(),
       courseTime: courseTime? courseTime : that.data.courseTime,
-      kbHeight
+      kbHeight,
     })
     console.log(`课表滑动区域高度：${kbHeight}px`);
+
     // 从本地缓存获取backgroundUrl
     let fileUrl = wx.getStorageSync('curriBgc');
     let that = this;
     const getUrlFromLoad = (fileUrl) => {
-      
       wx.getSavedFileList({
         success(res) {
           for(let i in res.fileList) {
-
             res.fileList[i].filePath == fileUrl ? that.setData({backgroundUrl:res.fileList[i].filePath}) : ''
           }
         }
       })
       console.log(that.data.backgroundUrl);
     }
-    fileUrl ?  getUrlFromLoad(fileUrl) : ''
+    fileUrl ? getUrlFromLoad(fileUrl) : '';
+    
   },
 
   onShow: function (options) {
 
     app.loginState()
     this.kb(util.getweekString());
-    this.initWeek()
-    this.initWlistPoint()
+    this.initWeek();
+    this.initWlistPoint();
+    // 得到主题
+    let theme = wx.getStorageSync('theme');
+    this.setData({ theme });
   },
 
   onShareAppMessage: function (res) {
@@ -218,15 +223,15 @@ Page({
       }
     }
   },
-    // 点击上面课表进行切换
-    clickWeek: function (e) {
-      // this.kb(this.data.whichWeek);
-      this.setData({
-        whichWeek: Number(e.currentTarget.id) + 1,
-      })
-      this.kb(this.data.whichWeek);
-      console.log(this.data.whichWeek)
-    },
+  // 点击上面课表进行切换
+  clickWeek: function (e) {
+    // this.kb(this.data.whichWeek);
+    this.setData({
+      whichWeek: Number(e.currentTarget.id) + 1,
+    })
+    this.kb(this.data.whichWeek);
+    console.log(this.data.whichWeek)
+  },
   // 触摸结束事件
   touchEnd: function (e) {
     // this.kb(this.data.whichWeek);
@@ -372,25 +377,25 @@ Page({
     const animationFunc = (px,scale,opacity1,opacity2,height,width) => {
       
       var timetableAnimation = wx.createAnimation({
-        duration: 400,
+        duration: 550,
         timingFunction: 'ease',
-        delay: 50,
+        delay: 100,
       }).translateX(px).scale(scale).opacity(opacity1).height(height).step().export();
 
       var curriLeft = wx.createAnimation({
         duration: 400,
         timingFunction: 'ease',
-        delay: 50,
+        delay: 100,
       }).translateX(px).translateY(-20).opacity(opacity2).step().export();
+      
       this.setData({
         timetableAnimation,
         curriLeft,
         isAnimate: !this.data.isAnimate
       })
-      console.log(this.data.isAnimate);
       // this.data.isAnimate = !this.data.isAnimate;     // 更新 isAnimate 状态
     }
-    this.data.isAnimate ? animationFunc("none",1,1,0,"100%","100%",) : animationFunc(260,0.85,0.7,1,"100%",150)
+    this.data.isAnimate ? animationFunc("none",1,1,0,"100%","100%",) : animationFunc(260,0.88,0.7,1,"100%",150)
   },
   // 触摸开始事件
   touchStartCurri: function (e) {

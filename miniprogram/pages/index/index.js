@@ -18,6 +18,7 @@ Page({
     },
     statusBarHeight: getApp().globalData.statusBarHeight,
     lineHeight: getApp().globalData.lineHeight,
+    windowHeight: getApp().globalData.windowHeight,
     adHidden: false
   },
   onPullDownRefresh(){
@@ -110,7 +111,7 @@ Page({
   },
   tomato(){
     wx.navigateTo({
-      url: '../association/association',
+      url: '../tomato/index/index',
     })
   },
   daka(){

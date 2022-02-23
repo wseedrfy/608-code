@@ -1,13 +1,14 @@
 {
-  "permission": {
-    "scope.userLocation": {
-      "desc": "你的位置信息将用于小程序位置接口的效果展示"
-    }
-  },
+    "permission": {
+        "scope.userLocation": {
+            "desc": "你的位置信息将用于小程序位置接口的效果展示"
+        }
+    },
     "pages": [
         "pages/index/index",
         "pages/testdaka/index/index",
         "pages/testdaka/record/record",
+        "pages/login/login",
         "pages/curriculum/curriculum",
         "pages/more/more",
         "pages/myself/myself",
@@ -15,13 +16,6 @@
         "pages/test1/test1"
     ],
     "subPackages": [
-        {
-            "name": "login",
-            "root": "pages/login",
-            "pages": [
-                "login"
-            ]
-        },
         {
             "name": "physical",
             "root": "pages/physical",
@@ -49,7 +43,8 @@
             "root": "pages/HOT",
             "pages": [
                 "HotTop/HotTop",
-                "HotNoTop/HotNoTop"
+                "HotNoTop/HotNoTop",
+                "HotTest/HotTest"
             ]
         },
         {
@@ -86,7 +81,8 @@
             "pages": [
                 "DetailContent/DetailContent",
                 "UserContent/UserContent",
-                "NewInfo/NewInfo"
+                "NewInfo/NewInfo",
+                "PublishContent/PublishContent"
             ]
         },
         {
@@ -108,7 +104,6 @@
         "pages/index/index": {
             "network": "all",
             "packages": [
-                "login",
                 "physical",
                 "common",
                 "dynamic",

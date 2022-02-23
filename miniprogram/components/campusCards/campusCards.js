@@ -12,17 +12,10 @@ Component({
     openusername: {
       type: Object,
     },
-    direction: {
-      type: String,
-      value: ""
-    },
     type: {
       type: String,
       value: ""
     }
-    // data:{
-    //   openusername:{}
-    // }
   },
 
   methods: {
@@ -31,7 +24,13 @@ Component({
       //对数据进行更新
       var content = JSON.stringify(this.data.item)
       wx.navigateTo({
-        url: "../../pages/more/pages/DetailContent/DetailContent?content=" + content,
+        url: "./pages/DetailContent/DetailContent?content=" + content,
+        fail(){
+          wx.navigateTo({
+            url: "../../pages/DetailContent/DetailContent?content=" + content,
+  
+          })
+        }
       })
     },
     //点击事件

@@ -1,6 +1,7 @@
 .bg{
     background-color:  #F4F4F4;
-    height: 100vh;
+    height:1450rpx;
+    /* height: 100vh; */
     width: 100%;
     position: relative;
 }
@@ -21,11 +22,21 @@
     left: 30rpx;
     border-bottom: 2rpx solid #E5E5E5;
 }
+.dakatop_box1{
+    width: 630rpx;
+    height: 151.3rpx;
+    /* background: yellow; */
+    position: absolute;
+    top: 151.3rpx;
+    left: 30rpx;
+    border-bottom: 2rpx solid #E5E5E5;
+}
 .dakatop_box2{
     width: 630rpx;
     height: 192.3rpx;
     /* background: yellow; */
-    position: relative;
+    position: absolute;
+    top: 303rpx;
     left: 30rpx;
 }
 .dakatop_box_image{
@@ -36,6 +47,7 @@
     padding: 47.65rpx 0 47.65rpx 30rpx;
 }
 .dakatop_box_input{
+    height: auto;
     float: left;
     width: auto;
     margin: 53rpx auto 53rpx 30rpx;
@@ -162,16 +174,21 @@ checkbox .wx-checkbox-input{
     left: 30rpx;
 }
 .dakacenter_buttom_topbox{
+    position: relative;
     width: 100%;
     height: 50%;
 }
 .dakacenter_buttom_topbox_right{
+    position: absolute;
+    left: 1rpx;
     float: left;
     width: 31rpx;
     height: 38rpx;
     margin: 35.5rpx 0rpx auto 32rpx;
 }
 .dakacenter_buttom_topbox_left{
+    position: absolute;
+    left: 64rpx;
     float: left;
     font-size: 29rpx;
     font-weight: 400;
@@ -184,7 +201,7 @@ checkbox .wx-checkbox-input{
     background: #74D5D3;
     border-radius: 40rpx;
     position: absolute;
-    bottom: 444rpx;
+    top:925rpx;
     right: 60rpx;
 
 }
@@ -204,7 +221,7 @@ checkbox .wx-checkbox-input{
     border: 2rpx solid #F77A7A;
     border-radius: 40rpx;
     position: absolute;
-    bottom: 324rpx;
+    top: 1045rpx;
     right: 60rpx;
     text-align: center;
     line-height: 80rpx;
@@ -212,15 +229,56 @@ checkbox .wx-checkbox-input{
     font-weight: 500;
     color: #F77A7A;
 }
+.dakacenter_buttom_buttombox{
+    width: 550rpx;
+    height: 50%;
+    position: absolute;
+    left: 80rpx;
+}
 .checkbox{
     display:inline-block;
-    margin:10px;
-    padding:6px;
+    padding:5rpx 10rpx 6rpx 10rpx;
     background:#eee;
     border-radius: 4px;
+
+    padding:5rpx 10rpx 6rpx 10rpx;
+    margin:10rpx auto auto 30rpx;
+    font-weight: 500;
+    font-size: 25rpx;
 }
-.checkedActive{
-    background:red;
+.checkboxcheckedActive{
+    display:inline-block;
+    padding:5rpx 10rpx 6rpx 10rpx;
+    background:#eee;
+    border-radius: 4px;
+    background:#F77A7A;
     color:#fff;
+
+    margin:10rpx auto auto 30rpx;
+    font-weight: 500;
+    font-size: 25rpx;
 }
-  
+.dakatop_box_input_2{
+    float: left;
+    width: auto;
+    margin: 53rpx auto 53rpx 30rpx;
+    font-size: 31rpx;
+    font-weight: 500;
+}
+.bqpicker{
+    height: 50rpx ;
+    float: right;
+    font-size: 31rpx;
+    font-weight: 400;
+    line-height: 40rpx;
+    width: 300rpx;
+}
+.meibq{
+    height: 50rpx ;
+    float: right;
+    font-size: 31rpx;
+    font-weight: 400;
+    line-height: 40rpx;
+    width: 300rpx;
+    color: gray;
+}

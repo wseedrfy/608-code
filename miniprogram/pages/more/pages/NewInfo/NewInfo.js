@@ -1,7 +1,7 @@
 const util = require("../../../../utils/util");
 const args = wx.getStorageSync('args')
 var currentPage = 0 // 当前第几页,0代表第一页 
-var pageSize = 10 //每页显示多少数据 
+var pageSize = 10   // 每页显示多少数据 
 Page({
   data: {
     dataList: [],    // 放置返回数据的数组  

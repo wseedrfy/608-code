@@ -1,46 +1,17 @@
-<wxs module="m1">
-var getStar = function(item,openusername) {
-  var max=undefined
-  if(!item.Star_User||item.Star_User.length===0){
-    max='../../../images/zan1.png'
-  }
-  else{
-    for(var i=0;i<item.Star_User.length;i++){
-    if(item.Star_User[i].username==openusername.username){
-      max='../../../images/zan.png'
-      break
-    }
-    else{
-      max='../../../images/zan1.png'
-    }
-  }
-  }
-  return max;
-}
-module.exports.getStar = getStar;
-</wxs>
-<view class="page">
-  <view class='content'>
-    <block wx:for="{{List}}" wx:key="index">
-      <view class="pic" bindtap="ShowContentLeft" data-index="{{index}}">
-            <image class="Show_Image" lazy-load  src='{{item.Cover}}' mode="aspectFill" style="height: {{item.ShowHeight > 500 ? 500+'rpx':item.ShowHeight+'rpx'}};" binderror="binderrorimg" bindload='onLazyLoad'></image>
-            <span class="pic_Title">
-              <span class="pic_Label">{{item.Label}}</span>{{item.Title}}
-            </span>
-            <image src="{{item.iconUrl}}" class="text_user"/>
-            <span class="text_username">{{item.nickName}}</span>
-            <span class="comment">
-              <div style="margin-right:6px;">
-                <image src="{{m1.getStar(item,openusername)}}" catchtap="getStar_left_card" class="commentImg" data-index="{{index}}" />
-               <span class="commentNum">{{item.Star?item.Star:0}}</span>
-               </div>
-              <div style="margin-right:6px;">
-                <image src="../../../images/comment.png" class="commentImg" />
-                <span class="commentNum">{{item.CommentList?item.CommentList.length:0}}</span>
-              </div>
-            </span>
+<scroll-view style="background-color: rgba(153, 153, 153, 0.11); min-height: 100vh;" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd">
+    <view class='content'>
+      <view class="left" bindtap="leftDirection">
+        <view wx:for="{{leftList}}" wx:key="leftList">
+          <loveCards wx:if="{{item.Title == '闲聊'}}" item="{{item}}" type="left" bind:ShowContent="getBackData" openusername="{{openusername}}" direction="{{direction}}"></loveCards>
+          <campusCards wx:else="" item="{{item}}" type="left" bind:ShowContent="getBackData" openusername="{{openusername}}" direction="{{direction}}"></campusCards>
+        </view>
       </view>
-    </block>
-  </view>
-  <view class="DataNull" wx:if="{{DataNull==0}}">-无更多内容-</view>
-</view>
+
+      <view class="right" bindtap="rightDirection">
+        <view wx:for="{{rightList}}" wx:key="rightList">
+          <campusCards item="{{item}}" type="right" bind:ShowContent="getBackData" openusername="{{openusername}}" direction="{{direction}}"></campusCards>
+        </view>
+      </view>
+    </view>
+    <view class="DataNull" wx:if="{{DataNull==0}}">-无更多内容-</view>
+  </scroll-view>

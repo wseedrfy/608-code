@@ -1,8 +1,11 @@
 /* pages/testdaka/index/index.wxss */
 .bg{
     background-color:  #F4F4F4;
-    height: 100vh;
+    /* height: 100vh; */
+    height: auto;
+    height: 110vh;
     width: 100%;
+    position:fixed;
 }
 .dayclock{
     width: 690rpx;
@@ -54,6 +57,7 @@
     position: relative;
     height: 100rpx;
     width: 100%;
+    background-color: #fff;
 }
 .dayclock_data .border:after{
         content: '';
@@ -126,3 +130,125 @@
     width: auto;
     
 }
+.dayclock_data_column_2_cycle_time_start{
+    height:22.4rpx;
+    width: 32rpx;
+}
+.operation {
+    border-radius: 50%;
+    position: absolute;
+    top: 4rpx;
+    left: -130rpx;
+    height: 90rpx;
+    text-align: center;
+    line-height: 152rpx;
+    display:flex;
+    padding: 20rpx;
+    box-sizing: border-box;
+    align-items:center;                                                                                            
+  }
+   
+  .operation view {
+    width: 100rpx;
+  }
+  .operation2{
+    border-radius: 50%;
+    position: absolute;
+    top: 4rpx;
+    right: -130rpx;
+    height: 85rpx;
+    text-align: center;
+    background-color: #FFFFFF;
+    line-height: 152rpx;
+    display: flex;
+    padding: 20rpx;
+    box-sizing: border-box;
+    align-items: center;
+  }
+  .operation2 view {
+    width: 100rpx;
+  }
+  .operation_daka_image{
+    height: 45rpx;
+    width: 45rpx;
+  }
+  .operation2_del_image{
+    height: 40rpx;
+    width: 45rpx;
+  }
+  .complete,
+  .complete_bg{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    font-family: unset;
+  }
+  .complete_bg{
+    background-color: rgba(0, 0, 0, 0.349);
+    opacity: 0.6;
+    height: 100%;
+  }
+  .complete_share{
+      z-index: 99999;
+      position: fixed;
+      top: 351rpx;
+      left: 113rpx;
+      width: 520rpx;
+      height: 600rpx;
+      background-color: #fff;
+      border-radius: 40rpx;
+  }
+  .complete_share_close{
+      height: 70rpx;
+      width: 70rpx;
+      position: fixed;
+      top: 981rpx;
+      left: 338rpx;
+      z-index: 99999;
+  }
+  .complete_share_image{
+      width: 100%;
+      height: 58.3%;
+      background-image: url('http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcVoKjsJ9PdpKbqvSRbPji8xRtCpURXbukitiWCassfel6rHPMK2TS5rOcvTm1lnT4FMw8z4gCnCwz*H9L*0uTis!/r');
+      background-repeat:no-repeat; 
+      background-size:100% 100%;
+      /* -moz-background-size:100% 100%; */
+      border-radius:40rpx;
+  }
+  .complete_share_box{
+      width: 100%;
+      height: 41.7%;
+  }
+  .attention_bg{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    font-family: unset;
+    background-color: rgba(0, 0, 0, 0.349);
+    opacity: 0.6;
+    height: 100%;
+  }
+  .attention_text{
+    z-index: 99999;
+    position: fixed;
+    bottom: 500rpx;
+    left: 88rpx;
+    width: 570rpx;
+    height: 700rpx;
+    background-color: #fff;
+    border-radius: 40rpx;
+  }
+  .attention_close{
+    height: 70rpx;
+    width: 70rpx;
+    position: fixed;
+    bottom: 400rpx;
+    left: 338rpx;
+    z-index: 99999;
+  }

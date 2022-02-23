@@ -1,13 +1,16 @@
 const cloud = require('wx-server-sdk');
 cloud.init();
 const db = cloud.database()
+const _ = db.command
+
+
 exports.main = async (event) => {
   const wxContext = cloud.getWXContext()
   const usernameData = (await db.collection("user").where({
     openid: wxContext.OPENID
   }).get()).data[0]
   usernameData ? delete usernameData.openid : null;
-  const school = usernameData ? usernameData.school : '';
+  let school = usernameData ? usernameData.school : '';
   const schoolInitData = (await db.collection("schoolLoading").where({
     schoolName: school ? school : '空'
   }).get()).data[0]
@@ -15,35 +18,32 @@ exports.main = async (event) => {
   SchoolIndex = {
     SchoolIndex: {
       iconList: (await db.collection("jumpPage").where({
-        schoolName: school ? school : '空'
-      }).get()).data.concat((await db.collection("jumpPage").where({
-        schoolName: '通用'
-      }).get()).data),
+        schoolName: _.eq(school ? school : '空').or(_.eq('通用')),
+        open: _.neq('关')
+      }).get()).data,
       inform: (await db.collection("inform").where({
-        schoolName: school ? school : '空'
-      }).get()).data.concat((await db.collection("inform").where({
-        schoolName: '通用'
-      }).get()).data),
+        schoolName: _.eq(school ? school : '空').or(_.eq('通用')),
+      }).get()).data
     }
   }
   SchoolIndex.SchoolIndex.iconList.forEach(e => {
-    if(e.type === '跳转WEB'){
+    if (e.type === '跳转WEB') {
       e.url = '/pages/common/common?type=web&url=' + e.url;
-    }else if(e.type === '跳转小程序'){
+    } else if (e.type === '跳转小程序') {
       e.url = '/pages/common/common?type=small&id=' + e.url;
-    }else if(e.type === '通用展示栏'){
+    } else if (e.type === '通用展示栏') {
       e.url = '/pages/common/common?type=commonPage&content=' + e.url;
     }
   })
   // 加载其他信息内容
   let otherData = {}
-  if(schoolInitData.runOtherJS){
+  if (schoolInitData.runOtherJS) {
     otherData.msg = "异常"
-    try{
-      const SchoolRunOther = require("./school/" + school + '/index.js') 
-      otherData =  await SchoolRunOther.main(usernameData.username, usernameData.password)
+    try {
+      const SchoolRunOther = require("./school/" + school + '/index.js')
+      otherData = await SchoolRunOther.main(usernameData.username, usernameData.password)
       console.log(otherData)
-    }catch(e){
+    } catch (e) {
       console.log("runOtherJS错误")
       console.log(e)
       return {
