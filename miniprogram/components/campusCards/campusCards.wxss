@@ -94,7 +94,7 @@
 
   .pic{
     background-color: #f1eded;
-    filter: invert(100%) !important;
+    /* filter: invert(100%) !important; */
   }
   .pic_Label{
     filter: invert(100%) !important;

@@ -15,6 +15,9 @@ Component({
         menu: {                     // 发布页面选择标签
             type: Array,
             value: []
+        },
+        showTab: {                  // 控制显隐
+            type: Boolean,
         }
     },
 

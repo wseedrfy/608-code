@@ -39,10 +39,16 @@ fs.readFile('dist/index.js', (err, buffer) => {
   
   })
 `
-  fs.writeFile('../../pages/HOT/HotTest/HotTest.js', str, {
+  fs.writeFile('../../miniprogram/pages/HOT/HotTest/HotTest.js', str, {
     encoding: 'utf8'
   }, err => {})
-  fs.writeFile('../../pages/HOT/HotTest/HotTest.wxss', "", {
+  fs.writeFile('../../miniprogram/pages/HOT/HotTest/HotTest.wxss', "", {
+    encoding: 'utf8'
+  }, err => {})
+  fs.writeFile('../../miniprogram/pages/HOT/HotTest/HotTest.wxml', `<import src="../../../template/template"></import>
+
+  <template is="hotUpdate" data="{{html}}"></template>
+  `, {
     encoding: 'utf8'
   }, err => {})
 })

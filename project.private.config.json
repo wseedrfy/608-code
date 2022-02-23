@@ -30,6 +30,7 @@
           "query": "",
           "scene": null
         },
+<<<<<<< HEAD
         {
           "name": "个人信息",
           "pathName": "pages/myself/myself",
@@ -108,6 +109,65 @@
           "query": "",
           "scene": null,
           "launchMode": "default"
+=======
+        "miniprogram": {
+            "list": [
+                {
+                    "id": -1,
+                    "name": "db guide",
+                    "pathName": "pages/databaseGuide/databaseGuide",
+                    "query": ""
+                },
+                {
+                    "name": "课表",
+                    "pathName": "pages/curriculum/curriculum",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "修改课程",
+                    "pathName": "pages/curriculum/addcurriculum/addcurriculum",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "个人信息",
+                    "pathName": "pages/myself/myself",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "番茄时钟",
+                    "pathName": "pages/tomato/index/index",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "echart_demo",
+                    "pathName": "pages/tomato/text/text",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "社团首页",
+                    "pathName": "pages/association/association",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "校园圈",
+                    "pathName": "pages/more/more",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "发布动态页面",
+                    "pathName": "pages/more/pages/PublishContent/PublishContent",
+                    "query": "",
+                    "scene": null
+                }
+            ]
+>>>>>>> 8714149e1725b10b1fad80d02e50fe80a83228f2
         }
       ]
     }

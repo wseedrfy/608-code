@@ -30,6 +30,10 @@
       "disablePlugins": [],
       "outputPath": ""
     },
+<<<<<<< HEAD
+=======
+    "enableEngineNative": false,
+>>>>>>> 8714149e1725b10b1fad80d02e50fe80a83228f2
     "useIsolateContext": true,
     "userConfirmedBundleSwitch": false,
     "packNpmManually": false,
@@ -44,7 +48,11 @@
   "compileType": "miniprogram",
   "libVersion": "2.22.0",
   "appid": "wxf84451020f439de9",
+<<<<<<< HEAD
   "projectname": "WeSchool",
+=======
+  "projectname": "We%E6%A0%A1%E5%9B%AD",
+>>>>>>> 8714149e1725b10b1fad80d02e50fe80a83228f2
   "miniprogramRoot": "miniprogram/",
   "cloudfunctionRoot": "cloudfunctions/",
   "cloudfunctionTemplateRoot": "cloudfunctionTemplate",
@@ -58,6 +66,7 @@
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
   "condition": {
+<<<<<<< HEAD
     "plugin": {
       "list": []
     },
@@ -76,6 +85,8 @@
     },
     "scripts": {},
     "condition": {
+=======
+>>>>>>> 8714149e1725b10b1fad80d02e50fe80a83228f2
       "plugin": {
         "list": []
       },
@@ -127,4 +138,8 @@
       }
     }
   }
+<<<<<<< HEAD
 }
+=======
+
+>>>>>>> 8714149e1725b10b1fad80d02e50fe80a83228f2
