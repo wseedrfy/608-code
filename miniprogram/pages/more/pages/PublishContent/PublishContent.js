@@ -22,10 +22,12 @@ Page({
         imageHeight: 0,
         imageWidth: 0,
     },
-    showTab() {                     // 点击事件
+    // 点击事件 - 点击出现TabScroll
+    showTab() {                    
         this.setData({ showTab: !this.data.showTab })
     },
-    chooseTab(e) {                  // 选择标签
+    // 点击事件 - 选择标签
+    chooseTab(e) {                  
         // 获取索引值
         let index = e.detail.currentTarget.dataset.index;
         this.setData({
@@ -33,6 +35,7 @@ Page({
           showTab: false            // 点击后，隐藏标签选择栏
         })
     },
+    // 点击事件 - 选择图片
     chooseImage(){
         let that = this;
         wx.chooseMedia({                                // 上传图片
@@ -56,6 +59,24 @@ Page({
         })
         
     },
+    // 点击事件 - 取消按钮
+    cancel() {
+      wx.showModal({
+        content: '是否取消发布？',
+        cancelColor: 'cancelColor',
+        success(res) {
+          if(res.confirm) {
+            wx.switchTab({
+              url: '../../more'
+            })
+          }else if(res.cancel) {
+            return ;
+          }
+        }
+      })
+      
+    },
+    // 点击事件 - 发布
     formSubmit(e) {
         let { formTitle,formText } = e.detail.value;
         let args = wx.getStorageSync('args');
@@ -232,6 +253,18 @@ Page({
       photo.splice(index,1);                // 注意：splice返回值是删除的元素, 并改变原数组
       this.setData({ photo });
     },
+    // 点击已选图片 - 进行预览
+    preViewImage(e) {
+      let urls = this.data.photo.map(item => {
+        return item.tempFilePath
+      });
+      let index = e.target.dataset.index;
+
+      wx.previewImage({
+        urls: urls,
+        current: urls[index]
+      })
+    },
     onLoad: function (options) {
         let args = wx.getStorageSync('args');
         let theme = wx.getStorageSync('theme');
@@ -240,14 +273,6 @@ Page({
             menu: args.tabitem.slice(1,),
             theme
         })
-    },
-
-    onHide: function () {
-
-    },
-
-    onUnload: function () {
-
     },
 
 })

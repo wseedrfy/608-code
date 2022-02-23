@@ -52,20 +52,7 @@
   display: flex;
   margin-left: 10rpx;
 }
-/* .newInfo::after{
-  content: var(--NewInfo);
-  position: relative;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  justify-content: center;
-  background-color: rgba(230,130,130,1);
-  border-radius: 50%;
-  width: 30rpx;
-  height: 30rpx;
-  right: 25%;
-  color: white;
-} */
+
 .Line{
   background: #9b9b9b48;
   width: 100%;
@@ -130,175 +117,99 @@
   height: 54rpx;
 }
 
-.Camera_Image{
-  width: 90rpx;
-  height: 90rpx;
-  position: absolute;
-  left:330rpx;
-}
+
 .chooseImg-btn{
   width:100%;
   height:380rpx;
   background-color: rgba(241, 229, 201, 0.26);
 }
-.add_show{
-  animation: add_show .5s;
-}
-.add_hide{
-  animation: add_hide .5s;
-}
-.edit,
-.edit_background{
+/* 弹窗 */
+.popUps {
   position: fixed;
   top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 9999;
-  font-family: unset;
+  width: 100vw;
+  height: 100vh;
+  background-color: #fff;
+  transition: all 0.3s ease 0s;
+  z-index: -1;
+  opacity: 0;
 }
-.edit_background{
-  background-color: rgba(0, 0, 0, 0.712);
-  opacity: 0.6;
+/* .mengban {
+  width: 100%;
   height: 100%;
+  background-color: rgb(15, 15, 15);
+  opacity: 0;
+  transition: all 0.3s ease 0s;
 }
-.edit_contain{
-  position: relative;
-  position: fixed;
-  display: flex;
-  flex-direction: column;
-  bottom: 0;
+.mengbanActive {
+  opacity: 0.7;
+} */
+.popUpsActive {
+  z-index: 999 !important;
+  opacity: 1 !important;
+}
+/* 点击盒子 */
+.bindBoxFlex {
   width: 100%;
-  background-color: rgb(255, 255, 255);
-  padding: 15rpx 0;
-  z-index: 99999;
-  border-radius: 20rpx;
-}
-.edit_Title{
-  font-size: 35rpx;
-  padding-bottom: 15rpx;
-  font-weight: 550;
-  display: flex;
-  padding-left: 307rpx;
-}
-.MenuDiv{overflow: hidden;margin-top: 15rpx;margin-bottom: 15rpx;}
-.rightimg-top{
-  font-size: 30rpx;
-  margin-left: 10rpx;
-  font-weight: 550;
-  color: #2b2b2bd7;
-}
-.choosenLabel{
-  font-size: 30rpx;
-  font-weight: 550;
-  color: #2b2b2bd7;
-}
-.choose_First{
-  background-color: rgba(236, 236, 236, 0.219);
-}
-.Choosen{
-  width: 100%;
-  height: 68rpx;
+  position: absolute;
+  bottom: 40%;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  justify-content: space-around;
+  padding: 20rpx;
+  box-sizing: border-box;
 }
-.edit_pic_Title{
-  width:100%;
-  height:80rpx;
+.bindBoxFlex .bindBox {
+  width: 150rpx;
+  height: 150rpx;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  font-weight: 550;
-  font-size: 30rpx;
-  margin-left: 10rpx;
+  /* background-color: purple; */
 }
-.edit_pic_Title input{
-  width:95%;
-}
- .edit_pic_Text{
-  width:100%;
-  height:340rpx;
-  font-size: 30rpx;
-  margin: 10rpx;
- }
- .edit_pic_Text textarea{
-   width:98%;
-   height:100%;
- }
- .edit_Publish{
-   display: flex;
-   flex-direction:row;
- }
- .Publish-btn{
-   background-color: rgb(128, 190, 226);
-   box-shadow: 0px 0px 4px 0px #c7c7c7;
-   color: white;
-   width: 530rpx !important;
-   margin: 10rpx;
-   margin: 0rpx 10rpx 0rpx 5rpx;
- }
- .off-btn{
-  background-color: rgba(214, 214, 214, 0.37);
-  box-shadow: 0px 0px 4px 0px #c7c7c7;
-  color: rgb(0, 0, 0);
-  width: 200rpx !important;
-  margin: 0rpx 10rpx 0rpx 5rpx;
- }
- .btn-hover{
-  position: relative;
-  top: 3rpx;
-  box-shadow:0px 0px 4px rgba(153, 153, 153, 0.507) inset;
- }
- .text_user{
-  width:35rpx;
-  height:35rpx;
-  border-radius: 50rpx;
-  margin: 15rpx 21rpx;
-}
-.text_username{
-  font-size: 20rpx;
-  position: relative;
-  bottom:22rpx;
-  right:10rpx;
-}
-.comment{
-  width:20rpx;
-  height:20rpx;
-  position:sticky;
-  left: 270rpx;
-  bottom: 13rpx;
-}
-.commentImg{
-  width: 36rpx;
-  height: 36rpx;
-  /* position: relative;
-  bottom: 10rpx;
-  left: 150rpx; */
-  /* margin: 10rpx 0rpx 10rpx 150rpx; */
-}
-.commentNum{
-  font-size: 22rpx;
-  position:relative;
-  bottom: 13rpx;
-  left: 7rpx;
-} 
-
-
-swiper{
-  width: 100%;
-  height: 380rpx;
-}
-swiper image{
-  width: 100%;
-  height: 100%;
-}
-swiper .wx-swiper-dot {
-  width: 12rpx;
-  height: 12rpx;
+.bindBoxFlex .bindBox .imageBox {
+  width: 100rpx;
+  height: 100rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: pink;
   border-radius: 50%;
-  display: inline-flex;
-  justify-content: space-between;
 }
+.bindBoxFlex .bindBox text {
+  margin-top: 20rpx;
+  font-size: 26rpx;
+  letter-spacing: 2rpx;
+}
+.bindBoxFlex .bindBox .imageBox image {
+  width: 70rpx;
+  height: 70rpx;
+
+}
+/* 关闭 */
+.popUps .cancelBox {
+  width: 100%;
+  position: absolute;
+  bottom: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.popUps .cancelBox .cancel {
+  width: 60rpx;
+  height: 60rpx;
+  background-color: rgb(229, 229, 229);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.popUps .cancelBox .cancel image {
+  width: 50rpx;
+  height: 50rpx;
+}
+
 @keyframes add_show {
   0% {
       opacity: 0;
@@ -362,6 +273,10 @@ swiper .wx-swiper-dot {
   .edit_background,
   .edit_pic_Text {
     color: #fff;
+    filter: invert(100%) !important;
+  }
+  /* 弹窗 */
+  .popUps {
     filter: invert(100%) !important;
   }
 }
