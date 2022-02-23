@@ -61,24 +61,6 @@
         "plugin": {
             "list": []
         },
-        "compileType": "miniprogram",
-        "libVersion": "2.21.2",
-        "appid": "wxf84451020f439de9",
-        "projectname": "WeSchool",
-        "miniprogramRoot": "miniprogram/",
-        "cloudfunctionRoot": "cloudfunctions/",
-        "cloudfunctionTemplateRoot": "cloudfunctionTemplate",
-        "watchOptions": {
-            "ignore": []
-        },
-        "debugOptions": {
-            "hidedInDevtools": []
-        },
-        "scripts": {},
-        "condition": {
-            "plugin": {
-                "list": []
-            },
             "game": {
                 "list": []
             },
@@ -127,4 +109,3 @@
             }
         }
     }
-}
