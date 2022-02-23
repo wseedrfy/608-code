@@ -115,7 +115,11 @@ Page({
         if(cycle.length == 1 && cycle[0] == '每天'){
             this.daka(hashid);
             console.log("真打卡好了");
-            this.onShow();
+            let tasktemp = this.data.taskdata
+            tasktemp[id].task_isDaka=true
+            this.setData({
+                taskdata:tasktemp
+            })
             return;
         }
 
@@ -125,42 +129,77 @@ Page({
                 if(day == 1){
                     this.daka(hashid);
                     console.log("真打卡好了");
+                    let tasktemp = this.data.taskdata
+                    tasktemp[id].task_isDaka=true
+            this.setData({
+                taskdata:tasktemp
+            })
                     return;
                 }
             }else if(cycle[i] == '周二'){
                 if(day == 2){
                     this.daka(hashid);
                     console.log("真打卡好了");
+                    let tasktemp = this.data.taskdata
+            tasktemp[id].task_isDaka=true
+            this.setData({
+                taskdata:tasktemp
+            })
                     return;
                 }
             }else if(cycle[i] == '周三'){
                 if(day == 3){
                     this.daka(hashid);
                     console.log("真打卡好了");
+                    let tasktemp = this.data.taskdata
+            tasktemp[id].task_isDaka=true
+            this.setData({
+                taskdata:tasktemp
+            })
                     return;
                 }
             }else if(cycle[i] == '周四'){
                 if(day == 4){
                     this.daka(hashid);
                     console.log("真打卡好了");
+                    let tasktemp = this.data.taskdata
+            tasktemp[id].task_isDaka=true
+            this.setData({
+                taskdata:tasktemp
+            })
                     return;
                 }
             }else if(cycle[i] == '周五'){
                 if(day == 5){
                     this.daka(hashid);
                     console.log("真打卡好了");
+                    let tasktemp = this.data.taskdata
+            tasktemp[id].task_isDaka=true
+            this.setData({
+                taskdata:tasktemp
+            })
                     return;
                 }
             }else if(cycle[i] == '周六'){
                 if(day == 6){
                     this.daka(hashid);
                     console.log("真打卡好了");
+                    let tasktemp = this.data.taskdata
+            tasktemp[id].task_isDaka=true
+            this.setData({
+                taskdata:tasktemp
+            })
                     return;
                 }
             }else if(cycle[i] == '周日'){
                 if(day == 0){
                     this.daka(hashid);
                     console.log("真打卡好了");
+                    let tasktemp = this.data.taskdata
+            tasktemp[id].task_isDaka=true
+            this.setData({
+                taskdata:tasktemp
+            })
                     return;
                 }
             }
@@ -245,7 +284,6 @@ Page({
 
     //打卡删除提示
     daka_delpromp(res){
-        let taskdata=this.data.taskdata
         console.log(res);
         console.log(res.currentTarget.id);
         let that = this;
@@ -255,7 +293,11 @@ Page({
             success(abc) {
               if (abc.confirm) {
                 that.delDaka(res);
-                that.data.taskdata.splice(res.currentTarget.id, 1);
+                that.data.taskdata.splice(res.currentTarget.id, 8)
+                console.log(that.data.taskdata);
+                that.setData({
+                    taskdata:that.data.taskdata
+                })
                 that.slideAnimation(0, 500);
               } else if (abc.cancel) {
                 console.log('用户点击取消')
