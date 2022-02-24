@@ -351,6 +351,7 @@ Page({
                 hashId:hashid
             }).get()
             obj.task_isDaka = result.data[0].isDaka;
+            obj.count = result.data[0].count;
             console.log(obj.task_isDaka);
             dakaArr.push(obj);
         }
@@ -365,7 +366,6 @@ Page({
      async jdugeDaka_status(){
         let username = wx.getStorageSync('args').username;
         //一次请求
-
         let result1 = await db.collection("daka_status").where({
             username:username
         }).get()
