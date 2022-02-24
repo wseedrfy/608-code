@@ -66,9 +66,9 @@ async function read(event) {
 
   try {  
 
-    if(event.School === '茂名职业技术学院'){
-      return await db.collection('Campus-Circle').orderBy('indexFront', 'desc').orderBy('Star', 'desc').where(obj).skip(skipPage).limit(10).get();
-    }
+    // if(event.School === '茂名职业技术学院'){
+    //   return await db.collection('Campus-Circle').orderBy('indexFront', 'desc').orderBy('Star', 'desc').where(obj).skip(skipPage).limit(10).get();
+    // }
     return await db.collection('Campus-Circle').orderBy('indexFront', 'desc').orderBy('Time', 'desc').where(obj).skip(skipPage).limit(10).get();
   } catch (e) {
     console.error(e);
