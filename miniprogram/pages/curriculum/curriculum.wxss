@@ -475,7 +475,7 @@ button {
 /* 设置 */
 .curriLeft {
   position: absolute;
-  left: -260px;
+  left: -270px;
   top: 20px;
   width: 488rpx;
   height: 100%;

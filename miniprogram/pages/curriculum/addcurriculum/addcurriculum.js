@@ -54,8 +54,7 @@ Page({
     })
     // 更新缓存
     let args = wx.getStorageSync('args');
-    args.addCurriculumLogs.splice(e.currentTarget.dataset.bean, 1)
-    console.log(args.addCurriculumLogs, "删除新添记录");
+    args.addCurriculumLogs.splice(e.currentTarget.dataset.bean, 1);
     wx.setStorageSync('args', args)
 
     // 更新数据库并重渲染页面
@@ -64,7 +63,6 @@ Page({
       data: {
         addCurriculumLogs: args.addCurriculumLogs,
         username: args.username,
-        nickName: args.nickName,
         type: 'addCurriculumLogs'
       },
       success: res => {
@@ -81,13 +79,6 @@ Page({
         })
       }
     })
-
-    // let list = this.data.list;
-    // console.log(list);
-
-    // this.setData({
-    //   list:list
-    // })
   },
 
   changeCurriculum: function (addCurriculum, deCurriculum) {
@@ -401,7 +392,6 @@ Page({
       data: {
         ConcealCurriculumLogs: global_de,
         username: args.username,
-        nickName: args.nickName,
         type: 'ConcealCurriculumLogs'
       },
       success: res => {

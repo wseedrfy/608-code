@@ -27,7 +27,7 @@
             <view class="weekscroll_week_text">第{{index+1}}周</view>
             <!-- 显示一堆小圆点的容器 -->
             <view class="week_point">
-              <view wx:for="{{item}}" wx:for-index="index1" wx:key="idx" style="background-color: {{item ? 'rgb(56,201,153)' : '#D4D4D4'}};">
+              <view wx:for="{{item}}" wx:for-index="index1" wx:key="idx" style="background-color: {{item ? (item == 2 ? 'rgb(255, 153, 102)': 'rgb(56,201,153)') : '#D4D4D4'}};">
               </view>
             </view>
           </view>
@@ -84,7 +84,7 @@
           <view style="z-index: 1;">
             <!-- 遮罩层 - 为修复 fixed 与 scroll-view 不兼容问题 -->
             <view class="curriLeft_background"></view>
-            <view wx:for="{{[1,2,3,4,5,6,7,8,9,10,11]}}" wx:key="unique" class="left">
+            <view wx:for="{{scheduleLength}}" wx:key="unique" class="left">
               <view>{{item}}</view>
               <view class="after-left1">{{courseTime[index]}}</view>
             </view>
