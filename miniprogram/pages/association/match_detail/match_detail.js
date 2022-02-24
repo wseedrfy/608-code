@@ -24,7 +24,7 @@ Page({
     tempContent: [],
     content: "",
     weatherChange: false,
-    id:""
+    id: ""
   },
 
   /**
@@ -41,7 +41,7 @@ Page({
           tempContent: data.question,
           imgUrl: data.imgUrl,
           weatherChange: true,
-          id:id
+          id: id
         })
       })
     }
@@ -149,65 +149,81 @@ Page({
         title: "保存中",
         mask: true,
         success: (result) => {
+          let imgUrl = this.data.imgUrl
           let userInfo = wx.getStorageSync('args');
           let senderMess = {
             "title": this.data.title,
             "contentDetail": this.data.contentDetail
           }
           let question = this.data.tempContent
-          let imgUrl = this.data.imgUrl
-          if (this.data.weatherChange == false) {
-            db.collection("associtaionMath").add({
-              data: {
-                count: userInfo.username,
-                schoolName: userInfo.schoolName,
-                senderMess,
-                question,
-                imgUrl,
-                time: Date.now(),
-                sendStatus: status
-              }
-            }).then(res => {
-              wx.hideLoading();
-              wx.showToast({
-                title: '保存成功',
-                icon: 'none',
-                duration: 1500,
-                mask: false,
-                success: (result) => {
-                  wx.navigateBack({
-                    delta: 2
+          // 计算图片
+          wx.getImageInfo({
+            src: imgUrl,
+            success: (res) => {
+              let CoverHeight = res.height + 'rpx'
+              let CoverWidth = res.width
+              let ShowHeight = res.height
+              if (this.data.weatherChange == false) {
+                db.collection("associtaionMath").add({
+                  data: {
+                    count: userInfo.username,
+                    schoolName: userInfo.schoolName,
+                    senderMess,
+                    question,
+                    imgUrl,
+                    time: Date.now(),
+                    sendStatus: status,
+                    CoverHeight,
+                    CoverWidth,
+                    ShowHeight
+                  }
+                }).then(res => {
+                  wx.hideLoading();
+                  wx.showToast({
+                    title: '保存成功',
+                    icon: 'none',
+                    duration: 1500,
+                    mask: false,
+                    success: (result) => {
+                      wx.navigateBack({
+                        delta: 2
+                      });
+                    },
                   });
-                },
-              });
-            })
-          }
-          else {
-            db.collection("associtaionMath").where({_id:this.data.id}).update({
-              data: {
-                count: userInfo.username,
-                schoolName: userInfo.schoolName,
-                senderMess,
-                question,
-                imgUrl,
-                time: Date.now(),
-                sendStatus: status
+                })
               }
-            }).then(res => {
-              wx.hideLoading();
-              wx.showToast({
-                title: '保存成功',
-                icon: 'none',
-                duration: 1500,
-                mask: false,
-                success: (result) => {
-                  wx.navigateBack({
-                    delta: 2
+              else {
+                db.collection("associtaionMath").where({ _id: this.data.id }).update({
+                  data: {
+                    count: userInfo.username,
+                    schoolName: userInfo.schoolName,
+                    senderMess,
+                    question,
+                    imgUrl,
+                    time: Date.now(),
+                    sendStatus: status,
+                    CoverHeight,
+                    CoverWidth,
+                    ShowHeight
+                  }
+                }).then(res => {
+                  wx.hideLoading();
+                  wx.showToast({
+                    title: '保存成功',
+                    icon: 'none',
+                    duration: 1500,
+                    mask: false,
+                    success: (result) => {
+                      wx.navigateBack({
+                        delta: 2
+                      });
+                    },
                   });
-                },
-              });
-            })
-          }
+                })
+              }
+            },
+          });
+
         },
       });
     }

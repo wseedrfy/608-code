@@ -20,7 +20,7 @@
         </view>
     </view>
     <view class="question_wrap">
-        <view class="title">问题</view>
+        <view class="title">问题列表/报名信息</view>
         <view class="item_wrap">
             <view class="item" wx:for="{{tempContent}}">
                 <view class="list_1" bind:tap="toFixed" data-item="{{item}}">
@@ -33,7 +33,7 @@
     </view>
     <view class="bt_wrap">
         <view class="keep" bindtap="hold" data-status="{{false}}">保存</view>
-        <view class="send" bindtap="holdSend" data-status="{{true}}">保存并发布</view>
+        <!-- <view class="send" bindtap="holdSend" data-status="{{true}}">保存并发布</view> -->
     </view>
 </view>
 <!-- 弹窗 -->
