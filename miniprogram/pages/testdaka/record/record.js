@@ -214,7 +214,7 @@ Page({
           icon: 'none',
           duration: 1000
         })
-      }else if(len>10){
+      }else if(len>30){
         wx.showToast({
           title: '最多创建10个打卡噢，请返回删除多余打卡~',
           icon: 'none',
@@ -283,13 +283,13 @@ Page({
           //1.存入打卡任务记录表
         db.collection('daka_record').add({
               data: {
-                  task:value.task,
+                  task:value.task,//
                   // 标签可以为空 
                   lable1:realLable1,
                   lable2:this.data.lable2,
-                  cycle: cycleChinese,
-                  startTime: value.startTime,
-                  endTime: value.endTime,
+                  cycle: cycleChinese,//
+                  startTime: value.startTime,//
+                  endTime: value.endTime,//
                   username:username,
                   uuid:uid,
                   hashId:this.hash(username+value.task+uid),
@@ -313,6 +313,19 @@ Page({
               wx.hideLoading();
           })
           .then(res=>{
+            var pages = getCurrentPages()
+            var prevPage = pages[pages.length - 2]
+            prevPage.setData({
+              mydata: {
+                  count:0,
+                  task_name:value.task,
+                  task_cycle: cycleChinese,//
+                  task_start_time: value.startTime,//
+                  task_end_time: value.endTime,//
+                  task_isDaka:false,
+                  task_hashId:this.hash(username+value.task+uid),
+              }
+            })
             wx.navigateBack({
               delta: 1
             })

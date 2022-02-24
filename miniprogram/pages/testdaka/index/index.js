@@ -13,7 +13,7 @@ Page({
         currentIndex: 0, // 列表操作项的index
         taskdata:[
             {
-                task_name:'看电视',
+                task_name:'示例：看电视',
                 task_cycle:['周一','周二','周三','周四','周五'],
                 task_start_time:'6:00',
                 task_end_time:'8:00',
@@ -440,10 +440,9 @@ Page({
         wx.setNavigationBarTitle({
             title: 'We打卡',
         });
-        wx.hideLoading()
         movedistance = 0; // 解决切换到其它页面再返回该页面动画失效的问题
-
-        this.getDaka_record();
+        await this.getDaka_record();
+        wx.hideLoading()
     },
 
     
@@ -457,7 +456,20 @@ Page({
      * 生命周期函数--监听页面显示
      */
    async onShow() {
-        
+    //    this.getDaka_record();
+       
+       var pages = getCurrentPages();
+       var currPage = pages[pages.length - 1]; //当前页面
+       let json = currPage.data.mydata;
+       //console.log("111111111111111111111111111111:",json)//为传过来的值
+       
+       if(json!=null){
+        this.data.taskdata.push(json)
+        this.setData({
+            taskdata:this.data.taskdata
+           })
+       }
+       
     },
 
     /**

@@ -5,7 +5,7 @@
     height: auto;
     height: 110vh;
     width: 100%;
-    position:fixed;
+    /* position:fixed; */
 }
 .dayclock{
     width: 690rpx;
@@ -228,7 +228,7 @@
   }
   .complete_share_box > view{
     margin: 10rpx;
-    width: 400rpx;
+    width: 450rpx;
     height: 90rpx;  
     text-align: center;
     line-height: 90rpx;
