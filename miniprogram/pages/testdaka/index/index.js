@@ -16,7 +16,7 @@ Page({
             //     task_name:'看电视',
             //     task_cycle:['周一','周二','周三','周四','周五'],
             //     task_start_time:'6:00',
-            //     task_end_time:'8:00'
+            //     task_end_time:'8:00',
             //     task_isDaka:false
             // },
         ],
