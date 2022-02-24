@@ -17,7 +17,9 @@
   <view class="mask2" style="top: {{statusBarHeight + lineHeight + 320}}px; {{dark == 'dark'? 'linear-gradient( #fff , #fff) ' : theme ? '  background-image: linear-gradient(  #a4dff6, #f6f6f6);' : ''}}"></view>
 
   <view class="adContainer" style="padding-top: {{statusBarHeight + lineHeight}}px;" >
-    <ad unit-id="adunit-f9948326373ca9ac" bindclose="adClose" wx:if="{{!adHidden}}"></ad>
+    <block wx:if="{{ad}}">
+    <ad    unit-id="adunit-f9948326373ca9ac" bindclose="adClose" wx:if="{{!adHidden}}"></ad>
+  </block>
   </view>
 
   <!-- 弹窗 -->

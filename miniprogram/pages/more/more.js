@@ -95,6 +95,7 @@ Page({
   },
   show_PublishContent(e){
     this.selectComponent('#PublishContent').add();    // 控制显隐
+    this.setData({ showPopUps: !this.data.showPopUps });
   },
   //处理左右结构
   RightLeftSolution(empty = false) {
@@ -429,6 +430,18 @@ Page({
 
   onShow: function () {
     this.data.allList = app.globalData.allList || [];
+    this.setData({
+      school: args.schoolName,
+      username: args.username,
+      nickname: args.nickName,
+      iconUrl: args.iconUrl,
+      tabitem: this.data.tabitem,
+      openusername: {
+        username: args.username,
+        iconUrl: args.iconUrl,
+        nickName: args.nickName
+      }
+    })
     this.RightLeftSolution();
     this.getNewInfo()
   },

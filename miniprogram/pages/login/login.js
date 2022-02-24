@@ -7,11 +7,20 @@ const schoolLoading = db.collection('schoolLoading')
 const app = getApp()
 Page({
   data: {
+    statusBarHeight: getApp().globalData.statusBarHeight,
+    lineHeight: getApp().globalData.lineHeight,
+    rectHeight: getApp().globalData.rectHeight,
     user: "",
     pwd: "",
     school: [],
     url: '',
     urls: []
+  },
+
+  back: function (params) {
+    wx.switchTab({
+      url: '/pages/myself/myself',
+    });
   },
 
   bindPickerChange: function (e) {
@@ -133,12 +142,7 @@ Page({
             school: that.data.school[that.data.index]
           },
           success: res => {
-            if( that.data.school[that.data.index]=="茂名职业技术学院"){
-              wx.reportEvent("school", {
-                School:that.data.school[that.data.index],
-                status:res.result.msg
-              })
-            }
+            wx.setStorageSync('time', null)
             if (res.result.msg == "welcome") {
               console.log(res.result)
               wx.reLaunch({

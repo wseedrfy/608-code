@@ -12,13 +12,14 @@ Page({
         showModel2:false,
         currentIndex: 0, // 列表操作项的index
         taskdata:[
-            // {
-            //     task_name:'看电视',
-            //     task_cycle:['周一','周二','周三','周四','周五'],
-            //     task_start_time:'6:00',
-            //     task_end_time:'8:00',
-            //     task_isDaka:false
-            // },
+            {
+                task_name:'看电视',
+                task_cycle:['周一','周二','周三','周四','周五'],
+                task_start_time:'6:00',
+                task_end_time:'8:00',
+                task_isDaka:false,
+                count:0
+            },
         ],
     },
 
@@ -27,9 +28,8 @@ Page({
     },
 
     attention(){
-        let that=this
-        let showModal3=that.data.showModel3
-        if(showModal3==false){
+        let showModal3=this.data.showModel3
+        if(!showModal3){
             this.setData({
                 showModel3:true,
                 })
@@ -94,7 +94,6 @@ Page({
     // 注意：当滑动时执行：故不用进行判断是否重复打卡
     async allowDaka(res){
         console.log(res);
-
         //子腾兄秒法：获取index来获取到页面的数据
         var id = Number(res.currentTarget.id);
         console.log(id);
@@ -109,6 +108,7 @@ Page({
         //1.获取res的里面的关于打卡学号、周期、任务的信息
         let hashid = data.task_hashId;
         var cycle = data.task_cycle;
+        
         //2.看今日day是否在cycle里面
         //由于页面渲染的数据来源于username，故不用判断
         // db.collection('daka_record').where()
@@ -131,9 +131,9 @@ Page({
                     console.log("真打卡好了");
                     let tasktemp = this.data.taskdata
                     tasktemp[id].task_isDaka=true
-            this.setData({
-                taskdata:tasktemp
-            })
+                    this.setData({
+                        taskdata:tasktemp
+                    })
                     return;
                 }
             }else if(cycle[i] == '周二'){
@@ -174,10 +174,10 @@ Page({
                     this.daka(hashid);
                     console.log("真打卡好了");
                     let tasktemp = this.data.taskdata
-            tasktemp[id].task_isDaka=true
-            this.setData({
-                taskdata:tasktemp
-            })
+                    tasktemp[id].task_isDaka=true
+                    this.setData({
+                    taskdata:tasktemp
+                    })
                     return;
                 }
             }else if(cycle[i] == '周六'){
@@ -224,7 +224,6 @@ Page({
         var daka_lastTime = result.data[0].daka_lastTime;
         if(daka_lastTime != null){
             console.log(daka_lastTime);
-
             //获取最后一次打卡的日期
             var lastTime_year = daka_lastTime.getFullYear();
             var lastTIme_month = daka_lastTime.getMonth()+1;
@@ -238,7 +237,7 @@ Page({
             // console.log("今天是" + nowDay + "号");
 
             if(lastTime_year == nowYear && lastTIme_month == nowMonth && lastTime_day == nowDay){
-                await wx.showToast({
+                 wx.showToast({
                     title: '您今儿个打过卡了',
                     icon: 'none',
                     duration: 2000
@@ -266,6 +265,11 @@ Page({
 
     //打卡提示
     daka_prompt(res){
+        //打卡次数本地增加1 渲染到弹窗
+        let id =res.currentTarget.id
+        let dakacount=this.data.taskdata
+        dakacount=dakacount[id].count+1
+        this.setData({ dakacount:dakacount})
         let that = this;
         console.log(res);
         wx.showModal({
@@ -293,7 +297,7 @@ Page({
             success(abc) {
               if (abc.confirm) {
                 that.delDaka(res);
-                that.data.taskdata.splice(res.currentTarget.id, 8)
+                that.data.taskdata.splice(res.currentTarget.id, 1)
                 console.log(that.data.taskdata);
                 that.setData({
                     taskdata:that.data.taskdata
@@ -366,6 +370,7 @@ Page({
     //渲染页面前判断各数据的打卡状态
      async jdugeDaka_status(){
         let username = wx.getStorageSync('args').username;
+        //一次请求
 
         let result1 = await db.collection("daka_status").where({
             username:username
@@ -373,8 +378,11 @@ Page({
         let data = result1.data;
         // console.log(data);\
         console.log(data.length);
+        //
         for(var i = 0; i < data.length; i++){
             var hashid = data[i].hashId;
+            //for循环里面写请求单线程 异步 
+         
             let result2 = await db.collection("daka_status").where({
                 hashId:hashid
             }).get()
@@ -423,16 +431,18 @@ Page({
      * 生命周期函数--监听页面加载
      */
     async onLoad() {
+        wx.showLoading({
+          title: '加载中',
+          mask:true
+        })
         await this.jdugeDaka_status();
         wx.setNavigationBarTitle({
             title: 'We打卡',
         });
+        wx.hideLoading()
         movedistance = 0; // 解决切换到其它页面再返回该页面动画失效的问题
     },
-    12345(e){
-        let value =e.currentTarget.dataset.task;
-        console.log(value)
-    },
+
     
     /**
      * 生命周期函数--监听页面初次渲染完成
@@ -443,9 +453,8 @@ Page({
     /**
      * 生命周期函数--监听页面显示
      */
-    async onShow() {
+   async onShow() {
         await this.getDaka_record();
-        // this.getDaka_record();
     },
 
     /**
