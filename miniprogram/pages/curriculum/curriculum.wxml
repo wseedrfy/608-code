@@ -64,7 +64,7 @@
             <view style="z-index: 1;">
               <!-- 遮罩层 - 为修复 fixed 与 scroll-view 不兼容问题 -->
               <view class="curriLeft_background"></view>
-              <view wx:for="{{[1,2,3,4,5,6,7,8,9,10,11]}}" wx:key="unique" class="left">
+              <view wx:for="{{scheduleLength}}" wx:key="unique" class="left">
                 <view>{{item}}</view>
                 <view class="after-left1">{{courseTime[index]}}</view>
               </view>

@@ -200,7 +200,7 @@ page {
   height: 110rpx;
   font-size: 12pt;
   color: #4d4d4d;
-  margin-bottom: 6rpx;
+  /* margin-bottom: 6rpx; */
 }
 
 .after-left1 {

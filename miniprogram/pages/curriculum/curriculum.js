@@ -32,7 +32,8 @@ Page({
       '#CCCC99',
       '#FF9999',
     ],
-    courseTime: [
+    scheduleLength: [1,2,3,4,5,6,7,8,9,10,11],        // 左侧课表长度 - 兜底
+    courseTime: [                                     // 课表对应具体时间 - 兜底
       '8:00',
       '9:40',
       '10:00',
@@ -62,7 +63,7 @@ Page({
     addSubmitStyle: false,
     showscroll: false,
     curriculumAll: [],              // 用户添加/隐藏后，得到的课表
-    curriFunc: [                   // 课表功能
+    curriFunc: [                    // 课表功能
       {text:"导入最新课程",icon:"./images/x2.png",click:"importCurri"},
       {text:"手动添加课程",icon:"./images/x3.png",click:"feedbackHandler"},
       {text:"修改课程管理",icon:"./images/x4.png",click:"addCourseHandler"},
@@ -145,22 +146,31 @@ Page({
     })
   },
   onLoad: function (options) {
-    var courseTime = wx.getStorageSync('args').courseTime;
-
     let windowHeight = wx.getSystemInfoSync().windowHeight
     let width = wx.getSystemInfoSync().windowWidth;
     // 屏幕高度 - (状态栏 + 头部) - 周次
     // +2 是为适配边框
     let kbHeight = (windowHeight - (this.data.lineHeight + this.data.statusBarHeight) - 80*(width/750))+2;
 
-    this.kb(util.getweekString());
-    
+    let args = wx.getStorageSync('args');
+    let scheduleLength = [];
+    // 处理得到课表长度
+    if(args.scheduleLength) {                       
+      for(let i = 1; i <= args.scheduleLength; i++){
+        scheduleLength.push(i);
+      }
+    }else {
+      scheduleLength = this.data.scheduleLength;    // 兜底
+    }
     this.setData({
       weekNow: util.getweekString(),
-      courseTime: courseTime? courseTime : that.data.courseTime,
+      courseTime: args.courseTime ? args.courseTime : that.data.courseTime,
       kbHeight,
+      scheduleLength
     })
     console.log(`课表滑动区域高度：${kbHeight}px`);
+
+    this.kb(util.getweekString());
 
     // 从本地缓存获取backgroundUrl
     let fileUrl = wx.getStorageSync('curriBgc');
@@ -176,6 +186,7 @@ Page({
       console.log(that.data.backgroundUrl);
     }
     fileUrl ? getUrlFromLoad(fileUrl) : '';
+
     
   },
 

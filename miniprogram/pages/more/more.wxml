@@ -95,13 +95,13 @@
       </view>
     </view>
     
-    <!-- 快速发布组件 -->
-    <PublishContent 
+  </view>
+  
+  <!-- 快速发布组件 -->
+  <PublishContent 
     showModel="{{showModel}}" 
     id="PublishContent"
     current="{{current}}"
     bind:ReOnLoad="onLoad"
     ></PublishContent>
-  </view>
-  
 </scroll-view>
