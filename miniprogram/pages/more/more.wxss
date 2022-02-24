@@ -277,6 +277,12 @@
   }
   /* 弹窗 */
   .popUps {
+    background-color: rgb(13,13,13);
+  }
+  .popUps .bindBoxFlex .bindBox text {
+    color: #fff;
+  }
+  .popUps .cancelBox .cancel{
     filter: invert(100%) !important;
   }
 }
