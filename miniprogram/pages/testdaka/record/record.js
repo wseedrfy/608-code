@@ -307,6 +307,7 @@ Page({
                   username:username,
                   count:0,
                   hashId:this.hash(username+value.task+uid),
+                  // daka_lastTime:new Date(),
               }
           }).then(res=>{
               console.log(res);

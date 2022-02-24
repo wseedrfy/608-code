@@ -352,6 +352,8 @@ Page({
                 task_start_time:data[i].startTime,
                 task_end_time:data[i].endTime,
                 task_hashId:hashid,
+                task_lable1:data[i].lable1,
+                task_lable2:data[i].lable2
             }
             //粤神秒法：根据hashId来查找
             const result = await db.collection("daka_status").where({
@@ -442,8 +444,6 @@ Page({
         });
         wx.hideLoading()
         movedistance = 0; // 解决切换到其它页面再返回该页面动画失效的问题
-
-        this.getDaka_record();
     },
 
     
@@ -456,8 +456,8 @@ Page({
     /**
      * 生命周期函数--监听页面显示
      */
-   async onShow() {
-        
+    async onShow() {
+        await this.getDaka_record();
     },
 
     /**
