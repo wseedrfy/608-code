@@ -148,7 +148,6 @@ Page({
           return v.toString(16);
       });
     },
-
     hash(input){
     var I64BIT_TABLE = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-'.split('');
 
@@ -176,13 +175,9 @@ Page({
 
     saveRecord(res){
       var value = res.detail.value
-      var task = value.task;
-      var startTime = value.startTime;
-      var endTime = value.endTime;
-      var cycle = value.cycle;
-      var lable1 = value.lable1;
-      
-      if(task == "" || task == null || task == undefined){
+      console.log(value)
+      let {cycle,endTime,lable1,startTime,task} = value
+      if(!task){
         wx.showToast({
           title: '任务不能为空~',
           icon: 'none',
@@ -206,7 +201,7 @@ Page({
           icon: 'none',
           duration: 1000
         })
-      }else if(lable1 == "" || lable1 == null || lable1 == undefined){
+      }else if(!lable1){
         wx.showToast({
           title: '请选择您的标签~',
           icon: 'none',
@@ -215,6 +210,9 @@ Page({
       }else{
         wx.showLoading({
           title: '提交数据中',
+          mask:true
+          //防触摸
+          //一段时间内请求多次
         })
         // 获取学号
         console.log(res);
@@ -317,7 +315,8 @@ Page({
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad: function (options) {
+    onLoad: function (options) {  
+
     },
 
     /**
@@ -331,6 +330,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
+      this.saveRecord()
       console.log('onshow');
     },
 
