@@ -269,6 +269,7 @@ Page({
         let id =res.currentTarget.id
         let dakacount=this.data.taskdata
         dakacount=dakacount[id].count+1
+        console.log(dakacount);
         this.setData({ dakacount:dakacount})
         let that = this;
         console.log(res);
