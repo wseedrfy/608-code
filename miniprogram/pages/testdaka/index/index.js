@@ -442,6 +442,8 @@ Page({
         });
         wx.hideLoading()
         movedistance = 0; // 解决切换到其它页面再返回该页面动画失效的问题
+
+        this.getDaka_record();
     },
 
     
@@ -455,7 +457,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
    async onShow() {
-        await this.getDaka_record();
+        
     },
 
     /**
