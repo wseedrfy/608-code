@@ -173,7 +173,14 @@ Page({
      return retValue;
     },
 
-    saveRecord(res){
+    async saveRecord(res){
+      let username = wx.getStorageSync('args').username
+      await db.collection('daka_record').where({username:username}).get().then(res=>{
+        this.setData({len:res.data.length})
+      })
+      let len =this.data.len 
+      console.log(len);
+
       var value = res.detail.value
       console.log(value)
       let {cycle,endTime,lable1,startTime,task} = value
@@ -204,6 +211,12 @@ Page({
       }else if(!lable1){
         wx.showToast({
           title: '请选择您的标签~',
+          icon: 'none',
+          duration: 1000
+        })
+      }else if(len>10){
+        wx.showToast({
+          title: '最多创建10个打卡噢，请返回删除多余打卡~',
           icon: 'none',
           duration: 1000
         })
@@ -294,6 +307,7 @@ Page({
                   username:username,
                   count:0,
                   hashId:this.hash(username+value.task+uid),
+                  // daka_lastTime:new Date(),
               }
           }).then(res=>{
               console.log(res);
@@ -330,8 +344,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-      this.saveRecord()
-      console.log('onshow');
+      // this.saveRecord()
     },
 
     /**

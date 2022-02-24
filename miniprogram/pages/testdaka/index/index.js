@@ -12,13 +12,14 @@ Page({
         showModel2:false,
         currentIndex: 0, // 列表操作项的index
         taskdata:[
-            // {
-            //     task_name:'看电视',
-            //     task_cycle:['周一','周二','周三','周四','周五'],
-            //     task_start_time:'6:00',
-            //     task_end_time:'8:00'
-            //     task_isDaka:false
-            // },
+            {
+                task_name:'看电视',
+                task_cycle:['周一','周二','周三','周四','周五'],
+                task_start_time:'6:00',
+                task_end_time:'8:00',
+                task_isDaka:false,
+                count:0
+            },
         ],
     },
 
@@ -264,6 +265,12 @@ Page({
 
     //打卡提示
     daka_prompt(res){
+        //打卡次数本地增加1 渲染到弹窗
+        let id =res.currentTarget.id
+        let dakacount=this.data.taskdata
+        dakacount=dakacount[id].count+1
+        console.log(dakacount);
+        this.setData({ dakacount:dakacount})
         let that = this;
         console.log(res);
         wx.showModal({
@@ -345,6 +352,8 @@ Page({
                 task_start_time:data[i].startTime,
                 task_end_time:data[i].endTime,
                 task_hashId:hashid,
+                task_lable1:data[i].lable1,
+                task_lable2:data[i].lable2
             }
             //粤神秒法：根据hashId来查找
             const result = await db.collection("daka_status").where({
@@ -447,7 +456,7 @@ Page({
     /**
      * 生命周期函数--监听页面显示
      */
-   async onShow() {
+    async onShow() {
         await this.getDaka_record();
     },
 
