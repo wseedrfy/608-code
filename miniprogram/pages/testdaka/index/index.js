@@ -359,42 +359,14 @@ Page({
             const result = await db.collection("daka_status").where({
                 hashId:hashid
             }).get()
-            obj.task_isDaka = result.data[0].isDaka;
             obj.count = result.data[0].count;
-            console.log(obj.task_isDaka);
-            dakaArr.push(obj);
-        }
-        console.log(dakaArr);
-        this.setData({
-            taskdata:dakaArr
-        })
-        console.log(this.data.taskdata);
-    },
 
-    //渲染页面前判断各数据的打卡状态
-     async jdugeDaka_status(){
-        let username = wx.getStorageSync('args').username;
-        //一次请求
-        let result1 = await db.collection("daka_status").where({
-            username:username
-        }).get()
-        let data = result1.data;
-        // console.log(data);\
-        console.log(data.length);
-        //
-        for(var i = 0; i < data.length; i++){
-            var hashid = data[i].hashId;
-            //for循环里面写请求单线程 异步 
-         
-            let result2 = await db.collection("daka_status").where({
-                hashId:hashid
-            }).get()
-            console.log(result2.data[0].daka_lastTime);
-            //防止刚建立好的任务没有进行第一次打卡，就会导致没有daka_lastTime字段
-            if(result2.data[0].daka_lastTime != null){
-                var daka_lastTime = result2.data[0].daka_lastTime;
-                // console.log(daka_lastTime);
+            //判断该数据是否打卡的状态
+            let task_isDakaTemp = result.data[0].isDaka;
+            let daka_lastTime = result.data[0].daka_lastTime;
 
+            //为了防止第一次打卡没有daka_lastTime
+            if(daka_lastTime != null){
                 //获取最后一次打卡的日期
                 var lastTime_year = daka_lastTime.getFullYear();
                 var lastTIme_month = daka_lastTime.getMonth()+1;
@@ -408,6 +380,7 @@ Page({
                 // console.log("今天是" + nowDay + "号");
 
                 if(lastTime_year == nowYear && lastTIme_month == nowMonth && lastTime_day == nowDay){
+                    //改变数据库的isDaka
                     db.collection("daka_status").where({
                         hashId:hashid
                     }).update({
@@ -415,6 +388,10 @@ Page({
                             isDaka:true
                         }
                     })
+
+                    //改变data的isDaka
+                    //将该数据的是否打卡渲染值改变为task_isDakaTemp = true,则可以避免再次请求数据库拿该属性
+                    task_isDakaTemp = true;
                     // console.log("今天已经打卡了~");
                 }else{
                     db.collection("daka_status").where({
@@ -424,21 +401,32 @@ Page({
                             isDaka:false
                         }
                     })
-                    console.log("今天还没打卡咧~");
+                    //将该数据的是否打卡渲染值改变为task_isDakaTemp = false,则可以避免再次请求数据库拿该属性
+                    task_isDakaTemp = false;
+                    // console.log("今天还没打卡咧~");
                 }
             }
+            
+            obj.task_isDaka = task_isDakaTemp;
+            console.log(obj.task_isDaka);
+            dakaArr.push(obj);
         }
+        console.log(dakaArr);
+        this.setData({
+            taskdata:dakaArr
+        })
+        console.log(this.data.taskdata);
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
-    async onLoad() {
+    onLoad() {
         wx.showLoading({
           title: '加载中',
           mask:true
         })
-        await this.jdugeDaka_status();
+        this.getDaka_record();
         wx.setNavigationBarTitle({
             title: 'We打卡',
         });
@@ -456,8 +444,8 @@ Page({
     /**
      * 生命周期函数--监听页面显示
      */
-    async onShow() {
-        await this.getDaka_record();
+    onShow() {
+        this.getDaka_record();
     },
 
     /**
