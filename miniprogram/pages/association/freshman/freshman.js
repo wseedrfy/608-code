@@ -256,7 +256,8 @@ Page({
                       // Text:null,
                       // Time:Date.now(),
                       Title: this.data.add_title,
-                      index: count + '社团'
+                      index: count + '社团',
+                      endTime: this.data.date
                       // iconUrl:null,
                       // nickName:null,
                       // username:null
@@ -417,15 +418,33 @@ Page({
   },
   // 选择时间
   changeDate(e) {
-    db.collection("associationMess").where({ count: count }).update({
-      data: {
-        date: e.detail.value
-      }
-    }).then(res => {
-      this.setData({
-        date: e.detail.value
+    if (this.data.sendStatus==true) {
+      wx.showModal({
+        title: '提示',
+        content: '招新信息已发布,不可修改',
+        showCancel: true,
+        cancelText: '取消',
+        cancelColor: '#000000',
+        confirmText: '确定',
+        confirmColor: '#3CC51F',
+        success: (result) => {
+          if (result.confirm) {
+
+          }
+        },
+      });
+    }
+    else {
+      db.collection("associationMess").where({ count: count }).update({
+        data: {
+          date: e.detail.value
+        }
+      }).then(res => {
+        this.setData({
+          date: e.detail.value
+        })
       })
-    })
+    }
   },
   // 招新标题
   getTitle(e) {

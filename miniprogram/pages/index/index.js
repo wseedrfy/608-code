@@ -20,7 +20,7 @@ Page({
     statusBarHeight: getApp().globalData.statusBarHeight,
     lineHeight: getApp().globalData.lineHeight,
     windowHeight: getApp().globalData.windowHeight,
-    adHidden: false
+    ad: true
   },
   onPullDownRefresh(){
     wx.showNavigationBarLoading() //在标题栏中显示加载
@@ -107,7 +107,7 @@ Page({
 
   adClose(){
     console.log("adClose")
-    this.setData({adHidden: true})
+    this.setData({ad: false})
   },
   onShareTimeline: function(res) {
     return {

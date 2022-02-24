@@ -18,7 +18,7 @@ Page({
         starttime:'输入开始时间',//这个用户输入的开始时间，下面那个是结束时间
         endtime:'输入结束时间',
         cycleitems:[
-            { name: '每天', value: 'Everyday' },
+            // { name: '每天', value: 'Everyday' },
             { name: '周一', value: 'Monday' },
             { name: '周二', value: 'Tuesday' },
             { name: '周三', value: 'Wednesday' },
@@ -234,10 +234,10 @@ Page({
         //给周期变中文名
         var cycleChinese = [];
         for(var i = 0; i < cycle.length; i++){
-          if(cycle[0] == 'Everyday'){
-            cycleChinese.push("每天");
-            break;
-          }
+          // if(cycle[0] == 'Everyday'){
+          //   cycleChinese.push("每天");
+          //   break;
+          // }
   
           switch (cycle[i]){
             case 'Monday':
@@ -307,6 +307,7 @@ Page({
                   username:username,
                   count:0,
                   hashId:this.hash(username+value.task+uid),
+                  // daka_lastTime:new Date()
               }
           }).then(res=>{
               console.log(res);
