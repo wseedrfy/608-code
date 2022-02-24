@@ -112,7 +112,7 @@ Page({
 
 
   setDataCalendar: function () { //页面渲染全部倒数日
-    var addday = app.globalData._adday;
+    var addday = app.globalData._adday || [];
     var xlist = [];
     var xlist1 = [];
     var nowdate = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
