@@ -60,7 +60,7 @@ Page({
   },
   // 查询用户状态
   search(card) {
-    // console.log(card);
+    card = Number(card)
     db.collection("associationApply").where({ count: card }).get().then(res => {
       // console.log(res);/
       if (res.data.length == 0) {
