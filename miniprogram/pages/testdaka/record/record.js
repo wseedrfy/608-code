@@ -210,9 +210,9 @@ Page({
       }else{
         wx.showLoading({
           title: '提交数据中',
-          mask:true
           //防触摸
-          //一段时间内请求多次
+          //防止一段时间内请求多次
+          mask:true
         })
         // 获取学号
         console.log(res);
