@@ -107,7 +107,7 @@ Page({
   },
 
   login: function (e) {
-    var that = this
+    var that = this;
     if (this.data.user.length == 0 || this.data.pwd.length == 0) {
       wx.showToast({
         title: '帐号及密码不能为空',

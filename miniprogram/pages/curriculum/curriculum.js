@@ -159,6 +159,7 @@ Page({
       for(let i = 1; i <= args.scheduleLength; i++){
         scheduleLength.push(i);
       }
+      console.log(scheduleLength);
     }else {
       scheduleLength = this.data.scheduleLength;    // 兜底
     }
@@ -289,7 +290,6 @@ Page({
     var curriculum = this.changeCurriculum(args.addCurriculumLogs, args.ConcealCurriculumLogs);
     var wlist = [];
     var zc = 0;
-
     for (let i in curriculum) {
       zc = curriculum[i].zc;
       if (zc == whichWeek) {
@@ -334,10 +334,20 @@ Page({
       var zc = curriculum[i].zc;
       // console.log(curriculum[i].jcdm);
       if(curriculum[i].jcdm) {
-        let bright_skjc = Number(curriculum[i].jcdm.substr(0, 2)) + 1
+        let bright_skjc = Number(curriculum[i].jcdm.substr(0, 2)) + 1;
         wlistPoint[zc-1][((bright_skjc / 2 - 1) * 7 + Number(curriculum[i].xq)) - 1] = 1
       }
     }
+    let addCurriculumLogs = wx.getStorageSync('args').addCurriculumLogs;
+    for (let i in addCurriculumLogs) {
+      let zc = addCurriculumLogs[i].zc;
+      // console.log(curriculum[i].jcdm);
+      if(addCurriculumLogs[i].jcdm) {
+        let bright_skjc = Number(addCurriculumLogs[i].jcdm.substr(0, 2)) + 1;
+        wlistPoint[zc-1][((bright_skjc / 2 - 1) * 7 + Number(addCurriculumLogs[i].xq)) - 1] = 2
+      }
+    }
+
     this.setData({
       wlistPoint
     })
@@ -388,7 +398,7 @@ Page({
     const animationFunc = (px,scale,opacity1,opacity2,height,width) => {
       
       var timetableAnimation = wx.createAnimation({
-        duration: 550,
+        duration: 500,
         timingFunction: 'ease',
         delay: 100,
       }).translateX(px).scale(scale).opacity(opacity1).height(height).step().export();
@@ -406,7 +416,7 @@ Page({
       })
       // this.data.isAnimate = !this.data.isAnimate;     // 更新 isAnimate 状态
     }
-    this.data.isAnimate ? animationFunc("none",1,1,0,"100%","100%",) : animationFunc(260,0.88,0.7,1,"100%",150)
+    this.data.isAnimate ? animationFunc("none",1,1,0,"100%","100%",) : animationFunc(270,0.88,0.7,1,"100%",150)
   },
   // 触摸开始事件
   touchStartCurri: function (e) {
@@ -536,7 +546,7 @@ Page({
           'zc': String(week[i])
         }
         
-        args.addCurriculumLogs.push(add)
+        args["addCurriculumLogs"].push(add);
       }
       // 更新本地缓存
       wx.setStorageSync('args', args);
@@ -597,8 +607,11 @@ Page({
       }
     }
     if(addCurriculum) {
+      console.log(addCurriculum,allCurriculum);
       for (var i = 0; i < addCurriculum.length; i++) {
-        allCurriculum.push(addCurriculum[i]);
+        if(addCurriculum[i] != null) {
+          allCurriculum.push(addCurriculum[i]);
+        }
       }
     }
     return allCurriculum;
