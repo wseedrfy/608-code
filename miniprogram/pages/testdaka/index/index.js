@@ -7,6 +7,7 @@ Page({
      * 页面的初始数据
      */
     data: {
+        task_name:'示例',
         showModel3:false,
         dakacount:'19',
         showModel2:false,
@@ -267,10 +268,14 @@ Page({
     daka_prompt(res){
         //打卡次数本地增加1 渲染到弹窗
         let id =res.currentTarget.id
+        let task_name=this.data.taskdata
+        task_name=task_name[id].task_name
+        console.log(task_name);
+        //
         let dakacount=this.data.taskdata
         dakacount=dakacount[id].count+1
         console.log(dakacount);
-        this.setData({ dakacount:dakacount})
+        this.setData({ dakacount:dakacount,task_name:task_name})
         let that = this;
         console.log(res);
         wx.showModal({
