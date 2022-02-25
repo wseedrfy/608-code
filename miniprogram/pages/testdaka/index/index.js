@@ -416,7 +416,6 @@ Page({
             console.log(obj.task_isDaka);
             dakaArr.push(obj);
         }
-        console.log(dakaArr);
         this.setData({
             taskdata:dakaArr
         })
