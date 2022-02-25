@@ -9,6 +9,10 @@ exports.main = async (event) => {
   const usernameData = (await db.collection("user").where({
     openid: wxContext.OPENID
   }).get()).data[0]
+  const usernameDataOther = (await db.collection("curriculumControl").where({
+    username: usernameData.username
+  }).get()).data[0]
+  const {addCurriculumLogs = [], ConcealCurriculumLogs = []} = usernameDataOther || []
   usernameData ? delete usernameData.openid : null;
   let school = usernameData ? usernameData.school : '';
   const schoolInitData = (await db.collection("schoolLoading").where({
@@ -50,7 +54,9 @@ exports.main = async (event) => {
         ...usernameData,
         ...schoolInitData,
         ...SchoolIndex,
-        ...otherData
+        ...otherData,
+        addCurriculumLogs,
+        ConcealCurriculumLogs
       }
     }
   }
@@ -58,6 +64,8 @@ exports.main = async (event) => {
     ...usernameData,
     ...schoolInitData,
     ...SchoolIndex,
-    ...otherData
+    ...otherData,
+    addCurriculumLogs,
+    ConcealCurriculumLogs
   }
 }
