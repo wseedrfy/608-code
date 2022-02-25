@@ -1,6 +1,6 @@
 let args = wx.getStorageSync('args')
 var app = getApp()
-var currentPage = 0 // 当前第几页,0代表第一页 
+
 
 // 旋转初始化
 const _ANIMATION_TIME = 400; // 动画播放一次的时长ms
@@ -20,12 +20,11 @@ Page({
     lineHeight: getApp().globalData.lineHeight,
     rectHeight: getApp().globalData.rectHeight,
     windowHeight: getApp().globalData.windowHeight,
-    tabitem: [ // 标签
+    windowWidth: 0,
+    
+    tabitem: [        // 标签兜底
       {
         title: "全部",
-        type: 0,
-      }, {
-        title: "开端👍",
         type: 0,
       }, {
         title: "日常",
@@ -50,27 +49,15 @@ Page({
         type: 0,
       }
     ],
-    loadMore: false, // "上拉加载"的变量，默认false，隐藏  
-    loadAll: false, // "没有数据"的变量，默认false，隐藏 
+    
 
-    allList: [], // 列表的内容
+    allList: [ [],[],[],[],[],[],[],[], ],      // 列表的内容
     
     
-    leftList: [], // 左列表
-    rightList: [], // 右列表
-
-    formTitle: ' ', // 发布页面标题
-    formText: ' ', // 发布页面内容
-    Label: '全部',
-    fileIDs: [],
-
     currentItemHeight: 0,
-    leftH: 0,
-    rightH: 0,
+    
 
-
-    DataNull: 0, // 这个是状态，最后显示是否是全部数据
-    addAft: 0, // 这个是状态，防止用户发布内容回到第一页
+    addAft: 0,        // 这个是状态，防止用户发布内容回到第一页
 
     direction: " ",
     directionIndex: 0,
@@ -79,9 +66,9 @@ Page({
     animation: '',
 
     campus_account: false, // 封号状态
-    describe: "", // 封号简介
-    content: {}, // 个人信息
-    openusername: {}, //点赞人的对象
+    describe: "",          // 封号简介
+    content: {},           // 个人信息
+    openusername: {},      //点赞人的对象
 
     
     // 123123123
@@ -97,60 +84,7 @@ Page({
     this.selectComponent('#PublishContent').add();    // 控制显隐
     this.setData({ showPopUps: !this.data.showPopUps });
   },
-  //处理左右结构
-  RightLeftSolution(empty = false) {
-    if (empty) {
-      currentPage = 0
-      this.setData({
-        leftList: [],
-        rightList: [],
-        leftH: 0,
-        rightH: 0,
-        allList: [],
-        addAft: 0
-      })
-      return
-    }
-    var that = this;
-    var allList = this.data.allList;
-    app.globalData.allList = allList;
-    console.log(app.globalData.allList,"这是global.allList");
-
-    for (let i = 0; i < allList.length; i++) {
-      // 边界判断: 如果该数据已存在，则continue
-      if (that.data.leftList || that.data.rightList) {
-        let leftListID = that.data.leftList.map(item => {
-          return item._id
-        })
-        let rightListID = that.data.rightList.map(item => {
-          return item._id
-        })
-
-        if (leftListID.includes(allList[i]._id) || rightListID.includes(allList[i]._id)) {
-          continue
-        }
-      }
-
-      if (that.data.leftList.includes(allList[i]) || that.data.rightList.includes(allList[i])) {
-        console.log("continue");
-        continue
-      }
-
-      if (that.data.leftH <= that.data.rightH) { //判断左右两侧当前的累计高度，来确定item应该放置在左边还是右边
-        that.data.leftList.push(allList[i]);
-        that.data.leftH += allList[i].ShowHeight;
-      } else {
-        that.data.rightList.push(allList[i]);
-        that.data.rightH += allList[i].ShowHeight;
-      }
-    }
-    this.setData({
-      leftList: that.data.leftList,
-      rightList: that.data.rightList,
-    })
-
-    // console.log(that.data.leftList,that.data.rightList);
-  },
+  
 
   // 获取新消息总数
   getNewInfo() {
@@ -184,84 +118,9 @@ Page({
     }
   },
 
-  // 2. 操作数据库
-  getData() { // 2.1 提高网络性能，分页加载数据
-    let that = this;
-    // 第一次加载数据
-    if (currentPage == 1) {
-      this.setData({
-        loadMore: true, // 把"上拉加载"的变量设为true，显示  
-        loadAll: false // 把“没有数据”设为false，隐藏  
-      })
-    }
-    //云数据的请求
-    wx.cloud.callFunction({
-      name: "CampusCircle",
-      data: {
-        type: "read",
-        username: that.data.username,
-        currentPage: currentPage,
-        ShowId: that.data.Label,
-        addAft: that.data.addAft,
-        //游客模式校园圈初始化
-        School: that.data.school == "游客登录" ? "广东石油化工学院" : that.data.school
-      },
-      success(res) {
-        console.log(res)
-    console.log(111)
-
-        if (res.result && res.result.data.length > 0) {
-          currentPage++;
-          //把新请求到的数据添加到allList里  
-          that.data.allList = that.data.allList.concat(res.result.data);
-          that.setData({
-            allList: that.data.allList, //获取数据数组    
-            loadMore: false, //把"上拉加载"的变量设为false，显示  
-            DataNull: 1,
-            showLoading: 1
-          });
-          // console.log(that.data.allList);
-          if (res.result.data.length < 10) {
-            that.setData({
-              loadMore: false, //隐藏加载中。。
-              loadAll: true, //所有数据都加载完了
-              DataNull: 0,
-              showLoading: 1
-            });
-          }
-          that.RightLeftSolution()
-        } else {
-          if (that.data.leftH == 0 && that.data.rightH == 0) {
-            that.setData({
-              leftList: [],
-              rightList: [],
-            })
-          } // 修改222
-          that.setData({
-            loadAll: true, // 把“没有数据”设为true，显示  
-            loadMore: false, // 把"上拉加载"的变量设为false，隐藏  
-            DataNull: 0,
-            showLoading: 1
-          });
-        }
-      },
-      fail(res) {
-        console.log("请求失败", res)
-        that.setData({
-          loadAll: false,
-          loadMore: false
-        });
-      }
-    })
-  },
-
   
 
   // 3. 点击事件 
-  
-
-  
-
   search_Input: function (e) { // 3.3 搜索框逻辑
     var that = this
     if (e.detail.value) {
@@ -311,24 +170,26 @@ Page({
     }
   },
 
-
   // 4. 动效
-  rotateAni: function (n) { // 4.1 实现image旋转动画，每次旋转 120*n度
+
+  rotateAni: function (n) {    // 实现image旋转动画，每次旋转 120*n度         
     _animation.rotate(120 * (n)).step()
     this.setData({
       animation: _animation.export()
     })
   },
-  startAnimationInterval: function () { // 4.2 开始旋转
+  // 开始旋转
+  startAnimationInterval: function () { 
 
     let that = this;
-    that.rotateAni(++_animationIndex); // 进行一次旋转
+    that.rotateAni(++_animationIndex);  // 进行一次旋转
     _animationIntervalId = setInterval(function () {
       that.rotateAni(++_animationIndex);
     }, _ANIMATION_TIME); // 每间隔_ANIMATION_TIME进行一次旋转
     console.log("begin旋转")
   },
-  stopAnimationInterval: function () { // 4.3 停止旋转
+  // 停止旋转
+  stopAnimationInterval: function () { 
     if (_animationIntervalId > 0) {
       clearInterval(_animationIntervalId);
       _animationIntervalId = 0;
@@ -343,15 +204,7 @@ Page({
   },
   
 
-  //-----------------------后期优化：两个list合并，用type进行区分(280-285)
-  getBackData(e) {
-    this.data.directionIndex = e.detail
-    console.log("e.detail", e.detail)
-  },
-
-  
-  
-
+  // 选择标签
   setTab: function (e) { // 该函数仅在组件中调用
     if (e.detail) {
       var index = e.detail.currentTarget.dataset.index
@@ -376,20 +229,9 @@ Page({
 
   //以本地数据为例，实际开发中数据整理以及加载更多等实现逻辑可根据实际需求进行实现   
   onLoad: function () {
-    currentPage = 0;
 
-    app.loginState() // 判断登录
-    this.getNewInfo() // 获取新消息通知
-
-    // 处理标签
-    this.data.tabitem = args.tabitem ? args.tabitem.map(e => { // 加载缓存获得学校和用户名和头像
-      return {
-        title: e,
-        type: 0
-      }
-    }) : this.data.tabitem; // that.data.tabitem是兜底数据
-
-    this.data.tabitem[0].type = 1; // 默认选中第一个 “全部”
+    app.loginState();  // 判断登录
+    this.getNewInfo(); // 获取新消息通知
 
     // 封号
     var campus_account = args.campus_account ? args.campus_account : false
@@ -429,8 +271,32 @@ Page({
   },
 
   onShow: function () {
-    this.data.allList = app.globalData.allList || [];
+    let windowWidth = wx.getWindowInfo().windowWidth;
+    // 初始化标签
+    this.data.tabitem = args.tabitem ? args.tabitem.map((e,index) => { 
+
+      // 默认选中第一个 “全部”
+      if(index == 0) {
+        return {
+          title: e,
+          type: 1
+        }
+      }
+
+      return {
+        title: e,
+        type: 0
+      }
+    }) : this.data.tabitem; // 兜底数据
+
+    // 初始化 allList
+    this.data.allList = app.globalData.allList || this.data.tabitem.map((item,index) => {
+      let allList = [];
+      return allList[index] = []
+    });
+
     this.setData({
+      windowWidth,
       school: args.schoolName,
       username: args.username,
       nickname: args.nickName,
@@ -442,8 +308,8 @@ Page({
         nickName: args.nickName
       }
     })
-    this.RightLeftSolution();
-    this.getNewInfo()
+    this.selectComponent("#waterFlowCards").RightLeftSolution();
+    this.getNewInfo();
   },
 
   onReady: function () {
@@ -452,22 +318,24 @@ Page({
     this.data.animation = '';
   },
 
-  onPullDownRefresh() { // 下拉刷新
+  // 下拉刷新
+  onPullDownRefresh() { 
     clearTimeout(this.TimeOut);
     wx.showNavigationBarLoading() // 在标题栏中显示加载
 
     this.setData({
       showLoading: 0
     })
-    currentPage = 0;
+    this.selectComponent("#waterFlowCards").setData({currentPage: 0});
+
     this.startAnimationInterval()
     this.TimeOut = setTimeout(()=>{
 
   
       console.log("下拉刷新")
       this.data.addAft = 0;
-      this.RightLeftSolution(true)
-      this.getData()
+      this.selectComponent("#waterFlowCards").RightLeftSolution(true)
+      this.selectComponent("#waterFlowCards").getData()
       wx.hideNavigationBarLoading() // 完成停止加载
       wx.stopPullDownRefresh() // 停止下拉刷新
     }, 1000)
@@ -475,21 +343,15 @@ Page({
    
   },
 
-  
-  onReachBottom() { // 上拉触底改变状态
-    if (!this.data.loadMore) {
-      this.setData({
-        loadMore: true, // 加载中  
-        loadAll: false // 是否加载完所有数据
-      });
+  // 上拉触底改变状态
+  onReachBottom() { 
+    
       wx.showLoading({
         title: '加载更多中',
       })
-      this.getNewInfo(); // 上拉刷新，是否有新消息
-      this.getData();
+      this.selectComponent("#waterFlowCards").getData();
       wx.hideLoading();
 
-    }
   },
   onShareAppMessage: function (res) {
     return {

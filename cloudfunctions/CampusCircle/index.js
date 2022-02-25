@@ -58,7 +58,7 @@ async function addRecord(event, type, content){
 
 
 async function read(event) {
-  var skipPage = (event.addAft == 0) ? (event.currentPage * 10) : (event.currentPage * 10 + 1)
+  var skipPage = event.currentPage * 10;
   var obj = {
     School: event.School
   }

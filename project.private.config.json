@@ -65,6 +65,18 @@
                     "pathName": "pages/login/login",
                     "query": "",
                     "scene": null
+                },
+                {
+                    "name": "校园圈",
+                    "pathName": "pages/more/more",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "登录页面",
+                    "pathName": "pages/login/login",
+                    "query": "",
+                    "scene": null
                 }
             ]
         }

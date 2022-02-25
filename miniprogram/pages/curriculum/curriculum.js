@@ -509,9 +509,9 @@ Page({
     // args
     wx.showLoading({
       title: '处理中',
-      mask: true
+      mask: false
     })
-    var week = []
+    var week = [];
     for (var i = 0; i < 18; i++) {
       if (this.data.week[i][0])
         week.push(i + 1)
@@ -548,8 +548,7 @@ Page({
         
         args["addCurriculumLogs"].push(add);
       }
-      // 更新本地缓存
-      wx.setStorageSync('args', args);
+      
       // console.log(args.addCurriculumLogs, 233);
       // 更新后台数据
       wx.cloud.callFunction({
@@ -557,7 +556,6 @@ Page({
         data: {
           type: "addCurriculumLogs",
           username: args.username,
-          nickName: args.nickName,
           addCurriculumLogs: args.addCurriculumLogs,
         },
         success: res => {
@@ -566,6 +564,8 @@ Page({
             title: '添加成功',
             icon: 'none',
           })
+          // 更新本地缓存
+          wx.setStorageSync('args', args);
           that.onShow()
         },
         fail: err => {

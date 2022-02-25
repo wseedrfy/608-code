@@ -51,7 +51,10 @@ Page({
     })
     // 注意！这个只能拉100个学校，我也希望未来我们能超过100个
     var that = this;
-    var res = (await schoolLoading.where({}).get()).data
+    var res = (await schoolLoading.field({ //显示哪些字段
+      schoolName: true, //默认显示_id，这个隐藏
+      url: true,
+    }).get()).data
     res.forEach(e => {
       if (e.schoolName !== '空' | "游客登录") {
         this.data.school.push(e.schoolName)
@@ -67,7 +70,7 @@ Page({
     wx.getLocation({
       type: 'wgs84',
       success(res) {
-        const Rad =  (d)  => { //根据经纬度判断距离
+        const Rad = (d) => { //根据经纬度判断距离
           return d * Math.PI / 180.0;
         }
         const getDistance = (lat1 = 0, lng1 = 0, lat2 = 0, lng2 = 0) => {
@@ -82,8 +85,12 @@ Page({
           // console.log('经纬度计算的距离:' + s)
           return s
         }
-        that.data.res.forEach(e => { e.distance = Number(getDistance(res.latitude, res.longitude, e.location ? e.location.latitude : 0, e.location ? e.location.longitude : 0))})
-        that.data.res.sort(function (a, b) { return a.distance - b.distance})
+        that.data.res.forEach(e => {
+          e.distance = Number(getDistance(res.latitude, res.longitude, e.location ? e.location.latitude : 0, e.location ? e.location.longitude : 0))
+        })
+        that.data.res.sort(function (a, b) {
+          return a.distance - b.distance
+        })
         // that.data.res.reverse()
         console.log(that.data.res)
         that.data.school = []
@@ -182,14 +189,14 @@ Page({
                 }
               },
               fail: err => {
-                
+
                 wx.showToast({
                   icon: 'none',
                   title: '校园网关闭或者服务器异常',
                 })
               }
             })
-    
+
           }
         })
 

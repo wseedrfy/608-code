@@ -49,13 +49,16 @@
   showTab="false"></TabScroll>
   <view class="Line"></view>
 
-  <!-- 页面主体 -->
-  <waterFlowCards 
-  leftList="{{leftList}}"
-  rightList="{{rightList}}" 
-  openusername="{{openusername}}" 
-  tabitem="{{tabitem}}"
-  DataNull="{{DataNull}}"></waterFlowCards>
+  <block wx:for="{{allList}}" wx:key="body">
+    <!-- 页面主体 -->
+    <waterFlowCards 
+    id="waterFlowCards"
+    allList="{{item}}"
+    openusername="{{openusername}}" 
+    tabitem="{{tabitem}}"
+    style="position: absolute; left: {{index*windowWidth}}px;"></waterFlowCards>
+  </block>
+  
 
   <!-- 发布按钮 -->
   <view class="img-button content_btn content_btn_add" style="display:{{school=='游客登录'?'none':'fixed'}}" bindtap="showPopUps" id="PublishContent">
@@ -99,8 +102,8 @@
   
   <!-- 快速发布组件 -->
   <PublishContent 
-    showModel="{{showModel}}" 
     id="PublishContent"
+    showModel="{{showModel}}" 
     current="{{current}}"
     bind:ReOnLoad="onLoad"
     ></PublishContent>

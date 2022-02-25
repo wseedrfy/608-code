@@ -69,7 +69,8 @@ Page({
         url: 'indexLoading',
       },
       success: res => {
-        var new_args = res.result
+        var new_args = res.result;
+        console.log(new_args);
         if (!(JSON.stringify(new_args) === JSON.stringify(wx.getStorageSync('args')))) {
           console.log("进入函数更新")
           var onload = app.jsRun(new_args, new_args.jsCode)
