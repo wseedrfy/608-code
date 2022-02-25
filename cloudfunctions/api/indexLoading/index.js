@@ -15,9 +15,24 @@ exports.main = async (event) => {
   const {addCurriculumLogs = [], ConcealCurriculumLogs = []} = usernameDataOther || []
   usernameData ? delete usernameData.openid : null;
   let school = usernameData ? usernameData.school : '';
-  const schoolInitData = (await db.collection("schoolLoading").where({
+  let schoolInitData = (await db.collection("schoolLoading").where({
     schoolName: school ? school : '空'
+  }).field({
+    jsCode: false,
+    otherPageCode: false,
   }).get()).data[0]
+
+  if(!(event.jsVersion) || schoolInitData.jsVersion !== event.jsVersion){
+    schoolInitData = {
+      ...schoolInitData,
+      ...(await db.collection("schoolLoading").where({
+        schoolName: school ? school : '空'
+      }).field({
+        jsCode: true,
+        otherPageCode: true,
+      }).get()).data[0]
+    }
+  }
   var SchoolIndex = {}
   SchoolIndex = {
     SchoolIndex: {

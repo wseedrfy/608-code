@@ -51,12 +51,14 @@ Page({
     if(wx.getStorageSync('theme') !== undefined){
       that.setData({ theme:  wx.getStorageSync('theme') });
     }
+
     var args = wx.getStorageSync('args')
     this.setData({
       ad: args.ad
     })
-    if (args) {
+    if (args && options?.goin !== 'login') {
       try {
+        console.log("进入主页兜底")
         var onload = app.jsRun(args, args.jsCode)
         onload(that, options)
       } catch (e) {
@@ -67,13 +69,20 @@ Page({
       name: 'api',
       data: {
         url: 'indexLoading',
+        jsVersion: args.jsVersion
       },
       success: res => {
         var new_args = res.result
-        if (!(JSON.stringify(new_args) === JSON.stringify(wx.getStorageSync('args')))) {
+        console.log("获取到数据")
+        if ((options?.goin == 'login') || (!(JSON.stringify(new_args) === JSON.stringify(wx.getStorageSync('args'))))) {
           console.log("进入函数更新")
-          var onload = app.jsRun(new_args, new_args.jsCode)
+          new_args = {
+            ...args,
+            ...new_args
+          }
           wx.setStorageSync('args', new_args)
+          var onload = app.jsRun(new_args, new_args.jsCode)
+
           try {
             onload(that, options)
           } catch(e) {
@@ -83,6 +92,7 @@ Page({
             })
           }
         }
+
       },
       fail: res => {
         console.log(res)

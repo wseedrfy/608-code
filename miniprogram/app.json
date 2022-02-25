@@ -31,13 +31,6 @@
             ]
         },
         {
-            "name": "dynamic",
-            "root": "pages/dynamic",
-            "pages": [
-                "dynamic"
-            ]
-        },
-        {
             "name": "HOT",
             "root": "pages/HOT",
             "pages": [
@@ -105,7 +98,6 @@
             "packages": [
                 "physical",
                 "common",
-                "dynamic",
                 "HOT",
                 "tomato",
                 "association"
