@@ -55,7 +55,7 @@ Page({
     // 更新缓存
     let args = wx.getStorageSync('args');
     args.addCurriculumLogs.splice(e.currentTarget.dataset.bean, 1);
-    wx.setStorageSync('args', args)
+    
 
     // 更新数据库并重渲染页面
     wx.cloud.callFunction({
@@ -71,6 +71,7 @@ Page({
           icon: 'none',
         })
         this.add();
+        wx.setStorageSync('args', args)
       },
       fail: err => {
         wx.showToast({
