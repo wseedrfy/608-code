@@ -115,16 +115,16 @@ Page({
     const underLine_left = this.selectComponent("#TabScroll").data.underLine_left;
     const underLine_width = this.selectComponent("#TabScroll").data.underLine_width;
     // 公式计算：滑动屏幕百分比 * 下一段偏移度
-    console.log(dx/this.data.windowWidth);
+    // console.log(dx/this.data.windowWidth);
     let offset,offset_width;
     if(dx/this.data.windowWidth > 0) {
       offset = (dx/this.data.windowWidth) * (underLine_left[activeItem+1] - underLine_left[activeItem]) + underLine_left[activeItem];
 
-      offset_width = (dx/this.data.windowWidth) * (underLine_width[activeItem+1] - underLine_width[activeItem]) + underLine_width[activeItem];
+      offset_width = (dx/this.data.windowWidth) * (underLine_width[activeItem+1] - underLine_width[activeItem]) + (underLine_width[activeItem]-30);
     }else if( dx/this.data.windowWidth < 0) {
       offset = (dx/this.data.windowWidth) * (underLine_left[activeItem] - underLine_left[activeItem-1]) + underLine_left[activeItem];
 
-      offset_width = (dx/this.data.windowWidth) * (underLine_width[activeItem] - underLine_width[activeItem-1]) + underLine_width[activeItem];
+      offset_width = (dx/this.data.windowWidth) * (underLine_width[activeItem] - underLine_width[activeItem-1]) + (underLine_width[activeItem]-30);
     }
     this.selectComponent("#TabScroll").setData({offset,offset_width})
   },
