@@ -9,11 +9,30 @@ exports.main = async (event) => {
   const usernameData = (await db.collection("user").where({
     openid: wxContext.OPENID
   }).get()).data[0]
+  const usernameDataOther = (await db.collection("curriculumControl").where({
+    username: usernameData.username
+  }).get()).data[0]
+  const {addCurriculumLogs = [], ConcealCurriculumLogs = []} = usernameDataOther || []
   usernameData ? delete usernameData.openid : null;
   let school = usernameData ? usernameData.school : '';
-  const schoolInitData = (await db.collection("schoolLoading").where({
+  let schoolInitData = (await db.collection("schoolLoading").where({
     schoolName: school ? school : '空'
+  }).field({
+    jsCode: false,
+    otherPageCode: false,
   }).get()).data[0]
+
+  if(!(event.jsVersion) || schoolInitData.jsVersion !== event.jsVersion){
+    schoolInitData = {
+      ...schoolInitData,
+      ...(await db.collection("schoolLoading").where({
+        schoolName: school ? school : '空'
+      }).field({
+        jsCode: true,
+        otherPageCode: true,
+      }).get()).data[0]
+    }
+  }
   var SchoolIndex = {}
   SchoolIndex = {
     SchoolIndex: {
@@ -50,7 +69,9 @@ exports.main = async (event) => {
         ...usernameData,
         ...schoolInitData,
         ...SchoolIndex,
-        ...otherData
+        ...otherData,
+        addCurriculumLogs,
+        ConcealCurriculumLogs
       }
     }
   }
@@ -58,6 +79,8 @@ exports.main = async (event) => {
     ...usernameData,
     ...schoolInitData,
     ...SchoolIndex,
-    ...otherData
+    ...otherData,
+    addCurriculumLogs,
+    ConcealCurriculumLogs
   }
 }
