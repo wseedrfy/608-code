@@ -1,8 +1,7 @@
 <scroll-view scroll-x="true" hidden="{{type != '校友圈标签'  || !showTab}}">
     <view class="Choose_Label" scroll-x="true">
         <!-- 下划线 -->
-        <view class="underLineBox" 
-        style="width: {{underLine_width[activeItem]}}rpx; left:{{offset || underLine_left[activeItem]}}rpx;">
+        <view class="underLineBox" style="width: {{underLine_width[activeItem]}}rpx; left:{{offset || underLine_left[activeItem]}}rpx;">
             <view class="underLine" style="width: {{offset_width || underLine_width[activeItem] - 30}}rpx;"></view>
         </view>
 

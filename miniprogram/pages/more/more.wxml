@@ -31,7 +31,7 @@
     </view>
 </view>
 
-<scroll-view enable-back-to-top="true" fast-deceleration="true" paging-enabled="true" bindscrolltolower="onReachBottom" lower-threshold="300" bindscrolltoupper="onPullDownRefresh" upper-threshold="0"  scroll-y="true" style="height: {{windowHeight }}px;" wx:if="{{campus_account!=true}}" class="page" >
+<scroll-view enable-back-to-top="true" fast-deceleration="true" paging-enabled="true" bindscrolltolower="onReachBottom" lower-threshold="300" bindscrolltoupper="onPullDownRefresh" upper-threshold="0"  scroll-y="{{true}}" style="height: {{windowHeight }}px;" wx:if="{{campus_account!=true}}" class="page" >
   <!-- 填充 -->
   <view style="position: relative; padding-top: {{ 3 + (statusBarHeight + lineHeight)}}px; width: 100%;"></view>
   <view style="position: relative; padding-top: {{(showscroll? 140: 0) }}rpx; width: 100%;"></view>
