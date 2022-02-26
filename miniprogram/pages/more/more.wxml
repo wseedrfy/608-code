@@ -49,7 +49,7 @@
   showTab="false"></TabScroll>
   <view class="Line"></view>
 
-  <swiper bindchange="waterChange" bindtransition="waterTransition" bindanimationfinish="waterAnimationFinish" current="{{activeItem}}" style="height: 100vh;">
+  <swiper  current="{{activeItem}}"  style="height: {{windowHeight }}px;"  bindchange="waterChange" bindtransition="waterTransition" bindanimationfinish="waterAnimationFinish">
     <!-- style="left: {{index*windowWidth}}px; " -->
     <block wx:for="{{allList}}" wx:key="body" wx:for-index="index">
       <swiper-item>
