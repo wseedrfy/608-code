@@ -42,6 +42,7 @@
 
   <!-- 标签 -->
   <TabScroll 
+  style="position: fixed; z-index: 2;"
   type="校友圈标签" 
   tabItem="{{tabitem}}" 
   bind:setTab="setTab" 
