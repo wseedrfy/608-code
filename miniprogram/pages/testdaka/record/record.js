@@ -18,7 +18,7 @@ Page({
         starttime:'输入开始时间',//这个用户输入的开始时间，下面那个是结束时间
         endtime:'输入结束时间',
         cycleitems:[
-            { name: '每天', value: 'Everyday' },
+            // { name: '每天', value: 'Everyday' },
             { name: '周一', value: 'Monday' },
             { name: '周二', value: 'Tuesday' },
             { name: '周三', value: 'Wednesday' },
@@ -173,7 +173,14 @@ Page({
      return retValue;
     },
 
-    saveRecord(res){
+    async saveRecord(res){
+      let username = wx.getStorageSync('args').username
+      await db.collection('daka_record').where({username:username}).get().then(res=>{
+        this.setData({len:res.data.length})
+      })
+      let len =this.data.len 
+      console.log(len);
+
       var value = res.detail.value
       console.log(value)
       let {cycle,endTime,lable1,startTime,task} = value
@@ -207,6 +214,12 @@ Page({
           icon: 'none',
           duration: 1000
         })
+      }else if(len>30){
+        wx.showToast({
+          title: '最多创建10个打卡噢，请返回删除多余打卡~',
+          icon: 'none',
+          duration: 1000
+        })
       }else{
         wx.showLoading({
           title: '提交数据中',
@@ -221,10 +234,10 @@ Page({
         //给周期变中文名
         var cycleChinese = [];
         for(var i = 0; i < cycle.length; i++){
-          if(cycle[0] == 'Everyday'){
-            cycleChinese.push("每天");
-            break;
-          }
+          // if(cycle[0] == 'Everyday'){
+          //   cycleChinese.push("每天");
+          //   break;
+          // }
   
           switch (cycle[i]){
             case 'Monday':
@@ -270,13 +283,13 @@ Page({
           //1.存入打卡任务记录表
         db.collection('daka_record').add({
               data: {
-                  task:value.task,
+                  task:value.task,//
                   // 标签可以为空 
                   lable1:realLable1,
                   lable2:this.data.lable2,
-                  cycle: cycleChinese,
-                  startTime: value.startTime,
-                  endTime: value.endTime,
+                  cycle: cycleChinese,//
+                  startTime: value.startTime,//
+                  endTime: value.endTime,//
                   username:username,
                   uuid:uid,
                   hashId:this.hash(username+value.task+uid),
@@ -294,12 +307,26 @@ Page({
                   username:username,
                   count:0,
                   hashId:this.hash(username+value.task+uid),
+                  // daka_lastTime:new Date()
               }
           }).then(res=>{
               console.log(res);
               wx.hideLoading();
           })
           .then(res=>{
+            var pages = getCurrentPages()
+            var prevPage = pages[pages.length - 2]
+            prevPage.setData({
+              mydata: {
+                  count:0,
+                  task_name:value.task,
+                  task_cycle: cycleChinese,//
+                  task_start_time: value.startTime,//
+                  task_end_time: value.endTime,//
+                  task_isDaka:false,
+                  task_hashId:this.hash(username+value.task+uid),
+              }
+            })
             wx.navigateBack({
               delta: 1
             })
@@ -330,8 +357,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-      this.saveRecord()
-      console.log('onshow');
+      // this.saveRecord()
     },
 
     /**

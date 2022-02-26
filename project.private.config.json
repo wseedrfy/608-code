@@ -1,5 +1,4 @@
 {
-    "setting": {},
     "condition": {
         "plugin": {
             "list": []
@@ -49,32 +48,8 @@
                     "scene": null
                 },
                 {
-                    "name": "pages/testdaka/record/record",
-                    "pathName": "pages/testdaka/record/record",
-                    "query": "",
-                    "scene": null
-                },
-                {
-                    "name": "pages/testdaka/index/index",
-                    "pathName": "pages/testdaka/index/index",
-                    "query": "",
-                    "scene": null
-                },
-                {
-                    "name": "登录页面",
-                    "pathName": "pages/login/login",
-                    "query": "",
-                    "scene": null
-                },
-                {
                     "name": "校园圈",
                     "pathName": "pages/more/more",
-                    "query": "",
-                    "scene": null
-                },
-                {
-                    "name": "登录页面",
-                    "pathName": "pages/login/login",
                     "query": "",
                     "scene": null
                 }

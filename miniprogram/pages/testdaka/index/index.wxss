@@ -5,7 +5,7 @@
     height: auto;
     height: 110vh;
     width: 100%;
-    position:fixed;
+    /* position:fixed; */
 }
 .dayclock{
     width: 690rpx;
@@ -221,6 +221,22 @@
   .complete_share_box{
       width: 100%;
       height: 41.7%;
+      display: flex;
+      flex-direction:column ;
+      align-items: center;
+      justify-content: center;
+  }
+  .complete_share_box > view{
+    margin: 10rpx;
+    width: 450rpx;
+    height: 90rpx;  
+    text-align: center;
+    line-height: 90rpx;
+  }
+  .complete_share_box_button{
+    border-radius: 50rpx;
+    color: #fff;
+    background-color: #74d5d3;
   }
   .attention_bg{
     position: fixed;
@@ -252,3 +268,6 @@
     left: 338rpx;
     z-index: 99999;
   }
+  /* .complete_share_box_text{
+
+  } */

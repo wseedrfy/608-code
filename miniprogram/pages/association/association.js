@@ -1,7 +1,7 @@
 // pages/association/association.js
 let school = ''
 let db = wx.cloud.database()
-let card=""//学号
+let card = ""//学号
 Page({
 
   /**
@@ -38,10 +38,10 @@ Page({
         id: "card"
       },
     ],
-    HtmlStatus: 0,//0为申请 1审核中 2审核通过
+    HtmlStatus: 0,//0为申请 1审核中 2审核通过  3注销中
     assoMess: "",
-    showModalStatus:false,
-    photoStatus:false
+    showModalStatus: false,
+    photoStatus: false
   },
 
   /**
@@ -60,18 +60,25 @@ Page({
   },
   // 查询用户状态
   search(card) {
-    console.log(card);
+    card = Number(card)
     db.collection("associationApply").where({ count: card }).get().then(res => {
-      console.log(res);
+      // console.log(res);/
       if (res.data.length == 0) {
         this.setData({
           HtmlStatus: 0
         })
       }
       else {
-        if (res.data[0].status == false) {
+        // console.log(res.data[0].status);
+        // console.log(res.data[0].status===false);
+        if (res.data[0].status === false) {
           this.setData({
             HtmlStatus: 1
+          })
+        }
+        else if (res.data[0].status == 0) {
+          this.setData({
+            HtmlStatus: 3
           })
         }
         else {
@@ -102,9 +109,24 @@ Page({
       }
     })
   },
+  // 开发中
+  loading(){
+    wx.showToast({
+      title: '功能开发中',
+      icon: 'none',
+      image: '',
+      duration: 1500,
+      mask: false,
+      success: (result)=>{
+        
+      },
+      fail: ()=>{},
+      complete: ()=>{}
+    });
+  },
   formSubmit(e) {
     let data = e.detail.value
-    if(data.card=='f281q'){
+    if (data.card == 'f281q') {
       this.search('f281q')
       // this.setData({
       //   HtmlStatus:2
@@ -148,7 +170,7 @@ Page({
                   }
                 }).then(res => {
                   this.setData({
-                    HtmlStatus:1
+                    HtmlStatus: 1
                   })
                   wx.hideLoading();
                 })
@@ -205,34 +227,34 @@ Page({
     }.bind(this), 200)
   },
   // 选择图片
-  add_img(){
+  add_img() {
     wx.chooseImage({
       count: 2,
-      sizeType: ['original','compressed'],
-      sourceType: ['album','camera'],
-      success: (res)=>{
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success: (res) => {
         this.setData({
-          photo:res.tempFilePaths,
-          photoStatus:true
+          photo: res.tempFilePaths,
+          photoStatus: true
         })
       },
     });
   },
   // 发布
-  confirm(e){
+  confirm(e) {
     console.log(e);
   },
   // 赛事
-  match(){
+  match() {
     wx.navigateTo({
-      url: '/pages/association/match/match?count='+card,
-      success: (result)=>{
-        
+      url: '/pages/association/match/match?count=' + card,
+      success: (result) => {
+
       },
     });
   },
   // 注销社团
-  delete(){
+  delete() {
     wx.showModal({
       title: '警告',
       content: '注销负责人身份',
@@ -242,8 +264,23 @@ Page({
       confirmText: '确定',
       confirmColor: '#3CC51F',
       success: (result) => {
-        if(result.confirm){
-          
+        if (result.confirm) {
+          wx.showLoading({
+            title: "注销中",
+            mask: true,
+            success: (res) => {
+              db.collection("associationApply").where({ count: card }).update({
+                data: {
+                  status: 0
+                }
+              }).then(res => {
+                wx.hideLoading();
+                this.setData({
+                  HtmlStatus: 3
+                })
+              })
+            },
+          });
         }
       },
     });
@@ -252,13 +289,13 @@ Page({
 
 
   // 跳转
-  freshman(){
-    let assoMess=this.data.assoMess
-    assoMess=JSON.stringify(assoMess)
+  freshman() {
+    let assoMess = this.data.assoMess
+    assoMess = JSON.stringify(assoMess)
     wx.navigateTo({
-      url: '/pages/association/freshman/freshman?assoMess='+assoMess,
-      success: (result)=>{
-        
+      url: '/pages/association/freshman/freshman?assoMess=' + assoMess,
+      success: (result) => {
+
       },
     });
   },

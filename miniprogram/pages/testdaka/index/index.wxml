@@ -138,7 +138,7 @@
      <view class="complete_share">
           <view class="complete_share_image"></view>
           <view class="complete_share_box">
-               <view class="complete_share_box">你已经累计完成{{dakacount}}天！加油！</view>
+               <view class="complete_share_box_text">您已经累计完成{{dakacount}}天！加油！</view>
                <view class="complete_share_box_button">校友圈一键分享</view>
           </view>
      </view>

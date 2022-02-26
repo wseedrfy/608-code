@@ -322,6 +322,10 @@ Page({
   initWlistPoint(){
     var personalInformation = wx.getStorageSync('personalInformation')
     var curriculum = personalInformation.curriculum;
+
+    let args = wx.getStorageSync('args');
+
+    curriculum = this.changeCurriculum(args.addCurriculumLogs,args.ConcealCurriculumLogs)
     //处理的绿色小点点
     var wlistPoint = new Array();
     for (var i = 0; i < 20; i++) { 
@@ -607,7 +611,7 @@ Page({
       }
     }
     if(addCurriculum) {
-      console.log(addCurriculum,allCurriculum);
+      // console.log(addCurriculum,allCurriculum);
       for (var i = 0; i < addCurriculum.length; i++) {
         if(addCurriculum[i] != null) {
           allCurriculum.push(addCurriculum[i]);

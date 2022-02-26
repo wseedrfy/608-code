@@ -63,7 +63,7 @@ async function read(event) {
     School: event.School
   }
   event.ShowId != "全部" ? obj["Label"] = event.ShowId : '';
-
+  console.log(event);
   try {  
 
     // if(event.School === '茂名职业技术学院'){

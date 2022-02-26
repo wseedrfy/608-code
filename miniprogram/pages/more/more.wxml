@@ -31,7 +31,7 @@
     </view>
 </view>
 
-<scroll-view enable-back-to-top="true" fast-deceleration="true" paging-enabled="true" bindscrolltolower="onReachBottom" lower-threshold="300" bindscrolltoupper="onPullDownRefresh" upper-threshold="0"  scroll-y="true" style="height: {{windowHeight }}px;" wx:if="{{campus_account!=true}}" class="page">
+<scroll-view enable-back-to-top="true" fast-deceleration="true" paging-enabled="true" bindscrolltolower="onReachBottom" lower-threshold="300" bindscrolltoupper="onPullDownRefresh" upper-threshold="0"  scroll-y="true" style="height: {{windowHeight }}px;" wx:if="{{campus_account!=true}}" class="page" >
   <!-- 填充 -->
   <view style="position: relative; padding-top: {{ 3 + (statusBarHeight + lineHeight)}}px; width: 100%;"></view>
   <view style="position: relative; padding-top: {{(showscroll? 140: 0) }}rpx; width: 100%;"></view>
@@ -49,15 +49,24 @@
   showTab="false"></TabScroll>
   <view class="Line"></view>
 
-  <block wx:for="{{allList}}" wx:key="body">
-    <!-- 页面主体 -->
-    <waterFlowCards 
-    id="waterFlowCards"
-    allList="{{item}}"
-    openusername="{{openusername}}" 
-    tabitem="{{tabitem}}"
-    style="position: absolute; left: {{index*windowWidth}}px;"></waterFlowCards>
-  </block>
+  <swiper bindchange="waterChange" bindtransition="waterTransition" bindanimationfinish="waterAnimationFinish" current="{{activeItem}}" style="height: 100vh;">
+    <!-- style="left: {{index*windowWidth}}px; " -->
+    <block wx:for="{{allList}}" wx:key="body" wx:for-index="index">
+      <swiper-item>
+        <!-- 页面主体 -->
+        <waterFlowCards 
+        id="waterFlowCards{{index}}"
+        list="{{item}}"
+        openusername="{{openusername}}" 
+        tabitem="{{tabitem}}"
+        index="{{index}}"
+        bind:getData="getData"
+        ></waterFlowCards>
+      </swiper-item>
+      
+    </block>
+  </swiper>
+  
   
 
   <!-- 发布按钮 -->

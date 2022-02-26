@@ -20,6 +20,12 @@
     </view>
     <view class="test_tip">资料审核中...</view>
 </view>
+<view class="test_wrap" wx:elif="{{HtmlStatus==3}}">
+    <view class="test_img">
+        <image src="../../images/delete.png" />
+    </view>
+    <view class="test_tip">账号注销中...</view>
+</view>
 <view class="asso_wrap" wx:elif="{{HtmlStatus==2}}">
     <view class="mess_item">
         <view class="mess_wrap" wx:for="{{assoMess}}" wx:key="item">
@@ -43,7 +49,7 @@
                 <view class="tip_content">赛事发布</view>
             </view>
             <view class="delete_bt" >
-                <image src="img/change.png" />
+                <image src="img/change.png" bind:tap="loading"/>
                 <view class="tip_content">编辑资料</view>
             </view>
             <view class="delete_bt" bind:tap="delete">
@@ -56,19 +62,19 @@
             <view class="data_tip">我的数据看板</view>
         </view>
         <view class="bt_list_wrap">
-            <view class="act_bt" >
+            <view class="act_bt" bind:tap="loading">
                 <image src="img/freshman.png" />
                 <view class="tip_content">招新数据</view>
             </view>
-            <view class="race_bt" >
+            <view class="race_bt" bind:tap="loading">
                 <image src="img/match.png" />
                 <view class="tip_content">赛事反馈</view>
             </view>
-            <view class="delete_bt" >
+            <view class="delete_bt" bind:tap="loading">
                 <image src="img/delete.png" />
                 <view class="tip_content">推广数据</view>
             </view>
-            <view class="delete_bt">
+            <view class="delete_bt" bind:tap="loading">
                 <image src="img/delete.png" />
                 <view class="tip_content">创作中心</view>
             </view>
@@ -82,6 +88,9 @@
         </view>
     </view> -->
 </view>
+<!-- <view class="delete_wrap">
+
+</view> -->
 <!-- 发布弹窗 -->
 <view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
 <!-- 弹出框 -->

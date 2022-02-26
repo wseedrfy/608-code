@@ -46,9 +46,12 @@ Page({
   },
   // 修改状态
   changeStatus(e) {
+    // let dataObj=e.currentTarget.dataset
     let item = e.currentTarget.dataset.item
     let id = item._id
     let index = e.currentTarget.dataset.index
+    // console.log(e);
+    // let 
     if (item.sendStatus == true) {
       wx.showModal({
         title: '提示',
@@ -60,14 +63,22 @@ Page({
         confirmColor: '#3CC51F',
         success: (result) => {
           if (result.confirm) {
-            db.collection("associtaionMath").where({ _id: id }).update({
+            wx.cloud.callFunction({
+              name: "associationSend",
               data: {
-                sendStatus: false
+                type: 3,
+                index: item.count + "比赛"
               }
             }).then(res => {
-              this.data.mathObj[index].sendStatus = false
-              this.setData({
-                mathObj: this.data.mathObj
+              db.collection("associtaionMath").where({ _id: id }).update({
+                data: {
+                  sendStatus: false
+                }
+              }).then(res => {
+                this.data.mathObj[index].sendStatus = false
+                this.setData({
+                  mathObj: this.data.mathObj
+                })
               })
             })
           }
@@ -75,6 +86,7 @@ Page({
       });
     }
     else {
+      // console.log(item);
       wx.showModal({
         title: '提示',
         content: '确认发布',
@@ -85,14 +97,32 @@ Page({
         confirmColor: '#3CC51F',
         success: (result) => {
           if (result.confirm) {
-            db.collection("associtaionMath").where({ _id: id }).update({
+            wx.cloud.callFunction({
+              name: "associationSend",
               data: {
-                sendStatus: true
+                type: 2,
+                AllPhoto: [item.imgUrl],
+                Cover: item.imgUrl,
+                CoverHeight: item.CoverHeight,
+                CoverWidth: item.CoverWidth,
+                School: item.schoolName,
+                ShowHeight: item.ShowHeight,
+                Text: item.senderMess.contentDetail,
+                Title: item.senderMess.title,
+                index: item.count + "比赛",
+                question: item.question
+                // Label:
               }
             }).then(res => {
-              this.data.mathObj[index].sendStatus = true
-              this.setData({
-                mathObj: this.data.mathObj
+              db.collection("associtaionMath").where({ _id: id }).update({
+                data: {
+                  sendStatus: true
+                }
+              }).then(res => {
+                this.data.mathObj[index].sendStatus = true
+                this.setData({
+                  mathObj: this.data.mathObj
+                })
               })
             })
           }
@@ -114,11 +144,11 @@ Page({
       confirmText: '确定',
       confirmColor: '#3CC51F',
       success: (result) => {
-        if(result.confirm){
-          db.collection("associtaionMath").where({_id:id}).remove().then(res=>{
-            this.data.mathObj.splice(index,1)
+        if (result.confirm) {
+          db.collection("associtaionMath").where({ _id: id }).remove().then(res => {
+            this.data.mathObj.splice(index, 1)
             this.setData({
-              mathObj:this.data.mathObj
+              mathObj: this.data.mathObj
             })
           })
         }

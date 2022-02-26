@@ -13,8 +13,13 @@ Component({
         type: Array,
         value: []
       },
-      allList: {
+      // 当前组件需渲染的数据
+      list: {             
         type: Array,
+      },
+      // 当前组件的下标
+      index: {            
+        type: Number
       }
     },
 
@@ -22,10 +27,6 @@ Component({
    * 组件的初始数据
    */
   data: {
-    // 控制标签切换,翻页
-    startX:0,
-    endX: 0,
-    moveFlag:true,
 
     currentPage: 0,   // 当前第几页,0代表第一页 
     loadAll: false,   // 状态标志 - 是否加载完所有内容
@@ -41,163 +42,85 @@ Component({
   },
   lifetimes: {
     ready: function() {
-      console.log(this.properties.allList);
+      // console.log(this.properties.list);
     }
   },
   /**
    * 组件的方法列表
    */
   methods: {
-    touchStart(e) {              // 滑动事件
-        this.data.startX = e.touches[0].pageX;     // 获取触摸时的原点
-        this.data.moveFlag = true;
-      },
-    touchMove(e) {
-        this.data.endX = e.touches[0].pageX;       // 获取触摸时的原点
-        if(this.data.moveFlag) {
-          
-          if(this.data.endX - this.data.startX > 50) {
-            this.data.moveFlag = false;
-            // 激活上一个标签
-            let that = this;
-            (function() {
-              let tabItemType = that.properties.tabitem.map(item => {
-                return item.type
-              });
-              let index = tabItemType.indexOf(1) - 1;
-              // 处理边界，不得小于0
-              if(index < 0) {                        
-                index = 0;
-                return;
-              }
-              // 更新数据
-              // that.selectComponent("#TabScroll").setData({ activeItem: index });        // 下划线动效需要
-            //   that.setTab(index);                                               // 请求得到数据，更新 leftList/ rightList再丢入瀑布流
-            })()
-          }
-          if(this.data.startX - this.data.endX > 50) {
-            this.data.moveFlag = false;
-            // 激活下一个标签
-            let that = this;
-            (function() {
-              let tabItemType = that.properties.tabitem.map(item => {
-                return item.type
-              });
-              let index = tabItemType.indexOf(1) + 1;
-              // 处理边界，不得大于tabitem长度
-              if(index >= tabItemType.length) {        
-                index = tabItemType.length - 1;
-                return;
-              }
-              // 更新数据
-            //   that.selectComponent("#TabScroll").setData({ activeItem: index });
-            //   that.setTab(index);
-            })()
-          }
-        }
-      },
-    touchEnd(e) {
-        this.data.moveFlag = true;
+    
+
+    getData() {
+      let e = {
+        currentPage:this.data.currentPage,  // 本组件当前第几页
+        index: this.properties.index        // 本组件索引 - 方便标签选择
+      }
+      this.triggerEvent("getData",e);
+      console.log("getData");
     },
-
-    // 2. 操作数据库
-    getData() {             //分页加载数据
-      let that = this;
-      let args = wx.getStorageSync('args');
-      //云数据的请求
-      wx.cloud.callFunction({
-        name: "CampusCircle",
-        data: {
-          type: "read",
-          username: args.username,
-          currentPage: that.data.currentPage,
-          ShowId: that.data.Label,
-          //游客模式校园圈初始化
-          School: that.data.school == "游客登录" ? "广东石油化工学院" : that.data.school
-        },
-        success(res) {
-          console.log(res)
-          console.log(111)
-
-          if (res.result && res.result.data.length > 0) {
-            this.data.currentPage++;
-
-            // 把新请求到的数据添加到allList里  
-            let allList = that.properties.allList.concat(res.result.data);
-            that.setData({ allList });
-            // 数据少于一页
-            if (res.result.data.length < 10) {
-              that.setData({ loadAll: true });
-            }
-
-            that.RightLeftSolution()
-          } else {
-            if (that.data.leftH == 0 && that.data.rightH == 0) {
-              that.setData({
-                leftList: [],
-                rightList: [],
-              })
-            } // 修改222
-            that.setData({ loadAll: true });
-          }
-        },
-        fail(res) {
-          console.log("请求失败", res)
-        }
-      })
-    },
-
     //处理左右结构
     RightLeftSolution(empty = false) {
       if (empty) {
-        this.data.currentPage = 0;
         this.setData({
+          currentPage: 0,
           leftList: [],
           rightList: [],
           leftH: 0,
           rightH: 0,
-          allList: [],
-          addAft: 0
+          list: [],
         })
         return
       }
-      var that = this;
-      var allList = this.data.allList;
-      getApp().globalData.allList = allList;
 
-      for (let i = 0; i < allList.length; i++) {
+      let index = this.properties.index;
+      let list = this.data.list;
+      console.log(list);
+      // console.log(getApp().globalData.allList);
+
+      let allList = new Array(this.properties.tabitem.length);
+      // console.log(allList);
+      if(getApp().globalData.allList) {
+        getApp().globalData.allList[index] = list;
+      }else {
+        getApp().globalData.allList = allList
+      }
+      
+ 
+
+      for (let i = 0; i < list.length; i++) {
         // 边界判断: 如果该数据已存在，则continue
-        if (that.data.leftList || that.data.rightList) {
-          let leftListID = that.data.leftList.map(item => {
+        if (this.data.leftList || this.data.rightList) {
+          let leftListID = this.data.leftList.map(item => {
             return item._id
           })
-          let rightListID = that.data.rightList.map(item => {
+          let rightListID = this.data.rightList.map(item => {
             return item._id
           })
 
-          if (leftListID.includes(allList[i]._id) || rightListID.includes(allList[i]._id)) {
+          if (leftListID.includes(list[i]._id) || rightListID.includes(list[i]._id)) {
             continue
           }
         }
 
-        if (that.data.leftList.includes(allList[i]) || that.data.rightList.includes(allList[i])) {
+        if (this.data.leftList.includes(list[i]) || this.data.rightList.includes(list[i])) {
           console.log("continue");
           continue
         }
 
-        if (that.data.leftH <= that.data.rightH) { //判断左右两侧当前的累计高度，来确定item应该放置在左边还是右边
-          that.data.leftList.push(allList[i]);
-          that.data.leftH += allList[i].ShowHeight;
+        if (this.data.leftH <= this.data.rightH) { //判断左右两侧当前的累计高度，来确定item应该放置在左边还是右边
+          this.data.leftList.push(list[i]);
+          this.data.leftH += list[i].ShowHeight;
         } else {
-          that.data.rightList.push(allList[i]);
-          that.data.rightH += allList[i].ShowHeight;
+          this.data.rightList.push(list[i]);
+          this.data.rightH += list[i].ShowHeight;
         }
       }
       this.setData({
-        leftList: that.data.leftList,
-        rightList: that.data.rightList,
+        leftList: this.data.leftList,
+        rightList: this.data.rightList,
       })
-
+      console.log(this.data.leftList,this.data.rightList);
       // console.log(that.data.leftList,that.data.rightList);
     },
   }

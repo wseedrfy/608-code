@@ -117,7 +117,7 @@ page {
   color: white;
   margin-top: 24rpx;
   font-size: 32rpx;
-  background-color: #c7ffa1;
+  background-color: #4e4e4e;
 }
 /*使屏幕变暗  */
 .commodity_screen {
