@@ -1,77 +1,84 @@
 {
-  "setting": {},
-  "condition": {
-    "plugin": {
-      "list": []
-    },
-    "game": {
-      "list": []
-    },
-    "gamePlugin": {
-      "list": []
-    },
-    "miniprogram": {
-      "list": [
-        {
-          "id": -1,
-          "name": "db guide",
-          "pathName": "pages/databaseGuide/databaseGuide",
-          "query": ""
+    "setting": {},
+    "condition": {
+        "plugin": {
+            "list": []
         },
-        {
-          "name": "课表",
-          "pathName": "pages/curriculum/curriculum",
-          "query": "",
-          "scene": null
+        "game": {
+            "list": []
         },
-        {
-          "name": "修改课程",
-          "pathName": "pages/curriculum/addcurriculum/addcurriculum",
-          "query": "",
-          "scene": null
+        "gamePlugin": {
+            "list": []
         },
-        {
-          "name": "个人信息",
-          "pathName": "pages/myself/myself",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "番茄时钟",
-          "pathName": "pages/tomato/index/index",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "echart_demo",
-          "pathName": "pages/tomato/text/text",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "pages/testdaka/record/record",
-          "pathName": "pages/testdaka/record/record",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "pages/testdaka/index/index",
-          "pathName": "pages/testdaka/index/index",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "登录页面",
-          "pathName": "pages/login/login",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "社团首页",
-          "pathName": "pages/association/association",
-          "scene": null
+        "miniprogram": {
+            "list": [
+                {
+                    "id": -1,
+                    "name": "db guide",
+                    "pathName": "pages/databaseGuide/databaseGuide",
+                    "query": ""
+                },
+                {
+                    "name": "课表",
+                    "pathName": "pages/curriculum/curriculum",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "修改课程",
+                    "pathName": "pages/curriculum/addcurriculum/addcurriculum",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "个人信息",
+                    "pathName": "pages/myself/myself",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "番茄时钟",
+                    "pathName": "pages/tomato/index/index",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "echart_demo",
+                    "pathName": "pages/tomato/text/text",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "pages/testdaka/record/record",
+                    "pathName": "pages/testdaka/record/record",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "pages/testdaka/index/index",
+                    "pathName": "pages/testdaka/index/index",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "登录页面",
+                    "pathName": "pages/login/login",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "社团首页",
+                    "pathName": "pages/association/association",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "校园圈",
+                    "pathName": "pages/more/more",
+                    "query": "",
+                    "scene": null
+                }
+            ]
         }
-      ]
     }
-  }
 }
