@@ -153,7 +153,7 @@ Page({
             if (res.result.msg == "welcome") {
               console.log(res.result)
               wx.reLaunch({
-                url: '/pages/index/index'
+                url: '/pages/index/index?goin=login'
               })
             } else {
               console.log(res.result)
