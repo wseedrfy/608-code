@@ -1,4 +1,7 @@
 
+.page {
+    transition: all 0.3s ease 0s;
+}
 .content{
     display: flex;
     flex-direction: row;

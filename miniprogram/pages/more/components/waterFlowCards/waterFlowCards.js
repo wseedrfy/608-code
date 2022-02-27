@@ -16,6 +16,7 @@ Component({
       // 当前组件需渲染的数据
       list: {             
         type: Array,
+        value: []
       },
       // 当前组件的下标
       index: {            
@@ -54,6 +55,9 @@ Component({
       console.log("eeeee");
       this.triggerEvent("testFnc")
     },
+    onPullDownRefresh() {
+      this.triggerEvent("onPullDownRefresh")
+    },
     getData() {
       let e = {
         currentPage:this.data.currentPage,  // 本组件当前第几页
@@ -78,7 +82,7 @@ Component({
 
       let index = this.properties.index;
       let list = this.data.list;
-      console.log(list,"丢入瀑布流的数据");
+      // console.log(list,"丢入瀑布流的数据");
       
       let allList = new Array(this.properties.tabitem.length);
       // console.log(allList);
@@ -87,7 +91,7 @@ Component({
       }else {
         getApp().globalData.allList = allList
       }
-      console.log(getApp().globalData.allList,"globalData的allList");
+      // console.log(getApp().globalData.allList,"globalData的allList");
  
 
       for (let i = 0; i < list.length; i++) {
@@ -123,7 +127,7 @@ Component({
         leftList: this.data.leftList,
         rightList: this.data.rightList,
       })
-      console.log(this.data.leftList,this.data.rightList,"左右列表");
+      // console.log(this.data.leftList,this.data.rightList,"左右列表");
     },
   }
 })

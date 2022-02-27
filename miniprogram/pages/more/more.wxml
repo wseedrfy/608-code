@@ -31,7 +31,7 @@
 </view>
 
 
-<scroll-view enable-back-to-top="true" fast-deceleration="true" paging-enabled="true" bindscrolltolower="onReachBottom" lower-threshold="300" bindscrolltoupper="onPullDownRefresh" upper-threshold="0" scroll-y="true" style="height: {{windowHeight}}px;" wx:if="{{campus_account!=true}}" class="page">
+<scroll-view bindscrolltoupper="onPullDownRefresh" upper-threshold="0" scroll-y="true" style="height: {{windowHeight}}px;" wx:if="{{campus_account!=true}}" class="page">
   <!-- 填充 -->
   <view style="position: relative; padding-top: {{ 3 + (statusBarHeight + lineHeight)}}px; width: 100%;"></view>
   
@@ -46,12 +46,10 @@
   <swiper current="{{currentTab}}" bindchange="waterChange" style="height: {{windowHeight}}px;">
 
     <swiper-item wx:for="{{allList}}" wx:key="body" wx:for-index="index" style="height: {{windowHeight}}px;">
-      <waterFlowCards id="waterFlowCards{{index}}" list="{{item}}" openusername="{{openusername}}" tabitem="{{tabitem}}" index="{{index}}" bind:getData="getData" bind:testFnc="onReachBottom"></waterFlowCards>
+      <waterFlowCards id="waterFlowCards{{index}}" list="{{item}}" openusername="{{openusername}}" tabitem="{{tabitem}}" index="{{index}}" bind:getData="getData" bind:testFnc="onReachBottom" bind:onPullDownRefresh="onPullDownRefresh"></waterFlowCards>
     </swiper-item>
 
   </swiper>
-
-  <!-- <waterFlowCards id="waterFlowCards0" list="{{allList[0]}}" openusername="{{openusername}}" tabitem="{{tabitem}}" index="{{index}}" bind:getData="getData"></waterFlowCards> -->
 
   <!-- 发布按钮 -->
   <view class="img-button content_btn content_btn_add" style="display:{{school=='游客登录'?'none':'fixed'}}" bindtap="showPopUps" id="PublishContent">

@@ -435,6 +435,7 @@ Page({
 
   // 上拉触底改变状态
   onReachBottom() { 
+    console.log(123);
     wx.showLoading({
       title: '加载更多中',
     })
