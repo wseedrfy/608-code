@@ -194,8 +194,8 @@ Page({
     })
   },
 
-  // 3. 点击事件 
-  search_Input: function (e) { // 3.3 搜索框逻辑
+  // 3. 搜索框逻辑 
+  search_Input: function (e) { 
     var that = this;
     const waterComponent = that.selectComponent(`#waterFlowCards0`);
     if (e.detail.value) {
@@ -210,7 +210,6 @@ Page({
         success: res => {
           // 回到“全部”标签
           that.setTab(0);
-
           // 搜索有结果时
           if (res.result.data.length != 0) {
             // 清空瀑布流数据
@@ -218,7 +217,6 @@ Page({
             // 处理搜索结果
             let allList = that.data.allList;
             allList[0] = res.result.data;
-            console.log(allList);
             that.setData({
               allList,
               tabitem: that.data.tabitem,
@@ -236,20 +234,11 @@ Page({
           console.error
         }
       })
-    } else {      // 清空搜索框内容时
+    } else {      // 搜索框内容为空时
       // 清空瀑布流内容
       waterComponent.RightLeftSolution(true);
-      
-      for (let j = 0; j < this.data.tabitem.length; j++) {
-        if (this.data.tabitem[j].title == this.data.Label) {
-          this.data.tabitem[j].type = 1
-          this.setData({
-            tabitem: this.data.tabitem,
-          })
-          this.data.tabitem[j].type = 0
-          break
-        }
-      }
+      // 重新加载数据
+      that.onPullDownRefresh();
     }
   },
 
@@ -293,8 +282,6 @@ Page({
     } else {    // 左右滑动时，传入 index
       var index = e
     }
-    console.log(index);
-    this.data.Label = this.data.tabitem[index].title;
     // 初始化 - 全部置零
     this.data.tabitem.forEach((item,i) => {
       item.type = 0;
@@ -327,6 +314,7 @@ Page({
   },
   //以本地数据为例，实际开发中数据整理以及加载更多等实现逻辑可根据实际需求进行实现   
   onLoad: function () {
+    
     // 判断登录
     app.loginState();  
     // 初始化标签
@@ -344,6 +332,7 @@ Page({
         type: 0
       }
     }) : this.data.tabitem; // 兜底数据
+
     // 封号
     var campus_account = args.campus_account ? args.campus_account : false
     var describe = args.describe ? args.describe : false

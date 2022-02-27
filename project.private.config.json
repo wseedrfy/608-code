@@ -83,6 +83,12 @@
                     "pathName": "pages/myself/myself",
                     "query": "",
                     "scene": null
+                },
+                {
+                    "name": "课表管理页面",
+                    "pathName": "pages/curriculum/addcurriculum/addcurriculum",
+                    "query": "",
+                    "scene": null
                 }
             ]
         }

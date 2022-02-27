@@ -32,8 +32,8 @@ page {
 }
 .grade-column {
   line-height: 60rpx;
-  font-size: 35rpx;
-  font-weight: 500;
+  font-size: 28rpx;
+  font-weight: 550;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -302,6 +302,9 @@ button{
   .block_kcmc {
     /* color: #EEE8AA; */
     filter: invert(90%);
+  }
+  .grade-column {
+    filter: invert(1);
   }
   .iconfont {
     filter: invert(100%);
