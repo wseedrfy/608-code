@@ -484,9 +484,7 @@ Page({
     // 被评论者信息
     if(args.username===content.username){
       more=1
-      console.log("match")
     }
-    //var more = options.del  //--------------不理解为啥要改。改成了（371-376）,识别发布者是不是“我”,是就弹出“编辑”icon
     var Time = util.timeago(that.data.content.Time, 'Y年M月D日')
     that.data.username = args.username
     var openusername = {
