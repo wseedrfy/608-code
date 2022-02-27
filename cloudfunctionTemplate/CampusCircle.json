@@ -1,0 +1,25 @@
+[
+  {
+    "name": "校园圈发布请求模板",
+    "value": {
+      "Other": "1",
+      "LoseTime": "一个月前",
+      "LoseType": 2,
+      "campus": 2,
+      "Cover": 2,
+      "AllPhoto": 2,
+      "Title": 2,
+      "Text": 2,
+      "CoverHeight": 2,
+      "CoverWidth": 2,
+      "Label": 2,
+      "Time": 2,
+      "ShowHeight": 2,
+      "nickName": 2,
+      "username": 2,
+      "iconUrl": 2,
+      "School": 2,
+      "type": "write"
+    }
+  }
+]

@@ -1,4 +1,4 @@
-
+//发布组件化
 Component({
     /**
      * 组件的属性列表
@@ -21,11 +21,17 @@ Component({
         formText: '',
         photo: [],                  // 照片
         choosenLabel: '',           // 已选标签
-        menu: ["日常", "表白墙🎯", "吐槽"],
+        menu: ["日常", "表白墙🎯", "吐槽","寻物发布"],
 
         imageHeight: 0,
         imageWidth: 0,
         current: 0,                 // 单个第x张照片
+        //存储寻物发布信息
+          "Time":"",
+          "type":"",
+          "campus":"",
+          "Other":""
+
     },
     lifetimes: {
         ready() {
@@ -82,6 +88,14 @@ Component({
         },
         // 点击事件 - 发布
         formSubmit(e) { // 2.2 添加与存储 (发布点击事件)
+          if(this.data.choosenLabel!="寻物发布"){
+            this.setData({
+              "Time":"",
+              "type":"",
+              "campus":"",
+              "Other":""
+            })
+          }
             let {
               formTitle,
               formText
@@ -95,6 +109,8 @@ Component({
             if (!formText) {
               formText = ""
             }
+            console.log(this.data.choosenLabel)
+
             if (this.data.photo.length == 0) {
               wx.showToast({
                 title: '图片不能为空',
@@ -105,7 +121,33 @@ Component({
                 title: '标签不能为空',
                 icon: 'none'
               })
-            } else if (!nickName && !iconUrl) {
+              
+            }
+            else if(this.data.choosenLabel=="寻物发布"&&!this.data.type){
+              wx.showToast({
+                title: '请选择失物类别',
+                icon: 'none'
+              })
+            }
+            else if(this.data.choosenLabel=="寻物发布"&&!this.data.campus){
+              wx.showToast({
+                title: '请选择学校校区',
+                icon: 'none'
+              })
+            }
+            else if(this.data.choosenLabel=="寻物发布"&&!this.data.Time){
+              wx.showToast({
+                title: '请选择丢失时间',
+                icon: 'none'
+              })
+            }
+            else if(this.data.choosenLabel=="寻物发布"&&!this.data.Other){
+              wx.showToast({
+                title: '请选择是否悬赏',
+                icon: 'none'
+              })
+            }
+            else if (!nickName && !iconUrl) {
               wx.showToast({
                 title: '小主还没登录哟QwQ',
                 icon: 'none'
@@ -128,8 +170,13 @@ Component({
                 "Time": new Date().getTime(),
                 "nickName": nickName,
                 "School": school,
-                "iconUrl": iconUrl
+                "iconUrl": iconUrl,
+                "LoseTime":this.data.Time,
+                "campus":this.data.campus,
+                "Other":this.data.Other,
+                "LoseType":this.data.type
               }
+              console.log(add)
               getApp().globalData.allList.push(add);
               let NewData = getApp().globalData.allList.length - 1;
 
@@ -161,7 +208,12 @@ Component({
                     wx.cloud.callFunction({
                         name: 'CampusCircle',
                         data: {
+                            // LoseTime:
                             Cover: fileIDs[0],
+                            LoseTime:getApp().globalData.allList[NewData].LoseTime?getApp().globalData.allList[NewData].LoseTime:"",
+                            Other:getApp().globalData.allList[NewData].Other?getApp().globalData.allList[NewData].Other:"",
+                            LoseType:getApp().globalData.allList[NewData].LoseType?getApp().globalData.allList[NewData].LoseType:"",
+                            campus:getApp().globalData.allList[NewData].campus?getApp().globalData.allList[NewData].campus:"",
                             AllPhoto: fileIDs,
                             Title: getApp().globalData.allList[NewData].Title,
                             Text: getApp().globalData.allList[NewData].Text,
@@ -305,5 +357,23 @@ Component({
               })
             }
         },
+        type(e){
+          console.log(e.detail)
+          this.setData({type:e.detail})
+        },
+        campus(e){
+          console.log(e.detail)
+          this.setData({campus:e.detail})
+        },
+        Other(e){
+          console.log(e.detail)
+          this.setData({Other:e.detail})
+
+          // console.log(e.detail)
+        },
+        Time(e){
+          console.log(e.detail)
+          this.setData({Time:e.detail})
+        }
     }
 })

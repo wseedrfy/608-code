@@ -80,6 +80,10 @@ async function write(event) {
   try {
     return await db.collection("Campus-Circle").add({
       data: {
+        Other:event.Other,
+        LoseTime:event.LoseTime,
+        LoseType:event.LoseType,
+        campus:event.campus,
         Cover: event.Cover,
         AllPhoto: event.AllPhoto,
         Title: event.Title,
