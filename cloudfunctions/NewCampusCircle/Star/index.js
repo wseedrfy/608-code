@@ -7,23 +7,23 @@ exports.main = async (event) => {
     msg: 'error'
   }
   switch (event.type) {
-    case "writeComment":
-      data = await writeComment(event); // 
+    case "addStar":
+      data = await addStar(event); // 
       break;
-    case "delComment":
-      data = await delComment(event); // 
+    case "deStar":
+      data = await deStar(event); // 
       break;
   }
   return data
 }
-async function writeComment(event, type, content) {
+async function addStar(event, type, content) {
 
   if (event.delData) {
     await db.collection('Campus-Circle').where({
       _id: event._id
     }).update({
       data: {
-        CommentList: _.push(event.addData)
+        Star_User: _.push(event.addData)
       }
     })
     data = {
@@ -40,7 +40,7 @@ async function delComment(event, type, content) {
       _id: event._id
     }).update({
       data: {
-        CommentList: _.pull(_.in(event.delData))
+        Star_User: _.pull(_.in(event.delData))
       }
     })
     data = {

@@ -75,9 +75,8 @@ Page({
   // 获取新消息总数
   getNewInfo() {
     var that = this;
-
     wx.cloud.database().collection('New-Information').where({ //------------请求数据库
-      be_character_username: args.username, //------------------被评论者学号
+      'be_character.username': args.username, //------------------被评论者学号
       status: 0 //-------------------三种状态：“0”：用户还没看消息列表；“1”：用户已经看到了消息列表；“-1”：取消点赞和评论
     }).count().then(res => {
       // console.log("res.total", res.total) //----------------新消息提示数目
@@ -153,9 +152,10 @@ Page({
     // 拉取数据
     let that = this;
     wx.cloud.callFunction({
-      name: "CampusCircle",
+      name: "NewCampusCircle",
       data: {
         type: "read",
+        url: "Card",
         username: args.username,
         currentPage: currentPage,
         ShowId: ShowId,
@@ -199,8 +199,9 @@ Page({
     var that = this
     if (e.detail.value) {
       wx.cloud.callFunction({
-        name: "CampusCircle",
+        name: "NewCampusCircle",
         data: {
+          url: "Card",
           username: that.data.username,
           type: "search",
           searchKey: e.detail.value
