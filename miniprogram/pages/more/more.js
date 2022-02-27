@@ -439,6 +439,7 @@ Page({
     console.log(123);
     wx.showLoading({
       title: '加载更多中',
+      mask: true
     })
     // 得到当前组件索引
     let index = this.getIndex();
