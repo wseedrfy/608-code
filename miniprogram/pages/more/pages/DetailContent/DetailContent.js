@@ -206,18 +206,21 @@ Page({
         })
         if (res.confirm) {
           console.log('用户点击确定')
-          that.data.CommentList.splice(index, 1)
+     
+          console.log(that.data.CommentList)
           // console.log("that.data.CommentList", that.data.CommentList)
           // console.log(that.data.content._id);
           wx.cloud.callFunction({
-            name: 'CampusCircle',
+            name: 'NewCampusCircle',
             data: {
+              url: 'CommentControl',
               type: 'delComment',
               username : that.data.username,
               _id: that.data.content._id,
-              CommentList: that.data.CommentList
+              deldata: that.data.CommentList[index]
             },
             success: res => {
+              that.data.CommentList.splice(index, 1)
               // 12-27 新增,修改评论状态
               wx.cloud.callFunction({
                 name:'CampusCircle',
@@ -355,19 +358,20 @@ Page({
         title: '发送中',
         mask: true
       })
-      this.data.CommentList.push(add)
+    
       wx.cloud.callFunction({
-        name: 'CampusCircle',
+        name: 'NewCampusCircle',
         data: {
-          CommentList: that.data.CommentList,
+          url: 'CommentControl',
+          addData: add,
           username : that.data.username,
           Time: that.data.content.Time,
           _id: that.data.content._id,
           type: 'writeComment'
         },
         success: res => {
+          this.data.CommentList.push(add)
           wx.hideLoading()
-          console.log("成功添加",res);
           that.ShowComment()
         },
         fail: err => {
@@ -484,9 +488,7 @@ Page({
     // 被评论者信息
     if(args.username===content.username){
       more=1
-      console.log("match")
     }
-    //var more = options.del  //--------------不理解为啥要改。改成了（371-376）,识别发布者是不是“我”,是就弹出“编辑”icon
     var Time = util.timeago(that.data.content.Time, 'Y年M月D日')
     that.data.username = args.username
     var openusername = {
