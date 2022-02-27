@@ -124,6 +124,14 @@
   height:380rpx;
   background-color: rgba(241, 229, 201, 0.26);
 }
+.swiper_ {
+  height: auto !important;
+  min-height: 100vh;
+  z-index: 5;
+}
+.swiperItem {
+  height: auto !important;
+}
 /* 弹窗 */
 .popUps {
   position: fixed;
