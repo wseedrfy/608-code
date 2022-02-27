@@ -596,6 +596,9 @@ Page({
     if(deCurriculum) {
       for (var i = 0; i < deCurriculum.length; i++) {
         for (var g = 0; g < allCurriculum.length; g++) {
+          if (!deCurriculum[i]){
+            continue
+          }
           if (deCurriculum[i].zc == "全部") {
             if (allCurriculum[g].kcmc == deCurriculum[i].kcmc) {
               allCurriculum.splice(g, 1);
