@@ -31,6 +31,8 @@ exports.main = async (event, context) => {
       return await CommentControlLogs(event); // 评论
     case "CancelCommentControlLogs":
       return await CancelCommentControlLogs(event); // 删除评论
+    case "ReplyCommentControlLogs":
+      return await ReplyCommentControlLogs(event); // 删除评论
     case "ReadControlLogs":
       return await ReadControlLogs(event); // 读取新消息 New-Info
   }
@@ -265,6 +267,14 @@ async function CancelCommentControlLogs(event) {
     }).then((res) => {
       console.log(res, "删除评论成功");
     })
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+async function ReplyCommentControlLogs(event) {
+  try {
+    return await addRecord(event, "回复", event.content)
   } catch (e) {
     console.log(e);
   }

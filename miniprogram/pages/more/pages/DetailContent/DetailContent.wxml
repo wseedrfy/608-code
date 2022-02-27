@@ -80,9 +80,10 @@
         <view class="EditCom_contain {{edit_style}}" >
           <view class="EditCom_Title">{{CommentName}}: {{CommentContent}}</view>
           <view class="Line"></view>
-          <!-- <view class="ReplyComment" bindtap="ReplyComment" style="color:rgba(0, 89, 255, 0.699);">
+          <view class="ReplyComment" bindtap="ReplyComment" style="color:rgba(0, 89, 255, 0.699);">
              回复
-          </view> -->
+          </view>
+          <view class="Line"></view>
           <view class="CopyComment" bindtap="CopyComment" style="color:rgba(0, 89, 255, 0.699);">
              复制
           </view>
@@ -92,6 +93,24 @@
           </view>
         </view>
     </view>
+
+    <view class="ReplyCom" wx:if="{{comReply}}">
+        <view class="EditCom_background" bindtap="ReplyComment"></view>
+        <view class="ReplyCom_contain {{Reply_style}}" >
+          <form  bindsubmit="replySubmit" bindreset="replyReset" style="display:{{args.school=='游客登录'?'none':''}}" >
+            <view class="Send_Commend" >
+              <image src="{{iconUrl}}" class="text_user"/>
+              <span class="new_Comment_second">
+                <textarea placeholder="来发句评论吧ヾ(≧▽≦*)o" name="InputReply"  value="{{Input}}" auto-height></textarea>
+              </span>
+              <span class="Pre_Send">
+                <button form-type="submit" class="Sending" hover-class="Sending-hover">发送</button>
+              </span>
+            </view>
+          </form>
+        </view>
+    </view>
+
     <!-- <view class="ReplyCom" wx:if="{{comReply}}">
       <view class="ReplyCom_background" bindtap="ReplyComment"></view>
         <view class="ReplyCom_contain {{reply_style}}" >
@@ -104,7 +123,6 @@
             </span>
           </view>
         </view>
-    </view>
+    </view> -->
     
-  </view> -->
 </view>
