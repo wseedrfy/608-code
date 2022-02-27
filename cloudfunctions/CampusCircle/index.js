@@ -34,7 +34,7 @@ exports.main = async (event, context) => {
     case "ReplyCommentControlLogs":
       return await ReplyCommentControlLogs(event); // 删除评论
     case "ReadControlLogs":
-      return await ReadControlLogs(event); // 读取新消息 New-Info
+      return await ReadControlLogs(event); // 读取新消息 New-Info 
   }
 
 }

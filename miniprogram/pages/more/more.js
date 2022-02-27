@@ -196,7 +196,8 @@ Page({
 
   // 3. 点击事件 
   search_Input: function (e) { // 3.3 搜索框逻辑
-    var that = this
+    var that = this;
+    const waterComponent = that.selectComponent(`#waterFlowCards0`);
     if (e.detail.value) {
       wx.cloud.callFunction({
         name: "CampusCircle",
@@ -206,31 +207,38 @@ Page({
           searchKey: e.detail.value
         },
         success: res => {
-          that.data.tabitem.forEach(e => {
-            e.type = 0
-          })
-          that.data.tabitem[0].type = 1
+          // 回到“全部”标签
+          that.setTab(0);
+
+          // 搜索有结果时
           if (res.result.data.length != 0) {
-            that.RightLeftSolution(true)
+            // 清空瀑布流数据
+            waterComponent.RightLeftSolution(true);
+            // 处理搜索结果
+            let allList = that.data.allList;
+            allList[0] = res.result.data;
+            console.log(allList);
             that.setData({
-              allList: res.result.data,
+              allList,
               tabitem: that.data.tabitem,
             });
-            that.RightLeftSolution()
+            waterComponent.RightLeftSolution()
           } else {
             wx.showToast({
               icon: "none",
               title: "什么都找不到哟"
             })
-            that.RightLeftSolution()
+            waterComponent.RightLeftSolution()
           }
         },
         fail: err => {
           console.error
         }
       })
-    } else {
-      that.RightLeftSolution(true) //
+    } else {      // 清空搜索框内容时
+      // 清空瀑布流内容
+      waterComponent.RightLeftSolution(true);
+      
       for (let j = 0; j < this.data.tabitem.length; j++) {
         if (this.data.tabitem[j].title == this.data.Label) {
           this.data.tabitem[j].type = 1
