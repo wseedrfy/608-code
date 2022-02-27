@@ -50,7 +50,9 @@ Component({
    */
   methods: {
     
-
+    testFnc(){
+      console.log("eeeee");
+    },
     getData() {
       let e = {
         currentPage:this.data.currentPage,  // 本组件当前第几页
@@ -75,9 +77,8 @@ Component({
 
       let index = this.properties.index;
       let list = this.data.list;
-      console.log(list);
-      // console.log(getApp().globalData.allList);
-
+      console.log(list,"丢入瀑布流的数据");
+      
       let allList = new Array(this.properties.tabitem.length);
       // console.log(allList);
       if(getApp().globalData.allList) {
@@ -85,7 +86,7 @@ Component({
       }else {
         getApp().globalData.allList = allList
       }
-      
+      console.log(getApp().globalData.allList,"globalData的allList");
  
 
       for (let i = 0; i < list.length; i++) {
@@ -108,7 +109,8 @@ Component({
           continue
         }
 
-        if (this.data.leftH <= this.data.rightH) { //判断左右两侧当前的累计高度，来确定item应该放置在左边还是右边
+        //判断左右两侧当前的累计高度，来确定item应该放置在左边还是右边
+        if (this.data.leftH <= this.data.rightH) { 
           this.data.leftList.push(list[i]);
           this.data.leftH += list[i].ShowHeight;
         } else {
@@ -120,8 +122,7 @@ Component({
         leftList: this.data.leftList,
         rightList: this.data.rightList,
       })
-      console.log(this.data.leftList,this.data.rightList);
-      // console.log(that.data.leftList,that.data.rightList);
+      console.log(this.data.leftList,this.data.rightList,"左右列表");
     },
   }
 })

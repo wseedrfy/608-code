@@ -49,7 +49,7 @@ Page({
       }
     ],
     allList: [ [],[],[],[],[],[],[],[] ],      // 列表兜底
-    activeItem: 0,       // 当前 swiper-item
+    currentTab: 0,       // 当前 swiper-item
     // 控制动画
     showLoading: 0,   // 动画显隐
     animation: '',
@@ -72,7 +72,6 @@ Page({
     this.setData({ showPopUps: !this.data.showPopUps });
   },
   
-
   // 获取新消息总数
   getNewInfo() {
     var that = this;
@@ -105,51 +104,54 @@ Page({
     }
   },
   waterChange(e) {
-    
+    let current = e.detail.current;
+    this.setTab(current);
   },
-  waterTransition(e) {
-    // dx 表示左右滑动 : dx < 0 表示滑到上一个标签
-    const dx = e.detail.dx;
-    // console.log(e.detail);
-    const activeItem = this.data.activeItem;
-    const underLine_left = this.selectComponent("#TabScroll").data.underLine_left;
-    const underLine_width = this.selectComponent("#TabScroll").data.underLine_width;
-    // 公式计算：滑动屏幕百分比 * 下一段偏移度
-    console.log(dx/this.data.windowWidth);
-    let offset,offset_width;
-    if(dx/this.data.windowWidth > 0) {
-      offset = (dx/this.data.windowWidth) * (underLine_left[activeItem+1] - underLine_left[activeItem]) + underLine_left[activeItem];
 
-      offset_width = (dx/this.data.windowWidth) * (underLine_width[activeItem+1] - underLine_width[activeItem]) + underLine_width[activeItem];
-    }else if( dx/this.data.windowWidth < 0) {
-      offset = (dx/this.data.windowWidth) * (underLine_left[activeItem] - underLine_left[activeItem-1]) + underLine_left[activeItem];
+  // 下面是未来修左右滑动动效用到的代码
 
-      offset_width = (dx/this.data.windowWidth) * (underLine_width[activeItem] - underLine_width[activeItem-1]) + underLine_width[activeItem];
-    }
-    this.selectComponent("#TabScroll").setData({offset,offset_width})
-  },
-  waterAnimationFinish(e) {
-    const {current:activeItem,source} = e.detail;
-    console.log(e.detail,23333);
-    this.setTab(activeItem);
-    console.log(activeItem);
-    // 更新标签组件里的下划线参数
-    this.selectComponent("#TabScroll").setData({activeItem,offset:null,offset_width:null})
-  },
+  // waterTransition(e) {
+  //   // dx 表示左右滑动 : dx < 0 表示滑到上一个标签
+  //   const dx = e.detail.dx;
+  //   // console.log(e.detail);
+  //   const currentTab = this.data.currentTab;
+  //   const underLine_left = this.selectComponent("#TabScroll").data.underLine_left;
+  //   const underLine_width = this.selectComponent("#TabScroll").data.underLine_width;
+  //   // 公式计算：滑动屏幕百分比 * 下一段偏移度
+  //   console.log(dx/this.data.windowWidth);
+  //   let offset,offset_width;
+  //   if(dx/this.data.windowWidth > 0) {
+  //     offset = (dx/this.data.windowWidth) * (underLine_left[currentTab+1] - underLine_left[currentTab]) + underLine_left[currentTab];
+
+  //     offset_width = (dx/this.data.windowWidth) * (underLine_width[currentTab+1] - underLine_width[currentTab]) + underLine_width[currentTab];
+  //   }else if( dx/this.data.windowWidth < 0) {
+  //     offset = (dx/this.data.windowWidth) * (underLine_left[currentTab] - underLine_left[currentTab-1]) + underLine_left[currentTab];
+
+  //     offset_width = (dx/this.data.windowWidth) * (underLine_width[currentTab] - underLine_width[currentTab-1]) + underLine_width[currentTab];
+  //   }
+  //   this.selectComponent("#TabScroll").setData({offset,offset_width})
+  // },
+  // waterAnimationFinish(e) {
+  //   const {current:currentTab,source} = e.detail;
+  //   console.log(e.detail,23333);
+  //   this.setTab(currentTab);
+  //   console.log(currentTab);
+  //   // 更新标签组件里的下划线参数
+  //   this.selectComponent("#TabScroll").setData({currentTab,offset:null,offset_width:null})
+  // },
 
   // 2. 操作数据库
   getData(e) {             //分页加载数据
-    let that = this;
     let args = wx.getStorageSync('args');
-
     let {detail:{currentPage, index} } = e;      // 解构赋值
-    console.log(currentPage, index);
+
     let ShowId = this.data.tabitem.filter(item => {
       if(item.type == 1) {
         return item.title
       }
     })[0].title
     // 拉取数据
+    let that = this;
     wx.cloud.callFunction({
       name: "CampusCircle",
       data: {
@@ -293,9 +295,15 @@ Page({
     });
     this.setData({
       tabitem: this.data.tabitem,
+      currentTab:index 
     })
-    this.selectComponent(`#waterFlowCards${index}`).getData();
-    this.setData({ activeItem:index })
+    this.selectComponent(`#TabScroll`).setData({currentTab:index});
+    // 新页面获取数据 - 没有东西时才获取数据
+    if(app.globalData.allList[index]) {
+      return;
+    }else {
+      this.selectComponent(`#waterFlowCards${index}`).getData();
+    }
   },
   // 获取当前标签的索引值
   getIndex() { 
@@ -373,7 +381,7 @@ Page({
     });
     // 初始化index
     let index = this.getIndex();
-
+    console.log(index);
     this.setData({
       windowWidth,
       school: args.schoolName,
@@ -387,7 +395,7 @@ Page({
         nickName: args.nickName
       }
     })
-    this.selectComponent("#waterFlowCards" + index).RightLeftSolution();
+    this.selectComponent(`#waterFlowCards${index}`).RightLeftSolution();
     this.getNewInfo();
   },
   onReady: function () {
@@ -406,7 +414,7 @@ Page({
     })
     // 重置组件内的 currentPage
     let index = this.getIndex();
-    this.selectComponent("#waterFlowCards" + index).setData({currentPage: 0});
+    this.selectComponent(`#waterFlowCards${index}`).setData({currentPage: 0});
 
     // 加载动画
     this.startAnimationInterval();
@@ -432,7 +440,7 @@ Page({
     })
     // 得到当前组件索引
     let index = this.getIndex();
-    this.selectComponent("#waterFlowCards" + index).getData();
+    this.selectComponent(`#waterFlowCards${index}`).getData();
     wx.hideLoading();
   },
 
