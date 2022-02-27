@@ -273,6 +273,9 @@ page{
     filter: invert(100%) !important;
     /* background-image: linear-gradient( #324349 , #0d0d0d); */
   }
+  .wx-remind-body .icon-dingwei{
+    filter: invert(0) !important;
+  }
   .adContainer ad{
 
       filter: invert(90%) !important;
