@@ -1,8 +1,8 @@
 {
   "usingComponents": {
-    "campusCards": "../../../../components/campusCards/campusCards",
-    "loveCards": "../../../../components/loveCards/loveCards",
-    "TabScroll": "../../../../components/TabScroll/TabScroll"
+    "campusCards": "../../components/campusCards/campusCards",
+    "loveCards": "../../components/loveCards/loveCards",
+    "TabScroll": "../../components/TabScroll/TabScroll"
   },
   "navigationBarTitleText": "我的发布"
 }

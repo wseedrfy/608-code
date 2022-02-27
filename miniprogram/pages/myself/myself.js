@@ -95,7 +95,9 @@ Page({
         content: '请确定是否注销/登录',
         success (res) {
           if (res.confirm) {
-            console.log('用户点击确定')
+            console.log('用户点击确定');
+            wx.clearStorageSync();        // 清除缓存
+            console.log(wx.getStorageSync('args'));
             wx.redirectTo({
               url: '/pages/login/login'
             })

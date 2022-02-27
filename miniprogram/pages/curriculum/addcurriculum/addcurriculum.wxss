@@ -73,12 +73,13 @@ page {
   box-shadow: 0rpx 0rpx 10rpx #e2e2e2;
   /* width: -webkit-fill-available; */
   width: 80%;
-  overflow: hidden;
+  /* height: 100rpx; */
+  /* overflow: hidden; */
 }
 
 .block_kcmc{
-  font-size:32rpx;
-  font-weight:500;
+  font-size:28rpx;
+  font-weight:550;
   line-height:60rpx;
   width:500rpx;
   overflow:hidden;

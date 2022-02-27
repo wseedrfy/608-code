@@ -25,7 +25,6 @@ Page({
 
     decurriculum: [], //二维数组，长度是多少是几列
     wlist: [],
-    list: [],
     block_show: false,
     addSubmitStyle: false
   },
@@ -54,9 +53,12 @@ Page({
     })
     // 更新缓存
     let args = wx.getStorageSync('args');
+    let wlist = this.data.wlist;      
+    
     args.addCurriculumLogs.splice(e.currentTarget.dataset.bean, 1);
-    wx.setStorageSync('args', args)
-
+    wlist.splice(e.currentTarget.dataset.bean, 1);
+    
+    let that = this;
     // 更新数据库并重渲染页面
     wx.cloud.callFunction({
       name: 'curriculum',
@@ -71,6 +73,8 @@ Page({
           icon: 'none',
         })
         this.add();
+        wx.setStorageSync('args', args);
+        that.setData({ wlist })
       },
       fail: err => {
         wx.showToast({
@@ -122,7 +126,7 @@ Page({
     }
     console.log("add函数内" ,wlist);
     this.setData({
-      list: wlist
+      wlist
     })
   },
 
@@ -156,7 +160,7 @@ Page({
     }
     console.log("de函数内", wlist);
     this.setData({
-      list: wlist
+      wlist
     })
   },
   onLoad: function () {

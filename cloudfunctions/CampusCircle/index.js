@@ -60,12 +60,12 @@ async function addRecord(event, type, content){
 
 
 async function read(event) {
-  var skipPage = (event.addAft == 0) ? (event.currentPage * 10) : (event.currentPage * 10 + 1)
+  var skipPage = event.currentPage * 10;
   var obj = {
     School: event.School
   }
   event.ShowId != "全部" ? obj["Label"] = event.ShowId : '';
-
+  console.log(event);
   try {  
 
     // if(event.School === '茂名职业技术学院'){

@@ -1,6 +1,6 @@
 {
   "usingComponents": {
-    "TabScroll": "../../../../components/TabScroll/TabScroll"
+    "TabScroll": "../../components/TabScroll/TabScroll"
   },
   "navigationStyle":"custom"
 }
