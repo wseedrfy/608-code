@@ -53,7 +53,8 @@ Component({
     
     testFnc(){
       console.log("eeeee");
-      this.triggerEvent("testFnc")
+      this.triggerEvent("testFnc");
+      
     },
     onPullDownRefresh() {
       this.triggerEvent("onPullDownRefresh")
