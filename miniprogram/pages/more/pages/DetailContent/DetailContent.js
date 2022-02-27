@@ -47,6 +47,7 @@ Page({
     let index = e.currentTarget.dataset.index;
     this.data.Commentindex = index;
     let edit_style = this.data.edit_style;
+    console.log("edit_style".edit_style)
     // picker动画样式
     if(edit_style == undefined || edit_style == 'edit_hide') {
       edit_style = 'edit_show'
@@ -68,10 +69,115 @@ Page({
       this.setData({
         ShowDelCom,
         CommentName:nickName,
-        CommentContent:this.data.CommentList[index].InputComment
+        CommentContent:this.data.CommentList[index].InputComment,
+        isChecked: true,
       })
     }
     // this.data.ShowDelCom = 0;    //初始化
+  },
+  ReplyComment:function(){
+    let reply_style = 'reply_show';
+    // picker动画样式
+    if(reply_style == undefined || reply_style == 'reply_hide') {
+      reply_style = 'reply_show'
+    }else {
+      reply_style = 'reply_hide'
+    }
+    console.log(reply_style);
+    this.setData({ comReply:!this.data.comReply,reply_style:reply_style})
+    this.setData({
+      comReply: true,
+    })
+  },
+  replySubmit:function(e){
+    var that = this;
+    // 判空
+    let res = this.isNull(e.detail.value.InputReply);
+    var index = this.data.Commentindex
+    const content = this.data.content;
+    if( res ) {
+      wx.showToast({
+        title: '内容不能为空',
+        icon: 'none'
+      })
+    } else {
+      let add = {
+        "InputReply": e.detail.value.InputReply,
+        "ReplyTime": new Date().getTime(),
+        "iconUser": args.iconUrl,  
+        "nickName": args.nickName,
+        "username": args.username,
+        "Replied":this.data.CommentList[index].nickName
+      }
+      this.data.CommentList[index].Reply.push(add)
+      console.log("this.data.CommentList",this.data.CommentList)
+      wx.cloud.callFunction({
+        name: 'CampusCircle',
+        data: {
+          CommentList: that.data.CommentList,
+          _id: that.data.content._id,
+          username : that.data.username,
+          type: 'writeComment'
+        },
+        success: res => {
+          wx.hideLoading()
+          console.log("成功添加",res);
+          that.ShowComment()
+        },
+        fail: err => {
+          wx.showToast({
+            title: '请求失败',
+            icon: 'none',
+          })
+          console.error
+        }
+      })
+      this.setData({
+        Input: ""
+      })
+      // 12-27新增：将评论以记录形式上传
+      // 处理得到评论者信息
+      let character = {
+        userName:args.username,
+        iconUrl:args.iconUrl,
+        nickName:args.nickName
+      }
+      // 被评论者信息
+      let be_character = {
+        userName:this.data.CommentList[index].username,    
+        iconUrl:this.data.CommentList[index].iconUrl,
+        nickName:this.data.CommentList[index].nickName
+      }
+      // 评论时间 
+      let commentTime = new Date().getTime();
+      // 如果想在后台看到具体的时间年月日，请用下面这句
+      // let starTime = util.timeago(new Date().getTime(),'Y年M月D日');
+
+      // 云函数增加一条评论记录
+      wx.cloud.callFunction({
+        name: "CampusCircle",
+        data: {
+          type: "ReplyCommentControlLogs",
+          character: character,
+          be_character:be_character,
+          username : that.data.username,
+          be_username: this.data.CommentList[index].username,
+          content: e.detail.value.InputReply,
+          createTime:new Date().getTime(),
+          arcticle:this.data.content,
+          arcticle_id:this.data.content._id,
+          _id: this.data.content._id
+        },
+        success(res) { console.log(res,"调用评论云函数成功"); },
+        fail(e) { 
+          wx.showToast({
+            title: '回复评论失败',
+            icon: 'none'
+          }) 
+          console.log(e,"回复评论失败");
+        }
+      })
+    }
   },
   //删除评论
   DelComment: function () {
@@ -230,6 +336,7 @@ Page({
     var that = this;
     // 判空
     let res = this.isNull(e.detail.value.InputComment);
+    console.log(res)
     if( res ) {
       wx.showToast({
         title: '内容不能为空',
@@ -241,7 +348,8 @@ Page({
         "CommentTime": new Date().getTime(),
         "iconUser": args.iconUrl,  
         "nickName": args.nickName,
-        "username": args.username
+        "username": args.username,
+        "Reply":[],
       }
       wx.showLoading({
         title: '发送中',
@@ -292,6 +400,7 @@ Page({
       // let starTime = util.timeago(new Date().getTime(),'Y年M月D日');
 
       // 云函数增加一条评论记录
+      console.log("e.detail.value.InputComment",e.detail.value.InputComment)
       wx.cloud.callFunction({
         name: "CampusCircle",
         data: {
@@ -348,7 +457,6 @@ Page({
     app.globalData.allList.forEach(e => {
       if(e){
         if (e._id === this.data.CardID) {
-          console.log(233)
           e.CommentList = this.data.CommentList
         }
       }
@@ -432,6 +540,7 @@ Page({
       openusername:openusername
     })
     for(var i = 0;i<content.Star_User.length;i++){
+      // console.log("content.Star_User[i].username",content.Star_User[i].username)
       if(content.Star_User[i].username===openusername.username){
         that.setData({
           Starurl: "../../../../images/zan.png",

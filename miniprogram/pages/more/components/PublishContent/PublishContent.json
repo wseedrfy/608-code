@@ -1,6 +1,7 @@
 {
     "component": true,
     "usingComponents": {
-        "TabScroll": ".././TabScroll/TabScroll"
+        "TabScroll": ".././TabScroll/TabScroll",
+        "LosePublish":".././LosePublish/LosePublish"
     }
 }
