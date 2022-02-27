@@ -43,10 +43,10 @@
   <view class="Line"></view>
   
   <!-- bindtransition="waterTransition" bindanimationfinish="waterAnimationFinish" -->
-  <swiper current="{{currentTab}}" bindchange="waterChange" class="swiper_">
+  <swiper current="{{currentTab}}" bindchange="waterChange" style="height: {{windowHeight}}px;">
 
-    <swiper-item wx:for="{{allList}}" wx:key="body" wx:for-index="index" class="swiperItem">
-      <waterFlowCards id="waterFlowCards{{index}}" list="{{item}}" openusername="{{openusername}}" tabitem="{{tabitem}}" index="{{index}}" bind:getData="getData"></waterFlowCards>
+    <swiper-item wx:for="{{allList}}" wx:key="body" wx:for-index="index" style="height: {{windowHeight}}px;">
+      <waterFlowCards id="waterFlowCards{{index}}" list="{{item}}" openusername="{{openusername}}" tabitem="{{tabitem}}" index="{{index}}" bind:getData="getData" bind:testFnc="onReachBottom"></waterFlowCards>
     </swiper-item>
 
   </swiper>

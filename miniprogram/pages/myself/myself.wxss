@@ -227,11 +227,15 @@ button {
   line-height: 100rpx;
   background: transparent;
   /* background-color:#fff; */
-
+  border-radius: 0;
 }
 
 button::after {
   border-color: transparent;
+}
+.btn_hover {
+  border-radius: 10rpx;
+  background-color: rgb(240, 238, 238);
 }
 
 .more_item {
@@ -245,6 +249,7 @@ button::after {
   margin-left: 30rpx;
   padding: 0 !important;
   font-weight: 400 !important;
+  transition: background-color 0.2s ease 0s;
 }
 
 
@@ -276,7 +281,9 @@ button::after {
     filter: invert(100%) !important;
     background-color: rgba(122, 159, 204,0.7);
   }
-
+  .more_item {
+    filter: invert(0%) !important;
+  }
   .info image{
     filter: invert(0%) !important;
   }

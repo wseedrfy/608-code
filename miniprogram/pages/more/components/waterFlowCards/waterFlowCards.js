@@ -52,6 +52,7 @@ Component({
     
     testFnc(){
       console.log("eeeee");
+      this.triggerEvent("testFnc")
     },
     getData() {
       let e = {

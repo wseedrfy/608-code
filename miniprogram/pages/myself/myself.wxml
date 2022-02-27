@@ -81,7 +81,7 @@
     <!--  关于我们...Dialog -->
     <view class="more">
       <block wx:for="{{list}}" wx:key="index">
-        <view class="more_item" catchtap="{{item.click}}" open-type="{{item.id==4?'share':''}}">
+        <button class="more_item" catchtap="{{item.click}}" open-type="{{item.id==4?'share':''}}" hover-class="btn_hover">
           <view class="left">
             <image src="{{item.icon}}"></image>
             <text class="title">{{item.title}}</text>
@@ -90,7 +90,7 @@
             <text>{{item.intro}}</text>
             <image class="jt" src="{{right || '/pages/myself/images/right.png'}}"></image>
           </view>
-        </view>
+        </button>
       </block>
     </view>
 
