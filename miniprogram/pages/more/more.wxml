@@ -41,6 +41,7 @@
   <!-- 标签 -->
   <TabScroll style="z-index: 2;" type="校友圈标签" tabItem="{{tabitem}}" bind:setTab="setTab" id="TabScroll" showTab="false"></TabScroll>
   <view class="Line"></view>
+  
   <!-- bindtransition="waterTransition" bindanimationfinish="waterAnimationFinish" -->
   <swiper current="{{currentTab}}" bindchange="waterChange" class="swiper_">
 
