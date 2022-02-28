@@ -21,6 +21,8 @@ Page({
 
         imageHeight: 0,
         imageWidth: 0,
+                //存储寻物发布信息
+      lose_detail:""
     },
     navigationBack(){
       wx.navigateBack({
@@ -73,7 +75,7 @@ Page({
     formSubmit(e) {
         let { formTitle,formText } = e.detail.value;
         let args = wx.getStorageSync('args');
-        // 判空逻辑：1.标题 2.正文 3.选择标签 4.图片  => 缺一不可
+        // 判空逻辑：1.标题 2.正文 3.选择标签 4.图片  => 缺一不可 //另加了寻物发布逻辑稍微有改变
         if (!formTitle.replace(/\s/g,'')) {
             wx.showToast({
               title: '标题不能为空',
@@ -99,7 +101,16 @@ Page({
               title: '小主还没登录哟QwQ',
               icon: 'none'
             })
-          }else {
+            
+          }
+          //失物判断
+          else if(this.data.choosenLabel=="寻物发布"&&!this.data.lose_detail){
+            wx.showToast({
+              title: '寻物相关信息还未全部填写',
+              icon:"none"
+            })
+          }
+          else {
             let add = {
                 "Cover": this.data.photo[0],
                 "AllPhoto": JSON.parse(JSON.stringify(this.data.photo)),
@@ -111,10 +122,14 @@ Page({
                 "Time": new Date().getTime(),
                 "nickName": args.nickName,
                 "School": args.school,
-                "iconUrl": args.iconUrl
+                "iconUrl": args.iconUrl,
+                "lose_detail":this.data.lose_detail
             }
+            console.log(add)
+            console.log("1111111111111111111111")
             app.globalData.allList.push(add);       // 将数据渲染进allList  - 成功
             let NewData = app.globalData.allList.length - 1;
+            console.log(app.globalData.allList[NewData].lose_detail?app.globalData.allList[NewData].lose_detail.Other:"",)
 
             // 计算图片高度
             const CalculateImage = () => {  
@@ -141,7 +156,7 @@ Page({
               let args = wx.getStorageSync('args');
 
               if (fileIDs.length == app.globalData.allList[NewData].AllPhoto.length) {
-
+                //寻物发布上传数据库我就丢这里了
                 wx.cloud.callFunction({
                   name: 'CampusCircle',
                   data: {
@@ -158,6 +173,10 @@ Page({
                     nickName: app.globalData.allList[NewData].nickName,
                     username: args.username,
                     iconUrl: app.globalData.allList[NewData].iconUrl,
+                    Other:app.globalData.allList[NewData].lose_detail?app.globalData.allList[NewData].lose_detail.Other:"",
+                    LoseTime:app.globalData.allList[NewData].lose_detail?app.globalData.allList[NewData].lose_detail.Time:"",
+                    LoseType:app.globalData.allList[NewData].lose_detail?app.globalData.allList[NewData].lose_detail.type:"",
+                    campus:app.globalData.allList[NewData].lose_detail?app.globalData.allList[NewData].lose_detail.campus:"",
                     Star: 0,
                     type: 'write'
                   },
@@ -261,11 +280,16 @@ Page({
     onLoad: function (options) {
         let args = wx.getStorageSync('args');
         let theme = wx.getStorageSync('theme');
-
+        let menu =args.tabitem.slice(1,)
+        menu.push("寻物发布")
         this.setData({
-            menu: args.tabitem.slice(1,),
+            menu,
             theme
         })
     },
-
+    detail(e){
+      this.setData({
+        lose_detail:e.detail
+      })
+    }
 })

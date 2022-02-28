@@ -69,6 +69,13 @@
         {
           "name": "社团首页",
           "pathName": "pages/association/association",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/more/pages/PublishContent/PublishContent",
+          "pathName": "pages/more/pages/PublishContent/PublishContent",
+          "query": "",
           "scene": null
         }
       ]

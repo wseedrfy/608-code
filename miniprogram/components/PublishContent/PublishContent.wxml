@@ -31,6 +31,13 @@
 
         <TabScroll class="TabScrollSub" type="发布页面标签" menu="{{menu}}" bind:chooseTab="chooseTab" showTab="{{showTab}}">
         </TabScroll>
+        <!-- 失物招领的需要在这里加一个标题 -->
+        <view wx:if="{{choosenLabel=='寻物发布'}}">
+          <view class="edit_pic_Title">
+            <input placeholder="请输入失物物品" value="{{Input_Title}}" name="formTitle"></input>
+          </view>
+        </view>
+
         <view class="edit_pic_Text">
           <textarea placeholder="添加正文" value="{{Input_Text}}" name="formText" maxlength="-1"></textarea>
         </view>
