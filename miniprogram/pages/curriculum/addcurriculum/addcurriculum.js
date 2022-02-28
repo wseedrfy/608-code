@@ -2,6 +2,9 @@
 
 Array.prototype.remove = function (val) {
   for (let i = 0; i < this.length; i++) {
+    if(!this[i]){
+      continue
+    }
     if (this[i].kcmc == val.kcmc && this[i].zc == val.zc && this[i].xq == val.xq && this[i].jcdm == val.jcdm) {
       this.splice(i, 1);
     }
@@ -94,6 +97,9 @@ Page({
     }
     for (var i = 0; i < deCurriculum.length; i++) {
       for (var g = 0; g < allCurriculum.length; g++) {
+        if(!deCurriculum[i]){
+          continue
+        }
         if (deCurriculum[i].zc == "全部") {
           if (allCurriculum[g].kcmc == deCurriculum[i].kcmc) {
             allCurriculum.splice(g, 1);
@@ -209,6 +215,9 @@ Page({
           let flag = true;
           if(_de) {
             for (let p = 0; p < _de.length; p++) {
+              if(!_de[p]){
+                continue
+              }
               if (_de[p].kcmc == kcmc[i] && _de[p].zc == arr[k].zc && _de[p].xq == arr[k].xq && _de[p].jcdm == arr[k].jcdm) {
                 flag = false
               }
