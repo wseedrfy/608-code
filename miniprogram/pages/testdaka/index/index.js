@@ -7,10 +7,20 @@ Page({
      * 页面的初始数据
      */
     data: {
+        sysW: wx.getSystemInfoSync().windowWidth,//获取屏幕宽度
+        xAxial: 0,//X轴的初始值
+        x: 0,//触摸时X轴的值
+        w: (wx.getSystemInfoSync().windowWidth * 0.8) - 30,//滑块可移动的X轴范围
+        cssAnimation: 'translate3d(0, 0, 0)',//CSS动画的初始值
+        succeedMsg: '',//验证成功提示信息的默认值
+        pullStatus: true,//是否允许验证成功后继续滑动
+
         task_name:'示例',
         showModel3:false,
         dakacount:'19',
         showModel2:false,
+
+        currentid:0,
         currentIndex: 0, // 列表操作项的index
         taskdata:[
             {
@@ -23,6 +33,76 @@ Page({
             },
         ],
     },
+
+    startFun:function(e){
+        console.log(e);
+        this.setData({
+            currentid: e.currentTarget.id
+          });
+          this.slideAnimation(0, 500);
+          console.log(this.data.currentid);
+    },
+    
+     //滑块移动中执行的事件
+    moveFun: function (e) {
+        // console.log(e);
+        //如果验证成功后仍允许滑动，则执行下面代码块（初始值默认为允许）
+        if (this.data.pullStatus) {
+          //设置X轴的始点
+          this.data.x = e.changedTouches[0].clientX - ((this.data.sysW * 0.1) + 25);
+          //如果触摸时X轴的坐标大于可移动距离则设置元素X轴的坐标等于可移动距离的最大值，否则元素X轴的坐标等于等于当前触摸X轴的坐标
+          this.data.x >= this.data.w ? this.data.xAxial = this.data.w : this.data.xAxial = this.data.x;
+          //如果触摸时X轴的坐标小于设定的始点，则将元素X轴的坐标设置为0
+          if (this.data.x < 25) this.data.xAxial = 0;
+          //根据获取到的X轴坐标进行动画演示
+          this.data.cssAnimation = 'translate3d(' + this.data.xAxial + 'px, 0, 0)';
+        //   console.log(this.data.cssAnimation );
+  
+          this.setData({
+            cssAnimation: this.data.cssAnimation
+          })
+        }
+      },
+     //根据打卡状态来锁死能否拉动以及能否弹出打卡弹窗
+      endFun: function (res) {
+        let id =res.currentTarget.id
+        //触发事件时提供的detail对象
+        var detail = {};
+        // console.log(res);
+        let isDaka=this.data.taskdata
+        isDaka=isDaka[id].task_isDaka
+        //如果触摸的X轴坐标大于等于限定的可移动范围，则验证成功
+        if (this.data.x >= this.data.w&isDaka==false) {
+          //元素X轴坐标等于可移动范围的最大值
+          this.data.xAxial = this.data.w;
+          //设置验证成功提示语
+          this.data.succeedMsg = '';
+          //设置detail对象的返回值
+          detail.msg = true;
+          //验证成功后，禁止滑块滑动
+        //   this.data.pullStatus = false;
+          this.daka_prompt(res)
+          console.log(res);
+          this.data.xAxial = 0;
+        } else {
+          //元素X轴坐标归0
+          this.data.xAxial = 0;
+          //清空验证成功提示语
+          this.data.succeedMsg = '';
+          //设置detail对象的返回值
+          detail.msg = false;
+        }
+  
+        //使用triggerEvent事件，将绑定在此组件的myevent事件，将返回值传递过去
+        this.triggerEvent('myevent', detail);
+        //根据获取到的X轴坐标进行动画演示
+        this.data.cssAnimation = 'translate3d(' + this.data.xAxial + 'px, 0, 0)';
+  
+        this.setData({
+          succeedMsg: this.data.succeedMsg,
+          cssAnimation: this.data.cssAnimation
+        }) 
+      },
 
     complete_share_close(){
         this.setData({showModel2:false});
@@ -46,7 +126,7 @@ Page({
         this.setData({
             currentIndex: e.currentTarget.dataset.index
           });
-          console.log( e.currentTarget.dataset.index)
+          console.log( e)
         //   console.log( e.touches[0].clientX)
         //   console.log(e)
           // 获取触摸X坐标
@@ -67,9 +147,7 @@ Page({
         let recordX;
         if (movedistance <=-100) { // 移动达到距离就动画显示全部操作项
           recordX = -130;           //滑动后右边显示的范围
-        } else if (movedistance >= 100) { 
-          recordX = 130;            //滑动后左边显示的范围
-        }else if (-100<movedistance<100){// 移动未达到距离即还原
+        } else if (-100<movedistance){// 移动未达到距离即还原
           recordX=0
         }
         this.slideAnimation(recordX, 500);
@@ -266,6 +344,7 @@ Page({
 
     //打卡提示
     daka_prompt(res){
+        this.data.xAxial = 0;
         //打卡次数本地增加1 渲染到弹窗
         let id =res.currentTarget.id
         let task_name=this.data.taskdata
@@ -274,7 +353,6 @@ Page({
         //
         let dakacount=this.data.taskdata
         dakacount=dakacount[id].count+1
-        console.log(dakacount);
         this.setData({ dakacount:dakacount,task_name:task_name})
         let that = this;
         console.log(res);
@@ -283,10 +361,12 @@ Page({
             content: '是否确定打卡？',
             success(abc) {
               if (abc.confirm) {
+                // that.data.pullStatus = false;
                 that.allowDaka(res);
                 that.slideAnimation(0, 500);
               } else if (abc.cancel) {
-                console.log('用户点击取消')
+                console.log('用户点击取消');
+                that.data.pullStatus = true;
               }
             }
         });
@@ -416,6 +496,7 @@ Page({
             console.log(obj.task_isDaka);
             dakaArr.push(obj);
         }
+        console.log(dakaArr);
         this.setData({
             taskdata:dakaArr
         })
@@ -450,7 +531,6 @@ Page({
      */
    async onShow() {
     //    this.getDaka_record();
-       
        var pages = getCurrentPages();
        var currPage = pages[pages.length - 1]; //当前页面
        let json = currPage.data.mydata;

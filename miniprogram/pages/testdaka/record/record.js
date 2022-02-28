@@ -214,7 +214,7 @@ Page({
           icon: 'none',
           duration: 1000
         })
-      }else if(len>30){
+      }else if(len>10){
         wx.showToast({
           title: '最多创建10个打卡噢，请返回删除多余打卡~',
           icon: 'none',

@@ -3,18 +3,31 @@
 
 <view class="bg">
 <view class="dayclock">
+     <!-- 头部，我的每日打卡 -->
      <view class="dayclock_title">
          <view class="dayclock_column"><image bindtap="attention" class="dayclock_column_left" src="../images/tishi.png"></image></view>
          <view class="dayclock_column"><view class="dayclock_column_center">我的每日打卡</view></view>
          <view class="dayclock_column"><image class="dayclock_column_right" src="../images/tianjia.png" bindtap="add_task"></image></view>
      </view>
-     
-     <view class="dayclock_data" wx:for="{{taskdata}}" bindtouchstart="touchstartX" bindtap="resetX" bindtouchmove="touchmoveX" bindtouchend="touchendX" animation="{{currentIndex === index ?animation : ''}}" data-index="{{index}}"><view class="border">
-         <view class="dayclock_data_column_1">
-              <view class="dayclock_data_slide" style="background:{{item.task_isDaka==true?  '#fff' : '#74D5D3'}};">
-                    <image class="dayclock_data_slide_image" src="{{item.task_isDaka==true?  '../images/complete.png' : '../images/right.png'}}"></image>
-              </view>
-         </view>
+     <!-- 装渲染数据的最外层盒子 -->
+     <view class="dayclock_data" wx:for="{{taskdata}}">
+     <!-- 背景层 删除键 -->
+     <view class="dayclock_data_huadong_bg" style="background-color:#F4F4F4;">
+          <view class="dayclock_data_huadong_bg_bg"><image class="dayclock_data_huadong_bg_image"        id="{{index}}" catchtap="daka_delpromp" src="../images/del.png"></image></view>
+     </view>
+     <!--左右滑动画层 -->
+     <view class="dayclock_data_huadong"  bindtouchstart="touchstartX" bindtap="resetX" bindtouchmove="touchmoveX" bindtouchend="touchendX" animation="{{currentIndex === index ?animation : ''}}" data-index="{{index}}"><view class="border">
+          <!--左右滑动画层--右滑打卡盒子 -->
+          <view id="{{index}}" data-id="{{index}}" class='operationBgBox' style="left: {{ -(w + 2) }}px; transform: {{ currentIndex == index ?cssAnimation:'' }};background:{{item.task_isDaka==true?  '#fff' : '#74D5D3'}};">
+               <text>{{ succeedMsg }}</text>
+               <!-- 右滑盒子 -->
+               <view id="{{index}}" style="background:{{item.task_isDaka==true?  '#fff' : '#74D5D3'}};" class='operationBox' catchtouchstart="startFun" catchtouchmove='moveFun' catchtouchend='endFun'>
+               <image src="{{item.task_isDaka==true?  '../images/complete.png' : '../images/right.png'}} "></image>
+               </view>
+          </view>
+         <!-- 左右滑动画层--中间盒子显示打卡信息 -->
+         <view class="dayclock_data_column_3"><view class="dayclock_data_column_text" style="color: {{ item.task_isDaka==true?  '#74D5D3' : ''}};">{{item.task_isDaka==true?'已完成':'待完成'}}</view></view>
+         <!-- 左右滑动画层--右边盒子显示是否完成 -->
          <view class="dayclock_data_column_2">
               <view class="dayclock_data_column_2_task" data-task="{{item.task_name}}" bindtap="12345">{{item.task_name}}</view>
               <view class="dayclock_data_column_2_cycle">
@@ -23,10 +36,13 @@
                    <view class="dayclock_data_column_2_cycle_time">- {{item.task_end_time}}</view>
               </view>
          </view>
-         <view class="dayclock_data_column_3"><view class="dayclock_data_column_text" style="color: {{ item.task_isDaka==true?  '#74D5D3' : ''}};">{{item.task_isDaka==true?'已完成':'待完成'}}</view></view>
-         <view class="operation" id="{{index}}" catchtap="daka_prompt"><image class="operation_daka_image" src="../images/edit.png"></image></view>
-         <view class="operation2" id="{{index}}" catchtap="daka_delpromp"><image class="operation2_del_image" src="../images/del.png"></image></view>
+         <!-- 原来的打卡触发代码 -->
+         <!-- <view class="operation" id="{{index}}" catchtap="daka_prompt"><image class="operation_daka_image" src="../images/edit.png"></image></view> -->
+         <!-- class="operation2_del_image" src="../images/del.png" -->
+         <!-- <view class="operation2" id="{{index}}" ><image class="operation2_del_image" ></image></view> -->
      </view></view>
+
+     </view>
      <!-- <view class="dayclock_data"><view class="border">
          <view class="dayclock_data_column_1">
               <view class="dayclock_data_slide" style="background-color: #EDD68B;">
@@ -43,22 +59,9 @@
          </view>
          <view class="dayclock_data_column_3"><view class="dayclock_data_column_text">待补签</view></view>
      </view></view> -->
-     <!-- <view class="dayclock_data"><view class="border">
-         <view class="dayclock_data_column_1">
-               <image class="dayclock_data_slide_image" src="../images/complete.png" style="margin-right:14rpx ;"></image>
-         </view>
-         <view class="dayclock_data_column_2">
-              <view class="dayclock_data_column_2_task">看电视剧</view>
-              <view class="dayclock_data_column_2_cycle">
-                   <view class="dayclock_data_column_2_cycle_week">周一、周二、周三、周四、周五</view>
-                   <view class="dayclock_data_column_2_cycle_time">6：00-8：00</view>
-                   
-              </view>
-         </view>
-         <view class="dayclock_data_column_3"><view class="dayclock_data_column_text">待完成</view></view>
-     </view></view> -->
      <view class="dayclock_bottom"></view>
 </view>
+<!-- 下面注释的是其他功能的代码，不要删 -->
 <!-- <view class="dayclock" >
      <view class="dayclock_title">
          <view class="dayclock_data_column_1"><image class="dayclock_column_left" src="../images/tishi.png"></image></view>
@@ -131,7 +134,7 @@
 </view> -->
 
 </view>
-
+<!-- 打卡成功弹窗 -->
 <!-- if动态判断showModel2 -->
 <view class="complete" wx:if="{{showModel2}}">
      <view class="complete_bg"></view>
@@ -144,7 +147,7 @@
      </view>
      <image class="complete_share_close" bindtap="complete_share_close" src="../images/close.png"></image>
 </view>
-
+<!-- 使用说明弹窗 -->
 <view class="attention" wx:if="{{showModel3}}">
      <view class="attention_bg"></view>
      <view class="attention_text">
