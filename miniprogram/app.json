@@ -75,7 +75,8 @@
         "DetailContent/DetailContent",
         "UserContent/UserContent",
         "NewInfo/NewInfo",
-        "PublishContent/PublishContent"
+        "PublishContent/PublishContent",
+        "Freshman/Freshman"
       ]
     },
     {
