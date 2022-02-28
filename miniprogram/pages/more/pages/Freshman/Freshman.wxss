@@ -11,6 +11,14 @@ page {
 .wrap .top .ShowImg {
   filter: invert(1) !important;
 }
+.wrap .endTime {
+  background-color: white;
+  margin: 24rpx;
+  padding: 16rpx;
+  border-radius: 24rpx;
+  font-size: 32rpx;
+  color: rgba(49, 80, 255, 0.856);
+}
 .wrap .mess_wrap {
   padding: 24rpx;
   font-size: 32rpx;
@@ -22,6 +30,7 @@ page {
   text-align: center;
   color: #63A1A0;
   font-weight: 700;
+  padding: 12rpx;
 }
 .wrap .mess_wrap .mess_list {
   padding-top: 12rpx;
@@ -52,13 +61,18 @@ page {
   text-align: center;
   color: #63A1A0;
   font-weight: 700;
+  padding: 12rpx;
 }
 .wrap .apply .input_list .input_item {
   display: flex;
   flex-direction: row;
   padding: 8rpx;
 }
+.wrap .apply .input_list .input_item .input_title {
+  flex: 2;
+}
 .wrap .apply .input_list .input_item .input_content {
+  flex: 3;
   width: auto;
   margin-left: 12rpx;
   background-color: #ececec;
