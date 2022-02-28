@@ -322,6 +322,10 @@ Page({
   initWlistPoint(){
     var personalInformation = wx.getStorageSync('personalInformation')
     var curriculum = personalInformation.curriculum;
+
+    let args = wx.getStorageSync('args');
+
+    curriculum = this.changeCurriculum(args.addCurriculumLogs,args.ConcealCurriculumLogs)
     //处理的绿色小点点
     var wlistPoint = new Array();
     for (var i = 0; i < 20; i++) { 
@@ -509,9 +513,9 @@ Page({
     // args
     wx.showLoading({
       title: '处理中',
-      mask: true
+      mask: false
     })
-    var week = []
+    var week = [];
     for (var i = 0; i < 18; i++) {
       if (this.data.week[i][0])
         week.push(i + 1)
@@ -548,8 +552,7 @@ Page({
         
         args["addCurriculumLogs"].push(add);
       }
-      // 更新本地缓存
-      wx.setStorageSync('args', args);
+      
       // console.log(args.addCurriculumLogs, 233);
       // 更新后台数据
       wx.cloud.callFunction({
@@ -557,7 +560,6 @@ Page({
         data: {
           type: "addCurriculumLogs",
           username: args.username,
-          nickName: args.nickName,
           addCurriculumLogs: args.addCurriculumLogs,
         },
         success: res => {
@@ -566,6 +568,8 @@ Page({
             title: '添加成功',
             icon: 'none',
           })
+          // 更新本地缓存
+          wx.setStorageSync('args', args);
           that.onShow()
         },
         fail: err => {
@@ -592,6 +596,9 @@ Page({
     if(deCurriculum) {
       for (var i = 0; i < deCurriculum.length; i++) {
         for (var g = 0; g < allCurriculum.length; g++) {
+          if (!deCurriculum[i]){
+            continue
+          }
           if (deCurriculum[i].zc == "全部") {
             if (allCurriculum[g].kcmc == deCurriculum[i].kcmc) {
               allCurriculum.splice(g, 1);
@@ -607,7 +614,7 @@ Page({
       }
     }
     if(addCurriculum) {
-      console.log(addCurriculum,allCurriculum);
+      // console.log(addCurriculum,allCurriculum);
       for (var i = 0; i < addCurriculum.length; i++) {
         if(addCurriculum[i] != null) {
           allCurriculum.push(addCurriculum[i]);

@@ -23,13 +23,26 @@ async function addCurriculumLogs(event) {
     // 去除数组中的 NULL
     let addCurriculumLogs = event.addCurriculumLogs.filter(item => item);
 
-    return await cloud.database().collection('user').where({
+    const isHava = (await cloud.database().collection('curriculumControl').where({
         username: event.username
-    }).update({
-        data: {
-            addCurriculumLogs: addCurriculumLogs
-        }
-    })
+    }).get()).data.length
+    if(isHava === 0) {          // 数据库无此账号
+        return await cloud.database().collection('curriculumControl').add({
+            data: {
+                username: event.username,
+                addCurriculumLogs: addCurriculumLogs
+            }
+        })
+    }else {                     // 数据库有此账号
+        return await cloud.database().collection('curriculumControl').where({
+            username: event.username
+        }).update({
+            data: {
+                addCurriculumLogs: addCurriculumLogs
+            }
+        })
+    }
+    
 }
 
 
@@ -39,11 +52,24 @@ async function addCurriculumLogs(event) {
 *         ConcealCurriculumLogs: "隐藏课程记录" [Object],
 */
 async function ConcealCurriculumLogs(event) {
-    return await cloud.database().collection('user').where({
+
+    const isHava = (await cloud.database().collection('curriculumControl').where({
         username: event.username
-    }).update({
-        data: {
-            ConcealCurriculumLogs: event.ConcealCurriculumLogs
-        }
-    })
+    }).get()).data.length
+    if(isHava === 0) {          // 数据库无此账号
+        return await cloud.database().collection('curriculumControl').add({
+            data: {
+                username: event.username,
+                ConcealCurriculumLogs: event.ConcealCurriculumLogs
+            }
+        })
+    }else {                     // 数据库有此账号
+        return await cloud.database().collection('curriculumControl').where({
+            username: event.username
+        }).update({
+            data: {
+                ConcealCurriculumLogs: event.ConcealCurriculumLogs
+            }
+        })
+    }
 }

@@ -35,10 +35,6 @@ Page({
         loadAll: false //把“没有数据”设为false，隐藏  
       })
     }
-    // console.log(currentPage);
-    // console.log(that.data.nickname);
-    // console.log(that.data.iconUrl);
-    //云数据的请求
     wx.showLoading({
       title: '加载中',
       mask: true

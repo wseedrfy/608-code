@@ -17,11 +17,19 @@ Page({
   },
   //页面显示的事件
   onShow() {
-    this.getData()
+    
   },
   onLoad(){
+    this.getData()
     currentPage =0;
-    pageSize =10
+    pageSize =10;
+  },
+  onPullDownRefresh(){
+    wx.showLoading({
+      title: '刷新中...',
+    })
+    this.onLoad();
+    wx.hideLoading();
   },
   //页面上拉触底事件的处理函数
   onReachBottom: function() {
@@ -40,10 +48,6 @@ Page({
       title: '加载中',
       mask: true
     })
-    let be_character = {         // 用户自己
-       iconUrl: args.iconUrl,
-       nickName: args.nickName,
-    }
     let that = this;
     // 第一次加载数据
     if (currentPage == 1) {
@@ -55,9 +59,8 @@ Page({
     wx.cloud.callFunction({
       name:'CampusCircle',
       data: {
-        be_character:be_character,
-        currentPage:currentPage,
         be_username: args.username,
+        currentPage:currentPage,
         pageSize:pageSize,
         type:'ReadControlLogs'
       },

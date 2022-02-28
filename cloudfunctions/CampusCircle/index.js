@@ -31,8 +31,10 @@ exports.main = async (event, context) => {
       return await CommentControlLogs(event); // 评论
     case "CancelCommentControlLogs":
       return await CancelCommentControlLogs(event); // 删除评论
+    case "ReplyCommentControlLogs":
+      return await ReplyCommentControlLogs(event); // 删除评论
     case "ReadControlLogs":
-      return await ReadControlLogs(event); // 读取新消息 New-Info
+      return await ReadControlLogs(event); // 读取新消息 New-Info 
   }
 
 }
@@ -58,12 +60,12 @@ async function addRecord(event, type, content){
 
 
 async function read(event) {
-  var skipPage = (event.addAft == 0) ? (event.currentPage * 10) : (event.currentPage * 10 + 1)
+  var skipPage = event.currentPage * 10;
   var obj = {
     School: event.School
   }
   event.ShowId != "全部" ? obj["Label"] = event.ShowId : '';
-
+  console.log(event);
   try {  
 
     // if(event.School === '茂名职业技术学院'){
@@ -80,6 +82,10 @@ async function write(event) {
   try {
     return await db.collection("Campus-Circle").add({
       data: {
+        Other:event.Other,
+        LoseTime:event.LoseTime,
+        LoseType:event.LoseType,
+        campus:event.campus,
         Cover: event.Cover,
         AllPhoto: event.AllPhoto,
         Title: event.Title,
@@ -261,6 +267,14 @@ async function CancelCommentControlLogs(event) {
     }).then((res) => {
       console.log(res, "删除评论成功");
     })
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+async function ReplyCommentControlLogs(event) {
+  try {
+    return await addRecord(event, "回复", event.content)
   } catch (e) {
     console.log(e);
   }

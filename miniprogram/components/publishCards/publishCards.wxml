@@ -1,0 +1,46 @@
+<view class="edit" wx:if="{{showModel}}">
+    <view class="edit_background" bindtap="add"></view>
+    <view class="edit_contain {{add_style}}">
+      <view class="edit_Title">发布日常</view>
+      <view class="Line"></view>
+      <form bindsubmit="formSubmit" bindreset="formReset">
+        <view class="img-button chooseImg-btn" bindtap="chooseimage">
+          <image src="/images/Camera-3.png" class="Camera_Image"></image>
+          <swiper indicator-dots='true' indicator-color="#fff" indicator-active-color='red' current="{{current}}">
+            <block wx:for="{{photo}}" wx:key="photo">
+              <swiper-item bindlongpress="deleteImage" catchtap="PreviewImage" data-index="{{index}}">
+                <image data-src="{{item}}" src="{{item}}" mode="aspectFill" style="z-index: 11;width:800rpx;height:100%" />
+              </swiper-item>
+            </block>
+          </swiper>
+        </view>
+        <view class='MenuDiv' bindtap='clickMenu'>
+          <span class='rightimg-top'>
+            分类:
+          </span>
+          <span class="choosenLabel">
+            {{choosenLabel}}
+          </span>
+          <scroll-view scroll-x="true" class="choose_First">
+            <view class="Choosen" scroll-x="true" hidden='{{hideHidden}}'>
+              <view wx:for="{{menu}}" wx:key="index" class="Label-text" data-index="{{index}}" catchtap="clickMenuSecond">
+                <view class="Label_limit">{{item}}</view>
+              </view>
+            </view>
+          </scroll-view>
+        </view>
+        <view class="Line"></view>
+        <view class="edit_pic_Title">
+          <input placeholder="标题 闲聊/求助/组队..." value="{{Input_Title}}" name="formTitle"></input>
+        </view>
+        <view class="Line"></view>
+        <view class="edit_pic_Text">
+          <textarea placeholder="添加正文" value="{{Input_Text}}" name="formText" maxlength="-1"></textarea>
+        </view>
+        <view class="edit_Publish">
+          <button bindtap="add" class="off-btn" hover-class="btn-hover">取消</button>
+          <button form-type="submit" class="Publish-btn" hover-class="btn-hover">发表内容</button>
+        </view>
+      </form>
+    </view>
+</view>

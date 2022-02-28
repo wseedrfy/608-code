@@ -1,0 +1,149 @@
+.edit,
+.edit_background{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  font-family: unset;
+}
+.edit_background{
+  background-color: rgba(0, 0, 0, 0.712);
+  opacity: 0.6;
+  height: 100%;
+}
+.edit_contain{
+  position: relative;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  bottom: 0;
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+  padding: 15rpx 0;
+  z-index: 99999;
+  border-radius: 20rpx;
+}
+.edit_Title{
+  font-size: 35rpx;
+  padding-bottom: 15rpx;
+  font-weight: 550;
+  display: flex;
+  padding-left: 307rpx;
+}
+.MenuDiv{overflow: hidden;margin-top: 15rpx;margin-bottom: 15rpx;}
+.rightimg-top{
+  font-size: 30rpx;
+  margin-left: 10rpx;
+  font-weight: 550;
+  color: #2b2b2bd7;
+}
+.choosenLabel{
+  font-size: 30rpx;
+  font-weight: 550;
+  color: #2b2b2bd7;
+}
+.choose_First{
+  background-color: rgba(236, 236, 236, 0.219);
+}
+.Choosen{
+  width: 100%;
+  height: 68rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.Line{
+    background: #9b9b9b48;
+    width: 100%;
+    height: 1rpx;
+  }
+swiper{
+    width: 100%;
+    height: 380rpx;
+  }
+  swiper image{
+    width: 100%;
+    height: 100%;
+  }
+  swiper .wx-swiper-dot {
+    width: 12rpx;
+    height: 12rpx;
+    border-radius: 50%;
+    display: inline-flex;
+    justify-content: space-between;
+  }
+  .img-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .chooseImg-btn{
+    width:100%;
+    height:380rpx;
+    background-color: rgba(241, 229, 201, 0.26);
+  }
+.Camera_Image{
+    width: 90rpx;
+    height: 90rpx;
+    position: absolute;
+    left:330rpx;
+  }
+.edit_pic_Title{
+  width:100%;
+  height:80rpx;
+  display: flex;
+  align-items: center;
+  font-weight: 550;
+  font-size: 30rpx;
+  margin-left: 10rpx;
+}
+.edit_pic_Title input{
+  width:95%;
+}
+ .edit_pic_Text{
+  width:100%;
+  height:340rpx;
+  font-size: 30rpx;
+  margin: 10rpx;
+ }
+ .edit_pic_Text textarea{
+   width:98%;
+   height:100%;
+ }
+ .edit_Publish{
+   display: flex;
+   flex-direction:row;
+ }
+ .Publish-btn{
+   background-color: rgb(128, 190, 226);
+   box-shadow: 0px 0px 4px 0px #c7c7c7;
+   color: white;
+   width: 530rpx !important;
+   margin: 10rpx;
+   margin: 0rpx 10rpx 0rpx 5rpx;
+ }
+ .off-btn{
+  background-color: rgba(214, 214, 214, 0.37);
+  box-shadow: 0px 0px 4px 0px #c7c7c7;
+  color: rgb(0, 0, 0);
+  width: 200rpx !important;
+  margin: 0rpx 10rpx 0rpx 5rpx;
+ }
+ .btn-hover{
+  position: relative;
+  top: 3rpx;
+  box-shadow:0px 0px 4px rgba(153, 153, 153, 0.507) inset;
+ }
+ .add_show{
+    animation: add_show .15s;
+}
+.add_hide{
+    animation: add_hide .3s;
+}
+@media (prefers-color-scheme: dark) {
+    .edit_contain {
+        filter: invert(1) !important;
+    }
+}
