@@ -52,6 +52,8 @@ async function addCurriculumLogs(event) {
 *         ConcealCurriculumLogs: "隐藏课程记录" [Object],
 */
 async function ConcealCurriculumLogs(event) {
+    // 去除数组中的 NULL
+    let ConcealCurriculumLogs = event.ConcealCurriculumLogs.filter(item => item);
 
     const isHava = (await cloud.database().collection('curriculumControl').where({
         username: event.username
@@ -60,7 +62,7 @@ async function ConcealCurriculumLogs(event) {
         return await cloud.database().collection('curriculumControl').add({
             data: {
                 username: event.username,
-                ConcealCurriculumLogs: event.ConcealCurriculumLogs
+                ConcealCurriculumLogs: ConcealCurriculumLogs
             }
         })
     }else {                     // 数据库有此账号
@@ -68,7 +70,7 @@ async function ConcealCurriculumLogs(event) {
             username: event.username
         }).update({
             data: {
-                ConcealCurriculumLogs: event.ConcealCurriculumLogs
+                ConcealCurriculumLogs: ConcealCurriculumLogs
             }
         })
     }
