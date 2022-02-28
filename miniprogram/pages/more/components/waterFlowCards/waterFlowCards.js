@@ -4,10 +4,6 @@ Component({
      * 组件的属性列表
      */
     properties: {
-      openusername: {
-        type: Object,
-        value: {}
-      },
       // 用于滑动逻辑
       tabitem: {
         type: Array,
@@ -83,7 +79,7 @@ Component({
 
       let index = this.properties.index;
       let list = this.data.list;
-      // console.log(list,"丢入瀑布流的数据");
+      console.log(list,"丢入瀑布流的数据");
       
       let allList = new Array(this.properties.tabitem.length);
       // console.log(allList);
@@ -115,7 +111,7 @@ Component({
           continue
         }
 
-        //判断左右两侧当前的累计高度，来确定item应该放置在左边还是右边
+        // 判断左右两侧当前的累计高度，来确定item应该放置在左边还是右边
         if (this.data.leftH <= this.data.rightH) { 
           this.data.leftList.push(list[i]);
           this.data.leftH += list[i].ShowHeight;

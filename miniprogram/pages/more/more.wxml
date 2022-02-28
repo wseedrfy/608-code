@@ -1,7 +1,3 @@
-<!-- 封号 -->
-<view class="title" wx:if="{{campus_account}}">
-  <!-- <view>{{describe}}</view> -->
-</view>
 
 <view class="head">
   <!-- 状态栏 -->
@@ -46,7 +42,7 @@
   <swiper current="{{currentTab}}" bindchange="waterChange" style="height: {{windowHeight}}px;">
 
     <swiper-item wx:for="{{allList}}" wx:key="body" wx:for-index="index" style="height: {{windowHeight}}px;">
-      <waterFlowCards id="waterFlowCards{{index}}" list="{{item}}" openusername="{{openusername}}" tabitem="{{tabitem}}" index="{{index}}" bind:getData="getData" bind:testFnc="onReachBottom" bind:onPullDownRefresh="onPullDownRefresh"></waterFlowCards>
+      <waterFlowCards id="waterFlowCards{{index}}" list="{{item}}" tabitem="{{tabitem}}" index="{{index}}" bind:getData="getData" bind:testFnc="onReachBottom" bind:onPullDownRefresh="onPullDownRefresh"></waterFlowCards>
     </swiper-item>
 
   </swiper>
