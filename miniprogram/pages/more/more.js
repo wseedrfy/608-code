@@ -53,11 +53,7 @@ Page({
     // 控制动画
     showLoading: 0,   // 动画显隐
     animation: '',
-    // 封号
-    campus_account: false, // 封号状态
-    describe: "",          // 封号简介
-    content: {},           // 个人信息
-    openusername: {},      // 点赞人的对象
+
     // 发布
     showPopUps: false,   // 弹窗显隐
     showModel: false,    // 快速发布显隐
@@ -145,9 +141,7 @@ Page({
     let {detail:{currentPage, index} } = e;      // 解构赋值
 
     let ShowId = this.data.tabitem.filter(item => {
-      if(item.type == 1) {
-        return item.title
-      }
+        return item.type == 1;
     })[0].title
     // 拉取数据
     let that = this;
@@ -171,6 +165,7 @@ Page({
           // 添加新数据到 allList[index] 里  
           let allList = that.data.allList;
           allList[index] = allList[index].concat(res.result.data);
+          console.log(allList[index],"list");
           that.setData({ allList });
           // 数据少于一页时
           if (res.result.data.length < 10) {
@@ -360,7 +355,6 @@ Page({
       iconUrl: args.iconUrl,
       tabitem: this.data.tabitem,
       campus_account: campus_account,
-      describe: describe,
       openusername: {
         username: args.username,
         iconUrl: args.iconUrl,
@@ -387,11 +381,7 @@ Page({
       nickname: args.nickName,
       iconUrl: args.iconUrl,
       tabitem: this.data.tabitem,
-      openusername: {
-        username: args.username,
-        iconUrl: args.iconUrl,
-        nickName: args.nickName
-      }
+
     })
     this.selectComponent(`#waterFlowCards${index}`).RightLeftSolution();
     this.getNewInfo();

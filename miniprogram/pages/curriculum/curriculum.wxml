@@ -198,7 +198,7 @@
     <!-- <view class="topBox"></view> -->
     <!-- 设置页功能 -->
     <block wx:for="{{curriFunc}}" wx:key="index">
-      <view class="funcBox" catchtap="{{item.click}}">
+      <view class="funcBox" catchtap="{{item.click}}" id="funcBox{{index}}">
         <!-- <image class="funcBoxIcon" src="{{item.icon}}"></image> -->
         <text>{{item.text}}</text>
       </view>
