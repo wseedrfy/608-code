@@ -2,7 +2,7 @@
   "usingComponents": {
     "TabScroll": "./components/TabScroll/TabScroll",
     "waterFlowCards": "./components/waterFlowCards/waterFlowCards",
-    "PublishContent": "./components/PublishContent/PublishContent"
+    "QuickPublish": "./components/QuickPublish/QuickPublish"
   },
   "navigationStyle":"custom",
   "enablePullDownRefresh": true

@@ -88,5 +88,5 @@
   </view>
 
   <!-- 快速发布组件 -->
-  <PublishContent id="PublishContent" showModel="{{showModel}}" current="{{current}}" bind:ReOnLoad="onLoad"></PublishContent>
+  <QuickPublish id="PublishContent" showModel="{{showModel}}" current="{{current}}" bind:ReOnLoad="onLoad"></QuickPublish>
 </scroll-view>

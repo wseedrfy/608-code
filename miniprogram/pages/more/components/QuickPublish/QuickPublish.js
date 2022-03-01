@@ -183,19 +183,21 @@ Component({
               // 计算图片高度
               const CalculateImage = () => {
                 let allList = getApp().globalData.allList;
-
                 for (let i = 0; i < allList.length; i++) {
-                    let height = parseInt(Math.round(allList[i].CoverHeight * 370 / allList[i].CoverWidth));      // 计算得到高度
+                  let height = 0;
+                  if(allList[i].CoverHeight) {
+                    height = parseInt(Math.round(allList[i].CoverHeight * 370 / allList[i].CoverWidth));      // 计算得到高度
+                  }
 
-                    if (height) {      
-                        let currentItemHeight = parseInt(Math.round(allList[i].CoverHeight * 370 / allList[i].CoverWidth));
+                  if (height) {      
+                      let currentItemHeight = parseInt(Math.round(allList[i].CoverHeight * 370 / allList[i].CoverWidth));
 
-                        // 边界处理
-                        currentItemHeight > 500 ? currentItemHeight = 500 : '';
+                      // 边界处理
+                      currentItemHeight > 500 ? currentItemHeight = 500 : '';
 
-                        allList[i].ShowHeight = currentItemHeight;
-                        allList[i].CoverHeight = currentItemHeight + "rpx"; // 因为xml文件中直接引用的该值作为高度，所以添加对应单位
-                    }
+                      allList[i].ShowHeight = currentItemHeight;
+                      allList[i].CoverHeight = currentItemHeight + "rpx"; // 因为xml文件中直接引用的该值作为高度，所以添加对应单位
+                  }
                 }
                 return ;
               }
