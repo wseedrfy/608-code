@@ -529,18 +529,25 @@ Page({
      */
    async onShow() {
     //    this.getDaka_record();
+
        var pages = getCurrentPages();
        var currPage = pages[pages.length - 1]; //当前页面
        let json = currPage.data.mydata;
        //console.log("111111111111111111111111111111:",json)//为传过来的值
-       
-       if(json!=null){
-        this.data.taskdata.push(json)
+    //    let task_hashId=this.data.taskdata.task_hashId
+    //    task_hashId=this.data.taskdata[len].task_hashId
+    //    console.log(this.data.taskdata[1].task_hashId);
+    console.log(json);
+       if(json){
+        this.data.taskdata.push(json);
+        console.log(this.data.taskdata);
         this.setData({
             taskdata:this.data.taskdata
            })
-       }
-       
+        currPage.data.mydata=null;
+        console.log(currPage.data.mydata);
+        }
+        
     },
 
     /**
