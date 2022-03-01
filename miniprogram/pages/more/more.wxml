@@ -26,7 +26,6 @@
   </view>
   <image class="showLoading" mode="aspectFit" animation="{{animation}}" src='../../images/loading.png' wx:if="{{showLoading==0}}"></image>
   <TabScroll style="margin-top: {{(statusBarHeight + lineHeight)}}px; z-index: 2; " type="校友圈标签" tabItem="{{tabitem}}" bind:setTab="setTab" id="TabScroll" showTab="false"></TabScroll>
-  <view class="Line"></view>
 </view>
 
 

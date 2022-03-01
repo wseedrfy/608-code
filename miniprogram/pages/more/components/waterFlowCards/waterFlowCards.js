@@ -56,6 +56,8 @@ Component({
         currentPage:this.data.currentPage,  // 本组件当前第几页
         index: this.properties.index        // 本组件索引 - 方便标签选择
       }
+      // 边界处理，拉到最底部时不允许再请求数据库
+      if(this.data.loadAll) return;
       this.triggerEvent("getData",e);
       console.log("getData");
     },

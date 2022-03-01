@@ -399,10 +399,10 @@ Page({
     this.setData({
       showLoading: 0
     })
-    // 重置组件内的 currentPage
+    // 重置组件内的 currentPage 和 loadAll
     let index = this.getIndex();
     this.selectComponent(`#waterFlowCards${index}`).setData({currentPage: 0});
-
+    this.selectComponent(`#waterFlowCards${index}`).setData({loadAll: false});
     // 加载动画
     this.startAnimationInterval();
 
