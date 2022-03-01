@@ -190,6 +190,9 @@
   .head {
     background-image: linear-gradient( #f6f6f6 , #f6f6f6) !important;
   }
+  .navigationBack {
+    filter: invert(0) !important;
+  }
   /* 频道 */
   .choose_Channel .left image,
   .choose_Channel .left text{

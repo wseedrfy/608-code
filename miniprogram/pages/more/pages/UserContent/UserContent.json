@@ -1,8 +1,6 @@
 {
   "usingComponents": {
-    "campusCards": "../../components/campusCards/campusCards",
-    "loveCards": "../../components/loveCards/loveCards",
-    "TabScroll": "../../components/TabScroll/TabScroll"
+    "waterFlowCards": "../../components/waterFlowCards/waterFlowCards"
   },
   "navigationBarTitleText": "我的发布"
 }
