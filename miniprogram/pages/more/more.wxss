@@ -250,26 +250,12 @@
   .content_btn{
     filter: invert(1) !important;
   }
-  .Label_limit{
-    background-color: #ffffff;
-    filter: invert(100%) !important;
-
-  }
   .head{
     position:fixed; 
     background-color: #faf9f9;
   }
   scroll-view{
     filter: invert(100%) !important;
-  }
-  .Choose_Label{
-    filter: invert(100%) !important;
-    /* background-color: rgba(255, 255, 255, 0.1); */
-  }
-
-  .Label_limit{
-    filter: invert(100%) !important;
-    color: #fff;
   }
 
   .newInfo_redPoint {
