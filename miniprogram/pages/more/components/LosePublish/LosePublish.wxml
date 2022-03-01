@@ -11,18 +11,18 @@
 <view class="find_lose_type" style="margin-top:10rpx">请选择物品丢失的地方</view>
 <scroll-view scroll-x bindscroll="scroll" class="choose_First">
   <view class="choose_lose_bael">
-    <view class="choose_lose_bael_item {{tapindex1==index ? 'Active_choose_lose_bael_item' : ''}}" id="{{index}}" bindtap="choose_campus" wx:for="{{choose_campus}}" wx:key="*this">{{item}}</view>
+    <view class="choose_lose_bael_item {{tapindex2==index ? 'Active_choose_lose_bael_item' : ''}}" id="{{index}}" bindtap="choose_campus" wx:for="{{choose_campus}}" wx:key="*this">{{item}}</view>
   </view>
 </scroll-view>
 <view class="find_lose_type" style="margin-top:10rpx">丢失时间</view>
 <scroll-view scroll-x bindscroll="scroll" class="choose_First">
   <view class="choose_lose_bael">
-    <view class="choose_lose_bael_item {{tapindex1==index ? 'Active_choose_lose_bael_item' : ''}}" id="{{index}}" bindtap="choose_Time" wx:for="{{choose_Time}}" wx:key="*this">{{item}}</view>
+    <view class="choose_lose_bael_item {{tapindex3==index ? 'Active_choose_lose_bael_item' : ''}}" id="{{index}}" bindtap="choose_Time" wx:for="{{choose_Time}}" wx:key="*this">{{item}}</view>
   </view>
 </scroll-view>
 <view class="find_lose_type" style="margin-top:10rpx">其他</view>
 <scroll-view scroll-x bindscroll="scroll" class="choose_First">
   <view class="choose_lose_bael">
-    <view class="choose_lose_bael_item {{tapindex1==index ? 'Active_choose_lose_bael_item' : ''}}" id="{{index}}" bindtap="choose_Other" wx:for="{{choose_Other}}" wx:key="*this">{{item}}</view>
+    <view class="choose_lose_bael_item {{tapindex4==index ? 'Active_choose_lose_bael_item' : ''}}" id="{{index}}" bindtap="choose_Other" wx:for="{{choose_Other}}" wx:key="*this">{{item}}</view>
   </view>
 </scroll-view>
