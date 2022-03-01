@@ -11,7 +11,6 @@ Page({
   data: {
     theme: true,
     dark : wx.getSystemInfoSync().theme,
-    ad: true,
     time: {
       date: new Date().getDate(),
       month: new Date().getMonth(),
@@ -20,7 +19,9 @@ Page({
     statusBarHeight: getApp().globalData.statusBarHeight,
     lineHeight: getApp().globalData.lineHeight,
     windowHeight: getApp().globalData.windowHeight,
-    ad: true
+    ad: true,
+    adSrc: '',
+    adHeight: '280'
   },
   onPullDownRefresh(){
     wx.showNavigationBarLoading() //在标题栏中显示加载
@@ -54,7 +55,9 @@ Page({
 
     var args = wx.getStorageSync('args')
     this.setData({
-      ad: args.ad
+      ad: args.ad,
+      adSrc: args.adSrc,
+      adHeight: args.adHeight
     })
     if (args && options?.goin !== 'login') {
       try {
