@@ -9,6 +9,10 @@ Component({
         type: Array,
         value: []
       },
+      height:{
+        type: String,
+        value: ''
+      },
       // 当前组件需渲染的数据
       list: {
         type: Array,
