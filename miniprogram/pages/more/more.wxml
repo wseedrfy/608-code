@@ -28,9 +28,9 @@
   <TabScroll style="margin-top: {{(statusBarHeight + lineHeight)}}px; z-index: 2; " type="校友圈标签" tabItem="{{tabitem}}" bind:setTab="setTab" id="TabScroll" showTab="false"></TabScroll>
   <view class="Line"></view>
 </view>
+<view style="padding-top: 28px; width: 100%;"> </view>
 
-
-<scroll-view  bindscrolltoupper="onPullDownRefresh" upper-threshold="0" scroll-y="true" style="padding-top: 28px; height: {{windowHeight - 28}}px;" wx:if="{{campus_account!=true}}" class="page">
+<scroll-view  bindscrolltoupper="onPullDownRefresh" upper-threshold="0" scroll-y="true" style=" height: {{windowHeight - 28}}px;" wx:if="{{campus_account!=true}}" class="page">
   <!-- 填充 -->
   <view style="position: relative; padding-top: {{ 3 + (statusBarHeight + lineHeight)}}px; width: 100%;"></view>
   
