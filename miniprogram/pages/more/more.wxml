@@ -33,7 +33,7 @@
   
   <!-- 加载 - 小圆圈 -->
   <image class="showLoading" mode="aspectFit" animation="{{animation}}" src='../../images/loading.png' wx:if="{{showLoading==0}}"></image>
-  <view class="Line"></view>
+  <!-- <view class="Line"></view> -->
   <!-- 标签 -->
   <TabScroll style="z-index: 2;" type="校友圈标签" tabItem="{{tabitem}}" bind:setTab="setTab" id="TabScroll" showTab="false"></TabScroll>
   <view class="Line"></view>
