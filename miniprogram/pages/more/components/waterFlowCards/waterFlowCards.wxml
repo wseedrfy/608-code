@@ -17,4 +17,6 @@
     </view>
     <!-- 边界处理 -->
     <view class="DataNull" wx:if="{{loadAll}}">-无更多内容-</view>
+    <!-- 边界处理 -->
+    <view class="DataNull" wx:if="{{list.length == 0}}">正在玩命加载数据...</view>
 </scroll-view>

@@ -33,9 +33,6 @@ Component({
     rightList: [],    // 右列表
     leftH: 0,         // 当前左列表高度
     rightH: 0,        // 当前右列表高度
-
-    
-
   },
   lifetimes: {
     ready: function() {
