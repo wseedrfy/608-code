@@ -159,7 +159,6 @@ Page({
       for(let i = 1; i <= args.scheduleLength; i++){
         scheduleLength.push(i);
       }
-      console.log(scheduleLength);
     }else {
       scheduleLength = this.data.scheduleLength;    // 兜底
     }

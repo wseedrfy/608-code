@@ -4,7 +4,7 @@
     if (item.Star_User) {
       item.Star_User.forEach(function (e) {
 
-        if (e && e.username === character.username) {
+        if (e && e.username === character.userName) {
           starSrc = '../../../../images/zan.png'
         }
 

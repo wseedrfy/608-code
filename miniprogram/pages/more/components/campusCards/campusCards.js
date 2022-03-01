@@ -12,6 +12,10 @@ Component({
     type: {
       type: String,
       value: ""
+    },
+    // 当前标签下标
+    tabItemIndex: {         // 用于点赞逻辑
+      type: Number,
     }
   },
   data: {
@@ -23,7 +27,7 @@ Component({
       let content = this.data.item;
       let args = wx.getStorageSync('args');
       let character = {
-        username: args.username,
+        userName: args.username,
         iconUrl: args.iconUrl,
         nickName: args.nickName
       };
@@ -32,7 +36,7 @@ Component({
         iconUrl: content.iconUrl,
         nickName: content.nickName
       }
-      console.log(character,be_character);
+      // console.log(character,be_character);
       this.setData({
         character,be_character
       })
@@ -56,46 +60,45 @@ Component({
       })
     },
     //点击事件
-    getStar_card(e) {  //--------------------Starif：false:未点赞；true：已点赞
+    getStar_card(e) { 
       var content = this.data.item;
       var Star_User = content.Star_User;
       var args = wx.getStorageSync('args');
-
-      // 边界处理 - 初始点赞用户
-      if (!Star_User) { 
-        Star_User = []
-      }
+      // 边界处理 - 初始化数组
+      Star_User ? '' : Star_User = [];
+      // 标志用户点赞状态   false:未点赞；true：已点赞
       var Starif = false;
       // 判断该用户是否已点过赞 - 取消点赞逻辑
       for (var i = 0; i < Star_User.length; i++) {
         if (Star_User[i].username == args.username) {
           Starif = true;
-          Star_User.splice(Star_User.indexOf(Star_User[i]), 1) //改变了 Star_User  --> content.Star_User
+          Star_User.splice(Star_User.indexOf(Star_User[i]), 1);
           break
         }
       }
+      // 若用户未点赞状态，则 Star_User 数组中新增该用户
       if (!Starif) {
-        let openusername = this.data.character;
-        openusername.Star_time = new Date().getTime()
-        Star_User.push(openusername) // 改变了 Star_User  
+        let openusername = {
+          username: args.username,
+          iconUrl: args.iconUrl,
+          nickName: args.nickName,
+          Star_time: new Date().getTime()
+        };
+        Star_User.push(openusername);
         wx.showToast({
           title: '点赞成功',
           icon: "none"
         })
       }
-      //点赞后对本地数据进行更新
-      //点赞用户更新
-      content.Star_User = Star_User;
-
-
-      let starTime = new Date().getTime(); // 点赞时间
-      app.globalData.allList.forEach(e => {
+      // 变更全局数据
+      app.globalData.allList[this.data.tabItemIndex].forEach(e => {
         if (e._id === content._id) {
-          e.Star_User = Star_User
+          e.Star_User = Star_User;
         }
       })
-      var that = this
-      //点赞后对数据库数据进行更新
+      var that = this;
+      let starTime = new Date().getTime(); // 点赞时间
+      // 对数据库数据进行更新
       wx.cloud.callFunction({ // 云函数更改点赞状态
         name: "CampusCircle",
         data: {
@@ -104,7 +107,7 @@ Component({
           character: that.data.character,
           be_character: that.data.be_character,
           createTime: starTime,
-          arcticle: content,          
+          arcticle: content,
         }
       }).then()
       that.setData({
