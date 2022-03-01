@@ -7,7 +7,7 @@ const Card = require('./Card/index');
 
 exports.main = async (event, context) => {
 
-  var data
+  var data;
   if(event.url === 'CommentControl'){
     data = await CommentControl.main(event)
   }

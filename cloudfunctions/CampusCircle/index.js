@@ -41,18 +41,16 @@ exports.main = async (event, context) => {
 
 
 async function addRecord(event, type, content){
+  console.log(event,"addRecord");
   return await db.collection('New-Information').add({
     data: {
       character: event.character,
-      character_username: event.username,
       be_character: event.be_character,
-      be_character_username: event.be_username,
       type: type,
-      content: content,
       status: 0,
       createTime: event.createTime,
       arcticle: event.arcticle,
-      arcticle_id: event.arcticle_id
+      arcticle_id: event.arcticle._id
     },
   })
 
@@ -126,10 +124,9 @@ async function writeComment(event) {
 async function starCount(event) {
   try {
     return await db.collection('Campus-Circle').where({
-      _id: event._id
+      _id: event.arcticle._id
     }).update({
       data: {
-        Star: event.Star,
         Star_User: event.Star_User
       }
     })
@@ -196,44 +193,39 @@ async function delComment(event) {
 }
 
 async function StarControlLogs(event) {
-  // 之前的云函数 StarCount
-  starCount(event)
+  // 兼容旧云函数
+  starCount(event);
 
-  //   点赞->查找记录->无->add
-  //                ->有->status -1? -> 0
-  //                    ->status 0/1?-> -1
   const data1 = await db.collection('New-Information').where({ //查找记录
-    character_username: event.username,
-    be_character_username: event.be_username,
+    'character.userName': event.character.userName,
     type: '点赞',
-    arcticle_id: event.arcticle_id
+    arcticle_id: event.arcticle._id
   }).get()
   console.log(data1.data[0], "这是data1,用于查找记录");
 
-  if (data1.data[0] == undefined) {         // 没有记录，add点赞
+  // 没有记录，add点赞
+  if (data1.data[0] == undefined) {         
     await addRecord(event, "点赞", "")
   }
-
-  if (data1.data[0] != undefined) {         // 有记录，判断是取消点赞/点赞
-    
-    if(data1.data[0].status == -1 ){        // status等于 -1 时，变成 0
+  // 有记录，判断是取消点赞/点赞
+  if (data1.data[0] != undefined) {         
+    // status等于 -1 时，status = 0
+    if(data1.data[0].status == -1 ){        
       return await db.collection('New-Information').where({
-        character_username: event.username,
-        be_character_username: event.be_username,
+        'character.username': event.character.username,
         type: '点赞',
-        arcticle_id: event.arcticle_id
+        arcticle_id: event.arcticle._id
       }).update({
         data: {
           status: 0,
           createTime: event.createTime
         }
       })
-    }else {                                // status等于 0||1 时，变成 -1
+    }else {   // status等于 0||1 时，变成 -1
       return await db.collection('New-Information').where({
-        character_username: event.username,
-        be_character_username: event.be_username,
+        'character.username': event.character.username,
         type: '点赞',
-        arcticle_id: event.arcticle_id
+        arcticle_id: event.arcticle._id
       }).update({
         data: {
           status: -1,

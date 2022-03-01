@@ -46,24 +46,23 @@ Page({
     chooseImage(){
         let that = this;
         wx.chooseMedia({                                // 上传图片
-            count: 6,
-            mediaType:'image',
-            sourceType:['album','camera'],
-            sizeType: ['original', 'compressed'],       // 可选择原图、压缩图
-            success: (res) => {
-                let photo = that.data.photo.concat(res.tempFiles);
-                
-                wx.getImageInfo({                       // 获得图片信息
-                    src: photo[0].tempFilePath,
-                    success: (res) => {
-                        photo[0].imageHeight = res.height;
-                        photo[0].imageWidth = res.width;
-                        that.setData({ photo })
-                    }
-                })
-            }
-        })
-        
+          count: 6,
+          mediaType:'image',
+          sourceType:['album','camera'],
+          sizeType: ['original', 'compressed'],       // 可选择原图、压缩图
+          success: (res) => {
+              let photo = that.data.photo.concat(res.tempFiles);
+              
+              wx.getImageInfo({                       // 获得图片信息
+                  src: photo[0].tempFilePath,
+                  success: (res) => {
+                      photo[0].imageHeight = res.height;
+                      photo[0].imageWidth = res.width;
+                      that.setData({ photo })
+                  }
+              })
+          }
+      })
     },
     // 点击事件 - 取消按钮
     cancel() {

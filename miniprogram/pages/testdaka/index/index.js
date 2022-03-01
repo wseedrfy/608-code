@@ -35,11 +35,11 @@ Page({
     },
 
     startFun:function(e){
-        console.log(e);
+        console.log(e.currentTarget.id);
         this.setData({
-            currentid: e.currentTarget.id
+            currentIndex: e.currentTarget.id
           });
-          this.slideAnimation(0, 500);
+        //   this.slideAnimation(0, 500);
           console.log(this.data.currentid);
     },
     
@@ -57,7 +57,6 @@ Page({
           //根据获取到的X轴坐标进行动画演示
           this.data.cssAnimation = 'translate3d(' + this.data.xAxial + 'px, 0, 0)';
         //   console.log(this.data.cssAnimation );
-  
           this.setData({
             cssAnimation: this.data.cssAnimation
           })
@@ -126,7 +125,7 @@ Page({
         this.setData({
             currentIndex: e.currentTarget.dataset.index
           });
-          console.log( e)
+          console.log( e.currentTarget.dataset.index)
         //   console.log( e.touches[0].clientX)
         //   console.log(e)
           // 获取触摸X坐标
@@ -374,7 +373,6 @@ Page({
 
     //打卡删除提示
     daka_delpromp(res){
-        console.log(res);
         console.log(res.currentTarget.id);
         let that = this;
         wx.showModal({
@@ -531,18 +529,25 @@ Page({
      */
    async onShow() {
     //    this.getDaka_record();
+
        var pages = getCurrentPages();
        var currPage = pages[pages.length - 1]; //当前页面
        let json = currPage.data.mydata;
        //console.log("111111111111111111111111111111:",json)//为传过来的值
-       
-       if(json!=null){
-        this.data.taskdata.push(json)
+    //    let task_hashId=this.data.taskdata.task_hashId
+    //    task_hashId=this.data.taskdata[len].task_hashId
+    //    console.log(this.data.taskdata[1].task_hashId);
+    console.log(json);
+       if(json){
+        this.data.taskdata.push(json);
+        console.log(this.data.taskdata);
         this.setData({
             taskdata:this.data.taskdata
            })
-       }
-       
+        currPage.data.mydata=null;
+        console.log(currPage.data.mydata);
+        }
+        
     },
 
     /**

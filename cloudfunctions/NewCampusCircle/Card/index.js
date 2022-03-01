@@ -38,7 +38,7 @@ async function read(event) {
       'CommentList.username': false,
       'Star_User.Star_time': false,
       'Star_User.iconUrl': false,
-      'Star_User.username': false,
+      'Star_User.nickName': false,
     }).orderBy('indexFront', 'desc').orderBy('Time', 'desc').where(obj).skip(skipPage).limit(10).get();
   } catch (e) {
     console.error(e);
@@ -56,7 +56,7 @@ async function search(event) {
       'CommentList.username': false,
       'Star_User.Star_time': false,
       'Star_User.iconUrl': false,
-      'Star_User.username': false,
+      'Star_User.nickName': false,
     }).where({
       Title: db.RegExp({
         regexp: event.searchKey,
