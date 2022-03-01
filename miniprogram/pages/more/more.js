@@ -166,6 +166,9 @@ Page({
           if(!allList) {
             allList = new Array(that.data.tabitem.length)
           }
+          if(!allList[index]){
+            allList[index] = []
+          }
           allList[index] = allList[index].concat(res.result.data);
           console.log(allList[index],"list");
           that.setData({ allList });

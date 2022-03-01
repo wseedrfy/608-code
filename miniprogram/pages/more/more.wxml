@@ -30,7 +30,7 @@
 </view>
 
 
-<scroll-view  bindscrolltoupper="onPullDownRefresh" upper-threshold="0" scroll-y="true" style="padding-top: 28px; height: {{windowHeight}}px;" wx:if="{{campus_account!=true}}" class="page">
+<scroll-view  bindscrolltoupper="onPullDownRefresh" upper-threshold="0" scroll-y="true" style="padding-top: 28px; height: {{windowHeight - 28}}px;" wx:if="{{campus_account!=true}}" class="page">
   <!-- 填充 -->
   <view style="position: relative; padding-top: {{ (statusBarHeight + lineHeight)}}px; width: 100%;"></view>
   
@@ -84,5 +84,5 @@
   </view>
 
   <!-- 快速发布组件 -->
-  <QuickPublish id="PublishContent" showModel="{{showModel}}" current="{{current}}" bind:ReOnLoad="onLoad"></QuickPublish>
+  <QuickPublish id="PublishContent"  showModel="{{showModel}}" current="{{current}}" bind:ReOnLoad="onLoad"></QuickPublish>
 </scroll-view>
