@@ -123,18 +123,18 @@ Page({
                 "nickName": args.nickName,
                 "School": args.school,
                 "iconUrl": args.iconUrl,
-                "lose_detail":this.data.lose_detail
+                // "lose_detail":this.data.lose_detail
             }
             console.log(add)
             console.log("1111111111111111111111")
             app.globalData.allList.push(add);       // 将数据渲染进allList  - 成功
+            
             let NewData = app.globalData.allList.length - 1;
             console.log(app.globalData.allList[NewData].lose_detail?app.globalData.allList[NewData].lose_detail.Other:"",)
-
             // 计算图片高度
             const CalculateImage = () => {  
               let allList = app.globalData.allList;
-
+              console.log(allList)
               for (let i = 0; i < allList.length; i++) {
                   let height = parseInt(Math.round(allList[i].CoverHeight * 370 / allList[i].CoverWidth));      // 计算得到高度
 

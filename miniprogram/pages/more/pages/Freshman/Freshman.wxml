@@ -1,0 +1,29 @@
+<view class="wrap">
+  <swiper indicator-dots='true' indicator-color="rgba(223, 223, 223, 0.39)" indicator-active-color='rgb(235, 21, 21)' style="height: {{content.ShowHeight > 300 ? 700+'rpx':content.ShowHeight+'px'}};">
+    <block wx:for="{{content.AllPhoto}}" wx:key="Photo" class="photo">
+      <swiper-item>
+        <image src="{{item}}" mode="aspectFill" style="z-index: 11;" bindtap="ShowImg" class="ShowImg" data-index="{{index}}" />
+      </swiper-item>
+    </block>
+  </swiper>
+  <view class="endTime">截止时间:{{content.endTime}}</view>
+  <view class="mess_wrap">
+    <view class="mess_caption">社团信息</view>
+    <view class="mess_list">
+      <view class="mess_item" wx:for="{{content.association}}">
+        <view class="title">{{item.name}}</view>
+        <view class="content">{{item.detial}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="apply">
+    <view class="apply_caption">报名申请</view>
+    <view class="input_list">
+      <view class="input_item" wx:for="{{content.question}}">
+        <view class="input_title">{{item.content}}</view>
+        <input placeholder="请输入" class="input_content" />
+      </view>
+    </view>
+  </view>
+  <view class="end">完成提交</view>
+</view>

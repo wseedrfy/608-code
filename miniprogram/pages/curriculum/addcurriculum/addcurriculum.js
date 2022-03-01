@@ -2,6 +2,9 @@
 
 Array.prototype.remove = function (val) {
   for (let i = 0; i < this.length; i++) {
+    if(!this[i]){
+      continue
+    }
     if (this[i].kcmc == val.kcmc && this[i].zc == val.zc && this[i].xq == val.xq && this[i].jcdm == val.jcdm) {
       this.splice(i, 1);
     }
@@ -25,7 +28,6 @@ Page({
 
     decurriculum: [], //二维数组，长度是多少是几列
     wlist: [],
-    list: [],
     block_show: false,
     addSubmitStyle: false
   },
@@ -54,9 +56,12 @@ Page({
     })
     // 更新缓存
     let args = wx.getStorageSync('args');
+    let wlist = this.data.wlist;      
+    
     args.addCurriculumLogs.splice(e.currentTarget.dataset.bean, 1);
-    wx.setStorageSync('args', args)
-
+    wlist.splice(e.currentTarget.dataset.bean, 1);
+    
+    let that = this;
     // 更新数据库并重渲染页面
     wx.cloud.callFunction({
       name: 'curriculum',
@@ -71,6 +76,8 @@ Page({
           icon: 'none',
         })
         this.add();
+        wx.setStorageSync('args', args);
+        that.setData({ wlist })
       },
       fail: err => {
         wx.showToast({
@@ -90,6 +97,9 @@ Page({
     }
     for (var i = 0; i < deCurriculum.length; i++) {
       for (var g = 0; g < allCurriculum.length; g++) {
+        if(!deCurriculum[i]){
+          continue
+        }
         if (deCurriculum[i].zc == "全部") {
           if (allCurriculum[g].kcmc == deCurriculum[i].kcmc) {
             allCurriculum.splice(g, 1);
@@ -122,7 +132,7 @@ Page({
     }
     console.log("add函数内" ,wlist);
     this.setData({
-      list: wlist
+      wlist
     })
   },
 
@@ -156,7 +166,7 @@ Page({
     }
     console.log("de函数内", wlist);
     this.setData({
-      list: wlist
+      wlist
     })
   },
   onLoad: function () {
@@ -205,6 +215,9 @@ Page({
           let flag = true;
           if(_de) {
             for (let p = 0; p < _de.length; p++) {
+              if(!_de[p]){
+                continue
+              }
               if (_de[p].kcmc == kcmc[i] && _de[p].zc == arr[k].zc && _de[p].xq == arr[k].xq && _de[p].jcdm == arr[k].jcdm) {
                 flag = false
               }

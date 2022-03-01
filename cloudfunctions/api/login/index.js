@@ -13,7 +13,8 @@ exports.main = async (event) => {
       const isHave = (await db.collection("user").where({
         openid: wxContext.OPENID
       }).get()).data.length
-          console.log(isHave)
+      
+      console.log(isHave)
       if (isHave === 0) {
         await db.collection('user').add({
           data: {

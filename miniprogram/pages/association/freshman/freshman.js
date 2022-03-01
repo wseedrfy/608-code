@@ -244,23 +244,16 @@ Page({
                     data: {
                       type: 0,
                       AllPhoto: [this.data.imgUrl],
-                      // CommentList:null,
                       Cover: this.data.imgUrl,
                       CoverHeight: this.data.CoverHeight,
                       CoverWidth: this.data.CoverWidth,
-                      // Label:'社团招新',
                       School: this.data.school,
                       ShowHeight: this.data.ShowHeight,
-                      // Star:null,
-                      // Star_User:null,
-                      // Text:null,
-                      // Time:Date.now(),
                       Title: this.data.add_title,
                       index: count + '社团',
-                      endTime: this.data.date
-                      // iconUrl:null,
-                      // nickName:null,
-                      // username:null
+                      endTime: this.data.date,
+                      question:this.data.freshman,
+                      association:this.data.assoMess
                     }
                   }).then(res => {
                     // console.log(res);

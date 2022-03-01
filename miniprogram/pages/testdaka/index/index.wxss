@@ -58,6 +58,7 @@
     height: 100rpx;
     width: 100%;
     background-color: #fff;
+    overflow: hidden;
 }
 .dayclock_data .border:after{
         content: '';
@@ -74,12 +75,12 @@
         height: 100rpx;
 }
 .dayclock_data_column_2{
-        float: left;
+        float: right;
         width: 55%;
         height: 100rpx;
 }
 .dayclock_data_column_3{
-        float: left;
+        float: right;
         width: 22.9%;
         height: 100rpx;
 }
@@ -99,8 +100,7 @@
 .dayclock_data_column_text{
         font-size: 38rpx;
         font-weight: 800;       
-        color: #EDD68B;
-        opacity: 0.47;
+        color: #F7ECCE;
         /* padding: 31rpx 0; */
         /* height: 100rpx; */
         line-height: 100rpx;
@@ -158,7 +158,7 @@
     right: -130rpx;
     height: 85rpx;
     text-align: center;
-    background-color: #FFFFFF;
+    /* background-color: #FFFFFF; */
     line-height: 152rpx;
     display: flex;
     padding: 20rpx;
@@ -271,3 +271,85 @@
   /* .complete_share_box_text{
 
   } */
+
+
+
+
+
+
+
+
+  .operationBgBox {
+    float: left;
+    height: 90rpx;
+    width:100%;
+    background-color: #74D5D3;
+    border-radius: 0px 45px 45px 0px;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    color: #fff;
+    margin: 7rpx 0;
+  }
+  
+  .operationBox {
+    width: 145rpx;
+    height: 90rpx;
+    background: #74D5D3;
+    border-radius: 0px 45px 45px 0px;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  
+  .operationBox image {
+    /* width: 50%;
+    height: 50%; */
+    float: right;
+    margin: 10rpx 10rpx 10rpx auto;
+    height: 70rpx;
+    width: 70rpx;
+  }
+  .graybg{
+    position: relative;
+    height: 100rpx;
+    width: 100%;
+    background-color: gray;
+    z-index: -99999;
+  }
+  .dayclock_data_huadong{
+    position: absolute;
+    height: 100rpx;
+    width: 100%;
+    background-color: #fff;
+    z-index: 999;
+  }
+  .dayclock_data_huadong_bg{
+    position: absolute;
+    height: 100rpx;
+    width: 100%;
+    background-color: #fff;
+    z-index:0;
+  }
+  .dayclock_data_huadong_bg_bg{
+    border-radius: 50%;
+    position: absolute;
+    top: 4rpx;
+    right: 0rpx;
+    height: 85rpx;
+    text-align: center;
+    background-color: #FFFFFF;
+    line-height: 152rpx;
+    display: flex;
+    padding: 20rpx;
+    box-sizing: border-box;
+    align-items: center;
+  }
+  .dayclock_data_huadong_bg_image{
+    height: 40rpx;
+    width: 45rpx;
+  }

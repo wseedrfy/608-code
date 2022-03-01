@@ -27,6 +27,8 @@ exports.main = async (event, context) => {
         iconUrl: null,
         nickName: null,
         username: null,
+        question:event.question,
+        association:event.association,
         index: event.index,
         endTime:event.endTime
       }

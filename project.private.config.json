@@ -73,9 +73,26 @@
           "scene": null
         },
         {
-          "name": "pages/more/pages/PublishContent/PublishContent",
-          "pathName": "pages/more/pages/PublishContent/PublishContent",
+          "name": "校园圈",
+          "pathName": "pages/more/more",
           "query": "",
+          "scene": null
+        },
+        {
+          "name": "个人信息页面",
+          "pathName": "pages/myself/myself",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "课表管理页面",
+          "pathName": "pages/curriculum/addcurriculum/addcurriculum",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "招新报名",
+          "pathName": "pages/more/pages/Freshman/Freshman",
           "scene": null
         }
       ]

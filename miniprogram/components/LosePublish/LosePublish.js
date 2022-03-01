@@ -1,5 +1,3 @@
-
-//失物招领发布组件化
 // components/LosePublish/LosePublish.js
 Component({
 
