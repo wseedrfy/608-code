@@ -20,7 +20,6 @@ Page({
     rectHeight: getApp().globalData.rectHeight,
     windowHeight: getApp().globalData.windowHeight,
     windowWidth: 0,
-    
     tabitem: [        // 标签兜底
       {
         title: "全部",
@@ -158,12 +157,15 @@ Page({
       },
       success(res) {
         const currComponent = that.selectComponent(`#waterFlowCards${index}`);
-        // 存在数据时
+        // 数据存在时
         if (res.result && res.result.data.length > 0) {
           // 页数++
           currComponent.setData({ currentPage: ++currentPage});
           // 添加新数据到 allList[index] 里  
           let allList = that.data.allList;
+          if(!allList) {
+            allList = new Array(that.data.tabitem.length)
+          }
           allList[index] = allList[index].concat(res.result.data);
           console.log(allList[index],"list");
           that.setData({ allList });
@@ -364,8 +366,6 @@ Page({
     this.onPullDownRefresh()
   },
   onShow: function () {
-    let windowWidth = wx.getWindowInfo().windowWidth;
-    
     // 初始化 allList
     this.data.allList = app.globalData.allList || this.data.tabitem.map((item,index) => {
       let allList = [];
@@ -373,7 +373,7 @@ Page({
     });
     // 初始化index
     let index = this.getIndex();
-    console.log(index);
+    let windowWidth = wx.getWindowInfo().windowWidth;
     this.setData({
       windowWidth,
       school: args.schoolName,
@@ -381,7 +381,6 @@ Page({
       nickname: args.nickName,
       iconUrl: args.iconUrl,
       tabitem: this.data.tabitem,
-
     })
     this.selectComponent(`#waterFlowCards${index}`).RightLeftSolution();
     this.getNewInfo();
