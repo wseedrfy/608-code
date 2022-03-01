@@ -1,4 +1,4 @@
-<scroll-view scroll-x="true" hidden="{{type != '校友圈标签'  || !showTab}}">
+<scroll-view scroll-x="true" scroll-with-animation="true" scroll-into-view="tabItem{{currentTab}}" hidden="{{type != '校友圈标签'  || !showTab}}" >
     <view class="Choose_Label" scroll-x="true">
         <!-- 下划线 -->
         <view class="underLineBox" 
@@ -7,7 +7,8 @@
         </view>
 
         <view wx:for="{{tabItem}}" wx:key="index" 
-        class="Label-text {{item.type == 1?'activeTab':''}}" 
+        class="Label-text {{item.type == 1?'activeTab':''}}"
+        id="tabItem{{index+2}}"
         data-title="{{item.title}}" data-index="{{index}}" 
         bindtap="setTab">
             <view class="Label_limit" style="width: {{tabItemLength[index]*18}}rpx;">{{item.title}}</view>
@@ -15,9 +16,9 @@
     </view>
 </scroll-view>
 
-<scroll-view scroll-x="true" class="choose_First" hidden="{{type != '发布页面标签' || !showTab}}">
+<scroll-view scroll-x="true" scroll-with-animation="true" scroll-into-view="tabItem{{currentTab}}" class="choose_First" hidden="{{type != '发布页面标签' || !showTab}}">
     <view class="Choosen" scroll-x="true" hidden='{{hideHidden}}'>
-        <view wx:for="{{menu}}" wx:key="index" class="Label-text" data-index="{{index}}" bindtap="chooseTab">
+        <view wx:for="{{menu}}" wx:key="index" class="Label-text" id="tabItem{{index+3}}" data-index="{{index}}" bindtap="chooseTab">
             <view class="Label_limit1">{{item}}</view>
         </view>
     </view>

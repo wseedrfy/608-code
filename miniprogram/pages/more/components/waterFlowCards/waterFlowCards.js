@@ -10,12 +10,12 @@ Component({
         value: []
       },
       // 当前组件需渲染的数据
-      list: {             
+      list: {
         type: Array,
         value: []
       },
       // 当前组件的下标
-      index: {            
+      index: {
         type: Number
       }
     },
@@ -50,7 +50,6 @@ Component({
     testFnc(){
       console.log("eeeee");
       this.triggerEvent("testFnc");
-      
     },
     onPullDownRefresh() {
       this.triggerEvent("onPullDownRefresh")

@@ -60,7 +60,7 @@ Component({
       })
     },
     //点击事件
-    getStar_card(e) { 
+    getStar_card(e) {
       var content = this.data.item;
       var Star_User = content.Star_User;
       var args = wx.getStorageSync('args');
