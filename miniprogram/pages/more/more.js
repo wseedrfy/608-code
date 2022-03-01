@@ -408,8 +408,8 @@ Page({
 
     this.TimeOut = setTimeout(()=>{
       console.log("下拉刷新")
-      this.selectComponent("#waterFlowCards" + index).RightLeftSolution(true)
-      this.selectComponent("#waterFlowCards" + index).getData()
+      this.selectComponent(`#waterFlowCards${index}`).RightLeftSolution(true)
+      this.selectComponent(`#waterFlowCards${index}`).getData()
       
       wx.hideNavigationBarLoading() // 完成停止加载
       this.setData({                // 隐藏转圈圈
