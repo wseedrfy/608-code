@@ -337,7 +337,10 @@ Page({
       var zc = curriculum[i].zc;
       if(curriculum[i].jcdm) {
         let bright_skjc = Number(curriculum[i].jcdm.substr(0, 2)) + 1;
-        wlistPoint[zc-1][((bright_skjc / 2 - 1) * 7 + Number(curriculum[i].xq)) - 1] = 1
+        if(wlistPoint[zc-1]){
+          wlistPoint[zc-1][((bright_skjc / 2 - 1) * 7 + Number(curriculum[i].xq)) - 1] = 1
+        }
+
       }
     }
     // 渲染黄色小点点
