@@ -79,6 +79,9 @@
 }
 /* 暗黑 */
 @media (prefers-color-scheme: dark) {
+  .Choose_Label{
+    filter: invert(100%) !important;
+  }
     scroll-view{
       filter: invert(100%) !important;
     }
