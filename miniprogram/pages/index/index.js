@@ -56,8 +56,7 @@ Page({
     var args = wx.getStorageSync('args')
     this.setData({
       ad: args.ad,
-      adSrc: args.adSrc,
-      adHeight: args.adHeight
+      otherAd: args.otherAd
     })
     if (args && options?.goin !== 'login') {
       try {
@@ -121,6 +120,12 @@ Page({
   adClose(){
     console.log("adClose")
     this.setData({ad: false})
+  },
+  adGo(){
+    var that = this
+    wx.navigateTo({
+      url: that.data.otherAd.adUrl,
+    })
   },
   onShareTimeline: function(res) {
     return {

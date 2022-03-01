@@ -19,7 +19,7 @@
   <view class="adContainer" style="padding-top: {{statusBarHeight + lineHeight}}px;">
 
     <ad unit-id="adunit-f9948326373ca9ac" bindclose="adClose" wx:if="{{ad}}"></ad>
-    <image wx:elif="{{adSrc}}" src="adSrc" style="width: 100%; height: {{adHeight}}rpx;"> </image>
+    <image bindtap="adGo" wx:elif="{{otherAd.adSrc}}" src="adSrc" style="width: 100%; height: {{otherAd.adHeight}}rpx;"> </image>
   </view>
 
   <!-- 弹窗 -->
