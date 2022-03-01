@@ -11,7 +11,7 @@
 .Choose_Label .underLineBox {
   height: 4rpx;
   position: absolute;
-  bottom: 1rpx;
+  bottom: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,7 +19,6 @@
 }
 .Choose_Label .underLine {
   height: 5rpx;
-  position: absolute;
   background-color: #000;
   border-radius: 16rpx;
   /* transition: all 0.3s ease 0s; */

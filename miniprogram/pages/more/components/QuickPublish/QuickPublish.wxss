@@ -144,6 +144,13 @@ swiper{
 }
 @media (prefers-color-scheme: dark) {
     .edit_contain {
-        filter: invert(1) !important;
+      filter: invert(1) !important;
+    }
+    .choosenLabel {
+      filter: invert(1) !important;
+      color: rgb(174,174,174);
+    }
+    .MenuDiv textarea {
+      filter: invert(1) !important;
     }
 }

@@ -21,7 +21,7 @@ Component({
         formText: '',
         photo: [],                  // 照片
         choosenLabel: '',           // 已选标签
-        menu: ["日常", "表白墙🎯", "吐槽","寻物发布"],
+        menu: ["日常", "表白墙🎯", "吐槽"],
 
         imageHeight: 0,
         imageWidth: 0,
