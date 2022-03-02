@@ -523,6 +523,14 @@ swiper .wx-swiper-dot {
     color: #fff;
     filter: invert(100%) !important;
   }
+  .EditCom_contain {
+    filter: invert(0) !important;
+  }
+  .EditCom_contain .ReplyComment,
+  .EditCom_contain .CopyComment,
+  .EditCom_contain .DelComment {
+    filter: invert(1) !important;
+  }
 }
  
  

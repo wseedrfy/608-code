@@ -56,7 +56,6 @@ Page({
       success(res) {
         wx.hideLoading()
         if (res.result.data && res.result.data.length > 0) {
-          console.log("请求成功", res.result.data)
           that.data.currentPage++;
           // 1. 拿新List
           for(let i = 0; i < res.result.data.length;i++) {   // 处理每个数据的时间
@@ -66,8 +65,7 @@ Page({
           that.setData({
             dataList: list, //获取数据数组    
           });
-          console.log("第二步拿新List",that.data.dataList);
-          
+
           if(res.result.data.length < that.data.pageSize) {
             that.setData({
               loadAll: true, 
