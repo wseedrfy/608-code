@@ -38,7 +38,7 @@
   <swiper current="{{currentTab}}" bindchange="waterChange"  style=" height: {{windowHeight - statusBarHeight - lineHeight - 28}}px;">
 
     <swiper-item wx:for="{{allList}}" wx:key="body" wx:for-index="index">
-      <waterFlowCards height="{{windowHeight - statusBarHeight - lineHeight - 28}}px;" id="waterFlowCards{{index}}" list="{{item}}" tabitem="{{tabitem}}" index="{{index}}" bind:getData="getData" bind:testFnc="onReachBottom" bind:onPullDownRefresh="onPullDownRefresh"></waterFlowCards>
+      <waterFlowCards height="{{windowHeight - statusBarHeight - lineHeight - 28}}px;" id="waterFlowCards{{index}}" list="{{item}}" tabitem="{{tabitem}}" currentTab="{{index}}" bind:getData="getData" bind:testFnc="onReachBottom" bind:onPullDownRefresh="onPullDownRefresh"></waterFlowCards>
     </swiper-item>
 
   </swiper>
@@ -84,5 +84,5 @@
   </view>
 
   <!-- 快速发布组件 -->
-  <QuickPublish id="PublishContent"  showModel="{{showModel}}" current="{{current}}" bind:ReOnLoad="onLoad"></QuickPublish>
+  <QuickPublish id="PublishContent"  showModel="{{showModel}}" bind:ReOnLoad="onLoad"></QuickPublish>
 </scroll-view>

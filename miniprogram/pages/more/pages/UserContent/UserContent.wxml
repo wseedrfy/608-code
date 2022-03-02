@@ -1,1 +1,3 @@
-<waterFlowCards id="waterFlowCards{{index}}" list="{{item}}" tabitem="{{tabitem}}" index="{{index}}" bind:getData="getData" bind:testFnc="onReachBottom" bind:onPullDownRefresh="onPullDownRefresh"></waterFlowCards>
+
+<waterFlowCards id="waterFlowCards" list="{{list}}" height="100vh" bind:getData="getData" bind:testFnc="onReachBottom" bind:onPullDownRefresh="onPullDownRefresh"></waterFlowCards>
+

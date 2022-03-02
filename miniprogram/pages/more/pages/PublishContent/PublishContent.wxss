@@ -78,16 +78,19 @@
   margin: 15rpx;
   margin-left: 0;
   font-size: 30rpx;
-  color: rgb(150, 150, 150);
+  /* color: rgb(150, 150, 150); */
+  color: rgb(24, 23, 23);
+  caret-color: rgb(37, 37, 37);
 }
 .mainBody .mainText {
   margin: 20rpx;
   margin-left: 0;
-  
 }
 .mainBody .mainText textarea {
   width: 98%;
-  color: rgb(150, 150, 150);
+  caret-color: rgb(37, 37, 37);
+  color: rgb(24, 23, 23);
+  /* color: rgb(150, 150, 150); */
   font-size: 26rpx;
 }
 
@@ -126,6 +129,10 @@
   background-color: rgb(10, 10, 10,0.3);
   font-size: 25rpx;
   color: #fff;
+}
+.beChoosen_ImageBox .del_beChoosen_Image image {
+  width: 25rpx;
+  height: 25rpx;
 }
 .chooseImage {
   width: 150rpx;

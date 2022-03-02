@@ -38,6 +38,50 @@ Page({
         id: "card"
       },
     ],
+    index_list:[
+      {
+        img:"img/freshman.png",
+        name:"招新报名",
+        tapName:"freshman"
+      },
+      {
+        img:"img/match.png",
+        name:"赛事发布",
+        tapName:"match"
+      },
+      {
+        img:"img/change.png",
+        name:"编辑资料",
+        tapName:"edit"
+      },
+      {
+        img:"img/delete.png",
+        name:"注销身份",
+        tapName:"delete"
+      },
+    ],
+    data_list:[
+      {
+        img:"img/freshman.png",
+        name:"招新数据",
+        tap:"loading"
+      },
+      {
+        img:"img/match.png",
+        name:"赛事反馈",
+        tap:"loading"
+      },
+      {
+        img:"img/delete.png",
+        name:"推广数据",
+        tap:"loading"
+      },
+      {
+        img:"img/delete.png",
+        name:"创作中心",
+        tap:"loading"
+      },
+    ],
     HtmlStatus: 0,//0为申请 1审核中 2审核通过  3注销中
     assoMess: "",
     showModalStatus: false,
@@ -284,6 +328,12 @@ Page({
         }
       },
     });
+  },
+  // 编辑资料
+  edit(){
+    wx.navigateTo({
+      url: '/pages/association/edit/edit?count='+card,
+    })
   },
 
 

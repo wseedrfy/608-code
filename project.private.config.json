@@ -93,6 +93,24 @@
         {
           "name": "招新报名",
           "pathName": "pages/more/pages/Freshman/Freshman",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "发布动态页面",
+          "pathName": "pages/more/pages/PublishContent/PublishContent",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "我的发布",
+          "pathName": "pages/more/pages/UserContent/UserContent",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "编辑资料",
+          "pathName": "pages/association/edit/edit",
           "scene": null
         }
       ]

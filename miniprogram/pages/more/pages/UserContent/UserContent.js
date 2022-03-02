@@ -1,196 +1,95 @@
-// pages/more/UserContent/UserContent.js
-var util = require("../../../../utils/util.js")
-var app = getApp()
-let currentPage = 0 // 当前第几页,0代表第一页 
-const args = wx.getStorageSync('args')
-Page({
 
-  /**
-   * 页面的初始数据
-   */
+
+Page({
   data: {
-    leftList: [],
-    rightList: [],
-    List:[],
-    leftH: 0,
-    rightH: 0,
-    nickname: "",
-    iconUrl: "",
-    loadMore: false, //"上拉加载"的变量，默认false，隐藏  
-    loadAll: false, //“没有数据”的变量，默认false，隐藏 
-    direction:" ",
-    directionIndex:0,
-    openusername:{}
+    // 丢入瀑布流的数据
+    list:[],
   },
- 
+
   onLazyLoad(info) {
     console.log(info)
   },
-  getData: function () {
+  getData(e) { //分页加载数据
+    let args = wx.getStorageSync('args');
+    let currentPage = e.detail.currentPage;
+    console.log(currentPage,"currentPage");
+    // 拉取数据
     let that = this;
-    //第一次加载数据
-    if (currentPage == 1) {
-      this.setData({
-        loadMore: true, //把"上拉加载"的变量设为true，显示  
-        loadAll: false //把“没有数据”设为false，隐藏  
-      })
-    }
-    wx.showLoading({
-      title: '加载中',
-      mask: true
-    })
+    let list = this.data.list;
+
     wx.cloud.callFunction({
       name: "CampusCircle",
       data: {
         type: "readUser",
         currentPage: currentPage,
-        username: that.data.username
+        username: args.username
       },
       success(res) {
-        wx.hideLoading();
-        that.data.resultLength = res.result.data.length;
-        if (res.result.data && res.result.data.length > 0) {
-          console.log("请求成功", res.result.data);
-          currentPage++;
-          //把新请求到的数据添加到 noramalData 里  
-          var allList =   res.result.data;
-          for (let i = 0; i < allList.length; i++) {
-            if(that.data.leftList.includes(allList[i]) ||that.data.rightList.includes(allList[i]) ){
-              continue
-            }
-            if (that.data.leftH <= that.data.rightH) { //判断左右两侧当前的累计高度，来确定item应该放置在左边还是右边
-              that.data.leftList.push(allList[i]);
-              that.data.leftH += allList[i].ShowHeight;
-            } else {
-              that.data.rightList.push(allList[i]);
-              that.data.rightH += allList[i].ShowHeight;
-            }
-          }
-          that.setData({
-            leftList: that.data.leftList,
-            rightList: that.data.rightList,
-            leftH: that.data.leftH,
-            right: that.data.rightH,
-            loadMore: false, //把"上拉加载"的变量设为false，显示  
-            DataNull: 1,
-          });
+        console.log(res);
+        const currComponent = that.selectComponent(`#waterFlowCards`);
+        // 数据存在时
+        if (res.result && res.result.data.length > 0) {
+          // 页数++
+          currComponent.setData({ currentPage: ++currentPage});
+          // 添加新数据到 list 里 
+          list = list.concat(res.result.data);
+          console.log(list, "list");
+          that.setData({ list });
+          // 数据少于一页时
           if (res.result.data.length < 10) {
-            that.setData({
-              loadMore: false, //隐藏加载中。。
-              loadAll: true, //所有数据都加载完了
-              DataNull: 0,
+            currComponent.setData({
+              loadAll: true
             });
           }
-        } else {
-          if (that.data.leftH == 0 && that.data.rightH == 0) {
-            that.setData({
-              List:[],
+          // 新数据进行左右处理
+          currComponent.RightLeftSolution()
+        } else { // 不存在数据时
+          if (currComponent.data.leftH == 0 && currComponent.data.rightH == 0) {
+            currComponent.setData({
+              leftList: [],
+              rightList: [],
             })
           }
-          that.setData({
-            loadAll: true, //把“没有数据”设为true，显示  
-            loadMore: false, //把"上拉加载"的变量设为false，隐藏  
-            DataNull: 0,
+          currComponent.setData({
+            loadAll: true,
+            list: [null]
           });
         }
       },
       fail(res) {
-        wx.showToast({
-          title: '请求失败',
-          icon: 'none',
-        })
         console.log("请求失败", res)
-        that.setData({
-          loadAll: false,
-          loadMore: false
-        });
       }
     })
   },
-  /**
-   * 生命周期函数--监听页面加载
-   */
+
   onLoad: function (options) {
-    let that =this 
-    let i=0
-    that.data.List = [];
-    that.data.leftH = 0;
-    that.data.rightH = 0;
-    const args = wx.getStorageSync('args')
-    if(args.username){
-      that.setData({
-        school:args.school,
-        nickname:args.nickname,
-        username: args.username,
-        iconUrl:args.iconUrl,
-        // openusername:username
-        openusername:{
-          username: args.username,
-          iconUrl: args.iconUrl,
-          nickName: args.nickName
-        }
-      })
-      if(i == 0){
-        currentPage = 0;
-        // that.getData();
-        i++;
-      }
-    }else{
-      that.setData({
-        DataNull: 0,
-      })
-      wx.showModal({
-        title: '提示',
-        content: '小主还没登录哟QwQ',
-      })
-    }
+    this.onPullDownRefresh()
   },
     
+  // 下拉刷新
+  onPullDownRefresh() { 
+    // 在标题栏中显示加载
+    wx.showNavigationBarLoading();
+    // 重置组件内的 currentPage 和 loadAll
+    this.selectComponent(`#waterFlowCards`).setData({currentPage: 0});
+    this.selectComponent(`#waterFlowCards`).setData({loadAll: false});
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-    this.setData({
-      leftList : [],
-      rightList: [],
-      List:[],
-      leftH: 0,
-      rightH: 0,
+    console.log("下拉刷新")
+    this.selectComponent(`#waterFlowCards`).RightLeftSolution(true)
+    this.selectComponent(`#waterFlowCards`).getData()
+    // 完成停止加载
+    wx.hideNavigationBarLoading() 
+  },
+
+  // 上拉触底改变状态
+  onReachBottom() {
+    console.log(123);
+    wx.showLoading({
+      title: '加载更多中',
+      mask: true
     })
-    currentPage = 0
-    this.getData();
+    this.selectComponent(`#waterFlowCards`).getData();
+    wx.hideLoading();
   },
 
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-    console.log("上拉触底事件")
-    let that = this
-    if (!that.data.loadMore) {
-      that.setData({
-        loadMore: true, //加载中  
-        loadAll: false //是否加载完所有数据
-      });
-      wx.showLoading({
-        title: '加载更多中',
-      })
-      that.getData()
-      wx.hideLoading()
-      //加载更多，这里做下延时加载
-
-    }
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
 })

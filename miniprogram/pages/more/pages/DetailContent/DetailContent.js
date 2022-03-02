@@ -286,6 +286,7 @@ Page({
       success(res) {
         if (res.confirm) {
           console.log('用户点击确定')
+          console.log(that.data.CardID,that.data.username);
           wx.cloud.callFunction({
             name: 'CampusCircle',
             data: {
@@ -557,64 +558,56 @@ Page({
   },
   //点赞
   get_Star() {
-    
+    var that = this;
     var Star_User = this.data.content.Star_User
     var openusername = this.data.openusername
-
-    let character = {                            // 处理得到点赞者信息
+    // 点赞者信息
+    let character = {                            
       userName:args.username,
       iconUrl:args.iconUrl,
       nickName:args.nickName
     }
-    let be_character = {                         // 被点赞者信息
-      userName:this.data.content.username,       // 学号来查找
+    // 被点赞者信息
+    let be_character = {                         
+      userName:this.data.content.username,    
       iconUrl:this.data.content.iconUrl,
       nickName:this.data.content.nickName
     }
-    let starTime = new Date().getTime();          // 点赞时间
-    // 如果想在后台看到具体的时间年月日，请用下面这句
-    // let starTime = util.timeago(new Date().getTime(),'Y年M月D日');
-    if (!Star_User) {
-      Star_User = []
-    }
-    var that = this
-    var Starif = false
-    //判断是不是为点赞过的username
-    for (var i = 0 ;i<Star_User.length;i++){
+    let starTime = new Date().getTime();      
+    // 边界处理
+    Star_User ? '' : Star_User = [];
+    // 标志用户点赞状态    false:未点赞； true:已点赞
+    var Starif = false;
+    // 判断该用户是否已点过赞 - 取消点赞
+    for (var i = 0 ;i < Star_User.length;i++){
       if(Star_User[i].username===openusername.username){
         Starif = true
         Star_User.splice(Star_User.indexOf(openusername), 1)
-        that.setData({
-        Starurl: "../../../../images/zan1.png",
-      })
-      wx.cloud.callFunction({   // 云函数更改点赞状态
-        name: "CampusCircle",
-        data: {
-          type: "StarControlLogs",
-          username : that.data.username,
-          be_username: that.data.content.username,
-          Time: that.data.content.Time,
-          _id: that.data.content._id,
-          Star: Star_count,
-          Star_User: Star_User,
-          // 上面三条为迎合旧点赞函数
-          character: character,
-          be_character:be_character,
-          createTime:starTime,
-          arcticle:this.data.content,
-          arcticle_id:this.data.content._id
-        },
-        success(res) { console.log(res,"调用'取消点赞'云函数成功"); },
-        fail(e) { 
-          wx.showToast({
-            title: '点赞失败',
-            icon: 'none'
-          }) 
-          console.log(e,"点赞失败");
-        }
-      })
+        this.setData({
+          Starurl: "../../../../images/zan1.png",
+        })
+        wx.cloud.callFunction({
+          name: "CampusCircle",
+          data: {
+            type: "StarControlLogs",
+            Star_User: Star_User,
+            character: character,
+            be_character: be_character,
+            createTime: starTime,
+            arcticle: this.data.content,
+          },
+          success(res) { console.log(res,"调用'取消点赞'云函数成功"); },
+          fail(e) { 
+            wx.showToast({
+              title: '点赞失败',
+              icon: 'none'
+            }) 
+            console.log(e,"点赞失败");
+          }
+        })
       }
     }
+    // 点赞
     if (!Starif) {
       //push到username
       openusername.Star_time = new Date().getTime()
@@ -626,29 +619,22 @@ Page({
         that.setData({
           Starurl: "../../../../images/zan.png",
         })
-        var Star_count = Star_User.length
         wx.cloud.callFunction({
           name: "CampusCircle",
           data: {
-            username : that.data.username,
-            be_username: that.data.content.username,
             type: "StarControlLogs",
-            Time: that.data.content.Time,
-            Star: Star_count,
             Star_User: Star_User,
-            // 为迎合新云函数
             character: character,
             be_character:be_character,
             createTime:starTime,
             arcticle:this.data.content,
-            arcticle_id:this.data.content._id,
-            _id:this.data.content._id
           },
           success(res) {
             console.log(res)
           }
         })
     }
+    // 更新全局
     app.globalData.allList.forEach(e => {
       if(e){
         if (e._id === this.data.CardID) {

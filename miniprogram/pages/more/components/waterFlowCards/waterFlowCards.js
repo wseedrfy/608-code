@@ -18,8 +18,8 @@ Component({
         type: Array,
         value: []
       },
-      // 当前组件的下标
-      index: {
+      // 本组件的下标 
+      currentTab: {
         type: Number
       }
     },
@@ -58,7 +58,7 @@ Component({
     getData() {
       let e = {
         currentPage:this.data.currentPage,  // 本组件当前第几页
-        index: this.properties.index        // 本组件索引 - 方便标签选择
+        currentTab: this.properties.currentTab  // 本组件索引 - 方便标签选择
       }
       // 边界处理，拉到最底部时不允许再请求数据库
       if(this.data.loadAll) return;
@@ -79,19 +79,19 @@ Component({
         return
       }
 
-      let index = this.properties.index;
+      let currentTab = this.properties.currentTab;
       let list = this.data.list;
       console.log(list,"丢入瀑布流的数据");
-      
       let allList = new Array(this.properties.tabitem.length);
-      // console.log(allList);
-      if(getApp().globalData.allList) {
-        getApp().globalData.allList[index] = list;
-      }else {
-        getApp().globalData.allList = allList
+      // 为兼容 “我的发布” 页面
+      if(currentTab) {
+        // 边界条件 - 存在即赋值，不存在即初始化
+        if(getApp().globalData.allList) {
+          getApp().globalData.allList[currentTab] = list;
+        }else {
+          getApp().globalData.allList = allList
+        }
       }
-      // console.log(getApp().globalData.allList,"globalData的allList");
- 
 
       for (let i = 0; i < list.length; i++) {
         // 边界判断: 如果该数据已存在，则continue
