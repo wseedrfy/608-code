@@ -101,6 +101,12 @@
                     "pathName": "pages/more/pages/PublishContent/PublishContent",
                     "query": "",
                     "scene": null
+                },
+                {
+                    "name": "我的发布",
+                    "pathName": "pages/more/pages/UserContent/UserContent",
+                    "query": "",
+                    "scene": null
                 }
             ]
         }

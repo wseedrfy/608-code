@@ -9,12 +9,16 @@ Component({
         type: Array,
         value: []
       },
+      height:{
+        type: String,
+        value: ''
+      },
       // 当前组件需渲染的数据
       list: {
         type: Array,
         value: []
       },
-      // 当前组件的下标
+      // 当前组件的下标       ---------- 这个要改掉 - currentTab
       index: {
         type: Number
       }
@@ -78,16 +82,16 @@ Component({
       let index = this.properties.index;
       let list = this.data.list;
       console.log(list,"丢入瀑布流的数据");
-      
       let allList = new Array(this.properties.tabitem.length);
-      // console.log(allList);
-      if(getApp().globalData.allList) {
-        getApp().globalData.allList[index] = list;
-      }else {
-        getApp().globalData.allList = allList
+      // 为兼容 “我的发布” 页面
+      if(index) {
+        // 边界条件 - 存在即赋值，不存在即初始化
+        if(getApp().globalData.allList) {
+          getApp().globalData.allList[index] = list;
+        }else {
+          getApp().globalData.allList = allList
+        }
       }
-      // console.log(getApp().globalData.allList,"globalData的allList");
- 
 
       for (let i = 0; i < list.length; i++) {
         // 边界判断: 如果该数据已存在，则continue

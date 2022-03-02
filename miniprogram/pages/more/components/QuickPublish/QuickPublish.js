@@ -177,7 +177,7 @@ Component({
                 "LoseType":this.data.type
               }
               console.log(add)
-              
+              console.log(getApp().globalData.allList);
               let list = getApp().globalData.allList[0];
               list.push(add)
               let NewData = list.length - 1;
