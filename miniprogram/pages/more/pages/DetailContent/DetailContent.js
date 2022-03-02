@@ -52,18 +52,6 @@ Page({
 
   },
 
-  d:function(){
-    let edit_style = this.data.edit_style;
-      console.log("edit_style".edit_style)
-      // picker动画样式
-      if(edit_style == undefined || edit_style == 'edit_hide') {
-        edit_style = 'edit_show'
-      }else {
-        edit_style = 'edit_hide'
-      }
-      console.log(edit_style);
-      this.setData({ comEdit:!this.data.comEdit,edit_style:edit_style})
-  },
   EditComment: function (e) {              // 12-27 重构本函数
     console.log("e.currentTarget.dataset.small",e.currentTarget.dataset.small)
     if(e.currentTarget.dataset.small===undefined){
@@ -135,7 +123,16 @@ Page({
   },
   ReplyComment:function(){
     
-     this.d()
+    let reply_style = this.data.reply_style;
+    console.log("reply_style".reply_style)
+    // picker动画样式
+    if(reply_style == undefined || reply_style == 'reply_hide') {
+      reply_style = 'reply_show'
+    }else {
+      reply_style = 'reply_hide'
+    }
+    console.log(reply_style);
+    this.setData({ comReply:!this.data.comReply,reply_style:reply_style})
 
     this.setData({
       comReply: true,
