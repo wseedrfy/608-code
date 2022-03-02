@@ -58,7 +58,6 @@ async function search(event) {
       'Star_User.iconUrl': false,
       'Star_User.nickName': false,
     }).where({
-      School: event.School, 
       Title: db.RegExp({
         regexp: event.searchKey,
         options: 'i',
