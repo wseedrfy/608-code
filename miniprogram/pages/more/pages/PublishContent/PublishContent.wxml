@@ -53,7 +53,9 @@
                 <block wx:for="{{photo}}" wx:key="photoIndex">     <!-- 渲染已选择图片 -->
                     <view class="beChoosen_ImageBox">
                         <image class="beChoosen_Image" src="{{item.tempFilePath}}" bindtap="preViewImage" data-index="{{index}}" mode="aspectFill"></image>
-                        <view class="del_beChoosen_Image" bindtap="del_beChoosen_Image" data-index="{{index}}">×</view>
+                        <view class="del_beChoosen_Image" bindtap="del_beChoosen_Image" data-index="{{index}}">
+                            <image src="./images/close.png" ></image>
+                        </view>
                     </view>
                 </block>
 

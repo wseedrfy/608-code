@@ -119,17 +119,17 @@ Page({
             // 计算图片高度
             const CalculateImage = () => {  
               for (let i = 0; i < list.length; i++) {
-                  let height = parseInt(Math.round(list[i].CoverHeight * 370 / list[i].CoverWidth));      // 计算得到高度
+                // 计算得到高度
+                let height = parseInt(Math.round(list[i].CoverHeight * 370 / list[i].CoverWidth));      
 
-                  if (height) {      
-                      let currentItemHeight = parseInt(Math.round(list[i].CoverHeight * 370 / list[i].CoverWidth));
+                if (height) {      
+                  let currentItemHeight = parseInt(Math.round(list[i].CoverHeight * 370 / list[i].CoverWidth));
+                  // 边界处理
+                  currentItemHeight > 500 ? currentItemHeight = 500 : '';
 
-                      // 边界处理
-                      currentItemHeight > 500 ? currentItemHeight = 500 : '';
-
-                      list[i].ShowHeight = currentItemHeight;
-                      list[i].CoverHeight = currentItemHeight + "rpx"; // 因为xml文件中直接引用的该值作为高度，所以添加对应单位
-                  }
+                  list[i].ShowHeight = currentItemHeight;
+                  list[i].CoverHeight = currentItemHeight + "rpx"; // 因为xml文件中直接引用的该值作为高度，所以添加对应单位
+                }
               }
               return ;
             }
