@@ -535,9 +535,24 @@ Page({
           type: 'writeComment'
         },
         success: res => {
-          this.data.CommentList.push(add)
+          that.data.CommentList.push(add);
+          console.log(that.data.CommentList);
           wx.hideLoading()
           that.ShowComment()
+          // 更新全局
+          app.globalData.allList.forEach(item => {
+            item.forEach(e => {
+              if(e._id === that.data.CardID) {
+                e["CommentList"] = that.data.CommentList;
+              }
+            })
+          })
+          let pages = getCurrentPages();            //获取小程序页面栈
+          let beforePage = pages[pages.length - 2]; //上个页面的实例对象
+          let e = {
+            detail: app.globalData.allList
+          }
+          beforePage.setAllList(e);
         },
         fail: err => {
           wx.showToast({
@@ -565,8 +580,6 @@ Page({
       }
       // 评论时间 
       let commentTime = new Date().getTime();
-      // 如果想在后台看到具体的时间年月日，请用下面这句
-      // let starTime = util.timeago(new Date().getTime(),'Y年M月D日');
 
       // 云函数增加一条评论记录
       console.log("e.detail.value.InputComment",e.detail.value.InputComment)
