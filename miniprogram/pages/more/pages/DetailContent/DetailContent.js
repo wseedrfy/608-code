@@ -264,7 +264,8 @@ Page({
     var index = this.data.Commentindex
     var inIndex=this.data.inIndex
     var that = this
-    const content = this.data.content;
+    const content = that.data.content;
+    const RCom=that.data.CommentList[index].Reply[inIndex]
     let character = {
       userName: args.username,
       iconUrl: args.iconUrl,
@@ -276,7 +277,7 @@ Page({
       iconUrl: content.iconUrl,
       nickName: content.nickName
     }
-    let InputComment = this.data.CommentList[index].InputComment; 
+    let InputComment = that.data.CommentList[index].InputComment; 
 
     let changeStatusTime = new Date().getTime();
     wx.showModal({
@@ -348,13 +349,13 @@ Page({
     })
   }else{
     console.log("inter")
-    let be_character = {
-      iconUrl: this.data.CommentList[index].Reply[inIndex].iconUrl,
-      nickName: this.data.CommentList[index].Reply[inIndex].nickName
+    var be_character = {
+      iconUrl: RCom.iconUser,
+      nickName: RCom.nickName
     }
-    let InputReply = this.data.CommentList[index].Reply[inIndex].InputReply; 
-
-    let changeStatusTime = new Date().getTime();
+    console.log("be_character",be_character)
+    var InputReply = that.data.CommentList[index].Reply[inIndex].InputReply; 
+    var changeStatusTime = new Date().getTime();
     wx.showModal({
       title: '提示',
       content: '确定删除?',
@@ -370,6 +371,7 @@ Page({
           // console.log("that.data.CommentList", that.data.CommentList)
           // console.log(that.data.content._id);
           console.log("that.data.CommentList[index].Reply[inIndex]",that.data.CommentList[index].Reply[inIndex])
+          console.log("index",index)
           wx.cloud.callFunction({
             name: 'NewCampusCircle',
             data: {
@@ -378,11 +380,10 @@ Page({
               username : that.data.username,
               _id: that.data.content._id,
               index:index,
-              DelData: that.data.CommentList[index].Reply[inIndex]
+              delData: that.data.CommentList[index].Reply[inIndex]
             },
             success: res => {
-              console.log("success")
-              this.data.CommentList[index].Reply.splice(inIndex, 1)
+              that.data.CommentList[index].Reply.splice(inIndex, 1)
               // 12-27 新增,修改评论状态
               wx.cloud.callFunction({
                 name:'CampusCircle',
@@ -392,7 +393,7 @@ Page({
                   username : that.data.username,
                   be_character: be_character,
                   be_username: that.data.content.username,
-                  content: that.data.CommentList[index].Reply[inIndex].InputReply,
+                  content: InputReply,
                   createTime: changeStatusTime,
                   arcticle: content,
                   arcticle_id: content._id,
