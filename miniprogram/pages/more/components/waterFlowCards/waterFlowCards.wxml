@@ -4,7 +4,7 @@
       <view class="left">
         <view wx:for="{{leftList}}" wx:key="leftList">
           <!-- <loveCards wx:if="{{item.Title == '闲聊'}}" item="{{item}}" type="left" bind:ShowContent="getBackData"></loveCards> -->
-          <campusCards item="{{item}}" type="left" tabItemIndex="{{index}}" />
+          <campusCards item="{{item}}" type="left" currentTab="{{currentTab}}" />
         </view>
       </view>
 
