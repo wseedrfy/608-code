@@ -304,7 +304,7 @@ Page({
               type: 'delComment',
               username : that.data.username,
               _id: that.data.content._id,
-              deldata: that.data.CommentList[index]
+              delData: that.data.CommentList[index]
             },
             success: res => {
               console.log("successDel")
