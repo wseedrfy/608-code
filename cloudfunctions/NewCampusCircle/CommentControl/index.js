@@ -35,23 +35,30 @@ async function writeComment(event, type, content) {
     data = {
       msg: 'success'
     }
-
+    return data
   }
+
 }
 async function delComment(event, type, content) {
-
   if (event.delData) {
-    await db.collection('Campus-Circle').where({
+
+   await db.collection('Campus-Circle').where({
       _id: event._id
     }).update({
       data: {
-        CommentList: _.pull(_.in(event.delData))
+        CommentList: _.pull({
+          CommentTime : _.eq(event.delData.CommentTime),
+          username : _.eq(event.delData.username),
+          iconUser : _.eq(event.delData.iconUser),
+        })
       }
     })
     data = {
       msg: 'success'
     }
+    return data
   }
+
 
 }
 
