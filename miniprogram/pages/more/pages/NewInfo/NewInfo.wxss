@@ -62,3 +62,12 @@
    justify-content: center;
    margin-top: 15rpx;
  }
+
+ @media (prefers-color-scheme: dark) {
+   .firstLine {
+      filter: invert(1) !important;
+   }
+   .firstLine .name {
+      filter: invert(1) !important;
+   }
+}

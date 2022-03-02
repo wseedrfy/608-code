@@ -296,15 +296,16 @@ async function ReplyCommentControlLogs(event) {
 
 async function ReadControlLogs(event) {
   const data = await db.collection('New-Information').orderBy('createTime', 'desc').where({
-      be_character_username: event.be_username,
+      'be_character.userName': event.be_username,
       status: _.gte(0)      // 大于等于零
     })
     .skip(event.currentPage * event.pageSize)
     .limit(event.pageSize)
     .get()
+    console.log(data);
   // 更新
   await db.collection('New-Information').where({
-      be_character_username: event.be_username,
+    'be_character.userName': event.be_username,
       status: _.eq(0)
     }).update({
       data: {
