@@ -22,6 +22,7 @@ Component({
     character: {},
     be_character: {},
   },
+  
   lifetimes: {
     ready() {
       let content = this.data.item;
@@ -36,7 +37,7 @@ Component({
         iconUrl: content.iconUrl,
         nickName: content.nickName
       }
-      // console.log(character,be_character);
+      // console.log(content);
       this.setData({
         character,be_character
       })
@@ -89,12 +90,7 @@ Component({
           icon: "none"
         })
       }
-      // 变更全局数据 - 在当前页面中渲染出来
-      app.globalData.allList[this.data.currentTab].forEach(e => {
-        if (e._id === content._id) {
-          e.Star_User = content.Star_User;
-        }
-      })
+      
       var that = this;
       let starTime = new Date().getTime(); // 点赞时间
       // 对数据库数据进行更新
@@ -113,6 +109,17 @@ Component({
       this.setData({
         item : content,
       })
+      // 变更全局数据 - 在当前页面中渲染出来
+      let allList = app.globalData.allList;
+      allList.forEach(item => {
+        item.forEach(e => {
+          if(e._id === content._id) {
+            e.Star_User = content.Star_User;
+          }
+        })
+      })
+      this.triggerEvent("setAllList", allList)
+      console.log(allList);
     },
     onLazyLoad(info) {},
   }

@@ -68,6 +68,13 @@ Page({
     showModel: false, // 快速发布显隐
   },
   TimeOut: 1,
+  setAllList(e) {
+    const allList = e.detail;
+    this.setData({allList})
+    for(let i in allList) {
+      this.selectComponent(`#waterFlowCards${i}`).RightLeftSolution();
+    }
+  },
   showPopUps() {
     let showPopUps = !this.data.showPopUps;
     this.setData({ showPopUps });
