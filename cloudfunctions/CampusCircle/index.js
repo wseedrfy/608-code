@@ -32,7 +32,7 @@ exports.main = async (event, context) => {
     case "CancelCommentControlLogs":
       return await CancelCommentControlLogs(event); // 删除评论
     case "CancelReplyControlLogs":
-      return await CancelCommentControlLogs(event); // 删除评论
+      return await CancelReplyControlLogs(event); // 删除评论
     case "ReplyCommentControlLogs":
       return await ReplyCommentControlLogs(event); // 删除评论
     case "ReadControlLogs":
