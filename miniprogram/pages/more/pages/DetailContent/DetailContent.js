@@ -513,6 +513,7 @@ Page({
   },
 
   Comment_Inputting: function () {
+    console.log(123);
     this.setData({
       isChecked: false,
     })

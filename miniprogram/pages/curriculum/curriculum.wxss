@@ -571,7 +571,10 @@ button {
   .add_weekBtn label {
     filter: invert(80%) !important;
   }
-
+  .add_block input {
+    filter: invert(0) !important;
+    color: white;
+  }
   .add_background {
     filter: invert(90%) !important;
   }

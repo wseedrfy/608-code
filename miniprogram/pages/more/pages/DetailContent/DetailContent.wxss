@@ -507,9 +507,13 @@ swiper .wx-swiper-dot {
   .content_LabelBox {
     filter: invert(100%) !important;
   }
+  .old_Comment_second textarea {
+    color: #fff;
+    filter: invert(1) !important;
+  }
   .new_Comment_second textarea{
     color: #fff;
-    filter: invert(100%) !important;
+    filter: invert(1) !important;
   }
   .Comment_Content {
     color: #fff;

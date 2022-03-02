@@ -342,7 +342,7 @@ Page({
   // 选择标签
   setTab: function (e) { // 该函数仅在组件中调用
     // 获取索引值
-    var currentTab = e.detail.currentTarget.dataset.index
+    var currentTab = e.detail.currentTarget.dataset.index;
     // 初始化 - 全部置零
     this.data.tabitem.forEach((item, index) => {
       item.type = 0;
@@ -350,17 +350,11 @@ Page({
         item.type = 1;
       }
     });
+    // 赋值currentTab后，就会触发switchTab函数。这样避免了连续两次请求
     this.setData({
       tabitem: this.data.tabitem,
       currentTab
     })
-    // 新页面获取数据 - 没有东西时才获取数据
-    if (app.globalData.allList[currentTab].length) {
-      console.log("页面已经有数据了，不请求数据库");
-      return;
-    } else {
-      this.selectComponent(`#waterFlowCards${currentTab}`).getData();
-    }
   },
   //以本地数据为例，实际开发中数据整理以及加载更多等实现逻辑可根据实际需求进行实现   
   onLoad: function () {
