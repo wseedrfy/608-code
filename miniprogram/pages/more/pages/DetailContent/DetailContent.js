@@ -286,6 +286,7 @@ Page({
       success(res) {
         if (res.confirm) {
           console.log('用户点击确定')
+          console.log(that.data.CardID,that.data.username);
           wx.cloud.callFunction({
             name: 'CampusCircle',
             data: {
