@@ -59,6 +59,7 @@ Page({
     ], // 列表兜底
     currentTab: 0, // 当前 swiper-item
     iconUrl:'',    // 头像地址
+
     // 控制动画
     showLoading: 0, // 动画显隐
     animation: '',
@@ -75,6 +76,7 @@ Page({
       this.selectComponent(`#waterFlowCards${i}`).RightLeftSolution();
     }
   },
+  timeId: 0,
   showPopUps() {
     let showPopUps = !this.data.showPopUps;
     this.setData({ showPopUps });
@@ -222,26 +224,24 @@ Page({
 
   // 3. 搜索框逻辑 
   search_Input: function (e) {
+    const {value} = e.detail  //拿到输入框中的值
     var that = this;
-    const waterComponent = that.selectComponent(`#waterFlowCards0`);
-    const {value} = e.detail;
+    let waterComponent = that.selectComponent(`#waterFlowCards0`);
     const args = wx.getStorageSync('args');
-    
-    // 防抖
-    setTimeout(()=> {
-      wx.showNavigationBarLoading();
-      search(value);
-      wx.hideNavigationBarLoading();
-    },1000)
-    
+    clearTimeout(this.timeId) //清除定时器
+    this.timeId=setTimeout(()=>{
+        search(value) //发送请求，间隔时间为1s
+    },500)
     const search = (value) => {
       if(value) {
+        wx.hideNavigationBarLoading();
         wx.cloud.callFunction({
           name: "NewCampusCircle",
           data: {
             url: "Card",
             username: args.username,
             type: "search",
+            School: args.schoolName == "游客登录" ? "广东石油化工学院" : args.schoolName,
             searchKey: e.detail.value
           },
           success: res => {
@@ -269,6 +269,9 @@ Page({
           },
           fail: err => {
             console.error
+          },
+          complete: e =>{
+            wx.hideNavigationBarLoading();
           }
         })
       }else {
@@ -278,6 +281,7 @@ Page({
         that.onPullDownRefresh();
       }
     }
+
   },
 
   // 4. 动效

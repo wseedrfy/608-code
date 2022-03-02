@@ -10,15 +10,21 @@ exports.main = async (event) => {
     case "writeComment":
       data = await writeComment(event); // 
       break;
+    case "replyComment":
+      data = await replyComment(event); // 
+      break;
     case "delComment":
       data = await delComment(event); // 
+      break;
+    case "delReply":
+      data = await delReply(event); // 
       break;
   }
   return data
 }
 async function writeComment(event, type, content) {
-
-  if (event.delData) {
+  
+  if (event.addData) {
     await db.collection('Campus-Circle').where({
       _id: event._id
     }).update({
@@ -31,7 +37,6 @@ async function writeComment(event, type, content) {
     }
 
   }
-
 }
 async function delComment(event, type, content) {
 
@@ -48,4 +53,38 @@ async function delComment(event, type, content) {
     }
   }
 
+}
+
+// async function delReply(event, type, content) {
+
+//   if (event.delData) {
+//     await db.collection('Campus-Circle').where({
+//       _id: event._id
+//     }).update({
+//       data: {
+//         ['CommentList.'+[event.index]+'.Reply']: _.pull(_.in(event.delData))
+//       }
+//     })
+//     data = {
+//       msg: 'success'
+//     }
+//   }
+
+// }
+
+async function replyComment(event, type, content) {
+
+  if (event.addData) {
+    await db.collection('Campus-Circle').where({
+      _id: event._id
+    }).update({
+      data: {
+        ['CommentList.'+[event.index]+'.Reply']: _.push(event.addData)
+      }
+    })
+    data = {
+      msg: 'success'
+    }
+
+  }
 }

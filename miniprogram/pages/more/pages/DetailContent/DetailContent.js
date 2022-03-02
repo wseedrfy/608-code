@@ -9,44 +9,101 @@ Page({
     CommentList: [],
     ContentTime:0,      // 新增-回复
     showEdit: false,    // 控制评论区弹窗显示
+    reply_style:"",
     comEdit: false,     // 评论区复制/删除弹窗
     comReply:false,
     CardID:"",
+    inIndex:-1,
     ShowDelCom: 0,      // 评论区控制是否出现“删除”按钮
     Commentindex: 0,    // 评论区的 index
     Commentindex222:0,
     ShowReplyComment:0,
     ReplyCom_input:"",
-    obtainIndex:0,
+    obtain:0,
     iconUrl: '',
     Starurl: "../../../../images/zan1.png",
     Star_count: 0,
   },
   
-  More: function () {
-    var showEdit = this.data.showEdit
-    var that = this
+  // More: function () {
+  //   var showEdit = this.data.showEdit
+  //   var that = this
 
-    if (showEdit) {
-      this.setData({
-        edit_style: "edit_hide"
-      })
-      setTimeout(() => {
-        that.setData({
-          showEdit: !showEdit
-        })
-      }, 200);
-    } else {
-      this.setData({
-        edit_style: "edit_show",
-        showEdit: !showEdit
-      })
-    }
+  //   if (showEdit) {
+  //     this.setData({
+  //       edit_style: "edit_hide"
+  //     })
+  //     setTimeout(() => {
+  //       that.setData({
+  //         showEdit: !showEdit
+  //       })
+  //     }, 200);
+  //   } else {
+  //     this.setData({
+  //       edit_style: "edit_show",
+  //       showEdit: !showEdit
+  //     })
+  //   }
+  // },
+  hhh:function(e){
+    let index = e.currentTarget.dataset.index;
+    console.log("wai",e.currentTarget.dataset.bigindex)
+    console.log("nei",e.currentTarget.dataset.small)
+
+  },
+
+  d:function(){
+    let edit_style = this.data.edit_style;
+      console.log("edit_style".edit_style)
+      // picker动画样式
+      if(edit_style == undefined || edit_style == 'edit_hide') {
+        edit_style = 'edit_show'
+      }else {
+        edit_style = 'edit_hide'
+      }
+      console.log(edit_style);
+      this.setData({ comEdit:!this.data.comEdit,edit_style:edit_style})
   },
   EditComment: function (e) {              // 12-27 重构本函数
-    let index = e.currentTarget.dataset.index;
-    this.data.Commentindex = index;
+    console.log("e.currentTarget.dataset.small",e.currentTarget.dataset.small)
+    if(e.currentTarget.dataset.small===undefined){
+      let index = e.currentTarget.dataset.index;
+      this.data.Commentindex = index;
+      let edit_style = this.data.edit_style;
+      console.log("edit_style".edit_style)
+      // picker动画样式
+      if(edit_style == undefined || edit_style == 'edit_hide') {
+        edit_style = 'edit_show'
+      }else {
+        edit_style = 'edit_hide'
+      }
+      console.log(edit_style);
+      this.setData({ comEdit:!this.data.comEdit,edit_style:edit_style})
+      
+      // 在点其他位置时，index = undefined
+      if(index != undefined) {
+        let nickName = this.data.CommentList[index].nickName;  // 该评论的评论者
+        let username = this.data.CommentList[index].username;  // 该评论的评论者学号
+        let ShowDelCom = 0;
+        // 判断是否本人的评论 -> 凭学号
+        if(username == args.username) {
+          ShowDelCom = 1;
+        }
+        this.setData({
+          ShowDelCom,
+          CommentName:nickName,
+          CommentContent:this.data.CommentList[index].InputComment,
+          isChecked: true,
+        })
+      }
+      // this.data.ShowDelCom = 0;    //初始化
+      index=0
+  }else{
+    let outIndex=e.currentTarget.dataset.bigindex
+    let inIndex=e.currentTarget.dataset.small
     let edit_style = this.data.edit_style;
+    this.data.Commentindex=outIndex
+    this.data.inIndex=e.currentTarget.dataset.small
     console.log("edit_style".edit_style)
     // picker动画样式
     if(edit_style == undefined || edit_style == 'edit_hide') {
@@ -58,9 +115,9 @@ Page({
     this.setData({ comEdit:!this.data.comEdit,edit_style:edit_style})
     
     // 在点其他位置时，index = undefined
-    if(index != undefined) {
-      let nickName = this.data.CommentList[index].nickName;  // 该评论的评论者
-      let username = this.data.CommentList[index].username;  // 该评论的评论者学号
+    if(inIndex != undefined) {
+      let nickName = this.data.CommentList[outIndex].Reply[inIndex].nickName;  // 该评论的评论者
+      let username = this.data.CommentList[outIndex].Reply[inIndex].username;  // 该评论的评论者学号
       let ShowDelCom = 0;
       // 判断是否本人的评论 -> 凭学号
       if(username == args.username) {
@@ -69,24 +126,20 @@ Page({
       this.setData({
         ShowDelCom,
         CommentName:nickName,
-        CommentContent:this.data.CommentList[index].InputComment,
+        CommentContent:this.data.CommentList[outIndex].Reply[inIndex].InputReply,
         isChecked: true,
       })
     }
     // this.data.ShowDelCom = 0;    //初始化
+  }
   },
   ReplyComment:function(){
-    let reply_style = 'reply_show';
-    // picker动画样式
-    if(reply_style == undefined || reply_style == 'reply_hide') {
-      reply_style = 'reply_show'
-    }else {
-      reply_style = 'reply_hide'
-    }
-    console.log(reply_style);
-    this.setData({ comReply:!this.data.comReply,reply_style:reply_style})
+    
+     this.d()
+
     this.setData({
       comReply: true,
+      comEdit:false
     })
   },
   replySubmit:function(e){
@@ -94,32 +147,51 @@ Page({
     // 判空
     let res = this.isNull(e.detail.value.InputReply);
     var index = this.data.Commentindex
+    var inIndex=this.data.inIndex
     const content = this.data.content;
+    console.log("inIndex",inIndex)
+    console.log("this.data.CommentList[index].Reply[inIndex]",this.data.CommentList[index].Reply[inIndex])
     if( res ) {
       wx.showToast({
         title: '内容不能为空',
         icon: 'none'
       })
     } else {
-      let add = {
-        "InputReply": e.detail.value.InputReply,
-        "ReplyTime": new Date().getTime(),
-        "iconUser": args.iconUrl,  
-        "nickName": args.nickName,
-        "username": args.username,
-        "Replied":this.data.CommentList[index].nickName
+      if(inIndex===-1){
+        console.log("inIndex=null")
+        var add = {
+          "InputReply": e.detail.value.InputReply,
+          "ReplyTime": new Date().getTime(),
+          "iconUser": args.iconUrl,  
+          "nickName": args.nickName,
+          "username": args.username,
+          "Replied":this.data.CommentList[index].nickName,
+        }
+      }else{
+        console.log("indel exit")
+        var add = {
+          "InputReply": e.detail.value.InputReply,
+          "ReplyTime": new Date().getTime(),
+          "iconUser": args.iconUrl,  
+          "nickName": args.nickName,
+          "username": args.username,
+          "Replied":this.data.CommentList[index].Reply[inIndex].nickName,
+        }
       }
-      this.data.CommentList[index].Reply.push(add)
-      console.log("this.data.CommentList",this.data.CommentList)
+      // this.data.CommentList[index].Reply.push(add)
+      // console.log("this.data.CommentList",this.data.CommentList)
       wx.cloud.callFunction({
-        name: 'CampusCircle',
+        name: 'NewCampusCircle',
         data: {
-          CommentList: that.data.CommentList,
+          url: 'CommentControl',
+          addData: add,
+          index:this.data.Commentindex,
           _id: that.data.content._id,
           username : that.data.username,
-          type: 'writeComment'
+          type: 'replyComment'
         },
         success: res => {
+          this.data.CommentList[index].Reply.push(add)
           wx.hideLoading()
           console.log("成功添加",res);
           that.ShowComment()
@@ -143,10 +215,20 @@ Page({
         nickName:args.nickName
       }
       // 被评论者信息
-      let be_character = {
+      if(inIndex===-1){
+      var be_character = {
         userName:this.data.CommentList[index].username,    
         iconUrl:this.data.CommentList[index].iconUrl,
         nickName:this.data.CommentList[index].nickName
+      }
+      var be_username=this.data.CommentList[index].username
+      }else{
+        var be_character = {
+          userName:this.data.CommentList[index].Reply[inIndex].username,    
+          iconUrl:this.data.CommentList[index].Reply[inIndex].iconUrl,
+          nickName:this.data.CommentList[index].Reply[inIndex].nickName
+        }
+        var be_username=this.data.CommentList[index].Reply[inIndex].username
       }
       // 评论时间 
       let commentTime = new Date().getTime();
@@ -161,7 +243,7 @@ Page({
           character: character,
           be_character:be_character,
           username : that.data.username,
-          be_username: this.data.CommentList[index].username,
+          be_username: be_username,
           content: e.detail.value.InputReply,
           createTime:new Date().getTime(),
           arcticle:this.data.content,
@@ -178,10 +260,12 @@ Page({
         }
       })
     }
+    this.data.inIndex=-1
   },
   //删除评论
   DelComment: function () {
     var index = this.data.Commentindex
+    var inIndex=this.data.inIndex
     var that = this
     const content = this.data.content;
     let character = {
@@ -189,6 +273,8 @@ Page({
       iconUrl: args.iconUrl,
       nickName: args.nickName
     }
+    console.log("inIndex",inIndex)
+    // if(inIndex===undefined || inIndex===-1){
     let be_character = {
       iconUrl: content.iconUrl,
       nickName: content.nickName
@@ -208,6 +294,7 @@ Page({
           console.log('用户点击确定')
      
           console.log(that.data.CommentList)
+          console.log("that.data.CommentList[index]",that.data.CommentList[index])
           // console.log("that.data.CommentList", that.data.CommentList)
           // console.log(that.data.content._id);
           wx.cloud.callFunction({
@@ -220,6 +307,7 @@ Page({
               deldata: that.data.CommentList[index]
             },
             success: res => {
+              console.log("successDel")
               that.data.CommentList.splice(index, 1)
               // 12-27 新增,修改评论状态
               wx.cloud.callFunction({
@@ -261,6 +349,85 @@ Page({
         }
       }
     })
+  // }else{
+  //   console.log("inter")
+  //   let be_character = {
+  //     iconUrl: this.data.CommentList[index].Reply[inIndex].iconUrl,
+  //     nickName: this.data.CommentList[index].Reply[inIndex].nickName
+  //   }
+  //   let InputReply = this.data.CommentList[index].Reply[inIndex].InputReply; 
+
+  //   let changeStatusTime = new Date().getTime();
+  //   wx.showModal({
+  //     title: '提示',
+  //     content: '确定删除?',
+  //     success(res) {
+  //       console.log(that.data.CardID)
+  //       that.setData({
+  //         ShowDelCom:0
+  //       })
+  //       if (res.confirm) {
+  //         console.log('用户点击确定')
+  //         console.log("del")
+  //         console.log(that.data.CommentList)
+  //         // console.log("that.data.CommentList", that.data.CommentList)
+  //         // console.log(that.data.content._id);
+  //         console.log("that.data.CommentList[index].Reply[inIndex]",that.data.CommentList[index].Reply[inIndex])
+  //         wx.cloud.callFunction({
+  //           name: 'NewCampusCircle',
+  //           data: {
+  //             url: 'CommentControl',
+  //             type: 'delReply',
+  //             username : that.data.username,
+  //             _id: that.data.content._id,
+  //             index:index,
+  //             delData: that.data.CommentList[index].Reply[inIndex]
+  //           },
+  //           success: res => {
+  //             console.log("success")
+  //             this.data.CommentList[index].Reply.splice(inIndex, 1)
+  //             // 12-27 新增,修改评论状态
+  //             wx.cloud.callFunction({
+  //               name:'CampusCircle',
+  //               data: {
+  //                 type: 'CancelReplyControlLogs',
+  //                 character: character,
+  //                 username : that.data.username,
+  //                 be_character: be_character,
+  //                 be_username: that.data.content.username,
+  //                 content: that.data.CommentList[index].Reply[inIndex].InputReply,
+  //                 createTime: changeStatusTime,
+  //                 arcticle: content,
+  //                 arcticle_id: content._id,
+  //                 _id: that.data.content._id
+  //               }
+  //             }),
+              
+  //             console.log("success")
+  //             that.ShowComment()
+  //             that.setData({
+  //               comEdit: !that.data.comEdit
+  //             })
+  //           },
+  //           fail: err => {
+  //             console.error
+  //             that.setData({
+  //               comEdit: !that.data.comEdit
+  //             })
+  //           },
+  //         })
+  //         console.log();
+          
+  //       } else if (res.cancel) {
+  //         console.log('用户点击取消')
+  //         that.setData({
+  //           ShowDelCom:1
+  //         })
+  //       }
+  //     }
+  //   })
+  //   this.data.inIndex=-1
+  // }
   },
 
   CopyComment: function () {
@@ -435,18 +602,19 @@ Page({
     var Show = []
     let length = this.data.CommentList.length
     var copyList = JSON.parse(JSON.stringify(this.data.CommentList))
+    console.log(this.data.CommentList)
     for (let i = 0; i < this.data.CommentList.length; i++) {
-      if (copyList[i].replyList) {
-        var replylen = copyList[i].replyList.length
+      if (copyList[i].Reply) {
+        var replylen = copyList[i].Reply.length
       }
       var PreTime = this.data.CommentList[i].CommentTime
       console.log("PreTime", PreTime)
       var AftTime = util.timeago(PreTime, 'Y年M月D日')
       for (let j = 0; j < replylen; j++) {
-        var PreTime2 = copyList[i].replyList[j].ReplyTime
-        console.log("PreTime2", PreTime2)
+        console.log("copyList[i].Reply[j].ReplyTime",copyList[i].Reply[j].ReplyTime)
+        var PreTime2 = copyList[i].Reply[j].ReplyTime
         var AftTime2 = util.timeago(PreTime2, 'Y年M月D日')
-        copyList[i].replyList[j].ReplyTime = AftTime2
+        copyList[i].Reply[j].ReplyTime = AftTime2
       }
       // console.log(content);
       Show.push({
@@ -455,9 +623,10 @@ Page({
         iconUser: this.data.CommentList[i].iconUser,
         nickName: this.data.CommentList[i].nickName,
         username:this.data.CommentList[i].username,
-        replyList: copyList[i].replyList
+        Reply: copyList[i].Reply
       })
     }
+    
 
     app.globalData.allList.forEach(e => {
       if(e){
@@ -558,56 +727,64 @@ Page({
   },
   //点赞
   get_Star() {
-    var that = this;
+    
     var Star_User = this.data.content.Star_User
     var openusername = this.data.openusername
-    // 点赞者信息
-    let character = {                            
+
+    let character = {                            // 处理得到点赞者信息
       userName:args.username,
       iconUrl:args.iconUrl,
       nickName:args.nickName
     }
-    // 被点赞者信息
-    let be_character = {                         
-      userName:this.data.content.username,    
+    let be_character = {                         // 被点赞者信息
+      userName:this.data.content.username,       // 学号来查找
       iconUrl:this.data.content.iconUrl,
       nickName:this.data.content.nickName
     }
-    let starTime = new Date().getTime();      
-    // 边界处理
-    Star_User ? '' : Star_User = [];
-    // 标志用户点赞状态    false:未点赞； true:已点赞
-    var Starif = false;
-    // 判断该用户是否已点过赞 - 取消点赞
-    for (var i = 0 ;i < Star_User.length;i++){
+    let starTime = new Date().getTime();          // 点赞时间
+    // 如果想在后台看到具体的时间年月日，请用下面这句
+    // let starTime = util.timeago(new Date().getTime(),'Y年M月D日');
+    if (!Star_User) {
+      Star_User = []
+    }
+    var that = this
+    var Starif = false
+    //判断是不是为点赞过的username
+    for (var i = 0 ;i<Star_User.length;i++){
       if(Star_User[i].username===openusername.username){
         Starif = true
         Star_User.splice(Star_User.indexOf(openusername), 1)
-        this.setData({
-          Starurl: "../../../../images/zan1.png",
-        })
-        wx.cloud.callFunction({
-          name: "CampusCircle",
-          data: {
-            type: "StarControlLogs",
-            Star_User: Star_User,
-            character: character,
-            be_character: be_character,
-            createTime: starTime,
-            arcticle: this.data.content,
-          },
-          success(res) { console.log(res,"调用'取消点赞'云函数成功"); },
-          fail(e) { 
-            wx.showToast({
-              title: '点赞失败',
-              icon: 'none'
-            }) 
-            console.log(e,"点赞失败");
-          }
-        })
+        that.setData({
+        Starurl: "../../../../images/zan1.png",
+      })
+      wx.cloud.callFunction({   // 云函数更改点赞状态
+        name: "CampusCircle",
+        data: {
+          type: "StarControlLogs",
+          username : that.data.username,
+          be_username: that.data.content.username,
+          Time: that.data.content.Time,
+          _id: that.data.content._id,
+          Star: Star_count,
+          Star_User: Star_User,
+          // 上面三条为迎合旧点赞函数
+          character: character,
+          be_character:be_character,
+          createTime:starTime,
+          arcticle:this.data.content,
+          arcticle_id:this.data.content._id
+        },
+        success(res) { console.log(res,"调用'取消点赞'云函数成功"); },
+        fail(e) { 
+          wx.showToast({
+            title: '点赞失败',
+            icon: 'none'
+          }) 
+          console.log(e,"点赞失败");
+        }
+      })
       }
     }
-    // 点赞
     if (!Starif) {
       //push到username
       openusername.Star_time = new Date().getTime()
@@ -619,15 +796,23 @@ Page({
         that.setData({
           Starurl: "../../../../images/zan.png",
         })
+        var Star_count = Star_User.length
         wx.cloud.callFunction({
           name: "CampusCircle",
           data: {
+            username : that.data.username,
+            be_username: that.data.content.username,
             type: "StarControlLogs",
+            Time: that.data.content.Time,
+            Star: Star_count,
             Star_User: Star_User,
+            // 为迎合新云函数
             character: character,
             be_character:be_character,
             createTime:starTime,
             arcticle:this.data.content,
+            arcticle_id:this.data.content._id,
+            _id:this.data.content._id
           },
           success(res) {
             console.log(res)
