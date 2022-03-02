@@ -38,16 +38,38 @@ Component({
     leftH: 0,         // 当前左列表高度
     rightH: 0,        // 当前右列表高度
   },
+  // relations: {
+  //   './components/campusCards': {
+  //     type: 'child', // 关联的目标节点应为子节点
+  //     linked: function(target) {
+  //       // 每次有campusCards被插入时执行，target是该节点实例对象，触发在该节点attached生命周期之后
+  //     },
+  //     linkChanged: function(target) {
+  //       // 每次有campusCards被移动后执行，target是该节点实例对象，触发在该节点moved生命周期之后
+  //     },
+  //     unlinked: function(target) {
+  //       // 每次有campusCards被移除时执行，target是该节点实例对象，触发在该节点detached生命周期之后
+  //     }
+  //   }
+  // },
   lifetimes: {
+    attached() {
+      this.RightLeftSolution(true)
+    },
     ready: function() {
       // console.log(this.properties.list);
-    }
+    },
+
   },
   /**
    * 组件的方法列表
    */
   methods: {
-    
+    setAllList(e) {
+      const allList = e.detail;
+      console.log(allList);
+      this.triggerEvent("setAllList", allList)
+    },
     testFnc(){
       console.log("eeeee");
       this.triggerEvent("testFnc");
@@ -82,18 +104,25 @@ Component({
       let currentTab = this.properties.currentTab;
       let list = this.data.list;
       console.log(list,"丢入瀑布流的数据");
-      let allList = new Array(this.properties.tabitem.length);
+      
       // 为兼容 “我的发布” 页面
       if(currentTab) {
         // 边界条件 - 存在即赋值，不存在即初始化
         if(getApp().globalData.allList) {
           getApp().globalData.allList[currentTab] = list;
         }else {
+          let allList = new Array(this.properties.tabitem.length);
           getApp().globalData.allList = allList
         }
       }
 
       for (let i = 0; i < list.length; i++) {
+        // 兼容点赞/评论
+        this.data.leftList.forEach(e => {
+          if(e._id === list[i]._id) {
+            e.Star_User = list[i].Star_User;
+          }
+        })
         // 边界判断: 如果该数据已存在，则continue
         if (this.data.leftList || this.data.rightList) {
           let leftListID = this.data.leftList.map(item => {
@@ -122,6 +151,7 @@ Component({
           this.data.rightH += list[i].ShowHeight;
         }
       }
+      
       this.setData({
         leftList: this.data.leftList,
         rightList: this.data.rightList,

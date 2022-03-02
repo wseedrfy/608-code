@@ -822,15 +822,20 @@ Page({
           }
         })
     }
-    app.globalData.allList.forEach(e => {
-      if(e){
+    // 更新全局
+    app.globalData.allList.forEach(item => {
+      item.forEach(e => {
         if (e._id === this.data.CardID) {
-          e.Star =  Star_User.length
-          e.Star_User = Star_User
+          e.Star_User = Star_User;
         }
-      }
+      })
     })
-
+    let pages = getCurrentPages();            //获取小程序页面栈
+    let beforePage = pages[pages.length - 2]; //上个页面的实例对象
+    let e = {
+      detail: app.globalData.allList
+    }
+    beforePage.setAllList(e);
   },
   onShow: function () {
     this.ShowComment()
