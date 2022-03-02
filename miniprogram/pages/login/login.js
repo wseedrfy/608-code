@@ -54,6 +54,7 @@ Page({
     var res = (await schoolLoading.field({ //显示哪些字段
       schoolName: true, //默认显示_id，这个隐藏
       url: true,
+      location: true,
     }).get()).data
     res.forEach(e => {
       if (e.schoolName !== '空' | "游客登录") {
