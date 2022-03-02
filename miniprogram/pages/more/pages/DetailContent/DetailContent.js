@@ -546,11 +546,7 @@ Page({
           app.globalData.allList.forEach(item => {
             item.forEach(e => {
               if(e._id === that.data.CardID) {
-                if(e.CommentList) {
-                  e.CommentList = e.CommentList.concat(that.data.CommentList)
-                }else {
-                  e["CommentList"] = that.data.CommentList
-                }
+                e["CommentList"] = that.data.CommentList;
               }
             })
           })

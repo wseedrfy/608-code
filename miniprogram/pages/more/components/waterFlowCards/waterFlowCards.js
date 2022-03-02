@@ -121,8 +121,16 @@ Component({
         this.data.leftList.forEach(e => {
           if(e._id === list[i]._id) {
             e.Star_User = list[i].Star_User;
+            e.CommentList = list[i].CommentList;
           }
         })
+        this.data.rightList.forEach(e => {
+          if(e._id === list[i]._id) {
+            e.Star_User = list[i].Star_User;
+            e.CommentList = list[i].CommentList;
+          }
+        })
+
         // 边界判断: 如果该数据已存在，则continue
         if (this.data.leftList || this.data.rightList) {
           let leftListID = this.data.leftList.map(item => {
