@@ -45,7 +45,11 @@ async function delComment(event, type, content) {
       _id: event._id
     }).update({
       data: {
-        CommentList: _.pull(_.in(event.delData))
+        CommentList: _.pull({
+          CommentTime: _.eq(event.delData.CommentTime),
+          username: _.eq(event.delData.username),
+          iconUser: _.eq(event.delData.iconUser),
+        })
       }
     })
     data = {
@@ -55,20 +59,24 @@ async function delComment(event, type, content) {
 
 }
 
-// async function delReply(event, type, content) {
+async function delReply(event, type, content) {
 
-//   if (event.delData) {
-//     await db.collection('Campus-Circle').where({
-//       _id: event._id
-//     }).update({
-//       data: {
-//         ['CommentList.'+[event.index]+'.Reply']: _.pull(_.in(event.delData))
-//       }
-//     })
-//     data = {
-//       msg: 'success'
-//     }
-//   }
+  if (event.delData) {
+    await db.collection('Campus-Circle').where({
+      _id: event._id
+    }).update({
+      data: {
+        ['CommentList.'+[event.index]+'.Reply']: _.pull({
+          ReplyTime: _.eq(event.delData.ReplyTime),
+          username: _.eq(event.delData.username),
+          iconUser: _.eq(event.delData.iconUser),
+        })
+      }
+    })
+    data = {
+      msg: 'success'
+    }
+  }
 
 // }
 

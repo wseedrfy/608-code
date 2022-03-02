@@ -31,6 +31,8 @@ exports.main = async (event, context) => {
       return await CommentControlLogs(event); // 评论
     case "CancelCommentControlLogs":
       return await CancelCommentControlLogs(event); // 删除评论
+    case "CancelReplyControlLogs":
+      return await CancelCommentControlLogs(event); // 删除评论
     case "ReplyCommentControlLogs":
       return await ReplyCommentControlLogs(event); // 删除评论
     case "ReadControlLogs":
@@ -258,6 +260,26 @@ async function CancelCommentControlLogs(event) {
       }
     }).then((res) => {
       console.log(res, "删除评论成功");
+    })
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+async function CancelReplyControlLogs(event) {
+  try {
+    return await db.collection('New-Information').where({ // 感觉有问题
+      character_username: event.username,
+      be_character_username: event.be_username,
+      arcticle_id: event.arcticle_id,
+      type: '回复'
+    }).update({
+      data: {
+        status: -1,
+        createTime: event.createTime
+      }
+    }).then((res) => {
+      console.log(res, "删除回复成功");
     })
   } catch (e) {
     console.log(e);
