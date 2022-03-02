@@ -111,14 +111,14 @@
         </view>
     </view> -->
 
-    <view class="EditCom" wx:if="{{comEdit==1}}">
+    <!-- <view class="EditCom" wx:if="{{comEdit==1}}">
         <view class="EditCom_background" bindtap="EditComment"></view>
         <view class="EditCom_contain {{edit_style}}" >
           <form  bindsubmit="replySubmit" bindreset="replyReset"  >
             <view class="Send_Commend" >
               <image src="{{iconUrl}}" class="text_user"/>
               <span class="new_Comment_second">
-                <textarea placeholder="来发句评论吧ヾ(≧▽≦*)o" name="InputReply"  value="{{Input}}" auto-height></textarea>
+                <textarea placeholder="说点什么..." name="InputReply"  value="{{Input}}" auto-height></textarea>
               </span>
               <span class="Pre_Send">
                 <button form-type="submit" class="Sending" hover-class="Sending-hover">发送</button>
@@ -126,7 +126,7 @@
             </view>
           </form>
         </view>
-    </view>
+    </view> -->
 
     <!-- <view class="ReplyCom" wx:if="{{comReply}}">
       <view class="ReplyCom_background" bindtap="ReplyComment"></view>

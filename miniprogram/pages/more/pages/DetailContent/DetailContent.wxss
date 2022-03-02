@@ -119,7 +119,7 @@ swiper .wx-swiper-dot {
    width:55rpx;
    height: 55rpx;
    border-radius: 100rpx;
-   margin-left: 19rpx;
+   margin-left: 21rpx
  }
  .reply_user{
   width:45rpx;
@@ -130,11 +130,12 @@ swiper .wx-swiper-dot {
  .old_Comment_second{
    width:630rpx;
    min-height: 56rpx;
-   background-color: rgba(202, 202, 202, 0.322);
+   background-color: rgba(202, 202, 202, 0.164);
    margin-top:2rpx;
    color: rgb(63, 63, 63);
    border-radius: 40rpx;
    margin-left: 20rpx;
+   padding-left: 15rpx;
    display: flex;
    align-items: center;
    justify-content: center;
@@ -147,9 +148,10 @@ swiper .wx-swiper-dot {
  .new_Comment_second{
    width:480rpx;
    min-height: 56rpx;
-   background-color: rgba(202, 202, 202, 0.322);
+   background-color: rgba(202, 202, 202, 0.164);
    margin-top:2rpx;
    color: rgb(63, 63, 63);
+   padding-left: 15rpx;
    border-radius: 40rpx;
    margin-left: 20rpx; 
    display: flex;

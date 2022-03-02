@@ -274,7 +274,7 @@ Page({
       nickName: args.nickName
     }
     console.log("inIndex",inIndex)
-    // if(inIndex===undefined || inIndex===-1){
+    if(inIndex===undefined || inIndex===-1){
     let be_character = {
       iconUrl: content.iconUrl,
       nickName: content.nickName
@@ -349,85 +349,85 @@ Page({
         }
       }
     })
-  // }else{
-  //   console.log("inter")
-  //   let be_character = {
-  //     iconUrl: this.data.CommentList[index].Reply[inIndex].iconUrl,
-  //     nickName: this.data.CommentList[index].Reply[inIndex].nickName
-  //   }
-  //   let InputReply = this.data.CommentList[index].Reply[inIndex].InputReply; 
+  }else{
+    console.log("inter")
+    let be_character = {
+      iconUrl: this.data.CommentList[index].Reply[inIndex].iconUrl,
+      nickName: this.data.CommentList[index].Reply[inIndex].nickName
+    }
+    let InputReply = this.data.CommentList[index].Reply[inIndex].InputReply; 
 
-  //   let changeStatusTime = new Date().getTime();
-  //   wx.showModal({
-  //     title: '提示',
-  //     content: '确定删除?',
-  //     success(res) {
-  //       console.log(that.data.CardID)
-  //       that.setData({
-  //         ShowDelCom:0
-  //       })
-  //       if (res.confirm) {
-  //         console.log('用户点击确定')
-  //         console.log("del")
-  //         console.log(that.data.CommentList)
-  //         // console.log("that.data.CommentList", that.data.CommentList)
-  //         // console.log(that.data.content._id);
-  //         console.log("that.data.CommentList[index].Reply[inIndex]",that.data.CommentList[index].Reply[inIndex])
-  //         wx.cloud.callFunction({
-  //           name: 'NewCampusCircle',
-  //           data: {
-  //             url: 'CommentControl',
-  //             type: 'delReply',
-  //             username : that.data.username,
-  //             _id: that.data.content._id,
-  //             index:index,
-  //             delData: that.data.CommentList[index].Reply[inIndex]
-  //           },
-  //           success: res => {
-  //             console.log("success")
-  //             this.data.CommentList[index].Reply.splice(inIndex, 1)
-  //             // 12-27 新增,修改评论状态
-  //             wx.cloud.callFunction({
-  //               name:'CampusCircle',
-  //               data: {
-  //                 type: 'CancelReplyControlLogs',
-  //                 character: character,
-  //                 username : that.data.username,
-  //                 be_character: be_character,
-  //                 be_username: that.data.content.username,
-  //                 content: that.data.CommentList[index].Reply[inIndex].InputReply,
-  //                 createTime: changeStatusTime,
-  //                 arcticle: content,
-  //                 arcticle_id: content._id,
-  //                 _id: that.data.content._id
-  //               }
-  //             }),
+    let changeStatusTime = new Date().getTime();
+    wx.showModal({
+      title: '提示',
+      content: '确定删除?',
+      success(res) {
+        console.log(that.data.CardID)
+        that.setData({
+          ShowDelCom:0
+        })
+        if (res.confirm) {
+          console.log('用户点击确定')
+          console.log("del")
+          console.log(that.data.CommentList)
+          // console.log("that.data.CommentList", that.data.CommentList)
+          // console.log(that.data.content._id);
+          console.log("that.data.CommentList[index].Reply[inIndex]",that.data.CommentList[index].Reply[inIndex])
+          wx.cloud.callFunction({
+            name: 'NewCampusCircle',
+            data: {
+              url: 'CommentControl',
+              type: 'delReply',
+              username : that.data.username,
+              _id: that.data.content._id,
+              index:index,
+              DelData: that.data.CommentList[index].Reply[inIndex]
+            },
+            success: res => {
+              console.log("success")
+              this.data.CommentList[index].Reply.splice(inIndex, 1)
+              // 12-27 新增,修改评论状态
+              wx.cloud.callFunction({
+                name:'CampusCircle',
+                data: {
+                  type: 'CancelReplyControlLogs',
+                  character: character,
+                  username : that.data.username,
+                  be_character: be_character,
+                  be_username: that.data.content.username,
+                  content: that.data.CommentList[index].Reply[inIndex].InputReply,
+                  createTime: changeStatusTime,
+                  arcticle: content,
+                  arcticle_id: content._id,
+                  _id: that.data.content._id
+                }
+              }),
               
-  //             console.log("success")
-  //             that.ShowComment()
-  //             that.setData({
-  //               comEdit: !that.data.comEdit
-  //             })
-  //           },
-  //           fail: err => {
-  //             console.error
-  //             that.setData({
-  //               comEdit: !that.data.comEdit
-  //             })
-  //           },
-  //         })
-  //         console.log();
+              console.log("success")
+              that.ShowComment()
+              that.setData({
+                comEdit: !that.data.comEdit
+              })
+            },
+            fail: err => {
+              console.error
+              that.setData({
+                comEdit: !that.data.comEdit
+              })
+            },
+          })
+          console.log();
           
-  //       } else if (res.cancel) {
-  //         console.log('用户点击取消')
-  //         that.setData({
-  //           ShowDelCom:1
-  //         })
-  //       }
-  //     }
-  //   })
-  //   this.data.inIndex=-1
-  // }
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+          that.setData({
+            ShowDelCom:1
+          })
+        }
+      }
+    })
+    this.data.inIndex=-1
+  }
   },
 
   CopyComment: function () {
@@ -617,27 +617,30 @@ Page({
     var copyList = JSON.parse(JSON.stringify(this.data.CommentList))
     console.log(this.data.CommentList)
     for (let i = 0; i < this.data.CommentList.length; i++) {
-      if (copyList[i].Reply) {
-        var replylen = copyList[i].Reply.length
+      if(this.data.CommentList[i]!=null){
+        var PreTime = this.data.CommentList[i].CommentTime
+        console.log("PreTime", PreTime)
+        var AftTime = util.timeago(PreTime, 'Y年M月D日')
+        if (copyList[i].Reply!=null ) {
+          var replylen = copyList[i].Reply.length
+          for (let j = 0; j < replylen; j++) {
+            console.log("copyList[i].Reply[j].ReplyTime",copyList[i].Reply[j].ReplyTime)
+            var PreTime2 = copyList[i].Reply[j].ReplyTime
+            var AftTime2 = util.timeago(PreTime2, 'Y年M月D日')
+            copyList[i].Reply[j].ReplyTime = AftTime2
+          }
+
+        }
+        // console.log(content);
+        Show.push({
+          InputContent: this.data.CommentList[i].InputComment,
+          InputTime: AftTime,
+          iconUser: this.data.CommentList[i].iconUser,
+          nickName: this.data.CommentList[i].nickName,
+          username:this.data.CommentList[i].username,
+          Reply: copyList[i].Reply
+        })
       }
-      var PreTime = this.data.CommentList[i].CommentTime
-      console.log("PreTime", PreTime)
-      var AftTime = util.timeago(PreTime, 'Y年M月D日')
-      for (let j = 0; j < replylen; j++) {
-        console.log("copyList[i].Reply[j].ReplyTime",copyList[i].Reply[j].ReplyTime)
-        var PreTime2 = copyList[i].Reply[j].ReplyTime
-        var AftTime2 = util.timeago(PreTime2, 'Y年M月D日')
-        copyList[i].Reply[j].ReplyTime = AftTime2
-      }
-      // console.log(content);
-      Show.push({
-        InputContent: this.data.CommentList[i].InputComment,
-        InputTime: AftTime,
-        iconUser: this.data.CommentList[i].iconUser,
-        nickName: this.data.CommentList[i].nickName,
-        username:this.data.CommentList[i].username,
-        Reply: copyList[i].Reply
-      })
     }
     
 
