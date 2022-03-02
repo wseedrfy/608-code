@@ -75,6 +75,7 @@
         // 	wx.setStorageSync('personalInformation', args.otherData)
         // }
         that.onShow = function () {
+            args = wx.getStorageSync('args')
             wx.reportEvent("school", {
                 school:"茂名市职业技术学院"
             })

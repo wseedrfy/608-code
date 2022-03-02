@@ -63,6 +63,7 @@ function runCode(that) {
     "timeYear": args.StartTime
   }))
   that.onShow = function () {
+    args = wx.getStorageSync('args')
     wx.reportEvent("school_gy", {
       school: "广东石油化工学院"
     })
