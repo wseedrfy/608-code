@@ -1,0 +1,13 @@
+[
+  {
+    "name": "登录模板",
+    "value": {
+      "openid": 1,
+      "username": "WeCampus",
+      "password": "WeCampusHost",
+      "school": "茂名职业技术学院",
+      "iconUrl": "1",
+      "nickName": "1"
+    }
+  }
+]

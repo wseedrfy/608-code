@@ -125,6 +125,7 @@ Page({
                 // "lose_detail":this.data.lose_detail
             }
             console.log(add)
+            console.log( app.globalData.allList[0])
             console.log("1111111111111111111111")
             app.globalData.allList.push(add);       // 将数据渲染进allList  - 成功
             
