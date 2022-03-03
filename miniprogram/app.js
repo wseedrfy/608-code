@@ -133,6 +133,26 @@ App({
     Comment: [],
     Starif: false
     // func: {}
+  },
+
+  getSystemData (attr) {
+    return new Promise((resolve, reject) => {
+      wx.getSystemInfo({
+        success: (res) => {
+          resolve(res[attr])
+        }
+      })
+    })
+  },
+   
+  queryNodes (id, attr) {
+    return new Promise((resolve, reject) => {
+      let query = wx.createSelectorQuery()
+      query.select(id).boundingClientRect()
+      query.exec((res) => {
+        resolve(res[0][attr])
+      })
+    })
   }
 })
 //app.json校友圈
