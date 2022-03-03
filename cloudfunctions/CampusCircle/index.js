@@ -52,7 +52,8 @@ async function addRecord(event, type, content){
       status: 0,
       createTime: event.createTime,
       arcticle: event.arcticle,
-      arcticle_id: event.arcticle._id
+      arcticle_id: event.arcticle._id,
+      content: content                    // 点赞是空，回复和评论都要用这个
     },
   })
 
@@ -176,7 +177,11 @@ async function readUser(event) {
 
 async function delCard(event) {
   try {
-    return await db.collection('Campus-Circle').doc(event._id).remove()
+    await db.collection('Campus-Circle').doc(event._id).remove();
+    // 兼容新消息提醒
+    return await db.collection('New-Information').where({
+      arcticle_id: event._id
+    }).remove()
   } catch (e) {
     console.log(e)
   }
@@ -249,8 +254,8 @@ async function CommentControlLogs(event) {
 async function CancelCommentControlLogs(event) {
   try {
     return await db.collection('New-Information').where({ // 感觉有问题
-      character_username: event.username,
-      be_character_username: event.be_username,
+      'character.userName': event.username,
+      'be_character.userName': event.be_username,
       arcticle_id: event.arcticle_id,
       type: '评论'
     }).update({
@@ -269,8 +274,8 @@ async function CancelCommentControlLogs(event) {
 async function CancelReplyControlLogs(event) {
   try {
     return await db.collection('New-Information').where({ // 感觉有问题
-      character_username: event.username,
-      be_character_username: event.be_username,
+      'character.userName': event.username,
+      'be_character.userName': event.be_username,
       arcticle_id: event.arcticle_id,
       type: '回复'
     }).update({

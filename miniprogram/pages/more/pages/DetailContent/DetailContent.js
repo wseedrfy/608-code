@@ -572,6 +572,7 @@ Page({
               }
             })
           })
+          // 内外部渲染一致
           let pages = getCurrentPages(); //获取小程序页面栈
           let beforePage = pages[pages.length - 2]; //上个页面的实例对象
           let e = {
@@ -605,7 +606,6 @@ Page({
       }
       // 评论时间 
       let commentTime = new Date().getTime();
-
       // 云函数增加一条评论记录
       console.log("e.detail.value.InputComment", e.detail.value.InputComment)
       wx.cloud.callFunction({
@@ -614,8 +614,6 @@ Page({
           type: "CommentControlLogs",
           character: character,
           be_character: be_character,
-          username: that.data.username,
-          be_username: that.data.content.username,
           content: e.detail.value.InputComment,
           createTime: commentTime,
           arcticle: this.data.content,

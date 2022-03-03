@@ -11,8 +11,15 @@
    height: 100rpx;
    /* background-color: yellow; */
 }
-.body {
+.demo .text {
    width: 500rpx;
+}
+.body {
+   max-height: 60rpx;
+   width: 430rpx;
+   overflow:hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
    /* line-height: 40rpx; */
 }
 .demo image {
