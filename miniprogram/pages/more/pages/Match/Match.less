@@ -1,0 +1,222 @@
+page {
+    background-color: #f6f6f6;
+}
+
+.wrap {
+    font-size: 32rpx;
+    padding  : 24rpx;
+
+    .match_caption {
+        text-align : center;
+        color      : #63A1A0;
+        font-weight: 700;
+    }
+
+    .match_list_wrap {
+        .dan_wrap {
+            padding-top: 12rpx;
+
+            .match_title {}
+
+            .chang_item {
+                .weui_cell {
+                    display       : flex;
+                    flex-direction: row;
+                    padding-top   : 8rpx;
+
+                    .weui_cell__hd {
+                        zoom       : .6;
+                        padding-top: 8rpx;
+                    }
+
+                    .weui_cell__bd {
+                        padding-left: 8rpx;
+                    }
+                }
+            }
+        }
+
+        .tian_wrap {
+            padding-top: 12rpx;
+
+            .tian_title {}
+
+            .handle {
+                background-color: #8181813f;
+                height          : 120rpx;
+                margin-top      : 12rpx;
+                border-radius   : 12rpx;
+                padding         : 8rpx;
+            }
+        }
+
+    }
+
+    .submit {
+        background-color: #63A1A0;
+        font-size       : 32rpx;
+        margin-top      : 24rpx;
+        border-radius   : 28rpx;
+        color           : white;
+    }
+}
+
+.match_wrap {
+    display         : flex;
+    padding         : 24rpx;
+    margin          : 24rpx;
+    font-size       : 32rpx;
+    border-radius   : 24rpx;
+    flex-direction  : column;
+    background-color: white;
+
+    .match_caption {
+        text-align : center;
+        color      : #63A1A0;
+        font-weight: 700;
+    }
+
+    .match_list_wrap {
+        padding-top: 12rpx;
+
+        .list {
+            display       : flex;
+            flex-direction: row;
+            padding-top   : 12rpx;
+
+            .title {
+                flex: 1;
+            }
+
+            .content {
+                flex            : 3;
+                background-color: rgb(240, 240, 240);
+                padding         : 6rpx;
+                padding-left    : 12rpx;
+                border-radius   : 12rpx;
+            }
+        }
+    }
+}
+
+// 比赛信息
+.rule_wrap {
+    display         : flex;
+    padding         : 24rpx;
+    margin          : 24rpx;
+    font-size       : 32rpx;
+    border-radius   : 24rpx;
+    flex-direction  : column;
+    background-color: white;
+
+    .rule_caption {
+        text-align : center;
+        color      : #63A1A0;
+        font-weight: 700;
+    }
+
+    .rule_list_wrap {
+        padding-top: 12rpx;
+
+        .rule_list {
+            display       : flex;
+            flex-direction: row;
+            padding-top   : 12rpx;
+
+            .rule_title {
+                flex: 1;
+            }
+
+            .rule_detail {
+                flex            : 3;
+                background-color: rgb(240, 240, 240);
+                padding         : 6rpx;
+                padding-left    : 12rpx;
+                border-radius   : 12rpx;
+            }
+        }
+    }
+}
+
+.bt_wrap {
+    display         : flex;
+    margin          : 24rpx;
+    font-size       : 32rpx;
+    justify-content : center;
+    background-color: #63A1A0;
+    margin-right    : 20%;
+    margin-left     : 20%;
+    border-radius   : 24rpx;
+    padding         : 8rpx;
+
+    .bt {
+        color: white;
+    }
+}
+
+// 弹窗
+.commodity_screen {
+    width     : 100%;
+    height    : 100%;
+    position  : fixed;
+    top       : 0;
+    left      : 0;
+    background: #000;
+    opacity   : 0.2;
+    overflow  : hidden;
+    z-index   : 1000;
+    color     : #fff;
+}
+
+/*对话框 */
+.commodity_attr_box {
+    // height: 300rpx;
+    width        : 100%;
+    overflow     : hidden;
+    position     : fixed;
+    bottom       : 0;
+    left         : 0;
+    z-index      : 2000;
+    background   : #fff;
+    padding-top  : 20rpx;
+    font-size    : 32rpx;
+    border-radius: 24rpx;
+
+    .sing_title {
+        text-align : center;
+        padding    : 12rpx;
+        color      : #63A1A0;
+        font-weight: 700;
+    }
+
+    .input_wrap {
+        display       : flex;
+        flex-direction: column;
+        padding-left  : 24rpx;
+        padding-top   : 8rpx;
+
+        .input_title {
+            padding-left: 12rpx;
+        }
+
+        .input_content {
+            background-color: #f6f6f6;
+            padding-left    : 12rpx;
+            border-radius   : 12rpx;
+        }
+    }
+
+    .tip_wrap {
+        font-size: 24rpx;
+        color    : #63A1A0;
+        padding  : 24rpx;
+    }
+
+    .bt {
+        background-color: #63A1A0;
+        color           : white;
+        font-size       : 32rpx;
+        margin-bottom   : 24rpx;
+        border-radius   : 28rpx;
+    }
+}

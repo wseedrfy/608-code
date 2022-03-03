@@ -50,7 +50,7 @@
             <view class="data_tip">我的数据看板</view>
         </view>
         <view class="bt_list_wrap">
-            <view class="act_bt" wx:for="{{data_list}}" bind:tap="{{item.tap}}">
+            <view class="act_bt" wx:for="{{data_list}}" bind:tap="{{item.tap}}" wx:key="item">
                 <image src="{{item.img}}" />
                 <view class="tip_content">{{item.name}}</view>
             </view>
