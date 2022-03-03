@@ -280,177 +280,183 @@ Page({
           console.log(e, "回复评论失败");
         }
       })
+      setTimeout(() => {
+        this.setData({
+          comReply: !this.data.comReply,
+        })
+      }, 200);
+      
     }
     this.data.inIndex = -1
   },
   //删除评论
   DelComment: function () {
     var index = this.data.Commentindex
-    var inIndex = this.data.inIndex
+    var inIndex=this.data.inIndex
     var that = this
-    const content = this.data.content;
+    const content = that.data.content;
+    const RCom=that.data.CommentList[index].Reply[inIndex]
     let character = {
       userName: args.username,
       iconUrl: args.iconUrl,
       nickName: args.nickName
     }
-    console.log("inIndex", inIndex)
-    if (inIndex === undefined || inIndex === -1) {
-      let be_character = {
-        iconUrl: content.iconUrl,
-        nickName: content.nickName
-      }
-      let InputComment = this.data.CommentList[index].InputComment;
-
-      let changeStatusTime = new Date().getTime();
-      wx.showModal({
-        title: '提示',
-        content: '确定删除?',
-        success(res) {
-          console.log(that.data.CardID)
-          that.setData({
-            ShowDelCom: 0
-          })
-          if (res.confirm) {
-            console.log('用户点击确定')
-
-            console.log(that.data.CommentList)
-            console.log("that.data.CommentList[index]", that.data.CommentList[index])
-            // console.log("that.data.CommentList", that.data.CommentList)
-            // console.log(that.data.content._id);
-            wx.cloud.callFunction({
-              name: 'NewCampusCircle',
-              data: {
-                url: 'CommentControl',
-                type: 'delComment',
-                username: that.data.username,
-                _id: that.data.content._id,
-                delData: that.data.CommentList[index]
-              },
-              success: res => {
-                console.log("successDel")
-                that.data.CommentList.splice(index, 1)
-                // 12-27 新增,修改评论状态
-                wx.cloud.callFunction({
-                    name: 'CampusCircle',
-                    data: {
-                      type: 'CancelCommentControlLogs',
-                      character: character,
-                      username: that.data.username,
-                      be_character: be_character,
-                      be_username: that.data.content.username,
-                      content: InputComment,
-                      createTime: changeStatusTime,
-                      arcticle: content,
-                      arcticle_id: content._id,
-                      _id: that.data.content._id
-                    }
-                  }),
-
-                  console.log("success")
-                that.ShowComment()
-                that.setData({
-                  comEdit: !that.data.comEdit
-                })
-              },
-              fail: err => {
-                console.error
-                that.setData({
-                  comEdit: !that.data.comEdit
-                })
-              },
-            })
-            console.log();
-
-          } else if (res.cancel) {
-            console.log('用户点击取消')
-            that.setData({
-              ShowDelCom: 1
-            })
-          }
-        }
-      })
-    } else {
-      console.log("inter")
-      let be_character = {
-        iconUrl: this.data.CommentList[index].Reply[inIndex].iconUrl,
-        nickName: this.data.CommentList[index].Reply[inIndex].nickName
-      }
-      let InputReply = this.data.CommentList[index].Reply[inIndex].InputReply;
-
-      let changeStatusTime = new Date().getTime();
-      wx.showModal({
-        title: '提示',
-        content: '确定删除?',
-        success(res) {
-          console.log(that.data.CardID)
-          that.setData({
-            ShowDelCom: 0
-          })
-          if (res.confirm) {
-            console.log('用户点击确定')
-            console.log("del")
-            console.log(that.data.CommentList)
-            // console.log("that.data.CommentList", that.data.CommentList)
-            // console.log(that.data.content._id);
-            console.log("that.data.CommentList[index].Reply[inIndex]", that.data.CommentList[index].Reply[inIndex])
-            wx.cloud.callFunction({
-              name: 'NewCampusCircle',
-              data: {
-                url: 'CommentControl',
-                type: 'delReply',
-                username: that.data.username,
-                _id: that.data.content._id,
-                index: index,
-                DelData: that.data.CommentList[index].Reply[inIndex]
-              },
-              success: res => {
-                console.log("success")
-                this.data.CommentList[index].Reply.splice(inIndex, 1)
-                // 12-27 新增,修改评论状态
-                wx.cloud.callFunction({
-                    name: 'CampusCircle',
-                    data: {
-                      type: 'CancelReplyControlLogs',
-                      character: character,
-                      username: that.data.username,
-                      be_character: be_character,
-                      be_username: that.data.content.username,
-                      content: that.data.CommentList[index].Reply[inIndex].InputReply,
-                      createTime: changeStatusTime,
-                      arcticle: content,
-                      arcticle_id: content._id,
-                      _id: that.data.content._id
-                    }
-                  }),
-
-                  console.log("success")
-                that.ShowComment()
-                that.setData({
-                  comEdit: !that.data.comEdit
-                })
-              },
-              fail: err => {
-                console.error
-                that.setData({
-                  comEdit: !that.data.comEdit
-                })
-              },
-            })
-            console.log();
-
-          } else if (res.cancel) {
-            console.log('用户点击取消')
-            that.setData({
-              ShowDelCom: 1
-            })
-          }
-        }
-      })
-      this.data.inIndex = -1
+    console.log("inIndex",inIndex)
+    if(inIndex===undefined || inIndex===-1){
+    let be_character = {
+      iconUrl: content.iconUrl,
+      nickName: content.nickName
     }
-  },
+    let InputComment = that.data.CommentList[index].InputComment; 
 
+    let changeStatusTime = new Date().getTime();
+    wx.showModal({
+      title: '提示',
+      content: '确定删除?',
+      success(res) {
+        console.log(that.data.CardID)
+        that.setData({
+          ShowDelCom:0
+        })
+        if (res.confirm) {
+          console.log('用户点击确定')
+     
+          console.log(that.data.CommentList)
+          console.log("that.data.CommentList[index]",that.data.CommentList[index])
+          // console.log("that.data.CommentList", that.data.CommentList)
+          // console.log(that.data.content._id);
+          wx.cloud.callFunction({
+            name: 'NewCampusCircle',
+            data: {
+              url: 'CommentControl',
+              type: 'delComment',
+              username : that.data.username,
+              _id: that.data.content._id,
+              delData: that.data.CommentList[index]
+            },
+            success: res => {
+              console.log("successDel")
+              that.data.CommentList.splice(index, 1)
+              // 12-27 新增,修改评论状态
+              wx.cloud.callFunction({
+                name:'CampusCircle',
+                data: {
+                  type: 'CancelCommentControlLogs',
+                  character: character,
+                  username : that.data.username,
+                  be_character: be_character,
+                  be_username: that.data.content.username,
+                  content: InputComment,
+                  createTime: changeStatusTime,
+                  arcticle: content,
+                  arcticle_id: content._id,
+                  _id: that.data.content._id
+                }
+              }),
+              
+              console.log("success")
+              that.ShowComment()
+              that.setData({
+                comEdit: !that.data.comEdit
+              })
+            },
+            fail: err => {
+              console.error
+              that.setData({
+                comEdit: !that.data.comEdit
+              })
+            },
+          })
+          console.log();
+          
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+          that.setData({
+            ShowDelCom:1
+          })
+        }
+      }
+    })
+  }else{
+    console.log("inter")
+    var be_character = {
+      iconUrl: RCom.iconUser,
+      nickName: RCom.nickName
+    }
+    console.log("be_character",be_character)
+    var InputReply = that.data.CommentList[index].Reply[inIndex].InputReply; 
+    var changeStatusTime = new Date().getTime();
+    wx.showModal({
+      title: '提示',
+      content: '确定删除?',
+      success(res) {
+        console.log(that.data.CardID)
+        that.setData({
+          ShowDelCom:0
+        })
+        if (res.confirm) {
+          console.log('用户点击确定')
+          console.log("del")
+          console.log(that.data.CommentList)
+          // console.log("that.data.CommentList", that.data.CommentList)
+          // console.log(that.data.content._id);
+          console.log("that.data.CommentList[index].Reply[inIndex]",that.data.CommentList[index].Reply[inIndex])
+          console.log("index",index)
+          wx.cloud.callFunction({
+            name: 'NewCampusCircle',
+            data: {
+              url: 'CommentControl',
+              type: 'delReply',
+              username : that.data.username,
+              _id: that.data.content._id,
+              index:index,
+              delData: that.data.CommentList[index].Reply[inIndex]
+            },
+            success: res => {
+              that.data.CommentList[index].Reply.splice(inIndex, 1)
+              // 12-27 新增,修改评论状态
+              wx.cloud.callFunction({
+                name:'CampusCircle',
+                data: {
+                  type: 'CancelReplyControlLogs',
+                  character: character,
+                  username : that.data.username,
+                  be_character: be_character,
+                  be_username: that.data.content.username,
+                  content: InputReply,
+                  createTime: changeStatusTime,
+                  arcticle: content,
+                  arcticle_id: content._id,
+                  _id: that.data.content._id
+                }
+              }),
+              
+              console.log("success")
+              that.ShowComment()
+              that.setData({
+                comEdit: !that.data.comEdit
+              })
+            },
+            fail: err => {
+              console.error
+              that.setData({
+                comEdit: !that.data.comEdit
+              })
+            },
+          })
+          console.log();
+          
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+          that.setData({
+            ShowDelCom:1
+          })
+        }
+      }
+    })
+    this.data.inIndex=-1
+  }
+  },
   CopyComment: function () {
     wx.setClipboardData({
       //准备复制的数据
@@ -572,6 +578,7 @@ Page({
               }
             })
           })
+          // 内外部渲染一致
           let pages = getCurrentPages(); //获取小程序页面栈
           let beforePage = pages[pages.length - 2]; //上个页面的实例对象
           let e = {
@@ -605,7 +612,6 @@ Page({
       }
       // 评论时间 
       let commentTime = new Date().getTime();
-
       // 云函数增加一条评论记录
       console.log("e.detail.value.InputComment", e.detail.value.InputComment)
       wx.cloud.callFunction({
@@ -614,8 +620,6 @@ Page({
           type: "CommentControlLogs",
           character: character,
           be_character: be_character,
-          username: that.data.username,
-          be_username: that.data.content.username,
           content: e.detail.value.InputComment,
           createTime: commentTime,
           arcticle: this.data.content,

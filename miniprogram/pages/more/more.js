@@ -92,7 +92,7 @@ Page({
   getNewInfo() {
     var that = this;
     wx.cloud.database().collection('New-Information').where({
-      'be_character.username': args.username,
+      'be_character.userName': args.username,
       status: 0 //-------------------三种状态：“0”：用户还没看消息列表；“1”：用户已经看到了消息列表；“-1”：取消点赞和评论
     }).count().then(res => {
       // console.log("res.total", res.total) 

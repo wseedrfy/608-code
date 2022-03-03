@@ -196,6 +196,13 @@ swiper .wx-swiper-dot {
    position: relative;
    top: 35rpx;
  }
+ .ReplyCom_contain .Send_Commend_Reply {
+  width: 95%;
+  display: flex;
+  padding: 13rpx 0;
+  flex-direction: row;
+  justify-content: space-between;
+}
  .text_username{
    color: rgba(94, 94, 94, 0.541);
    font-size: 24rpx;
@@ -444,13 +451,13 @@ swiper .wx-swiper-dot {
   left: 32rpx;
  }
  .fatherComment{
-    height: 110rpx;
+    min-height: 110rpx;
  }
  .showReply{
   position: relative;
   left: 50rpx;
   bottom: 20rpx;
-  height: 90rpx;
+  min-height: 90rpx;
  }
  .reply_Content{
   width: 85%;
@@ -522,6 +529,14 @@ swiper .wx-swiper-dot {
   .Sending {
     color: #fff;
     filter: invert(100%) !important;
+  }
+  .EditCom_contain {
+    filter: invert(0) !important;
+  }
+  .EditCom_contain .ReplyComment,
+  .EditCom_contain .CopyComment,
+  .EditCom_contain .DelComment {
+    filter: invert(1) !important;
   }
 }
  

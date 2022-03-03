@@ -13,13 +13,15 @@
             <view class="body" >
                <!-- 点赞 -->
                <image class="zan" src="../../../../images/love.png" wx:if="{{item.type == '点赞'}}"></image>
-               <!-- 回复内容 -->
+               <!-- 评论内容 -->
                <text class="comment" wx:if="{{item.type == '评论'}}"><text class="zzz">"</text>{{item.content}}<text class="zzz">"</text></text>
+               <!-- 回复内容 -->
+               <text class="comment" wx:if="{{item.type == '回复'}}"><text class="zzz">"</text>{{item.content}}<text class="zzz">"</text></text>
             </view>
             <view class="time">{{item.createTime}}</view>
          </view>
          <image class="picture" src="{{item.arcticle.AllPhoto[0]}}" mode="aspectFill"></image>
       </view>
    </block>
-   <view class="DataNull">-无更多内容-</view>
+   <view class="DataNull" wx:if="{{loadAll}}">-无更多内容-</view>
 </view>

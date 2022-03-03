@@ -98,7 +98,7 @@
         <view class="ReplyCom_background" bindtap="ReplyComment"></view>
         <view class="ReplyCom_contain {{reply_style}}" >
           <form  bindsubmit="replySubmit" bindreset="replyReset"  >
-            <view class="Send_Commend" >
+            <view class="Send_Commend_Reply" >
               <image src="{{iconUrl}}" class="text_user"/>
               <span class="new_Comment_second">
                 <textarea placeholder="说点什么..." name="InputReply"  value="{{Input}}" auto-height></textarea>
