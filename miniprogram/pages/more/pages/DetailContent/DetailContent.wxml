@@ -94,10 +94,10 @@
     </view>
 
 
-    <view class="ReplyCom" wx:if="{{comReply}}">
+    <view class="ReplyCom" wx:if="{{comReply}}" >
         <view class="ReplyCom_background" bindtap="ReplyComment"></view>
-        <view class="ReplyCom_contain {{reply_style}}" >
-          <form  bindsubmit="replySubmit" bindreset="replyReset"  >
+        <view class="ReplyCom_contain {{reply_style}}">
+          <!-- <form  bindsubmit="replySubmit" bindreset="replyReset"  >
             <view class="Send_Commend_Reply" >
               <image src="{{iconUrl}}" class="text_user"/>
               <span class="new_Comment_second">
@@ -107,39 +107,17 @@
                 <button form-type="submit" class="Sending" hover-class="Sending-hover">发送</button>
               </span>
             </view>
-          </form>
+          </form> -->
+        
+          <view class="good-main">
+    <!-- 评论框 -->
+            <view id="ctInput"  class="ct-input"  style="top: {{ ctInput_top }}px;">
+              <input type='text' placeholder='说点什么... o(≧v≦)o' focus='true' value="" maxlength="-1" auto-height bindfocus="ctFocus" bindlinechange="ctLineChange" bindinput="" bindconfirm="replySubmit" show-confirm-bar="{{ false }}" adjust-position="{{ false }}"/>
+            </view>
+          </view>
+
+          <!-- <input type='text' placeholder='说点什么吧…' focus='true' maxlength="-1" auto-height bindfocus="ctFocus" bindlinechange="ctLineChange" bindinput="" bindconfirm="" show-confirm-bar="{{ false }}" adjust-position="{{ false }}"/> -->
+
         </view>
     </view>
-
-    <!-- <view class="EditCom" wx:if="{{comEdit==1}}">
-        <view class="EditCom_background" bindtap="EditComment"></view>
-        <view class="EditCom_contain {{edit_style}}" >
-          <form  bindsubmit="replySubmit" bindreset="replyReset"  >
-            <view class="Send_Commend" >
-              <image src="{{iconUrl}}" class="text_user"/>
-              <span class="new_Comment_second">
-                <textarea placeholder="说点什么..." name="InputReply"  value="{{Input}}" auto-height></textarea>
-              </span>
-              <span class="Pre_Send">
-                <button form-type="submit" class="Sending" hover-class="Sending-hover">发送</button>
-              </span>
-            </view>
-          </form>
-        </view>
-    </view> -->
-
-    <!-- <view class="ReplyCom" wx:if="{{comReply}}">
-      <view class="ReplyCom_background" bindtap="ReplyComment"></view>
-        <view class="ReplyCom_contain {{reply_style}}" >
-          <view class="replycheck" catchtap="replycheck">
-            <span class="{{ReplyChecked?'old_ReplyCom_input':'new_ReplyCom_input'}}">
-              <textarea placeholder="@{{CommentName}} :" model:value="{{ReplyCom_input}}" auto-height auto-focus></textarea>
-            </span>
-            <span wx:if="{{!ReplyChecked}}" class="Reply_Send">
-              <button catchtap="Reply_submit" class="Reply_Sending" hover-class="Reply_Sending-hover">发送</button>
-            </span>
-          </view>
-        </view>
-    </view> -->
-    
 </view>

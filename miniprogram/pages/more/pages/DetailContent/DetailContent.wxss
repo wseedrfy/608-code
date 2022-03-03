@@ -459,8 +459,88 @@ swiper .wx-swiper-dot {
   bottom: 20rpx;
   min-height: 90rpx;
  }
+ .ct-input {
+  position: fixed;
+  top: -110rpx;
+  right: 0rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: top;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20rpx 15rpx;
+  background: #F8F8F8;
+  z-index: 1000;
+}
+ 
+.ct-input input {
+  background-color: #dadada42;
+  height: 65rpx;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0rpx 30rpx;
+  border-radius: 20rpx;
+  flex: 1;
+  font-size: 28rpx;
+}
+ 
+.ct-input image {
+  margin-left: 40rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.tab-bottom {
+  position: fixed;
+  padding: 0 34rpx 0 70rpx;
+  box-sizing: border-box;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 124rpx;
+  background: #fff;
+}
+ 
+.tab-bottom .tb-buy {
+  min-width: 210rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 28rpx;
+  color: #FFFFFF;
+  text-align: center;
+  background: #21326A;
+  border-radius: 8rpx;
+}
+ 
+.tab-bottom .tb-left {
+  margin-right: 80rpx;
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+}
+ 
+.tb-item {
+  font-size: 0;
+  text-align: center;
+}
+ 
+.tb-item image {
+  margin-bottom: 16rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+ 
+.tb-item view {
+  font-size: 20rpx;
+  color: #050505;
+}
+
  .reply_Content{
-  width: 85%;
+  width: 80%;
   color:rgb(54, 54, 54);
   display: -webkit-box;
   overflow: hidden;
@@ -471,6 +551,7 @@ swiper .wx-swiper-dot {
  .replied{
   color: rgba(94, 94, 94, 0.541);
 }
+
 .reply_show{
   animation: reply_show .5s;
 }
@@ -511,6 +592,15 @@ swiper .wx-swiper-dot {
     color: #fff;
     filter: invert(100%) !important;
   }
+  .EditCom_Title{
+    filter: invert(100%) !important;
+    color: white;
+    
+  }
+  .ct-input input{
+    color: #fff;
+    background-color: rgba(39, 39, 39, 0.123);
+  }
   .content_LabelBox {
     filter: invert(100%) !important;
   }
@@ -533,10 +623,12 @@ swiper .wx-swiper-dot {
   .EditCom_contain {
     filter: invert(0) !important;
   }
+  .EditCom_contain .EditCom_Title,
   .EditCom_contain .ReplyComment,
   .EditCom_contain .CopyComment,
   .EditCom_contain .DelComment {
     filter: invert(1) !important;
+    background-color: rgba(29, 29, 29, 0.267);
   }
 }
  

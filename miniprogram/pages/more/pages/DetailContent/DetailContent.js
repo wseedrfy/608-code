@@ -1,3 +1,4 @@
+// const { isGeneratorFunction } = require("util/types")
 var util = require("../../../../utils/util.js")
 var app = getApp()
 const args = wx.getStorageSync('args')
@@ -24,7 +25,8 @@ Page({
     Starurl: "../../../../images/zan1.png",
     Star_count: 0,
     edit_style: 'edit_hide',
-    reply_style: 'reply_hide'
+    reply_style: 'reply_hide',
+    showComtBox: true,
   },
 
   More: function () {
@@ -53,7 +55,7 @@ Page({
     console.log("nei", e.currentTarget.dataset.small)
 
   },
-
+  
   EditComment: function (e) { // 12-27 重构本函数
     console.log("e.currentTarget.dataset.small", e.currentTarget.dataset.small)
     if (e.currentTarget.dataset.small === undefined) {
@@ -145,26 +147,28 @@ Page({
     } else {
       reply_style = 'reply_hide'
     }
+    console.log("showComtBox",this.data.showComtBox)
     this.setData({
+      showComtBox:true,
       // comReply: !this.data.comReply,
       reply_style: reply_style,
-      edit_style: 'edit_hide'
+      edit_style: 'edit_hide',
     })
+    console.log("this.data.showComtBox",this.data.showComtBox)
     setTimeout(() => {
       this.setData({
         comReply: !this.data.comReply,
       })
     }, 200);
-
+    
     this.setData({
-      comEdit: false
-
+      comEdit: false,
     })
   },
   replySubmit: function (e) {
     var that = this;
-    // 判空
-    let res = this.isNull(e.detail.value.InputReply);
+    console.log("e.detail",e.detail.value)
+    let res = this.isNull(e.detail.value);
     var index = this.data.Commentindex
     var inIndex = this.data.inIndex
     const content = this.data.content;
@@ -179,7 +183,7 @@ Page({
       if (inIndex === -1) {
         console.log("inIndex=null")
         var add = {
-          "InputReply": e.detail.value.InputReply,
+          "InputReply": e.detail.value,
           "ReplyTime": new Date().getTime(),
           "iconUser": args.iconUrl,
           "nickName": args.nickName,
@@ -189,7 +193,7 @@ Page({
       } else {
         console.log("indel exit")
         var add = {
-          "InputReply": e.detail.value.InputReply,
+          "InputReply": e.detail.value,
           "ReplyTime": new Date().getTime(),
           "iconUser": args.iconUrl,
           "nickName": args.nickName,
@@ -671,7 +675,6 @@ Page({
       }
     }
 
-
     app.globalData.allList.forEach(e => {
       if (e) {
         if (e._id === this.data.CardID) {
@@ -693,10 +696,34 @@ Page({
       urls: Photo,
     })
   },
+ 
+  //失去焦点
+  comtBlur () {
+    this.setData({ showComtBox: false })
+  },
+ 
+  //
+  async getWindowData () {
+    let h = await app.getSystemData('windowHeight')
+    this.setData({ windowHeight: h })
+  },
+ 
+  async ctFocus (e) {
+    let { windowHeight } = this.data
+    let keyboard_h = e.detail.height
+    let ctInput_top = windowHeight - keyboard_h
+    let ctInput_h = await app.queryNodes('#ctInput', 'height')
+    console.log(ctInput_h)
+    ctInput_top -= ctInput_h
+    this.setData({ ctInput_top })
+  },
+
+
   onLoad: function (options) {
     var that = this;
     var content = JSON.parse(options.content) // 将JSON帖子信息转成对象
     var more = 0
+    this.getWindowData()
     that.setData({
       content
     })
