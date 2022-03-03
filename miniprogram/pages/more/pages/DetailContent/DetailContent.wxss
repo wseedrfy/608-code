@@ -192,13 +192,6 @@ swiper .wx-swiper-dot {
    flex-direction: row;
    align-items: center;
  }
- .ReplyCom_contain .Send_Commend_Reply {
-   width: 95%;
-   display: flex;
-   padding: 13rpx 0;
-   flex-direction: row;
-   justify-content: space-between;
- }
  .Show_Commend{
    position: relative;
    top: 35rpx;
@@ -451,13 +444,13 @@ swiper .wx-swiper-dot {
   left: 32rpx;
  }
  .fatherComment{
-    height: 110rpx;
+    min-height: 110rpx;
  }
  .showReply{
   position: relative;
   left: 50rpx;
   bottom: 20rpx;
-  height: 90rpx;
+  min-height: 90rpx;
  }
  .reply_Content{
   width: 85%;
