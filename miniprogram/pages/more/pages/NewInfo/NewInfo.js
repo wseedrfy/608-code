@@ -21,10 +21,12 @@ Page({
     
   },
   onLoad(){
-    this.getData()
     // 初始化
     this.data.currentPage = 0;
     this.data.pageSize = 10;
+    this.data.dataList = [];
+    // 获取数据
+    this.getData()
   },
   onPullDownRefresh(){
     wx.showLoading({
