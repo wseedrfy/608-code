@@ -280,6 +280,12 @@ Page({
           console.log(e, "回复评论失败");
         }
       })
+      setTimeout(() => {
+        this.setData({
+          comReply: !this.data.comReply,
+        })
+      }, 200);
+      
     }
     this.data.inIndex = -1
   },
