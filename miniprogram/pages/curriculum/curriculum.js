@@ -146,6 +146,7 @@ Page({
     })
   },
   onLoad: function (options) {
+    console.log("onload");
     let windowHeight = wx.getSystemInfoSync().windowHeight
     let width = wx.getSystemInfoSync().windowWidth;
     // 屏幕高度 - (状态栏 + 头部) - 周次
@@ -164,7 +165,7 @@ Page({
     }
     this.setData({
       weekNow: util.getweekString(),
-      courseTime: args.courseTime ? args.courseTime : that.data.courseTime,
+      courseTime: args.courseTime ? args.courseTime : this.data.courseTime,
       kbHeight,
       scheduleLength
     })
@@ -186,13 +187,13 @@ Page({
       console.log(that.data.backgroundUrl);
     }
     fileUrl ? getUrlFromLoad(fileUrl) : '';
-
+    app.loginState();
     
   },
 
   onShow: function (options) {
-
-    app.loginState()
+    console.log("onshow");
+    
     this.kb(util.getweekString());
     this.initWeek();
     this.initWlistPoint();
@@ -200,7 +201,10 @@ Page({
     let theme = wx.getStorageSync('theme');
     this.setData({ theme });
   },
-
+  onReady() {
+    console.log("onready");
+    
+  },
   onShareAppMessage: function (res) {
     return {
       title: 'WE校园',
