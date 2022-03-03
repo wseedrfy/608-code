@@ -4,6 +4,7 @@
    width: 100%;
    padding: 20rpx 0 0 20rpx;
    border-bottom: 1rpx solid #ccc;
+   box-sizing: border-box;
    /* justify-content: space-between; */
 }
 .demo .picture {
