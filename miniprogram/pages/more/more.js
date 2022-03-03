@@ -59,7 +59,7 @@ Page({
     ], // 列表兜底
     currentTab: 0, // 当前 swiper-item
     iconUrl:'',    // 头像地址
-
+    school: '',    // 判断游客用
     // 控制动画
     showLoading: 0, // 动画显隐
     animation: '',
@@ -91,9 +91,14 @@ Page({
   // 获取新消息总数
   getNewInfo() {
     var that = this;
+    let args = wx.getStorageSync('args');
+    // 边界处理 - 未登录时
+    if(!args.username) {
+      return ;
+    }
     wx.cloud.database().collection('New-Information').where({
       'be_character.userName': args.username,
-      status: 0 //-------------------三种状态：“0”：用户还没看消息列表；“1”：用户已经看到了消息列表；“-1”：取消点赞和评论
+      status: 0 
     }).count().then(res => {
       // console.log("res.total", res.total) 
       that.setData({
@@ -159,8 +164,10 @@ Page({
   getData(e) { //分页加载数据
     let args = wx.getStorageSync('args');
     let { currentPage, currentTab } = e.detail;
+    // 当前选择的标签名字
     let ShowId = this.data.tabitem[currentTab].title;
-
+    // 边界处理 - 用户没登录时
+    let School = args.schoolName ? (args.schoolName == "游客登录" ? "广东石油化工学院" : args.schoolName) : "广东石油化工学院";
     // 拉取数据
     let that = this;
     wx.cloud.callFunction({
@@ -169,10 +176,9 @@ Page({
         type: "read",
         url: "Card",
         username: args.username,
-        currentPage: currentPage,
-        ShowId: ShowId,             // 当前选择的标签名字
-        // 游客模式校园圈初始化
-        School: args.schoolName == "游客登录" ? "广东石油化工学院" : args.schoolName
+        currentPage,
+        ShowId,             
+        School
       },
       success(res) {
         const currComponent = that.selectComponent(`#waterFlowCards${currentTab}`);
@@ -358,8 +364,8 @@ Page({
   },
   //以本地数据为例，实际开发中数据整理以及加载更多等实现逻辑可根据实际需求进行实现   
   onLoad: function () {
-    console.log("onload");
     let iconUrl = wx.getStorageSync('args').iconUrl;
+    let school = wx.getStorageSync('args').school;
     // 判断登录
     app.loginState();
     // 初始化标签
@@ -405,7 +411,8 @@ Page({
       tabitem: this.data.tabitem,
       campus_account: campus_account,
       allList,
-      iconUrl
+      iconUrl,
+      school
     })
     this.onPullDownRefresh()
   },

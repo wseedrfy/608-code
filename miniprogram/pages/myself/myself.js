@@ -32,9 +32,10 @@ Page({
 
     let args = wx.getStorageSync('args');
     // 如果 args 里有 username 字段，则是已登录状态
+    console.log(args.username);
     if(args.username) {
       that.setData({
-        storageInfo: res.data,
+        storageInfo: args,
         isLogin: true
       });
     }
