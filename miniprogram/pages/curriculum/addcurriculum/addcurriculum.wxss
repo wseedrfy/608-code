@@ -1,18 +1,21 @@
 @import "../../../template/showCommonPage/template.wxss";
 page {
-  position: relative;
+  flex: 1;
+  width: 100%;
   background-color: #fff;
-  min-height: 100vh;
 }
 
 .container {
   display: flex;
+  height: 100%;
+  /* justify-content: center; */
+  align-items: center;
   flex-direction: column;
   /* justify-content: center; */
   /* align-items: center; */
 }
 .all{
-  position: relative;
+  /* position: relative; */
   margin-top: 10rpx;
   margin-bottom: 40rpx;
 }
@@ -73,7 +76,7 @@ page {
   box-shadow: 0rpx 0rpx 10rpx #e2e2e2;
   /* width: -webkit-fill-available; */
   width: 80%;
-  /* height: 100rpx; */
+  height: 100rpx;
   /* overflow: hidden; */
 }
 
@@ -293,6 +296,9 @@ button{
   }
 }
 @media (prefers-color-scheme: dark) {
+  .add{
+    filter: invert(90%) !important;
+  }
   .add_background {
     filter: invert(90%) !important;
   }
@@ -322,6 +328,6 @@ button{
     box-shadow: 0 0 10px #3a3939;
   }
   .block {
-    box-shadow: 0 0 10px #3a3939;
+    box-shadow: 0 0 10px #252424;
   }
 }

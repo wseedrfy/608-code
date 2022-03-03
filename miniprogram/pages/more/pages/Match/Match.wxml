@@ -1,0 +1,83 @@
+<!-- 开始比赛 -->
+<view class="wrap" wx:if="{{html==0}}">
+  <view class="match_caption">社团比赛</view>
+  <view class="match_list_wrap" wx:for="{{content.question}}" wx:for-index="index" wx:for-item="item" wx:key="item">
+    <!-- 单选盒子 -->
+    <view class="dan_wrap" wx:if="{{item.type=='单选'}}">
+      <view class="match_title">{{index+1}}.{{item.title}}</view>
+      <view class="chang_item">
+        <radio-group bindchange="radioChange">
+          <label class="weui_cell" wx:for="{{item.arr}}" wx:key="item">
+            <view class="weui_cell__hd">
+              <radio value="{{item}}" />
+            </view>
+            <view class="weui_cell__bd">{{item}}</view>
+          </label>
+        </radio-group>
+      </view>
+    </view>
+    <!-- 多选盒子 -->
+    <view class="dan_wrap" wx:if="{{item.type=='多选'}}">
+      <view class="match_title">{{index+1}}.{{item.title}}</view>
+      <view class="chang_item">
+        <checkbox-group bindchange="checkboxChange">
+          <label class="weui_cell" wx:for="{{item.arr}}" wx:key="item">
+            <view class="weui_cell__hd">
+              <checkbox value="{{item}}" checked="{{item.checked}}" />
+            </view>
+            <view class="weui_cell__bd">{{item}}</view>
+          </label>
+        </checkbox-group>
+      </view>
+    </view>
+    <!-- 填空盒子 -->
+    <view class="tian_wrap" wx:if="{{item.type=='填空'}}">
+      <view class="tian_title">{{index+1}}.{{item.title}}</view>
+      <textarea class="handle"></textarea>
+    </view>
+    <!-- <button class="submit">提交</button> -->
+  </view>
+  <button class="submit">提交</button>
+</view>
+<!-- 信息展示 -->
+<view wx:if="{{html==1}}">
+  <view class="match_wrap">
+    <view class="match_caption">主办信息</view>
+    <view class="match_list_wrap">
+      <view class="list" wx:for="{{4}}" wx:key="item">
+        <view class="title">主办方</view>
+        <view class="content">biubii创业实践社</view>
+      </view>
+    </view>
+  </view>
+  <!-- 比赛信息 -->
+  <view class="rule_wrap">
+    <view class="rule_caption">比赛信息</view>
+    <view class="rule_list_wrap">
+      <view class="rule_list" wx:for="{{2}}" wx:key="item">
+        <view class="rule_title">标题</view>
+        <view class="rule_detail">创业实践比赛</view>
+      </view>
+    </view>
+  </view>
+  <!-- 报名按钮 -->
+  <view class="bt_wrap">
+    <view class="bt" bind:tap="clickme">立即报名</view>
+  </view>
+</view>
+<!-- 报名弹窗 -->
+<view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
+<!-- 弹出框 -->
+<view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
+  <view class="sing_title">信息填写</view>
+  <form bindsubmit="submitMess">
+    <view class="input_wrap" wx:for="{{formMess}}" wx:key="item">
+      <view class="input_title">{{item.title}}</view>
+      <input placeholder="{{item.placeholder}}" class="input_content" name="{{item.name}}" />
+    </view>
+    <!-- 提示 -->
+    <view class="tip_wrap">*以上信息用于主办方登记，请如实填写</view>
+    <!-- 提交按钮 -->
+    <button class="bt" form-type="submit">提交</button>
+  </form>
+</view>

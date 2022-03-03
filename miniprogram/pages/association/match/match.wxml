@@ -1,7 +1,7 @@
 <view class="wrap">
     <view class="caption">编辑赛事</view>
     <view class="item_wrap">
-        <view class="match_wrap" wx:for="{{mathObj}}">
+        <view class="match_wrap" wx:for="{{mathObj}}" wx:key="item">
             <view class="left_Wrap" bind:tap="changDetail" data-item="{{item}}">
                 <view class="name">{{item.senderMess.title}}<text class="{{item.sendStatus==false?'tip':'tip_1'}}">状态:{{item.sendStatus==false?'未发布':'已发布'}}</text></view>
             </view>

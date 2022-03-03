@@ -12,8 +12,7 @@
     "pages/curriculum/curriculum",
     "pages/more/more",
     "pages/myself/myself",
-    "pages/test/test",
-    "components/LosePublish/LosePublish"
+    "pages/test/test"
   ],
   "subPackages": [
     {
@@ -58,7 +57,8 @@
         "freshman/freshman",
         "match/match",
         "match_detail/match_detail",
-        "add_question/add_question"
+        "add_question/add_question",
+        "edit/edit"
       ]
     },
     {
@@ -76,7 +76,8 @@
         "UserContent/UserContent",
         "NewInfo/NewInfo",
         "PublishContent/PublishContent",
-        "Freshman/Freshman"
+        "Freshman/Freshman",
+        "Match/Match"
       ]
     },
     {

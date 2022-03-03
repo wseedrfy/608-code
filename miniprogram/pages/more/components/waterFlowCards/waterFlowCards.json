@@ -1,7 +1,8 @@
 {
     "component": true,
     "usingComponents": {
-        "campusCards": "../campusCards/campusCards",
-        "loveCards": "../loveCards/loveCards"
+        "campusCards": "./components/campusCards/campusCards",
+        "loveCards": "../loveCards/loveCards",
+        "LoseCard":"../LoseCard/LoseCard"
     }
 }

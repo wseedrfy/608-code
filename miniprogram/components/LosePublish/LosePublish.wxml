@@ -1,5 +1,5 @@
-
 <view class="find_lose">
+
   <view class="find_lose_type">失物类别</view>
   <scroll-view scroll-x class="choose_First">
     <!-- <Losetab ChooseTypes="{{choose_type}}" ></Losetab> -->
@@ -11,6 +11,7 @@
     </view>
   </scroll-view>
 </view>
+
 <view class="find_lose">
   <view class="find_lose_type" >丢失地点</view>
   <scroll-view scroll-x bindscroll="scroll" class="choose_First">

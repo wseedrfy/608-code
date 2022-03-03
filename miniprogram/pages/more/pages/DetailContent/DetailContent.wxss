@@ -116,20 +116,26 @@ swiper .wx-swiper-dot {
    color: rgb(61, 61, 61);
  }
  .text_user{
-
-   width:58rpx;
-   height: 58rpx;
+   width:55rpx;
+   height: 55rpx;
    border-radius: 100rpx;
-   margin-left: 19rpx;
+   margin-left: 21rpx
+ }
+ .reply_user{
+  width:45rpx;
+  height: 45rpx;
+  border-radius: 100rpx;
+  margin-left: 19rpx;
  }
  .old_Comment_second{
    width:630rpx;
    min-height: 56rpx;
-   background-color: rgba(202, 202, 202, 0.322);
+   background-color: rgba(202, 202, 202, 0.164);
    margin-top:2rpx;
    color: rgb(63, 63, 63);
    border-radius: 40rpx;
    margin-left: 20rpx;
+   padding-left: 15rpx;
    display: flex;
    align-items: center;
    justify-content: center;
@@ -142,9 +148,10 @@ swiper .wx-swiper-dot {
  .new_Comment_second{
    width:480rpx;
    min-height: 56rpx;
-   background-color: rgba(202, 202, 202, 0.322);
+   background-color: rgba(202, 202, 202, 0.164);
    margin-top:2rpx;
    color: rgb(63, 63, 63);
+   padding-left: 15rpx;
    border-radius: 40rpx;
    margin-left: 20rpx; 
    display: flex;
@@ -189,14 +196,30 @@ swiper .wx-swiper-dot {
    position: relative;
    top: 35rpx;
  }
+ .ReplyCom_contain .Send_Commend_Reply {
+  width: 95%;
+  display: flex;
+  padding: 13rpx 0;
+  flex-direction: row;
+  justify-content: space-between;
+}
  .text_username{
    color: rgba(94, 94, 94, 0.541);
    font-size: 24rpx;
    position: relative;
-   bottom:73rpx;
-   left:85rpx;
+   bottom:68rpx;
+   left:90rpx;
    display: flex;
    flex-direction:column;
+ }
+ .reply_username{
+  color: rgba(94, 94, 94, 0.541);
+  font-size: 24rpx;
+  position: relative;
+  bottom:60rpx;
+  left:78rpx;
+  display: flex;
+  flex-direction:column;
  }
  .Comment_Content{
    width: 85%;
@@ -213,7 +236,7 @@ swiper .wx-swiper-dot {
   height: 1rpx;
   margin-left: 90rpx;
   position: relative;
-  bottom: 38rpx;
+  bottom: 32rpx;
  }
  .Comment_Time{
   font-size: 20rpx;
@@ -222,6 +245,7 @@ swiper .wx-swiper-dot {
 .EditCom,
 .ReplyCom,
 .EditCom_background,
+.ReplyCom_background,
 .CardMore,
 .CardMore_background{
   position: fixed;
@@ -273,7 +297,8 @@ swiper .wx-swiper-dot {
   width:40rpx;
   height:40rpx;
 }
-.EditCom_background{
+.EditCom_background,
+.ReplyCom_background{
   background-color: rgba(0, 0, 0, 0.171);
   opacity: 0.6;
   height: 100%;
@@ -425,21 +450,36 @@ swiper .wx-swiper-dot {
   position: relative;
   left: 32rpx;
  }
+ .fatherComment{
+    min-height: 110rpx;
+ }
  .showReply{
   position: relative;
   left: 50rpx;
   bottom: 20rpx;
+  min-height: 90rpx;
  }
-.reply_show,
-.edit_show{
-  animation: edit_show .5s;
+ .reply_Content{
+  width: 85%;
+  color:rgb(54, 54, 54);
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+ }
+ .replied{
+  color: rgba(94, 94, 94, 0.541);
 }
-.reply_hide,
-.edit_hide{
-  animation: edit_hide .5s;
+.reply_show{
+  animation: reply_show .5s;
 }
 
-@keyframes reply_show{
+.reply_hide{
+  animation: reply_hide .5s;
+}
+
+@keyframes reply_show {
   0% {
       opacity: 0;
       transform: translateY(100%);
@@ -459,7 +499,6 @@ swiper .wx-swiper-dot {
       transform: translateY(100%);
   }
 }
-
 @media (prefers-color-scheme: dark) {
   .wx-swiper-dot {
     filter: invert(100%) !important;
@@ -475,9 +514,13 @@ swiper .wx-swiper-dot {
   .content_LabelBox {
     filter: invert(100%) !important;
   }
+  .old_Comment_second textarea {
+    color: #fff;
+    filter: invert(1) !important;
+  }
   .new_Comment_second textarea{
     color: #fff;
-    filter: invert(100%) !important;
+    filter: invert(1) !important;
   }
   .Comment_Content {
     color: #fff;
@@ -486,6 +529,14 @@ swiper .wx-swiper-dot {
   .Sending {
     color: #fff;
     filter: invert(100%) !important;
+  }
+  .EditCom_contain {
+    filter: invert(0) !important;
+  }
+  .EditCom_contain .ReplyComment,
+  .EditCom_contain .CopyComment,
+  .EditCom_contain .DelComment {
+    filter: invert(1) !important;
   }
 }
  

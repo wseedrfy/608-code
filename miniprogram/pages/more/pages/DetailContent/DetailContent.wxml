@@ -50,28 +50,27 @@
         </view>
       </form>
 
-      <view class="Show_Commend" wx:for="{{ShowList}}" wx:key="kk" data-item="item" bindtap="EditComment" data-index="{{index}}">  <!-- bindtap从EditComment更改为obtainIndex-->
+      <view class="Show_Commend" wx:for="{{ShowList}}" wx:key="kk" data-item="item"  data-index="{{index}}">  <!-- bindtap从EditComment更改为obtainIndex-->
         <!-- <view catchtap="EditComment" class="seses" >  这个标签是新增 -->
-          <image src="{{item.iconUser}}" class="text_user"/>
-          <span class="text_username">{{item.nickName}}
-            <view class="Comment_Content">{{item.InputContent}}
-              <span class="Comment_Time">{{item.InputTime}}</span>
-            </view>
-          </span>
-          <view class="Line_Second"></view>
-        </view>
-        <!-- 下面都是新的 -->
-        <!-- <view class="showReply" wx:for="{{item.replyList}}" wx:key="aa" data-item="item" data-index="{{index2}}" catchtap="obtainSecond">
-          <view catchtap="EditReply">
-            <image src="{{item.Replyicon}}" class="text_user"/>
-            <span class="text_username">{{item.ReplyName}}
-              <view class="Comment_Content">{{item.ReplyComment}}
+          <view class="fatherComment" bindtap="EditComment" data-index="{{index}}">
+            <image src="{{item.iconUser}}" class="text_user"/>
+            <span class="text_username">{{item.nickName}}
+              <view class="Comment_Content">{{item.InputContent}}
+                <span class="Comment_Time">{{item.InputTime}}</span>
+              </view>
+            </span>
+          </view>
+          <view class="showReply" wx:for="{{item.Reply}}" wx:key="hh" data-item="item" wx:for-index="index1" data-index="{{index1}}" bindtap="EditComment" data-bigindex="{{index}}" data-small="{{index1}}">
+            <image src="{{item.iconUser}}" class="reply_user"/>
+            <span class="reply_username">{{item.nickName}}
+              <view class="reply_Content">回复 
+                <span class="replied">{{item.Replied}}</span>：{{item.InputReply}}
                 <span class="Comment_Time">{{item.ReplyTime}}</span>
               </view>
             </span>
           </view>
-        </view> -->
-
+          <view class="Line_Second"></view>
+        </view>
       </view>
     </view>
 
@@ -94,14 +93,15 @@
         </view>
     </view>
 
+
     <view class="ReplyCom" wx:if="{{comReply}}">
-        <view class="EditCom_background" bindtap="ReplyComment"></view>
-        <view class="ReplyCom_contain {{Reply_style}}" >
-          <form  bindsubmit="replySubmit" bindreset="replyReset" style="display:{{args.school=='游客登录'?'none':''}}" >
-            <view class="Send_Commend" >
+        <view class="ReplyCom_background" bindtap="ReplyComment"></view>
+        <view class="ReplyCom_contain {{reply_style}}" >
+          <form  bindsubmit="replySubmit" bindreset="replyReset"  >
+            <view class="Send_Commend_Reply" >
               <image src="{{iconUrl}}" class="text_user"/>
               <span class="new_Comment_second">
-                <textarea placeholder="来发句评论吧ヾ(≧▽≦*)o" name="InputReply"  value="{{Input}}" auto-height></textarea>
+                <textarea placeholder="说点什么..." name="InputReply"  value="{{Input}}" auto-height></textarea>
               </span>
               <span class="Pre_Send">
                 <button form-type="submit" class="Sending" hover-class="Sending-hover">发送</button>
@@ -110,6 +110,23 @@
           </form>
         </view>
     </view>
+
+    <!-- <view class="EditCom" wx:if="{{comEdit==1}}">
+        <view class="EditCom_background" bindtap="EditComment"></view>
+        <view class="EditCom_contain {{edit_style}}" >
+          <form  bindsubmit="replySubmit" bindreset="replyReset"  >
+            <view class="Send_Commend" >
+              <image src="{{iconUrl}}" class="text_user"/>
+              <span class="new_Comment_second">
+                <textarea placeholder="说点什么..." name="InputReply"  value="{{Input}}" auto-height></textarea>
+              </span>
+              <span class="Pre_Send">
+                <button form-type="submit" class="Sending" hover-class="Sending-hover">发送</button>
+              </span>
+            </view>
+          </form>
+        </view>
+    </view> -->
 
     <!-- <view class="ReplyCom" wx:if="{{comReply}}">
       <view class="ReplyCom_background" bindtap="ReplyComment"></view>

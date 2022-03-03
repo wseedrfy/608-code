@@ -177,6 +177,9 @@ Page({
   init() {
     var lesson = wx.getStorageSync("personalInformation").curriculum;
     // 按上课时间排序先
+    if(!lesson){
+      return
+    }
     lesson.sort((a, b) => {
       return new Date(a.pkrq).getTime() - new Date(b.pkrq).getTime()
     })
