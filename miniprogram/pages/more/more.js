@@ -175,9 +175,8 @@ Page({
       data: {
         type: "read",
         url: "Card",
-        username: args.username,
         currentPage,
-        ShowId,             
+        ShowId,
         School
       },
       success(res) {
@@ -186,14 +185,7 @@ Page({
         if (res.result && res.result.data.length > 0) {
           // 页数++
           currComponent.setData({ currentPage: ++currentPage });
-          // 边界条件
           let allList = that.data.allList;
-          // if (!allList) {
-          //   allList = new Array(that.data.tabitem.length)
-          // }
-          // if (!allList[currentTab]) {
-          //   allList[currentTab] = []
-          // }
           // 添加新数据到 allList[currentTab] 里 
           allList[currentTab] = allList[currentTab].concat(res.result.data);
           // 赋值全局变量
@@ -215,6 +207,7 @@ Page({
             currComponent.setData({
               leftList: [],
               rightList: [],
+              list: [1]         // 避免出现“玩命加载数据”
             })
           }
           currComponent.setData({
@@ -364,8 +357,7 @@ Page({
   },
   //以本地数据为例，实际开发中数据整理以及加载更多等实现逻辑可根据实际需求进行实现   
   onLoad: function () {
-    let iconUrl = wx.getStorageSync('args').iconUrl;
-    let school = wx.getStorageSync('args').school;
+    let args = wx.getStorageSync('args');
     // 判断登录
     app.loginState();
     // 初始化标签
@@ -411,8 +403,8 @@ Page({
       tabitem: this.data.tabitem,
       campus_account: campus_account,
       allList,
-      iconUrl,
-      school
+      iconUrl:args.iconUrl,
+      school:args.school
     })
     this.onPullDownRefresh()
   },
