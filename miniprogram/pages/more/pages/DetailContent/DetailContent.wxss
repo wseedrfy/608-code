@@ -196,6 +196,13 @@ swiper .wx-swiper-dot {
    position: relative;
    top: 35rpx;
  }
+ .ReplyCom_contain .Send_Commend_Reply {
+  width: 95%;
+  display: flex;
+  padding: 13rpx 0;
+  flex-direction: row;
+  justify-content: space-between;
+}
  .text_username{
    color: rgba(94, 94, 94, 0.541);
    font-size: 24rpx;
