@@ -44,6 +44,7 @@ exports.main = async (event, context) => {
 
 async function addRecord(event, type, content){
   console.log(event,"addRecord");
+  console.log(content);
   return await db.collection('New-Information').add({
     data: {
       character: event.character,

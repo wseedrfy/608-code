@@ -167,7 +167,7 @@ Page({
   },
   replySubmit: function (e) {
     var that = this;
-    console.log("e.detail",e.detail.value)
+    console.log("回复内容",e.detail.value)
     let res = this.isNull(e.detail.value);
     var index = this.data.Commentindex
     var inIndex = this.data.inIndex
@@ -253,10 +253,7 @@ Page({
         }
         var be_username = this.data.CommentList[index].Reply[inIndex].username
       }
-      // 评论时间 
-      let commentTime = new Date().getTime();
-      // 如果想在后台看到具体的时间年月日，请用下面这句
-      // let starTime = util.timeago(new Date().getTime(),'Y年M月D日');
+
 
       // 云函数增加一条评论记录
       wx.cloud.callFunction({
@@ -267,7 +264,7 @@ Page({
           be_character: be_character,
           username: that.data.username,
           be_username: be_username,
-          content: e.detail.value.InputReply,
+          content: e.detail.value,
           createTime: new Date().getTime(),
           arcticle: this.data.content,
           arcticle_id: this.data.content._id,
