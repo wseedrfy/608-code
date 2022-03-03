@@ -18,7 +18,8 @@ Page({
         task_name:'示例',
         showModel3:false,
         dakacount:'19',
-        showModel2:false,
+        showModel2:true,
+        showModel5:true,
 
         currentid:0,
         currentIndex: 0, // 列表操作项的index
@@ -33,7 +34,16 @@ Page({
             },
         ],
     },
-
+    sharecanvas(){
+      wx.getImageInfo({
+        src: 'http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcX9xVxaGodT4nhOh7OSjTb3hYMuRdPCQI90IWXE4c7Ndk7ot3.0C6AfmFQ3Qz9uRvvAN8hPor1ASJt77yWmZDGM!/r',
+      }).then(res=>{
+        const ctx = wx.createCanvasContext('shareCanvas')
+        //背景
+        ctx.drawImage(res.path,0,0,288,200)
+        //文字
+      })
+    },
     startFun:function(e){
         console.log(e.currentTarget.id);
         this.setData({
