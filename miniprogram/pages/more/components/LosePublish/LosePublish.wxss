@@ -28,6 +28,11 @@ font-size: 800;
   margin-right: 15rpx;
   border:1rpx solid rgba(232,232,232,0.7)
 }
+.Active_choose_lose_bael_item {
+  background-color: #17c0eb;
+  color: white;
+  border: 1rpx solid #17c0eb;
+}
 .choose_First{
   display: flex;
   /* background-color: rgba(236, 236, 236, 0.419); */

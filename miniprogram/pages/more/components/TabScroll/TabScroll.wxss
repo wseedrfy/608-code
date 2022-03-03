@@ -1,7 +1,7 @@
 .Choose_Label{
   position: relative;
   width:100%;
-  height:57rpx;
+  height:29px;
   background-color: rgba(255, 255, 255, 0.363);
   display: flex;
   flex-direction: row;
@@ -11,24 +11,22 @@
 .Choose_Label .underLineBox {
   height: 4rpx;
   position: absolute;
-  bottom: 5rpx;
+  bottom: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   /* transition: all 0.1s ease 0s; */
 }
 .Choose_Label .underLine {
-  height: 3rpx;
-  position: absolute;
-  /* bottom: 5rpx; */
+  height: 5rpx;
   background-color: #000;
-  border-radius: 2rpx;
+  border-radius: 16rpx;
   /* transition: all 0.3s ease 0s; */
   }
 .Label-text{
   /* margin: 0rpx 45rpx 0rpx 0rpx; */
   font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  color: rgba(46, 46, 46, 0.938);
+  color: rgba(80, 80, 80, 0.938);
   font-size: 27rpx;
   height:100%;
   display: flex;
@@ -81,6 +79,9 @@
 }
 /* 暗黑 */
 @media (prefers-color-scheme: dark) {
+  .Choose_Label{
+    filter: invert(100%) !important;
+  }
     scroll-view{
       filter: invert(100%) !important;
     }

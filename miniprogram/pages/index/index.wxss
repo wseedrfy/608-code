@@ -302,10 +302,12 @@ page{
   }
 
   .background-color_0 {
+    filter: invert(90%) !important;
     background-color: #237b87 !important;
   }
 
   .background-color_1 {
+    filter: invert(90%) !important;
     background-color: #a0c8e1 !important;
   }
 

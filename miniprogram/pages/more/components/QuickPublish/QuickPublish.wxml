@@ -20,8 +20,8 @@
         </swiper>
       </view>
 
-      <view class='MenuDiv' bindtap='clickMenu'>
-        <span class='rightimg-top'>
+      <view class='MenuDiv'>
+        <span class='rightimg-top' bindtap='clickMenu'>
           分类:
         </span>
 

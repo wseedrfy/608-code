@@ -9,13 +9,17 @@ Component({
         type: Array,
         value: []
       },
+      height:{
+        type: String,
+        value: ''
+      },
       // 当前组件需渲染的数据
-      list: {             
+      list: {
         type: Array,
         value: []
       },
       // 当前组件的下标
-      index: {            
+      index: {
         type: Number
       }
     },
@@ -33,9 +37,6 @@ Component({
     rightList: [],    // 右列表
     leftH: 0,         // 当前左列表高度
     rightH: 0,        // 当前右列表高度
-
-    
-
   },
   lifetimes: {
     ready: function() {
@@ -50,7 +51,6 @@ Component({
     testFnc(){
       console.log("eeeee");
       this.triggerEvent("testFnc");
-      
     },
     onPullDownRefresh() {
       this.triggerEvent("onPullDownRefresh")
@@ -60,6 +60,8 @@ Component({
         currentPage:this.data.currentPage,  // 本组件当前第几页
         index: this.properties.index        // 本组件索引 - 方便标签选择
       }
+      // 边界处理，拉到最底部时不允许再请求数据库
+      if(this.data.loadAll) return;
       this.triggerEvent("getData",e);
       console.log("getData");
     },

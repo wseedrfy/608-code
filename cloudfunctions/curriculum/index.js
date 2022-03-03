@@ -26,6 +26,7 @@ async function addCurriculumLogs(event) {
     const isHava = (await cloud.database().collection('curriculumControl').where({
         username: event.username
     }).get()).data.length
+    console.log(isHava);
     if(isHava === 0) {          // 数据库无此账号
         return await cloud.database().collection('curriculumControl').add({
             data: {
@@ -58,6 +59,8 @@ async function ConcealCurriculumLogs(event) {
     const isHava = (await cloud.database().collection('curriculumControl').where({
         username: event.username
     }).get()).data.length
+    console.log(isHava);
+    
     if(isHava === 0) {          // 数据库无此账号
         return await cloud.database().collection('curriculumControl').add({
             data: {
