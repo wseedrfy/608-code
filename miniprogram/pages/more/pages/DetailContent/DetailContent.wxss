@@ -192,6 +192,13 @@ swiper .wx-swiper-dot {
    flex-direction: row;
    align-items: center;
  }
+ .ReplyCom_contain .Send_Commend_Reply {
+   width: 95%;
+   display: flex;
+   padding: 13rpx 0;
+   flex-direction: row;
+   justify-content: space-between;
+ }
  .Show_Commend{
    position: relative;
    top: 35rpx;
