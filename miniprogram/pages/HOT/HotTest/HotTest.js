@@ -1,18 +1,22 @@
 
-  const db = wx.cloud.database()
-const schoolLoading = db.collection('schoolLoading')
-const jump = db.collection('jumpPage')
-Page({
+  const app = getApp()
+  Page({
 
-  /**
-   * 页面的初始数据
-   */
-  data: {
-    school : ["通用"],
-    tj: ["是", "否"],
-    experimentData:"",
-    //
-    text: `/******/ (function() { // webpackBootstrap
+    /**
+     * 页面的初始数据
+     */
+    data: {
+      html : [{type: 'view', text: '模版错误啦'}],
+      
+    },
+  
+    /**
+     * 生命周期函数--监听页面加载
+     */
+    onLoad: function (options) {
+      var args = {
+        xxx: 'xxx',
+        code: `/******/ (function() { // webpackBootstrap
 /******/ 	"use strict";
 var __webpack_exports__ = {};
 /*!***********************!*\\
@@ -23,6 +27,8 @@ var __webpack_exports__ = {};
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 function runCode() {
+  // pages/grade/show/show.js
+
 
   var Page = function Page(page) {
     return page;
@@ -125,13 +131,16 @@ function runCode() {
     },
 
     setdata: function setdata(dictData) {
+      var _this = this;
 
       for (var i in dictData) {
         this.data[i] = dictData[i];
       }
-      var html = "<view class='container'>  <view class='title' style='display: table; margin: 0 auto; margin-top: 70rpx;'>    <view class='title-text' style='color: rgba(0, 0, 0, 0.7); font-size: 30rpx; font-weight: 800; margin-bottom: 26rpx;'>\\u539F\\u59CB\\u6570\\u636E</view>    <view class='title-data' style='display: flex; margin-bottom: 15rpx;'>      <input style='title-data-input' value='" + (_typeof(this.data.experimentData) === "object" ? JSON.stringify(this.data.experimentData) : this.data.experimentData) + "' bindinput='input' placeholder='\\u6570\\u636E\\u4E4B\\u95F4\\u4EE5\\u7A7A\\u683C\\u5206\\u9694\\u5982(3.02 2.99 2.8) ' type='text' style='border: 1rpx solid #DCE0E7; border-radius: 20rpx; color: #C1C2C5; font-size: 26rpx; height: 80rpx; padding-left: 18rpx; width: 500rpx;'></input>      <view class='title-data-submit' bindtap='submit' style='align-items: center; background-color: #A1DFCD; border-radius: 20rpx; color: white; display: flex; font-size: 24rpx; line-height: 42rpx; margin-left: 26rpx; margin-right: 10rpx; padding: 0rpx 30rpx;'><image class='title-data-submit-submit' src='./images/computer.png' style='display: inline-block; height: 48rpx; vertical-align: middle; width: 48rpx;'></image></view>    </view>      <view class='title-choose' style='display: flex; font-size: 23rpx; margin-bottom: 45rpx; margin-top: 20rpx;'>        <picker mode='selector' range='" + (_typeof(this.data.multiArray) === "object" ? JSON.stringify(this.data.multiArray) : this.data.multiArray) + "' value='" + (_typeof(this.data.multiIndex) === "object" ? JSON.stringify(this.data.multiIndex) : this.data.multiIndex) + "' bindchange='bindMultiPickerChange' style='display: flex;'>          <view class='title-choose-text' style='background-color: #B2E2F7; border-radius: 10rpx; color: white; display: flex; padding: 10rpx;'><text>" + (_typeof(this.data.instrument_name) === "object" ? JSON.stringify(this.data.instrument_name) : this.data.instrument_name) + "</text><image class='title-choose-image' src='./images/down.png' style='height: 28rpx; margin-left: 10rpx; vertical-align: middle; width: 28rpx;'></image></view>      </picker>        " + (_typeof(this.data.show) === "object" ? JSON.stringify(this.data.show) : this.data.show == "choose" ? "<view  class='title-choose-inch' style='position: absolute; right: 53rpx;'>          <picker mode='selector' range='" + (_typeof(this.data.calibration) === "object" ? JSON.stringify(this.data.calibration) : this.data.calibration) + "' value='" + (_typeof(this.data.calibrationIndex) === "object" ? JSON.stringify(this.data.calibrationIndex) : this.data.calibrationIndex) + "' bindchange='bindpickerchange' style='display: flex;'>          <view class='title-choose-text' style='background-color: #B2E2F7; border-radius: 10rpx; color: white; display: flex; padding: 10rpx;'><text>" + (_typeof(this.data.calibrationItem) === "object" ? JSON.stringify(this.data.calibrationItem) : this.data.calibrationItem) + "</text><image class='title-choose-image' src='./images/down.png' style='height: 28rpx; margin-left: 10rpx; vertical-align: middle; width: 28rpx;'></image></view>          </picker>        </view>" : "") + "        " + (_typeof(this.data.show) === "object" ? JSON.stringify(this.data.show) : this.data.show == "input" ? "<view  class='title-choose-input' style='border: 1rpx solid #B2E2F7; border-radius: 10rpx; position: absolute; right: 53rpx;'>          <input type='number' style='padding-left:10rpx' placeholder='\\u8BF7\\u8F93\\u5165\\u4EEA\\u5668\\u8BEF\\u5DEE' value='" + (_typeof(this.data.other_err) === "object" ? JSON.stringify(this.data.other_err) : this.data.other_err) + "' bindinput='err_input'></input>        </view>" : "2") + "    </view>  </view>  <view class='body' style='border-top: 1rpx solid rgba(187,187,187,0.3); margin: 0 25rpx; margin-bottom: 30rpx;'>    " + this.data.data_show.map(function (item, index) {
-        return " <view style='body-describe'  style='border-bottom: 1rpx solid rgba(187,187,187,0.3); display: flex; font-size: 26rpx; padding: 30rpx 0rpx;'>            <text class='body-describe-text' style='margin-left: 24rpx;'>" + (_typeof(item.name) === "object" ? JSON.stringify(item.name) : item.name) + ":</text>      <view class='body-describe-data' style='border-bottom: 1rpx solid rgba(187,187,187,0.5); position: absolute; right: 60rpx;'>" + (_typeof(item.res) === "object" ? JSON.stringify(item.res) : item.res) + "</view>    </view>";
-      }) + "  </view>   <view class='end' style='height: 100rpx; width: 100%;'>  <view class='end-text' bindtap='Check' style='background-color: #A1DFCD; border-radius: 20rpx; color: #FCFCFC; font-size: 26rpx; font-weight: 800; height: 80rpx; left: 50%; line-height: 80rpx; margin-bottom: 30rpx; margin-left: -100rpx; position: relative; text-align: center; top: 0%; width: 200rpx;'>\\u67E5\\u770B\\u516C\\u5F0F</view></view></view>";
+      var html = "<view>  <view style='head wx-head " + (_typeof(this.data.show) === "object" ? JSON.stringify(this.data.show) : this.data.show) + "' style='align-items: center; background-color: #fff; box-shadow: 0px 0px 10px #e2e2e2; display: flex; flex-direction: row; justify-content: space-around; left: 0; line-height: 60rpx; padding: 10rpx 25rpx; padding-bottom: 8rpx; position: fixed; right: 0; z-index: 9;'>    <view class='head-time' style='margin-left: 25rpx;'>      <view bindtap='show'>        <view class='weui-input' style='font-size: 30rpx; font-weight: 600;'>\\u5207\\u6362\\u65F6\\u95F4          <text class='iconfont icon-open' style='margin-left: 20rpx;'></text>        </view>      </view>    </view>    <view class='head-title' style='color: coral; flex: 1; margin-right: 25rpx; text-align: right;'>      <view style='display: inline-block; font-size: 25rpx; margin-right: 30rpx;'>\\u6570\\u91CF:        <text>" + (_typeof(this.data.Totalnumber) === "object" ? JSON.stringify(this.data.Totalnumber) : this.data.Totalnumber) + "</text>      </view>    </view>  </view>  <view class='main' style='padding: 100rpx 26rpx 30rpx 20rpx;'>    " + (_typeof(this.data.list.length) === "object" ? JSON.stringify(this.data.list.length) : this.data.list.length == 0 ? "<view style='wx-isclass'  style='color: #1cbbb4; font-size: 40rpx; margin-top: 30rpx; text-align: center;'>\\u6728\\u6709\\u54DF</view>" : "") + "    <view class='list' style='margin-bottom: 30rpx;'>      " + this.data.list.map(function (item, id) {
+        return " <view wx:key='4'  wx:for-item='item' wx:for-index='id'>        <view class='data' style='display: flex;'>          <view class='data-adj' style='align-items: center; display: flex; flex-direction: column; justify-content: center; width: 70rpx;'>            <view class='upWard' style='background-color: " + ((typeof id === "undefined" ? "undefined" : _typeof(id)) === "object" ? JSON.stringify(id) : id == 0 ? "  #  fff" : "  #  fff") + "; height: 90rpx; margin: auto; width: 7rpx;'></view>            <view class='dot' style='background-color: " + (_typeof(_this.data.color[(typeof id === "undefined" ? "undefined" : _typeof(id)) === "object" ? JSON.stringify(id) : id]) === "object" ? JSON.stringify(_this.data.color[(typeof id === "undefined" ? "undefined" : _typeof(id)) === "object" ? JSON.stringify(id) : id]) : _this.data.color[(typeof id === "undefined" ? "undefined" : _typeof(id)) === "object" ? JSON.stringify(id) : id]) + "; border-radius: 50%; height: 20rpx; margin: auto; width: 20rpx;'></view>            <view class='offWard' style='background-color: #ffffff; height: 55rpx; margin: auto; width: 7rpx;'></view>          </view>          <view class='grade' style='background-color: #fff; border-radius: 50rpx; box-shadow: 0rpx 0rpx 10rpx #e2e2e2; display: flex; flex: 1; margin-top: 25rpx; padding: 20rpx 35rpx;'>            <view class='grade-title'>              <view class='grade-column' style='font-size: 32rpx; font-weight: 500; line-height: 60rpx; overflow: hidden; text-overflow: elipsis; white-space: nowrap; width: 500rpx;'>" + (_typeof(_this.data.list[(typeof id === "undefined" ? "undefined" : _typeof(id)) === "object" ? JSON.stringify(id) : id].jxcdmc) === "object" ? JSON.stringify(_this.data.list[(typeof id === "undefined" ? "undefined" : _typeof(id)) === "object" ? JSON.stringify(id) : id].jxcdmc) : _this.data.list[(typeof id === "undefined" ? "undefined" : _typeof(id)) === "object" ? JSON.stringify(id) : id].jxcdmc) + "</view>              <view class='grade-rum' style='font-size: 24rpx; line-height: 30rpx; margin-top: 10rpx;'>                <text style='color: #8a8a8a; margin-right: 28rpx;'>" + (_typeof(_this.data.list[(typeof id === "undefined" ? "undefined" : _typeof(id)) === "object" ? JSON.stringify(id) : id].xqmc) === "object" ? JSON.stringify(_this.data.list[(typeof id === "undefined" ? "undefined" : _typeof(id)) === "object" ? JSON.stringify(id) : id].xqmc) : _this.data.list[(typeof id === "undefined" ? "undefined" : _typeof(id)) === "object" ? JSON.stringify(id) : id].xqmc) + "\\uFF5C" + (_typeof(_this.data.list[(typeof id === "undefined" ? "undefined" : _typeof(id)) === "object" ? JSON.stringify(id) : id].jzwmc) === "object" ? JSON.stringify(_this.data.list[(typeof id === "undefined" ? "undefined" : _typeof(id)) === "object" ? JSON.stringify(id) : id].jzwmc) : _this.data.list[(typeof id === "undefined" ? "undefined" : _typeof(id)) === "object" ? JSON.stringify(id) : id].jzwmc) + "</text>              </view>            </view>            <view class='data-score' style='color: " + (_typeof(_this.data.color[(typeof id === "undefined" ? "undefined" : _typeof(id)) === "object" ? JSON.stringify(id) : id]) === "object" ? JSON.stringify(_this.data.color[(typeof id === "undefined" ? "undefined" : _typeof(id)) === "object" ? JSON.stringify(id) : id]) : _this.data.color[(typeof id === "undefined" ? "undefined" : _typeof(id)) === "object" ? JSON.stringify(id) : id]) + "; flex: 1; font-size: 33rpx; margin: auto; margin-left: -170rpx; text-align: right; text-overflow: ellipsis; white-space: nowrap; width: 50rpx;'>\\u8BE5\\u6559\\u5BA4\\u6709" + (_typeof(_this.data.list[(typeof id === "undefined" ? "undefined" : _typeof(id)) === "object" ? JSON.stringify(id) : id].rnskrs) === "object" ? JSON.stringify(_this.data.list[(typeof id === "undefined" ? "undefined" : _typeof(id)) === "object" ? JSON.stringify(id) : id].rnskrs) : _this.data.list[(typeof id === "undefined" ? "undefined" : _typeof(id)) === "object" ? JSON.stringify(id) : id].rnskrs) + "\\u4F4D\\u7F6E</view>          </view>        </view>      </view>";
+      }) + "    </view>    <text></text>  </view>  " + (_typeof(this.data.block_show) === "object" ? JSON.stringify(this.data.block_show) : this.data.block_show ? "<view style='add '  style='bottom: 0; font-family: unset; left: 0; position: absolute; right: 0; top: 0; z-index: 9999;'>        <view class='add_background' bindtap='block_show' style='background-color: #000; bottom: 0; font-family: unset; height: 100%; left: 0; opacity: 0.6; position: absolute; right: 0; top: 0; z-index: 9999;'></view>    <view style='add_contain " + (_typeof(this.data.add_style) === "object" ? JSON.stringify(this.data.add_style) : this.data.add_style) + "' style='align-items: center; background-color: #fff; border-radius: 50rpx; bottom: 0; display: flex; flex-direction: column; padding: 50rpx 0; position: fixed; width: 100%; z-index: 99999;'>      <view class='add_title' style='font-weight: 600; padding-bottom: 50rpx; size: 18px;'>        <text>\\u8BFE\\u7A0B\\u8BE6\\u60C5</text>      </view>            <view class='add_block' style='align-items: center; background-color: rgb(245, 245, 245); border-radius: 20rpx; display: flex; flex-direction: row; height: 80rpx; margin: 20rpx 0; padding: 0 20rpx; width: 80%;'>        <label style='font-size: 14px; font-weight: 600; width: 20%;'>\\u65F6\\u95F4</label>        <picker mode='date' start='1978-01-01' end='2050-1-23' bindchange='bindDateChange'>          " + (_typeof(this.data.date) === "object" ? JSON.stringify(this.data.date) : this.data.date) + "        </picker>      </view>            <view class='add_block' style='align-items: center; background-color: rgb(245, 245, 245); border-radius: 20rpx; display: flex; flex-direction: row; height: 80rpx; margin: 20rpx 0; padding: 0 20rpx; width: 80%;'>        <label style='font-size: 14px; font-weight: 600; width: 20%;'>\\u6821\\u533A</label>        <picker value='" + (_typeof(this.data.campusArrayIndex) === "object" ? JSON.stringify(this.data.campusArrayIndex) : this.data.campusArrayIndex) + "' range='" + (_typeof(this.data.campusArray) === "object" ? JSON.stringify(this.data.campusArray) : this.data.campusArray) + "' bindchange='bindCampushange'>          " + (_typeof(this.data.campusArray[_typeof(this.data.campusArrayIndex) === "object" ? JSON.stringify(this.data.campusArrayIndex) : this.data.campusArrayIndex]) === "object" ? JSON.stringify(this.data.campusArray[_typeof(this.data.campusArrayIndex) === "object" ? JSON.stringify(this.data.campusArrayIndex) : this.data.campusArrayIndex]) : this.data.campusArray[_typeof(this.data.campusArrayIndex) === "object" ? JSON.stringify(this.data.campusArrayIndex) : this.data.campusArrayIndex]) + "        </picker>      </view>            <view class='add_block' style='align-items: center; background-color: rgb(245, 245, 245); border-radius: 20rpx; display: flex; flex-direction: row; height: 80rpx; margin: 20rpx 0; padding: 0 20rpx; width: 80%;'>        <label style='font-size: 14px; font-weight: 600; width: 20%;'>\\u6559\\u5B66\\u697C</label>        <picker range_key='mc' value='" + (_typeof(this.data.classIndex) === "object" ? JSON.stringify(this.data.classIndex) : this.data.classIndex) + "' range='" + (_typeof(this.data.classArray) === "object" ? JSON.stringify(this.data.classArray) : this.data.classArray) + "' bindchange='bindxqChange'>          " + (_typeof(this.data.classArray[_typeof(this.data.classIndex) === "object" ? JSON.stringify(this.data.classIndex) : this.data.classIndex].mc) === "object" ? JSON.stringify(this.data.classArray[_typeof(this.data.classIndex) === "object" ? JSON.stringify(this.data.classIndex) : this.data.classIndex].mc) : this.data.classArray[_typeof(this.data.classIndex) === "object" ? JSON.stringify(this.data.classIndex) : this.data.classIndex].mc) + "        </picker>      </view>            <view class='add_week_title' style='align-items: center; display: flex; height: 80rpx; justify-content: flex-start; width: 80%;'>        <label style='font-size: 14px; font-weight: 600;'>\\u8282\\u6B21\\uFF08\\u70B9\\u4EAE\\u5373\\u4EE3\\u8868\\u9009\\u62E9\\uFF09</label>      </view>      <view class='add_week' style='align-content: center; display: flex; flex-wrap: wrap; width: 85%;'>        " + this.data.week.map(function (item, index) {
+        return " <view style='add_weekBtn'  wx:key='key' style='align-items: center; display: flex; height: 50rpx; justify-content: center; margin: 10rpx 0; width: 25%;'>          <label id='" + ((typeof index === "undefined" ? "undefined" : _typeof(index)) === "object" ? JSON.stringify(index) : index) + "' bindtap='changeWB' style='" + ((typeof item === "undefined" ? "undefined" : _typeof(item)) === "object" ? JSON.stringify(item) : item ? "wx&class       ;        background     :      rgb(8      ,       178      ,       255)      ;        color     :      rgb(245      ,      245      ,      245) !important      ;        border     :      none !important      ;      " : "wx&class       ;        color     :      rgb(100      ,       100      ,       100)      ;      ") + "' style='align-items: center; border: 1rpx rgba(200, 200, 200, 0.6) solid; border-radius: 20rpx; color: rgb(100, 100, 100); display: flex; height: 100%; justify-content: center; width: 95%;'>            " + ((typeof index === "undefined" ? "undefined" : _typeof(index)) === "object" ? JSON.stringify(index) : index + 1) + "          </label>        </view>";
+      }) + "      </view>            <view class='add_btn' style='align-items: center; display: flex; flex-direction: row; justify-content: center; margin: 70rpx 0 50rpx; width: 85%;'>        <button bindtap='block_show' style='background-color: rgb(245, 245, 245); border-radius: 50rpx; color: gray; size: 16px; width: 45% !important;'>\\u53D6 \\u6D88</button>        <button bindtap='addSubmit' style='" + (_typeof(this.data.addSubmitStyle) === "object" ? JSON.stringify(this.data.addSubmitStyle) : this.data.addSubmitStyle ? "wx&class    ;     background-color   :   rgb(20  ,   205  ,   255) !important   ;     color   :    #fff !important   ;   " : "") + "' disabled='" + (!_typeof(this.data.addSubmitStyle) === "object" ? JSON.stringify(this.data.addSubmitStyle) : this.data.addSubmitStyle) + "' style='background-color: rgb(245, 245, 245); border-radius: 50rpx; color: gray; size: 16px; width: 45% !important;'>\\u67E5 \\u8BE2</button>      </view>    </view>  </view>" : "2") + "</view>";
       this.setData({ html: this.parse(html) });
     },
 
@@ -139,344 +148,320 @@ function runCode() {
      * 页面的初始数据
      */
     data: {
-      //输入的数据
-      experimentData: "",
-      //
-      ContentDescripe: ["算术平均值", "标准偏差", "算术平均偏差", "a类不确定度", "b类不确定度", "总不确定度", "总相对不确定度"],
-      //b类不确定度的picker数据,用到的东西有点多后续优化
-      multiArray: ["钢直尺", "钢卷尺", "游标卡尺", "螺旋测微器", "物理天平", "TG928A矿山天平", "水银温度计", "读数显微镜", "其他"],
-      multiIndex: 0,
-      calibrationIndex: 0,
-      show: false,
-      calibration: [],
-      calibrationItem: "请选择实验过程使用仪器的刻度",
-      instrument_name: "请选择实验过程使用的仪器",
-      other_err: "",
-      data_show: [{ name: "算术平均数", res: "NaN" }, { name: "标准偏差", res: "NaN" }, { name: "算术平均的标准偏差", res: "NaN" }, { name: "b类不确定度", res: "NaN" }, { name: "a类不确定度", res: "NaN" }, { name: "总不确定度", res: "NaN" }, { name: "总相对不确定度", res: "NaN" }]
+      Totalnumber: 0,
+      week: [],
+      list: [{
+        jxcddm: 'sdsd',
+        jxcdmc: 'sdsd',
+        jxcdbh: 'sdsd',
+        xqmc: 'sdsd',
+        jzwmc: 'sdsd',
+        rnskrs: 'sdsd'
+      }, {
+        jxcddm: 'sdsd',
+        jxcdmc: 'sdsd',
+        jxcdbh: 'sdsd',
+        xqmc: 'sdsd',
+        jzwmc: 'sdsd',
+        rnskrs: 'sdsd'
+      }],
+      achievement: [],
+      array: [],
+      color: ["#11c1f3", "#886aea", "#33cd5f", "#ffc900"],
+      block_show: true,
+      skrw: '',
+      date: new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate(),
+      index: 0,
+      campusArrayIndex: 0,
+      campusArray: ['官渡校区', '西城校区', '光华校区'],
+      classIndex: 0,
+      classArray: [{
+        "dm": "1",
+        "mc": "主教"
+      }, {
+        "dm": "2",
+        "mc": "二教A"
+      }, {
+        "dm": "6",
+        "mc": "二教B"
+      }, {
+        "dm": "7",
+        "mc": "其它"
+      }, {
+        "dm": "8",
+        "mc": "实验"
+      }, {
+        "dm": "9",
+        "mc": "体育场地(官渡)"
+      }],
+      cookies: ''
     },
-    err_input: function err_input(e) {
-      this.setdata({ other_err: e.detail.value });
+    bindDateChange: function bindDateChange(e) {
+      //获取倒数日日期
+      this.setdata({
+        date: e.detail.value
+      });
+    },
+    bindxqChange: function bindxqChange(e) {
+      //获取倒数日日期
+      this.setdata({
+        classIndex: e.detail.value
+      });
+    },
+    bindCampushange: function bindCampushange(e) {
+      console.log(e.detail.value);
+      if (e.detail.value === '1') {
+        this.data.classArray = [{
+          "dm": "103428603",
+          "mc": "体育场地(西城)"
+        }, {
+          "dm": "103589811",
+          "mc": "西城教学综合体"
+        }, {
+          "dm": "103596671",
+          "mc": "外语楼"
+        }, {
+          "dm": "103956660",
+          "mc": "东创楼"
+        }, {
+          "dm": "103978463",
+          "mc": "石油大楼"
+        }, {
+          "dm": "104659964",
+          "mc": "化学楼"
+        }, {
+          "dm": "104835722",
+          "mc": "双创楼"
+        }, {
+          "dm": "105252604",
+          "mc": "生食学院楼"
+        }];
+      } else if (e.detail.value === '2') {
+        this.data.classArray = [{
+          "dm": "101958392",
+          "mc": "体育场地(光华)"
+        }, {
+          "dm": "3",
+          "mc": "光华2号楼"
+        }, {
+          "dm": "4",
+          "mc": "光华3号楼"
+        }, {
+          "dm": "5",
+          "mc": "光华1号楼"
+        }];
+      } else {
+        this.data.classArray = [{
+          "dm": "1",
+          "mc": "主教"
+        }, {
+          "dm": "2",
+          "mc": "二教A"
+        }, {
+          "dm": "6",
+          "mc": "二教B"
+        }, {
+          "dm": "7",
+          "mc": "其它"
+        }, {
+          "dm": "8",
+          "mc": "实验"
+        }, {
+          "dm": "9",
+          "mc": "体育场地(官渡)"
+        }];
+      }
+      this.setdata({
+        campusArrayIndex: e.detail.value,
+        classArray: this.data.classArray
+      });
     },
 
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad: function onLoad(options) {
-      var _this = this;
+    changeWB: function changeWB(e) {
+      var id = e.currentTarget.id;
+      this.data.week[id] = !this.data.week[id];
+      var addSubmitStyle = false;
+      for (var i in this.data.week) {
+        if (this.data.week[i] === true) {
+          addSubmitStyle = true;
+        }
+      }
+      this.setdata({
+        week: this.data.week,
+        addSubmitStyle: addSubmitStyle
+      });
+    },
+
+
+    onLoad: function onLoad() {
+      var _this2 = this;
 
       options = this.options;this.data.dark = wx.getSystemInfoSync().theme;wx.onThemeChange(function (e) {
-        console.log(e.theme);_this.setdata({ dark: e.theme });
+        console.log(e.theme);_this2.setdata({ dark: e.theme });
       });this.setdata();
-    },
-    //输入
-    input: function input(e) {
+      app.loginState();
+      this.data.week = new Array(10);
+      for (var i = 0; i < this.data.week.length; i++) {
+        this.data.week[i] = false;
+      }
       this.setdata({
-        experimentData: e.detail.value
+        week: this.data.week
       });
     },
 
-    //b类不确定处理封装成一个函数
-    process: function process(instrument_name) {
-      var res = [];
-
-      if (instrument_name == "游标卡尺") {
-        res.push("0.02mm", "0.05mm", "0.1mm");
-        console.log(res);
-        this.setdata({
-          //存储是否展示
-          show: "choose",
-          //存储刻度
-          calibration: res
-        });
-      }
-      if (instrument_name == "水银温度计") {
-        res.push("0.2℃", "0.1℃");
-        console.log(res);
-        this.setdata({
-          //存储是否展示
-          show: "choose",
-          //存储刻度
-          calibration: res
-        });
-      }
-      if (instrument_name == "其他") {
-        this.setdata({
-          //存储是否展示
-          show: "input",
-          //存储刻度
-          calibration: res
-        });
-      }
-    },
-
-    //提交表单前的数据处理
-    computer: function computer() {
-      var input_data = this.data.experimentData;
-      input_data = input_data.split(" ");
-      var res = [];
-      var flag = 0;
-      input_data.forEach(function (element) {
-        if (isNaN(Number(element))) {
-          flag = 1;
+    addSubmit: function addSubmit(e) {
+      var jc = [];
+      for (var i in this.data.week) {
+        if (this.data.week[i]) {
+          jc.push(Number(i) + 1 < 10 ? '0' + (Number(i) + 1) : Number(i) + 1);
         }
-        res.push(Number(element));
-      });
-      if (flag == 1) {
-        return "数据输入框格式错误";
-      } else {
-        if (res[0] == 0) {
-          return "您还未输入数据";
-        }
-        return res;
       }
-    },
-
-    //提交表单
-    submit: function submit() {
+      console.log(jc.toString());
       var that = this;
-      var res = this.computer();
-      var result = {
-        "experimentData": [],
-        "b_": ""
-      };
-      if (typeof res == "string") {
-        wx.showToast({
-          title: res,
-          icon: "none"
-        });
-      } else {
-        var that = this;
-        console.log(res);
-        if (this.data.instrument_name == "游标卡尺" || this.data.instrument_name == "水银温度计") {
-          console.log(that.data.calibrationItem);
-          if (that.data.calibrationItem == "请选择实验过程使用仪器的刻度") {
-            wx.showToast({
-              title: '您还没选择刻度',
-              icon: "none"
-            });
-          }
-          var b_ = Number(that.data.calibrationItem.replace("mm", "").replace("℃", ""));
-          result = {
-            "experimentData": res,
-            "b_": b_ / Math.pow(3, 1 / 2)
-          };
-          console.log(result);
-        }
-        if (this.data.instrument_name == "其他") {
-          console.log(this.data.other_err);
-          if (this.data.other_err / Math.pow(3, 1 / 2) == 0) {
-            wx.showToast({
-              title: '请输入仪器误差',
-              icon: "none"
-            });
-          }
-          if (isNaN(this.data.other_err / Math.pow(3, 1 / 2))) {
-            wx.showToast({
-              title: '仪器误差输入框格式错误,应为数字类型',
-              icon: "none"
-            });
-          }
-          result = {
-            "experimentData": res,
-            "b_": this.data.other_err / Math.pow(3, 1 / 2)
-          };
-          console.log(result);
-        }
-        if (this.data.instrument_name == "钢直尺" || this.data.instrument_name == "钢卷尺" || this.data.instrument_name == "螺旋测微器" || this.data.instrument_name == "物理天平" || this.data.instrument_name == "TG928A矿山天平" || this.data.instrument_name == "读数显微镜") {
+      wx.showLoading({
+        title: '查询中',
+        mask: true
+      });
+      wx.request({
+        url: 'https://jwxt.gdupt.edu.cn/',
+        method: 'post',
+        success: function success(res) {
+          wx.request({
+            url: 'https://jwxt.gdupt.edu.cn/login!doLogin.action',
+            method: 'post',
+            data: {
+              account: app.globalData.username,
+              pwd: app.globalData.pwd,
+              verifycode: ''
+            },
+            header: {
+              'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+              'Accept': 'application/json, text/javascript, */*; q=0.01',
+              'Cookie': res.cookies[0]
+            },
+            success: function success(res1) {
+              if (res1.data.msg == "/login!welcome.action") {
+                that.data.cookies = res.cookies[0];
+                var header = {
+                  'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                  'Accept': 'application/json, text/javascript, */*; q=0.01',
+                  'Cookie': res.cookies[0]
+                };
+                wx.request({
+                  url: 'https://jwxt.gdupt.edu.cn/teajssqxx!getZCXQByRq.action?date=' + new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + (Number(new Date().getDate()) < 10 ? '0' + new Date().getDate() : new Date().getDate()),
+                  method: 'get',
+                  header: header,
+                  success: function success(data1) {
+                    var data2 = {
+                      order: 'asc',
+                      sort: 'jxcdbh',
+                      rows: '50',
+                      jc: String(jc),
+                      isqy: '1',
+                      page: '1',
+                      xnxqdm: new Date().getMonth() < 7 ? new Date().getFullYear() - 1 + '02' : new Date().getFullYear() + '01',
+                      xq: data1.data.xqxh,
+                      ssjzwdm: that.data.classArray[that.data.classIndex].dm
+                    };
+                    Object.assign(data2, data1.data);
+                    var url = Object.keys(data2).map(function (key) {
+                      // body...
+                      return encodeURIComponent(key) + "=" + encodeURIComponent(data2[key]);
+                    }).join("&");
+                    wx.request({
+                      url: 'https://jwxt.gdupt.edu.cn/teajssqxx!getPlJsDataList.action?primarySort=jxcddm%20desc',
+                      method: 'get',
+                      header: {
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                        'Accept': 'application/json, text/javascript, */*; q=0.01',
+                        'Cookie': that.data.cookies
+                      },
+                      data: data2,
+                      success: function success(data3) {
+                        console.log(data3);
+                        if (data3.data.total === 0) {
+                          wx.showToast({
+                            icon: 'none',
+                            title: '这个时间段没有空教室'
+                          });
+                        } else {
+                          wx.showToast({
+                            icon: 'onoe',
+                            title: '查询成功'
+                          });
+                          that.xiu(data3.data.rows);
+                        }
+                      }
+                    });
+                  }
+                });
+              } else {
+                wx.showToast({
+                  icon: 'onoe',
+                  title: '登录失败，请重新登录'
+                });
+              }
+            }
 
-          //定义哈希表把所有情况列举时间复杂度最低
-          var hash = { "钢直尺": 0.1, "钢卷尺": 0.5, "螺旋测微器": 0.004, "物理天平": 50, "TG928A矿山天平": 5, "读数显微镜": 0.004 };
-          var _b_ = hash[this.data.instrument_name];
-          result = {
-            "experimentData": res,
-            "b_": _b_ / Math.pow(3, 1 / 2)
-          };
-          console.log(result);
-        }
-        if (this.data.instrument_name == "请选择实验过程使用的仪器") {
+          });
+        },
+        fail: function fail(res) {
+
           wx.showToast({
-            title: '您还未选择实验仪器',
-            icon: "none"
+            title: '早上7-晚上11才能使用',
+            icon: 'none'
           });
         }
+      });
+    },
+    xiu: function xiu(kc) {
+      var data = [],
+          color = [],
+          n = 0;
+      var c = ["#11c1f3", "#886aea", "#33cd5f", "#ffc900"];
+      for (var i = 0; i < kc.length; i++) {
+        color.push(c[Math.floor(Math.random() * 4) + 0]);
+        data.push(kc[i]);
       }
-
-      console.log(result);
-      //在这里进行异步请求加判断
-      wx.request({
-        url: 'https://www.biubbmk.cn/api_flask_zf/physical_Default',
-        method: "POST",
-        data: {
-          arr: result.experimentData,
-          ub: result.b_
-        },
-        success: function success(res) {
-          that.setdata({ data_show: res.data });
-        }
-      });
-    },
-
-    //滚动事件
-    bindMultiPickerChange: function bindMultiPickerChange(e) {
-      var instrument_name = this.data.multiArray[e.detail.value];
-      console.log(instrument_name);
+      console.log(data);
       this.setdata({
-        multiIndex: e.detail.value,
-        show: false,
-        instrument_name: instrument_name,
-        calibrationItem: "请选择实验过程使用仪器的刻度", //初始化防止后续干扰
-        other_err: ""
+        list: data,
+        block_show: false,
+        color: color,
+        Totalnumber: kc.length
       });
-      this.process(instrument_name);
     },
-    bindpickerchange: function bindpickerchange(e) {
+    block_show: function block_show() {
       this.setdata({
-        calibrationIndex: e.detail.value,
-        calibrationItem: this.data.calibration[e.detail.value]
+        block_show: false
       });
     },
-
-
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function onReady() {},
-    Check: function Check() {
-      wx.navigateTo({
-        url: '/pages/test1/test1'
+    show: function show() {
+      console.log(233);
+      this.setdata({
+        block_show: true
       });
-    },
-
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow: function onShow() {},
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide: function onHide() {},
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload: function onUnload() {},
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh: function onPullDownRefresh() {},
-
-    onReachBottom: function onReachBottom() {},
-
-    onShareAppMessage: function onShareAppMessage() {}
+    }
   });
 }
 module.exports = runCode;
 /******/ })()
 ;
-//# sourceMappingURL=index.js.map`,
-  },
-
-  onLoad: async function (options) {
-    var that = this
-    wx.showLoading({
-      title: '加载基础信息中',
-      mask: true
-    })
-    // 注意！这个只能拉100个学校，我也希望未来我们能超过100个
-    var res = (await schoolLoading.where({}).get()).data
-
-    res.forEach(e => {
-      that.data.school.push(e.schoolName)
-    })
-    wx.hideLoading({
-      success: (res) => {},
-    })
-    that.setData({school: that.data.school})
-  },
-  //输入
- 
-  chooseTemperature: async function (e) {
-    var schoolName = this.data.school[e.detail.value]
-    var jumpData = (await jump.where({schoolName : schoolName}).get()).data
-    this.setData({tem: this.data.school[e.detail.value], jumpData})
-  }, 
-
-   
-  choose_ever: function (e) {
-    this.setData({everInDangerRegion: this.data.tj[e.detail.value]})
-  }, 
-
-  choose_kg: function (e) {
-    this.setData({kg: this.data.tj[e.detail.value]})
-  }, 
-
-  everIndangerPlaceText: function (e) {
-    this.data.everIndangerRegionText = e.detail.value
-    this.data.jumpData.forEach(e1 => {
-      if(e1.name === e.detail.value){
-        this.setData({
-          everInDangerRegion: '已配置'
-        })
+//# sourceMappingURL=index.js.map`
       }
-    })
-  },
-
-  everIndangerPlaceText1: function (e) {
-    this.data.iconUrl = e.detail.value
-
-  },
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-
-  submit: function (params) {
-    var that = this;
-    console.log(that.data.text)
-    wx.cloud.callFunction({
-      name: 'JsRelease',
-      data: {
-        'school': that.data.tem,
-        'name': that.data.everIndangerRegionText,
-        'isTj': that.data.everInDangerRegion,
-        'icnoUrl': that.data.iconUrl,
-        'isSwitch': that.data.kg,
-        'code': that.data.text
-      },
-      success: res => {
-        if (res.result.msg == "welcome") {
-          console.log(res.result)
-          wx.reLaunch({
-            url: '/pages/index/index'
-          })
-        } else {
-          console.log(res.result)
-          wx.showToast({
-            icon: 'none',
-            title: res.result.msg,
-          })
+      if (args) {
+        try {
+          var onload1 = app.jsRun(args, args.code)
+          const onloadDict = onload1()
+          for(let i in onloadDict){
+            this[i] = onloadDict[i]
+          }
+          this.onLoad(this.options)
+        } catch (e) {
+          console.log(e)
         }
-      },
-      fail: err => {
-        wx.showToast({
-          icon: 'none',
-          title: '校园网关闭或者服务器异常',
-        })
       }
-    })
-
-  },
-
-  onPullDownRefresh: function () {
-  },
   
-  onReachBottom: function () {
-  },
-   
-
-  onShareAppMessage: function () {
-    
-  }
-})
+    },
+  
+  })

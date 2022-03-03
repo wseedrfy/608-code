@@ -159,7 +159,6 @@ Page({
       for(let i = 1; i <= args.scheduleLength; i++){
         scheduleLength.push(i);
       }
-      console.log(scheduleLength);
     }else {
       scheduleLength = this.data.scheduleLength;    // 兜底
     }
@@ -320,13 +319,12 @@ Page({
 
   // 生成小绿点
   initWlistPoint(){
-    var personalInformation = wx.getStorageSync('personalInformation')
+    var personalInformation = wx.getStorageSync('personalInformation');
     var curriculum = personalInformation.curriculum;
-
     let args = wx.getStorageSync('args');
-
-    curriculum = this.changeCurriculum(args.addCurriculumLogs,args.ConcealCurriculumLogs)
-    //处理的绿色小点点
+    // 处理自增课程与隐藏课程
+    curriculum = this.changeCurriculum(args.addCurriculumLogs,args.ConcealCurriculumLogs);
+    // 初始化小点点
     var wlistPoint = new Array();
     for (var i = 0; i < 20; i++) { 
       wlistPoint[i] = new Array();
@@ -334,24 +332,27 @@ Page({
         wlistPoint[i][j] = null;
       }
     }
+    // 渲染绿色小点点
     for (let i in curriculum) {
       var zc = curriculum[i].zc;
-      // console.log(curriculum[i].jcdm);
       if(curriculum[i].jcdm) {
         let bright_skjc = Number(curriculum[i].jcdm.substr(0, 2)) + 1;
-        wlistPoint[zc-1][((bright_skjc / 2 - 1) * 7 + Number(curriculum[i].xq)) - 1] = 1
+        if(wlistPoint[zc-1]){
+          wlistPoint[zc-1][((bright_skjc / 2 - 1) * 7 + Number(curriculum[i].xq)) - 1] = 1
+        }
+
       }
     }
+    // 渲染黄色小点点
     let addCurriculumLogs = wx.getStorageSync('args').addCurriculumLogs;
     for (let i in addCurriculumLogs) {
       let zc = addCurriculumLogs[i].zc;
-      // console.log(curriculum[i].jcdm);
       if(addCurriculumLogs[i].jcdm) {
         let bright_skjc = Number(addCurriculumLogs[i].jcdm.substr(0, 2)) + 1;
         wlistPoint[zc-1][((bright_skjc / 2 - 1) * 7 + Number(addCurriculumLogs[i].xq)) - 1] = 2
       }
     }
-
+    // 赋值
     this.setData({
       wlistPoint
     })

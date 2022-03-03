@@ -21,7 +21,7 @@ Component({
         formText: '',
         photo: [],                  // 照片
         choosenLabel: '',           // 已选标签
-        menu: ["日常", "表白墙🎯", "吐槽","寻物发布"],
+        menu: ["日常", "表白墙🎯", "吐槽"],
 
         imageHeight: 0,
         imageWidth: 0,
@@ -177,85 +177,87 @@ Component({
                 "LoseType":this.data.type
               }
               console.log(add)
-              getApp().globalData.allList.push(add);
-              let NewData = getApp().globalData.allList.length - 1;
+              console.log(getApp().globalData.allList);
+              let list = getApp().globalData.allList[0];
+              list.push(add)
+              let NewData = list.length - 1;
 
               // 计算图片高度
               const CalculateImage = () => {
-                let allList = getApp().globalData.allList;
+                
+                for (let i = 0; i < list.length; i++) {
+                  // 计算高度
+                  let height = parseInt(Math.round(list[i].CoverHeight * 370 / list[i].CoverWidth));      
 
-                for (let i = 0; i < allList.length; i++) {
-                    let height = parseInt(Math.round(allList[i].CoverHeight * 370 / allList[i].CoverWidth));      // 计算得到高度
-
-                    if (height) {      
-                        let currentItemHeight = parseInt(Math.round(allList[i].CoverHeight * 370 / allList[i].CoverWidth));
-
-                        // 边界处理
-                        currentItemHeight > 500 ? currentItemHeight = 500 : '';
-
-                        allList[i].ShowHeight = currentItemHeight;
-                        allList[i].CoverHeight = currentItemHeight + "rpx"; // 因为xml文件中直接引用的该值作为高度，所以添加对应单位
-                    }
+                  if (height) {      
+                    let currentItemHeight = parseInt(Math.round(list[i].CoverHeight * 370 / list[i].CoverWidth));
+                    // 边界处理
+                    currentItemHeight > 500 ? currentItemHeight = 500 : '';
+                    // 赋值
+                    list[i].ShowHeight = currentItemHeight;
+                    list[i].CoverHeight = currentItemHeight + "rpx"; // 因为xml文件中直接引用的该值作为高度，所以添加对应单位
+                  }
                 }
                 return ;
               }
               // 将数据上传到数据库  (仅uploadPhoto内调用) 
               const uploadData = (NewData, fileIDs) => {
                 let args = wx.getStorageSync('args');
-                var that = this
-                if (fileIDs.length == getApp().globalData.allList[NewData].AllPhoto.length) {
+                var that = this;
+                if (fileIDs.length == list[NewData].AllPhoto.length) {
 
-                    wx.cloud.callFunction({
-                        name: 'CampusCircle',
-                        data: {
-                            // LoseTime:
-                            Cover: fileIDs[0],
-                            LoseTime:getApp().globalData.allList[NewData].LoseTime?getApp().globalData.allList[NewData].LoseTime:"",
-                            Other:getApp().globalData.allList[NewData].Other?getApp().globalData.allList[NewData].Other:"",
-                            LoseType:getApp().globalData.allList[NewData].LoseType?getApp().globalData.allList[NewData].LoseType:"",
-                            campus:getApp().globalData.allList[NewData].campus?getApp().globalData.allList[NewData].campus:"",
-                            AllPhoto: fileIDs,
-                            Title: getApp().globalData.allList[NewData].Title,
-                            Text: getApp().globalData.allList[NewData].Text,
-                            CoverHeight: getApp().globalData.allList[NewData].CoverHeight,
-                            CoverWidth: getApp().globalData.allList[NewData].CoverWidth,
-                            Label: getApp().globalData.allList[NewData].Label,
-                            Time: getApp().globalData.allList[NewData].Time,
-                            ShowHeight: getApp().globalData.allList[NewData].ShowHeight,
-                            School: getApp().globalData.allList[NewData].School,
-                            nickName: getApp().globalData.allList[NewData].nickName,
-                            username: args.username,
-                            iconUrl: getApp().globalData.allList[NewData].iconUrl,
-                            Star: 0,
-                            type: 'write'
-                        },
-                        success: res => {
-                            console.log("add", res)
-                            wx.showToast({
-                                duration: 4000,
-                                title: '添加成功'
-                            })
-                            setTimeout(()=>{
-                                that.ReOnLoad();
-                            },1000)
-                        },
-                        fail: err => {
-                            wx.showToast({
-                                icon: 'none',
-                                title: '出错啦！请稍后重试'
-                            })
-                            console.error
-                        },
-                        complete() {
-                            that.setData({
-                                photo: [],
-                                Input_Title: "",
-                                Input_Text: "",
-                                choosenLabel: " ",
-                                showModel: !that.data.showModel,
-                            })
-                        }
-                    })
+                  wx.cloud.callFunction({
+                    name: 'CampusCircle',
+                    data: {
+                      // LoseTime:
+                      Cover: fileIDs[0],
+                      LoseTime:list[NewData].LoseTime?list[NewData].LoseTime:"",
+                      Other:list[NewData].Other?list[NewData].Other:"",
+                      LoseType:list[NewData].LoseType?list[NewData].LoseType:"",
+                      campus:list[NewData].campus?list[NewData].campus:"",
+                      AllPhoto: fileIDs,
+                      Title: list[NewData].Title,
+                      Text: list[NewData].Text,
+                      CoverHeight: list[NewData].CoverHeight,
+                      CoverWidth: list[NewData].CoverWidth,
+                      Label: list[NewData].Label,
+                      Time: list[NewData].Time,
+                      ShowHeight: list[NewData].ShowHeight,
+                      School: list[NewData].School,
+                      nickName: list[NewData].nickName,
+                      username: args.username,
+                      iconUrl: list[NewData].iconUrl,
+                      Star: 0,
+                      type: 'write'
+                    },
+                    success: res => {
+                      console.log("add", res)
+                      wx.showToast({
+                        duration: 4000,
+                        title: '添加成功'
+                      })
+                      setTimeout(()=>{
+                        that.ReOnLoad();
+                      },1000)
+                    },
+                    fail: err => {
+                      wx.showToast({
+                        icon: 'none',
+                        title: '出错啦！请稍后重试'
+                      })
+                      console.error
+                    },
+                    complete() {
+                      // 初始化
+                      that.setData({
+                        photo: [],
+                        Input_Title: "",
+                        Input_Text: "",
+                        choosenLabel: " ",
+                        showModel: !that.data.showModel,
+                      })
+                    }
+                  })
                 }
               }
               // 将本地图片上传到云存储，后续通过fileid进行图片展示
@@ -270,7 +272,7 @@ Component({
                     title: '加载中',
                     mask: true
                   })
-                  var path = getApp().globalData.allList[NewData].AllPhoto;
+                  var path = getApp().globalData.allList[0][NewData].AllPhoto;
                   var fileIDs = [];
 
                   for (var i = 0; i < path.length; i++) {

@@ -1,4 +1,5 @@
 let db = wx.cloud.database()
+let count = ""
 Page({
 
   /**
@@ -32,6 +33,8 @@ Page({
    */
   onLoad: function (options) {
     let id = options.id
+    let args = wx.getStorageSync('args');
+    count = args.username
     if (id) {
       db.collection("associtaionMath").where({ _id: id }).get().then(res => {
         let data = res.data[0]
@@ -42,6 +45,12 @@ Page({
           imgUrl: data.imgUrl,
           weatherChange: true,
           id: id
+        })
+        // 查询社团信息
+        db.collection("associationApply").where({ count: count }).get().then(res => {
+          this.setData({
+            assoMess: res.data[0].hostMess
+          })
         })
       })
     }
@@ -175,7 +184,8 @@ Page({
                     sendStatus: status,
                     CoverHeight,
                     CoverWidth,
-                    ShowHeight
+                    ShowHeight,
+                    assoMess: this.data.assoMess
                   }
                 }).then(res => {
                   wx.hideLoading();
@@ -204,7 +214,8 @@ Page({
                     sendStatus: status,
                     CoverHeight,
                     CoverWidth,
-                    ShowHeight
+                    ShowHeight,
+                    assoMess: this.data.assoMess
                   }
                 }).then(res => {
                   wx.hideLoading();

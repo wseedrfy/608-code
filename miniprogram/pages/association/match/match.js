@@ -110,7 +110,8 @@ Page({
                 Text: item.senderMess.contentDetail,
                 Title: item.senderMess.title,
                 index: item.count + "比赛",
-                question: item.question
+                question: item.question,
+                assoMess:item.assoMess
                 // Label:
               }
             }).then(res => {

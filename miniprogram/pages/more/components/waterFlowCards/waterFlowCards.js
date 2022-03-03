@@ -9,13 +9,17 @@ Component({
         type: Array,
         value: []
       },
+      height:{
+        type: String,
+        value: ''
+      },
       // 当前组件需渲染的数据
-      list: {             
+      list: {
         type: Array,
         value: []
       },
-      // 当前组件的下标
-      index: {            
+      // 本组件的下标 
+      currentTab: {
         type: Number
       }
     },
@@ -33,24 +37,42 @@ Component({
     rightList: [],    // 右列表
     leftH: 0,         // 当前左列表高度
     rightH: 0,        // 当前右列表高度
-
-    
-
   },
+  // relations: {
+  //   './components/campusCards': {
+  //     type: 'child', // 关联的目标节点应为子节点
+  //     linked: function(target) {
+  //       // 每次有campusCards被插入时执行，target是该节点实例对象，触发在该节点attached生命周期之后
+  //     },
+  //     linkChanged: function(target) {
+  //       // 每次有campusCards被移动后执行，target是该节点实例对象，触发在该节点moved生命周期之后
+  //     },
+  //     unlinked: function(target) {
+  //       // 每次有campusCards被移除时执行，target是该节点实例对象，触发在该节点detached生命周期之后
+  //     }
+  //   }
+  // },
   lifetimes: {
+    attached() {
+      this.RightLeftSolution(true)
+    },
     ready: function() {
       // console.log(this.properties.list);
-    }
+    },
+
   },
   /**
    * 组件的方法列表
    */
   methods: {
-    
+    setAllList(e) {
+      const allList = e.detail;
+      console.log(allList);
+      this.triggerEvent("setAllList", allList)
+    },
     testFnc(){
       console.log("eeeee");
       this.triggerEvent("testFnc");
-      
     },
     onPullDownRefresh() {
       this.triggerEvent("onPullDownRefresh")
@@ -58,8 +80,10 @@ Component({
     getData() {
       let e = {
         currentPage:this.data.currentPage,  // 本组件当前第几页
-        index: this.properties.index        // 本组件索引 - 方便标签选择
+        currentTab: this.properties.currentTab  // 本组件索引 - 方便标签选择
       }
+      // 边界处理，拉到最底部时不允许再请求数据库
+      if(this.data.loadAll) return;
       this.triggerEvent("getData",e);
       console.log("getData");
     },
@@ -77,21 +101,36 @@ Component({
         return
       }
 
-      let index = this.properties.index;
+      let currentTab = this.properties.currentTab;
       let list = this.data.list;
       console.log(list,"丢入瀑布流的数据");
       
-      let allList = new Array(this.properties.tabitem.length);
-      // console.log(allList);
-      if(getApp().globalData.allList) {
-        getApp().globalData.allList[index] = list;
-      }else {
-        getApp().globalData.allList = allList
+      // 为兼容 “我的发布” 页面
+      if(currentTab) {
+        // 边界条件 - 存在即赋值，不存在即初始化
+        if(getApp().globalData.allList) {
+          getApp().globalData.allList[currentTab] = list;
+        }else {
+          let allList = new Array(this.properties.tabitem.length);
+          getApp().globalData.allList = allList
+        }
       }
-      // console.log(getApp().globalData.allList,"globalData的allList");
- 
 
       for (let i = 0; i < list.length; i++) {
+        // 兼容点赞/评论
+        this.data.leftList.forEach(e => {
+          if(e._id === list[i]._id) {
+            e.Star_User = list[i].Star_User;
+            e.CommentList = list[i].CommentList;
+          }
+        })
+        this.data.rightList.forEach(e => {
+          if(e._id === list[i]._id) {
+            e.Star_User = list[i].Star_User;
+            e.CommentList = list[i].CommentList;
+          }
+        })
+
         // 边界判断: 如果该数据已存在，则continue
         if (this.data.leftList || this.data.rightList) {
           let leftListID = this.data.leftList.map(item => {
@@ -120,6 +159,7 @@ Component({
           this.data.rightH += list[i].ShowHeight;
         }
       }
+      
       this.setData({
         leftList: this.data.leftList,
         rightList: this.data.rightList,

@@ -40,21 +40,9 @@
             <view class="bt_tip">开始发布活动吧</view>
         </view>
         <view class="bt_list_wrap">
-            <view class="act_bt" bind:tap="freshman">
-                <image src="img/freshman.png" />
-                <view class="tip_content">招新报名</view>
-            </view>
-            <view class="race_bt" bind:tap="match">
-                <image src="img/match.png" />
-                <view class="tip_content">赛事发布</view>
-            </view>
-            <view class="delete_bt" >
-                <image src="img/change.png" bind:tap="loading"/>
-                <view class="tip_content">编辑资料</view>
-            </view>
-            <view class="delete_bt" bind:tap="delete">
-                <image src="img/delete.png" />
-                <view class="tip_content">注销身份</view>
+            <view class="act_bt" wx:for="{{index_list}}" bindtap="{{item.tapName}}" wx:key="item">
+                <image src="{{item.img}}" />
+                <view class="tip_content">{{item.name}}</view>
             </view>
         </view>
         <view class="data_title_wrap">
@@ -62,35 +50,13 @@
             <view class="data_tip">我的数据看板</view>
         </view>
         <view class="bt_list_wrap">
-            <view class="act_bt" bind:tap="loading">
-                <image src="img/freshman.png" />
-                <view class="tip_content">招新数据</view>
-            </view>
-            <view class="race_bt" bind:tap="loading">
-                <image src="img/match.png" />
-                <view class="tip_content">赛事反馈</view>
-            </view>
-            <view class="delete_bt" bind:tap="loading">
-                <image src="img/delete.png" />
-                <view class="tip_content">推广数据</view>
-            </view>
-            <view class="delete_bt" bind:tap="loading">
-                <image src="img/delete.png" />
-                <view class="tip_content">创作中心</view>
+            <view class="act_bt" wx:for="{{data_list}}" bind:tap="{{item.tap}}" wx:key="item">
+                <image src="{{item.img}}" />
+                <view class="tip_content">{{item.name}}</view>
             </view>
         </view>
     </view>
-    <!-- 数据 -->
-    <!-- <view class="data_wrap">
-        <view class="data_title_wrap">
-            <view class="data_title">我的数据</view>
-            <view class="data_tip">社团数据看报</view>
-        </view>
-    </view> -->
 </view>
-<!-- <view class="delete_wrap">
-
-</view> -->
 <!-- 发布弹窗 -->
 <view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
 <!-- 弹出框 -->

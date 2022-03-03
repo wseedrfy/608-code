@@ -36,7 +36,6 @@ fs.readFile('src/index.js', (err, buffer) => {
           let css = buffer2.toString()
           css1 = css.replace(/[\n]/g, "");
 
-
           let darkCss = css1.match(/dark\s*\)\s*{(.*?)}\s*}/g);
           darkCss = darkCss ? darkCss[0].match(/\.(.*?)(.*?){(.*?)}/g) : darkCss;
 
@@ -90,11 +89,13 @@ fs.readFile('src/index.js', (err, buffer) => {
           inlineCss(html, options)
             .then(function (html) {
               //内部css处理
-              css = css.replace(/[\n]/g, "");
-        
+              console.log(css)
+              css = css.replace(/[\n\r]/g, "");
+
               var regexp = /\.(.*?)(.*?){(.*?)}/g;
               allcss = css.match(regexp);
               let s = new Set()
+              
               for (i in allcss) {
                 var regexp = /\.(.*?)(.*?){(.*?)}/;
                 let p = allcss[i].match(regexp);
@@ -102,7 +103,7 @@ fs.readFile('src/index.js', (err, buffer) => {
                   [p[2].split(/\s+/)[0]]: p[3]
                 })
               }
-              // console.log(s)
+    
               let allStrClass = html.match(/class=".*?{{(.*?)}}\s*"/g)
               let allStrClass1 = html.match(/class=".*?{{(.*?)}}\s*"/g)
 
@@ -110,21 +111,22 @@ fs.readFile('src/index.js', (err, buffer) => {
 
                 var regexp = /{{(.*?)}}/;
                 let p = allStrClass[i].match(regexp);
-                // console.log(allStrClass)
+      
                 if (!p) {
                   continue
                 }
                 p = p[1]
                 var fh
           
-                  fh = p.match(/["]/g)
-          
+                fh = p.match(/["]/g)
+                
                 for (j in fh) {
                   p = p.replaceAll(fh[j], ` ${fh[j]} `)
 
                 }
+
                 let newStyle = p.split(/\s+/)
-  
+             
                 let Style = ""
                 for (j in newStyle) {
                   // console.log(newStyle[j].match(/"(.*)"/))
@@ -134,7 +136,7 @@ fs.readFile('src/index.js', (err, buffer) => {
                       if (newStyle[j] === Object.keys(x)[0]) {
                 
                         newStyle[j] = "wx&class ;" + x[Object.keys(x)[0]]
-                        console.log(newStyle[j])
+                        // console.log(newStyle[j])
                         break;
                       }
                       // console.log(newStyle[j].match(/"(.*)"/)[1] ,Object.keys(x)[0])
@@ -316,7 +318,7 @@ fs.readFile('src/index.js', (err, buffer) => {
 
               var regexp = /{{(.*?)}}/g;
               let p = html.match(regexp)
-              console.log(p)
+
               for (i in p) {
                 let k = p[i].match(/{{(.*?)}}/)[1]
                 let p1 = ''
@@ -325,43 +327,58 @@ fs.readFile('src/index.js', (err, buffer) => {
                   p1 = JSON.stringify(k)
 
                 } catch (e) {
-                  var fh = k.match(/[`~!@#$%^*()+<>?:{},\/;[\]=]/g)
-                  if(k.match(/wx&class/)){
-                    var fh = k.match(/[`~@%^*+<>?:{},\/;[\]=]/g)
-                  }
-       
-                  for (j in fh) {
-
-                    k = k.replaceAll(fh[j], ` ${fh[j]} `)
-
-                  }
-                  let dz = k.match(/"(.*?)"/g)
-       
-                  k = k.replace(/"(.*?)"/g, '~~~')
-                  let array = k.split(/\s+/g)
-
-
-                  for (j in array) {
-                    if (array[j].match(/^[a-zA-Z]/)) {
-                
-                      // p1 += `${array[j]}`
-                      p1 += 'typeof this.data.' + array[j] + ' === "object" ? JSON.stringify( ' + 'this.data.' + array[j] + ') : this.data.' + array[j]
-                    } else {
-
-                      try {
-                        JSON.parse(k)
-                        p1 += JSON.stringify(array[j])
-                      } catch {
-                        p1 += array[j]
+                  const re = (k, p1) =>{
+            
+                    var fh = k.match(/[`~!@#$%^*()+<>?:{},\/;\=]/g)
+                    if(k.match(/wx&class/)){
+                      var fh = k.match(/[`~@%^*+<>?:{},\/;\=]/g)
+                    }
+         
+                    for (j in fh) {
+  
+                      k = k.replaceAll(fh[j], ` ${fh[j]} `)
+  
+                    }
+              
+                    let dz = k.match(/"(.*?)"/g)
+         
+                    k = k.replace(/"(.*?)"/g, '~~~')
+                    let array = k.split(/\s+/g)
+ 
+   
+                    
+                    // console.log( re(array[0].match(/\[(.*?)\]/g), ''))
+                    for (j in array) {
+                      if(array[j].match(/\[(.*?)\]/g)){
+                        let arrayre  = re(array[j].match(/\[(.*?)\]/)[1], '')
+                        // console.log(arrayre, 233)
+                        array[j] = array[j].replaceAll(array[j].match(/\[(.*?)\]/)[1], arrayre)
+           
+                      }
+                      // console.log(array[j], 244)
+                      if (array[j].match(/^[a-zA-Z]/)) {
+                  
+                        // p1 += `${array[j]}`
+                        p1 += 'typeof this.data.' + array[j] + ' === "object" ? JSON.stringify( ' + 'this.data.' + array[j] + ') : this.data.' + array[j]
+                      } else {
+  
+                        try {
+                          JSON.parse(k)
+                          p1 += JSON.stringify(array[j])
+                        } catch {
+                          p1 += array[j]
+                        }
                       }
                     }
+            
+                    for (j in dz) {
+               
+                      p1 = p1.replace(/~~~/, dz[j])
+                    }
+                    return p1
                   }
-          
-                  for (j in dz) {
-             
-                    p1 = p1.replace(/~~~/, dz[j])
-                  }
-
+           
+                  p1 = re(k, p1)
                 }
 
                 if (p[i].match(/wx&if/)) {

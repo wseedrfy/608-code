@@ -1,258 +1,300 @@
+// pages/grade/show/show.js
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    //输入的数据
-    experimentData:"",
-    //
-    ContentDescripe:[
-      "算术平均值",
-      "标准偏差",
-      "算术平均偏差",
-      "a类不确定度",
-      "b类不确定度",
-      "总不确定度",
-      "总相对不确定度"
-    ],
-    //b类不确定度的picker数据,用到的东西有点多后续优化
-      multiArray: ["钢直尺","钢卷尺","游标卡尺","螺旋测微器","物理天平","TG928A矿山天平","水银温度计","读数显微镜","其他"],
-      multiIndex: 0,
-      calibrationIndex:0,
-      show:false,
-      calibration:[],
-      calibrationItem:"请选择实验过程使用仪器的刻度",
-      instrument_name:"请选择实验过程使用的仪器",
-      other_err:"",
-      data_show:[
-       {name:"算术平均数",res:"NaN"},
-       {name: "标准偏差",res:"NaN"},
-       {name:"算术平均的标准偏差",res:"NaN"},
-       {name:"b类不确定度",res:"NaN"},
-       {name:"a类不确定度",res:"NaN"},
-       {name:"总不确定度",res:"NaN"},
-       {name:"总相对不确定度",res:"NaN"},
-      ]
-  },
-  err_input(e){
-    this.setData({other_err:e.detail.value})
-  },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    
-  },
-  //输入
-  input(e){
-    this.setData({
-      experimentData:e.detail.value
-    })
-  },
-  //b类不确定处理封装成一个函数
-  process(instrument_name){
-    let res = []
-
-    if(instrument_name=="游标卡尺"){
-      res.push("0.02mm","0.05mm","0.1mm")
-      console.log(res)
-      this.setData({
-      //存储是否展示
-      show:"choose",
-      //存储刻度
-      calibration:res
-    })
-    }
-    if(instrument_name=="水银温度计"){
-      res.push("0.2℃","0.1℃")
-      console.log(res)
-     this.setData({
-      //存储是否展示
-      show:"choose",
-      //存储刻度
-      calibration:res
-    })
-    }
-    if(instrument_name=="其他"){
-      this.setData({
-        //存储是否展示
-        show:"input",
-        //存储刻度
-        calibration:res
-      })
-    }
-  },
-  //提交表单前的数据处理
-  computer(){
-    let input_data = this.data.experimentData
-    input_data=input_data.split(" ")
-    let res = []
-    let flag = 0
-    input_data.forEach(element => {
-      if(isNaN(Number(element))){
-        flag=1        
-      }
-    res.push(Number(element))
-  });
-  if(flag==1){
-    return "数据输入框格式错误"
-  }
-  else{
-    if(res[0]==0){
-      return "您还未输入数据"
-    }
-    return res
-  }
-  },
-  //提交表单
-  submit(){
-    var that = this
-  let res = this.computer()
-  let result = {
-    "experimentData":[],
-    "b_":""
-  }
-  if(typeof(res)=="string"){
-    wx.showToast({
-      title:res,
-      icon:"none"
-    })
-  }
-  else{
-    var that = this
-    console.log(res)
-    if(this.data.instrument_name=="游标卡尺"||this.data.instrument_name=="水银温度计"){
-      console.log(that.data.calibrationItem)
-      if(that.data.calibrationItem=="请选择实验过程使用仪器的刻度"){
-        wx.showToast({
-          title: '您还没选择刻度',
-          icon:"none"
-        })
-      }
-      let b_ = Number(that.data.calibrationItem.replace("mm","").replace("℃",""))
-       result = {
-        "experimentData":res,
-        "b_":b_/(3**(1/2))
-      }
-      console.log(result)
-    }
-    if(this.data.instrument_name=="其他"){
-      console.log(this.data.other_err)
-      if(this.data.other_err/(3**(1/2))==0){
-        wx.showToast({
-          title: '请输入仪器误差',
-          icon:"none"
-        })
-      }
-      if(isNaN(this.data.other_err/(3**(1/2)))){
-        wx.showToast({
-          title: '仪器误差输入框格式错误,应为数字类型',
-          icon:"none"
-        })
-      }
-       result = {
-        "experimentData":res,
-        "b_":this.data.other_err/(3**(1/2))
-      }
-      console.log(result)
-    }
-    if(this.data.instrument_name=="钢直尺"||this.data.instrument_name=="钢卷尺"||this.data.instrument_name=="螺旋测微器"||this.data.instrument_name=="物理天平"||this.data.instrument_name=="TG928A矿山天平"||this.data.instrument_name=="读数显微镜"){
-
-    //定义哈希表把所有情况列举时间复杂度最低
-    let hash = {"钢直尺":0.1,"钢卷尺":0.5,"螺旋测微器":0.004,"物理天平":50,"TG928A矿山天平":5,"读数显微镜":0.004,}
-    let b_ = hash[this.data.instrument_name]
-     result = {
-        "experimentData":res,
-        "b_":b_/(3**(1/2))
-      }
-      console.log(result)
-    }
-    if(this.data.instrument_name=="请选择实验过程使用的仪器"){
-      wx.showToast({
-        title: '您还未选择实验仪器',
-        icon:"none"
-      })
-    }
-  }
-
-  console.log(result)
-//在这里进行异步请求加判断
-  wx.request({
-    url: 'https://www.biubbmk.cn/api_flask_zf/physical_Default',
-    method:"POST",
-    data:{
-      arr:result.experimentData,
-      ub:result.b_
+    Totalnumber: 0,
+    week: [],
+    list: [{
+      jxcddm: 'sdsd',
+      jxcdmc: 'sdsd',
+      jxcdbh: 'sdsd',
+      xqmc: 'sdsd',
+      jzwmc: 'sdsd',
+      rnskrs: 'sdsd'
     },
-    success(res){
-      that.setData({data_show:res.data})
+    {
+      jxcddm: 'sdsd',
+      jxcdmc: 'sdsd',
+      jxcdbh: 'sdsd',
+      xqmc: 'sdsd',
+      jzwmc: 'sdsd',
+      rnskrs: 'sdsd'
+    }],
+    achievement: [],
+    array: [],
+    color: ["#11c1f3","#886aea","#33cd5f","#ffc900"],
+    block_show: true,
+    skrw: '',
+    date: new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate(),
+    index: 0,
+    campusArrayIndex: 0,
+    campusArray: ['官渡校区', '西城校区', '光华校区'],
+    classIndex: 0,
+    classArray: [{
+      "dm": "1",
+      "mc": "主教"
+    }, {
+      "dm": "2",
+      "mc": "二教A"
+    }, {
+      "dm": "6",
+      "mc": "二教B"
+    }, {
+      "dm": "7",
+      "mc": "其它"
+    }, {
+      "dm": "8",
+      "mc": "实验"
+    }, {
+      "dm": "9",
+      "mc": "体育场地(官渡)"
+    }],
+    cookies: '',
+  },
+  bindDateChange: function (e) { //获取倒数日日期
+    this.setData({
+      date: e.detail.value
+    })
+  },
+  bindxqChange: function (e) { //获取倒数日日期
+    this.setData({
+      classIndex: e.detail.value
+    })
+  },
+  bindCampushange: function (e) {
+    console.log(e.detail.value)
+    if (e.detail.value === '1') {
+      this.data.classArray = [{
+        "dm": "103428603",
+        "mc": "体育场地(西城)"
+      }, {
+        "dm": "103589811",
+        "mc": "西城教学综合体"
+      }, {
+        "dm": "103596671",
+        "mc": "外语楼"
+      }, {
+        "dm": "103956660",
+        "mc": "东创楼"
+      }, {
+        "dm": "103978463",
+        "mc": "石油大楼"
+      }, {
+        "dm": "104659964",
+        "mc": "化学楼"
+      }, {
+        "dm": "104835722",
+        "mc": "双创楼"
+      }, {
+        "dm": "105252604",
+        "mc": "生食学院楼"
+      }]
+    } else if (e.detail.value === '2') {
+      this.data.classArray = [{
+        "dm": "101958392",
+        "mc": "体育场地(光华)"
+      }, {
+        "dm": "3",
+        "mc": "光华2号楼"
+      }, {
+        "dm": "4",
+        "mc": "光华3号楼"
+      }, {
+        "dm": "5",
+        "mc": "光华1号楼"
+      }]
+    } else {
+      this.data.classArray = [{
+        "dm": "1",
+        "mc": "主教"
+      }, {
+        "dm": "2",
+        "mc": "二教A"
+      }, {
+        "dm": "6",
+        "mc": "二教B"
+      }, {
+        "dm": "7",
+        "mc": "其它"
+      }, {
+        "dm": "8",
+        "mc": "实验"
+      }, {
+        "dm": "9",
+        "mc": "体育场地(官渡)"
+      }]
     }
-  })
-  },
-  //滚动事件
-  bindMultiPickerChange: function (e) {
-    let instrument_name = this.data.multiArray[e.detail.value]
-    console.log(instrument_name)
     this.setData({
-      multiIndex: e.detail.value,
-      show:false,
-      instrument_name,
-      calibrationItem:"请选择实验过程使用仪器的刻度", //初始化防止后续干扰
-      other_err:""
+      campusArrayIndex: e.detail.value,
+      classArray: this.data.classArray
     })
-    this.process(instrument_name)
   },
-  bindpickerchange(e){
+
+  changeWB(e) {
+    var id = e.currentTarget.id
+    this.data.week[id] = !this.data.week[id]
+    let addSubmitStyle = false
+    for(let i in this.data.week){
+      if(this.data.week[i] === true){
+        addSubmitStyle = true;
+      }
+    }
     this.setData({
-      calibrationIndex: e.detail.value,
-      calibrationItem:this.data.calibration[e.detail.value]
+      week: this.data.week,
+      addSubmitStyle
+    })
+
+  },
+
+  onLoad: function () {
+    app.loginState();
+    this.data.week = new Array(10)
+    for (let i = 0; i < this.data.week.length; i++) {
+      this.data.week[i] = false;
+    }
+    this.setData({
+      week: this.data.week
     })
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-    
-  },
-  Check(){
-    wx.navigateTo({
-      url: '/pages/test1/test1',
+  addSubmit: function (e) {
+    let jc = []
+    for (let i in this.data.week) {
+      if (this.data.week[i]) {
+        jc.push(Number(i) + 1 < 10 ? '0' + (Number(i) + 1) : Number(i) + 1)
+      }
+    }
+    console.log(jc.toString())
+    var that = this
+    wx.showLoading({
+      title: '查询中',
+      mask: true
+    })
+    wx.request({
+      url: 'https://jwxt.gdupt.edu.cn/',
+      method: 'post',
+      success: function (res) {
+        wx.request({
+          url: 'https://jwxt.gdupt.edu.cn/login!doLogin.action',
+          method: 'post',
+          data: {
+            account: app.globalData.username,
+            pwd: app.globalData.pwd,
+            verifycode: ''
+          },
+          header: {
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+            'Accept': 'application/json, text/javascript, */*; q=0.01',
+            'Cookie': res.cookies[0]
+          },
+          success: function (res1) {
+            if (res1.data.msg == "/login!welcome.action") {
+              that.data.cookies = res.cookies[0];
+              const header = {
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                'Accept': 'application/json, text/javascript, */*; q=0.01',
+                'Cookie': res.cookies[0]
+              }
+              wx.request({
+                url: 'https://jwxt.gdupt.edu.cn/teajssqxx!getZCXQByRq.action?date=' + new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + (Number(new Date().getDate()) < 10 ? '0' + new Date().getDate() : new Date().getDate()),
+                method: 'get',
+                header,
+                success: function (data1) {
+                  let data2 = {
+                    order: 'asc',
+                    sort: 'jxcdbh',
+                    rows: '50',
+                    jc : String(jc),
+                    isqy: '1',
+                    page: '1',
+                    xnxqdm: new Date().getMonth() < 7 ? (new Date().getFullYear() - 1) + '02' : (new Date().getFullYear()) + '01',
+                    xq: data1.data.xqxh,
+                    ssjzwdm: that.data.classArray[that.data.classIndex].dm
+                  }
+                  Object.assign(data2,data1.data)
+                  let url = Object.keys(data2).map(function (key) {
+                    // body...
+                    return encodeURIComponent(key) + "=" + encodeURIComponent(data2[key]);
+                  }).join("&")
+                  wx.request({
+                    url: 'https://jwxt.gdupt.edu.cn/teajssqxx!getPlJsDataList.action?primarySort=jxcddm%20desc',
+                    method: 'get',
+                    header: {
+                      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                      'Accept': 'application/json, text/javascript, */*; q=0.01',
+                      'Cookie': that.data.cookies
+                    },
+                    data : data2,
+                    success: function (data3) {
+                      console.log(data3)
+                      if(data3.data.total === 0){
+                        wx.showToast({
+                          icon: 'none',
+                          title: '这个时间段没有空教室',
+                        })
+                      }else{
+                        wx.showToast({
+                          icon: 'onoe',
+                          title: '查询成功',
+                        })
+                        that.xiu(data3.data.rows)
+                      }
+                    }
+                  })
+                }
+              })
+            } else {
+              wx.showToast({
+                icon: 'onoe',
+                title: '登录失败，请重新登录',
+              })
+            }
+
+          }
+
+        })
+
+      },
+      fail(res) {
+
+        wx.showToast({
+          title: '早上7-晚上11才能使用',
+          icon: 'none',
+        });
+      }
+
     })
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-    
+  xiu: function (kc) {
+    let data = [],
+      color = [],
+      n = 0;
+    let c = ["#11c1f3","#886aea","#33cd5f","#ffc900"]
+    for (let i = 0; i < kc.length; i++) {
+        color.push(c[Math.floor(Math.random() * 4) + 0]);
+        data.push(kc[i]);
+    }
+    console.log(data)
+    this.setData({
+      list: data,
+      block_show: false,
+      color: color,
+      Totalnumber: kc.length
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-    
+  block_show: function (){
+    this.setData({
+      block_show: false,
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-    
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  },
-  
-  onReachBottom: function () {
-  },
-   
-  onShareAppMessage: function () {
-    
+  show: function (){
+    console.log(233)
+    this.setData({
+      block_show: true,
+    })
   }
 })

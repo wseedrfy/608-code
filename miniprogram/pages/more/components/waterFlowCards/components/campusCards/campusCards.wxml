@@ -1,11 +1,11 @@
 <wxs module="m1">
   var getStar = function (item, character) {
-    var starSrc = '../../../../images/zan1.png'
+    var starSrc = '../../../../../../images/zan1.png'
     if (item.Star_User) {
       item.Star_User.forEach(function (e) {
 
-        if (e && e.username === character.username) {
-          starSrc = '../../../../images/zan.png'
+        if (e && e.username === character.userName) {
+          starSrc = '../../../../../../images/zan.png'
         }
 
       })
@@ -31,7 +31,7 @@
         <span class="commentNum">{{item.Star_User?item.Star_User.length:0}}</span>
       </div>
       <div style="margin-right:6px;">
-        <image src="../../../../images/comment.png" class="commentImg" />
+        <image src="../../../../../../images/comment.png" class="commentImg" />
         <span class="commentNum">{{item.CommentList?item.CommentList.length:0}}</span>
       </div>
     </div>

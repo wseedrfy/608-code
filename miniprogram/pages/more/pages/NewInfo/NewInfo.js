@@ -1,13 +1,14 @@
 const util = require("../../../../utils/util");
 const args = wx.getStorageSync('args')
-var currentPage = 0 // 当前第几页,0代表第一页 
-var pageSize = 10   // 每页显示多少数据 
+
 Page({
   data: {
     dataList: [],    // 放置返回数据的数组  
-    oldDataList:[],  // 历史消息
-    loadMore: false, // "上拉加载"的变量，默认false，隐藏  
-    loadAll: false   // “没有数据”的变量，默认false，隐藏  
+    oldDataList:[],  // 历史消息   -- ------- --- ------- -------暂时没用
+    loadAll: false,  // “没有数据”的变量，默认false，隐藏  
+
+    currentPage: 0,
+    pageSize:10,
   },
   naviToDetail(e) {
     var content = JSON.stringify(e.currentTarget.dataset.content);
@@ -21,8 +22,9 @@ Page({
   },
   onLoad(){
     this.getData()
-    currentPage =0;
-    pageSize =10;
+    // 初始化
+    this.data.currentPage = 0;
+    this.data.pageSize = 10;
   },
   onPullDownRefresh(){
     wx.showLoading({
@@ -33,15 +35,14 @@ Page({
   },
   //页面上拉触底事件的处理函数
   onReachBottom: function() {
-    console.log("上拉触底事件")
-    if (!this.data.loadMore) {
-      this.setData({
-        loadMore: true, //加载中  
-        loadAll: false //是否加载完所有数据
-      });
-      this.getData()
+    console.log("上拉触底事件");
+    // 边界处理
+    if(this.data.loadAll) {
+      return ;
     }
+    this.getData()
   },
+
   //访问网络,请求数据  
   getData() {
     wx.showLoading({
@@ -49,48 +50,36 @@ Page({
       mask: true
     })
     let that = this;
-    // 第一次加载数据
-    if (currentPage == 1) {
-      this.setData({
-        loadMore: true, //把"上拉加载"的变量设为true，显示  
-        loadAll: false //把“没有数据”设为false，隐藏  
-      })
-    }
     wx.cloud.callFunction({
       name:'CampusCircle',
       data: {
         be_username: args.username,
-        currentPage:currentPage,
-        pageSize:pageSize,
+        currentPage: that.data.currentPage,
+        pageSize: that.data.pageSize,
         type:'ReadControlLogs'
       },
       success(res) {
         wx.hideLoading()
         if (res.result.data && res.result.data.length > 0) {
-          console.log("请求成功", res.result.data)
-          currentPage++
-          // 2. 拿新List
-          for(let i = 0; i < res.result.data.length;i++) {   // 处理每个数据的时间
-             res.result.data[i].createTime = util.timeago(res.result.data[i].createTime,'Y年M月D日');
+          that.data.currentPage++;
+          // 处理每个数据的时间
+          for(let i = 0; i < res.result.data.length;i++) {   
+            res.result.data[i].createTime = util.timeago(res.result.data[i].createTime,'Y年M月D日');
           }
-          let list = that.data.dataList.concat(res.result.data)
+          // 拿新数据
+          let list = that.data.dataList.concat(res.result.data);
           that.setData({
-            dataList: list, //获取数据数组    
-            loadMore: false //把"上拉加载"的变量设为false，显示  
+            dataList: list,
           });
-          console.log("第二步拿新List",that.data.dataList);
-
-          // 5. 更新数据库数据状态
-          if (res.result.data.length < pageSize) {
+          // 边界处理
+          if(res.result.data.length < that.data.pageSize) {
             that.setData({
-              loadMore: false, //隐藏加载中。。
-              loadAll: true //所有数据都加载完了
+              loadAll: true, 
             });
           }
-        } else {
+        } else {    // 没有数据时
           that.setData({
-            loadAll: true, //把“没有数据”设为true，显示  
-            loadMore: false //把"上拉加载"的变量设为false，隐藏  
+            loadAll: true, 
           });
         }
       },
@@ -101,11 +90,10 @@ Page({
         })
         console.log("请求失败", res)
         that.setData({
-          loadAll: false,
-          loadMore: false
+          loadAll: true,
         });
       }
     })
-      console.log(this.data.dataList);
+    console.log(this.data.dataList);
   },
 })

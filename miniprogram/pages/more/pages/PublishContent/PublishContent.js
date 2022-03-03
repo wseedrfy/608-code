@@ -52,12 +52,12 @@ Page({
               let photo = that.data.photo.concat(res.tempFiles);
               
               wx.getImageInfo({                       // 获得图片信息
-                  src: photo[0].tempFilePath,
-                  success: (res) => {
-                      photo[0].imageHeight = res.height;
-                      photo[0].imageWidth = res.width;
-                      that.setData({ photo })
-                  }
+                src: photo[0].tempFilePath,
+                success: (res) => {
+                  photo[0].imageHeight = res.height;
+                  photo[0].imageWidth = res.width;
+                  that.setData({ photo })
+                }
               })
           }
       })
@@ -100,37 +100,36 @@ Page({
             })
           }else {
             let add = {
-                "Cover": this.data.photo[0],
-                "AllPhoto": JSON.parse(JSON.stringify(this.data.photo)),
-                "Title": formTitle,
-                "Text": formText,
-                "CoverHeight": this.data.photo[0].imageHeight,
-                "CoverWidth": this.data.photo[0].imageWidth,
-                "Label": this.data.choosenLabel,
-                "Time": new Date().getTime(),
-                "nickName": args.nickName,
-                "School": args.school,
-                "iconUrl": args.iconUrl
+              "Cover": this.data.photo[0],
+              "AllPhoto": JSON.parse(JSON.stringify(this.data.photo)),
+              "Title": formTitle,
+              "Text": formText,
+              "CoverHeight": this.data.photo[0].imageHeight,
+              "CoverWidth": this.data.photo[0].imageWidth,
+              "Label": this.data.choosenLabel,
+              "Time": new Date().getTime(),
+              "nickName": args.nickName,
+              "School": args.school,
+              "iconUrl": args.iconUrl
             }
-            app.globalData.allList.push(add);       // 将数据渲染进allList  - 成功
-            let NewData = app.globalData.allList.length - 1;
+            let list = app.globalData.allList[0]
+            list.push(add);      
+            let NewData = list.length - 1;
 
             // 计算图片高度
             const CalculateImage = () => {  
-              let allList = app.globalData.allList;
+              for (let i = 0; i < list.length; i++) {
+                // 计算得到高度
+                let height = parseInt(Math.round(list[i].CoverHeight * 370 / list[i].CoverWidth));      
 
-              for (let i = 0; i < allList.length; i++) {
-                  let height = parseInt(Math.round(allList[i].CoverHeight * 370 / allList[i].CoverWidth));      // 计算得到高度
+                if (height) {      
+                  let currentItemHeight = parseInt(Math.round(list[i].CoverHeight * 370 / list[i].CoverWidth));
+                  // 边界处理
+                  currentItemHeight > 500 ? currentItemHeight = 500 : '';
 
-                  if (height) {      
-                      let currentItemHeight = parseInt(Math.round(allList[i].CoverHeight * 370 / allList[i].CoverWidth));
-
-                      // 边界处理
-                      currentItemHeight > 500 ? currentItemHeight = 500 : '';
-
-                      allList[i].ShowHeight = currentItemHeight;
-                      allList[i].CoverHeight = currentItemHeight + "rpx"; // 因为xml文件中直接引用的该值作为高度，所以添加对应单位
-                  }
+                  list[i].ShowHeight = currentItemHeight;
+                  list[i].CoverHeight = currentItemHeight + "rpx"; // 因为xml文件中直接引用的该值作为高度，所以添加对应单位
+                }
               }
               return ;
             }
@@ -139,24 +138,24 @@ Page({
               let that = this;
               let args = wx.getStorageSync('args');
 
-              if (fileIDs.length == app.globalData.allList[NewData].AllPhoto.length) {
+              if (fileIDs.length == list[NewData].AllPhoto.length) {
 
                 wx.cloud.callFunction({
                   name: 'CampusCircle',
                   data: {
                     Cover: fileIDs[0],
                     AllPhoto: fileIDs,
-                    Title: app.globalData.allList[NewData].Title,
-                    Text: app.globalData.allList[NewData].Text,
-                    CoverHeight: app.globalData.allList[NewData].CoverHeight,
-                    CoverWidth: app.globalData.allList[NewData].CoverWidth,
-                    Label: app.globalData.allList[NewData].Label,
-                    Time: app.globalData.allList[NewData].Time,
-                    ShowHeight: app.globalData.allList[NewData].ShowHeight,
-                    School: app.globalData.allList[NewData].School,
-                    nickName: app.globalData.allList[NewData].nickName,
+                    Title: list[NewData].Title,
+                    Text: list[NewData].Text,
+                    CoverHeight: list[NewData].CoverHeight,
+                    CoverWidth: list[NewData].CoverWidth,
+                    Label: list[NewData].Label,
+                    Time: list[NewData].Time,
+                    ShowHeight: list[NewData].ShowHeight,
+                    School: list[NewData].School,
+                    nickName: list[NewData].nickName,
                     username: args.username,
-                    iconUrl: app.globalData.allList[NewData].iconUrl,
+                    iconUrl: list[NewData].iconUrl,
                     Star: 0,
                     type: 'write'
                   },
@@ -199,7 +198,7 @@ Page({
                 title: '加载中',
                 mask: true
               })
-              let AllPhoto = app.globalData.allList[NewData].AllPhoto;    
+              let AllPhoto = app.globalData.allList[0][NewData].AllPhoto;    
               let fileIDs = [];
 
               for (var i = 0; i < AllPhoto.length; i++) {
@@ -262,8 +261,8 @@ Page({
         let theme = wx.getStorageSync('theme');
 
         this.setData({
-            menu: args.tabitem.slice(1,),
-            theme
+          menu: args.tabitem.slice(1,),
+          theme
         })
     },
 

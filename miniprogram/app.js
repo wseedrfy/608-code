@@ -59,6 +59,10 @@ App({
 
     let rect = wx.getMenuButtonBoundingClientRect ? wx.getMenuButtonBoundingClientRect() : null;
     // 获取设备信息
+    wx.showLoading({
+      title: '加载初始化',
+      mask: true
+    })
     wx.getSystemInfo({
       success: res => {
         this.globalData.windowHeight = res.windowHeight
@@ -74,10 +78,12 @@ App({
         // 根据胶囊的位置计算距离右侧的宽度，用于设置返回按钮至左侧的距离
         let leftDistance = windowWidth - rect.right;
         this.globalData.leftDistance = leftDistance;
+        wx.hideLoading()
       },
       fail: err => {
         console.log(err)
       }
+
 
     })
 

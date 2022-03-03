@@ -20,8 +20,7 @@ Page({
     rectHeight: getApp().globalData.rectHeight,
     windowHeight: getApp().globalData.windowHeight,
     windowWidth: 0,
-    
-    tabitem: [        // 标签兜底
+    tabitem: [ // 标签兜底
       {
         title: "全部",
         type: 0,
@@ -48,34 +47,55 @@ Page({
         type: 0,
       }
     ],
-    allList: [ [],[],[],[],[],[],[],[] ],      // 列表兜底
-    currentTab: 0,       // 当前 swiper-item
+    allList: [
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      []
+    ], // 列表兜底
+    currentTab: 0, // 当前 swiper-item
+    iconUrl:'',    // 头像地址
+
     // 控制动画
-    showLoading: 0,   // 动画显隐
+    showLoading: 0, // 动画显隐
     animation: '',
 
     // 发布
-    showPopUps: false,   // 弹窗显隐
-    showModel: false,    // 快速发布显隐
+    showPopUps: false, // 弹窗显隐
+    showModel: false, // 快速发布显隐
   },
   TimeOut: 1,
-  showPopUps(){
-    this.setData({ showPopUps: !this.data.showPopUps });
-    // console.log(this.data.showPopUps);
+  setAllList(e) {
+    const allList = e.detail;
+    this.setData({allList})
+    for(let i in allList) {
+      this.selectComponent(`#waterFlowCards${i}`).RightLeftSolution();
+    }
   },
-  show_PublishContent(e){
-    this.selectComponent('#PublishContent').add();    // 控制显隐
-    this.setData({ showPopUps: !this.data.showPopUps });
+  timeId: 0,
+  showPopUps() {
+    let showPopUps = !this.data.showPopUps;
+    this.setData({ showPopUps });
   },
-  
+  show_PublishContent(e) {
+    this.selectComponent('#PublishContent').add(); // 控制显隐
+    this.setData({
+      showPopUps: !this.data.showPopUps
+    });
+  },
+
   // 获取新消息总数
   getNewInfo() {
     var that = this;
-    wx.cloud.database().collection('New-Information').where({ //------------请求数据库
-      'be_character.username': args.username, //------------------被评论者学号
+    wx.cloud.database().collection('New-Information').where({
+      'be_character.userName': args.username,
       status: 0 //-------------------三种状态：“0”：用户还没看消息列表；“1”：用户已经看到了消息列表；“-1”：取消点赞和评论
     }).count().then(res => {
-      // console.log("res.total", res.total) //----------------新消息提示数目
+      // console.log("res.total", res.total) 
       that.setData({
         NewInfo: res.total
       })
@@ -99,8 +119,8 @@ Page({
     }
   },
   waterChange(e) {
-    let current = e.detail.current;
-    this.setTab(current);
+    let currentTab = e.detail.current;
+    this.switchTab(currentTab);
   },
 
   // 下面是未来修左右滑动动效用到的代码
@@ -136,13 +156,11 @@ Page({
   // },
 
   // 2. 操作数据库
-  getData(e) {             //分页加载数据
+  getData(e) { //分页加载数据
     let args = wx.getStorageSync('args');
-    let {detail:{currentPage, index} } = e;      // 解构赋值
+    let { currentPage, currentTab } = e.detail;
+    let ShowId = this.data.tabitem[currentTab].title;
 
-    let ShowId = this.data.tabitem.filter(item => {
-        return item.type == 1;
-    })[0].title
     // 拉取数据
     let that = this;
     wx.cloud.callFunction({
@@ -152,35 +170,50 @@ Page({
         url: "Card",
         username: args.username,
         currentPage: currentPage,
-        ShowId: ShowId,
-        //游客模式校园圈初始化
-        School: that.data.school == "游客登录" ? "广东石油化工学院" : that.data.school
+        ShowId: ShowId,             // 当前选择的标签名字
+        // 游客模式校园圈初始化
+        School: args.schoolName == "游客登录" ? "广东石油化工学院" : args.schoolName
       },
       success(res) {
-        const currComponent = that.selectComponent(`#waterFlowCards${index}`);
-        // 存在数据时
+        const currComponent = that.selectComponent(`#waterFlowCards${currentTab}`);
+        // 数据存在时
         if (res.result && res.result.data.length > 0) {
           // 页数++
-          currComponent.setData({ currentPage: ++currentPage});
-          // 添加新数据到 allList[index] 里  
+          currComponent.setData({ currentPage: ++currentPage });
+          // 边界条件
           let allList = that.data.allList;
-          allList[index] = allList[index].concat(res.result.data);
-          console.log(allList[index],"list");
-          that.setData({ allList });
+          // if (!allList) {
+          //   allList = new Array(that.data.tabitem.length)
+          // }
+          // if (!allList[currentTab]) {
+          //   allList[currentTab] = []
+          // }
+          // 添加新数据到 allList[currentTab] 里 
+          allList[currentTab] = allList[currentTab].concat(res.result.data);
+          // 赋值全局变量
+          app.globalData.allList = allList;
+          console.log(allList[currentTab], "list");
+          that.setData({
+            allList
+          });
           // 数据少于一页时
           if (res.result.data.length < 10) {
-            currComponent.setData({ loadAll: true });
+            currComponent.setData({
+              loadAll: true
+            });
           }
           // 新数据进行左右处理
           currComponent.RightLeftSolution()
-        } else {    // 不存在数据时
+        } else { // 不存在数据时
           if (currComponent.data.leftH == 0 && currComponent.data.rightH == 0) {
             currComponent.setData({
               leftList: [],
               rightList: [],
             })
           }
-          currComponent.setData({ loadAll: true });
+          currComponent.setData({
+            loadAll: true
+          });
         }
       },
       fail(res) {
@@ -190,72 +223,86 @@ Page({
   },
 
   // 3. 搜索框逻辑 
-  search_Input: function (e) { 
+  search_Input: function (e) {
+    const {value} = e.detail  //拿到输入框中的值
     var that = this;
-    const waterComponent = that.selectComponent(`#waterFlowCards0`);
-    if (e.detail.value) {
-      wx.cloud.callFunction({
-        name: "NewCampusCircle",
-        data: {
-          url: "Card",
-          username: that.data.username,
-          type: "search",
-          searchKey: e.detail.value
-        },
-        success: res => {
-          // 回到“全部”标签
-          that.setTab(0);
-          // 搜索有结果时
-          if (res.result.data.length != 0) {
-            // 清空瀑布流数据
-            waterComponent.RightLeftSolution(true);
-            // 处理搜索结果
-            let allList = that.data.allList;
-            allList[0] = res.result.data;
-            that.setData({
-              allList,
-              tabitem: that.data.tabitem,
-            });
-            waterComponent.RightLeftSolution()
-          } else {
-            wx.showToast({
-              icon: "none",
-              title: "什么都找不到哟"
-            })
-            waterComponent.RightLeftSolution()
+    let waterComponent = that.selectComponent(`#waterFlowCards0`);
+    const args = wx.getStorageSync('args');
+    clearTimeout(this.timeId) //清除定时器
+    this.timeId=setTimeout(()=>{
+        search(value) //发送请求，间隔时间为1s
+    },500)
+    const search = (value) => {
+      if(value) {
+        wx.hideNavigationBarLoading();
+        wx.cloud.callFunction({
+          name: "NewCampusCircle",
+          data: {
+            url: "Card",
+            username: args.username,
+            type: "search",
+            School: args.schoolName == "游客登录" ? "广东石油化工学院" : args.schoolName,
+            searchKey: e.detail.value
+          },
+          success: res => {
+            // 回到“全部”标签
+            that.switchTab(0);
+            // 搜索有结果时
+            if (res.result.data.length != 0) {
+              // 清空瀑布流数据
+              waterComponent.RightLeftSolution(true);
+              // 处理搜索结果
+              let allList = that.data.allList;
+              allList[0] = res.result.data;
+              that.setData({
+                allList,
+                tabitem: that.data.tabitem,
+              });
+              waterComponent.RightLeftSolution()
+            } else {
+              wx.showToast({
+                icon: "none",
+                title: "什么都找不到哟"
+              })
+              waterComponent.RightLeftSolution()
+            }
+          },
+          fail: err => {
+            console.error
+          },
+          complete: e =>{
+            wx.hideNavigationBarLoading();
           }
-        },
-        fail: err => {
-          console.error
-        }
-      })
-    } else {      // 搜索框内容为空时
-      // 清空瀑布流内容
-      waterComponent.RightLeftSolution(true);
-      // 重新加载数据
-      that.onPullDownRefresh();
+        })
+      }else {
+        // 清空瀑布流内容
+        waterComponent.RightLeftSolution(true);
+        // 重新加载数据
+        that.onPullDownRefresh();
+      }
     }
+
   },
 
   // 4. 动效
-  rotateAni: function (n) {    // 实现image旋转动画，每次旋转 120*n度         
+  rotateAni: function (n) { // 实现image旋转动画，每次旋转 120*n度         
     _animation.rotate(120 * (n)).step()
     this.setData({
       animation: _animation.export()
     })
   },
   // 开始旋转
-  startAnimationInterval: function () { 
+  startAnimationInterval: function () {
     let that = this;
-    that.rotateAni(++_animationIndex);  // 进行一次旋转
+    that.rotateAni(++_animationIndex); // 进行一次旋转
 
     _animationIntervalId = setInterval(function () {
       that.rotateAni(++_animationIndex);
-    }, _ANIMATION_TIME);                // 每间隔_ANIMATION_TIME进行一次旋转
+    }, _ANIMATION_TIME); // 每间隔_ANIMATION_TIME进行一次旋转
     console.log("begin旋转")
   },
   // 停止旋转
-  stopAnimationInterval: function () { 
+  stopAnimationInterval: function () {
     if (_animationIntervalId > 0) {
       clearInterval(_animationIntervalId);
       _animationIntervalId = 0;
@@ -268,54 +315,56 @@ Page({
     errorImg = "./images/Errimages.png" //我们构建一个对象
     this.setData(errorImg) //修改数据源对应的数据
   },
-  
-  // 选择标签
-  setTab: function (e) { // 该函数仅在组件中调用
+  // 滑动选择Tab   (与下方 setTab 不可合并，选择标签同时会滑动屏幕，导致连续两次请求数据库)
+  switchTab: function (e) {
     // 获取索引值
-    if (e.detail) {
-      var index = e.detail.currentTarget.dataset.index
-    } else {    // 左右滑动时，传入 index
-      var index = e
-    }
+    var currentTab = e;
     // 初始化 - 全部置零
-    this.data.tabitem.forEach((item,i) => {
+    this.data.tabitem.forEach((item, index) => {
       item.type = 0;
-      if(i == index) {
+      if (index == currentTab) {
         item.type = 1;
       }
     });
     this.setData({
       tabitem: this.data.tabitem,
-      currentTab:index 
+      currentTab
     })
-    this.selectComponent(`#TabScroll`).setData({currentTab:index});
+    this.selectComponent(`#TabScroll`).setData({ currentTab });
     // 新页面获取数据 - 没有东西时才获取数据
-    if(app.globalData.allList[index]) {
+    if (app.globalData.allList[currentTab].length) {
+      console.log("页面已经有数据了，不请求数据库");
       return;
-    }else {
-      this.selectComponent(`#waterFlowCards${index}`).getData();
+    } else {
+      this.selectComponent(`#waterFlowCards${currentTab}`).getData();
     }
   },
-  // 获取当前标签的索引值
-  getIndex() { 
-    let index = 0;
-    for(let i = 0; i < this.data.tabitem.length; i++) {
-      if(this.data.tabitem[i].type == 1) {
-        index = i;
-        break;
+  // 选择标签
+  setTab: function (e) { // 该函数仅在组件中调用
+    // 获取索引值
+    var currentTab = e.detail.currentTarget.dataset.index;
+    // 初始化 - 全部置零
+    this.data.tabitem.forEach((item, index) => {
+      item.type = 0;
+      if (index == currentTab) {
+        item.type = 1;
       }
-    }
-    return index
+    });
+    // 赋值currentTab后，就会触发switchTab函数。这样避免了连续两次请求
+    this.setData({
+      tabitem: this.data.tabitem,
+      currentTab
+    })
   },
   //以本地数据为例，实际开发中数据整理以及加载更多等实现逻辑可根据实际需求进行实现   
   onLoad: function () {
-    
+    console.log("onload");
+    let iconUrl = wx.getStorageSync('args').iconUrl;
     // 判断登录
-    app.loginState();  
+    app.loginState();
     // 初始化标签
-    this.data.tabitem = args.tabitem ? args.tabitem.map((e,index) => { 
-      // 默认选中第一个 “全部”
-      if(index == 0) {
+    this.data.tabitem = args.tabitem ? args.tabitem.map((e, index) => {
+      if (index == 0) {
         return {
           title: e,
           type: 1
@@ -327,12 +376,12 @@ Page({
         type: 0
       }
     }) : this.data.tabitem; // 兜底数据
-
+    this.setData({currentTab: 0})     // 发布信息页面发布后，这句代码有用
     // 封号
     var campus_account = args.campus_account ? args.campus_account : false
     var describe = args.describe ? args.describe : false
-
-    if (campus_account === true) { // 判断封号
+    // 判断封号
+    if (campus_account === true) {
       wx.showModal({
         title: "提示",
         content: describe,
@@ -346,44 +395,28 @@ Page({
         }
       })
     }
-
+    // 初始化 allList
+    let allList = this.data.tabitem.map((item, index) => {
+      let allList = [];
+      return allList[index] = []
+    });
     this.setData({
       showPopUps: false,
-      school: args.schoolName,
-      username: args.username,
-      nickname: args.nickName,
-      iconUrl: args.iconUrl,
       tabitem: this.data.tabitem,
       campus_account: campus_account,
-      openusername: {
-        username: args.username,
-        iconUrl: args.iconUrl,
-        nickName: args.nickName
-      }
+      allList,
+      iconUrl
     })
     this.onPullDownRefresh()
   },
   onShow: function () {
+    let currentTab = this.data.currentTab;
     let windowWidth = wx.getWindowInfo().windowWidth;
-    
-    // 初始化 allList
-    this.data.allList = app.globalData.allList || this.data.tabitem.map((item,index) => {
-      let allList = [];
-      return allList[index] = []
-    });
-    // 初始化index
-    let index = this.getIndex();
-    console.log(index);
     this.setData({
       windowWidth,
-      school: args.schoolName,
-      username: args.username,
-      nickname: args.nickName,
-      iconUrl: args.iconUrl,
-      tabitem: this.data.tabitem,
-
     })
-    this.selectComponent(`#waterFlowCards${index}`).RightLeftSolution();
+    this.selectComponent(`#waterFlowCards${currentTab}`).RightLeftSolution();
+    //  获取新消息提醒
     this.getNewInfo();
   },
   onReady: function () {
@@ -393,44 +426,45 @@ Page({
   },
 
   // 下拉刷新
-  onPullDownRefresh() { 
+  onPullDownRefresh() {
+    // 在标题栏中显示加载
+    wx.showNavigationBarLoading();
     clearTimeout(this.TimeOut);
-    wx.showNavigationBarLoading() // 在标题栏中显示加载
 
     this.setData({
-      showLoading: 0
+      showLoading: 0,
     })
-    // 重置组件内的 currentPage
-    let index = this.getIndex();
-    this.selectComponent(`#waterFlowCards${index}`).setData({currentPage: 0});
-
+    // 重置组件内的 currentPage 和 loadAll
+    let currentTab = this.data.currentTab;
+    this.selectComponent(`#waterFlowCards${currentTab}`).setData({ currentPage: 0 });
+    this.selectComponent(`#waterFlowCards${currentTab}`).setData({ loadAll: false });
     // 加载动画
     this.startAnimationInterval();
 
-    this.TimeOut = setTimeout(()=>{
+    this.TimeOut = setTimeout(() => {
       console.log("下拉刷新")
-      this.selectComponent("#waterFlowCards" + index).RightLeftSolution(true)
-      this.selectComponent("#waterFlowCards" + index).getData()
-      
+      this.selectComponent(`#waterFlowCards${currentTab}`).RightLeftSolution(true);
+      this.selectComponent(`#waterFlowCards${currentTab}`).getData();
+
       wx.hideNavigationBarLoading() // 完成停止加载
-      this.setData({                // 隐藏转圈圈
+      this.setData({ // 隐藏转圈圈
         showLoading: 1
       })
-      wx.stopPullDownRefresh()      // 停止下拉刷新
+      wx.stopPullDownRefresh() // 停止下拉刷新
     }, 1000)
-   
+
   },
 
   // 上拉触底改变状态
-  onReachBottom() { 
+  onReachBottom() {
     console.log(123);
     wx.showLoading({
       title: '加载更多中',
       mask: true
     })
     // 得到当前组件索引
-    let index = this.getIndex();
-    this.selectComponent(`#waterFlowCards${index}`).getData();
+    let currentTab = this.data.currentTab;
+    this.selectComponent(`#waterFlowCards${currentTab}`).getData();
     wx.hideLoading();
   },
 

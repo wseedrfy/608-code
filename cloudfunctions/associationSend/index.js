@@ -65,7 +65,8 @@ exports.main = async (event, context) => {
         nickName: null,
         username: null,
         index: event.index,
-        question:event.question
+        question:event.question,
+        assoMess:event.assoMess
       }
     })
   }

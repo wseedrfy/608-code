@@ -63,11 +63,16 @@ Component({
                 }
                 underLine_left[index] = accumulate_Width();
             })
-
+            // 处理得到当前被选择的标签
+            let currentTab;
+            this.properties.tabItem.forEach((e,index) => {
+                e.type == 1 ? currentTab = index : '';
+            })
             this.setData({ 
                 tabItemLength,
                 underLine_width,
-                underLine_left
+                underLine_left,
+                currentTab
             });
         }
     },
