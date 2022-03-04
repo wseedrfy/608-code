@@ -96,7 +96,7 @@ Component({
           rightList: [],
           leftH: 0,
           rightH: 0,
-          list: [],
+          list: [1],
         })
         return
       }
@@ -130,7 +130,6 @@ Component({
             e.CommentList = list[i].CommentList;
           }
         })
-
         // 边界判断: 如果该数据已存在，则continue
         if (this.data.leftList || this.data.rightList) {
           let leftListID = this.data.leftList.map(item => {
