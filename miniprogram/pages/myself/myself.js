@@ -5,7 +5,7 @@ Page({
   data: {
     statusBarHeight: getApp().globalData.statusBarHeight,
     lineHeight: getApp().globalData.lineHeight,
-    isLogin: '',
+    isLogin: false,
     userInfo: [],
     time: {
       year: new Date().getFullYear(),
@@ -30,25 +30,16 @@ Page({
       })
     });
 
-    wx.getStorage({
-      key: 'args',
-      success(res) {
-        console.log(res.data)
-        that.setData({
-          // storageInfo: JSON.parse(res.data),
-          storageInfo: res.data,
-          isLogin: true
-        });
-      },
-      fail(err) {
-        that.data.isLogin = false;
-      }
-    })
+    let args = wx.getStorageSync('args');
+    // 如果 args 里有 username 字段，则是已登录状态
+    if(args.username) {
+      that.setData({
+        storageInfo: res.data,
+        isLogin: true
+      });
+    }
     this.handleStudyDate();
     this.handleStudyWeek();
-  },
-  onShow() {
-    
   },
   school(e) {
     if(!this.data.isLogin) {

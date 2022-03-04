@@ -59,6 +59,7 @@ Page({
         type:'ReadControlLogs'
       },
       success(res) {
+        console.log(res.result.data);
         wx.hideLoading()
         if (res.result.data && res.result.data.length > 0) {
           that.data.currentPage++;

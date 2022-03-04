@@ -12,11 +12,11 @@
     <view class="userInfo">
       <!-- 头像 -->
       <view class="userInfo_avatar">
-        <image wx:if="{{isLogin}}" src="{{storageInfo.iconUrl}}" alt="" />
+        <image wx:if="{{isLogin}}" src="{{storageInfo.iconUrl}}" />
         <image src="./images/logo.jpg"></image>
       </view>
 
-      <view class="userInfo_text" bindtap="login">
+      <view class="userInfo_text" bindtap="school">
         <view class="left">
           <!-- 姓名 -->
           <view>
