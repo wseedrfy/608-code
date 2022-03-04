@@ -314,11 +314,6 @@ Page({
     }
   },
 
-  binderrorimg: function () {
-    var errorImg = " "
-    errorImg = "./images/Errimages.png" //我们构建一个对象
-    this.setData(errorImg) //修改数据源对应的数据
-  },
   // 滑动选择标签   (与下方 setTab 不可合并，选择标签同时会滑动屏幕，导致连续两次请求数据库)
   switchTab: function (e) {
     // 获取索引值
