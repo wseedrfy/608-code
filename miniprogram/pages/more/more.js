@@ -19,7 +19,7 @@ Page({
     lineHeight: getApp().globalData.lineHeight,
     rectHeight: getApp().globalData.rectHeight,
     windowHeight: getApp().globalData.windowHeight,
-    windowWidth: 0,
+
     tabitem: [ // 标签兜底
       {
         title: "全部",
@@ -59,16 +59,17 @@ Page({
     ], // 列表兜底
     currentTab: 0, // 当前 swiper-item
     iconUrl:'',    // 头像地址
-
+    school: '',    // 判断游客用
     // 控制动画
     showLoading: 0, // 动画显隐
     animation: '',
 
     // 发布
     showPopUps: false, // 弹窗显隐
-    showModel: false, // 快速发布显隐
+    showModel: false,  // 快速发布显隐
   },
   TimeOut: 1,
+  // 卡片内外部渲染一致
   setAllList(e) {
     const allList = e.detail;
     this.setData({allList})
@@ -81,27 +82,31 @@ Page({
     let showPopUps = !this.data.showPopUps;
     this.setData({ showPopUps });
   },
+  // 
   show_PublishContent(e) {
-    this.selectComponent('#PublishContent').add(); // 控制显隐
-    this.setData({
-      showPopUps: !this.data.showPopUps
-    });
+    // 控制快速发布显隐
+    this.selectComponent('#QuickPublish').add(); 
+    // 隐藏弹窗
+    this.showPopUps()
   },
 
-  // 获取新消息总数
+  // 获取新消息通知数量
   getNewInfo() {
     var that = this;
+    let args = wx.getStorageSync('args');
+    // 边界处理 - 未登录时
+    if(!args.username) {
+      return ;
+    }
     wx.cloud.database().collection('New-Information').where({
       'be_character.userName': args.username,
-      status: 0 //-------------------三种状态：“0”：用户还没看消息列表；“1”：用户已经看到了消息列表；“-1”：取消点赞和评论
+      status: 0 
     }).count().then(res => {
-      // console.log("res.total", res.total) 
       that.setData({
         NewInfo: res.total
       })
     })
   },
-
   // 1. 跳转页面
   navigate(e) {
     let url = e.currentTarget.id;
@@ -118,6 +123,7 @@ Page({
         break;
     }
   },
+  // 滑动切换标签时
   waterChange(e) {
     let currentTab = e.detail.current;
     this.switchTab(currentTab);
@@ -159,8 +165,10 @@ Page({
   getData(e) { //分页加载数据
     let args = wx.getStorageSync('args');
     let { currentPage, currentTab } = e.detail;
+    // 当前选择的标签名字
     let ShowId = this.data.tabitem[currentTab].title;
-
+    // 边界处理 - 用户没登录时
+    let School = args.schoolName ? (args.schoolName == "游客登录" ? "广东石油化工学院" : args.schoolName) : "广东石油化工学院";
     // 拉取数据
     let that = this;
     wx.cloud.callFunction({
@@ -168,11 +176,9 @@ Page({
       data: {
         type: "read",
         url: "Card",
-        username: args.username,
-        currentPage: currentPage,
-        ShowId: ShowId,             // 当前选择的标签名字
-        // 游客模式校园圈初始化
-        School: args.schoolName == "游客登录" ? "广东石油化工学院" : args.schoolName
+        currentPage,
+        ShowId,
+        School
       },
       success(res) {
         const currComponent = that.selectComponent(`#waterFlowCards${currentTab}`);
@@ -180,14 +186,7 @@ Page({
         if (res.result && res.result.data.length > 0) {
           // 页数++
           currComponent.setData({ currentPage: ++currentPage });
-          // 边界条件
           let allList = that.data.allList;
-          // if (!allList) {
-          //   allList = new Array(that.data.tabitem.length)
-          // }
-          // if (!allList[currentTab]) {
-          //   allList[currentTab] = []
-          // }
           // 添加新数据到 allList[currentTab] 里 
           allList[currentTab] = allList[currentTab].concat(res.result.data);
           // 赋值全局变量
@@ -209,11 +208,10 @@ Page({
             currComponent.setData({
               leftList: [],
               rightList: [],
+              list: [1],         // 避免显示“玩命加载数据”
+              loadAll: true      // 显示“暂无数据”
             })
           }
-          currComponent.setData({
-            loadAll: true
-          });
         }
       },
       fail(res) {
@@ -228,9 +226,10 @@ Page({
     var that = this;
     let waterComponent = that.selectComponent(`#waterFlowCards0`);
     const args = wx.getStorageSync('args');
-    clearTimeout(this.timeId) //清除定时器
+    // 初始化定时器
+    clearTimeout(this.timeId)
     this.timeId=setTimeout(()=>{
-        search(value) //发送请求，间隔时间为1s
+      search(value) //发送请求，间隔时间为1s
     },500)
     const search = (value) => {
       if(value) {
@@ -242,10 +241,10 @@ Page({
             username: args.username,
             type: "search",
             School: args.schoolName == "游客登录" ? "广东石油化工学院" : args.schoolName,
-            searchKey: e.detail.value
+            searchKey: value
           },
           success: res => {
-            // 回到“全部”标签
+            // 回到第一个标签
             that.switchTab(0);
             // 搜索有结果时
             if (res.result.data.length != 0) {
@@ -264,7 +263,12 @@ Page({
                 icon: "none",
                 title: "什么都找不到哟"
               })
-              waterComponent.RightLeftSolution()
+              waterComponent.RightLeftSolution(true)
+              // 显示“暂无数据”，不显示“玩命加载数据”
+              waterComponent.setData({
+                loadAll: true,
+                list: [1]
+              })
             }
           },
           fail: err => {
@@ -310,12 +314,7 @@ Page({
     }
   },
 
-  binderrorimg: function () {
-    var errorImg = " "
-    errorImg = "./images/Errimages.png" //我们构建一个对象
-    this.setData(errorImg) //修改数据源对应的数据
-  },
-  // 滑动选择Tab   (与下方 setTab 不可合并，选择标签同时会滑动屏幕，导致连续两次请求数据库)
+  // 滑动选择标签   (与下方 setTab 不可合并，选择标签同时会滑动屏幕，导致连续两次请求数据库)
   switchTab: function (e) {
     // 获取索引值
     var currentTab = e;
@@ -339,11 +338,10 @@ Page({
       this.selectComponent(`#waterFlowCards${currentTab}`).getData();
     }
   },
-  // 选择标签
-  setTab: function (e) { // 该函数仅在组件中调用
-    // 获取索引值
+  // 点击选择标签
+  setCurrentTab: function (e) {
     var currentTab = e.detail.currentTarget.dataset.index;
-    // 初始化 - 全部置零
+    // 初始化标签
     this.data.tabitem.forEach((item, index) => {
       item.type = 0;
       if (index == currentTab) {
@@ -356,10 +354,9 @@ Page({
       currentTab
     })
   },
-  //以本地数据为例，实际开发中数据整理以及加载更多等实现逻辑可根据实际需求进行实现   
-  onLoad: function () {
-    console.log("onload");
-    let iconUrl = wx.getStorageSync('args').iconUrl;
+  // 初始化函数
+  init(){
+    let args = wx.getStorageSync('args');
     // 判断登录
     app.loginState();
     // 初始化标签
@@ -376,7 +373,7 @@ Page({
         type: 0
       }
     }) : this.data.tabitem; // 兜底数据
-    this.setData({currentTab: 0})     // 发布信息页面发布后，这句代码有用
+    this.setData({currentTab: 0})     // 发布信息页面发布后，返回到第一个标签
     // 封号
     var campus_account = args.campus_account ? args.campus_account : false
     var describe = args.describe ? args.describe : false
@@ -405,24 +402,23 @@ Page({
       tabitem: this.data.tabitem,
       campus_account: campus_account,
       allList,
-      iconUrl
+      iconUrl:args.iconUrl,
+      school:args.school
     })
+    // 初始化动画
+    _animationIndex = 0;
+    _animationIntervalId = -1;
+    this.data.animation = '';
+  },
+  onLoad: function () {
+    this.init()
     this.onPullDownRefresh()
   },
   onShow: function () {
     let currentTab = this.data.currentTab;
-    let windowWidth = wx.getWindowInfo().windowWidth;
-    this.setData({
-      windowWidth,
-    })
     this.selectComponent(`#waterFlowCards${currentTab}`).RightLeftSolution();
-    //  获取新消息提醒
+    //  获取新消息提醒   ------ - 不应每次show该页面时都请求，应每隔一段时间请求一次。
     this.getNewInfo();
-  },
-  onReady: function () {
-    _animationIndex = 0;
-    _animationIntervalId = -1;
-    this.data.animation = '';
   },
 
   // 下拉刷新
@@ -430,7 +426,7 @@ Page({
     // 在标题栏中显示加载
     wx.showNavigationBarLoading();
     clearTimeout(this.TimeOut);
-
+    // 开启动画
     this.setData({
       showLoading: 0,
     })
@@ -440,30 +436,32 @@ Page({
     this.selectComponent(`#waterFlowCards${currentTab}`).setData({ loadAll: false });
     // 加载动画
     this.startAnimationInterval();
-
+    // 定时器防抖
     this.TimeOut = setTimeout(() => {
       console.log("下拉刷新")
+      // 清空瀑布流内容，并再次请求数据库
       this.selectComponent(`#waterFlowCards${currentTab}`).RightLeftSolution(true);
       this.selectComponent(`#waterFlowCards${currentTab}`).getData();
-
-      wx.hideNavigationBarLoading() // 完成停止加载
-      this.setData({ // 隐藏转圈圈
+      // 在标题栏中停止加载
+      wx.hideNavigationBarLoading()
+      // 停止动画
+      this.setData({
         showLoading: 1
       })
-      wx.stopPullDownRefresh() // 停止下拉刷新
+      // 停止下拉刷新
+      wx.stopPullDownRefresh() 
     }, 1000)
-
   },
 
   // 上拉触底改变状态
   onReachBottom() {
-    console.log(123);
     wx.showLoading({
       title: '加载更多中',
       mask: true
     })
     // 得到当前组件索引
     let currentTab = this.data.currentTab;
+    // 请求数据库
     this.selectComponent(`#waterFlowCards${currentTab}`).getData();
     wx.hideLoading();
   },

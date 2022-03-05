@@ -2,6 +2,6 @@
     "component": true,
     "usingComponents": {
         "campusCards": "./components/campusCards/campusCards",
-        "loveCards": "../loveCards/loveCards"
+        "loveCards": "./components/loveCards/loveCards"
     }
 }

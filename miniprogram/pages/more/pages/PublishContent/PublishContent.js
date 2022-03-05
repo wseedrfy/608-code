@@ -261,13 +261,15 @@ Page({
       })
     },
     onLoad: function (options) {
-        let args = wx.getStorageSync('args');
-        let theme = wx.getStorageSync('theme');
+      let args = wx.getStorageSync('args');
+      let theme = wx.getStorageSync('theme');
 
-        this.setData({
-          menu: args.tabitem.slice(1,),
-          theme
-        })
+      // 兜底数据
+      let menu = ["日常","晒出课表🤣", "树洞👂", "2022新年Flag🚩", "2021回顾◀", "三行情书❤️", "故事屋⭐️"]
+      this.setData({
+        menu: args.tabitem ? args.tabitem.slice(1,) : menu,
+        theme
+      })
     },
 
 })
