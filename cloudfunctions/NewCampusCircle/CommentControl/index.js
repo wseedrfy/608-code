@@ -20,6 +20,7 @@ exports.main = async (event) => {
       data = await delReply(event); // 
       break;
   }
+  
   return data
 }
 async function writeComment(event, type, content) {
@@ -29,6 +30,7 @@ async function writeComment(event, type, content) {
       _id: event._id
     }).update({
       data: {
+        SortTime: Date.parse(new Date()),
         CommentList: _.push(event.addData)
       }
     })
@@ -90,6 +92,7 @@ async function replyComment(event, type, content) {
       _id: event._id
     }).update({
       data: {
+        SortTime: Date.parse(new Date()),
         ['CommentList.'+[event.index]+'.Reply']: _.push(event.addData)
       }
     })
