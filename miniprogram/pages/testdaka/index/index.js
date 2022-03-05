@@ -2,6 +2,7 @@
 const db = wx.cloud.database();
 const _ = db.command;
 let movedistance = 0;
+var app = getApp();
 Page({
     /**
      * 页面的初始数据
@@ -18,7 +19,7 @@ Page({
         task_name:'示例',
         showModel3:false,
         dakacount:'19',
-        showModel2:false,
+        showModel2:true,
         showModel5:true,
 
         currentid:0,
@@ -35,32 +36,60 @@ Page({
         ],
     },
     savecanvas:function(){
-        let that=this
+        let that = this;
+        let args = wx.getStorageSync('args');
+        // console.log('123');
         wx.canvasToTempFilePath({
           canvasId: 'shareCanvas',
             success:function(res){
-                console.log(res.tempFilePath);
-                wx.saveImageToPhotosAlbum({
-                    filePath: res.tempFilePath,
-                    success(result){
-                      wx.showToast({
-                        title: '图片保存成功',
-                        icon: 'success',
-                        duration: 2000
-                      })
+                wx.getImageInfo({
+                  src:res.tempFilePath,
+                }).then(res=>{
+                    // console.log(res);
+                    let photo={
+                        tempFiles:res.path,
+                        imageHeight:res.height,
+                        imageWidth:res.width
                     }
+                if(app.globalData.allList){
+                   wx.navigateTo({
+                  
+                    url: '/pages/more/pages/PublishContent/PublishContent?tempFiles='+photo.tempFiles+'&imageHeight='+photo.imageHeight+'&imageWidth='+photo.imageWidth,
+  
                   })
+                }else{
+                  // 标签兜底
+                  args.tabitem ? args.tabitem : args["tabitem"] = ["全部","日常","开学季"];
+                  // 初始化allList
+                  let allList = args.tabitem.map( (item,index) => {
+                    let allList = [];
+                    return allList[index] = []
+                  } )
+                  app.globalData.allList = allList;
+                  wx.navigateTo({
+                
+                      url: '/pages/more/pages/PublishContent/PublishContent?tempFiles='+photo.tempFiles+'&imageHeight='+photo.imageHeight+'&imageWidth='+photo.imageWidth,
+    
+                    })
+                }
+                })
+                // wx.saveImageToPhotosAlbum({
+                //     filePath: res.tempFilePath,
+                //     success(result){
+                //       wx.showToast({
+                //         title: '图片保存成功',
+                //         icon: 'success',
+                //         duration: 2000
+                //       })
+                //     }
+                //   })
             }
         })
     },
     sharecanvas:function(){
         let w = wx.getSystemInfoSync().windowWidth/375
-        console.log('w',wx.getSystemInfoSync().windowWidth);
         let h =wx.getSystemInfoSync().windowHeight/wx.getSystemInfoSync().windowWidth
-        console.log('h',wx.getSystemInfoSync().windowHeight);
-        console.log(h);
         let that=this
-        console.log('123');
       wx.getImageInfo({
         src: 'http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcX9xVxaGodT4nhOh7OSjTb3hYMuRdPCQI90IWXE4c7Ndk7ot3.0C6AfmFQ3Qz9uRvvAN8hPor1ASJt77yWmZDGM!/r',
       }).then(res=>{
@@ -542,7 +571,6 @@ Page({
         })
         console.log(this.data.taskdata);
     },
-
     /**
      * 生命周期函数--监听页面加载
      */
@@ -551,7 +579,7 @@ Page({
           title: '加载中',
           mask:true
         })
-        await this.getDaka_record();
+        // await this.getDaka_record();
         wx.setNavigationBarTitle({
             title: 'We打卡',
         });
