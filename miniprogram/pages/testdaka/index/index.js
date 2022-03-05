@@ -36,7 +36,8 @@ Page({
         ],
     },
     savecanvas:function(){
-        let that=this
+        let that = this;
+        let args = wx.getStorageSync('args');
         // console.log('123');
         wx.canvasToTempFilePath({
           canvasId: 'shareCanvas',
@@ -57,11 +58,19 @@ Page({
   
                   })
                 }else{
-                    wx.navigateTo({
-                  
-                        url: '/pages/more/pages/PublishContent/PublishContent?tempFiles='+photo.tempFiles+'&imageHeight='+photo.imageHeight+'&imageWidth='+photo.imageWidth,
-      
-                      })
+                  // 标签兜底
+                  args.tabitem ? args.tabitem : args["tabitem"] = ["全部","日常","开学季"];
+                  // 初始化allList
+                  let allList = args.tabitem.map( (item,index) => {
+                    let allList = [];
+                    return allList[index] = []
+                  } )
+                  app.globalData.allList = allList;
+                  wx.navigateTo({
+                
+                      url: '/pages/more/pages/PublishContent/PublishContent?tempFiles='+photo.tempFiles+'&imageHeight='+photo.imageHeight+'&imageWidth='+photo.imageWidth,
+    
+                    })
                 }
                 })
                 // wx.saveImageToPhotosAlbum({
@@ -562,62 +571,6 @@ Page({
         })
         console.log(this.data.taskdata);
     },
-    init(){
-        let args = wx.getStorageSync('args');
-        // 判断登录
-        app.loginState();
-        // 初始化标签
-        this.data.tabitem = args.tabitem ? args.tabitem.map((e, index) => {
-          if (index == 0) {
-            return {
-              title: e,
-              type: 1
-            }
-          }
-    
-          return {
-            title: e,
-            type: 0
-          }
-        }) : this.data.tabitem; // 兜底数据
-        this.setData({currentTab: 0})     // 发布信息页面发布后，返回到第一个标签
-        // 封号
-        var campus_account = args.campus_account ? args.campus_account : false
-        var describe = args.describe ? args.describe : false
-        // 判断封号
-        if (campus_account === true) {
-          wx.showModal({
-            title: "提示",
-            content: describe,
-            showCancel: false,
-            success(res) {
-              if (res.confirm) {
-                wx.reLaunch({
-                  url: '/pages/index/index',
-                })
-              }
-            }
-          })
-        }
-        // 初始化 allList
-        let allList = this.data.tabitem.map((item, index) => {
-          let allList = [];
-          return allList[index] = []
-        });
-        this.setData({
-          showPopUps: false,
-          tabitem: this.data.tabitem,
-          campus_account: campus_account,
-          allList,
-          iconUrl:args.iconUrl,
-          school:args.school
-        })
-        // 初始化动画
-        _animationIndex = 0;
-        _animationIntervalId = -1;
-        this.data.animation = '';
-      },
-
     /**
      * 生命周期函数--监听页面加载
      */

@@ -265,9 +265,7 @@ Page({
       })
     },
     onLoad: function (options) {
-      // console.log(options.photo);
-      // let photo = JSON.parse(options)
-      console.log(options);
+      // 兼容打卡一键分享
       let photo = [{
         imageHeight:options.imageHeight,
         imageWidth:options.imageWidth,
@@ -275,10 +273,15 @@ Page({
       }]
       console.log(photo);
       if(photo){
+        let Input_Title = "模板标题";
+        let Input_Text = "模板文字";
+        let choosenLabel = "日常";
         this.setData({
-          photo:photo
+          photo,
+          Input_Title,
+          Input_Text,
+          choosenLabel
         })
-        options=null
       }
       let args = wx.getStorageSync('args');
       let theme = wx.getStorageSync('theme');

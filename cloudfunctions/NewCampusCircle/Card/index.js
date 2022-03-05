@@ -39,7 +39,7 @@ async function read(event) {
       'Star_User.Star_time': false,
       'Star_User.iconUrl': false,
       'Star_User.nickName': false,
-    }).orderBy('indexFront', 'desc').orderBy('Time', 'desc').where(obj).skip(skipPage).limit(15).get();
+    }).orderBy('indexFront', 'desc').orderBy('SortTime', 'desc').orderBy('Time', 'desc').where(obj).skip(skipPage).limit(15).get();
   } catch (e) {
     console.error(e);
   }

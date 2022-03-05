@@ -131,6 +131,7 @@ async function starCount(event) {
       _id: event.arcticle._id
     }).update({
       data: {
+        SortTime: Date.parse(new Date()),
         Star_User: event.Star_User
       }
     })
