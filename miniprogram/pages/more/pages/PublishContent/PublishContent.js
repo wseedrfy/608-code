@@ -6,6 +6,7 @@ Page({
      * 页面的初始数据
      */
     data: {
+      text:'很多覅的宏观环境欧派的',
         statusBarHeight: getApp().globalData.statusBarHeight,
         lineHeight: getApp().globalData.lineHeight,
         rectHeight: getApp().globalData.rectHeight,
@@ -49,6 +50,9 @@ Page({
           sourceType:['album','camera'],
           sizeType: ['original', 'compressed'],       // 可选择原图、压缩图
           success: (res) => {
+             console.log(
+               res
+             );
               let photo = that.data.photo.concat(res.tempFiles);
               
               wx.getImageInfo({                       // 获得图片信息
@@ -56,6 +60,7 @@ Page({
                 success: (res) => {
                   photo[0].imageHeight = res.height;
                   photo[0].imageWidth = res.width;
+                  console.log(photo);
                   that.setData({ photo })
                 }
               })
@@ -100,19 +105,19 @@ Page({
             })
           }else {
             let add = {
-              "Cover": this.data.photo[0],
-              "AllPhoto": JSON.parse(JSON.stringify(this.data.photo)),
-              "Title": formTitle,
-              "Text": formText,
-              "CoverHeight": this.data.photo[0].imageHeight,
-              "CoverWidth": this.data.photo[0].imageWidth,
-              "Label": this.data.choosenLabel,
-              "Time": new Date().getTime(),
-              "nickName": args.nickName,
+              "Cover": this.data.photo[0],//
+              "AllPhoto": JSON.parse(JSON.stringify(this.data.photo)),//
+              "Title": formTitle,//标题
+              "Text": formText,//文本
+              "CoverHeight": this.data.photo[0].imageHeight,//
+              "CoverWidth": this.data.photo[0].imageWidth,//
+              "Label": this.data.choosenLabel,//标签
+              "Time": new Date().getTime(),//  返回指定的 Date 对象自 1970 年 1 月 1 日午夜（通用时间）以来的毫秒数。当比较两个或更多个 Date 对象时，使用此方法表示某一特定时刻。
+              "nickName": args.nickName,//wx名字
               "School": args.school,
               "iconUrl": args.iconUrl
             }
-            let list = app.globalData.allList[0]
+            let list = app.globalData.allList[0]//??????????
             list.push(add);      
             let NewData = list.length - 1;
 
@@ -134,7 +139,7 @@ Page({
               return ;
             }
             // 将数据上传到数据库  (仅uploadPhoto内调用) 
-            const uploadData = (NewData, fileIDs) => {
+            const uploadData = (NewData, fileIDs) => {//fileIds????
               let that = this;
               let args = wx.getStorageSync('args');
 
@@ -143,12 +148,12 @@ Page({
                 wx.cloud.callFunction({
                   name: 'CampusCircle',
                   data: {
-                    Cover: fileIDs[0],
-                    AllPhoto: fileIDs,
+                    Cover: fileIDs[0],//图片
+                    AllPhoto: fileIDs,//所有图片
                     Title: list[NewData].Title,
                     Text: list[NewData].Text,
-                    CoverHeight: list[NewData].CoverHeight,
-                    CoverWidth: list[NewData].CoverWidth,
+                    CoverHeight: list[NewData].CoverHeight,//图片
+                    CoverWidth: list[NewData].CoverWidth,//图片
                     Label: list[NewData].Label,
                     Time: list[NewData].Time,
                     ShowHeight: list[NewData].ShowHeight,
@@ -198,7 +203,7 @@ Page({
                 title: '加载中',
                 mask: true
               })
-              let AllPhoto = app.globalData.allList[0][NewData].AllPhoto;    
+              let AllPhoto = app.globalData.allList[0][NewData].AllPhoto;//用户选的图片    
               let fileIDs = [];
 
               for (var i = 0; i < AllPhoto.length; i++) {
@@ -240,7 +245,6 @@ Page({
     del_beChoosen_Image(e) {
       let index = e.target.dataset.index;   // 照片索引值
       let photo = this.data.photo.slice();  
-
       photo.splice(index,1);                // 注意：splice返回值是删除的元素, 并改变原数组
       this.setData({ photo });
     },
