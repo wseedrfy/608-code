@@ -70,9 +70,9 @@ Component({
       console.log(allList);
       this.triggerEvent("setAllList", allList)
     },
-    testFnc(){
+    onReachBottom(){
       console.log("eeeee");
-      this.triggerEvent("testFnc");
+      this.triggerEvent("onReachBottom");
     },
     onPullDownRefresh() {
       this.triggerEvent("onPullDownRefresh")
@@ -105,7 +105,7 @@ Component({
       let list = this.data.list;
       console.log(list,"丢入瀑布流的数据");
       
-      // 为兼容 “我的发布” 页面
+      // 兼容 “我的发布” 页面，这个页面没有 currentTab
       if(currentTab) {
         // 边界条件 - 存在即赋值，不存在即初始化
         if(getApp().globalData.allList) {
@@ -130,25 +130,19 @@ Component({
             e.CommentList = list[i].CommentList;
           }
         })
-        // 边界判断: 如果该数据已存在，则continue
+        // 边界判断: 如果该数据在页面中已存在，则continue
         if (this.data.leftList || this.data.rightList) {
+          // 无法直接对比对象，因此拿到文章id进行比较
           let leftListID = this.data.leftList.map(item => {
             return item._id
           })
           let rightListID = this.data.rightList.map(item => {
             return item._id
           })
-
           if (leftListID.includes(list[i]._id) || rightListID.includes(list[i]._id)) {
             continue
           }
         }
-
-        if (this.data.leftList.includes(list[i]) || this.data.rightList.includes(list[i])) {
-          console.log("continue");
-          continue
-        }
-
         // 判断左右两侧当前的累计高度，来确定item应该放置在左边还是右边
         if (this.data.leftH <= this.data.rightH) { 
           this.data.leftList.push(list[i]);
