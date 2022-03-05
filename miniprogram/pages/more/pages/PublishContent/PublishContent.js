@@ -29,7 +29,7 @@ Page({
     },
     // 点击事件 - 点击出现TabScroll
     showTab() {                    
-        this.setData({ showTab: !this.data.showTab })
+      this.setData({ showTab: !this.data.showTab })
     },
     // 点击事件 - 选择标签
     chooseTab(e) {                  

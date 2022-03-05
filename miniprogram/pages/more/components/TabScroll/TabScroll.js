@@ -41,18 +41,16 @@ Component({
             let underLine_width = [];      // 下划线宽度 = 字符数 * 单个字符宽度 
             let underLine_left = [];       // 下划线偏移 = (2n+1)*内间距 + 前n个宽度; n = 下标
             tabItem.map((item,index) => {
-                // 处理得到 tabItemLength
+                // 正则匹配出 ‘单字节’‘双字节’‘表情’
                 const SHUANG_ZI_JIE = item["title"].match(/[\u4e00-\u9fa5+]/g) || '';
                 const DAN_ZI_JIE = item["title"].match(/[\w]/g) || '';
                 const Emoji = item["title"].match(/[^\w\u4e00-\u9fa5+][^\s]/g) || '';
-                
+                // 计算出每个标签的长度
                 if(SHUANG_ZI_JIE || DAN_ZI_JIE) {
                     tabItemLength[index] = SHUANG_ZI_JIE.length * 2 + DAN_ZI_JIE.length * 0.8 + Emoji.length * 0.8
                 }
-
                 // 处理得到 underLine_width ------ 18是多次实验得到，30是内边距
                 underLine_width[index] = tabItemLength[index] * 18 + 28;
-
                 // 处理得到 underLine_left
                 const accumulate_Width = () => {
                     let accumulate_Width = 0;
@@ -80,12 +78,14 @@ Component({
      * 组件的方法列表
      */
     methods: {
+        // 校园圈首页选择标签
         setTab(e) {
             this.setData({
                 currentTab:e.currentTarget.dataset["index"],
             })
             this.triggerEvent("setTab", e)
         },
+        // 发布页面选择标签
         chooseTab(e) { 
             this.triggerEvent("chooseTab", e)
         },

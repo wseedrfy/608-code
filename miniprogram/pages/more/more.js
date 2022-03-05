@@ -397,6 +397,7 @@ Page({
       let allList = [];
       return allList[index] = []
     });
+    app.globalData.allList = allList;
     this.setData({
       showPopUps: false,
       tabitem: this.data.tabitem,
