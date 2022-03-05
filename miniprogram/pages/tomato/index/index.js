@@ -3,7 +3,7 @@ const util = require('../../../utils/util.js')
 
 // 获取应用实例
 const app = getApp()
-
+//动画出现严重问题bug !!!!!!!!!!!!!!!!!!
 Page({
     data: {
         logsa:{},//放云端的logs

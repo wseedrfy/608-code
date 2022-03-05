@@ -1,39 +1,19 @@
-// pages/more/pages/Freshman/Freshman.js
-const db = wx.cloud.database()
+// pages/association/freshmanData/freshmanData.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+
   },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var content = JSON.parse(options.content)
-    let _id = content._id
-    let args = wx.getStorageSync('args');
-    let username = args.username
-    // console.log(args.username);
-    this.setData({
-      content
-    })
-    wx.cloud.callFunction({
-      name: "associationSend",
-      data: {
-        _id,
-        username,
-        type:4
-      }
-    }).then(res => {
-      console.log(res);
-    })
-  },
-  // 查询是否已参与并操作
-  // getPerson(){
 
-  // },
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
