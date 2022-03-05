@@ -4,13 +4,10 @@
   background-color: #ffffff;
   margin-bottom: 10rpx;
   overflow: hidden;
+  background-image: linear-gradient(#ecf1fc, #f0f5ff);
 }
 .pic .Show_Image {
   width: 360rpx;
-  background-color: #ebebebd8;
-}
-.pic .back {
-  background-image: linear-gradient(#dce8ff, #e3ecfd);
 }
 .pic .back .pic_Title {
   color: #000000;
@@ -68,6 +65,24 @@
   flex: 1;
   color: rgba(8, 8, 8, 0.4);
   text-align: right;
+}
+.pic .tip_wrap {
+  padding-left: 24rpx;
+  padding-top: 12rpx;
+  padding-bottom: 12rpx;
+}
+.pic .tip_wrap .tip_title {
+  font-size: 32rpx;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  font-weight: 700;
+}
+.pic .tip_wrap .tip_tip {
+  font-size: 28rpx;
 }
 @media (prefers-color-scheme: dark) {
   .pic {

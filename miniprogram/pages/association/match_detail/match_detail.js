@@ -169,9 +169,11 @@ Page({
           wx.getImageInfo({
             src: imgUrl,
             success: (res) => {
-              let CoverHeight = res.height + 'rpx'
+              // let CoverHeight = res.height + 'rpx'
+              let tempHeight = res.height > 500 ? 500 : tempHeight
+              let CoverHeight = tempHeight + 'rpx'
               let CoverWidth = res.width
-              let ShowHeight = res.height
+              let ShowHeight = tempHeight
               if (this.data.weatherChange == false) {
                 db.collection("associtaionMath").add({
                   data: {
