@@ -12,6 +12,7 @@ page {
   text-align: center;
   color: #63A1A0;
   font-weight: 700;
+  font-size: 34rpx;
 }
 .wrap .list_wrap {
   padding-top: 12rpx;
@@ -19,26 +20,34 @@ page {
 .wrap .list_wrap .list {
   display: flex;
   flex-direction: row;
-  padding-top: 8rpx;
+  padding-top: 18rpx;
+  align-items: center;
 }
 .wrap .list_wrap .list .caption {
   flex: 1;
 }
 .wrap .list_wrap .list .handle {
   flex: 3;
-  background-color: #d8d8d8;
-  padding-left: 10rpx;
-  border-radius: 18rpx;
+  background-color: rgba(245, 245, 245, 0.9);
+  padding-left: 16rpx;
+  border-radius: 12rpx;
+  padding-top: 8rpx;
+  padding-bottom: 8rpx;
+  justify-content: center;
+  align-items: center;
+  color: rgba(16, 16, 16, 0.6);
 }
 .wrap .bt_wrap {
   display: flex;
   justify-content: center;
+  padding-bottom: 24rpx;
+  margin-top: 24rpx;
 }
 .wrap .bt_wrap .certain {
   font-size: 32rpx;
   text-align: center;
   background-color: #63A1A0;
-  padding: 8rpx;
+  padding: 18rpx;
   margin-top: 24rpx;
   border-radius: 18rpx;
   color: white;

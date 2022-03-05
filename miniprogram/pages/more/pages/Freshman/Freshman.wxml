@@ -10,16 +10,16 @@
   <view class="mess_wrap">
     <view class="mess_caption">社团信息</view>
     <view class="mess_list">
-      <view class="mess_item" wx:for="{{content.association}}">
+      <view class="mess_item" wx:for="{{content.association}}" wx:key="item">
         <view class="title">{{item.name}}</view>
-        <view class="content">{{item.detial}}</view>
+        <view class="content">{{item.detail}}</view>
       </view>
     </view>
   </view>
   <view class="apply">
     <view class="apply_caption">报名申请</view>
     <view class="input_list">
-      <view class="input_item" wx:for="{{content.question}}">
+      <view class="input_item" wx:for="{{content.question}}" wx:key="item">
         <view class="input_title">{{item.content}}</view>
         <input placeholder="请输入" class="input_content" />
       </view>

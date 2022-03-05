@@ -14,7 +14,7 @@ Component({
       value: ""
     },
     // 当前标签下标
-    currentTab: {         // 用于点赞逻辑
+    currentTab: {
       type: Number,
     }
   },

@@ -129,6 +129,18 @@
         {
           "name": "赛事",
           "pathName": "pages/more/pages/Match/Match",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "普通活动",
+          "pathName": "pages/association/activity/activity",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "招新数据",
+          "pathName": "pages/association/freshmanData/freshmanData",
           "scene": null
         }
       ]
