@@ -22,12 +22,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    // console.log(options);
     count = options.count
     wx.showLoading({
       title: "查询中",
       mask: true,
       success: (result) => {
-        db.collection("associtaionMath").where({ count: Number(count) }).get().then(res => {
+        db.collection("associtaionMath").where({ count }).get().then(res => {
           this.setData({
             mathObj: res.data
           })

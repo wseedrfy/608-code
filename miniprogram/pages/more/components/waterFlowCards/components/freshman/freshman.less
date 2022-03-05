@@ -4,15 +4,15 @@
   background-color: rgb(255, 255, 255);
   margin-bottom   : 10rpx;
   overflow        : hidden;
-  // background-image: linear-gradient(#f8f8f8, #97bcfc);
+  background-image: linear-gradient(#ecf1fc, #f0f5ff);
 
   .Show_Image {
     width           : 360rpx;
-    background-color: #ebebebd8;
+    // background-color: #ebebebd8;
   }
 
   .back {
-    background-image: linear-gradient(#dce8ff, #e3ecfd);
+    // background-image: linear-gradient(#dce8ff, #e3ecfd);
     .pic_Title {
       color: rgb(0, 0, 0);
 
@@ -55,6 +55,7 @@
       .association_wrap {
         display: flex;
         padding: 4rpx 16rpx;
+        
     
         .association_name {
           flex              : 2;
@@ -67,7 +68,6 @@
           -webkit-box-orient: vertical;
           padding           : 2rpx;
           border-radius     : 8rpx;
-          // padding-bottom: 100rpx;
         }
     
         .person_num {
@@ -76,6 +76,24 @@
           text-align: right;
         }
       }
+    }
+  }
+  .tip_wrap{
+    padding-left: 24rpx;
+    padding-top: 12rpx;
+    padding-bottom: 12rpx;
+    .tip_title{
+      font-size: 32rpx;
+      display           : -webkit-box;
+      overflow          : hidden;
+      text-overflow     : ellipsis;
+      word-break        : break-all;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+      font-weight: 700;
+    }
+    .tip_tip{
+      font-size: 28rpx;
     }
   }
 }
