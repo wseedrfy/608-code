@@ -34,7 +34,7 @@ fs.readFile('src/index.js', (err, buffer) => {
         } else {
           // css处理
           let css = buffer2.toString()
-          css1 = css.replace(/[\n]/g, "");
+          css1 = css.replace(/[\n\r]/g, "");
 
           let darkCss = css1.match(/dark\s*\)\s*{(.*?)}\s*}/g);
           darkCss = darkCss ? darkCss[0].match(/\.(.*?)(.*?){(.*?)}/g) : darkCss;
@@ -50,7 +50,7 @@ fs.readFile('src/index.js', (err, buffer) => {
               [p[2].split(/\s+/)[0]]: p[3]
             })
           }
-
+          console.log(darks, 233)
           let noChange = []
           css = css ? css : '.page{}'
           let tagRE = /<[^>]*>/g;

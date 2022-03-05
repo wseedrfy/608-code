@@ -248,6 +248,7 @@ Page({
             clockshow: false,
         })
     },
+    
     ok: function() {
         clearInterval(this.data.timer);
         this.setData({
