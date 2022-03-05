@@ -495,9 +495,20 @@ Page({
         let username = wx.getStorageSync('args').username;
         //用username查找uuid
         var dakaArr = [];
-        //根据username获取到该用户的所有打卡记录
-        const res = await db.collection("daka_record").where({username:username}).get()
-        let data = res.data
+        //根据username获取到该用户的打卡信息表
+        const res = await db.collection("daka_record").where({username}).get();
+        
+        let hashIdArr = res.data.map((item,index) => {
+          return item.hashId
+        })
+        console.log(hashIdArr);
+
+        await db.collection("daka_status").where({
+          hashId
+        }).get()
+        let data = res.data;
+
+        
         for(var i = 0; i < res.data.length; i++){
             var hashid = data[i].hashId
             var obj = {
@@ -509,10 +520,9 @@ Page({
                 task_lable1:data[i].lable1,
                 task_lable2:data[i].lable2
             }
-            //粤神秒法：根据hashId来查找
-            const result = await db.collection("daka_status").where({
-                hashId:hashid
-            }).get()
+            //粤神秒法：根据hashId来查找该条打卡记录
+            const result = await db.collection("daka_status").where({hashId}).get()
+            console.log(result.data);
             obj.count = result.data[0].count;
 
             //判断该数据是否打卡的状态
