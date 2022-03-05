@@ -19,6 +19,7 @@ Page({
         showModel3:false,
         dakacount:'19',
         showModel2:false,
+        showModel5:true,
 
         currentid:0,
         currentIndex: 0, // 列表操作项的index
@@ -33,7 +34,46 @@ Page({
             },
         ],
     },
-
+    savecanvas:function(){
+        let that=this
+        wx.canvasToTempFilePath({
+          canvasId: 'shareCanvas',
+            success:function(res){
+                console.log(res.tempFilePath);
+                wx.saveImageToPhotosAlbum({
+                    filePath: res.tempFilePath,
+                    success(result){
+                      wx.showToast({
+                        title: '图片保存成功',
+                        icon: 'success',
+                        duration: 2000
+                      })
+                    }
+                  })
+            }
+        })
+    },
+    sharecanvas:function(){
+        let w = wx.getSystemInfoSync().windowWidth/375
+        console.log('w',wx.getSystemInfoSync().windowWidth);
+        let h =wx.getSystemInfoSync().windowHeight/wx.getSystemInfoSync().windowWidth
+        console.log('h',wx.getSystemInfoSync().windowHeight);
+        console.log(h);
+        let that=this
+        console.log('123');
+      wx.getImageInfo({
+        src: 'http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcX9xVxaGodT4nhOh7OSjTb3hYMuRdPCQI90IWXE4c7Ndk7ot3.0C6AfmFQ3Qz9uRvvAN8hPor1ASJt77yWmZDGM!/r',
+      }).then(res=>{
+        const ctx = wx.createCanvasContext('shareCanvas')
+        //背景
+        ctx.drawImage(res.path,0,0,260*w,232*w)
+        //文字
+        ctx.setFontSize(15*w)
+        ctx.fillText(that.data.task_name+'已经累计完成'+that.data.dakacount+'天！加油！',28*w,213*w)
+        ctx.stroke()
+        ctx.draw()
+      })
+    },
     startFun:function(e){
         console.log(e.currentTarget.id);
         this.setData({
@@ -190,6 +230,7 @@ Page({
         //2.看今日day是否在cycle里面
         //由于页面渲染的数据来源于username，故不用判断
         // db.collection('daka_record').where()
+        console.log('216行');
         if(cycle.length == 1 && cycle[0] == '每天'){
             this.daka(hashid);
             console.log("真打卡好了");
@@ -343,18 +384,19 @@ Page({
 
     //打卡提示
     daka_prompt(res){
+
         this.data.xAxial = 0;
         //打卡次数本地增加1 渲染到弹窗
         let id =res.currentTarget.id
         let task_name=this.data.taskdata
         task_name=task_name[id].task_name
         console.log(task_name);
-        //
         let dakacount=this.data.taskdata
         dakacount=dakacount[id].count+1
         this.setData({ dakacount:dakacount,task_name:task_name})
         let that = this;
         console.log(res);
+        // this.data.sharecanvas();
         wx.showModal({
             title: '提示',
             content: '是否确定打卡？',
@@ -363,6 +405,7 @@ Page({
                 // that.data.pullStatus = false;
                 that.allowDaka(res);
                 that.slideAnimation(0, 500);
+                that.sharecanvas();
               } else if (abc.cancel) {
                 console.log('用户点击取消');
                 that.data.pullStatus = true;
@@ -415,7 +458,6 @@ Page({
         })
 
         console.log('删除：',id)
-        //问题：刷新页面
     },
 
     //子腾兄总结：这个就是async await的一个比较好的应用 在写的函数前面写async进行异步声明 在异步函数前面写await进行同步声明，代码整洁度比较高，但是这样性能可能差点。
@@ -527,17 +569,13 @@ Page({
     /**
      * 生命周期函数--监听页面显示
      */
-   async onShow() {
+    onShow() {
     //    this.getDaka_record();
 
        var pages = getCurrentPages();
        var currPage = pages[pages.length - 1]; //当前页面
        let json = currPage.data.mydata;
-       //console.log("111111111111111111111111111111:",json)//为传过来的值
-    //    let task_hashId=this.data.taskdata.task_hashId
-    //    task_hashId=this.data.taskdata[len].task_hashId
-    //    console.log(this.data.taskdata[1].task_hashId);
-    console.log(json);
+       console.log(json);
        if(json){
         this.data.taskdata.push(json);
         console.log(this.data.taskdata);
