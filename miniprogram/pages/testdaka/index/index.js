@@ -2,6 +2,7 @@
 const db = wx.cloud.database();
 const _ = db.command;
 let movedistance = 0;
+var app = getApp();
 Page({
     /**
      * 页面的初始数据
@@ -18,7 +19,7 @@ Page({
         task_name:'示例',
         showModel3:false,
         dakacount:'19',
-        showModel2:false,
+        showModel2:true,
         showModel5:true,
 
         currentid:0,
@@ -36,31 +37,50 @@ Page({
     },
     savecanvas:function(){
         let that=this
+        // console.log('123');
         wx.canvasToTempFilePath({
           canvasId: 'shareCanvas',
             success:function(res){
-                console.log(res.tempFilePath);
-                wx.saveImageToPhotosAlbum({
-                    filePath: res.tempFilePath,
-                    success(result){
-                      wx.showToast({
-                        title: '图片保存成功',
-                        icon: 'success',
-                        duration: 2000
-                      })
+                wx.getImageInfo({
+                  src:res.tempFilePath,
+                }).then(res=>{
+                    // console.log(res);
+                    let photo={
+                        tempFiles:res.path,
+                        imageHeight:res.height,
+                        imageWidth:res.width
                     }
+                if(app.globalData.allList){
+                   wx.navigateTo({
+                  
+                    url: '/pages/more/pages/PublishContent/PublishContent?tempFiles='+photo.tempFiles+'&imageHeight='+photo.imageHeight+'&imageWidth='+photo.imageWidth,
+  
                   })
+                }else{
+                    wx.navigateTo({
+                  
+                        url: '/pages/more/pages/PublishContent/PublishContent?tempFiles='+photo.tempFiles+'&imageHeight='+photo.imageHeight+'&imageWidth='+photo.imageWidth,
+      
+                      })
+                }
+                })
+                // wx.saveImageToPhotosAlbum({
+                //     filePath: res.tempFilePath,
+                //     success(result){
+                //       wx.showToast({
+                //         title: '图片保存成功',
+                //         icon: 'success',
+                //         duration: 2000
+                //       })
+                //     }
+                //   })
             }
         })
     },
     sharecanvas:function(){
         let w = wx.getSystemInfoSync().windowWidth/375
-        console.log('w',wx.getSystemInfoSync().windowWidth);
         let h =wx.getSystemInfoSync().windowHeight/wx.getSystemInfoSync().windowWidth
-        console.log('h',wx.getSystemInfoSync().windowHeight);
-        console.log(h);
         let that=this
-        console.log('123');
       wx.getImageInfo({
         src: 'http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcX9xVxaGodT4nhOh7OSjTb3hYMuRdPCQI90IWXE4c7Ndk7ot3.0C6AfmFQ3Qz9uRvvAN8hPor1ASJt77yWmZDGM!/r',
       }).then(res=>{
@@ -542,6 +562,61 @@ Page({
         })
         console.log(this.data.taskdata);
     },
+    init(){
+        let args = wx.getStorageSync('args');
+        // 判断登录
+        app.loginState();
+        // 初始化标签
+        this.data.tabitem = args.tabitem ? args.tabitem.map((e, index) => {
+          if (index == 0) {
+            return {
+              title: e,
+              type: 1
+            }
+          }
+    
+          return {
+            title: e,
+            type: 0
+          }
+        }) : this.data.tabitem; // 兜底数据
+        this.setData({currentTab: 0})     // 发布信息页面发布后，返回到第一个标签
+        // 封号
+        var campus_account = args.campus_account ? args.campus_account : false
+        var describe = args.describe ? args.describe : false
+        // 判断封号
+        if (campus_account === true) {
+          wx.showModal({
+            title: "提示",
+            content: describe,
+            showCancel: false,
+            success(res) {
+              if (res.confirm) {
+                wx.reLaunch({
+                  url: '/pages/index/index',
+                })
+              }
+            }
+          })
+        }
+        // 初始化 allList
+        let allList = this.data.tabitem.map((item, index) => {
+          let allList = [];
+          return allList[index] = []
+        });
+        this.setData({
+          showPopUps: false,
+          tabitem: this.data.tabitem,
+          campus_account: campus_account,
+          allList,
+          iconUrl:args.iconUrl,
+          school:args.school
+        })
+        // 初始化动画
+        _animationIndex = 0;
+        _animationIntervalId = -1;
+        this.data.animation = '';
+      },
 
     /**
      * 生命周期函数--监听页面加载
@@ -551,7 +626,7 @@ Page({
           title: '加载中',
           mask:true
         })
-        await this.getDaka_record();
+        // await this.getDaka_record();
         wx.setNavigationBarTitle({
             title: 'We打卡',
         });

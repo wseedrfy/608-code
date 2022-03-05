@@ -199,7 +199,7 @@
       width: 520rpx;
       height: 600rpx;
       background-color: #fff;
-      border-radius: 40rpx;
+      /* border-radius: 40rpx; */
   }
   .complete_share_close{
       height: 70rpx;

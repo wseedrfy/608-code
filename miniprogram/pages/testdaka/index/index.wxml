@@ -156,7 +156,7 @@
                <!-- <view class="complete_share_box_text"></view> -->
                <!-- <view class="complete_share_box_text">您已经累计完成{{dakacount}}天！加油！</view> -->
                <view class="complete_share_box_button" bindtap="savecanvas">校友圈一键分享</view>
-               <!-- <view class="complete_share_box_button" bindtap="sharecanvas">绘图</view> -->
+               <view class="complete_share_box_button" bindtap="sharecanvas">绘图</view>
           </view>
      </view>
      <image class="complete_share_close" bindtap="complete_share_close" src="../images/close.png"></image>

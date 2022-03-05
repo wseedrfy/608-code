@@ -54,7 +54,7 @@ Page({
                res
              );
               let photo = that.data.photo.concat(res.tempFiles);
-              
+              console.log(res.tempFiles);
               wx.getImageInfo({                       // 获得图片信息
                 src: photo[0].tempFilePath,
                 success: (res) => {
@@ -112,12 +112,16 @@ Page({
               "CoverHeight": this.data.photo[0].imageHeight,//
               "CoverWidth": this.data.photo[0].imageWidth,//
               "Label": this.data.choosenLabel,//标签
-              "Time": new Date().getTime(),//  返回指定的 Date 对象自 1970 年 1 月 1 日午夜（通用时间）以来的毫秒数。当比较两个或更多个 Date 对象时，使用此方法表示某一特定时刻。
+              "Time": new Date().getTime(),//
               "nickName": args.nickName,//wx名字
               "School": args.school,
               "iconUrl": args.iconUrl
             }
+            console.log(add);
+            // console.log();
             let list = app.globalData.allList[0]//??????????
+            // console.log(list);
+            // console.log(list);
             list.push(add);      
             let NewData = list.length - 1;
 
@@ -261,6 +265,21 @@ Page({
       })
     },
     onLoad: function (options) {
+      // console.log(options.photo);
+      // let photo = JSON.parse(options)
+      console.log(options);
+      let photo = [{
+        imageHeight:options.imageHeight,
+        imageWidth:options.imageWidth,
+        tempFilePath:options.tempFiles
+      }]
+      console.log(photo);
+      if(photo){
+        this.setData({
+          photo:photo
+        })
+        options=null
+      }
       let args = wx.getStorageSync('args');
       let theme = wx.getStorageSync('theme');
 
