@@ -4,13 +4,15 @@
       <view class="left">
         <view wx:for="{{leftList}}" wx:key="leftList">
           <!-- <loveCards wx:if="{{item.Title == '闲聊'}}" item="{{item}}" type="left" bind:ShowContent="getBackData"></loveCards> -->
-          <campusCards item="{{item}}" type="left" currentTab="{{currentTab}}" bind:setAllList="setAllList" />
+          <freshman wx:if="{{item.Label=='社团招新'}}" item="{{item}}" type="left" currentTab="{{currentTab}}" bind:setAllList="setAllList"/>
+          <campusCards wx:else item="{{item}}" type="left" currentTab="{{currentTab}}" bind:setAllList="setAllList" />
         </view>
       </view>
 
       <view class="right">
         <view wx:for="{{rightList}}" wx:key="rightList">
-          <campusCards item="{{item}}" type="right" currentTab="{{currentTab}}" bind:setAllList="setAllList" />
+          <campusCards   item="{{item}}" type="right" currentTab="{{currentTab}}" bind:setAllList="setAllList" />
+          <freshman wx:if="{{item.Label=='社团招新'}}" item="{{item}}" type="fight" currentTab="{{currentTab}}" bind:setAllList="setAllList"/>
         </view>
       </view>
 
