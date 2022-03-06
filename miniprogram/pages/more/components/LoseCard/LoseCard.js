@@ -44,7 +44,6 @@ Component({
     },
   },
   methods: {
-
     ShowContent: function (e) {
       //对数据进行更新
       var content = JSON.stringify(this.data.item)
@@ -57,13 +56,7 @@ Component({
       }catch{}
       wx.navigateTo({
     
-        url: "./pages/DetailContent/DetailContent?content=" + content,
-        fail(){
-          wx.navigateTo({
-            url: "../../pages/DetailContent/DetailContent?content=" + content,
-  
-          })
-        }
+        url: "./pages/LoseDetailContent/LoseDetailContent?content=" + content,
       })
     },
     

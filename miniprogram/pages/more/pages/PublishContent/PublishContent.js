@@ -277,10 +277,10 @@ Page({
 
       let args = wx.getStorageSync('args');
       let theme = wx.getStorageSync('theme');
-      let menu_ = args.tabitem
-      menu_.push("寻物发布")
+      // let menu_ = args.tabitem
+      // menu_.push("寻物发布")
       // 兜底数据
-      let menu = ["日常","晒出课表🤣", "树洞👂", "2022新年Flag🚩", "2021回顾◀", "三行情书❤️", "故事屋⭐️"]
+      let menu = ["日常","晒出课表🤣", "树洞👂", "2022新年Flag🚩", "2021回顾◀", "三行情书❤️", "故事屋⭐️","寻物发布"]
       this.setData({
         menu: args.tabitem ? menu_ : menu,
         theme

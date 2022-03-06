@@ -169,12 +169,84 @@ Page({
       wlist
     })
   },
+  // 兼容茂职
+  jianRongMaoZhi() {
+    console.log("eee");
+    var lesson = wx.getStorageSync("personalInformation").curriculum;
+    // 按上课时间排序先
+    if(!lesson){
+      return
+    }
+    lesson.sort((a, b) => {
+      return new Date(a.pkrq).getTime() - new Date(b.pkrq).getTime()
+    })
+
+    var ll = {}
+    var kcmc = []
+
+    // 处理数据=>以'课程名称'为字段 的对象数组
+    for (let i = 0; i < lesson.length; i++) {
+      let index = kcmc.indexOf(lesson[i].kcmc)
+      if (index == -1) {
+        kcmc.push(lesson[i].kcmc)
+        ll[lesson[i].kcmc] = []
+        ll[lesson[i].kcmc].push(lesson[i])
+      } else {
+        ll[lesson[i].kcmc].push(lesson[i])
+      }
+    }
+
+    // 处理数据，将已经上过的剔除 区分已经屏蔽过的
+    var _de = wx.getStorageSync('args').ConcealCurriculumLogs
+
+    for (let i = 0; i < kcmc.length; i++) {
+      var arr = ll[kcmc[i]]
+      var obj = {}
+      obj['data'] = [];
+      obj['zcxq'] = []; // 列出该课程所有的 周次-星期-节次
+      obj['jxcd'] = []; // 教学场地，这门课上课的地点
+      for (let k = 0; k < arr.length; k++) {
+        obj['data'].push(arr[k])
+        console.log(obj['data']);
+        // 在这里要判断是否已经屏蔽过了，屏蔽了的塞false进去
+        let flag = true;
+        if(_de) {
+          for (let p = 0; p < _de.length; p++) {
+            if(!_de[p]){
+              continue
+            }
+            if (_de[p].kcmc == kcmc[i] && _de[p].zc == arr[k].zc && _de[p].xq == arr[k].xq && _de[p].jcdm == arr[k].jcdm) {
+              flag = false
+            }
+          }
+        }
+        
+        obj['zcxq'].push([arr[k].zc + "-" + arr[k].xq + "-" + arr[k].jcdm, flag]);
+        // 找出该门课的上课场地
+        if (!obj['jxcd'].includes(arr[k].jxcdmc)) {
+          obj['jxcd'].push(arr[k].jxcdmc)
+        }
+    }
+    ll[kcmc[i]] = obj
+    }
+
+    this.setData({
+      ll,
+      kcmc
+    })
+  },
   onLoad: function () {
     this.add();
     this.init();
   },
   // 显示详情 初始化
   init() {
+    var args = wx.getStorageSync('args');
+    this.setData({school: args.school == '游客登录' ? args.school = '广东石油化工学院' : args.school});
+    if(args.school == '茂名职业技术学院') {
+      this.jianRongMaoZhi()
+      return;
+    } 
     var lesson = wx.getStorageSync("personalInformation").curriculum;
     // 按上课时间排序先
     if(!lesson){
@@ -210,10 +282,14 @@ Page({
       obj['zcxq'] = []; // 列出该课程所有的 周次-星期-节次
       obj['jxcd'] = []; // 教学场地，这门课上课的地点
       for (let k = 0; k < arr.length; k++) {
+        console.log(arr[k]);
         // 还没上的课
+        // if(!arr[k].pkrq) {
+        //   arr[k][pkrq] = 
+        // }
         if (nowtime < new Date(arr[k].pkrq).getTime()) {
           obj['data'].push(arr[k])
-
+          console.log(obj['data']);
           // 在这里要判断是否已经屏蔽过了，屏蔽了的塞false进去
           let flag = true;
           if(_de) {

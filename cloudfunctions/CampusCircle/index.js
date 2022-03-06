@@ -37,6 +37,8 @@ exports.main = async (event, context) => {
       return await ReplyCommentControlLogs(event); // 删除评论
     case "ReadControlLogs":
       return await ReadControlLogs(event); // 读取新消息 New-Info 
+    case "LoseStateLogs":
+      return await LoseStateLogs(event)
   }
 
 }
@@ -44,6 +46,7 @@ exports.main = async (event, context) => {
 
 async function addRecord(event, type, content){
   console.log(event,"addRecord");
+  console.log(content);
   return await db.collection('New-Information').add({
     data: {
       character: event.character,
@@ -243,7 +246,18 @@ async function StarControlLogs(event) {
     }
   }
 }
-
+async function LoseStateLogs(event){
+  try{
+    console.log(event.LoseState)
+    return await db.collection("Campus-Circle").doc(event._id).update({
+      data:{
+        LoseState:event.LoseState
+      }
+    })
+  }catch(e){
+    console.log(e)
+  }
+}
 async function CommentControlLogs(event) {
   try {
     return await addRecord(event, "评论", event.content)

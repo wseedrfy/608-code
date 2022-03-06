@@ -77,7 +77,8 @@
         "NewInfo/NewInfo",
         "PublishContent/PublishContent",
         "Freshman/Freshman",
-        "Match/Match"
+        "Match/Match",
+        "LoseDetailContent/LoseDetailContent"
       ]
     },
     {

@@ -27,8 +27,41 @@ Page({
     edit_style: 'edit_hide',
     reply_style: 'reply_hide',
     showComtBox: true,
-  },
+    switch1Checked:false
 
+  },
+  switch1Change:function(){
+    console.log(this.data.switch1Checked)
+    this.data.switch1Checked?this.setData({switch1Checked:false}):this.setData({switch1Checked:true})
+    //更新数据库
+    wx.cloud.callFunction({
+      name:"CampusCircle",
+      data:{
+        _id: this.data.content._id,
+        type:"LoseStateLogs",
+        LoseState:this.data.switch1Checked
+      },success(res){
+        console.log(res)
+      }
+    })
+    // 更新全局
+    app.globalData.allList.forEach(item => {
+      item.forEach(e => {
+        console.log(e._id)
+        console.log(this.data.CardID)
+        if (e._id === this.data.CardID) {
+          e.LoseState = this.data.switch1Checked;
+        }
+      })
+    })
+    let pages = getCurrentPages(); //获取小程序页面栈
+    let beforePage = pages[pages.length - 2]; //上个页面的实例对象
+    let e = {
+      detail: app.globalData.allList
+    }
+    beforePage.setAllList(e);
+    console.log(app.globalData.allList)
+  },
   More: function () {
     var showEdit = this.data.showEdit
     var that = this
@@ -819,6 +852,7 @@ Page({
       more: more,
     })
     console.log(content)
+    this.setData({switch1Checked:content.LoseState})
   },
   //点赞
   get_Star() {

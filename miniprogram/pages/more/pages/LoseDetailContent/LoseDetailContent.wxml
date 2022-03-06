@@ -25,12 +25,17 @@
       <view class="content_Title">{{content.Title}}</view>
       <text class="content_Text">{{content.Text}}</text>
       <view class="content_LabelBox">
+        <!-- <view class="content_Label" >失物</view> -->
         <view class="content_Label" >{{content.Label}}</view>
+        <view class="content_Label" style="background:rgba(90,155,155,0.5)">{{content.LoseType}}</view>
+        <view class="content_Label" style="background:rgba(255,215,0,0.5)">{{content.Other}}</view>
+        <span class="content_Label" style="#7d5fff">{{content.LoseTime}}</span>
       </view>
       <view class="content_sec">
         <view class="content_Time" >{{Time}}</view>
-        <view class="content_Star">
-          <image class="content_Star_img" bindtap="get_Star" src="{{Starurl}}"></image>
+        <view class="content_Star" wx:if="{{more==1}}">
+          <switch  checked="{{switch1Checked}}" bindchange="switch1Change"/>
+          <span class="content_switch" style='background:{{switch1Checked?"rgba(	0,206,209,0.6)":""}}'>{{switch1Checked?"已找到":"未找到"}}</span>
         </view>
      </view>
     </view>

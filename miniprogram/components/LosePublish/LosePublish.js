@@ -24,9 +24,15 @@ Component({
   },
   attached(){
     let res = wx.getStorageSync('args').Campus
-    res.push("校外")
+    if(!res){
+      res = ["校内","校外"]
+    }
+    else{
+      res.push("校外")
+    }
+    console.log(res)
     this.setData({
-      choose_campus:wx.getStorageSync('args').Campus?res:["校内","校外"]
+      choose_campus:res
     })
   },
   methods:{
