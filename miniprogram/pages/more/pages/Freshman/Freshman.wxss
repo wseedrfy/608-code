@@ -88,4 +88,5 @@ page {
   padding: 6rpx;
   margin-right: 20%;
   margin-left: 20%;
+  color: white;
 }
