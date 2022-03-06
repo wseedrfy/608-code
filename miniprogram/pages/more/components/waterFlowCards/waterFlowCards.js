@@ -57,7 +57,7 @@ Component({
       this.RightLeftSolution(true)
     },
     ready: function() {
-      // console.log(this.properties.list);
+      console.log(this.data.list);
     },
 
   },
@@ -104,7 +104,7 @@ Component({
       let currentTab = this.properties.currentTab;
       let list = this.data.list;
       console.log(list,"丢入瀑布流的数据");
-      
+
       // 兼容 “我的发布” 页面，这个页面没有 currentTab
       if(currentTab) {
         // 边界条件 - 存在即赋值，不存在即初始化

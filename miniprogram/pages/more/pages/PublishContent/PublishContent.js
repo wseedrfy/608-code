@@ -272,7 +272,7 @@ Page({
         tempFilePath:options.tempFiles
       }]
       console.log(photo);
-      if(photo){
+      if(photo.tempFilePath){
         let Input_Title = "模板标题";
         let Input_Text = "模板文字";
         let choosenLabel = "日常";

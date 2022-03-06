@@ -26,7 +26,6 @@ Component({
   lifetimes: {
     ready() {
       let content = this.data.item;
-      console.log(content);
       let args = wx.getStorageSync('args');
       let character = {
         userName: args.username,
