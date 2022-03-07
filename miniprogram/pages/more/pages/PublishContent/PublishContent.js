@@ -265,8 +265,9 @@ Page({
         imageWidth:options.imageWidth,
         tempFilePath:options.tempFiles
       }]
+      console.log(options);
       console.log(photo);
-      if(photo.tempFilePath){
+      if(photo[0].tempFilePath){
         let Input_Title = "模板标题";
         let Input_Text = "模板文字";
         let choosenLabel = "日常";
@@ -276,6 +277,7 @@ Page({
           Input_Text,
           choosenLabel
         })
+        
       }
       let args = wx.getStorageSync('args');
       let theme = wx.getStorageSync('theme');
