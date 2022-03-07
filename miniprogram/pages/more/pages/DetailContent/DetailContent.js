@@ -1,5 +1,6 @@
 // const { isGeneratorFunction } = require("util/types")
 var util = require("../../../../utils/util.js")
+var moreUtil = require("../../utils/utils")
 var app = getApp()
 const args = wx.getStorageSync('args')
 Page({
@@ -368,13 +369,8 @@ Page({
                   }
                 })
               })
-              // 内外部渲染一致
-              let pages = getCurrentPages(); 
-              let beforePage = pages[pages.length - 2];
-              let e = {
-                detail: app.globalData.allList
-              }
-              beforePage.setAllList(e);
+              // 内外渲染一致
+              moreUtil.setAllList(app.globalData.allList,"评论")
             },
             fail: err => {
               console.error
@@ -514,21 +510,11 @@ Page({
                 item.forEach((e,i) => {
                   if (e._id === that.data.CardID) {
                     app.globalData.allList[index].splice(i,1);
-                    console.log(app.globalData.allList[index]);
                   }
                 })
               })
               // 内外部渲染一致
-              let pages = getCurrentPages(); 
-              let beforePage = pages[pages.length - 2];
-              let e = {
-                detail: app.globalData.allList
-              }
-              beforePage.onLoad()
-              beforePage.setAllList(e);
-              wx.navigateBack({
-                delta: 1,
-              })
+              moreUtil.setAllList(app.globalData.allList,"删除卡片")
             },
             fail: err => {
               console.error
@@ -604,13 +590,8 @@ Page({
               }
             })
           })
-          // 内外部渲染一致
-          let pages = getCurrentPages(); 
-          let beforePage = pages[pages.length - 2];
-          let e = {
-            detail: app.globalData.allList
-          }
-          beforePage.setAllList(e);
+          // 内外渲染一致
+          moreUtil.setAllList(app.globalData.allList,"评论")
         },
         fail: err => {
           wx.showToast({
@@ -843,8 +824,6 @@ Page({
       nickName: this.data.content.nickName
     }
     let starTime = new Date().getTime(); // 点赞时间
-    // 如果想在后台看到具体的时间年月日，请用下面这句
-    // let starTime = util.timeago(new Date().getTime(),'Y年M月D日');
     if (!Star_User) {
       Star_User = []
     }
@@ -930,12 +909,7 @@ Page({
         }
       })
     })
-    let pages = getCurrentPages(); //获取小程序页面栈
-    let beforePage = pages[pages.length - 2]; //上个页面的实例对象
-    let e = {
-      detail: app.globalData.allList
-    }
-    beforePage.setAllList(e);
+    moreUtil.setAllList(app.globalData.allList,"点赞")
   },
   onShow: function () {
     this.ShowComment()
