@@ -370,4 +370,10 @@
     height: 40rpx;
     width: 45rpx;
   }
+  @media (prefers-color-scheme: dark) {
+    .complete_share_box_button{
+      background-color: #F77A7A;
+    }
+    
+  }
   
