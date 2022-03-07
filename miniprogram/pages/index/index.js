@@ -67,7 +67,7 @@ Page({
         console.log(e)
       }
     }
-    await wx.cloud.callFunction({
+    wx.cloud.callFunction({
       name: 'api',
       data: {
         url: 'indexLoading',

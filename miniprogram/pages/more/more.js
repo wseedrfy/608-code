@@ -72,6 +72,7 @@ Page({
   // 卡片内外部渲染一致
   setAllList(e) {
     const allList = e.detail;
+    console.log(allList);
     this.setData({allList})
     for(let i in allList) {
       this.selectComponent(`#waterFlowCards${i}`).RightLeftSolution();
@@ -191,7 +192,7 @@ Page({
           allList[currentTab] = allList[currentTab].concat(res.result.data);
           // 赋值全局变量
           app.globalData.allList = allList;
-          console.log(allList[currentTab], "list");
+          console.log(allList);
           that.setData({
             allList
           });
@@ -208,8 +209,8 @@ Page({
             currComponent.setData({
               leftList: [],
               rightList: [],
-              list: [1],         // 避免显示“玩命加载数据”
-              loadAll: true      // 显示“暂无数据”
+              list: [null],         // 避免显示“玩命加载数据”
+              loadAll: true         // 显示“暂无数据”
             })
           }
         }
@@ -360,24 +361,21 @@ Page({
     // 判断登录
     app.loginState();
     // 初始化标签
-    this.data.tabitem = args.tabitem ? args.tabitem.map((e, index) => {
+    let tabitem = args.tabitem ? args.tabitem.map((e, index) => {
       if (index == 0) {
         return {
           title: e,
           type: 1
         }
       }
-
       return {
         title: e,
         type: 0
       }
-    }) : this.data.tabitem; // 兜底数据
-    this.setData({currentTab: 0})     // 发布信息页面发布后，返回到第一个标签
-    // 封号
+    }) : this.data.tabitem; // 兜底数据   
+    // 初始化封号
     var campus_account = args.campus_account ? args.campus_account : false
     var describe = args.describe ? args.describe : false
-    // 判断封号
     if (campus_account === true) {
       wx.showModal({
         title: "提示",
@@ -397,14 +395,15 @@ Page({
       let allList = [];
       return allList[index] = []
     });
-    app.globalData.allList = allList;
+    
     this.setData({
-      showPopUps: false,
-      tabitem: this.data.tabitem,
-      campus_account: campus_account,
-      allList,
-      iconUrl:args.iconUrl,
-      school:args.school
+      currentTab: 0,            // 返回到第一个标签
+      showPopUps: false,        // 关闭弹窗
+      tabitem,                  // 初始化标签
+      campus_account,           // 初始化封号
+      allList,                  // 初始化allList
+      iconUrl:args.iconUrl,     // 获取头像
+      school:args.school        // 获取学校
     })
     // 初始化动画
     _animationIndex = 0;
@@ -453,8 +452,7 @@ Page({
       wx.stopPullDownRefresh() 
     }, 1000)
   },
-
-  // 上拉触底改变状态
+  // 上拉触底
   onReachBottom() {
     wx.showLoading({
       title: '加载更多中',

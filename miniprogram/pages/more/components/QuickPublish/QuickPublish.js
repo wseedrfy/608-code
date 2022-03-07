@@ -84,14 +84,14 @@ Component({
         },
         // 内部函数 - 
         ReOnLoad(){
-            this.triggerEvent("ReOnLoad")
+          this.triggerEvent("ReOnLoad")
         },
         // 点击事件 - 发布
         formSubmit(e) { // 2.2 添加与存储 (发布点击事件)
           if(this.data.choosenLabel!="寻物发布"){
             this.setData({
               "Time":"",
-              "type":"",
+              "type":"",  
               "campus":"",
               "Other":""
             })
@@ -178,6 +178,7 @@ Component({
               }
               console.log(add)
               console.log(getApp().globalData.allList);
+              // 在“全部标签”中，加入该帖子
               let list = getApp().globalData.allList[0];
               list.push(add)
               let NewData = list.length - 1;
@@ -204,6 +205,7 @@ Component({
               const uploadData = (NewData, fileIDs) => {
                 let args = wx.getStorageSync('args');
                 var that = this;
+                console.log(fileIDs.length,list[NewData].AllPhoto.length);
                 if (fileIDs.length == list[NewData].AllPhoto.length) {
 
                   wx.cloud.callFunction({
@@ -233,11 +235,20 @@ Component({
                     success: res => {
                       console.log("add", res)
                       wx.showToast({
-                        duration: 4000,
+                        duration: 2000,
                         title: '添加成功'
                       })
                       setTimeout(()=>{
-                        that.ReOnLoad();
+                        let pages = getCurrentPages(); //获取小程序页面栈
+                        let i = 0;
+                        console.log(pages);
+                        pages.forEach((item,index) => {
+                          if(item.route == "pages/more/more") {
+                            i = index
+                          }
+                        })
+                        console.log(pages[i]);
+                        pages[i].onLoad()
                       },1000)
                     },
                     fail: err => {
@@ -274,8 +285,10 @@ Component({
                   })
                   var path = getApp().globalData.allList[0][NewData].AllPhoto;
                   var fileIDs = [];
-
+                  console.log(path);
                   for (var i = 0; i < path.length; i++) {
+                    console.log(1111);
+                    console.log(path[i]);
                     wx.compressImage({
                       src: path[i], // 图片路径
                       quality: 50, // 压缩质量,
@@ -287,6 +300,9 @@ Component({
                           fileIDs.push(res.fileID)
                           uploadData(NewData, fileIDs)
                         })
+                      },
+                      fail(err) {
+                        console.log(err);
                       }
                     })
                   }
