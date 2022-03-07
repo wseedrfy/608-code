@@ -84,6 +84,7 @@ async function write(event) {
   try {
     return await db.collection("Campus-Circle").add({
       data: {
+        SortTime: Date.parse(new Date()),
         Other:event.Other,
         LoseTime:event.LoseTime,
         LoseType:event.LoseType,
