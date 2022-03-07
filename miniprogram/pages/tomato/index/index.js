@@ -153,8 +153,8 @@ Page({
             } else {
                 let logs = [
                     {date:util.formatTime(new Date),
-                    cate: _this.data.cateActive,  
-                    time: _this.data.time,}
+                    cate:Number(_this.data.cateActive),  
+                    time:Number(_this.data.time),}
                     ]
                 let date=util.formatTime(new Date)
                 let cate=_this.data.cateActive
