@@ -8,12 +8,12 @@ Page({
      * 页面的初始数据
      */
     data: {
-        sysW: wx.getSystemInfoSync().windowWidth,//获取屏幕宽度
-        xAxial: 0,//X轴的初始值
-        x: 0,//触摸时X轴的值
+        sysW: wx.getSystemInfoSync().windowWidth,
+        xAxial: 0,
+        x: 0,
         w: (wx.getSystemInfoSync().windowWidth * 0.8) - 30,//滑块可移动的X轴范围
-        cssAnimation: 'translate3d(0, 0, 0)',//CSS动画的初始值
-        succeedMsg: '',//验证成功提示信息的默认值
+        cssAnimation: 'translate3d(0, 0, 0)',
+        succeedMsg: '',
         pullStatus: true,//是否允许验证成功后继续滑动
 
         task_name:'示例',
@@ -87,11 +87,14 @@ Page({
         })
     },
     sharecanvas:function(){
+        let arr =['http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcX9xVxaGodT4nhOh7OSjTb3hYMuRdPCQI90IWXE4c7Ndk7ot3.0C6AfmFQ3Qz9uRvvAN8hPor1ASJt77yWmZDGM!/r','http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcX9xVxaGodT4nhOh7OSjTb3hYMuRdPCQI90IWXE4c7Ndk7ot3.0C6AfmFQ3Qz9uRvvAN8hPor1ASJt77yWmZDGM!/r','http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcX9xVxaGodT4nhOh7OSjTb3hYMuRdPCQI90IWXE4c7Ndk7ot3.0C6AfmFQ3Qz9uRvvAN8hPor1ASJt77yWmZDGM!/r']
+        let num=Math.floor(Math.random() * 3);
+        console.log(num);
         let w = wx.getSystemInfoSync().windowWidth/375
         let h =wx.getSystemInfoSync().windowHeight/wx.getSystemInfoSync().windowWidth
         let that=this
       wx.getImageInfo({
-        src: 'http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcX9xVxaGodT4nhOh7OSjTb3hYMuRdPCQI90IWXE4c7Ndk7ot3.0C6AfmFQ3Qz9uRvvAN8hPor1ASJt77yWmZDGM!/r',
+        src:arr[num],
       }).then(res=>{
         const ctx = wx.createCanvasContext('shareCanvas')
         //背景
@@ -108,60 +111,40 @@ Page({
         this.setData({
             currentIndex: e.currentTarget.id
           });
-        //   this.slideAnimation(0, 500);
           console.log(this.data.currentid);
     },
     
      //滑块移动中执行的事件
     moveFun: function (e) {
-        // console.log(e);
         //如果验证成功后仍允许滑动，则执行下面代码块（初始值默认为允许）
         if (this.data.pullStatus) {
-          //设置X轴的始点
           this.data.x = e.changedTouches[0].clientX - ((this.data.sysW * 0.1) + 25);
-          //如果触摸时X轴的坐标大于可移动距离则设置元素X轴的坐标等于可移动距离的最大值，否则元素X轴的坐标等于等于当前触摸X轴的坐标
           this.data.x >= this.data.w ? this.data.xAxial = this.data.w : this.data.xAxial = this.data.x;
-          //如果触摸时X轴的坐标小于设定的始点，则将元素X轴的坐标设置为0
           if (this.data.x < 25) this.data.xAxial = 0;
-          //根据获取到的X轴坐标进行动画演示
           this.data.cssAnimation = 'translate3d(' + this.data.xAxial + 'px, 0, 0)';
-        //   console.log(this.data.cssAnimation );
           this.setData({
             cssAnimation: this.data.cssAnimation
           })
         }
       },
-     //根据打卡状态来锁死能否拉动以及能否弹出打卡弹窗
       endFun: function (res) {
         let id =res.currentTarget.id
-        //触发事件时提供的detail对象
         var detail = {};
-        // console.log(res);
         let isDaka=this.data.taskdata
         isDaka=isDaka[id].task_isDaka
         //如果触摸的X轴坐标大于等于限定的可移动范围，则验证成功
         if (this.data.x >= this.data.w&isDaka==false) {
-          //元素X轴坐标等于可移动范围的最大值
           this.data.xAxial = this.data.w;
-          //设置验证成功提示语
           this.data.succeedMsg = '';
-          //设置detail对象的返回值
           detail.msg = true;
-          //验证成功后，禁止滑块滑动
-        //   this.data.pullStatus = false;
           this.daka_prompt(res)
           console.log(res);
           this.data.xAxial = 0;
         } else {
-          //元素X轴坐标归0
           this.data.xAxial = 0;
-          //清空验证成功提示语
           this.data.succeedMsg = '';
-          //设置detail对象的返回值
           detail.msg = false;
         }
-  
-        //使用triggerEvent事件，将绑定在此组件的myevent事件，将返回值传递过去
         this.triggerEvent('myevent', detail);
         //根据获取到的X轴坐标进行动画演示
         this.data.cssAnimation = 'translate3d(' + this.data.xAxial + 'px, 0, 0)';
@@ -195,8 +178,6 @@ Page({
             currentIndex: e.currentTarget.dataset.index
           });
           console.log( e.currentTarget.dataset.index)
-        //   console.log( e.touches[0].clientX)
-        //   console.log(e)
           // 获取触摸X坐标
           this.recordX = e.touches[0].clientX;
     },
@@ -495,20 +476,9 @@ Page({
         let username = wx.getStorageSync('args').username;
         //用username查找uuid
         var dakaArr = [];
-        //根据username获取到该用户的打卡信息表
-        const res = await db.collection("daka_record").where({username}).get();
-        
-        let hashIdArr = res.data.map((item,index) => {
-          return item.hashId
-        })
-        console.log(hashIdArr);
-
-        await db.collection("daka_status").where({
-          hashId
-        }).get()
-        let data = res.data;
-
-        
+        //根据username获取到该用户的所有打卡记录
+        const res = await db.collection("daka_record").where({username:username}).get()
+        let data = res.data
         for(var i = 0; i < res.data.length; i++){
             var hashid = data[i].hashId
             var obj = {
@@ -520,9 +490,10 @@ Page({
                 task_lable1:data[i].lable1,
                 task_lable2:data[i].lable2
             }
-            //粤神秒法：根据hashId来查找该条打卡记录
-            const result = await db.collection("daka_status").where({hashId}).get()
-            console.log(result.data);
+            //粤神秒法：根据hashId来查找
+            const result = await db.collection("daka_status").where({
+                hashId:hashid
+            }).get()
             obj.count = result.data[0].count;
 
             //判断该数据是否打卡的状态
@@ -589,7 +560,7 @@ Page({
           title: '加载中',
           mask:true
         })
-        // await this.getDaka_record();
+        await this.getDaka_record();
         wx.setNavigationBarTitle({
             title: 'We打卡',
         });
@@ -637,7 +608,6 @@ Page({
      * 生命周期函数--监听页面卸载
      */
     onUnload: function () {
-
     },
 
     /**

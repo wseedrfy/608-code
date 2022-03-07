@@ -1,57 +1,12 @@
 // logs.js
 const util = require('../../../utils/util.js')
 const app = getApp(); //全局变量
-
 import * as echarts from '../ec-canvas/echarts';
-function initChart(canvas, width, height, dpr) {
-  const chart = echarts.init(canvas, null, {
-    width: width,
-    height: height,
-    devicePixelRatio: dpr // new
-  });
-  canvas.setChart(chart);
-
-  var option = {
-    backgroundColor: "",
-    series: [{
-      label: {
-        normal: {
-          fontSize: 14
-        }
-      },
-      type: 'pie',
-      center: ['50%', '50%'],
-      radius: ['0%', '55%'],
-      data: 
-      // series_data
-      [{
-        value: 55,
-        name: '北京'
-      }, {
-        value: 20,
-        name: '武汉'
-      }, {
-        value: 10,
-        name: '杭州'
-      }, {
-        value: 20,
-        name: '广州'
-      }, {
-        value: 38,
-        name: '上海'
-      }]
-    }]
-  };
-
-  chart.setOption(option);
-  return chart;
-}
-
 Page({
     data: {
-        ecPie: {
-            onInit: initChart
-          },
+        ec:{
+        lazyLoad: true
+        },
         navState: 0,//导航状态
         logsa:[{a:1},{b:2}],
         total:0,
@@ -109,6 +64,139 @@ Page({
             }
         ],
     },
+    //echarts数据可视化
+  setOption(chart,echarr) {
+    var option = {
+      title: {
+        text: '统计图',
+        subtext: '任务时间占比',
+        left: 'center'
+      },
+      tooltip: {
+        trigger: 'item'
+      },
+      legend: {
+        orient: 'vertical',
+        left: 'left'
+      },
+      series: [
+        {
+          name: '分钟',
+          type: 'pie',
+          radius: '50%',
+          data:
+          echarr,
+          //  [
+          //   { value: 1048, name: '学习' },
+          //   { value: 735, name: '阅读' },
+          //   { value: 580, name: '娱乐' },
+          //   { value: 484, name: '思考' },
+          //   { value: 300, name: '运动' }
+          // ],
+          emphasis: {
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+          }
+        }
+      ]
+    };
+    chart.setOption(option);
+  },
+  echarts_opt(echarr){//echart库有代码
+    let ecComponent = this.selectComponent('#mychart-dom');
+    ecComponent.init((canvas, width, height, dpr) => {
+      // 获取组件的 canvas、width、height 后的回调函数
+      // 在这里初始化图表
+      const chart = echarts.init(canvas, null, {
+        width: width,
+        height: height,
+        devicePixelRatio: dpr // new
+      });
+      //调用设定EChart报表状态的函数，并且把从后端拿到的数据传过去
+      this.setOption(chart,echarr);
+      // 注意这里一定要返回 chart 实例，否则会影响事件处理等
+      return chart;
+    })
+  },
+  get_data(){
+    let that = this
+    let username = wx.getStorageSync('args').username 
+    wx.cloud.database().collection("totaltime").where({username:username}).get().then(res=>{
+      console.log(res);
+      let logs=res.data[0].logs
+      console.log(logs);
+      var i=0
+      let time = logs[i].time
+      var itemtotaltime = 0
+      let tempArr=[]
+      for(let i=0;i<logs.length;i++){
+        if(tempArr.includes(logs[i].cate)==false){
+          tempArr.push(logs[i].cate)
+        }
+      }
+      let addObj=[]
+      for(let j=0;j<tempArr.length;j++){
+        let sum=0
+        for(let k=0;k<logs.length;k++){
+          if(logs[k].cate==tempArr[j]){
+            sum+=logs[k].time
+          }
+        }
+        addObj.push(tempArr[j]=sum)
+      }
+      console.log(addObj);
+      console.log(itemtotaltime);
+      //for循环构造arr
+      let echarr=[]
+      let cateArr=this.data.cateArr
+      for(let a=0 ; a<addObj.length ; a++){
+        let arr=[]
+        arr={value:addObj[a],name: cateArr[a].text }
+        echarr.push(arr)
+      }
+      console.log(echarr)
+      that.echarts_opt(echarr)
+    })
+  },
+  abc(){
+     var sum = []
+     let a =[]
+     let c= []
+     let res={}
+    a=[{"id":1,"time":2},
+       {"id":2,"time":2},
+       {"id":2,"time":2},
+       {"id":3,"time":2},
+       {"id":1,"time":2},
+       {"id":1,"time":2}]
+   for (var i = 0 ;i<a.length;i++){
+        if(res[a[i]["id"]]==undefined){
+            let re = []
+            re.push(a[i])
+             console.log(i+1)
+            console.log(a[i]["id"])
+            res[a[i]["id"]]=re
+            console.log(res)
+        }
+        else{
+            console.log(i+1)
+            console.log(a[i]["id"])
+            c= res[a[i]["id"]]
+            var sum = 0
+            c.push(a[i])
+            console.log(c);
+            // for(var a=o;a<c.length;a++){
+            //   sum = sum + c[a].time
+            // }
+            // c.splice(0,1,{id: a[i].id, time:sum})
+            res[a[i]["id"]]=c
+        }
+   }
+      console.log(res);//哈希表
+  },
     onShow: function() {
         let username = wx.getStorageSync('args').username 
         wx.cloud.database().collection("totaltime").where({username:username}).get().then(res=>{
@@ -176,6 +264,10 @@ Page({
             let len = res.data.length
             if(len == 0){
                 console.log("数据库无数据");
+                wx.showToast({
+                  title: '您还没有数据',
+                  icon:"none"
+                })
                 wx.hideLoading();
             }else{
                 let totalTime=this.data.totaltime123
@@ -214,6 +306,13 @@ Page({
         })
     },
     navSwitch: function(e) {
+        wx.showLoading({
+          title: '加载中',
+          mask:true
+        }).then(res=>{
+          this.get_data()
+          wx.hideLoading()
+        })
         //console.log(e.currentTarget.dataset)
         let index = e.currentTarget.dataset.index;
         this.setData({
