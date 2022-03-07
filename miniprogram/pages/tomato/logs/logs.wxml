@@ -31,8 +31,8 @@
 
 <view wx:if="{{navState==1}}" class="ec_page">
 <view class="ec_box1">
-  <ec-canvas id="mychart-dom-pie" canvas-id="mychart-pie" ec="{{ ecPie }}"></ec-canvas>
+  <ec-canvas id="mychart-dom" canvas-id="mychart" ec="{{ec}}"></ec-canvas>
 </view>
-<view>-----------------------------分界盒子-----------------------------</view>
+<view bindtap="get_data">-----------------------------分界盒子-----------------------------</view>
 <view class="ec_box2"><ec-canvas ec="{{ecBar}}"></ec-canvas></view>
 </view>
