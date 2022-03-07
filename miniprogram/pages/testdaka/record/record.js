@@ -12,13 +12,13 @@ Page({
         endtime:'输入结束时间',
         cycleitems:[
             // { name: '每天', value: 'Everyday' },
-            { name: '周一', value: 'Monday' },
-            { name: '周二', value: 'Tuesday' },
-            { name: '周三', value: 'Wednesday' },
-            { name: '周四', value: 'Thursday' },
-            { name: '周五', value: 'Friday' },
-            { name: '周六', value: 'Saturday' },
-            { name: '周日', value: 'Sunday' },
+            { name: '周一', value: '周一' },
+            { name: '周二', value: '周二' },
+            { name: '周三', value: '周三' },
+            { name: '周四', value: '周四' },
+            { name: '周五', value: '周五' },
+            { name: '周六', value: '周六' },
+            { name: '周日', value: '周日' },
         ],
         bqshuru:0,
         array: ['学习', '工作', '阅读', '思考','运动'],
@@ -227,34 +227,7 @@ Page({
         //给周期变中文名
         var cycleChinese = [];
         for(var i = 0; i < cycle.length; i++){
-          // if(cycle[0] == 'Everyday'){
-          //   cycleChinese.push("每天");
-          //   break;
-          // }
-  
-          switch (cycle[i]){
-            case 'Monday':
-              cycleChinese.push("周一")
-              break;
-            case 'Tuesday':
-              cycleChinese.push("周二")
-              break;
-            case 'Wednesday':
-              cycleChinese.push("周三")
-              break;
-            case 'Thursday':
-              cycleChinese.push("周四")
-              break;
-            case 'Friday':
-              cycleChinese.push("周五")
-              break;
-            case 'Saturday':
-              cycleChinese.push("周六")
-              break;
-            case 'Sunday':
-              cycleChinese.push("周日")
-              break;
-          }
+          cycleChinese.push(cycle[i])
         }
         //获取lable1的真实值
         var realLable1;
@@ -274,8 +247,10 @@ Page({
         }
         var uid = this.guid();
           //1.存入打卡任务记录表
-        db.collection('daka_record').add({
+        wx.cloud.callFunction({
+              name: "daka",
               data: {
+                  type:"save_dakaRecord",
                   task:value.task,//
                   // 标签可以为空 
                   lable1:realLable1,
@@ -292,8 +267,10 @@ Page({
         })
   
         //2.存入打卡状态表
-        db.collection('daka_status').add({
+        wx.cloud.callFunction({
+              name: "daka",
               data: {
+                  type:"save_dakaStatus",
                   task:value.task,
                   //设置任务后初始化为false未打卡
                   isDaka:false,
