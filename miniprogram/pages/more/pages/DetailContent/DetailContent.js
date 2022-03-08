@@ -717,6 +717,7 @@ Page({
     // 接收上个页面传来的参数
     let eventChannel = this.getOpenerEventChannel();
     eventChannel.on('setContentData', (content) => {
+      console.log(content);
       this.setData({
         content
       })

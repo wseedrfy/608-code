@@ -69,7 +69,7 @@ Component({
         iconUrl: this.data.item.iconUrl,
         nickName: this.data.item.nickName,
         username: this.data.item.username,
-        _id: this.data.item._id
+        _id: this.data.item._id,
       }
       // 先对数据进行 JSON
       // let jsonStr = JSON.stringify(content);
