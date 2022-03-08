@@ -25,13 +25,17 @@ Page({
     tempContent: [],
     content: "",
     weatherChange: false,
-    id: ""
+    id: "",
+    addBorderModal: false,
+    color: ['#066fd8', '#6fd806', '#d8066f', '#6f06d8'],
+    borderArr: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    // let count=options.count
     let id = options.id
     let args = wx.getStorageSync('args');
     count = args.username
@@ -46,14 +50,14 @@ Page({
           weatherChange: true,
           id: id
         })
-        // 查询社团信息
-        db.collection("associationApply").where({ count: count }).get().then(res => {
-          this.setData({
-            assoMess: res.data[0].hostMess
-          })
-        })
       })
     }
+    // 查询社团信息
+    db.collection("associationApply").where({ count: count }).get().then(res => {
+      this.setData({
+        assoMess: res.data[0].hostMess
+      })
+    })
   },
   clickme() {
     this.showModal()
@@ -81,7 +85,7 @@ Page({
     }.bind(this), 200)
   },
   //隐藏对话框
-  hideModal: function () {
+  hideModal: function (modal) {
     // 隐藏遮罩层
     var animation = wx.createAnimation({
       duration: 200,
@@ -98,6 +102,48 @@ Page({
       this.setData({
         animationData: animation.export(),
         showModalStatus: false
+      })
+    }.bind(this), 200)
+  },
+  //显示对话框
+  showModal_1: function () {
+    // 显示遮罩层
+    var animation = wx.createAnimation({
+      duration: 200,
+      timingFunction: "linear",
+      delay: 0
+    })
+    this.animation = animation
+    animation.translateY(300).step()
+    this.setData({
+      animationData: animation.export(),
+      addBorderModal: true
+    })
+    setTimeout(function () {
+      animation.translateY(0).step()
+      this.setData({
+        animationData: animation.export()
+      })
+    }.bind(this), 200)
+  },
+  //隐藏对话框
+  hideModal_1: function (modal) {
+    // 隐藏遮罩层
+    var animation = wx.createAnimation({
+      duration: 200,
+      timingFunction: "linear",
+      delay: 0
+    })
+    this.animation = animation
+    animation.translateY(300).step()
+    this.setData({
+      animationData: animation.export(),
+    })
+    setTimeout(function () {
+      animation.translateY(0).step()
+      this.setData({
+        animationData: animation.export(),
+        addBorderModal: false
       })
     }.bind(this), 200)
   },
@@ -149,9 +195,21 @@ Page({
     }
     else if (this.data.imgUrl == "") {
       wx.showToast({
-        title: '添加图片',
+        title: '请添加图片',
         icon: "none"
       })
+    }
+    else if (this.data.borderArr.length <= 0) {
+      wx.showToast({
+        title: '请添加奖励',
+        icon: 'none',
+        image: '',
+        duration: 1500,
+        mask: false,
+        success: (result) => {
+
+        },
+      });
     }
     else {
       wx.showLoading({
@@ -187,7 +245,8 @@ Page({
                     CoverHeight,
                     CoverWidth,
                     ShowHeight,
-                    assoMess: this.data.assoMess
+                    assoMess: this.data.assoMess,
+                    borderArr: this.data.borderArr
                   }
                 }).then(res => {
                   wx.hideLoading();
@@ -217,7 +276,8 @@ Page({
                     CoverHeight,
                     CoverWidth,
                     ShowHeight,
-                    assoMess: this.data.assoMess
+                    assoMess: this.data.assoMess,
+                    borderArr: this.data.borderArr
                   }
                 }).then(res => {
                   wx.hideLoading();
@@ -271,6 +331,64 @@ Page({
    */
   onReady: function () {
 
+  },
+  // 添加奖励
+  addBorder() {
+    if (this.data.borderArr.length >= 3) {
+      wx.showToast({
+        title: '只能添加三个',
+        icon: 'none',
+        image: '',
+        duration: 1500,
+        mask: false,
+        success: (result) => {
+
+        },
+      });
+    }
+    else {
+      this.showModal_1()
+    }
+  },
+  // 奖励内容
+  borderContent(e) {
+    // console.log(e.detail.value);
+    this.setData({
+      tempBorder: e.detail.value
+    })
+  },
+  // 确认添加奖励
+  borderEnd() {
+    if (!this.data.tempBorder) {
+      wx.showToast({
+        title: '请输入内容',
+        icon: 'none',
+        image: '',
+        duration: 1500,
+        mask: false,
+        success: (result) => {
+
+        },
+      });
+    }
+    else {
+      this.data.borderArr.push(this.data.tempBorder)
+      this.setData({
+        borderArr: this.data.borderArr,
+        tempBorder: ""
+      })
+      this.hideModal_1()
+      wx.showToast({
+        title: '添加成功',
+        icon: 'none',
+        image: '',
+        duration: 1500,
+        mask: false,
+        success: (result) => {
+
+        },
+      });
+    }
   },
   // 编辑
   toFixed(e) {
