@@ -4,7 +4,7 @@ class cardFunction {
 
 }
 Component({
-
+  
   properties: {
     item: {
       type: Object,
@@ -47,24 +47,40 @@ Component({
   methods: {
 
     ShowContent: function (e) {
-      //对数据进行更新
-      var content = JSON.stringify(this.data.item)
-      try{
-        content = JSON.parse(JSON.stringify(this.data.item))
-        if(content.CommentList){
-          delete content.CommentList
-        }
-        content = JSON.stringify(content)
-      }catch{}
+      let content = {
+        AllPhoto: this.data.item.AllPhoto,
+        CommentList: this.data.item.CommentList,
+        Cover: this.data.item.Cover,
+        CoverHeight: this.data.item.CoverHeight,
+        CoverWidth: this.data.item.CoverWidth,
+        Label: this.data.item.Label,
+        LoseTime: this.data.item.LoseTime,
+        LoseType: this.data.item.LoseType,
+        Other: this.data.item.Other,
+        School: this.data.item.School,
+        ShowHeight: this.data.item.ShowHeight,
+        SortTime: this.data.item.SortTime,
+        Star: this.data.item.Star,
+        Star_User: this.data.item.Star_User,
+        Text: this.data.item.Text,
+        Time: this.data.item.Time,
+        Title: this.data.item.Title,
+        campus: this.data.item.campus,
+        iconUrl: this.data.item.iconUrl,
+        nickName: this.data.item.nickName,
+        username: this.data.item.username,
+        _id: this.data.item._id
+      }
+      // 先对数据进行 JSON
+      // let jsonStr = JSON.stringify(content);
+      // 对数据进行URI编码，防止数据被截断。少量数据没问题，如果对象较大则容易被截断，获取不到完整数据
+      // let data = encodeURIComponent(jsonStr);
+
       wx.navigateTo({
-    
-        url: "./pages/DetailContent/DetailContent?content=" + content,
-        fail(){
-          wx.navigateTo({
-            url: "../../pages/DetailContent/DetailContent?content=" + content,
-  
-          })
-        }
+        url: `./pages/DetailContent/DetailContent`,
+        success: res => {
+          res.eventChannel.emit('setContentData', content)
+        },
       })
     },
     //点击事件
@@ -130,3 +146,4 @@ Component({
     onLazyLoad(info) {},
   }
 })
+

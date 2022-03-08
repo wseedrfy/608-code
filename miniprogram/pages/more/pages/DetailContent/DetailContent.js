@@ -714,17 +714,20 @@ Page({
       })
   },
   onLoad: function (options) {
-    console.log(getCurrentPages());
-    var that = this;
-    console.log(options.content);
-    var content = JSON.parse(options.content) // 将JSON帖子信息转成对象
-    var more = 0
-    this.getWindowData()
-    that.setData({
-      content
+    // 接收上个页面传来的参数
+    let eventChannel = this.getOpenerEventChannel();
+    eventChannel.on('setContentData', (content) => {
+      this.setData({
+        content
+      })
     })
-    console.log(content, "options");
+    var that = this;
+    // let jsonStr = decodeURIComponent(options.content)
+    // var content = JSON.parse(jsonStr) // 将JSON帖子信息转成对象
+    var more = 0;
+    this.getWindowData()
     // 被评论者信息
+    let content = this.data.content
     console.log(args.username);
     console.log(content.username);
     
