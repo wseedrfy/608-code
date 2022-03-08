@@ -1,4 +1,5 @@
 var app = getApp()
+var moreUtil = require("../../../../utils/utils")
 class cardFunction {
 
 }
@@ -124,8 +125,7 @@ Component({
           }
         })
       })
-      this.triggerEvent("setAllList", allList)
-      console.log(allList);
+      moreUtil.setAllList(allList,"点赞")
     },
     onLazyLoad(info) {},
   }

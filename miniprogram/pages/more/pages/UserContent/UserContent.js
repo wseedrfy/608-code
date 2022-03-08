@@ -84,20 +84,6 @@ Page({
     // 完成停止加载
     wx.hideNavigationBarLoading() 
   },
-  // 全局渲染一致
-  setAllList(e){
-    let pages = getCurrentPages();
-    let i = 0;
-    console.log(pages);
-    pages.forEach((item,index) => {
-      if(item.route == "pages/more/more") {
-        i = index
-      }
-    })
-    console.log(pages[i]);
-    pages[i].setAllList(e);
-    pages[i].onLoad();
-  },
   // 上拉触底改变状态
   onReachBottom() {
     console.log(123);
