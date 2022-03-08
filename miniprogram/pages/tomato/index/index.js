@@ -153,21 +153,14 @@ Page({
             } else {
                 let logs = [
                     {date:util.formatTime(new Date),
-                    cate: _this.data.cateActive,  
-                    time: _this.data.time,}
+                    cate:Number(_this.data.cateActive),  
+                    time:Number(_this.data.time),}
                     ]
                 let date=util.formatTime(new Date)
                 let cate=_this.data.cateActive
                 let time=_this.data.time
                 let storageInfo=_this.data.storageInfo
                 let username = storageInfo.username
-                // wx.cloud.database().collection("totaltime").where({username:username}).get().then(res=>{
-                //     console.log(res.data[0].logs)
-                //     _this.setData({
-                //          logsa:res.data[0].logs
-                //      })
-                // })
-                //拿数据库的logs 
                 wx.cloud.database().collection("totaltime").where({username:username}).get().then(res=>{
                     let name = storageInfo.nickName
                     let touxiangurl = storageInfo.iconUrl

@@ -1,4 +1,5 @@
 //发布组件化
+var moreUtil = require("../../utils/utils")
 Component({
     /**
      * 组件的属性列表
@@ -239,16 +240,7 @@ Component({
                         title: '添加成功'
                       })
                       setTimeout(()=>{
-                        let pages = getCurrentPages(); //获取小程序页面栈
-                        let i = 0;
-                        console.log(pages);
-                        pages.forEach((item,index) => {
-                          if(item.route == "pages/more/more") {
-                            i = index
-                          }
-                        })
-                        console.log(pages[i]);
-                        pages[i].onLoad()
+                        moreUtil.setAllList(getApp().globalData.allList,"快速发布卡片")
                       },1000)
                     },
                     fail: err => {

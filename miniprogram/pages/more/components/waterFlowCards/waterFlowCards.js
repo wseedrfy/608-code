@@ -54,10 +54,10 @@ Component({
   // },
   lifetimes: {
     attached() {
-      this.RightLeftSolution(true)
+      // this.RightLeftSolution(true)
     },
     ready: function() {
-      console.log(this.data.list);
+      // console.log(this.data.list);
     },
 
   },
@@ -65,11 +65,6 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    setAllList(e) {
-      const allList = e.detail;
-      console.log(allList);
-      this.triggerEvent("setAllList", allList)
-    },
     onReachBottom(){
       console.log("eeeee");
       this.triggerEvent("onReachBottom");
@@ -96,7 +91,7 @@ Component({
           rightList: [],
           leftH: 0,
           rightH: 0,
-          list: [1],
+          list: [null],
         })
         return
       }
@@ -104,7 +99,8 @@ Component({
       let currentTab = this.properties.currentTab;
       let list = this.data.list;
       console.log(list,"丢入瀑布流的数据");
-
+      // 边界处理
+      if(list[0] == null) return;
       // 兼容 “我的发布” 页面，这个页面没有 currentTab
       if(currentTab) {
         // 边界条件 - 存在即赋值，不存在即初始化
@@ -112,7 +108,7 @@ Component({
           getApp().globalData.allList[currentTab] = list;
         }else {
           let allList = new Array(this.properties.tabitem.length);
-          getApp().globalData.allList = allList
+          getApp().globalData.allList = allList;
         }
       }
 
@@ -157,7 +153,7 @@ Component({
         leftList: this.data.leftList,
         rightList: this.data.rightList,
       })
-      // console.log(this.data.leftList,this.data.rightList,"左右列表");
+      console.log(this.data.leftList,this.data.rightList,"左右列表");
     },
   }
 })

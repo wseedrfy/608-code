@@ -1,5 +1,5 @@
 var app = getApp();
-
+var moreUtil = require("../../utils/utils")
 Page({
 
     /**
@@ -225,13 +225,7 @@ Page({
 
                               // 返回校园圈页面
                               setTimeout(()=>{
-                                let pages = getCurrentPages();            //获取小程序页面栈
-                                let beforePage = pages[pages.length - 2]; //上个页面的实例对象
-
-                                beforePage.onLoad();
-                                wx.navigateBack({
-                                  delta: 1,
-                                })
+                                moreUtil.setAllList(getApp().globalData.allList,"普通发布卡片")
                               },1000)
                               
                           })
@@ -271,8 +265,9 @@ Page({
         imageWidth:options.imageWidth,
         tempFilePath:options.tempFiles
       }]
+      console.log(options);
       console.log(photo);
-      if(photo.tempFilePath){
+      if(photo[0].tempFilePath){
         let Input_Title = "模板标题";
         let Input_Text = "模板文字";
         let choosenLabel = "日常";
@@ -282,6 +277,7 @@ Page({
           Input_Text,
           choosenLabel
         })
+        
       }
       let args = wx.getStorageSync('args');
       let theme = wx.getStorageSync('theme');

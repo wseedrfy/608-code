@@ -370,4 +370,43 @@
     height: 40rpx;
     width: 45rpx;
   }
+  .dayclock_data_column_text_true{
+    font-size: 38rpx;
+    font-weight: 800;
+    color: #74D5D3;
+    line-height: 100rpx;
+  }
+  .dayclock_data_column_text_false{
+    font-size: 38rpx;
+    font-weight: 800;
+    color: #F7ECCE;
+    line-height: 100rpx;
+  }
+  @media (prefers-color-scheme: dark) {
+    .complete_share_box_button{
+      background-color: #F77A7A;
+      color: black;
+    }
+    .complete_share{
+      background-color: #414040;
+    }
+    .operationBgBox{
+      background: #F77A7A;
+      background: rgb(167, 167, 86);
+    }
+    .operationBox{
+      background: #F77A7A;
+      /* background: rgb(167, 167, 86); */
+    }
+    .dayclock_data_column_text_true{
+      color: #F77A7A;
+      /* color: rgb(167, 167, 86); */
+    }
+    .dayclock_data_column_text_false{
+      
+      color: gray;
+      /* color: rgb(167, 167, 86); */
+    }
+  }
+  
   
