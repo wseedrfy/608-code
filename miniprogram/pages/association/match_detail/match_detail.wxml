@@ -12,11 +12,24 @@
     <view class="content_wrap">
         <view class="top_wrap">
             <view class="title">标题</view>
-            <input maxlength="-1" placeholder="赛事标题" bind:input="title" value="{{title}}"/>
+            <input maxlength="-1" placeholder="赛事标题" bind:input="title" value="{{title}}" />
         </view>
         <view class="mid_wrap">
             <view class="title">描述</view>
-            <input maxlength="-1" placeholder="赛事内容描述" bind:input="detail" value="{{contentDetail}}"/>
+            <input maxlength="-1" placeholder="赛事内容描述" bind:input="detail" value="{{contentDetail}}" />
+        </view>
+    </view>
+    <!-- 奖励 -->
+    <view class="reward_wrap">
+        <view class="title">
+            比赛奖励
+            <text class="title_tip">如:素拓分、综合分</text>
+        </view>
+        <view class="reward_item">
+            <view class="row_item" wx:for="{{borderArr}}" style="color:{{color[index]}};border:1rpx solid {{color[index]}}">
+                {{item}}
+            </view>
+            <view class="add_rewrad" bind:tap="addBorder">添加</view>
         </view>
     </view>
     <view class="question_wrap">
@@ -48,5 +61,14 @@
             </view>
             <view class="change_title">{{item.name}}</view>
         </view>
+    </view>
+</view>
+<!-- 输入奖励弹窗 -->
+<view class="commodity_screen" bindtap="hideModal_1" wx:if="{{addBorderModal}}"></view>
+<view animation="{{animationData}}" class="commodity_attr_box_1" wx:if="{{addBorderModal}}">
+    <view class="border_title">输入奖励</view>
+    <view class="handle_wrap">
+        <input placeholder="素拓分" class="handle_border" bind:input="borderContent"/>
+        <view class="border_end" bind:tap="borderEnd">确定</view>
     </view>
 </view>

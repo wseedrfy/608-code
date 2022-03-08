@@ -44,30 +44,45 @@ Component({
         character, be_character
       })
     },
-    attached:function(){
+    attached: function () {
     }
   },
   methods: {
     ShowContent: function (e) {
       //对数据进行更新
-      var content = JSON.stringify(this.data.item)
-      try {
-        content = JSON.parse(JSON.stringify(this.data.item))
-        if (content.CommentList) {
-          delete content.CommentList
-        }
-        content = JSON.stringify(content)
-      } catch { }
+      // var assoMess = JSON.stringify(this.data.item.assoMess)
+      // var Title = this.data.item.Title
+      // var Text = this.data.item.Text
+      let content = {
+        assoMess: this.data.item.assoMess,
+        Title: this.data.item.Title,
+        Text: this.data.item.Text,
+        borderArr: this.data.item.borderArr,
+        question: this.data.item.question
+      }
       wx.navigateTo({
+        url: './pages/Match/Match?assoMess',
+        success: (res) => {
+          res.eventChannel.emit('setContentData', content)
+        },
+      });
+      // try {
+      //   // content = JSON.parse(content)
+      //   // if (content.CommentList) {
+      //   //   delete content.CommentList
+      //   // }
+      //   // content = JSON.stringify(content)
+      // } catch { }
+      // wx.navigateTo({
 
-        url: "./pages/Freshman/Freshman?content=" + content,
-        fail() {
-          wx.navigateTo({
-            url: "../../pages/Freshman/Freshman?content=" + content,
+      //   url: "./pages/Match/Match?assoMess=" + assoMess + '&Title=' + Title + '&Text=' + Text,
+      //   fail() {
+      //     wx.navigateTo({
+      //       url: "../../pages/Match/Match?assoMess=" + assoMess + '&Title=' + Title + '&Text=' + Text,
 
-          })
-        }
-      })
+      //     })
+      //   }
+      // })
     },
     onLazyLoad(info) {
     },
