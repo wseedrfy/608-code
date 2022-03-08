@@ -3,6 +3,7 @@ var util = require("../../../../utils/util.js")
 var moreUtil = require("../../utils/utils")
 var app = getApp()
 const args = wx.getStorageSync('args')
+
 Page({
   data: {
     isChecked: true,
@@ -715,20 +716,20 @@ Page({
   },
   onLoad: function (options) {
     // 接收上个页面传来的参数
-    let eventChannel = this.getOpenerEventChannel();
-    eventChannel.on('setContentData', (content) => {
-      console.log(content);
-      this.setData({
-        content
-      })
-    })
+    // let eventChannel = this.getOpenerEventChannel();
+    // eventChannel.on('setContentData', (content) => {
+    //   this.setData({
+    //     content
+    //   })
+    // })
     var that = this;
-    // let jsonStr = decodeURIComponent(options.content)
-    // var content = JSON.parse(jsonStr) // 将JSON帖子信息转成对象
+    let jsonStr = decodeURIComponent(options.content)
+    var content = JSON.parse(jsonStr) // 将JSON帖子信息转成对象
     var more = 0;
     this.getWindowData()
+    this.setData({content})
     // 被评论者信息
-    let content = this.data.content
+    // let content = this.data.content
     console.log(args.username);
     console.log(content.username);
     

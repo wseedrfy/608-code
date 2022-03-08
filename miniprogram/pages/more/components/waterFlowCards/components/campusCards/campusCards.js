@@ -72,15 +72,26 @@ Component({
         _id: this.data.item._id,
       }
       // 先对数据进行 JSON
-      // let jsonStr = JSON.stringify(content);
+      let jsonStr = JSON.stringify(content);
       // 对数据进行URI编码，防止数据被截断。少量数据没问题，如果对象较大则容易被截断，获取不到完整数据
-      // let data = encodeURIComponent(jsonStr);
+      let data = encodeURIComponent(jsonStr);
+
+      // wx.navigateTo({
+      //   url: `./pages/DetailContent/DetailContent`,
+      //   success: res => {
+      //     res.eventChannel.emit('setContentData', content)
+      //   },
+      // })
 
       wx.navigateTo({
-        url: `./pages/DetailContent/DetailContent`,
-        success: res => {
-          res.eventChannel.emit('setContentData', content)
-        },
+        // 从校园圈主页跳转
+        url: `./pages/DetailContent/DetailContent?content=${data}`,
+        // 从我的发布页面跳转
+        fail() {
+          wx.navigateTo({
+            url: `../../pages/DetailContent/DetailContent?content=${data}`,
+          })
+        }
       })
     },
     //点击事件
