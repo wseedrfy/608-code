@@ -365,6 +365,7 @@ Page({
       currentTab
     })
   },
+
   // 初始化函数
   init(){
     let args = wx.getStorageSync('args');
@@ -409,6 +410,7 @@ Page({
     this.setData({
       currentTab: 0,            // 返回到第一个标签
       showPopUps: false,        // 关闭弹窗
+      ifScroll: false,          // 初始化瀑布流滑动
       tabitem,                  // 初始化标签
       campus_account,           // 初始化封号
       allList,                  // 初始化allList

@@ -1,4 +1,4 @@
-<scroll-view scroll-x="true" scroll-with-animation="true" scroll-into-view="tabItem{{currentTab}}" wx:if="{{type == '校友圈标签'  && showTab}}" >
+<scroll-view scroll-x="true" scroll-with-animation="true" scroll-into-view="tabItem{{currentTab}}" wx:if="{{type == '校友圈标签'  && showTab}}" enhanced="{{true}}" show-scrollbar="{{false}}">
     <view class="Choose_Label" scroll-x="true">
         <!-- 下划线 -->
         <view class="underLineBox" 

@@ -21,7 +21,7 @@ Component({
       // 本组件的下标 
       currentTab: {
         type: Number
-      }
+      },
     },
 
   /**
