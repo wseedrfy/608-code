@@ -198,7 +198,9 @@
       left: 113rpx;
       width: 520rpx;
       height: 600rpx;
-      background-color: #fff;
+      background-color: rgba(0, 0, 0, 0.116);
+      background-color: gray;
+      opacity: 0.6;
       /* border-radius: 40rpx; */
   }
   .complete_share_close{
@@ -216,7 +218,7 @@
       background-repeat:no-repeat; 
       background-size:100% 100%;
       border-radius:40rpx;
-      background-color: gray;
+      /* background-color: gray; */
   }
   /* .complete_share_image{
     width: 100%;
@@ -392,7 +394,7 @@
     }
     .operationBgBox{
       background: #F77A7A;
-      background: rgb(167, 167, 86);
+      /* background: rgb(167, 167, 86); */
     }
     .operationBox{
       background: #F77A7A;
