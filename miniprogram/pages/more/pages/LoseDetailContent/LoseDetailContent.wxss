@@ -663,5 +663,31 @@ swiper .wx-swiper-dot {
   /* vertical-align: middle; */
   /* box-sizing: border-box; */
 } 
+.image_tabar_local{
+  /* height: 0rpx; */
+  position: absolute;
+  font-size: 20rpx;
+  color:white;
+  /* height: 20rpx; */
+  padding: 3rpx;
+  background-color: rgba(105,105,105);
+  /* background-color: #fff; */
+  opacity: 0.3;
+  border-radius: 15rpx;
+  bottom: 20rpx;
+  color:white;
+  font-size: 24rpx;
+  vertical-align: middle;
+  margin-left: 20rpx;
+}
 
-
+.image_tabar_local image{
+  width: 40rpx;
+  height: 40rpx;
+  vertical-align: middle;
+  margin-right: 6rpx;
+}
+.image_tabar_text{
+  vertical-align: middle;
+  padding:0rpx 10rpx;
+}

@@ -2,7 +2,7 @@
 /* pages/index_copy/index_copy.wxss */
 
 .img{
-  width: 360rpx;
+  width: 330rpx;
   
 }
 .contain{
@@ -11,7 +11,7 @@
   flex-direction: column;
   justify-content: center;
   /* margin:10rpx; */
-  width: 360rpx;
+  width: 330rpx;
   overflow: hidden;
   border-radius: 10rpx;
   background-color: #fff;
