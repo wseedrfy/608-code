@@ -279,3 +279,49 @@ checkbox .wx-checkbox-input{
     width: 300rpx;
     color: gray;
 }
+
+
+  .dakaconfirm_button_abc {
+    width: 600rpx;
+    height: 100%;
+    text-align: center;
+    background: #74D5D3;
+    color: #FFFFFF;
+    font-size: 32rpx;
+    font-weight: 500;
+    box-sizing: border-box;
+    size: 100%;
+    border-radius: 40rpx;
+}
+button:not([size=mini]) {
+    margin-left: auto;
+    margin-right: auto;
+    width: 600rpx;
+}
+@media (prefers-color-scheme: dark) {
+    .dakacancel{
+        color: #74D5D3;
+        border: 2rpx solid #74D5D3;
+    }
+    /* #74D5D3 绿*/
+    /* #F77A7A 红*/
+    checkbox .wx-checkbox-input.wx-checkbox-input-checked{
+        border: 1rpx solid #F77A7A;
+        background: #F77A7A;
+    }
+    .dakatop_box_input_placeholder{
+        color: gray;
+    }
+    .dakaconfirm_button_abc{
+        background: #fc9090;
+    }
+    .dakatop_box_input{
+        filter: invert(1) !important;
+        color: white;
+        /* caret-color: red; */
+    }
+    /* .dakatop_box_input{
+        color: black;
+    } */
+
+  }

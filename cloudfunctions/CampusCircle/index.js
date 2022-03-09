@@ -86,6 +86,7 @@ async function write(event) {
   try {
     return await db.collection("Campus-Circle").add({
       data: {
+        SortTime: Date.parse(new Date()),
         Other:event.Other,
         LoseTime:event.LoseTime,
         LoseType:event.LoseType,
@@ -129,6 +130,7 @@ async function writeComment(event) {
 }
 
 async function starCount(event) {
+  console.log(event.Star_User,"startCount函数");
   try {
     return await db.collection('Campus-Circle').where({
       _id: event.arcticle._id

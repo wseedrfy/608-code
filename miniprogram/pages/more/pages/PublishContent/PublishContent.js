@@ -1,5 +1,5 @@
 var app = getApp();
-
+var moreUtil = require("../../utils/utils")
 Page({
 
     /**
@@ -129,16 +129,7 @@ Page({
               "iconUrl": args.iconUrl,
               "lose_detail":this.data.lose_detail
             }
-<<<<<<< HEAD
-            console.log(add)
             let list = app.globalData.allList[0]
-=======
-            console.log(add);
-            // console.log();
-            let list = app.globalData.allList[0]//??????????
-            // console.log(list);
-            // console.log(list);
->>>>>>> 242b7eb2fd2371f19135399e4dfffb94b9268919
             list.push(add);      
             let NewData = list.length - 1;
 
@@ -246,13 +237,7 @@ Page({
 
                               // 返回校园圈页面
                               setTimeout(()=>{
-                                let pages = getCurrentPages();            //获取小程序页面栈
-                                let beforePage = pages[pages.length - 2]; //上个页面的实例对象
-
-                                beforePage.onLoad();
-                                wx.navigateBack({
-                                  delta: 1,
-                                })
+                                moreUtil.setAllList(getApp().globalData.allList,"普通发布卡片")
                               },1000)
                               
                           })
@@ -286,17 +271,16 @@ Page({
       })
     },
     onLoad: function (options) {
-<<<<<<< HEAD
 
-=======
       // 兼容打卡一键分享
       let photo = [{
         imageHeight:options.imageHeight,
         imageWidth:options.imageWidth,
         tempFilePath:options.tempFiles
       }]
+      console.log(options);
       console.log(photo);
-      if(photo.tempFilePath){
+      if(photo[0].tempFilePath){
         let Input_Title = "模板标题";
         let Input_Text = "模板文字";
         let choosenLabel = "日常";
@@ -306,8 +290,8 @@ Page({
           Input_Text,
           choosenLabel
         })
+        
       }
->>>>>>> 242b7eb2fd2371f19135399e4dfffb94b9268919
       let args = wx.getStorageSync('args');
       let theme = wx.getStorageSync('theme');
       // let menu_ = args.tabitem
@@ -318,7 +302,6 @@ Page({
         menu: args.tabitem ? menu_ : menu,
         theme
       })
-
     },
     detail(e){
       this.setData({

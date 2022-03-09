@@ -16,14 +16,18 @@
       </view>
     </view>
   </view>
-  <view class="apply">
-    <view class="apply_caption">报名申请</view>
-    <view class="input_list">
-      <view class="input_item" wx:for="{{content.question}}" wx:key="item">
-        <view class="input_title">{{item.content}}</view>
-        <input placeholder="请输入" class="input_content" />
+  <form bindsubmit="{{apply==false?(timeOut==true?'submit':'timeOut'):''}}">
+    <view class="apply">
+      <view class="apply_caption">报名申请</view>
+      <view class="input_list">
+        <view class="input_item" wx:for="{{content.question}}" wx:key="item">
+          <view class="input_title">{{item.content}}</view>
+          <input placeholder="请输入" class="input_content" name="{{item.content}}" />
+        </view>
       </view>
     </view>
-  </view>
-  <view class="end">完成提交</view>
+    <button class="end" form-type="submit" style="background-color:{{apply==false?(timeOut==true?'':'#777777'):'#777777'}}" bind:tap="{{apply==true?'nosubmit':''}}">
+      {{apply==false?(timeOut==true?'完成提交':'已截止'):'已报名'}}
+    </button>
+  </form>
 </view>

@@ -34,6 +34,43 @@ page {
         }
     }
 
+    .reward_wrap {
+        // display         : flex;
+        // flex-direction  : row;
+        font-size       : 32rpx;
+        background-color: white;
+        margin          : 24rpx;
+        padding         : 24rpx;
+
+        .title {
+            padding: 12rpx;
+
+            .title_tip {
+                color       : #8b8b8b;
+                padding-left: 48rpx;
+                font-size   : 28rpx;
+            }
+        }
+
+        .reward_item {
+            display       : flex;
+            flex-direction: row;
+            font-size     : 28rpx;
+
+            .row_item {
+                margin-left  : 12rpx;
+                border-radius: 8rpx;
+                padding      : 2rpx;
+            }
+
+            .add_rewrad {
+                margin-left: 12rpx;
+                padding    : 2rpx;
+                color      : rgb(104, 104, 104);
+            }
+        }
+    }
+
     .question_wrap {
         font-size       : 30rpx;
         padding         : 24rpx;
@@ -61,87 +98,132 @@ page {
                 }
 
                 .list_2 {
-                    flex: 1;
+                    flex : 1;
                     color: red;
                 }
             }
-            .add_question{
-                padding: 8rpx;
+
+            .add_question {
+                padding   : 8rpx;
                 text-align: center;
-                color: blue;
+                color     : blue;
             }
         }
     }
-    .bt_wrap{
-        display: flex;
+
+    .bt_wrap {
+        display       : flex;
         flex-direction: column;
-        font-size: 32rpx;
-        color: white;
-        .keep{
-            text-align: center;
-            margin-left: 24rpx;
-            margin-right: 24rpx;
+        font-size     : 32rpx;
+        color         : white;
+
+        .keep {
+            text-align      : center;
+            margin-left     : 24rpx;
+            margin-right    : 24rpx;
             background-color: red;
-            padding: 12rpx;
-            border-radius: 24rpx;
+            padding         : 12rpx;
+            border-radius   : 24rpx;
         }
-        .send{
+
+        .send {
             background-color: rebeccapurple;
-            text-align: center;
-            margin-left: 24rpx;
-            margin-right: 24rpx;
-            margin-top: 8rpx;
-            padding: 12rpx;
-            border-radius: 24rpx;
+            text-align      : center;
+            margin-left     : 24rpx;
+            margin-right    : 24rpx;
+            margin-top      : 8rpx;
+            padding         : 12rpx;
+            border-radius   : 24rpx;
         }
     }
 }
+
 .commodity_screen {
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
+    width     : 100%;
+    height    : 100%;
+    position  : fixed;
+    top       : 0;
+    left      : 0;
     background: #000;
-    opacity: 0.2;
-    overflow: hidden;
-    z-index: 1000;
-    color: #fff;
-  }
-  /*对话框 */
-  .commodity_attr_box {
-    height: 300rpx;
-    width: 100%;
-    overflow: hidden;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    z-index: 2000;
-    background: #fff;
-    padding-top: 20rpx;
+    opacity   : 0.2;
+    overflow  : hidden;
+    z-index   : 1000;
+    color     : #fff;
+}
+
+/*对话框 */
+.commodity_attr_box {
+    height       : 300rpx;
+    width        : 100%;
+    overflow     : hidden;
+    position     : fixed;
+    bottom       : 0;
+    left         : 0;
+    z-index      : 2000;
+    background   : #fff;
+    padding-top  : 20rpx;
     border-radius: 24rpx;
-    .title{
+
+    .title {
         text-align: center;
-        color: rgb(59, 179, 226);
-        font-size: 30rpx;
+        color     : rgb(59, 179, 226);
+        font-size : 30rpx;
     }
-    .change_wrap{
-        display: flex;
+
+    .change_wrap {
+        display       : flex;
         flex-direction: row;
-        .item{
+
+        .item {
             flex: 1;
-            .img{
+
+            .img {
                 text-align: center;
-                image{
-                    height: 120rpx;
-                    width: 120rpx;
+
+                image {
+                    height : 120rpx;
+                    width  : 120rpx;
                     padding: 24rpx;
                 }
             }
-            .change_title{
+
+            .change_title {
                 text-align: center;
-                font-size: 30rpx;
+                font-size : 30rpx;
             }
         }
     }
-  }
+}
+
+// 对话框1
+.commodity_attr_box_1 {
+    height       : 200rpx;
+    width        : 100%;
+    overflow     : hidden;
+    position     : fixed;
+    bottom       : 0;
+    left         : 0;
+    z-index      : 2000;
+    background   : #fff;
+    padding-top  : 20rpx;
+    border-radius: 24rpx;
+    font-size: 32rpx;
+    .border_title{
+        text-align: center;
+        font-weight: 700;
+    }
+    .handle_wrap{
+        display: flex;
+        flex-direction: row;
+        padding: 24rpx;
+        // background-color: red;
+        .handle_border{
+            flex: 4;
+            border-bottom: 1rpx solid rgb(128, 128, 128);
+            padding-left: 12rpx;
+        }
+        .border_end{
+            flex: 1;
+        }
+    }
+}

@@ -5,7 +5,7 @@
 <view class="dakatop">
     <view class="dakatop_box">
         <image class="dakatop_box_image" src="../images/renwu.png"></image>
-        <input name="task" class="dakatop_box_input" type="text" placeholder="请输入打卡任务"/>
+        <input name="task" class="dakatop_box_input" type="text" placeholder="请输入打卡任务" placeholder-class="dakatop_box_input_placeholder"/>
     </view>
     <view class="dakatop_box1">
         <image class="dakatop_box2_image" src="../images/dakatime.png"></image>
@@ -63,7 +63,8 @@
         </view>
     </view>
 </view>
-<view class="dakaconfirm" ><button class="dakaconfirm_button" formType="submit">确定</button></view>
+<view class="dakaconfirm" ><button  class="dakaconfirm_button_abc" formType="submit">确定</button></view>
+<!-- <button class="dakaconfirmabc" formType="submit">确定</button> -->
 <view class="dakacancel" bindtap="cancel">取消</view>
 </view>
 </form>

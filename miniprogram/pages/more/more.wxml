@@ -30,15 +30,34 @@
 </view>
 <view style=" padding-top: {{ (statusBarHeight + lineHeight) + 28 }}px;  width: 100%;"> </view>
 
-<scroll-view  bindscrolltoupper="onPullDownRefresh" upper-threshold="0" scroll-y="true" style=" height: {{windowHeight - statusBarHeight - lineHeight - 28}}px;" wx:if="{{campus_account!=true}}" class="page">
+<scroll-view  bindscrolltoupper="onPullDownRefresh" upper-threshold="0" scroll-y="true" style="height: {{windowHeight - statusBarHeight - lineHeight - 28}}px;" wx:if="{{campus_account!=true}}" class="page">
   <!-- 填充 -->
   <view style="position: relative;width: 100%;"></view>
-  
+  <!-- 更多模块 -->
+  <view class="naviModule_box">
+    <view class="naviModule">
+      <view class="module module1">
+        <text>电子游戏</text>
+      </view>
+      <view class="module module2">
+        <text>商家接入</text>
+      </view>
+      <view class="module module3">
+        <text>恋爱匹配</text>
+      </view>
+      <view class="module module4">
+        <text>攒局</text>
+      </view>
+    </view>
+    <view class="leaderBoard">
+      <text>热度榜</text>
+    </view>
+  </view>
   <!-- bindtransition="waterTransition" bindanimationfinish="waterAnimationFinish" -->
   <swiper current="{{currentTab}}" bindchange="waterChange"  style=" height: {{windowHeight - statusBarHeight - lineHeight - 28}}px;">
 
     <swiper-item wx:for="{{allList}}" wx:key="body" wx:for-index="index">
-      <waterFlowCards height="{{windowHeight - statusBarHeight - lineHeight - 28}}px;" id="waterFlowCards{{index}}" list="{{item}}" tabitem="{{tabitem}}" currentTab="{{index}}" bind:getData="getData" bind:onReachBottom="onReachBottom" bind:onPullDownRefresh="onPullDownRefresh" bind:setAllList="setAllList"></waterFlowCards>
+      <waterFlowCards height="{{windowHeight - statusBarHeight - lineHeight - 28}}px;" id="waterFlowCards{{index}}" list="{{item}}" tabitem="{{tabitem}}" currentTab="{{index}}" ifScroll="{{ifScroll}}" bind:getData="getData" bind:onReachBottom="onReachBottom" bind:onPullDownRefresh="onPullDownRefresh" bind:setAllList="setAllList"></waterFlowCards>
     </swiper-item>
 
   </swiper>

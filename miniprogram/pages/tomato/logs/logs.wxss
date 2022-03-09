@@ -126,12 +126,10 @@
   .ec_page .ec_box1{
     height: 800rpx;
     width: 100%;
-    background-color: #E7624F;
   }
   .ec_page .ec_box2{
     height: 800rpx;
     width: 100%;
-    background-color: #E7624F;
   }
   /* ec-canvas {
     width: 800rpx;

@@ -1,7 +1,9 @@
 // const { isGeneratorFunction } = require("util/types")
 var util = require("../../../../utils/util.js")
+var moreUtil = require("../../utils/utils")
 var app = getApp()
 const args = wx.getStorageSync('args')
+
 Page({
   data: {
     isChecked: true,
@@ -29,141 +31,122 @@ Page({
     showComtBox: true,
   },
 
+  // popUp:function(){
+
+  // },
   More: function () {
     var showEdit = this.data.showEdit
     var that = this
-
-    if (showEdit) {
-      this.setData({
-        edit_style: "edit_hide"
-      })
-      setTimeout(() => {
-        that.setData({
-          showEdit: !showEdit
-        })
-      }, 200);
+    let edit_style = that.data.edit_style;
+      // picker动画样式
+    if (edit_style == undefined || edit_style == 'edit_hide') {
+      edit_style = 'edit_show'
     } else {
-      this.setData({
-        edit_style: "edit_show",
-        showEdit: !showEdit
-      })
+      edit_style = 'edit_hide'
     }
-  },
-  hhh: function (e) {
-    let index = e.currentTarget.dataset.index;
-    console.log("wai", e.currentTarget.dataset.bigindex)
-    console.log("nei", e.currentTarget.dataset.small)
-
+    console.log(edit_style);
+    that.setData({
+      edit_style: edit_style,
+      showEdit: !showEdit
+    })
   },
   
-  EditComment: function (e) { // 12-27 重构本函数
-    console.log("e.currentTarget.dataset.small", e.currentTarget.dataset.small)
-    if (e.currentTarget.dataset.small === undefined) {
-      let index = e.currentTarget.dataset.index;
-      this.data.Commentindex = index;
-      let edit_style = this.data.edit_style;
-      console.log("edit_style".edit_style)
-      // picker动画样式
-      if (edit_style == undefined || edit_style == 'edit_hide') {
-        edit_style = 'edit_show'
-      } else {
-        edit_style = 'edit_hide'
-      }
-      console.log(edit_style);
-      this.setData({
-        edit_style: edit_style
-      })
-      setTimeout(() => {
-        this.setData({
-          comEdit: !this.data.comEdit,
-        })
-      }, 200);
-      // 在点其他位置时，index = undefined
-      if (index != undefined) {
-        let nickName = this.data.CommentList[index].nickName; // 该评论的评论者
-        let username = this.data.CommentList[index].username; // 该评论的评论者学号
-        let ShowDelCom = 0;
-        // 判断是否本人的评论 -> 凭学号
-        if (username == args.username) {
-          ShowDelCom = 1;
-        }
-        this.setData({
-          ShowDelCom,
-          CommentName: nickName,
-          CommentContent: this.data.CommentList[index].InputComment,
-          isChecked: true,
-        })
-      }
-      // this.data.ShowDelCom = 0;    //初始化
-      index = 0
+  EditComment: function (e) { // 3-07 重构本函数
+    let outIndex = e.currentTarget.dataset.bigindex
+    let inIndex = e.currentTarget.dataset.small
+    let edit_style = this.data.edit_style;
+    let ShowDelCom = 0;
+    this.data.Commentindex = outIndex
+    this.data.inIndex = inIndex
+    // picker动画样式
+    if (edit_style == undefined || edit_style == 'edit_hide') {
+      edit_style = 'edit_show'
     } else {
-      let outIndex = e.currentTarget.dataset.bigindex
-      let inIndex = e.currentTarget.dataset.small
-      let edit_style = this.data.edit_style;
-      this.data.Commentindex = outIndex
-      this.data.inIndex = e.currentTarget.dataset.small
-      console.log("edit_style".edit_style)
-      // picker动画样式
-      if (edit_style == undefined || edit_style == 'edit_hide') {
-        edit_style = 'edit_show'
-      } else {
-        edit_style = 'edit_hide'
-      }
-      console.log(edit_style);
-      this.setData({
-        edit_style: edit_style
-      })
-      setTimeout(() => {
-        this.setData({
-          comEdit: !this.data.comEdit,
-        })
-      }, 200);
-      // 在点其他位置时，index = undefined
-      if (inIndex != undefined) {
-        let nickName = this.data.CommentList[outIndex].Reply[inIndex].nickName; // 该评论的评论者
-        let username = this.data.CommentList[outIndex].Reply[inIndex].username; // 该评论的评论者学号
-        let ShowDelCom = 0;
-        // 判断是否本人的评论 -> 凭学号
-        if (username == args.username) {
-          ShowDelCom = 1;
-        }
-        this.setData({
-          ShowDelCom,
-          CommentName: nickName,
-          CommentContent: this.data.CommentList[outIndex].Reply[inIndex].InputReply,
-          isChecked: true,
-        })
-      }
-      // this.data.ShowDelCom = 0;    //初始化
+      edit_style = 'edit_hide'
     }
+    console.log(edit_style);
+    this.setData({
+      edit_style: edit_style
+    })
+    setTimeout(() => {
+      this.setData({
+        comEdit: !this.data.comEdit,
+      })
+    }, 200);
+    if (outIndex != undefined) {
+      if(inIndex === undefined){
+        var nickName = this.data.CommentList[outIndex].nickName; // 该评论的评论者
+        var username = this.data.CommentList[outIndex].username; // 该评论的评论者学号
+        var CommentContent = this.data.CommentList[outIndex].InputComment
+      }else{
+        var nickName = this.data.CommentList[outIndex].Reply[inIndex].nickName; // 该评论的评论者
+        var username = this.data.CommentList[outIndex].Reply[inIndex].username; // 该评论的评论者学号
+        var CommentContent = this.data.CommentList[outIndex].Reply[inIndex].InputReply
+      }
+      // 判断是否本人的评论 -> 凭学号
+      if (username === args.username) {
+        ShowDelCom = 1;
+      }
+      this.setData({
+        ShowDelCom,
+        CommentName: nickName,
+        CommentContent: CommentContent,
+        isChecked: true,
+      })
+    }
+    // this.data.ShowDelCom = 0;    //初始化
+    outIndex = 0
   },
   ReplyComment: function () {
 
-    let reply_style = this.data.reply_style;
-    console.log("reply_style".reply_style)
-    // picker动画样式
-    if (reply_style == undefined || reply_style == 'reply_hide') {
-      reply_style = 'reply_show'
-    } else {
-      reply_style = 'reply_hide'
-    }
-    console.log("showComtBox",this.data.showComtBox)
-    this.setData({
-      showComtBox:true,
-      // comReply: !this.data.comReply,
-      reply_style: reply_style,
-      edit_style: 'edit_hide',
-    })
-    console.log("this.data.showComtBox",this.data.showComtBox)
-    setTimeout(() => {
+    let edit_style = this.data.edit_style;
+      // picker动画样式
+      if (edit_style == undefined || edit_style == 'edit_hide') {
+        edit_style = 'edit_show'
+      } else {
+        edit_style = 'edit_hide'
+      }
+      console.log(edit_style);
       this.setData({
-        comReply: !this.data.comReply,
+        edit_style: edit_style,
       })
-    }, 200);
+      this.setData({
+        showComtBox:true,
+        comEdit: false,
+      })
+      setTimeout(() => {
+        this.setData({
+          comReply: !this.data.comReply,
+        })
+      }, 200);
+    // }
+
+
+    // let reply_style = this.data.reply_style;
+    // console.log("reply_style".reply_style)
+    // // picker动画样式
+    // if (reply_style == undefined || reply_style == 'reply_hide') {
+    //   reply_style = 'reply_show'
+    // } else {
+    //   reply_style = 'reply_hide'
+    // }
+    // console.log("showComtBox",this.data.showComtBox)
+    // this.setData({
+    //   showComtBox:true,
+    //   // comReply: !this.data.comReply,
+    //   reply_style: reply_style,
+    //   edit_style: 'edit_hide',
+    // })
+    // console.log("this.data.showComtBox",this.data.showComtBox)
+    // setTimeout(() => {
+    //   this.setData({
+    //     comReply: !this.data.comReply,
+    //   })
+    // }, 200);
     
-    this.setData({
-      comEdit: false,
-    })
+    // this.setData({
+    //   comEdit: false,
+    // })
   },
   replySubmit: function (e) {
     var that = this;
@@ -368,13 +351,8 @@ Page({
                   }
                 })
               })
-              // 内外部渲染一致
-              let pages = getCurrentPages(); 
-              let beforePage = pages[pages.length - 2];
-              let e = {
-                detail: app.globalData.allList
-              }
-              beforePage.setAllList(e);
+              // 内外渲染一致
+              moreUtil.setAllList(app.globalData.allList,"评论")
             },
             fail: err => {
               console.error
@@ -514,21 +492,11 @@ Page({
                 item.forEach((e,i) => {
                   if (e._id === that.data.CardID) {
                     app.globalData.allList[index].splice(i,1);
-                    console.log(app.globalData.allList[index]);
                   }
                 })
               })
               // 内外部渲染一致
-              let pages = getCurrentPages(); 
-              let beforePage = pages[pages.length - 2];
-              let e = {
-                detail: app.globalData.allList
-              }
-              beforePage.onLoad()
-              beforePage.setAllList(e);
-              wx.navigateBack({
-                delta: 1,
-              })
+              moreUtil.setAllList(app.globalData.allList,"删除卡片")
             },
             fail: err => {
               console.error
@@ -604,13 +572,8 @@ Page({
               }
             })
           })
-          // 内外部渲染一致
-          let pages = getCurrentPages(); 
-          let beforePage = pages[pages.length - 2];
-          let e = {
-            detail: app.globalData.allList
-          }
-          beforePage.setAllList(e);
+          // 内外渲染一致
+          moreUtil.setAllList(app.globalData.allList,"评论")
         },
         fail: err => {
           wx.showToast({
@@ -739,20 +702,34 @@ Page({
     ctInput_top -= ctInput_h
     this.setData({ ctInput_top })
   },
-
-
-  onLoad: function (options) {
-    console.log(getCurrentPages());
-    var that = this;
-    console.log(options.content);
-    var content = JSON.parse(options.content) // 将JSON帖子信息转成对象
-    var more = 0
-    this.getWindowData()
-    that.setData({
-      content
+  focus: function (e) {
+    this.setData({
+      input_bottom: 100
     })
-    console.log(content, "options");
+  },
+ 
+  // 失去焦点
+  no_focus: function (e) {
+      this.setData({
+        input_bottom: 0
+      })
+  },
+  onLoad: function (options) {
+    // 接收上个页面传来的参数
+    // let eventChannel = this.getOpenerEventChannel();
+    // eventChannel.on('setContentData', (content) => {
+    //   this.setData({
+    //     content
+    //   })
+    // })
+    var that = this;
+    let jsonStr = decodeURIComponent(options.content)
+    var content = JSON.parse(jsonStr) // 将JSON帖子信息转成对象
+    var more = 0;
+    this.getWindowData()
+    this.setData({content})
     // 被评论者信息
+    // let content = this.data.content
     console.log(args.username);
     console.log(content.username);
     
@@ -843,8 +820,6 @@ Page({
       nickName: this.data.content.nickName
     }
     let starTime = new Date().getTime(); // 点赞时间
-    // 如果想在后台看到具体的时间年月日，请用下面这句
-    // let starTime = util.timeago(new Date().getTime(),'Y年M月D日');
     if (!Star_User) {
       Star_User = []
     }
@@ -930,12 +905,7 @@ Page({
         }
       })
     })
-    let pages = getCurrentPages(); //获取小程序页面栈
-    let beforePage = pages[pages.length - 2]; //上个页面的实例对象
-    let e = {
-      detail: app.globalData.allList
-    }
-    beforePage.setAllList(e);
+    moreUtil.setAllList(app.globalData.allList,"点赞")
   },
   onShow: function () {
     this.ShowComment()

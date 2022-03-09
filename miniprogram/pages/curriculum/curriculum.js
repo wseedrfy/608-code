@@ -100,25 +100,20 @@ Page({
       mediaType: ['image'],
       sourceType: ['album'],
       success(res) {
-        // console.log(res)
-        // console.log(res.tempFiles[0].tempFilePath,"临时本地地址");
-
         let fs = wx.getFileSystemManager();
         let FilePath = fs.saveFileSync(res.tempFiles[0].tempFilePath);
 
-        // console.log(fs.getFileInfo(FilePath),"文件信息"); 
-        // console.log(FilePath,"本地缓存地址");
-        // console.log(FileManager.readFileSync(FilePath)); 
         wx.showLoading({
           title: '处理中...',
         })
         // 重新渲染页面
         that.setData({
-          backgroundUrl : FilePath
+          backgroundUrl : FilePath,
         })
         wx.setStorageSync('curriBgc',  FilePath);
         wx.hideLoading();
-
+        // 关闭左侧界面
+        that.seetingHandler();
       },
       fail(err) {
         console.log(err);

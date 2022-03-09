@@ -1,77 +1,11 @@
 // pages/more/pages/Match/Match.js
+let count=''
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    content: {
-      AllPhoto: [
-        "cloud://cloud1-6gtqj1v4873bad50.636c-cloud1-6gtqj1v4873bad50-1307814679/association/1645710800239.jpg"
-      ],
-      Cover: "cloud://cloud1-6gtqj1v4873bad50.636c-cloud1-6gtqj1v4873bad50-1307814679/association/1645710800239.jpg",
-      CoverHeight: "1792rpx",
-      CoverWidth: 828,
-      Label: "社团招新",
-      School: "广东石油化工学院",
-      ShowHeight: 1792,
-      Title: "xxx招新啦",
-      association: [
-        {
-          detial: "biubb创业实践社",
-          name: "社团/机构"
-        },
-        {
-          detial: "15916513671",
-          name: "联系方式"
-        },
-        {
-          detial: "张三",
-          name: "联系人"
-        },
-        {
-          detial: "20114340331",
-          name: "学号"
-        },
-      ],
-      endTime: "2022-05-07",
-      assoMess:{
-        "association":"biubb创业实践社",
-        "card":"20114340331",
-        "name":"张三",
-        "phone":"19928272811"
-      },
-      question: [
-        {
-          "arr":['一','二','三','四'],
-          "arrLen":"2",
-          "id":"1",
-          "title":"今天星期几",
-          "type":"单选"
-        },
-        {
-          "arr":['一','二'],
-          "arrLen":"2",
-          "id":"2",
-          "title":"明天呢",
-          "type":"单选"
-        },
-        {
-          "arr":['男','女','中','大'],
-          "arrLen":"4",
-          "id":"3",
-          "title":"性别",
-          "type":"多选"
-        },
-        {
-          "arr":[],
-          "arrLen":"1",
-          "id":"4",
-          "title":"是否愿意值班",
-          "type":"填空"
-        }
-      ]
-    },
     showModalStatus: false,
     formMess: [
       {
@@ -100,17 +34,24 @@ Page({
         name: "campus"
       },
     ],
-    items:[
-      '一','二','三','四'
-    ],
-    html:1
+    html: 1,
+    content: {}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    // console.log(options);
+    let eventChannel = this.getOpenerEventChannel();
+    let args=wx.getStorageSync('args');
+    count=args.username
+    eventChannel.on('setContentData', (content) => {
+      console.log(content);
+      this.setData({
+        content
+      })
+    })
   },
   // 弹窗
   //点击我显示底部弹出框
@@ -184,12 +125,61 @@ Page({
           this.hideModal()
           this.setData({
             userMess: data,
-            html:0
+            html: 0
           })
           wx.hideLoading();
         },
       });
     }
+  },
+  // 提交答案
+  subMatch(e) {
+    let matchDetail = e.detail.value
+    wx.showModal({
+      title: '提示',
+      content: '确认提交',
+      showCancel: true,
+      cancelText: '取消',
+      cancelColor: '#000000',
+      confirmText: '确定',
+      confirmColor: '#3CC51F',
+      success: (result) => {
+        if (result.confirm) {
+          wx.showLoading({
+            title: "提交中",
+            mask: true,
+            success: (result) => {
+              wx.cloud.callFunction({
+                name: "associationSend",
+                data: {
+                  type: 5,
+                  userMess: this.data.userMess,
+                  matchDetail: matchDetail,
+                  assoName: this.data.content.assoMess.association,
+                  assoCount: this.data.content.assoMess.card,
+                  pusherCount:count
+                }
+              }).then(res => {
+                console.log(res);
+                wx.showToast({
+                  title: '提交成功',
+                  icon: 'none',
+                  image: '',
+                  duration: 1500,
+                  mask: false,
+                  success: (result) => {
+
+                  },
+                  fail: () => { },
+                  complete: () => { }
+                });
+              })
+            },
+          });
+        }
+      },
+    });
+    // console.log(e);
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

@@ -70,13 +70,23 @@ Page({
   },
   TimeOut: 1,
   // 卡片内外部渲染一致
-  setAllList(e) {
+  setAllList(e,type) {
     const allList = e.detail;
-    console.log(allList);
-    this.setData({allList})
-    for(let i in allList) {
-      this.selectComponent(`#waterFlowCards${i}`).RightLeftSolution();
+    this.setData({allList});
+    // 点赞和评论不刷新瀑布流
+    console.log(type);
+    if(type == "点赞和评论") {
+      for(let i in allList) {
+        this.selectComponent(`#waterFlowCards${i}`).RightLeftSolution();
+      }
+    }else {
+      // 新增和删除卡片要刷新瀑布流
+      for(let i in allList) {
+        this.selectComponent(`#waterFlowCards${i}`).RightLeftSolution(true);
+        this.selectComponent(`#waterFlowCards${i}`).RightLeftSolution();
+      }
     }
+    
   },
   timeId: 0,
   showPopUps() {
@@ -355,6 +365,7 @@ Page({
       currentTab
     })
   },
+
   // 初始化函数
   init(){
     let args = wx.getStorageSync('args');
@@ -399,6 +410,7 @@ Page({
     this.setData({
       currentTab: 0,            // 返回到第一个标签
       showPopUps: false,        // 关闭弹窗
+      ifScroll: false,          // 初始化瀑布流滑动
       tabitem,                  // 初始化标签
       campus_account,           // 初始化封号
       allList,                  // 初始化allList
