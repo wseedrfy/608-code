@@ -524,8 +524,8 @@ Page({
               let e = {
                 detail: app.globalData.allList
               }
-              beforePage.setAllList(e);
               beforePage.onLoad()
+              beforePage.setAllList(e);
               wx.navigateBack({
                 delta: 1,
               })
@@ -742,7 +742,9 @@ Page({
 
 
   onLoad: function (options) {
+    console.log(getCurrentPages());
     var that = this;
+    console.log(options.content);
     var content = JSON.parse(options.content) // 将JSON帖子信息转成对象
     var more = 0
     this.getWindowData()
@@ -751,7 +753,11 @@ Page({
     })
     console.log(content, "options");
     // 被评论者信息
+    console.log(args.username);
+    console.log(content.username);
+    
     if (args.username === content.username) {
+      console.log("1234");
       more = 1
     }
     var Time = util.timeago(that.data.content.Time, 'Y年M月D日')

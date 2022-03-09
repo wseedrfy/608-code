@@ -47,7 +47,7 @@ Page({
       {
         img:"img/match.png",
         name:"赛事发布",
-        tapName:"match"
+        tapName:"showModal"
       },
       {
         img:"img/change.png",
@@ -85,7 +85,8 @@ Page({
     HtmlStatus: 0,//0为申请 1审核中 2审核通过  3注销中
     assoMess: "",
     showModalStatus: false,
-    photoStatus: false
+    photoStatus: false,
+    showModalStatus:false
   },
 
   /**
@@ -287,6 +288,15 @@ Page({
   // 发布
   confirm(e) {
     console.log(e);
+  },
+  // 普通活动
+  activity(){
+    wx.navigateTo({
+      url: '/pages/association/activity/activity?count='+card,
+      success: (result)=>{
+        
+      },
+    });
   },
   // 赛事
   match() {

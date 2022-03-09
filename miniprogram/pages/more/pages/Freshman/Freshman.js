@@ -1,67 +1,39 @@
 // pages/more/pages/Freshman/Freshman.js
+const db = wx.cloud.database()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    content:{
-      AllPhoto:[
-        "cloud://cloud1-6gtqj1v4873bad50.636c-cloud1-6gtqj1v4873bad50-1307814679/1644733579000.png"
-      ],
-      Cover:"cloud://cloud1-6gtqj1v4873bad50.636c-cloud1-6gtqj1v4873bad50-1307814679/1644733579000.png",
-      CoverHeight:"1792rpx",
-      CoverWidth:828,
-      Label:"社团招新",
-      School:"广东石油化工学院",
-      ShowHeight:1792,
-      Title:"xxx招新啦",
-      association:[
-        {
-          detial:"biubb创业实践社",
-          name:"社团/机构"
-        },
-        {
-          detial:"15916513671",
-          name:"联系方式"
-        },
-        {
-          detial:"张三",
-          name:"联系人"
-        },
-        {
-          detial:"20114340331",
-          name:"学号"
-        },
-      ],
-      endTime:"2022-05-07",
-      question:[
-        {
-          content:"姓名",
-          id:1644642857000
-        },
-        {
-          content:"学号",
-          id:1644642857000
-        },
-        {
-          content:"其它部门",
-          id:1644642857000
-        },
-        {
-          content:"是否服从调剂",
-          id:1644642857000
-        },
-      ]
-    }
   },
-
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    var content = JSON.parse(options.content)
+    let _id = content._id
+    let args = wx.getStorageSync('args');
+    let username = args.username
+    // console.log(args.username);
+    this.setData({
+      content
+    })
+    wx.cloud.callFunction({
+      name: "associationSend",
+      data: {
+        _id,
+        username,
+        type:4
+      }
+    }).then(res => {
+      console.log(res);
+    })
   },
+  // 查询是否已参与并操作
+  // getPerson(){
+
+  // },
 
   /**
    * 生命周期函数--监听页面初次渲染完成

@@ -10,7 +10,7 @@
          <view class="dayclock_column"><image class="dayclock_column_right" src="../images/tianjia.png" bindtap="add_task"></image></view>
      </view>
      <!-- 装渲染数据的最外层盒子 -->
-     <view class="dayclock_data" wx:for="{{taskdata}}">
+     <view class="dayclock_data" wx:for="{{taskdata}}" wx:key="*this">
      <!-- 背景层 删除键 -->
      <view class="dayclock_data_huadong_bg" style="background-color:#F4F4F4;">
           <view class="dayclock_data_huadong_bg_bg"><image class="dayclock_data_huadong_bg_image"        id="{{index}}" catchtap="daka_delpromp" src="../images/del.png"></image></view>
@@ -136,13 +136,27 @@
 </view>
 <!-- 打卡成功弹窗 -->
 <!-- if动态判断showModel2 -->
-<view class="complete" wx:if="{{showModel2}}">
+<!-- <view class="complete" wx:if="{{showModel2}}">
      <view class="complete_bg"></view>
      <view class="complete_share">
           <view class="complete_share_image"></view>
           <view class="complete_share_box">
                <view class="complete_share_box_text">您已经累计完成{{dakacount}}天！加油！</view>
                <view class="complete_share_box_button">校友圈一键分享</view>
+          </view>
+     </view>
+     <image class="complete_share_close" bindtap="complete_share_close" src="../images/close.png"></image>
+</view> -->
+<!-- 生成图片弹窗 -->
+<view class="complete" wx:if="{{showModel2}}">
+     <view class="complete_bg"></view>
+     <view class="complete_share">
+          <canvas class="complete_share_image" canvas-id="shareCanvas"></canvas>
+          <view class="complete_share_box">
+               <!-- <view class="complete_share_box_text"></view> -->
+               <!-- <view class="complete_share_box_text">您已经累计完成{{dakacount}}天！加油！</view> -->
+               <view class="complete_share_box_button" bindtap="savecanvas">校友圈一键分享</view>
+               <view class="complete_share_box_button" bindtap="sharecanvas">绘图</view>
           </view>
      </view>
      <image class="complete_share_close" bindtap="complete_share_close" src="../images/close.png"></image>

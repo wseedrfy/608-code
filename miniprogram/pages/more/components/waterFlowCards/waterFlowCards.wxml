@@ -1,4 +1,4 @@
-<scroll-view  scroll-y="true"  style="height:{{height}}; background-color: rgba(153, 153, 153, 0.11);" bindscrolltolower="testFnc" lower-threshold="300" bindscrolltoupper="onPullDownRefresh" upper-threshold="-30" enable-back-to-top="{{true}}" fast-deceleration="true" paging-enabled="true">
+<scroll-view  scroll-y="true"  style="height:{{height}}; background-color: rgba(153, 153, 153, 0.11);" bindscrolltolower="onReachBottom" lower-threshold="300" bindscrolltoupper="onPullDownRefresh" upper-threshold="-30" enable-back-to-top="{{true}}" fast-deceleration="true" paging-enabled="true">
 
     <view class='content' style="opacity: {{list[0] ? 1 : 0}};">
       <view class="left">
@@ -13,6 +13,7 @@
           </view>
         </view>
       </view>
+    </view>
 
       <view class="right">
         <view wx:for="{{rightList}}" wx:key="rightList">
@@ -26,9 +27,9 @@
         </view>
       </view>
 
-    </view>
-    <!-- 边界处理 -->
-    <view class="DataNull" wx:if="{{loadAll}}">-无更多内容-</view>
-    <!-- 边界处理 -->
-    <view class="DataNull" wx:if="{{list.length == 0}}">正在玩命加载数据...</view>
+  <!-- 边界处理 -->
+  <view class="DataNull" wx:if="{{loadAll}}">-无更多内容-</view>
+  <!-- 边界处理 -->
+  <view>{{list}}</view>
+  <view class="DataNull" wx:if="{{list.length == 0}}">正在玩命加载数据...</view>
 </scroll-view>

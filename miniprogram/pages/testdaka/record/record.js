@@ -1,14 +1,7 @@
 //开发者需注意：假如测试的时候把所对应的任务的在daka_status表里所对应的数据删除后，会出现bug打不了卡。但页面上仍有（因为渲染是根据daka_record表渲染的）
-// 原理分析：打卡会操作daka_status表，删了会空指针报错，
-
-// pages/testdaka/record/record.js
+// 原理分析：打卡会操作daka_status表，删了会空指针报错
 const _=wx.cloud.database().command
 const db = wx.cloud.database()
-
-//数据还没做接口
-//热度榜标签有bug，待修复
-//sumit按钮还没绑定函数 form标签上我没写sumit的函数
-//选择标签用picker组件弹窗选择，只能选一个
 Page({
 
     /**

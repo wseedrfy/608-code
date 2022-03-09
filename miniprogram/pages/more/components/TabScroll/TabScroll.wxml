@@ -1,4 +1,4 @@
-<scroll-view scroll-x="true" scroll-with-animation="true" scroll-into-view="tabItem{{currentTab}}" hidden="{{type != '校友圈标签'  || !showTab}}" >
+<scroll-view scroll-x="true" scroll-with-animation="true" scroll-into-view="tabItem{{currentTab}}" wx:if="{{type == '校友圈标签'  && showTab}}" >
     <view class="Choose_Label" scroll-x="true">
         <!-- 下划线 -->
         <view class="underLineBox" 
@@ -16,7 +16,7 @@
     </view>
 </scroll-view>
 
-<scroll-view scroll-x="true" scroll-with-animation="true" scroll-into-view="tabItem{{currentTab}}" class="choose_First" hidden="{{type != '发布页面标签' || !showTab}}">
+<scroll-view scroll-x="true" scroll-with-animation="true" scroll-into-view="tabItem{{currentTab}}" class="choose_First" wx:if="{{type == '发布页面标签' && showTab}}">
     <view class="Choosen" scroll-x="true" hidden='{{hideHidden}}'>
         <view wx:for="{{menu}}" wx:key="index" class="Label-text" id="tabItem{{index+3}}" data-index="{{index}}" bindtap="chooseTab">
             <view class="Label_limit1">{{item}}</view>

@@ -14,7 +14,7 @@ Component({
       value: ""
     },
     // 当前标签下标
-    currentTab: {         // 用于点赞逻辑
+    currentTab: {
       type: Number,
     }
   },
@@ -26,7 +26,6 @@ Component({
   lifetimes: {
     ready() {
       let content = this.data.item;
-      console.log(content);
       let args = wx.getStorageSync('args');
       let character = {
         userName: args.username,

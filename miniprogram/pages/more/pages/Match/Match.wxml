@@ -44,9 +44,9 @@
   <view class="match_wrap">
     <view class="match_caption">主办信息</view>
     <view class="match_list_wrap">
-      <view class="list" wx:for="{{4}}" wx:key="item">
-        <view class="title">主办方</view>
-        <view class="content">biubii创业实践社</view>
+      <view class="list" wx:for="{{content.association}}" wx:key="item">
+        <view class="title">{{item.name}}</view>
+        <view class="content">{{item.detial}}</view>
       </view>
     </view>
   </view>
@@ -54,9 +54,9 @@
   <view class="rule_wrap">
     <view class="rule_caption">比赛信息</view>
     <view class="rule_list_wrap">
-      <view class="rule_list" wx:for="{{2}}" wx:key="item">
+      <view class="rule_list" wx:for="{{2}}">
         <view class="rule_title">标题</view>
-        <view class="rule_detail">创业实践比赛</view>
+        <view class="rule_detail">{{content.Title}}</view>
       </view>
     </view>
   </view>
