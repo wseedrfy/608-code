@@ -19,6 +19,7 @@ Page({
         task_name:'示例',
         showModel3:false,
         dakacount:'19',
+        dakatime:'12:00',
         showModel2:true,
         showModel5:true,
 
@@ -87,21 +88,39 @@ Page({
         })
     },
     sharecanvas:function(){
-        let arr =['http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcX9xVxaGodT4nhOh7OSjTb3hYMuRdPCQI90IWXE4c7Ndk7ot3.0C6AfmFQ3Qz9uRvvAN8hPor1ASJt77yWmZDGM!/r','http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcX9xVxaGodT4nhOh7OSjTb3hYMuRdPCQI90IWXE4c7Ndk7ot3.0C6AfmFQ3Qz9uRvvAN8hPor1ASJt77yWmZDGM!/r','http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcX9xVxaGodT4nhOh7OSjTb3hYMuRdPCQI90IWXE4c7Ndk7ot3.0C6AfmFQ3Qz9uRvvAN8hPor1ASJt77yWmZDGM!/r']
-        let num=Math.floor(Math.random() * 3);
+        let arr =["http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mccErIrW3xz*gbdII0f2XxWb532vMFM40Z1GLB1qy0PJerOEUFI*g*oZuZ35D1lhyDT.clH6YZMOs3.8EPCzGmVA!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mccErIrW3xz*gbdII0f2XxWYzgI97WA4qJSXOKv*.4QFn3Eg2qYyEPp*FEqQ324LfbLGZlnl2rr4FS5hFO8u0ZTs!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcWo.8232YNIC*jkUYG2CaL02oENRjq4FgVYfJRGAQkUFIHqSHOgKJN7PwN8eneBAJ3Xuao69KnlIiWFTLek*xbA!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcWo.8232YNIC*jkUYG2CaL0U9WK413d9yuItDSS6iVc8eijth7NxjoSIIegtYx1e5ge50x9TYGSoI1tspf4Eo4Y!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcWo.8232YNIC*jkUYG2CaL3iIKgpjMwyrYqipU5hEly9ayItSyv33FzZ4ib5F9ve2AlY40CT8VGvo4aYHsf4PaI!/r","http://m.qpic.cn/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcWo.8232YNIC*jkUYG2CaL1gQqPp*29X8poNeV1JgSwuGeLqduMlr1RfAksUAUYIEPN37EwlqtdvxQ8SPnTaRYw!/b&bo=OAQFBTgEBQUBKQ4!&rf=viewer_4","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcddykwK5pChyfjlr.MGCQ8Mn1xgktufw23sOXfGiwfYDceE0Sm9dtSOJoxNd6a7mGPCV7NonZqctFYy6dWw2wn8!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcddykwK5pChyfjlr.MGCQ8OEqMkdr*5dA3.jQ3lK3l3d1xwMgnjGXM*Y9JKOWn5MTRAO1dRfUGwgWxQMZXcIruI!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcddykwK5pChyfjlr.MGCQ8OSyjf8imUzh5VQeto*9CH6YmXSw9chNfjsZZaZbpwP1*tcOKZUfgBNpQu6qOdbkn8!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcddykwK5pChyfjlr.MGCQ8MmLdH4z*DD*NoKPNIx.71uvCzHA4Lbvag7wPzA.B9B1LLHvxmZlw5RV9ozcVBUx1w!/r"]
+        let num=Math.floor(Math.random() * 9);
         console.log(num);
         let w = wx.getSystemInfoSync().windowWidth/375
         let h =wx.getSystemInfoSync().windowHeight/wx.getSystemInfoSync().windowWidth
         let that=this
-      wx.getImageInfo({
-        src:arr[num],
-      }).then(res=>{
+        let iconurl = wx.getStorageSync('args').iconUrl;
+        let nickName= wx.getStorageSync('args').nickName;
+        console.log(iconurl);
+        Promise.all([
+        wx.getImageInfo({//背景图片
+          src:arr[num],
+        }),wx.getImageInfo({//头像
+          src: iconurl,
+        })
+        ])
+        .then(res=>{
         const ctx = wx.createCanvasContext('shareCanvas')
+        console.log(res);
         //背景
-        ctx.drawImage(res.path,0,0,260*w,232*w)
+        ctx.drawImage(res[0].path,0,0,260*w,232*w)
+        
         //文字
+        ctx.setFillStyle('#fff')
         ctx.setFontSize(15*w)
-        ctx.fillText(that.data.task_name+'已经累计完成'+that.data.dakacount+'天！加油！',28*w,213*w)
+        ctx.fillText(nickName,54*w,24*w)
+        ctx.setFontSize(11*w)
+        ctx.fillText('今天：'+this.data.dakatime,54*w,41*w)
+        ctx.setFontSize(20*w)
+        ctx.fillText(that.data.task_name+'打卡'+that.data.dakacount+'天！加油！',28*w,180*w)
+        ctx.arc(26*w,26*w,18*w,0,2 * Math.PI)
+        ctx.clip()
+        ctx.drawImage(res[1].path,9*w,8*w,35*w,35*w)
         ctx.stroke()
         ctx.draw()
       })
@@ -455,20 +474,33 @@ Page({
         console.log('删除：',id)
     },
 
-     //子腾兄总结：这个就是async await的一个比较好的应用 在写的函数前面写async进行异步声明 在异步函数前面写await进行同步声明，代码整洁度比较高，但是这样性能可能差点。
-     //获取数据交与页面渲染
-     async getDaka_record(){
+    dakacallFunction :function(){
         let username = wx.getStorageSync('args').username;
-        //用username查找uuid
-        var dakaArr = [];
-        //根据username获取到该用户的所有打卡记录
-        const res = await wx.cloud.callFunction({
+        const res= wx.cloud.callFunction({
             name: "daka",
             data: {
                 type:"getAllDakaRecord",
                 username:username
             }
         })
+        console.log(res);
+    },
+     //子腾兄总结：这个就是async await的一个比较好的应用 在写的函数前面写async进行异步声明 在异步函数前面写await进行同步声明，代码整洁度比较高，但是这样性能可能差点。
+     //获取数据交与页面渲染
+    async getDaka_record(){
+        let username = wx.getStorageSync('args').username;
+        //用username查找uuid
+        var dakaArr = [];
+        //根据username获取到该用户的所有打卡记录
+        // const res = await wx.cloud.callFunction({
+        const res= await wx.cloud.callFunction({
+            name: "daka",
+            data: {
+                type:"getAllDakaRecord",
+                username:username
+            }
+        })
+        console.log(res);
         let data = res.result.data
         for(var i = 0; i < data.length; i++){
             var hashid = data[i].hashId
@@ -536,17 +568,16 @@ Page({
     /**
      * 生命周期函数--监听页面加载
      */
-    async onLoad() {
-        wx.showLoading({
-          title: '加载中',
-          mask:true
-        })
-        await this.getDaka_record();
+    onLoad() {
+        // wx.showLoading({
+        //   title: '加载中',
+        //   mask:true
+        // })
+        // this.getDaka_record().then(res=>{wx.hideLoading()})
         wx.setNavigationBarTitle({
             title: 'We打卡',
         });
         movedistance = 0; // 解决切换到其它页面再返回该页面动画失效的问题
-        wx.hideLoading()
     },
 
     
