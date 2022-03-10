@@ -28,7 +28,7 @@ def getData_ZJGSHZ(username, password):
     return get_data
 
 
-if __name__ == '__main__':
-    t = time.time()
-    print(getData_ZJGSHZ('2121210136', 'yy20030406.'))
-    print('总时间',time.time() - t)
+# if __name__ == '__main__':
+#     t = time.time()
+#     print(getData_ZJGSHZ('2121210136', 'yy20030406.'))
+#     # print('总时间',time.time() - t)
