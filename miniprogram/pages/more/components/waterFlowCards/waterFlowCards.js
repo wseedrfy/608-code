@@ -22,6 +22,10 @@ Component({
       currentTab: {
         type: Number
       },
+      // 控制可否滑动
+      ifScroll: {
+        type: Boolean
+      }
     },
 
   /**
