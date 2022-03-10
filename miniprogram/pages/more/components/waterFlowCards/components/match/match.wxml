@@ -3,10 +3,9 @@
   var color=['#066fd8', '#6fd806', '#d8066f', '#6f06d8']
   module.exports.message=color
 </wxs>
+<wxs src="time.wxs" module="tools"></wxs>
 <view class="pic" bindtap="ShowContent" data-index="{{index}}">
-  <image class="Show_Image" lazy-load src='{{item.Cover}}' mode="aspectFill"
-    style="height: {{item.ShowHeight > 500 ? 500+'rpx':item.ShowHeight+'rpx'}};" binderror="binderrorimg"
-    bindload='onLazyLoad'></image>
+  <image class="Show_Image" lazy-load src='{{item.Cover}}' mode="aspectFill" style="height: {{item.ShowHeight > 500 ? 500+'rpx':item.ShowHeight+'rpx'}};" binderror="binderrorimg" bindload='onLazyLoad'></image>
   <view>
     <!-- 标签标题 -->
     <span class="pic_Title">
@@ -16,15 +15,17 @@
     <!-- 比赛信息 -->
     <span class="match_wrap">
       <span class="mess_wrap">
-        <span class="time">
-          <text style="font-size:30rpx;">2</text>
-          天后结束
+        <span class="time" style="color:{{tools.getDateTime(time,item.date)>0?'':'#a8dba8'}};">
+          <text style="font-size:30rpx;">{{tools.getDateTime(time,item.date)>0?tools.getDateTime(time,item.date):''}}</text>
+          {{tools.getDateTime(time,item.date)>0?'天后结束':'已截止'}}
         </span>
-        <span class="person">99+人参与</span>
+        <span class="person">{{item.personArr.length==0?'1':(item.personArr.length>100?'99+':item.personArr.length)}}人参与</span>
       </span>
       <span class="host">主办方 {{item.assoMess.association}}</span>
       <span class="tip_wrpa">
-        <span class="tip" style="background-color: {{m1.message[index]}}" wx:for="{{item.borderArr}}" wx:key="item" >{{item}}</span>
+        <span class="tip" style="background-color: {{m1.message[index]}}" wx:for="{{item.borderArr}}" wx:key="item">
+          {{item}}
+        </span>
       </span>
     </span>
   </view>

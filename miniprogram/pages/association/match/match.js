@@ -113,7 +113,8 @@ Page({
                 index: item.count + "比赛",
                 question: item.question,
                 assoMess: item.assoMess,
-                borderArr: item.borderArr
+                borderArr: item.borderArr,
+                date:item.date
                 // Label:
               }
             }).then(res => {

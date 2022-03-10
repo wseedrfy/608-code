@@ -1,0 +1,135 @@
+/* components/LoseObjCards/LoseObjCards.wxss */
+/* pages/index_copy/index_copy.wxss */
+
+.img{
+  width: 330rpx;
+  
+}
+.contain{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* margin:10rpx; */
+  width: 330rpx;
+  overflow: hidden;
+  border-radius: 10rpx;
+  background-color: #fff;
+  background-image:  linear-gradient( #ffffff 80% , #c3e8ef);
+  /* opacity: 0.4; */
+  z-index:-1;
+  margin-bottom: 10rpx
+}
+.head{
+  /* font-size: 28rpx; */
+  color:rgb(0, 0, 0);
+  line-height: 22rpx;
+  padding:0rpx 21rpx 0rpx 21rpx;
+  /* margin-top: 20rpx; */
+ 
+}
+.head_Label{
+  font-size: 20rpx;
+  /* padding:4rpx 8rpx; */
+
+  display: flex;
+  height: 20rpx;
+  align-self: center;
+  padding: 4rpx 8rpx;
+  /* align-items: center; */
+  /* height: 22rpx; */
+  line-height: 24rpx;
+  /* height: 26rpx; */
+  /* padding:4rpx 8rpx; */
+  background-color: #3C96F0;
+  border-radius: 5rpx;
+  margin-right:15rpx;
+  vertical-align: middle;
+  color:white
+}
+.head_top{
+  display: flex;
+  align-items: center;
+  vertical-align: middle;
+  margin-top: -20rpx;
+
+}
+.head_title{
+  /* float: left */
+  font-size: 26rpx;
+  display: inline-block;
+  vertical-align: middle;
+  text-overflow: ellipsis;
+  white-space:nowrap;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+.body{
+  opacity: 0.6;
+
+  /* color: #3C96F0; */
+  /* margin-top: 20rpx; */
+  font-size: 18rpx;
+  padding: 5rpx;
+  color:white;
+  border-radius: 10rpx;
+  
+}
+.end_left{
+  display: flex;
+}
+.end{
+  display: flex;
+  margin: 20rpx 21rpx;
+  font-size: 18rpx;
+  justify-content: space-between;
+}
+.end_state{
+  /* margin-left: 10rpx;  */
+  opacity: 0.6;
+  margin-right: 5rpx;
+  background-color: rgba(60,150,240,0.5);
+  padding: 5rpx;
+  color:white;
+  border-radius: 10rpx;
+}
+.end_reward{
+  opacity: 0.6;
+
+  margin-right: 5rpx;
+  /* background-color:#FFE1B0; */
+  background-color: #ffd4ae;
+  color:white;
+  border-radius: 10rpx;
+  padding: 5rpx;
+}
+.local_img{
+  width: 25rpx;
+  height: 25rpx;
+  vertical-align: middle;
+  margin-right: 5rpx;
+  padding-left: 10rpx;
+
+}
+.local{
+  /* display: inline-block; */
+  float: left;
+  position: relative;
+  bottom:50rpx;
+  left:20rpx;
+  font-size: 20rpx;
+  color:white;
+  /* height: 20rpx; */
+  padding: 3rpx;
+  border-radius: 8rpx;
+  background-color: rgba(105,105,105,1);
+  vertical-align: middle;
+  /* background-color: #fff; */
+  opacity: 0.4;
+}
+.local_text{
+  opacity:1;
+  padding:5rpx 10rpx ;
+  /* font-weight: 800; */
+}

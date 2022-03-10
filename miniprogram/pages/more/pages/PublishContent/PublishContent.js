@@ -22,6 +22,8 @@ Page({
 
         imageHeight: 0,
         imageWidth: 0,
+                //存储寻物发布信息
+      lose_detail:""
     },
     navigationBack(){
       wx.navigateBack({
@@ -77,7 +79,7 @@ Page({
     formSubmit(e) {
         let { formTitle,formText } = e.detail.value;
         let args = wx.getStorageSync('args');
-        // 判空逻辑：1.标题 2.正文 3.选择标签 4.图片  => 缺一不可
+        // 判空逻辑：1.标题 2.正文 3.选择标签 4.图片  => 缺一不可 //另加了寻物发布逻辑稍微有改变
         if (!formTitle.replace(/\s/g,'')) {
             wx.showToast({
               title: '标题不能为空',
@@ -103,7 +105,16 @@ Page({
               title: '小主还没登录哟QwQ',
               icon: 'none'
             })
-          }else {
+            
+          }
+          //失物判断
+          else if(this.data.choosenLabel=="寻物发布"&&!this.data.lose_detail){
+            wx.showToast({
+              title: '寻物相关信息还未全部填写',
+              icon:"none"
+            })
+          }
+          else {
             let add = {
               "Cover": this.data.photo[0],//
               "AllPhoto": JSON.parse(JSON.stringify(this.data.photo)),//
@@ -115,13 +126,10 @@ Page({
               "Time": new Date().getTime(),//
               "nickName": args.nickName,//wx名字
               "School": args.school,
-              "iconUrl": args.iconUrl
+              "iconUrl": args.iconUrl,
+              "lose_detail":this.data.lose_detail
             }
-            console.log(add);
-            // console.log();
-            let list = app.globalData.allList[0]//??????????
-            // console.log(list);
-            // console.log(list);
+            let list = app.globalData.allList[0]
             list.push(add);      
             let NewData = list.length - 1;
 
@@ -148,7 +156,7 @@ Page({
               let args = wx.getStorageSync('args');
 
               if (fileIDs.length == list[NewData].AllPhoto.length) {
-
+                console.log(app.globalData.allList,2222)
                 wx.cloud.callFunction({
                   name: 'CampusCircle',
                   data: {
@@ -165,6 +173,10 @@ Page({
                     nickName: list[NewData].nickName,
                     username: args.username,
                     iconUrl: list[NewData].iconUrl,
+                    Other:list[NewData].lose_detail?list[NewData].lose_detail.Other:"",
+                    LoseTime:list[NewData].lose_detail?list[NewData].lose_detail.Time:"",
+                    LoseType:list[NewData].lose_detail?list[NewData].lose_detail.type:"",
+                    campus:list[NewData].lose_detail?list[NewData].lose_detail.campus:"",
                     Star: 0,
                     type: 'write'
                   },
@@ -259,6 +271,7 @@ Page({
       })
     },
     onLoad: function (options) {
+
       // 兼容打卡一键分享
       let photo = [{
         imageHeight:options.imageHeight,
@@ -281,13 +294,18 @@ Page({
       }
       let args = wx.getStorageSync('args');
       let theme = wx.getStorageSync('theme');
-
+      // let menu_ = args.tabitem
+      // menu_.push("寻物发布")
       // 兜底数据
-      let menu = ["日常","晒出课表🤣", "树洞👂", "2022新年Flag🚩", "2021回顾◀", "三行情书❤️", "故事屋⭐️"]
+      let menu = ["日常","晒出课表🤣", "树洞👂", "2022新年Flag🚩", "2021回顾◀", "三行情书❤️", "故事屋⭐️","寻物发布"]
       this.setData({
-        menu: args.tabitem ? args.tabitem.slice(1,) : menu,
+        menu: args.tabitem ? menu_ : menu,
         theme
       })
     },
-
+    detail(e){
+      this.setData({
+        lose_detail:e.detail
+      })
+    }
 })
