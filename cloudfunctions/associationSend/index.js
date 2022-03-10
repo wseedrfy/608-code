@@ -69,7 +69,9 @@ exports.main = async (event, context) => {
         index: event.index,
         question: event.question,
         assoMess: event.assoMess,
-        borderArr: event.borderArr
+        borderArr: event.borderArr,
+        date: event.date,
+        personArr: [],
       }
     })
   }
@@ -101,7 +103,8 @@ exports.main = async (event, context) => {
         matchDetail: event.matchDetail,
         assoName: event.assoName,
         assoCount: event.assoCount,
-        pusherCount:event.pusherCount
+        pusherCount: event.pusherCount,
+        match_id: event.match_id
       }
     })
   }

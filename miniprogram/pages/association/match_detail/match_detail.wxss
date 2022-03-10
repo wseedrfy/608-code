@@ -92,6 +92,13 @@ page {
   padding: 12rpx;
   border-radius: 24rpx;
 }
+.wrap .bt_wrap .change_time {
+  background-color: #8b8b8b;
+  margin: 24rpx;
+  padding: 12rpx;
+  text-align: center;
+  border-radius: 24rpx;
+}
 .wrap .bt_wrap .send {
   background-color: rebeccapurple;
   text-align: center;

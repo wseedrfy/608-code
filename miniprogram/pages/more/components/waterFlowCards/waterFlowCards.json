@@ -4,6 +4,7 @@
         "campusCards": "./components/campusCards/campusCards",
         "LoseCard":"../LoseCard/LoseCard",
         "loveCards": "./components/loveCards/loveCards",
-        "match":"./components/match/match"
+        "match":"./components/match/match",
+        "freshman":"./components/freshman/freshman"
     }
 }
