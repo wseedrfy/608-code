@@ -11,9 +11,10 @@
      </view>
      <!-- 装渲染数据的最外层盒子 -->
      <view class="dayclock_data" wx:for="{{taskdata}}" wx:key="*this">
-     <!-- 背景层 删除键 -->
-     <view class="dayclock_data_huadong_bg" style="background-color:#F4F4F4;">
-          <view class="dayclock_data_huadong_bg_bg"><image class="dayclock_data_huadong_bg_image"        id="{{index}}" catchtap="daka_delpromp" src="../images/del.png"></image></view>
+     <!-- 背景层 删除键#F4F4F4 -->
+     <view class="dayclock_data_huadong_bg">
+          <!-- <view class="dayclock_data_huadong_bg_bg"><image class="dayclock_data_huadong_bg_image"        id="{{index}}" catchtap="daka_delpromp" src="../images/del.png"></image></view> -->
+          <view class="dayclock_data_huadong_bg_bg"><view id="{{index}}" class="dayclock_data_huadong_bg_del" catchtap="daka_delpromp" >删除</view></view>
      </view>
      <!--左右滑动画层 -->
      <view class="dayclock_data_huadong"  bindtouchstart="touchstartX" bindtap="resetX" bindtouchmove="touchmoveX" bindtouchend="touchendX" animation="{{currentIndex === index ?animation : ''}}" data-index="{{index}}"><view class="border">

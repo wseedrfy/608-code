@@ -46,7 +46,12 @@
     </view>
     <view class="bt_wrap">
         <view class="keep" bindtap="hold" data-status="{{false}}">保存</view>
-        <!-- <view class="send" bindtap="holdSend" data-status="{{true}}">保存并发布</view> -->
+        <!-- 选择时间 -->
+        <view class="change_time">
+            <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
+                <view class="picker">截止日期:{{date}}</view>
+            </picker>
+        </view>
     </view>
 </view>
 <!-- 弹窗 -->
@@ -68,7 +73,7 @@
 <view animation="{{animationData}}" class="commodity_attr_box_1" wx:if="{{addBorderModal}}">
     <view class="border_title">输入奖励</view>
     <view class="handle_wrap">
-        <input placeholder="素拓分" class="handle_border" bind:input="borderContent"/>
+        <input placeholder="素拓分" class="handle_border" bind:input="borderContent" />
         <view class="border_end" bind:tap="borderEnd">确定</view>
     </view>
 </view>

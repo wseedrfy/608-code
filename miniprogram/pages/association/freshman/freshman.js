@@ -19,7 +19,12 @@ Page({
   onLoad: function (options) {
     let assoMess = JSON.parse(options.assoMess)
     let res = wx.getStorageSync("args");
-    count = Number(res.username)
+    // if (res.username != 'guest') {
+    //   count = Number(res.username)
+    // }
+    // else {
+    //   count = res.username
+    // }
     let school = res.school
     let nickName = res.nickName
     db.collection("associationMess").where({ count: count }).get().then(res => {
@@ -252,8 +257,8 @@ Page({
                       Title: this.data.add_title,
                       index: count + '社团',
                       endTime: this.data.date,
-                      question:this.data.freshman,
-                      association:this.data.assoMess
+                      question: this.data.freshman,
+                      association: this.data.assoMess
                     }
                   }).then(res => {
                     // console.log(res);
@@ -411,7 +416,7 @@ Page({
   },
   // 选择时间
   changeDate(e) {
-    if (this.data.sendStatus==true) {
+    if (this.data.sendStatus == true) {
       wx.showModal({
         title: '提示',
         content: '招新信息已发布,不可修改',

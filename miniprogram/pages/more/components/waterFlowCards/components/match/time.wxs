@@ -1,0 +1,17 @@
+var filter = {
+    getDateTime: function (value, endTime) {
+        //不能使用 new Date()
+        var fmt1 = endTime.substring(0, 19);
+        var reg = getRegExp("-", "g");
+        var fmt2 = fmt1.replace(reg, '/');
+        var timestamp = getDate(fmt2).getTime();//结束时间
+        var endDay = timestamp - value;
+        var iDays = ((endDay) / 1000 / 60 / 60 / 24)//把相差的毫秒数转换为天数
+        var duration = iDays.toFixed(1) //把相减的天数差保留一位小数
+        return duration
+    }
+}
+// 导出对外暴露的属性
+module.exports = {
+    getDateTime: filter.getDateTime
+}
