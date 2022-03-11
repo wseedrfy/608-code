@@ -111,7 +111,7 @@ page {
   margin: 24rpx;
   font-size: 32rpx;
   justify-content: center;
-  background-color: #63A1A0;
+  background-color: #6f8569;
   margin-right: 20%;
   margin-left: 20%;
   border-radius: 24rpx;
@@ -164,6 +164,7 @@ page {
   background-color: #f6f6f6;
   padding-left: 12rpx;
   border-radius: 12rpx;
+  padding: 12rpx;
 }
 .commodity_attr_box .tip_wrap {
   font-size: 24rpx;

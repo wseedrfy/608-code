@@ -11,22 +11,24 @@
      </view>
      <!-- 装渲染数据的最外层盒子 -->
      <view class="dayclock_data" wx:for="{{taskdata}}" wx:key="*this">
-     <!-- 背景层 删除键 -->
-     <view class="dayclock_data_huadong_bg" style="background-color:#F4F4F4;">
-          <view class="dayclock_data_huadong_bg_bg"><image class="dayclock_data_huadong_bg_image"        id="{{index}}" catchtap="daka_delpromp" src="../images/del.png"></image></view>
+     <!-- 背景层 删除键#F4F4F4 -->
+     <view class="dayclock_data_huadong_bg">
+          <!-- <view class="dayclock_data_huadong_bg_bg"><image class="dayclock_data_huadong_bg_image"        id="{{index}}" catchtap="daka_delpromp" src="../images/del.png"></image></view> -->
+          <view class="dayclock_data_huadong_bg_bg"><view id="{{index}}" class="dayclock_data_huadong_bg_del" catchtap="daka_delpromp" >删除</view></view>
      </view>
      <!--左右滑动画层 -->
      <view class="dayclock_data_huadong"  bindtouchstart="touchstartX" bindtap="resetX" bindtouchmove="touchmoveX" bindtouchend="touchendX" animation="{{currentIndex === index ?animation : ''}}" data-index="{{index}}"><view class="border">
           <!--左右滑动画层--右滑打卡盒子 -->
-          <view id="{{index}}" data-id="{{index}}" class='operationBgBox' style="left: {{ -(w + 2) }}px; transform: {{ currentIndex == index ?cssAnimation:'' }};background:{{item.task_isDaka==true?  '#fff' : '#74D5D3'}};">
+          <view id="{{index}}" data-id="{{index}}" class='operationBgBox' style="left: {{ -(w + 2) }}px; transform: {{ currentIndex == index ?cssAnimation:'' }};background:{{item.task_isDaka==true?  '#fff' : ''}};">
                <text>{{ succeedMsg }}</text>
                <!-- 右滑盒子 -->
-               <view id="{{index}}" style="background:{{item.task_isDaka==true?  '#fff' : '#74D5D3'}};" class='operationBox' catchtouchstart="startFun" catchtouchmove='moveFun' catchtouchend='endFun'>
+               <view id="{{index}}" style="background:{{item.task_isDaka==true?  '#fff' : ''}};" class='operationBox' catchtouchstart="startFun" catchtouchmove='moveFun' catchtouchend='endFun'>
                <image src="{{item.task_isDaka==true?  '../images/complete.png' : '../images/right.png'}} "></image>
                </view>
           </view>
          <!-- 左右滑动画层--中间盒子显示打卡信息 -->
-         <view class="dayclock_data_column_3"><view class="dayclock_data_column_text" style="color: {{ item.task_isDaka==true?  '#74D5D3' : ''}};">{{item.task_isDaka==true?'已完成':'待完成'}}</view></view>
+         <!-- style="color: {{ item.task_isDaka==true?  '#74D5D3' : ''}};" -->
+         <view class="dayclock_data_column_3"><view class="{{ item.task_isDaka==true?  'dayclock_data_column_text_true' : 'dayclock_data_column_text_false'}}" >{{item.task_isDaka==true?'已完成':'待完成'}}</view></view>
          <!-- 左右滑动画层--右边盒子显示是否完成 -->
          <view class="dayclock_data_column_2">
               <view class="dayclock_data_column_2_task" data-task="{{item.task_name}}" bindtap="12345">{{item.task_name}}</view>
@@ -155,8 +157,8 @@
           <view class="complete_share_box">
                <!-- <view class="complete_share_box_text"></view> -->
                <!-- <view class="complete_share_box_text">您已经累计完成{{dakacount}}天！加油！</view> -->
-               <view class="complete_share_box_button" bindtap="savecanvas">校友圈一键分享</view>
-               <!-- <view class="complete_share_box_button" bindtap="sharecanvas">绘图</view> -->
+               <!-- <view class="complete_share_box_button" bindtap="savecanvas">校友圈一键分享</view> -->
+               <view class="complete_share_box_button" bindtap="sharecanvas">绘图</view>
           </view>
      </view>
      <image class="complete_share_close" bindtap="complete_share_close" src="../images/close.png"></image>

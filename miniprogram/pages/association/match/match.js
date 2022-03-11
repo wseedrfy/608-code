@@ -12,7 +12,7 @@ Page({
   // 详情页
   goDetail() {
     wx.navigateTo({
-      url: '/pages/association/match_detail/match_detail',
+      url: '/pages/association/match_detail/match_detail?',
       success: (result) => {
 
       },
@@ -112,7 +112,9 @@ Page({
                 Title: item.senderMess.title,
                 index: item.count + "比赛",
                 question: item.question,
-                assoMess:item.assoMess
+                assoMess: item.assoMess,
+                borderArr: item.borderArr,
+                date:item.date
                 // Label:
               }
             }).then(res => {

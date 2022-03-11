@@ -17,6 +17,35 @@ page {
   margin: 24rpx;
   border-radius: 24rpx;
 }
+.wrap .reward_wrap {
+  font-size: 32rpx;
+  background-color: white;
+  margin: 24rpx;
+  padding: 24rpx;
+}
+.wrap .reward_wrap .title {
+  padding: 12rpx;
+}
+.wrap .reward_wrap .title .title_tip {
+  color: #8b8b8b;
+  padding-left: 48rpx;
+  font-size: 28rpx;
+}
+.wrap .reward_wrap .reward_item {
+  display: flex;
+  flex-direction: row;
+  font-size: 28rpx;
+}
+.wrap .reward_wrap .reward_item .row_item {
+  margin-left: 12rpx;
+  border-radius: 8rpx;
+  padding: 2rpx;
+}
+.wrap .reward_wrap .reward_item .add_rewrad {
+  margin-left: 12rpx;
+  padding: 2rpx;
+  color: #686868;
+}
 .wrap .question_wrap {
   font-size: 30rpx;
   padding: 24rpx;
@@ -61,6 +90,13 @@ page {
   margin-right: 24rpx;
   background-color: red;
   padding: 12rpx;
+  border-radius: 24rpx;
+}
+.wrap .bt_wrap .change_time {
+  background-color: #8b8b8b;
+  margin: 24rpx;
+  padding: 12rpx;
+  text-align: center;
   border-radius: 24rpx;
 }
 .wrap .bt_wrap .send {
@@ -120,4 +156,34 @@ page {
 .commodity_attr_box .change_wrap .item .change_title {
   text-align: center;
   font-size: 30rpx;
+}
+.commodity_attr_box_1 {
+  height: 200rpx;
+  width: 100%;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 2000;
+  background: #fff;
+  padding-top: 20rpx;
+  border-radius: 24rpx;
+  font-size: 32rpx;
+}
+.commodity_attr_box_1 .border_title {
+  text-align: center;
+  font-weight: 700;
+}
+.commodity_attr_box_1 .handle_wrap {
+  display: flex;
+  flex-direction: row;
+  padding: 24rpx;
+}
+.commodity_attr_box_1 .handle_wrap .handle_border {
+  flex: 4;
+  border-bottom: 1rpx solid #808080;
+  padding-left: 12rpx;
+}
+.commodity_attr_box_1 .handle_wrap .border_end {
+  flex: 1;
 }

@@ -13,7 +13,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    count = Number(options.count)
+    let count = options.count
+    if (count != 'guest') {
+      count = Number(options.count)
+    }
     let that = this
     wx.showLoading({
       title: "查询中",

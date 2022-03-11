@@ -8,7 +8,7 @@
   background-color: white;
   z-index: 2;
   width: 100%;
-		overflow-x: auto;
+	overflow-x: auto;
 
 }
 .head_second {
@@ -27,7 +27,40 @@
   height: 65rpx;
   border-radius: 50%;
 }
-
+/* 更多模块 */
+.naviModule_box {
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.naviModule {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.module {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 330rpx;
+  height: 50px;
+  margin: 7.5px;
+  border-radius: 20rpx;
+  border: 1rpx solid #ccc;
+}
+.leaderBoard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 690rpx;
+  height: 100rpx;
+  border-radius: 20rpx;
+  border: 1rpx solid #ccc;
+}
 .searchFrame{
   display: flex;
   justify-content: center;
@@ -242,6 +275,7 @@
       transform: translateY(100%);
   }
 }
+
 
 @media (prefers-color-scheme: dark) {
   image{

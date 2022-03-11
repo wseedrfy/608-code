@@ -1,52 +1,63 @@
+<wxs src="time.wxs" module="tools"></wxs>
 <!-- 开始比赛 -->
 <view class="wrap" wx:if="{{html==0}}">
   <view class="match_caption">社团比赛</view>
-  <view class="match_list_wrap" wx:for="{{content.question}}" wx:for-index="index" wx:for-item="item" wx:key="item">
-    <!-- 单选盒子 -->
-    <view class="dan_wrap" wx:if="{{item.type=='单选'}}">
-      <view class="match_title">{{index+1}}.{{item.title}}</view>
-      <view class="chang_item">
-        <radio-group bindchange="radioChange">
-          <label class="weui_cell" wx:for="{{item.arr}}" wx:key="item">
-            <view class="weui_cell__hd">
-              <radio value="{{item}}" />
-            </view>
-            <view class="weui_cell__bd">{{item}}</view>
-          </label>
-        </radio-group>
+  <form bindsubmit="subMatch">
+    <view class="match_list_wrap" wx:for="{{content.question}}" wx:for-index="index" wx:for-item="item" wx:key="item">
+      <!-- 单选盒子 -->
+      <view class="dan_wrap" wx:if="{{item.type=='单选'}}" >
+        <view class="match_title">{{index+1}}.{{item.title}}</view>
+        <view class="chang_item">
+          <radio-group bindchange="radioChange" name="{{item.title}}">
+            <label class="weui_cell" wx:for="{{item.arr}}" wx:key="item" >
+              <view class="weui_cell__hd">
+                <radio value="{{item}}" />
+              </view>
+              <view class="weui_cell__bd">{{item}}</view>
+            </label>
+          </radio-group>
+        </view>
       </view>
-    </view>
-    <!-- 多选盒子 -->
-    <view class="dan_wrap" wx:if="{{item.type=='多选'}}">
-      <view class="match_title">{{index+1}}.{{item.title}}</view>
-      <view class="chang_item">
-        <checkbox-group bindchange="checkboxChange">
-          <label class="weui_cell" wx:for="{{item.arr}}" wx:key="item">
-            <view class="weui_cell__hd">
-              <checkbox value="{{item}}" checked="{{item.checked}}" />
-            </view>
-            <view class="weui_cell__bd">{{item}}</view>
-          </label>
-        </checkbox-group>
+      <!-- 多选盒子 -->
+      <view class="dan_wrap" wx:if="{{item.type=='多选'}}" >
+        <view class="match_title">{{index+1}}.{{item.title}}</view>
+        <view class="chang_item">
+          <checkbox-group bindchange="checkboxChange" name="{{item.title}}">
+            <label class="weui_cell" wx:for="{{item.arr}}" wx:key="item">
+              <view class="weui_cell__hd">
+                <checkbox value="{{item}}" checked="{{item.checked}}" />
+              </view>
+              <view class="weui_cell__bd">{{item}}</view>
+            </label>
+          </checkbox-group>
+        </view>
       </view>
+      <!-- 填空盒子 -->
+      <view class="tian_wrap" wx:if="{{item.type=='填空'}}" >
+        <view class="tian_title">{{index+1}}.{{item.title}}</view>
+        <textarea class="handle" name="{{item.title}}"></textarea>
+      </view>
+      <!-- <button class="submit">提交</button> -->
     </view>
-    <!-- 填空盒子 -->
-    <view class="tian_wrap" wx:if="{{item.type=='填空'}}">
-      <view class="tian_title">{{index+1}}.{{item.title}}</view>
-      <textarea class="handle"></textarea>
-    </view>
-    <!-- <button class="submit">提交</button> -->
-  </view>
-  <button class="submit">提交</button>
+    <button class="submit" form-type="submit">提交</button>
+  </form>
 </view>
 <!-- 信息展示 -->
 <view wx:if="{{html==1}}">
   <view class="match_wrap">
     <view class="match_caption">主办信息</view>
     <view class="match_list_wrap">
-      <view class="list" wx:for="{{content.association}}" wx:key="item">
-        <view class="title">{{item.name}}</view>
-        <view class="content">{{item.detial}}</view>
+      <view class="list">
+        <view class="title">社团</view>
+        <view class="content">{{content.assoMess.association}}</view>
+      </view>
+      <view class="list">
+        <view class="title">负责人</view>
+        <view class="content">{{content.assoMess.name}}</view>
+      </view>
+      <view class="list">
+        <view class="title">联系方式</view>
+        <view class="content">{{content.assoMess.phone}}</view>
       </view>
     </view>
   </view>
@@ -54,15 +65,19 @@
   <view class="rule_wrap">
     <view class="rule_caption">比赛信息</view>
     <view class="rule_list_wrap">
-      <view class="rule_list" wx:for="{{2}}">
+      <view class="rule_list">
         <view class="rule_title">标题</view>
         <view class="rule_detail">{{content.Title}}</view>
+      </view>
+      <view class="rule_list">
+        <view class="rule_title">详情</view>
+        <view class="rule_detail">{{content.Text}}</view>
       </view>
     </view>
   </view>
   <!-- 报名按钮 -->
-  <view class="bt_wrap">
-    <view class="bt" bind:tap="clickme">立即报名</view>
+  <view class="bt_wrap" style="{{matchStatus==false?'background-color: #4d4d4d;':(tools.getDateTime(time,date)>0?'background-color: #63A1A0':'background-color: #6f8569')}}">
+    <view class="bt"  bind:tap="{{matchStatus==false?'matched':(tools.getDateTime(time,date)>0?'clickme':'timeOut')}}">{{matchStatus==false?'您已参与':(tools.getDateTime(time,date)>0?'立即报名':'已截止')}}</view>
   </view>
 </view>
 <!-- 报名弹窗 -->

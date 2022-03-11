@@ -68,7 +68,10 @@ exports.main = async (event, context) => {
         username: null,
         index: event.index,
         question: event.question,
-        assoMess: event.assoMess
+        assoMess: event.assoMess,
+        borderArr: event.borderArr,
+        date: event.date,
+        personArr: [],
       }
     })
   }
@@ -89,6 +92,19 @@ exports.main = async (event, context) => {
             personArr
           }
         })
+      }
+    })
+  }
+  // 提交问卷-->比赛
+  else if (type == 5) {
+    return await cloud.database().collection("assoMatchPush").add({
+      data: {
+        userMess: event.userMess,
+        matchDetail: event.matchDetail,
+        assoName: event.assoName,
+        assoCount: event.assoCount,
+        pusherCount: event.pusherCount,
+        match_id: event.match_id
       }
     })
   }
