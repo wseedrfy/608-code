@@ -332,7 +332,7 @@ Page({
         let result = await wx.cloud.callFunction({
             name: "daka",
             data: {
-                type:"getDakaStatus_ByHashId",
+                type:"getDakaRecord_ByHashId",
                 hashId:hashid,
             }
         })
@@ -368,7 +368,7 @@ Page({
         wx.cloud.callFunction({
             name: "daka",
             data: {
-                type:"updateDakaStatus_ByHashId",
+                type:"updateDakaRedord_ByHashId",
                 hashId:hashid,
             }
         })
@@ -455,7 +455,6 @@ Page({
         console.log('删除：',id)
     },
 
-     //子腾兄总结：这个就是async await的一个比较好的应用 在写的函数前面写async进行异步声明 在异步函数前面写await进行同步声明，代码整洁度比较高，但是这样性能可能差点。
      //获取数据交与页面渲染
      async getDaka_record(){
         let username = wx.getStorageSync('args').username;
@@ -466,10 +465,14 @@ Page({
             name: "daka",
             data: {
                 type:"getAllDakaRecord",
-                username:username
+                username:username,
+                is_delete:false,
             }
         })
-        let data = res.result.data
+        console.log(res);
+
+        let data = res.result.data;
+
         for(var i = 0; i < data.length; i++){
             var hashid = data[i].hashId
             var obj = {
@@ -479,21 +482,13 @@ Page({
                 task_end_time:data[i].endTime,
                 task_hashId:hashid,
                 task_lable1:data[i].lable1,
-                task_lable2:data[i].lable2
+                task_lable2:data[i].lable2,
+                count:data[i].count,
             }
-            //粤神秒法：根据hashId来查找
-            const result = await wx.cloud.callFunction({
-                name:"daka",
-                data: {
-                    type:"getDakaStatus_ByHashId",
-                    hashId:hashid,
-                }
-            })
-            obj.count = result.result.data[0].count;
 
             //判断该数据是否打卡的状态
-            let task_isDakaTemp = result.result.data[0].isDaka;
-            let daka_lastTime = new Date(result.result.data[0].daka_lastTime);
+            let task_isDakaTemp = data[i].isDaka;
+            let daka_lastTime = new Date(data[i].daka_lastTime);
 
             //为了防止第一次打卡没有daka_lastTime
             if(daka_lastTime != null){
@@ -517,6 +512,7 @@ Page({
                         data:{
                             type:"updateIsDaka",
                             hashId:hashid,
+                            isDaka:false,
                         }
                     })
                     // console.log("今天还没打卡咧~");
