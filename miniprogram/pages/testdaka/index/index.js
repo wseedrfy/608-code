@@ -54,15 +54,32 @@ Page({
     },
     savecanvas:function(){
         let that = this;
+        let w = wx.getSystemInfoSync().windowWidth/375
         let args = wx.getStorageSync('args');
         // console.log('123');
         wx.canvasToTempFilePath({
           canvasId: 'shareCanvas',
+          width:(260*w)*1,
+          height:(300*w)*1,
+          destHeight:(300*w)*6,
+          destWidth:(260*w)*6,
+        //   fileType:'png',
+          quality:1,
             success:function(res){
+                wx.saveImageToPhotosAlbum({
+                    filePath: res.tempFilePath,
+                    success(result){
+                      wx.showToast({
+                        title: '图片保存成功',
+                        icon: 'success',
+                        duration: 2000
+                      })
+                    }
+                  })
                 wx.getImageInfo({
                   src:res.tempFilePath,
                 }).then(res=>{
-                    // console.log(res);
+                    console.log(res);
                     let photo={
                         tempFiles:res.path,
                         imageHeight:res.height,
@@ -102,6 +119,65 @@ Page({
                 //   })
             }
         })
+
+    },
+    sharecanvas_new(){
+        let that =this;
+        let nickName= wx.getStorageSync('args').nickName;
+        let w = wx.getSystemInfoSync().windowWidth/375
+        let iconurl = wx.getStorageSync('args').iconUrl;
+        Promise.all([
+        wx.getImageInfo({//背景图片
+            src:"http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mccErIrW3xz*gbdII0f2XxWb532vMFM40Z1GLB1qy0PJerOEUFI*g*oZuZ35D1lhyDT.clH6YZMOs3.8EPCzGmVA!/r",
+          }),wx.getImageInfo({//头像
+            src: iconurl,
+          })
+        ]).then(res=>{
+            that.setData({
+                bgurl:res[0].path,
+                iconurl:res[1].path
+            })
+        wx.createSelectorQuery()
+        .select('#shareCanvas')
+        .fields({ node: true, size: true })
+        .exec((suc) => {
+            console.log(suc);
+            const canvas = suc[0].node;
+            const ctx = canvas.getContext('2d');
+            const dpr = wx.getSystemInfoSync().pixelRatio
+            canvas.width = res[0].width *dpr
+            canvas.height = res[0].height *dpr
+            ctx.scale(dpr, dpr)
+            ctx.fillRect(0, 0, 100, 100)
+            that.setData({
+                canvas,ctx
+            })
+            console.log(res[0].path);
+            const bgimg = canvas.createImage();
+            bgimg.src = 'http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mccErIrW3xz*gbdII0f2XxWb532vMFM40Z1GLB1qy0PJerOEUFI*g*oZuZ35D1lhyDT.clH6YZMOs3.8EPCzGmVA!/r';
+            bgimg.onload = () => {
+                ctx.drawImage(bgimg, 0, 0,);
+            };
+        })
+            
+
+            // const  bgimg= canvas.createImage()
+            // bgimg.onload = () => {
+            //     this.bgimg = bgimg
+            //   }
+            //   bgimg.src = this.data.bgurl
+            // const  iconimg= canvas.createImage()
+            // iconimg.onload = () => {
+            //     this.iconimg = iconimg
+            //   }
+            //   iconimg.src = this.data.iconurl
+            //   ctx.save()
+            // console.log("1");
+            // this.roundRect(ctx, 0, 0, 260*w, 300*w, 10)
+            // ctx.drawImage(this.bgimg,0,0,260*w,300*w)
+            // ctx.restore()
+            // console.log("3");
+        })
     },
     sharecanvas:function(){
         let arr =["http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mccErIrW3xz*gbdII0f2XxWb532vMFM40Z1GLB1qy0PJerOEUFI*g*oZuZ35D1lhyDT.clH6YZMOs3.8EPCzGmVA!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mccErIrW3xz*gbdII0f2XxWYzgI97WA4qJSXOKv*.4QFn3Eg2qYyEPp*FEqQ324LfbLGZlnl2rr4FS5hFO8u0ZTs!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcWo.8232YNIC*jkUYG2CaL02oENRjq4FgVYfJRGAQkUFIHqSHOgKJN7PwN8eneBAJ3Xuao69KnlIiWFTLek*xbA!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcWo.8232YNIC*jkUYG2CaL0U9WK413d9yuItDSS6iVc8eijth7NxjoSIIegtYx1e5ge50x9TYGSoI1tspf4Eo4Y!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcWo.8232YNIC*jkUYG2CaL3iIKgpjMwyrYqipU5hEly9ayItSyv33FzZ4ib5F9ve2AlY40CT8VGvo4aYHsf4PaI!/r","http://m.qpic.cn/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcWo.8232YNIC*jkUYG2CaL1gQqPp*29X8poNeV1JgSwuGeLqduMlr1RfAksUAUYIEPN37EwlqtdvxQ8SPnTaRYw!/b&bo=OAQFBTgEBQUBKQ4!&rf=viewer_4","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcddykwK5pChyfjlr.MGCQ8Mn1xgktufw23sOXfGiwfYDceE0Sm9dtSOJoxNd6a7mGPCV7NonZqctFYy6dWw2wn8!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcddykwK5pChyfjlr.MGCQ8OEqMkdr*5dA3.jQ3lK3l3d1xwMgnjGXM*Y9JKOWn5MTRAO1dRfUGwgWxQMZXcIruI!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcddykwK5pChyfjlr.MGCQ8OSyjf8imUzh5VQeto*9CH6YmXSw9chNfjsZZaZbpwP1*tcOKZUfgBNpQu6qOdbkn8!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcddykwK5pChyfjlr.MGCQ8MmLdH4z*DD*NoKPNIx.71uvCzHA4Lbvag7wPzA.B9B1LLHvxmZlw5RV9ozcVBUx1w!/r"]
@@ -122,13 +198,16 @@ Page({
         ])
         .then(res=>{
         const ctx = wx.createCanvasContext('shareCanvas')
+        // const canvas = wx.createOffscreenCanvas({ type: '2d' });
+        // const ctx = canvas.getContext('2d');
         console.log(res);
         //背景圆角
         ctx.save()
+        console.log("1");
         this.roundRect(ctx, 0, 0, 260*w, 300*w, 10)
         ctx.drawImage(res[0].path,0,0,260*w,300*w)
         ctx.restore()
-
+        console.log("3");
         //头像
         // ctx.save()
         // ctx.arc(26*w,26*w,18*w,0,2 * Math.PI)
@@ -150,21 +229,15 @@ Page({
         ctx.fillText('今天：'+this.data.dakatime,53*w,39*w)
         //透明色块
         ctx.save()
-        ctx.setGlobalAlpha(0)
+        ctx.setGlobalAlpha(0.2)
         ctx.setFillStyle('gray')
         ctx.fillRect(18, 180, 222, 50)
         ctx.restore()
         //色块上面的字体
         ctx.setFontSize(17*w)
         ctx.fillText(that.data.task_name+'打卡'+that.data.dakacount+'天！加油！',45*w,214*w)
-
-        
-
         ctx.draw()
         //头像
-        // ctx.beginPath()
-        // // 因为边缘描边存在锯齿，最好指定使用 transparent 填充
-        // ctx.setFillStyle('transparent')
         ctx.save()
         ctx.arc(26*w,26*w,18*w,0,2 * Math.PI)
         ctx.clip()

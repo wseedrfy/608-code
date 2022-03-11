@@ -1,4 +1,4 @@
-<wxs src="time.wxs" module="tools"></wxs>
+<!-- <wxs src="time.wxs" module="tools"></wxs> -->
 <!-- 开始比赛 -->
 <view class="wrap" wx:if="{{html==0}}">
   <view class="match_caption">社团比赛</view>

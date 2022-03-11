@@ -222,7 +222,7 @@
       background-repeat:no-repeat; 
       background-size:100% 100%;
       border-radius:40rpx;
-      /* background-color: gray; */
+      background-color: gray;
   }
   /* .complete_share_image{
     width: 100%;
@@ -235,7 +235,7 @@
   .complete_share_box{
       position: absolute;
       bottom: 0rpx;
-      z-index: 99999999;
+      z-index: 999999999999;
       width: 100%;
       height: 23%;
       display: flex;
@@ -371,9 +371,9 @@
   .dayclock_data_huadong_bg_bg{
     /* border-radius: 50%; */
     position: absolute;
-    top: 0rpx;
+    /* top: 0rpx; */
     right: 0rpx;
-    height: 120rpx;
+    height: 118rpx;
     text-align: center;
     /* background-color: rgba(221, 221, 221, 0.349); */
     line-height: 152rpx;
