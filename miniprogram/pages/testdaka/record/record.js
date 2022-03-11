@@ -171,7 +171,7 @@ Page({
       await db.collection('daka_record').where({username:username}).get().then(res=>{
         this.setData({len:res.data.length})
       })
-      let len =this.data.len 
+      let len =this.data.len
       console.log(len);
 
       var value = res.detail.value
@@ -246,7 +246,8 @@ Page({
             realLable1 = '运动'
         }
         var uid = this.guid();
-          //1.存入打卡任务记录表
+
+        //存入打卡任务记录表
         wx.cloud.callFunction({
               name: "daka",
               data: {
@@ -259,48 +260,33 @@ Page({
                   startTime: value.startTime,//
                   endTime: value.endTime,//
                   username:username,
-                  uuid:uid,
                   hashId:this.hash(username+value.task+uid),
-              }
-          }).then(res=>{
-              console.log(res);
-        })
-  
-        //2.存入打卡状态表
-        wx.cloud.callFunction({
-              name: "daka",
-              data: {
-                  type:"save_dakaStatus",
-                  task:value.task,
-                  //设置任务后初始化为false未打卡
                   isDaka:false,
-                  username:username,
+                  is_delete:false,
                   count:0,
-                  hashId:this.hash(username+value.task+uid),
-                  // daka_lastTime:new Date()
               }
           }).then(res=>{
-              console.log(res);
-              wx.hideLoading();
+            console.log(res);
+            wx.hideLoading();
+        })
+        .then(res=>{
+          var pages = getCurrentPages()
+          var prevPage = pages[pages.length - 2]
+          prevPage.setData({
+            mydata: {
+                count:0,
+                task_name:value.task,
+                task_cycle: cycleChinese,//
+                task_start_time: value.startTime,//
+                task_end_time: value.endTime,//
+                task_isDaka:false,
+                task_hashId:this.hash(username+value.task+uid),
+            }
           })
-          .then(res=>{
-            var pages = getCurrentPages()
-            var prevPage = pages[pages.length - 2]
-            prevPage.setData({
-              mydata: {
-                  count:0,
-                  task_name:value.task,
-                  task_cycle: cycleChinese,//
-                  task_start_time: value.startTime,//
-                  task_end_time: value.endTime,//
-                  task_isDaka:false,
-                  task_hashId:this.hash(username+value.task+uid),
-              }
-            })
-            wx.navigateBack({
-              delta: 1
-            })
+          wx.navigateBack({
+            delta: 1
           })
+        })
       }
     },
     
