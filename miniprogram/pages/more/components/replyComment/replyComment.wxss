@@ -1,0 +1,123 @@
+.ReplyCom_contain {
+  width: 95%;
+  display: flex;
+  padding: 13rpx 0;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.ReplyCom,
+.ReplyCom_background{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  font-family: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ReplyCom_background{
+  background-color: rgba(0, 0, 0, 0.171);
+  opacity: 0.6;
+  height: 100%;
+}
+.ReplyCom_contain{
+  position: relative;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  bottom: 30rpx;
+  width: 95%;
+  background-color: rgb(244, 244, 244);
+  padding: 0rpx;
+  z-index: 99999;
+  border-radius: 20rpx;
+}
+.ReplyComment{
+  width:100%;
+  height:80rpx;
+  background-color: rgba(255, 255, 255, 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ReplyCom_background{
+  background-color: rgba(0, 0, 0, 0.171);
+  opacity: 0.6;
+  height: 100%;
+}
+.ReplyCom_contain{
+  position: relative;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  bottom: 30rpx;
+  width: 95%;
+  padding: 0rpx;
+  z-index: 99999;
+}
+.ct-input {
+  position: fixed;
+  top: -110rpx;
+  right: 0rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: top;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20rpx 15rpx;
+  background: #F8F8F8;
+  z-index: 1000;
+}
+ 
+.ct-input input {
+  background-color: #dadada42;
+  height: 65rpx;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0rpx 30rpx;
+  border-radius: 20rpx;
+  flex: 1;
+  font-size: 28rpx;
+}
+ 
+.edit_show{
+  animation: edit_show .5s;
+}
+.edit_hide{
+  animation: edit_hide .5s;
+}
+@keyframes edit_show {
+  0% {
+      opacity: 0;
+      transform: translateY(100%);
+  }
+  100% {
+      opacity: 1;
+      transform: translateY(0%);
+  }
+}
+@keyframes edit_hide {
+  0% {
+      opacity: 1;
+      transform: translateY(0%);
+  }
+  100% {
+      opacity: 0;
+      transform: translateY(100%);
+  }
+}
+@media (prefers-color-scheme: dark) {
+  
+  .EditCom_contain .ReplyComment{
+    filter: invert(1) !important;
+    background-color: rgba(29, 29, 29, 0.267);
+  }
+}

@@ -69,7 +69,6 @@ Page({
     })
   },
   popUp: function () {
-    var showEdit = this.data.showEdit
     var that = this
     let edit_style = that.data.edit_style;
       // picker动画样式
@@ -79,6 +78,7 @@ Page({
       edit_style = 'edit_hide'
     }
     that.setData({ edit_style: edit_style })
+    console.log("edit_style",edit_style)
   },
   More: function () {
     var showEdit = this.data.showEdit
@@ -252,9 +252,6 @@ Page({
               }
               that.callFunction(type2,be_character,Input)
               that.ShowComment()
-              that.setData({
-                comEdit: !that.data.comEdit
-              })
               // 更新全局
               app.globalData.allList.forEach((item,outIndex) => {
                 item.forEach((e,i) => {
@@ -268,10 +265,10 @@ Page({
             },
             fail: err => {
               console.error
-              that.setData({
-                comEdit: !that.data.comEdit
-              })
             },
+          })
+          that.setData({
+            comEdit: !that.data.comEdit
           })
         } else if (res.cancel) {
           console.log('用户点击取消')

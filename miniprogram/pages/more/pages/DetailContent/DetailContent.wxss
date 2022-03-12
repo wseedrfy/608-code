@@ -147,9 +147,10 @@ swiper .wx-swiper-dot {
    justify-content: center;
    
  }
- .old_Comment_second textarea{
+ .old_Comment_second text{
    width:95%;
    font-size: 27rpx;
+   color:#4b4b4bbe;
  }
  .new_Comment_second{
    width:480rpx;
@@ -164,9 +165,10 @@ swiper .wx-swiper-dot {
    align-items: center;
    justify-content: center;
  }
- .new_Comment_second textarea{
+ .new_Comment_second text{
   width:95%;
   font-size: 27rpx;
+  color:#4b4b4bbe;
 }
  .Sending{
   color: rgba(63, 63, 63, 0.986);
@@ -202,7 +204,7 @@ swiper .wx-swiper-dot {
    position: relative;
    top: 35rpx;
  }
- .ReplyCom_contain .Send_Commend_Reply {
+ .ReplyCom_contain{
   width: 95%;
   display: flex;
   padding: 13rpx 0;
@@ -303,8 +305,8 @@ swiper .wx-swiper-dot {
   width:40rpx;
   height:40rpx;
 }
-.EditCom_background,
-.ReplyCom_background{
+.ReplyCom_background,
+.EditCom_background{
   background-color: rgba(0, 0, 0, 0.171);
   opacity: 0.6;
   height: 100%;
@@ -337,9 +339,9 @@ swiper .wx-swiper-dot {
   word-break: break-all;
   -webkit-box-orient: vertical;
 }
+.ReplyComment,
 .CopyComment,
-.DelComment,
-.ReplyComment{
+.DelComment{
   width:100%;
   height:80rpx;
   background-color: rgba(255, 255, 255, 0);
@@ -392,70 +394,6 @@ swiper .wx-swiper-dot {
   padding: 0rpx;
   z-index: 99999;
 }
-.replycheck{
-  width: 670rpx;
-  display: flex;
-  flex-direction: row;
-}
-.old_ReplyCom_input{
-  width: 100%;
-  min-height: 70rpx;
-  color: rgb(63, 63, 63);
-  background-color: rgb(244, 244, 244);
-  border-radius: 10rpx;
-  display: flex;
-  align-items: center;
-}
-
-.old_ReplyCom_input textarea{
- font-size: 30rpx;
- width: 100%;
- height: 70rpx!important;
-}
-.new_ReplyCom_input{
-  width:520rpx;
-  min-height: 56rpx;
-  background-color: rgb(244, 244, 244);
-  border-radius: 10rpx;
-  color: rgb(63, 63, 63);
-  display: flex;
-  align-items: center;
-}
-.new_ReplyCom_input textarea{
-  font-size: 30rpx;
-  width: 100%;
-  height: 70rpx!important;
-}
-
-.new_ReplyCom_input textarea{
-  width: 100%;
-  height: 70rpx!important;
-}
-.Reply_Sending{
-  height: 100%;
-  color: rgba(63, 63, 63, 0.986);
-  font-size: 26rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 40rpx;
-  background-color: rgba(38, 176, 255, 0.308);
-  padding: 0rpx;
-  box-shadow: 0px 0px 4px 0px #c7c7c7;
- }
- .Reply_Sending-hover{
-  position: relative;
-  top: 3rpx;
-  box-shadow:0px 0px 3px rgba(153, 153, 153, 0.507) inset;
- }
- .Reply_Send{
-  height: 60rpx;
-  width: 130rpx!important;
-  display: flex;
-  align-items: center;
-  position: relative;
-  left: 32rpx;
- }
  .fatherComment{
     min-height: 110rpx;
  }
