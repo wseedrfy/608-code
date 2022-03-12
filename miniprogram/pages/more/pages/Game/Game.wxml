@@ -1,0 +1,13 @@
+<view class="head">
+  <view style="height: {{statusBarHeight}}px;" />
+  <view class="head_second" style="height: {{lineHeight}}px;">
+    
+  </view>
+
+</view>
+<!-- 填充 -->
+<view style="height: {{(statusBarHeight + lineHeight)}}px;"></view>
+
+<TabScroll type="校友圈标签" tabItem="{{tabItem}}" showTab="{{true}}" />
+
+<InfoFlowCards />

@@ -69,17 +69,16 @@ Page({
     })
   },
   popUp: function () {
-    var showEdit = this.data.showEdit
-    var that = this
-    let edit_style = that.data.edit_style;
-      // picker动画样式
+    let edit_style = this.data.edit_style;
+    // picker动画样式
     if (edit_style == undefined || edit_style == 'edit_hide') {
       edit_style = 'edit_show'
     } else {
       edit_style = 'edit_hide'
     }
-    that.setData({ edit_style: edit_style })
+    this.setData({ edit_style })
   },
+
   More: function () {
     var showEdit = this.data.showEdit
     this.popUp()
@@ -94,9 +93,7 @@ Page({
     this.data.Commentindex = outIndex
     this.data.inIndex = inIndex
     this.popUp()
-    setTimeout(() => {
-      this.setData({ comEdit: !this.data.comEdit })
-    }, 200);
+    this.setData({ comEdit: !this.data.comEdit });
     if (outIndex != undefined) {
       if(inIndex === undefined){
         var nickName = this.data.CommentList[outIndex].nickName; // 该评论的评论者
@@ -124,7 +121,7 @@ Page({
   ReplyComment: function () {
       this.popUp()
       this.setData({
-        comEdit: false,
+        comEdit: !this.data.comEdit,
       })
       setTimeout(() => {
         this.setData({
@@ -291,6 +288,9 @@ Page({
         });
       }
     });
+    // 改变 edit_style
+    this.popUp()
+    // 改变 comEdit
     this.setData({
       comEdit: !this.data.comEdit
     })
@@ -562,7 +562,10 @@ Page({
     }
     if (!Starif) {
       // openusername.Star_time = new Date().getTime()
-      Star_User.push(args.username)
+      let obj = {
+        username: args.username
+      }
+      Star_User.push(obj)
       wx.showToast({
         title: '点赞成功',
         icon: "none"

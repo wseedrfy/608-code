@@ -28,11 +28,11 @@
 <!-- 填充 -->
 <view style="height: {{(statusBarHeight + lineHeight)}}px;"></view>
 
-<scroll-view class="container" bindscroll="{{more.funcA}}" style="height: {{windowHeight - (statusBarHeight + lineHeight)}}px;" scroll-y enhanced="{{true}}" show-scrollbar="{{false}}">
+<scroll-view class="container" bindscroll="{{more.funcA}}" style="height: {{windowHeight - (statusBarHeight + lineHeight)}}px;" scroll-y enhanced="{{true}}" show-scrollbar="{{false}}"  bounces="{{false}}" >
   <!-- 更多模块 -->
   <view class="naviModule_box">
     <view class="naviModule">
-      <view class="module module1">
+      <view class="module module1" id="Game" bindtap="navigate">
         <text>电子游戏</text>
         <view>{{m1.canIScroll}}</view>
       </view>
@@ -55,7 +55,7 @@
 
   <TabScroll style="z-index: 2; " type="校友圈标签" tabItem="{{tabitem}}" bind:setTab="setCurrentTab" id="TabScroll" showTab="true" />
 
-  <scroll-view bindscrolltoupper="onPullDownRefresh" upper-threshold="0" wx:if="{{campus_account!=true}}" class="page">
+  <scroll-view bindscrolltoupper="onPullDownRefresh" upper-threshold="0" wx:if="{{campus_account!=true}}" class="page" enhanced="{{true}}" bounces="{{false}}">
     <!-- bindtransition="waterTransition" bindanimationfinish="waterAnimationFinish" -->
     <swiper current="{{currentTab}}" bindchange="waterChange" style=" height: {{windowHeight - statusBarHeight - lineHeight - 28}}px;">
 
