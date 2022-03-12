@@ -34,6 +34,22 @@ Page({
                 task_isDaka:false,
                 count:0
             },
+            {
+                task_name:'示例：看电视',
+                task_cycle:['周一','周二','周三','周四','周五'],
+                task_start_time:'6:00',
+                task_end_time:'8:00',
+                task_isDaka:false,
+                count:0
+            },
+            {
+                task_name:'示例：看电视',
+                task_cycle:['周一','周二','周三','周四','周五'],
+                task_start_time:'6:00',
+                task_end_time:'8:00',
+                task_isDaka:false,
+                count:0
+            },
         ],
     },
     savecanvas:function(){
@@ -107,24 +123,95 @@ Page({
         .then(res=>{
         const ctx = wx.createCanvasContext('shareCanvas')
         console.log(res);
-        //背景
-        ctx.drawImage(res[0].path,0,0,260*w,232*w)
+        //背景圆角
+        ctx.save()
+        this.roundRect(ctx, 0, 0, 260*w, 300*w, 10)
+        ctx.drawImage(res[0].path,0,0,260*w,300*w)
+        ctx.restore()
+
+        //头像
+        // ctx.save()
+        // ctx.arc(26*w,26*w,18*w,0,2 * Math.PI)
+        // ctx.clip()
+        // ctx.drawImage(res[1].path,9*w,8*w,35*w,35*w)
+        // ctx.restore()
         
         //文字
+        // ctx.setFillStyle('#fff')
+        // ctx.setFontSize(13*w)
+        // ctx.fillText(nickName,54*w,24*w)
+        // ctx.setFontSize(9*w)
+        // ctx.fillText('今天：'+this.data.dakatime,54*w,39*w)
+        
         ctx.setFillStyle('#fff')
-        ctx.setFontSize(15*w)
-        ctx.fillText(nickName,54*w,24*w)
         ctx.setFontSize(11*w)
-        ctx.fillText('今天：'+this.data.dakatime,54*w,41*w)
-        ctx.setFontSize(20*w)
-        ctx.fillText(that.data.task_name+'打卡'+that.data.dakacount+'天！加油！',28*w,180*w)
+        ctx.fillText(nickName,54*w,22*w)
+        ctx.setFontSize(11*w)
+        ctx.fillText('今天：'+this.data.dakatime,53*w,39*w)
+        //透明色块
+        ctx.save()
+        ctx.setGlobalAlpha(0)
+        ctx.setFillStyle('gray')
+        ctx.fillRect(18, 180, 222, 50)
+        ctx.restore()
+        //色块上面的字体
+        ctx.setFontSize(17*w)
+        ctx.fillText(that.data.task_name+'打卡'+that.data.dakacount+'天！加油！',45*w,214*w)
+
+        
+
+        ctx.draw()
+        //头像
+        // ctx.beginPath()
+        // // 因为边缘描边存在锯齿，最好指定使用 transparent 填充
+        // ctx.setFillStyle('transparent')
+        ctx.save()
         ctx.arc(26*w,26*w,18*w,0,2 * Math.PI)
         ctx.clip()
         ctx.drawImage(res[1].path,9*w,8*w,35*w,35*w)
-        ctx.stroke()
-        ctx.draw()
+        ctx.restore()
+        ctx.draw(true)
       })
     },
+    roundRect(ctx, x, y, w, h, r) {
+        console.log('2');
+        // 开始绘制
+        ctx.beginPath()
+        // 因为边缘描边存在锯齿，最好指定使用 transparent 填充
+        ctx.setFillStyle('transparent')
+        // ctx.setStrokeStyle('transparent')
+        // 绘制左上角圆弧
+        ctx.arc(x + r, y + r, r, Math.PI, Math.PI * 1.5)
+    
+        // 绘制border-top
+        ctx.moveTo(x + r, y)
+        ctx.lineTo(x + w - r, y)
+        ctx.lineTo(x + w, y + r)
+        // 绘制右上角圆弧
+        ctx.arc(x + w - r, y + r, r, Math.PI * 1.5, Math.PI * 2)
+    
+        // 绘制border-right
+        ctx.lineTo(x + w, y + h - r)
+        ctx.lineTo(x + w - r, y + h)
+        // 绘制右下角圆弧
+        ctx.arc(x + w - r, y + h - r, r, 0, Math.PI * 0.5)
+    
+        // 绘制border-bottom
+        ctx.lineTo(x + r, y + h)
+        ctx.lineTo(x, y + h - r)
+        // 绘制左下角圆弧
+        ctx.arc(x + r, y + h - r, r, Math.PI * 0.5, Math.PI)
+    
+        // 绘制border-left
+        ctx.lineTo(x, y + r)
+        ctx.lineTo(x + r, y)
+        
+        ctx.fill()
+        // ctx.stroke()
+        ctx.closePath()
+        // 剪切
+        ctx.clip()
+      },
     startFun:function(e){
         console.log(e.currentTarget.id);
         this.setData({
@@ -213,9 +300,9 @@ Page({
     // 手指触摸动作结束
     touchendX() {
         let recordX;
-        if (movedistance <=-100) { // 移动达到距离就动画显示全部操作项
+        if (movedistance <=-50) { // 移动达到距离就动画显示全部操作项
           recordX = -130;           //滑动后右边显示的范围
-        } else if (-100<movedistance){// 移动未达到距离即还原
+        } else if (-50<movedistance){// 移动未达到距离即还原
           recordX=0
         }
         this.slideAnimation(recordX, 500);
@@ -224,7 +311,7 @@ Page({
     slideAnimation(recordX, time) {
         let animation = wx.createAnimation({
           duration: time,
-          timingFunction: 'ease'
+          timingFunction: 'liner'
         });
         animation.translate(recordX + 'rpx', 0).step()
         this.setData({
@@ -351,7 +438,7 @@ Page({
         let result = await wx.cloud.callFunction({
             name: "daka",
             data: {
-                type:"getDakaStatus_ByHashId",
+                type:"getDakaRecord_ByHashId",
                 hashId:hashid,
             }
         })
@@ -387,7 +474,7 @@ Page({
         wx.cloud.callFunction({
             name: "daka",
             data: {
-                type:"updateDakaStatus_ByHashId",
+                type:"updateDakaRedord_ByHashId",
                 hashId:hashid,
             }
         })
@@ -474,19 +561,7 @@ Page({
         console.log('删除：',id)
     },
 
-    dakacallFunction :function(){
-        let username = wx.getStorageSync('args').username;
-        const res= wx.cloud.callFunction({
-            name: "daka",
-            data: {
-                type:"getAllDakaRecord",
-                username:username
-            }
-        })
-        console.log(res);
-    },
-     //子腾兄总结：这个就是async await的一个比较好的应用 在写的函数前面写async进行异步声明 在异步函数前面写await进行同步声明，代码整洁度比较高，但是这样性能可能差点。
-     //获取数据交与页面渲染
+    //获取数据交与页面渲染
     async getDaka_record(){
         let username = wx.getStorageSync('args').username;
         //用username查找uuid
@@ -497,7 +572,8 @@ Page({
             name: "daka",
             data: {
                 type:"getAllDakaRecord",
-                username:username
+                username:username,
+                is_delete:false,
             }
         })
         console.log(res);
@@ -511,21 +587,13 @@ Page({
                 task_end_time:data[i].endTime,
                 task_hashId:hashid,
                 task_lable1:data[i].lable1,
-                task_lable2:data[i].lable2
+                task_lable2:data[i].lable2,
+                count:data[i].count,
             }
-            //粤神秒法：根据hashId来查找
-            const result = await wx.cloud.callFunction({
-                name:"daka",
-                data: {
-                    type:"getDakaStatus_ByHashId",
-                    hashId:hashid,
-                }
-            })
-            obj.count = result.result.data[0].count;
 
             //判断该数据是否打卡的状态
-            let task_isDakaTemp = result.result.data[0].isDaka;
-            let daka_lastTime = new Date(result.result.data[0].daka_lastTime);
+            let task_isDakaTemp = data[i].isDaka;
+            let daka_lastTime = new Date(data[i].daka_lastTime);
 
             //为了防止第一次打卡没有daka_lastTime
             if(daka_lastTime != null){
@@ -549,6 +617,7 @@ Page({
                         data:{
                             type:"updateIsDaka",
                             hashId:hashid,
+                            isDaka:false,
                         }
                     })
                     // console.log("今天还没打卡咧~");
@@ -569,11 +638,11 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad() {
-        // wx.showLoading({
-        //   title: '加载中',
-        //   mask:true
-        // })
-        // this.getDaka_record().then(res=>{wx.hideLoading()})
+        wx.showLoading({
+          title: '加载中',
+          mask:true
+        })
+        this.getDaka_record().then(res=>{wx.hideLoading()})
         wx.setNavigationBarTitle({
             title: 'We打卡',
         });

@@ -38,55 +38,55 @@ Page({
         id: "card"
       },
     ],
-    index_list:[
+    index_list: [
       {
-        img:"img/freshman.png",
-        name:"招新报名",
-        tapName:"freshman"
+        img: "img/freshman.png",
+        name: "招新报名",
+        tapName: "freshman"
       },
       {
-        img:"img/match.png",
-        name:"赛事发布",
-        tapName:"showModal"
+        img: "img/match.png",
+        name: "赛事发布",
+        tapName: "match"
       },
       {
-        img:"img/change.png",
-        name:"编辑资料",
-        tapName:"edit"
+        img: "img/change.png",
+        name: "编辑资料",
+        tapName: "edit"
       },
       {
-        img:"img/delete.png",
-        name:"注销身份",
-        tapName:"delete"
+        img: "img/delete.png",
+        name: "注销身份",
+        tapName: "delete"
       },
     ],
-    data_list:[
+    data_list: [
       {
-        img:"img/freshman.png",
-        name:"招新数据",
-        tap:"loading"
+        img: "img/freshman.png",
+        name: "招新数据",
+        tap: "goFreshmanData"
       },
       {
-        img:"img/match.png",
-        name:"赛事反馈",
-        tap:"loading"
+        img: "img/match.png",
+        name: "赛事反馈",
+        tap: "loading"
       },
       {
-        img:"img/delete.png",
-        name:"推广数据",
-        tap:"loading"
+        img: "img/delete.png",
+        name: "推广数据",
+        tap: "loading"
       },
       {
-        img:"img/delete.png",
-        name:"创作中心",
-        tap:"loading"
+        img: "img/delete.png",
+        name: "创作中心",
+        tap: "loading"
       },
     ],
     HtmlStatus: 0,//0为申请 1审核中 2审核通过  3注销中
     assoMess: "",
-    showModalStatus: false,
+    // showModalStatus: false,
     photoStatus: false,
-    showModalStatus:false
+    // showModalStatus:false
   },
 
   /**
@@ -103,11 +103,14 @@ Page({
     })
     this.search(card)
   },
+  // goMatch(){},
   // 查询用户状态
   search(card) {
-    card = Number(card)
+    if (card != 'guest') {
+      card = Number(card)
+    }
     db.collection("associationApply").where({ count: card }).get().then(res => {
-      // console.log(res);/
+      // console.log(res);
       if (res.data.length == 0) {
         this.setData({
           HtmlStatus: 0
@@ -154,19 +157,30 @@ Page({
       }
     })
   },
+  // 招新数据
+  goFreshmanData() {
+    wx.navigateTo({
+      url: '/pages/association/freshmanData/freshmanData',
+      success: (result) => {
+
+      },
+      fail: () => { },
+      complete: () => { }
+    });
+  },
   // 开发中
-  loading(){
+  loading() {
     wx.showToast({
       title: '功能开发中',
       icon: 'none',
       image: '',
       duration: 1500,
       mask: false,
-      success: (result)=>{
-        
+      success: (result) => {
+
       },
-      fail: ()=>{},
-      complete: ()=>{}
+      fail: () => { },
+      complete: () => { }
     });
   },
   formSubmit(e) {
@@ -227,50 +241,50 @@ Page({
     }
   },
   // 发布信息弹窗
-  clickme() {
-    this.showModal();
-  },
-  showModal: function () {
-    // 显示遮罩层
-    var animation = wx.createAnimation({
-      duration: 200,
-      timingFunction: "linear",
-      delay: 0
-    })
-    this.animation = animation
-    animation.translateY(300).step()
-    this.setData({
-      animationData: animation.export(),
-      showModalStatus: true
-    })
-    setTimeout(function () {
-      animation.translateY(0).step()
-      this.setData({
-        animationData: animation.export()
-      })
-    }.bind(this), 200)
-  },
-  //隐藏对话框
-  hideModal: function () {
-    // 隐藏遮罩层
-    var animation = wx.createAnimation({
-      duration: 200,
-      timingFunction: "linear",
-      delay: 0
-    })
-    this.animation = animation
-    animation.translateY(300).step()
-    this.setData({
-      animationData: animation.export(),
-    })
-    setTimeout(function () {
-      animation.translateY(0).step()
-      this.setData({
-        animationData: animation.export(),
-        showModalStatus: false
-      })
-    }.bind(this), 200)
-  },
+  // clickme() {
+  //   this.showModal();
+  // },
+  // showModal: function () {
+  //   // 显示遮罩层
+  //   var animation = wx.createAnimation({
+  //     duration: 200,
+  //     timingFunction: "linear",
+  //     delay: 0
+  //   })
+  //   this.animation = animation
+  //   animation.translateY(300).step()
+  //   this.setData({
+  //     animationData: animation.export(),
+  //     showModalStatus: true
+  //   })
+  //   setTimeout(function () {
+  //     animation.translateY(0).step()
+  //     this.setData({
+  //       animationData: animation.export()
+  //     })
+  //   }.bind(this), 200)
+  // },
+  // //隐藏对话框
+  // hideModal: function () {
+  //   // 隐藏遮罩层
+  //   var animation = wx.createAnimation({
+  //     duration: 200,
+  //     timingFunction: "linear",
+  //     delay: 0
+  //   })
+  //   this.animation = animation
+  //   animation.translateY(300).step()
+  //   this.setData({
+  //     animationData: animation.export(),
+  //   })
+  //   setTimeout(function () {
+  //     animation.translateY(0).step()
+  //     this.setData({
+  //       animationData: animation.export(),
+  //       showModalStatus: false
+  //     })
+  //   }.bind(this), 200)
+  // },
   // 选择图片
   add_img() {
     wx.chooseImage({
@@ -290,11 +304,11 @@ Page({
     console.log(e);
   },
   // 普通活动
-  activity(){
+  activity() {
     wx.navigateTo({
-      url: '/pages/association/activity/activity?count='+card,
-      success: (result)=>{
-        
+      url: '/pages/association/activity/activity?count=' + card,
+      success: (result) => {
+
       },
     });
   },
@@ -340,9 +354,9 @@ Page({
     });
   },
   // 编辑资料
-  edit(){
+  edit() {
     wx.navigateTo({
-      url: '/pages/association/edit/edit?count='+card,
+      url: '/pages/association/edit/edit?count=' + card,
     })
   },
 

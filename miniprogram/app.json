@@ -59,7 +59,8 @@
         "match_detail/match_detail",
         "add_question/add_question",
         "edit/edit",
-        "freshmanData/freshmanData"
+        "freshmanData/freshmanData",
+        "freshmanDetail/freshmanDetail"
       ]
     },
     {

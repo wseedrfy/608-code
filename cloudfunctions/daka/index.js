@@ -10,12 +10,10 @@ exports.main = async (event, context) => {
     switch(event.type){
         case "save_dakaRecord":
             return save_dakaRecord(event);
-        case "save_dakaStatus":
-            return save_dakaStatus(event);
-        case "getDakaStatus_ByHashId":
-            return await getDakaStatus_ByHashId(event);
-        case "updateDakaStatus_ByHashId":
-            return await updateDakaStatus_ByHashId(event);
+        case "getDakaRecord_ByHashId":
+            return await getDakaRecord_ByHashId(event);
+        case "updateDakaRedord_ByHashId":
+            return await updateDakaRedord_ByHashId(event);
         case "delDakaRecord_ByHashId":
             return delDakaRecord_ByHashId(event);
         case "getAllDakaRecord":
@@ -35,30 +33,21 @@ function save_dakaRecord(event){
             startTime:event.startTime,
             endTime:event.endTime,
             username:event.username,
-            uuid:event.uuid,
             hashId:event.hashId,
-        }
-    })
-}
-
-function save_dakaStatus(event){
-    return db.collection("daka_status").add({
-        data:{
-            task:event.task,
             isDaka:event.isDaka,
-            username:event.username,
+            is_delete:event.is_delete,
             count:event.count,
-            hashId:event.hashId,
+            daka_lastTime:event.daka_lastTime,
         }
     })
 }
 
-async function getDakaStatus_ByHashId(event){
-    return await db.collection("daka_status").where({hashId:event.hashId}).get();
+async function getDakaRecord_ByHashId(event){
+    return await db.collection("daka_record").where({hashId:event.hashId}).get();
 }
 
-async function updateDakaStatus_ByHashId(event){
-    return await db.collection("daka_status").where({
+async function updateDakaRedord_ByHashId(event){
+    return await db.collection("daka_record").where({
         hashId:event.hashId
     }).update({
         data:{
@@ -73,21 +62,29 @@ async function updateDakaStatus_ByHashId(event){
 function delDakaRecord_ByHashId(event){
     return db.collection("daka_record").where({
         hashId:event.hashId
-    }).remove().then(res=>{
+    }).update({
+        data: {
+            is_delete:true
+        }
+    }).then(res=>{
         console.log(res);
     })
 }
 
 async function getAllDakaRecord(event){
-    return await db.collection("daka_record").where({username:event.username}).get()
+    return await db.collection("daka_record").where({
+        username:event.username,
+        is_delete:event.is_delete,
+    }).get()
 }
 
 function updateIsDaka(event){
-    return db.collection("daka_status").where({
+    return db.collection("daka_record").where({
         hashId:event.hashId
     }).update({
         data:{
-            isDaka:false
+            isDaka:event.isDaka,
         }
     })
 }
+

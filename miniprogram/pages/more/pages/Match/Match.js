@@ -1,5 +1,6 @@
 // pages/more/pages/Match/Match.js
-let count=''
+let count = ''
+const db = wx.cloud.database()
 Page({
 
   /**
@@ -35,28 +36,75 @@ Page({
       },
     ],
     html: 1,
-    content: {}
+    content: {},
+    matchStatus: false,//false不能参与  true能参与
+    time:Date.now()
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // console.log(options);
-    let eventChannel = this.getOpenerEventChannel();
-    let args=wx.getStorageSync('args');
-    count=args.username
-    eventChannel.on('setContentData', (content) => {
-      console.log(content);
-      this.setData({
-        content
-      })
+    let jsonStr = decodeURIComponent(options.content)
+    var content = JSON.parse(jsonStr) // 将JSON帖子信息转成对象
+    this.setData({ content })
+    let args = wx.getStorageSync('args');
+    count = args.username
+    // 比赛状态
+    this.judgeMatch(count, content._id)
+    //查询点击状态
+    wx.cloud.callFunction({
+      name: "associationSend",
+      data: {
+        type: 4,
+        username: count,
+        _id: content._id
+      }
+    }).then(res => {
+      // console.log(res);
     })
+  },
+  // 验证是否已经参三
+  judgeMatch(count, _id) {
+    db.collection("assoMatchPush").where({ match_id: _id, pusherCount: count }).get().then(res => {
+      if (res.data.length == 0) {
+        this.setData({ matchStatus: true })
+      }
+      else {
+        this.setData({ matchStatus: false })
+      }
+    })
+  },
+  // 已参与
+  matched() {
+    wx.showToast({
+      title: '您已参与',
+      icon: 'none',
+      image: '',
+      duration: 1500,
+      mask: false,
+      success: (result) => {
+
+      },
+    });
   },
   // 弹窗
   //点击我显示底部弹出框
   clickme: function () {
     this.showModal();
+  },
+  // 已截止
+  timeOut(){
+    wx.showToast({
+      title: '已截止',
+      icon: 'none',
+      image: '',
+      duration: 1500,
+      mask: false,
+      success: (result)=>{
+        
+      },
+    });
   },
 
   //显示对话框
@@ -157,7 +205,8 @@ Page({
                   matchDetail: matchDetail,
                   assoName: this.data.content.assoMess.association,
                   assoCount: this.data.content.assoMess.card,
-                  pusherCount:count
+                  pusherCount: count,
+                  match_id: this.data.content._id
                 }
               }).then(res => {
                 console.log(res);
