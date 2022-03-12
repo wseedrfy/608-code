@@ -60,20 +60,30 @@ Page({
     currentTab: 0, // 当前 swiper-item
     iconUrl: '',    // 头像地址
     school: '',    // 判断游客用
+
     // 控制动画
     showLoading: 0, // 动画显隐
     animation: '',
     scrollTop: 0,   // 校园圈滑动高度
+
     // 发布
     showPopUps: false, // 弹窗显隐
     showModel: false,  // 快速发布显隐
   },
   TimeOut: 1,
-  getScroll(e) {
-    console.log(e.detail);
-    this.setData({
-      scrollTop:e.detail
-    })
+  canWaterScroll() {
+    console.log(123);
+    let allList = this.data.allList;
+    for(let i in allList) {
+      this.selectComponent(`#waterFlowCards${i}`).setData({ifScroll:true})
+    }
+  },
+  cannotWaterScroll() {
+    console.log(123);
+    let allList = this.data.allList;
+    for(let i in allList) {
+      this.selectComponent(`#waterFlowCards${i}`).setData({ifScroll:false})
+    }
   },
   // 卡片内外部渲染一致
   setAllList(e, type) {
