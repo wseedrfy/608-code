@@ -70,7 +70,8 @@ Page({
           data: {
             username,
             formData,
-            index
+            index,
+            read: false
           }
         }).then(res => {
           wx.hideLoading();
@@ -91,18 +92,18 @@ Page({
     });
   },
   // timeOut
-  timeOut(){
+  timeOut() {
     wx.showToast({
       title: '报名已截止',
       icon: 'none',
       image: '',
       duration: 1500,
       mask: false,
-      success: (result)=>{
-        
+      success: (result) => {
+
       },
-      fail: ()=>{},
-      complete: ()=>{}
+      fail: () => { },
+      complete: () => { }
     });
   },
   // nosubm
