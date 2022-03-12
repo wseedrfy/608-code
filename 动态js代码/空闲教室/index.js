@@ -200,7 +200,7 @@ Page({
               if (day1fWeek == 0) {
                 whichWeek = whichWeek - 1;
               }
-              return whichWeek;
+              return whichWeek + 1;
             }
               let data2 = {
                 order: 'asc',
@@ -209,7 +209,7 @@ Page({
                 jc : String(jc),
                 isqy: '1',
                 page: '1',
-                zc: getweekString() ,
+                zc: getweekString(),
                 xnxqdm: new Date(that.data.date).getMonth() < 7 ? (new Date(that.data.date).getFullYear() - 1) + '02' : (new Date(that.data.date).getFullYear()) + '01',
                 xq: String(new Date(that.data.date).getDay() + 1),
                 ssjzwdm: that.data.classArray[that.data.classIndex].dm

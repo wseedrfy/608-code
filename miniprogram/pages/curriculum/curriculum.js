@@ -141,7 +141,6 @@ Page({
     })
   },
   onLoad: function (options) {
-    console.log("onload");
     let windowHeight = wx.getSystemInfoSync().windowHeight
     let width = wx.getSystemInfoSync().windowWidth;
     // 屏幕高度 - (状态栏 + 头部) - 周次
@@ -150,7 +149,7 @@ Page({
 
     let args = wx.getStorageSync('args');
     let scheduleLength = [];
-    // 处理得到课表长度
+    // 处理课表长度
     if(args.scheduleLength) {                       
       for(let i = 1; i <= args.scheduleLength; i++){
         scheduleLength.push(i);
@@ -175,20 +174,18 @@ Page({
       wx.getSavedFileList({
         success(res) {
           for(let i in res.fileList) {
-            res.fileList[i].filePath == fileUrl ? that.setData({backgroundUrl:res.fileList[i].filePath}) : ''
+            res.fileList[i].filePath == fileUrl ? that.setData({backgroundUrl:res.fileList[i].filePath}) : '';
           }
         }
       })
-      console.log(that.data.backgroundUrl);
     }
+    // 渲染自定义背景
     fileUrl ? getUrlFromLoad(fileUrl) : '';
+    // 判断是否登录
     app.loginState();
-    
   },
 
   onShow: function (options) {
-    console.log("onshow");
-    
     this.kb(util.getweekString());
     this.initWeek();
     this.initWlistPoint();
@@ -196,9 +193,9 @@ Page({
     let theme = wx.getStorageSync('theme');
     this.setData({ theme });
   },
+
   onReady() {
     console.log("onready");
-    
   },
   onShareAppMessage: function (res) {
     return {
@@ -592,7 +589,10 @@ Page({
   changeCurriculum: function (addCurriculum, deCurriculum) {
     // console.log("进入函数");
     let allCurriculum = wx.getStorageSync('personalInformation').curriculum;
-
+    // 开发模式没有课表
+    if(!allCurriculum) {
+      return;
+    }
     if(deCurriculum) {
       for (var i = 0; i < deCurriculum.length; i++) {
         for (var g = 0; g < allCurriculum.length; g++) {

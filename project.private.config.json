@@ -137,6 +137,12 @@
                     "pathName": "pages/testdaka/index/index",
                     "query": "",
                     "scene": null
+                },
+                {
+                    "name": "电子游戏",
+                    "pathName": "pages/more/pages/Game/Game",
+                    "query": "",
+                    "scene": null
                 }
             ]
         }

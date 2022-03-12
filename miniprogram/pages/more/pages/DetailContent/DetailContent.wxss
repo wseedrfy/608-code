@@ -350,10 +350,10 @@ swiper .wx-swiper-dot {
   align-items: center;
 }
 .edit_show{
-  animation: edit_show .5s;
+  animation: edit_show 0.5s;
 }
 .edit_hide{
-  animation: edit_hide .5s;
+  animation: edit_hide 0.5s;
 }
 @keyframes edit_show {
   0% {
