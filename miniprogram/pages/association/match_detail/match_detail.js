@@ -28,7 +28,8 @@ Page({
     id: "",
     addBorderModal: false,
     color: ['#066fd8', '#6fd806', '#d8066f', '#6f06d8'],
-    borderArr: []
+    borderArr: [],
+    date: ""
   },
 
   /**
@@ -48,7 +49,9 @@ Page({
           tempContent: data.question,
           imgUrl: data.imgUrl,
           weatherChange: true,
-          id: id
+          id: id,
+          date: data.date,
+          borderArr:data.borderArr
         })
       })
     }
@@ -57,6 +60,12 @@ Page({
       this.setData({
         assoMess: res.data[0].hostMess
       })
+    })
+  },
+  // 时间选择
+  bindDateChange(e) {
+    this.setData({
+      date: e.detail.value
     })
   },
   clickme() {
@@ -211,6 +220,18 @@ Page({
         },
       });
     }
+    else if (!this.data.date) {
+      wx.showToast({
+        title: '请选择截止时间',
+        icon: 'none',
+        image: '',
+        duration: 1500,
+        mask: false,
+        success: (result) => {
+
+        },
+      });
+    }
     else {
       wx.showLoading({
         title: "保存中",
@@ -246,7 +267,8 @@ Page({
                     CoverWidth,
                     ShowHeight,
                     assoMess: this.data.assoMess,
-                    borderArr: this.data.borderArr
+                    borderArr: this.data.borderArr,
+                    date: this.data.date
                   }
                 }).then(res => {
                   wx.hideLoading();
@@ -277,7 +299,8 @@ Page({
                     CoverWidth,
                     ShowHeight,
                     assoMess: this.data.assoMess,
-                    borderArr: this.data.borderArr
+                    borderArr: this.data.borderArr,
+                    date: this.data.date
                   }
                 }).then(res => {
                   wx.hideLoading();

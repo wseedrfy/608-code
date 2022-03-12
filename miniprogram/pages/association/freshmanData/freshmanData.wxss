@@ -1,1 +1,23 @@
-/* pages/association/freshmanData/freshmanData.wxss */
+page {
+  background-color: #f1f1f1;
+}
+.wrap {
+  font-size: 32rpx;
+}
+.wrap .caption {
+  text-align: center;
+}
+.wrap .item_wrap .content_wrap {
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  padding: 12rpx;
+  margin: 12rpx;
+  border-radius: 12rpx;
+}
+.wrap .item_wrap .content_wrap .from {
+  flex: 3;
+}
+.wrap .item_wrap .content_wrap .status {
+  flex: 1;
+}

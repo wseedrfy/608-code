@@ -61,7 +61,7 @@ Page({
   // 提交报名表单
   submit(e) {
     let formData = e.detail.value;
-    let index = this.data.content.association[0].detail
+    let index = this.data.content.association[3].detail
     wx.showLoading({
       title: "报名中",
       mask: true,
