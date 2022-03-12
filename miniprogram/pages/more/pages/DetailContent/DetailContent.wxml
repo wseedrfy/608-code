@@ -89,7 +89,7 @@
              复制
           </view>
           <view class="Line"></view>
-          <view class="DelComment" bindtap="DelComment" wx:if="{{ShowDelCom==1}}" style="color: rgba(255, 0, 0, 0.753);">
+          <view class="DelComment" bindtap="DelComment" wx:if=" {{ShowDelCom==1}}" style="color: rgba(255, 0, 0, 0.753);">
              删除
           </view>
         </view>
