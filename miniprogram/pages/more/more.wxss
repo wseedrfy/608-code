@@ -283,6 +283,9 @@
 
 
 @media (prefers-color-scheme: dark) {
+  .container {
+    filter: invert(0) !important;
+  }
   image{
     filter: invert(1) !important;
   }
