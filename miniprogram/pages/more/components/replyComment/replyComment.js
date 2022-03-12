@@ -7,7 +7,7 @@ Component({
   properties: {
     edit_style: {
       type: String,
-      value: ""
+      value: "edit_show"
     },
     comReply:{
       type: String,
@@ -22,6 +22,7 @@ Component({
   data: {
     isChecked: true,
     CommentList: [],
+    showComtBox: false,
     showEdit: false, // 控制评论区弹窗显示
     comEdit: false, // 评论区复制/删除弹窗
     CardID: "",
@@ -31,35 +32,42 @@ Component({
     Starurl: "../../../../images/zan1.png",
     // edit_style: 'edit_hide',
   },
-  async getWindowData () {
-    let h = await app.getSystemData('windowHeight')
-    this.setData({ windowHeight: h })
-  },
+  
   
   lifetimes: {
     
   },
   attached: function () {
     // 在组件实例进入页面节点树时执行
-    console.log(this.data.edit_style)
-    console.log("2333")
     this.getWindowData()
   },
   /**
    * 组件的方法列表
    */
   methods: {
+    // 激活焦点
+    showComtBox () {
+      this.setData({ showComtBox: true })
+    },
+   
+    // 失去焦点
+    comtBlur () {
+      this.setData({ showComtBox: false })
+    },
     popUp: function () {
-      var that = this
-      let edit_style = that.data.edit_style;
-        // picker动画样式
+      let edit_style = this.data.edit_style;
+      // picker动画样式
       if (edit_style == undefined || edit_style == 'edit_hide') {
         edit_style = 'edit_show'
       } else {
         edit_style = 'edit_hide'
       }
-      console.log("edit_style",edit_style)
-      that.setData({ edit_style: edit_style })
+      console.log("2333")
+      this.setData({ edit_style })
+    },
+    async getWindowData () {
+      let h = await app.getSystemData('windowHeight')
+      this.setData({ windowHeight: h })
     },
 
     ReplyComment: function () {

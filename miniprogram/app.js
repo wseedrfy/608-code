@@ -146,6 +146,7 @@ App({
   },
    
   queryNodes (id, attr) {
+    if(attr!=null){
     return new Promise((resolve, reject) => {
       let query = wx.createSelectorQuery()
       query.select(id).boundingClientRect()
@@ -153,6 +154,7 @@ App({
         resolve(res[0][attr])
       })
     })
+  }
   }
 })
 //app.json校友圈
