@@ -7,11 +7,11 @@ Component({
   properties: {
     edit_style: {
       type: String,
-      value: "edit_show"
+      value: "edit_hide"
     },
     comReply:{
       type: String,
-      value: " "
+      value: "False"
     }
     
   },
@@ -24,12 +24,12 @@ Component({
     CommentList: [],
     showComtBox: false,
     showEdit: false, // 控制评论区弹窗显示
-    comEdit: false, // 评论区复制/删除弹窗
-    CardID: "",
-    inIndex: -1,
-    ShowDelCom: 0, // 评论区控制是否出现“删除”按钮
-    Commentindex: 0, // 评论区的 index
-    Starurl: "../../../../images/zan1.png",
+    // showModal: false
+    // CardID: "",
+    // inIndex: -1,
+    // ShowDelCom: 0, // 评论区控制是否出现“删除”按钮
+    // Commentindex: 0, // 评论区的 index
+    // Starurl: "../../../../images/zan1.png",
     // edit_style: 'edit_hide',
   },
   
@@ -40,6 +40,8 @@ Component({
   attached: function () {
     // 在组件实例进入页面节点树时执行
     this.getWindowData()
+    this.popUp()
+    console.log("comReply",this.properties.comReply)
   },
   /**
    * 组件的方法列表
@@ -55,14 +57,14 @@ Component({
       this.setData({ showComtBox: false })
     },
     popUp: function () {
-      let edit_style = this.data.edit_style;
+      var edit_style = this.properties.edit_style;
       // picker动画样式
       if (edit_style == undefined || edit_style == 'edit_hide') {
         edit_style = 'edit_show'
       } else {
         edit_style = 'edit_hide'
       }
-      console.log("2333")
+      console.log("edit_style",edit_style)
       this.setData({ edit_style })
     },
     async getWindowData () {
@@ -72,15 +74,15 @@ Component({
 
     ReplyComment: function () {
       this.popUp()
-      console.log("inter")
-      this.setData({
-        comEdit: false,
-      })
       setTimeout(() => {
         this.setData({
-          comReply: !this.data.comReply,
+          comReply: !this.properties.comReply,
         })
       }, 200);
+      this.triggerEvent(
+        "sendEvent", 
+        {comReply:this.properties.comReply}
+      )
     },
 
     replySubmit: function (e) {

@@ -24,7 +24,7 @@
   height: 100%;
 }
 .ReplyCom_contain{
-  position: relative;
+  /* position: relative; */
   position: fixed;
   display: flex;
   justify-content: center;
@@ -73,10 +73,12 @@
 }
  
 .edit_show{
-  animation: edit_show .5s;
+  animation: edit_show 0.5s;
+  opacity: 0;
 }
 .edit_hide{
-  animation: edit_hide .5s;
+  animation: edit_hide 0.5s;
+  opacity: 0;
 }
 @keyframes edit_show {
   0% {
@@ -96,12 +98,5 @@
   100% {
       opacity: 0;
       transform: translateY(100%);
-  }
-}
-@media (prefers-color-scheme: dark) {
-  
-  .EditCom_contain .ReplyComment{
-    filter: invert(1) !important;
-    background-color: rgba(29, 29, 29, 0.267);
   }
 }

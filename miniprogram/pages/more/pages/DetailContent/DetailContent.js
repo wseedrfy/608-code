@@ -68,6 +68,19 @@ Page({
       }
     })
   },
+  xx:function(e){
+    // if (e.detail.comReply){
+    //   this.setData({
+    //     comReply: false,
+    //   })
+    // }
+    setTimeout(() => {
+      this.setData({
+        comReply: !e.detail.comReply,
+      })
+    }, 200);
+    console.log("接收子组件传过来的值" + '....',e.detail.comReply)
+  },
   popUp: function () {
     let edit_style = this.data.edit_style;
     // picker动画样式
@@ -121,7 +134,7 @@ Page({
   ReplyComment: function () {
       this.popUp()
       this.setData({
-        comEdit: !this.data.comEdit,
+        comEdit: false,
       })
       setTimeout(() => {
         this.setData({

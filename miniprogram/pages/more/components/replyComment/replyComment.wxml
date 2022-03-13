@@ -1,6 +1,6 @@
-<view class="ReplyCom" wx:if="{{comReply}}" >
+<view class="ReplyCom">
     <view class="ReplyCom_background" bindtap="ReplyComment"></view>
-    <view class="ReplyCom_contain {{edit_style}}">
+    <view class="ReplyCom_contain edit_show">
       <view class="good-main">
         <view id="ctInput"  class="ct-input"  style="top: {{ ctInput_top }}px;">
           <!-- <input type='text' placeholder='说点什么... o(≧v≦)o' focus='auto' value="" maxlength="-1" auto-height bindfocus="ctFocus" bindinput="" bindconfirm="replySubmit" show-confirm-bar="{{ false }}" adjust-position="{{ false }}"/> -->

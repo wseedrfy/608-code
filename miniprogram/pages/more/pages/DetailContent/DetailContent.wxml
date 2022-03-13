@@ -107,7 +107,6 @@
             </view>
           </view>
         </view>
-        <replyComment edit_style="{{edit_style}}"></replyComment>
     </view> -->
-    <replyComment wx:if="{{comReply}}" edit_style="{{edit_style}}"></replyComment>
+    <replyComment wx:if="{{comReply}}" comReply="{{comReply}}" edit_style="{{edit_style}}" bind:sendEvent="xx"></replyComment>
 </view>
