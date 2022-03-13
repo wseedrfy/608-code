@@ -26,8 +26,8 @@ Page({
         showModel3:false,
         dakacount:'19',
         dakatime:'12:00',
-        showModel2:true,
-        showModel5:true,
+        showModel2:false,
+        // showModel5:true,
 
         currentid:0,
         currentIndex: 0, // 列表操作项的index
@@ -163,9 +163,9 @@ Page({
         //   (260*w)*1,
           height:that.data.canvasHeight,
         //   (300*w)*1,
-          destHeight:that.data.canvasHeight,
+          destHeight:that.data.canvasHeight*4,
         //   (300*w)*4,
-          destWidth:that.data.canvasWidth,
+          destWidth:that.data.canvasWidth*4,
         //   (260*w)*4,
         //   fileType:'png',
           quality:1,
@@ -238,9 +238,9 @@ Page({
           const ctx = canvas.getContext('2d')
           const dpr = wx.getSystemInfoSync().pixelRatio
           console.log(canvas);
-          canvas.width = res[0].width * 1
-          canvas.height = res[0].height * 1
-          ctx.scale( 1,1)
+          canvas.width = res[0].width * dpr
+          canvas.height = res[0].height * dpr
+          ctx.scale( dpr,dpr)
           this.setData({
             ctx,canvas,wpx
           })
@@ -249,66 +249,6 @@ Page({
           })
           this.draw_new_bg(ctx,canvas,wpx)
         })
-    },
-    drawbg(ctx,canvas,wpx){
-        let num=Math.floor(Math.random() * 9);
-        let Wetext="—— We校园每日分享"
-        let nickName= wx.getStorageSync('args').nickName;
-        let bgurl = this.data.arr[num]
-        const bgimg = canvas.createImage();
-          bgimg.src = bgurl;
-          bgimg.onload = () => {
-              //底层背景色块
-              ctx.save();
-              ctx.beginPath()//开始创建一个路径
-              this.roundRect(ctx, 0*wpx, 0*wpx, this.data.canvas.width*wpx, this.data.canvas.height*wpx, 4)//圆角
-              ctx.fillStyle='gray'
-              ctx.fillRect(0*wpx, 0*wpx, this.data.canvas.width*wpx, this.data.canvas.height*wpx)
-              ctx.clip()//裁剪
-              ctx.closePath();
-              ctx.restore();
-              ctx.save();
-              ctx.beginPath()//开始创建一个路径
-              this.roundRect(ctx, 10*wpx, 44*wpx, 260*wpx, 300*wpx, 10)//圆角
-              ctx.clip()//裁剪
-              ctx.drawImage(bgimg,10*wpx,44*wpx,260*wpx,300*wpx);//画背景
-              ctx.closePath();
-              ctx.restore();
-              this.drawiconurl(ctx,canvas,wpx);//画头像
-              ctx.fillStyle='#fff';
-              ctx.font='15px Arial';
-              ctx.fillText(nickName,54*wpx,30*wpx);//画wx名字
-              ctx.font='14px Arial';
-              ctx.fillText(this.data.daytext[0].Eng_daytext,10*wpx,70*wpx);//英文语句
-              ctx.font='12px Arial';
-              ctx.fillText(this.data.daytext[0].Ch_daytext,10*wpx,95*wpx);//中文语句
-            //   ctx.fillStyle='';
-              ctx.font='11px Arial';
-              ctx.fillText(Wetext,143*wpx,115*wpx);//we校园每日分享
-              //透明圆角色块
-              ctx.save();
-              ctx.beginPath()//开始创建一个路径
-              this.roundRect(ctx, 8*wpx, 188*wpx, 244*wpx, 100*wpx, 10)//圆角
-              ctx.clip()//裁剪
-              ctx.drawImage(bgimg,0*wpx,0*wpx,260*wpx,300*wpx);
-              ctx.globalAlpha="0.5"
-              ctx.fillStyle='#ffff'
-              ctx.fillRect(8*wpx, 188*wpx, 244*wpx, 100*wpx)//色块
-              ctx.closePath();
-              ctx.restore();
-              //透明色块里面的字体
-              ctx.fillStyle='black'
-              ctx.globalAlpha="1"
-              ctx.font='28px Arial'
-              ctx.fillText(this.data.task_name,18*wpx,234*wpx)//任务名字
-              ctx.font='12px Arial'
-              ctx.fillText('累计打卡天数',18*wpx,270*wpx)//累计打卡
-              ctx.font='70px Arial'
-              ctx.fillText(this.data.dakacount,168*wpx,258*wpx)//打卡天数
-            //   ctx.font='17px Arial'
-            //   ctx.fillText(this.data.task_name+'打卡'+this.data.dakacount+'天！加油！',45*wpx,290*wpx)
-              wx.hideLoading();
-          }
     },
     draw_new_bg(ctx,canvas,wpx){
         let num=Math.floor(Math.random() * 9);
@@ -322,7 +262,7 @@ Page({
               ctx.save();
               ctx.beginPath()//开始创建一个路径
               this.roundRect(ctx, 0*wpx, 0*wpx, this.data.canvas.width*wpx, this.data.canvas.height*wpx, 2)//圆角
-              ctx.fillStyle='#e7e7e7'
+              ctx.fillStyle='#379d88'
               ctx.fillRect(0*wpx, 0*wpx, this.data.canvas.width*wpx, this.data.canvas.height*wpx)
               ctx.clip()//裁剪
               ctx.closePath();
@@ -334,7 +274,7 @@ Page({
               ctx.clip()//裁剪
               // ctx.globalAlpha="0.8"
               // ctx.drawImage(bgimg,10*wpx,10*wpx,260*wpx,330*wpx);//上色块背景
-              ctx.fillStyle='#b9b9b9'
+              ctx.fillStyle='#f4f6f5'
               ctx.fillRect(0*wpx, 0*wpx, this.data.canvas.width*wpx, this.data.canvas.height*wpx)
               ctx.closePath();
               ctx.restore();
@@ -351,45 +291,65 @@ Page({
               this.draw_we_iconurl(ctx,canvas,wpx);//We校园图标
               this.drawiconurl(ctx,canvas,wpx);//画头像
               ctx.fillStyle='black';
-              ctx.font='15px cursive';
+              ctx.font='15px Arial';
               ctx.fillText("We 打卡",66*wpx,40*wpx);
-              ctx.font='15px Courier New';
-              ctx.fillText(nickName,75*wpx,104*wpx);//画wx名字
-              ctx.font='14px fantasy';
-              ctx.fillText(this.data.daytext[0].Eng_daytext,20*wpx,150*wpx);//英文语句
-              ctx.font='12px cursive';
-              ctx.fillText(this.data.daytext[0].Ch_daytext,20*wpx,178*wpx);//中文语句
-            ctx.fillStyle='gray';
-              ctx.font='11px cursive ';
-              ctx.fillText(Wetext,157*wpx,205*wpx);//we校园每日分享
-              //透明圆角色块
+              ctx.font='13px Arial';
+              ctx.fillText(nickName,64*wpx,274*wpx);//画wx名字
+              ctx.font='14px Arial';
+              ctx.fillText(this.data.daytext[0].Eng_daytext,20*wpx,88*wpx);//英文语句
+              ctx.font='9px Arial';
+              ctx.fillText(this.data.daytext[0].Ch_daytext,20*wpx,110*wpx);//中文语句
+              ctx.fillStyle='gray';
+              ctx.font='9px Arial ';
+              ctx.fillText(Wetext,172*wpx,120*wpx);//we校园每日分享
+              //图片
               ctx.save();
               ctx.beginPath()//开始创建一个路径
-              this.roundRect(ctx, 10*wpx, 228*wpx, 260*wpx, 113*wpx, 1)//圆角
+              this.roundRect(ctx, 10*wpx, 133*wpx, 260*wpx, 113*wpx, 1)//圆角
               ctx.clip()//裁剪
               ctx.drawImage(bgimg,10*wpx,10*wpx,260*wpx,330*wpx);//这个要与上面背景位置大小保持一致
-              ctx.globalAlpha="0.5"
+              ctx.globalAlpha="0"
               ctx.fillStyle='#ffff'
               ctx.fillRect(10*wpx, 228*wpx, 260*wpx, 113*wpx)//色块
               ctx.closePath();
               ctx.restore();
+              //白色透明圆角色块（可以有图片）
+              // ctx.save();
+              // ctx.beginPath()//开始创建一个路径
+              // this.roundRect(ctx, 10*wpx, 228*wpx, 260*wpx, 113*wpx, 1)//圆角
+              // ctx.clip()//裁剪
+              // // ctx.drawImage(bgimg,10*wpx,10*wpx,260*wpx,330*wpx);//这个要与上面背景位置大小保持一致
+              // ctx.globalAlpha="0"
+              // ctx.fillStyle='#ffff'
+              // ctx.fillRect(10*wpx, 228*wpx, 260*wpx, 113*wpx)//色块
+              // ctx.closePath();
+              // ctx.restore();
               //透明色块里面的字体
               ctx.fillStyle='black'
               ctx.globalAlpha="1"
-              ctx.font='28px cursive'
-              ctx.fillText(this.data.task_name,28*wpx,274*wpx)//任务名字
-              ctx.font='12px Courier New'
-              ctx.fillText('累计打卡天数',28*wpx,310*wpx)//累计打卡
-              ctx.font='70px Courier New'
-              ctx.fillText(this.data.dakacount,178*wpx,298*wpx)//打卡天数
+              // ctx.font='30px Arial'
+              ctx.font = String(11*wpx)+"px Arial"
+              ctx.fillText(this.data.task_name,18*wpx,310*wpx)//任务名字
+              ctx.font = String(9*wpx)+"px Arial"
+              ctx.fillStyle='gray'
+              ctx.fillText('任务',18*wpx,330*wpx)//任务
+              ctx.fillText('打卡时间',80*wpx,330*wpx)
+              ctx.font = String(11*wpx)+"px Arial"
+              ctx.fillStyle='black'
+              ctx.fillText(this.data.dakatime,80*wpx,310*wpx)//打卡时间
+              ctx.font = String(9*wpx)+"px Arial"
+              ctx.fillStyle='gray'
+              ctx.fillText('坚持天数',155*wpx,330*wpx)//坚持天数
+              ctx.font = String(11*wpx)+"px Arial"
+              ctx.fillStyle='black'
+              ctx.fillText(this.data.dakacount,155*wpx,310*wpx)//打卡天数
               //两个圆模拟打孔
               ctx.save();
               ctx.beginPath()//开始创建一个路径
               ctx.arc(10*wpx, 60*wpx, 10*wpx, 0, Math.PI * 2,false)
               ctx.arc(270*wpx, 60*wpx, 10*wpx, 0, Math.PI * 2,false)
               ctx.clip()//裁剪
-              // ctx.globalAlpha="0.6"
-              ctx.fillStyle='#e7e7e7'
+              ctx.fillStyle='#379d88'
               ctx.fillRect(0*wpx, 0*wpx, this.data.canvas.width*wpx, this.data.canvas.height*wpx)
               ctx.closePath();
               ctx.restore();
@@ -402,6 +362,8 @@ Page({
               ctx.lineTo(260*wpx, 60*wpx);
               ctx.stroke();
               wx.hideLoading();
+              //二维码
+              this.draw_we_codeurl(ctx,canvas,wpx);
           }
     },
     drawiconurl(ctx,canvas,wpx){
@@ -412,11 +374,11 @@ Page({
         headerImg.onload = () => {
           ctx.save();
           ctx.beginPath()//开始创建一个路径
-          ctx.arc(41*wpx, 100*wpx, 22*wpx, 0, 2 * Math.PI, false)//画一个圆形裁剪区域
+          ctx.arc(31*wpx, 270*wpx, 14*wpx, 0, 2 * Math.PI, false)//画一个圆形裁剪区域
           ctx.clip()//裁剪
           ctx.fillStyle='#389e89'
           ctx.fillRect(0*wpx, 0*wpx, this.data.canvas.width*wpx, this.data.canvas.height*wpx)
-          ctx.drawImage(headerImg,20*wpx,78*wpx,44*wpx,44*wpx);
+          ctx.drawImage(headerImg,17.7*wpx,257*wpx,27*wpx,27*wpx);
           ctx.closePath();
           ctx.restore();
         }
@@ -430,6 +392,15 @@ Page({
         ctx.drawImage(headerImg,20*wpx,18*wpx,33*wpx,33*wpx);
       }
   },
+  draw_we_codeurl(ctx,canvas,wpx){
+    console.log("drawiconurl");
+    let we_iconurl = "https://636c-cloud1-6gtqj1v4873bad50-1307814679.tcb.qcloud.la/gh_2927abcc72c9_258.jpg?sign=b685101cc1b9e449b4ae4ef0700028f2&t=1647171838";
+    const headerImg = canvas.createImage();
+    headerImg.src = we_iconurl;
+    headerImg.onload = () => {
+      ctx.drawImage(headerImg,220*wpx,292.5*wpx,40*wpx,40*wpx);
+    }
+},
     roundRect(ctx, x, y, w, h, r,wpx) {
         // 开始绘制
         ctx.beginPath()
@@ -737,6 +708,7 @@ Page({
 
         //要是能成功打卡就打开弹窗可以选择分享
         this.setData({showModel2:true});
+        this.sharecanvas_new();
         // console.log('今日真打卡成功了！');
     },
 
@@ -763,7 +735,7 @@ Page({
                 // that.data.pullStatus = false;
                 that.allowDaka(res);
                 that.slideAnimation(0, 500);
-                that.sharecanvas();
+                // that.sharecanvas_new();
               } else if (abc.cancel) {
                 console.log('用户点击取消');
                 that.data.pullStatus = true;
