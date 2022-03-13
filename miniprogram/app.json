@@ -136,8 +136,7 @@
       "backgroundColor": "@backgroundColor",
       "backgroundTextStyle": "@backgroundTextStyle",
       "navigationBarBackgroundColor": "@navBackgroundColor",
-      "navigationBarTextStyle": "@navTextStyle",
-      "navigationStyle":"custom"
+      "navigationBarTextStyle": "@navTextStyle"
     },
     "tabBar": {
       "color": "@color",
