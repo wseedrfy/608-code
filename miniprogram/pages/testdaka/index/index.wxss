@@ -3,7 +3,7 @@
     background-color:  #F4F4F4;
     /* height: 100vh; */
     height: auto;
-    height: 100vh;
+    height: 130vh;
     width: 100%;
     /* position:fixed; */
 }
