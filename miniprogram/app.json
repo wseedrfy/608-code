@@ -251,7 +251,8 @@
           "PublishContent/PublishContent",
           "Freshman/Freshman",
           "Match/Match",
-          "LoseDetailContent/LoseDetailContent"
+          "LoseDetailContent/LoseDetailContent",
+          "UserCenter/index"
         ]
       },
       {
@@ -305,7 +306,8 @@
       "backgroundColor": "@backgroundColor",
       "backgroundTextStyle": "@backgroundTextStyle",
       "navigationBarBackgroundColor": "@navBackgroundColor",
-      "navigationBarTextStyle": "@navTextStyle"
+      "navigationBarTextStyle": "@navTextStyle",
+      "navigationStyle":"custom"
     },
     "tabBar": {
       "color": "@color",

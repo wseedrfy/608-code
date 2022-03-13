@@ -1,3 +1,106 @@
+<!--index.wxml-->
+<!--用户头像和昵称-->
+ <!-- <image class="background" src="https://s2.loli.net/2022/02/09/nsT8MXBPzRrbxfW.png"></image>
+  -->
+  <view class="all">
+<view class="zhong">
+  <view class="zz" >
 
-<waterFlowCards id="waterFlowCards" list="{{list}}" height="100vh" bind:getData="getData" bind:testFnc="onReachBottom" bind:onPullDownRefresh="onPullDownRefresh"></waterFlowCards>
+
+ <view class="header">
+  
+  <view class="user-pic">
+
+    <open-data type="userAvatarUrl" ></open-data>
+  </view>
+
+  <view class="user-name">
+
+ <view>
+    <open-data type="userNickName"></open-data>
+  </view>
+   <text class="name">小红书号:4962265877</text>
+  
+  </view>
+ 
+ </view>
+
+ <view class="zh">
+
+ 
+{{item}}
+ </view>
+
+ <view class="zh2">
+
+
+
+ <view wx:for="{{array}}" wx:for-item="item">
+   <!-- <image src="images/n.png" style="width:45rpx;height: 45rpx;"></image>  -->
+  <view class="zh2-1">{{item.biaoqian}}</view>
+  
+ </view>
+  
+ </view>
+
+
+
+ <view class="zh3">
+
+
+
+ <view class="zz2">
+
+  <view class="zh3-1">
+
+
+  
+
+   <view class="zh3-1-1">1</view>
+   <view class="zh3-1-2">关注</view>
+  
+  </view>
+
+  <view class="zh3-1">
+
+
+<view class="zh3-1-1">1</view>
+   <view class="zh3-1-2">关注</view>
+  
+
+</view>
+
+<view class="zh3-1">
+
+
+
+  <view class="zh3-1-1">456</view>
+   <view class="zh3-1-2">关注与收藏</view>
+  
+
+ </view>
+ 
+</view>
+
+<view class="zz3">
+<view class="zh3-2">
+
+
+ 关注
+</view>
+<view class="zh3-3">
+<image src="images/l.png" style="width:50rpx;height: 50rpx;"></image>
+</view>
+
+</view>
+</view>
+
+
+ </view>
+</view>
+</view>
+
+
+
+ <waterFlowCards id="waterFlowCards" list="{{list}}" height="100vh" bind:getData="getData" bind:testFnc="onReachBottom" bind:onPullDownRefresh="onPullDownRefresh"></waterFlowCards>
 
