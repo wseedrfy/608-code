@@ -45,7 +45,9 @@
         <view class="Send_Commend" bindtap="Comment_Inputting">
           <image src="{{iconUrl}}" class="text_user"/>
           <span class="{{isChecked?'old_Comment_second':'new_Comment_second'}}">
-            <textarea placeholder="来发句评论吧ヾ(≧▽≦*)o" name="InputComment"  value="{{Input}}" auto-height></textarea>
+            <!-- <textarea placeholder="来发句评论吧ヾ(≧▽≦*)o" name="InputComment"  value="{{Input}}" auto-height></textarea> -->
+            <text>"来发句评论吧ヾ(≧▽≦*)o"</text>
+            <!-- bindtap="ReplyComment" -->
           </span>
           <span wx:if="{{!isChecked}}" class="Pre_Send">
             <button form-type="submit" class="Sending" hover-class="Sending-hover">发送</button>
@@ -89,14 +91,14 @@
              复制
           </view>
           <view class="Line"></view>
-          <view class="DelComment" bindtap="DelComment" wx:if="{{ShowDelCom==1}}" style="color: rgba(255, 0, 0, 0.753);">
+          <view class="DelComment" bindtap="DelComment" wx:if=" {{ShowDelCom==1}}" style="color: rgba(255, 0, 0, 0.753);">
              删除
           </view>
         </view>
     </view>
 
 
-    <view class="ReplyCom" wx:if="{{comReply}}" >
+    <!-- <view class="ReplyCom" wx:if="{{comReply}}" >
         <view class="ReplyCom_background" bindtap="ReplyComment"></view>
         <view class="ReplyCom_contain {{edit_style}}">
           <view class="good-main">
@@ -105,5 +107,7 @@
             </view>
           </view>
         </view>
-    </view>
+        <replyComment edit_style="{{edit_style}}"></replyComment>
+    </view> -->
+    <replyComment wx:if="{{comReply}}" edit_style="{{edit_style}}"></replyComment>
 </view>

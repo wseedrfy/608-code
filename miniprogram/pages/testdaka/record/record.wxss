@@ -315,6 +315,11 @@ button:not([size=mini]) {
     .dakaconfirm_button_abc{
         background: #fc9090;
     }
+    .dakatop_box_input{
+        filter: invert(1) !important;
+        color: white;
+        /* caret-color: red; */
+    }
     /* .dakatop_box_input{
         color: black;
     } */

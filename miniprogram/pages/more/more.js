@@ -58,35 +58,51 @@ Page({
       []
     ], // 列表兜底
     currentTab: 0, // 当前 swiper-item
-    iconUrl:'',    // 头像地址
+    iconUrl: '',    // 头像地址
     school: '',    // 判断游客用
+
     // 控制动画
     showLoading: 0, // 动画显隐
     animation: '',
+    scrollTop: 0,   // 校园圈滑动高度
 
     // 发布
     showPopUps: false, // 弹窗显隐
     showModel: false,  // 快速发布显隐
   },
   TimeOut: 1,
+  canWaterScroll() {
+    console.log(123);
+    let allList = this.data.allList;
+    for(let i in allList) {
+      this.selectComponent(`#waterFlowCards${i}`).setData({ifScroll:true})
+    }
+  },
+  cannotWaterScroll() {
+    console.log(123);
+    let allList = this.data.allList;
+    for(let i in allList) {
+      this.selectComponent(`#waterFlowCards${i}`).setData({ifScroll:false})
+    }
+  },
   // 卡片内外部渲染一致
-  setAllList(e,type) {
+  setAllList(e, type) {
     const allList = e.detail;
-    this.setData({allList});
+    this.setData({ allList });
     // 点赞和评论不刷新瀑布流
     console.log(type);
-    if(type == "点赞和评论") {
-      for(let i in allList) {
+    if (type == "点赞和评论") {
+      for (let i in allList) {
         this.selectComponent(`#waterFlowCards${i}`).RightLeftSolution();
       }
-    }else {
+    } else {
       // 新增和删除卡片要刷新瀑布流
-      for(let i in allList) {
+      for (let i in allList) {
         this.selectComponent(`#waterFlowCards${i}`).RightLeftSolution(true);
         this.selectComponent(`#waterFlowCards${i}`).RightLeftSolution();
       }
     }
-    
+
   },
   timeId: 0,
   showPopUps() {
@@ -96,7 +112,7 @@ Page({
   // 
   show_PublishContent(e) {
     // 控制快速发布显隐
-    this.selectComponent('#QuickPublish').add(); 
+    this.selectComponent('#QuickPublish').add();
     // 隐藏弹窗
     this.showPopUps()
   },
@@ -106,12 +122,12 @@ Page({
     var that = this;
     let args = wx.getStorageSync('args');
     // 边界处理 - 未登录时
-    if(!args.username) {
-      return ;
+    if (!args.username) {
+      return;
     }
     wx.cloud.database().collection('New-Information').where({
       'be_character.userName': args.username,
-      status: 0 
+      status: 0
     }).count().then(res => {
       that.setData({
         NewInfo: res.total
@@ -233,17 +249,17 @@ Page({
 
   // 3. 搜索框逻辑 
   search_Input: function (e) {
-    const {value} = e.detail  //拿到输入框中的值
+    const { value } = e.detail  //拿到输入框中的值
     var that = this;
     let waterComponent = that.selectComponent(`#waterFlowCards0`);
     const args = wx.getStorageSync('args');
     // 初始化定时器
     clearTimeout(this.timeId)
-    this.timeId=setTimeout(()=>{
+    this.timeId = setTimeout(() => {
       search(value) //发送请求，间隔时间为1s
-    },500)
+    }, 500)
     const search = (value) => {
-      if(value) {
+      if (value) {
         wx.hideNavigationBarLoading();
         wx.cloud.callFunction({
           name: "NewCampusCircle",
@@ -285,11 +301,11 @@ Page({
           fail: err => {
             console.error
           },
-          complete: e =>{
+          complete: e => {
             wx.hideNavigationBarLoading();
           }
         })
-      }else {
+      } else {
         // 清空瀑布流内容
         waterComponent.RightLeftSolution(true);
         // 重新加载数据
@@ -365,8 +381,9 @@ Page({
       currentTab
     })
   },
+
   // 初始化函数
-  init(){
+  init() {
     let args = wx.getStorageSync('args');
     // 判断登录
     app.loginState();
@@ -405,15 +422,16 @@ Page({
       let allList = [];
       return allList[index] = []
     });
-    
+
     this.setData({
       currentTab: 0,            // 返回到第一个标签
       showPopUps: false,        // 关闭弹窗
+      ifScroll: false,          // 初始化瀑布流滑动
       tabitem,                  // 初始化标签
       campus_account,           // 初始化封号
       allList,                  // 初始化allList
-      iconUrl:args.iconUrl,     // 获取头像
-      school:args.school        // 获取学校
+      iconUrl: args.iconUrl,     // 获取头像
+      school: args.school        // 获取学校
     })
     // 初始化动画
     _animationIndex = 0;
@@ -459,7 +477,7 @@ Page({
         showLoading: 1
       })
       // 停止下拉刷新
-      wx.stopPullDownRefresh() 
+      wx.stopPullDownRefresh()
     }, 1000)
   },
   // 上拉触底

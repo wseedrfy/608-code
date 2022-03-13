@@ -7,11 +7,11 @@
 }
  
 .left{
-  width: 360rpx;
+  width: 330rpx;
 }
  
 .right{
-  width: 360rpx;
+  width: 330rpx;
   margin-left: 10rpx;
 }
  .Show_Image{
@@ -22,7 +22,7 @@
   border-radius: 10rpx;
   width: 360rpx;
   background-color: rgb(255, 255, 255);
-  margin-bottom: 10rpx;
+  margin-bottom: 15rpx;
   overflow: hidden;
 }
 .pic_Label{

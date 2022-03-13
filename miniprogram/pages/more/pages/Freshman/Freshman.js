@@ -61,7 +61,7 @@ Page({
   // 提交报名表单
   submit(e) {
     let formData = e.detail.value;
-    let index = this.data.content.association[0].detail
+    let index = this.data.content.association[3].detail
     wx.showLoading({
       title: "报名中",
       mask: true,
@@ -70,7 +70,8 @@ Page({
           data: {
             username,
             formData,
-            index
+            index,
+            read: false
           }
         }).then(res => {
           wx.hideLoading();
@@ -91,18 +92,18 @@ Page({
     });
   },
   // timeOut
-  timeOut(){
+  timeOut() {
     wx.showToast({
       title: '报名已截止',
       icon: 'none',
       image: '',
       duration: 1500,
       mask: false,
-      success: (result)=>{
-        
+      success: (result) => {
+
       },
-      fail: ()=>{},
-      complete: ()=>{}
+      fail: () => { },
+      complete: () => { }
     });
   },
   // nosubm

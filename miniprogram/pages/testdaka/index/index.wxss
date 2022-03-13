@@ -54,19 +54,21 @@
     padding: 35rpx 30rpx 35rpx 14rpx;
 }
 .dayclock_data{
+    /* padding:10rpx 0 10rpx 0; */
     position: relative;
-    height: 100rpx;
+    height: 120rpx;
     width: 100%;
-    background-color: #fff;
+    background-color: rgb(255, 255, 255);
     overflow: hidden;
 }
 .dayclock_data .border:after{
         content: '';
         position: absolute;
-        left: 30rpx;
-        bottom: 0;
+        left: 157rpx;
+        bottom: 0rpx;
         height: 2rpx;
-        width: 630rpx;
+        width: 531rpx;
+        /* 630rpx */
         background-color: #E5E5E5;
 }
 .dayclock_data_column_1{
@@ -80,6 +82,7 @@
         height: 100rpx;
 }
 .dayclock_data_column_3{
+        /* padding: 10rpx 0 10rpx 0; */
         float: right;
         width: 22.9%;
         height: 100rpx;
@@ -107,15 +110,15 @@
         /* padding: 24rpx 0; */
 }
 .dayclock_data_column_2_task{
-    margin: 16rpx auto 0 22rpx;
-    font-size: 26rpx;
+    margin: 20rpx auto 0 22rpx;
+    font-size: 25rpx;
     font-family: Source Han Sans CN;
-    font-weight: 500;
+    font-weight: 600;
     color: #666666;
 }
 .dayclock_data_column_2_cycle{
     margin: 6rpx auto auto 22rpx;
-    font-size: 17rpx;
+    font-size: 18rpx;
     font-family: Source Han Sans CN;
     font-weight: 500;
     color: #666666;
@@ -124,11 +127,12 @@
      float: left;
      width: auto;
      padding-right: 20rpx;
+     color: #a8a8a8;
 }
 .dayclock_data_column_2_cycle_time{
     float: left;
     width: auto;
-    
+    color: #a8a8a8;
 }
 .dayclock_data_column_2_cycle_time_start{
     height:22.4rpx;
@@ -198,7 +202,8 @@
       left: 113rpx;
       width: 520rpx;
       height: 600rpx;
-      background-color: #fff;
+      /* background-color: rgba(0, 0, 0, 0.116); */
+      /* background-color: gray; */
       /* border-radius: 40rpx; */
   }
   .complete_share_close{
@@ -211,12 +216,13 @@
   }
   .complete_share_image{
       width: 100%;
-      height: 77%;
+      height: 100%;
+      /* height: 77%; */
       /* background-image: url('http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcVoKjsJ9PdpKbqvSRbPji8xRtCpURXbukitiWCassfel6rHPMK2TS5rOcvTm1lnT4FMw8z4gCnCwz*H9L*0uTis!/r'); */
       background-repeat:no-repeat; 
       background-size:100% 100%;
       border-radius:40rpx;
-      background-color: gray;
+      /* background-color: gray; */
   }
   /* .complete_share_image{
     width: 100%;
@@ -227,6 +233,9 @@
     border-radius:40rpx;
 } */
   .complete_share_box{
+      position: absolute;
+      bottom: 0rpx;
+      z-index: 99999999;
       width: 100%;
       height: 23%;
       display: flex;
@@ -259,7 +268,9 @@
   .complete_share_box_button{
     border-radius: 50rpx;
     color: #fff;
-    background-color: #74d5d3;
+    background-color: gray;
+    /* opacity: 1; #74d5d3*/
+    opacity: 0.75;
   }
   /* .complete_share_box_button{
     border-radius: 50rpx;
@@ -304,7 +315,7 @@
     border-radius: 0px 45px 45px 0px;
     overflow: hidden;
     position: absolute;
-    top: 0;
+    /* top: 0; */
     color: #fff;
     margin: 7rpx 0;
   }
@@ -314,7 +325,7 @@
     height: 90rpx;
     background: #74D5D3;
     border-radius: 0px 45px 45px 0px;
-  
+    
     display: flex;
     align-items: center;
     justify-content: center;
@@ -339,41 +350,82 @@
     z-index: -99999;
   }
   .dayclock_data_huadong{
+    padding:10rpx 0 10rpx 0 ;
     position: absolute;
     height: 100rpx;
     width: 100%;
     background-color: #fff;
     z-index: 999;
   }
+  /* 删除键背景 */
   .dayclock_data_huadong_bg{
     position: absolute;
-    height: 100rpx;
+    height: 120rpx;
     width: 100%;
-    background-color: #fff;
+    /* background-color:#E7624F; */
+    /* background-color: rgba(255, 0, 0, 0.582); */
     z-index:0;
   }
+  /* #FFFFFF */
+  /* 删除键 */
   .dayclock_data_huadong_bg_bg{
-    border-radius: 50%;
+    /* border-radius: 50%; */
     position: absolute;
-    top: 4rpx;
+    top: 0rpx;
     right: 0rpx;
-    height: 85rpx;
+    height: 120rpx;
     text-align: center;
-    background-color: #FFFFFF;
+    /* background-color: rgba(221, 221, 221, 0.349); */
     line-height: 152rpx;
     display: flex;
-    padding: 20rpx;
+    padding-right: 33rpx;
+    padding-left: 33rpx;
     box-sizing: border-box;
     align-items: center;
+    color: white;
+    background-color: rgba(255, 0, 0, 0.582);
   }
   .dayclock_data_huadong_bg_image{
     height: 40rpx;
     width: 45rpx;
   }
+  .dayclock_data_column_text_true{
+    font-size: 38rpx;
+    font-weight: 800;
+    color: #74D5D3;
+    line-height: 100rpx;
+  }
+  .dayclock_data_column_text_false{
+    font-size: 36rpx;
+    font-weight: 800;
+    color: #F7ECCE;
+    line-height: 100rpx;
+  }
   @media (prefers-color-scheme: dark) {
     .complete_share_box_button{
       background-color: #F77A7A;
+      color: black;
     }
-    
+    .complete_share{
+      background-color: #414040;
+    }
+    .operationBgBox{
+      background: #F77A7A;
+      /* background: rgb(167, 167, 86); */
+    }
+    .operationBox{
+      background: #F77A7A;
+      /* background: rgb(167, 167, 86); */
+    }
+    .dayclock_data_column_text_true{
+      color: #F77A7A;
+      /* color: rgb(167, 167, 86); */
+    }
+    .dayclock_data_column_text_false{
+      
+      color: gray;
+      /* color: rgb(167, 167, 86); */
+    }
   }
+  
   

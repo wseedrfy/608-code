@@ -1,0 +1,11 @@
+<view class="head">
+  <view style="height: {{statusBarHeight}}px;" />
+  <view class="head_second" style="height: {{lineHeight}}px;">
+    <view>电子游戏板块</view>
+  </view>
+
+</view>
+
+<TabScroll type="校友圈标签" tabItem="{{tabItem}}" showTab="{{true}}" />
+
+<InfoFlowCards />

@@ -19,7 +19,15 @@ Component({
     type: {
       type: String,
       value: ""
-    }
+    },
+    time: {
+      type: Number,
+      value: Date.now()
+    },
+    // endTime: {
+    //   type: Number,
+    //   value: new Date(date)
+    // }
     // data:{
     //   openusername:{}
     // }
@@ -41,30 +49,39 @@ Component({
       }
       // console.log(content);
       this.setData({
-        character, be_character
+        character, be_character,
       })
     },
-    attached:function(){
+    attached: function () {
     }
   },
   methods: {
     ShowContent: function (e) {
       //对数据进行更新
-      var content = JSON.stringify(this.data.item)
-      try {
-        content = JSON.parse(JSON.stringify(this.data.item))
-        if (content.CommentList) {
-          delete content.CommentList
-        }
-        content = JSON.stringify(content)
-      } catch { }
+      // var assoMess = JSON.stringify(this.data.item.assoMess)
+      // var Title = this.data.item.Title
+      // var Text = this.data.item.Text
+      // this.setData({
+      // })
+      let content = {
+        _id:this.data.item._id,
+        assoMess: this.data.item.assoMess,
+        Title: this.data.item.Title,
+        Text: this.data.item.Text,
+        borderArr: this.data.item.borderArr,
+        question: this.data.item.question,
+        date:this.data.item.date
+      }
+      let jsonStr = JSON.stringify(content);
+      // 对数据进行URI编码，防止数据被截断。少量数据没问题，如果对象较大则容易被截断，获取不到完整数据
+      let data = encodeURIComponent(jsonStr);
       wx.navigateTo({
-
-        url: "./pages/Freshman/Freshman?content=" + content,
+        // 从校园圈主页跳转
+        url: `./pages/Match/Match?content=${data}`,
+        // 从我的发布页面跳转
         fail() {
           wx.navigateTo({
-            url: "../../pages/Freshman/Freshman?content=" + content,
-
+            url: `../../pages/Match/Match?content=${data}`,
           })
         }
       })

@@ -187,6 +187,21 @@ Page({
             //     'Accept': 'application/json, text/javascript, */*; q=0.01',
             //     'Cookie': res.cookies[0]
             //   }
+            const getweekString = () => {
+              var Date1 = new Date(that.data.date);
+              var Date2 = new Date(wx.getStorageSync('configData').timeYear);
+              var dayOfWeek = Date2.getDay();
+              var day1fWeek = Date1.getDay();
+              //如果把周日算在一周的最后一天，请加上下面这句
+              dayOfWeek = dayOfWeek == 0 ? 7 : dayOfWeek
+              //如果把周日算在一周的第一天，请删除上面这句
+              var num = (Date1 - Date2) / 1000 / 3600 / 24;
+              var whichWeek = Math.ceil((num + dayOfWeek) / 7);
+              if (day1fWeek == 0) {
+                whichWeek = whichWeek - 1;
+              }
+              return whichWeek + 1;
+            }
               let data2 = {
                 order: 'asc',
                 sort: 'jxcdbh',
@@ -194,9 +209,9 @@ Page({
                 jc : String(jc),
                 isqy: '1',
                 page: '1',
-                zc: util.getweekString() ,
-                xnxqdm: new Date().getMonth() < 7 ? (new Date().getFullYear() - 1) + '02' : (new Date().getFullYear()) + '01',
-                xq: String(new Date().getDay() + 1),
+                zc: getweekString(),
+                xnxqdm: new Date(that.data.date).getMonth() < 7 ? (new Date(that.data.date).getFullYear() - 1) + '02' : (new Date(that.data.date).getFullYear()) + '01',
+                xq: String(new Date(that.data.date).getDay() + 1),
                 ssjzwdm: that.data.classArray[that.data.classIndex].dm
               }
       
@@ -204,6 +219,7 @@ Page({
             //     // body...
             //     return encodeURIComponent(key) + "=" + encodeURIComponent(data2[key]);
             //   }).join("&")
+          
               wx.request({
                 url: 'https://jwxt.gdupt.edu.cn/teajssqxx!getPlJsDataList.action?primarySort=jxcddm%20desc',
                 method: 'get',
