@@ -168,7 +168,7 @@ Page({
 
     async saveRecord(res){
       let username = wx.getStorageSync('args').username
-      await db.collection('daka_record').where({username:username}).get().then(res=>{
+      await db.collection('daka_record').where({username:username,is_delete:false}).get().then(res=>{
         this.setData({len:res.data.length})
       })
       let len =this.data.len

@@ -157,7 +157,7 @@
           <view class="complete_share_box">
                <!-- <view class="complete_share_box_text"></view> -->
                <!-- <view class="complete_share_box_text">您已经累计完成{{dakacount}}天！加油！</view> -->
-               <view class="complete_share_box_button" bindtap="savecanvas">校友圈一键分享</view>
+               <!-- <view class="complete_share_box_button" bindtap="savecanvas">校友圈一键分享</view> -->
                <view class="complete_share_box_button" bindtap="sharecanvas_new">绘图</view>
           </view>
      </view>
@@ -169,4 +169,11 @@
      <view class="attention_text">
      </view>
      <image class="attention_close" src="../images/close.png" bindtap="attention"></image>
+</view>
+<!-- 番茄时钟入口 -->
+<view>
+  <image src="../images/rank.png" class="img-style" animation="{{animCollect}}" bindtap="collect"></image>
+  <image src="../images/time.png" class="img-style" animation="{{animTranspond}}" bindtap="transpond"></image>
+  <image src="../images/log.png" class="img-style" animation="{{animInput}}" bindtap="input"></image>
+  <image src="../images/timeadd.png" class="img-plus-style" animation="{{animPlus}}" bindtap="plus"></image>
 </view>

@@ -3,7 +3,7 @@
     background-color:  #F4F4F4;
     /* height: 100vh; */
     height: auto;
-    height: 110vh;
+    height: 100vh;
     width: 100%;
     /* position:fixed; */
 }
@@ -198,10 +198,13 @@
   .complete_share{
       z-index: 99999;
       position: fixed;
-      top: 351rpx;
-      left: 113rpx;
-      width: 520rpx;
-      height: 600rpx;
+      top: 200rpx;
+      left: 93rpx;
+      /* 93rpx; */
+      width:560rpx;
+      /* 520rpx; */
+      height: 705rpx;
+      /* 600rpx; */
       /* background-color: rgba(0, 0, 0, 0.116); */
       /* background-color: gray; */
       /* border-radius: 40rpx; */
@@ -210,7 +213,8 @@
       height: 70rpx;
       width: 70rpx;
       position: fixed;
-      top: 981rpx;
+      top: 1060rpx;
+      /* 981rpx; */
       left: 338rpx;
       z-index: 99999;
   }
@@ -222,7 +226,7 @@
       background-repeat:no-repeat; 
       background-size:100% 100%;
       border-radius:40rpx;
-      background-color: gray;
+      background-color:rgba(255, 214, 221, 0.788);
   }
   /* .complete_share_image{
     width: 100%;
@@ -233,9 +237,6 @@
     border-radius:40rpx;
 } */
   .complete_share_box{
-      position: absolute;
-      bottom: 0rpx;
-      z-index: 999999999999;
       width: 100%;
       height: 23%;
       display: flex;
@@ -268,7 +269,7 @@
   .complete_share_box_button{
     border-radius: 50rpx;
     color: #fff;
-    background-color: gray;
+    background-color: #e7e7e7;
     /* opacity: 1; #74d5d3*/
     opacity: 0.75;
   }
@@ -401,6 +402,24 @@
     color: #F7ECCE;
     line-height: 100rpx;
   }
+  /* pages/3menu/3menu.wxss */
+.img-plus-style {
+  height: 100rpx;
+  width: 100rpx;
+  position: fixed;
+  bottom: 300rpx;
+  right: 50rpx;
+  z-index: 100;
+}
+ 
+.img-style {
+  height: 100rpx;
+  width: 100rpx;
+  position: fixed;
+  bottom: 300rpx;
+  right: 25rpx;
+  opacity: 0;
+}
   @media (prefers-color-scheme: dark) {
     .complete_share_box_button{
       background-color: #F77A7A;
