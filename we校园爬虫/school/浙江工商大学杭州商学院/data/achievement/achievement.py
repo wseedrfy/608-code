@@ -7,59 +7,62 @@ from pyquery import PyQuery as pq
 
 
 def achievement(sessions: requests.session(), name, username):
-    achievements = []
-    # r = connect_redis(None, None, None)
+    try:
+        achievements = []
+        # r = connect_redis(None, None, None)
 
-    url = f'http://jxgl.zjhzcc.edu.cn/xscjcx.aspx?xh={username}&xm={name}&gnmkdm=N121604'
+        url = f'http://jxgl.zjhzcc.edu.cn/xscjcx.aspx?xh={username}&xm={name}&gnmkdm=N121604'
 
-    data = {
-        '__VIEWSTATE': '',
-        'ddlXN': '',
-        'ddlXQ': '',
-        'ddl_kcxz': '',
-        'hidLanguage': '',
-        '__VIEWSTATEGENERATOR': '',
-        'btn_zcj': '历年成绩'
-    }
+        data = {
+            '__VIEWSTATE': '',
+            'ddlXN': '',
+            'ddlXQ': '',
+            'ddl_kcxz': '',
+            'hidLanguage': '',
+            '__VIEWSTATEGENERATOR': '',
+            'btn_zcj': '历年成绩'
+        }
 
-    cookies = sessions.cookies.values()
-    cookie = f"ASP.NET_SessionId={cookies[0]};zjgs=20111114"
+        cookies = sessions.cookies.values()
+        cookie = f"ASP.NET_SessionId={cookies[0]};zjgs=20111114"
 
-    headers_change = {
-        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 '
-                      'Safari/537.36',
-        'Referer': url,
-        'Cookie': cookie
-    }
+        headers_change = {
+            'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 '
+                          'Safari/537.36',
+            'Referer': url,
+            'Cookie': cookie
+        }
 
-    html = sessions.get(url,
-                        headers=headers_change)
+        html = sessions.get(url,
+                            headers=headers_change)
 
-    doc = pq(html.text)
-    __VIEWSTATE = doc('#__VIEWSTATE').attr('value')
-    __VIESTATEATE = doc('#__VIEWSTATEGENERATOR').attr('value')
+        doc = pq(html.text)
+        __VIEWSTATE = doc('#__VIEWSTATE').attr('value')
+        __VIESTATEATE = doc('#__VIEWSTATEGENERATOR').attr('value')
 
 
-    data['__VIEWSTATE'] = __VIEWSTATE
-    data['__VIEWSTATEGENERATOR'] = __VIESTATEATE
-    # r.close()
-    # print('redis链接:', time.time() - t)
-    t = time.time()
+        data['__VIEWSTATE'] = __VIEWSTATE
+        data['__VIEWSTATEGENERATOR'] = __VIESTATEATE
+        # r.close()
+        # print('redis链接:', time.time() - t)
+        t = time.time()
 
-    cj = sessions.post(url,
-                       data=data)
-    # print('POST请求', time.time() - t)
+        cj = sessions.post(url,
+                           data=data)
+        # print('POST请求', time.time() - t)
 
-    html = cj.text
-    # print(html)
-    if "Internal Server Error" in html:
-        return 'Internal Server Error'
-    t = time.time()
-    every(html, achievements)
-    gkk(html, achievements)
-    # print('解析网页',time.time()-t)
+        html = cj.text
+        # print(html)
+        if "Internal Server Error" in html:
+            return 'Internal Server Error'
+        t = time.time()
+        every(html, achievements)
+        gkk(html, achievements)
+        # print('解析网页',time.time()-t)
 
-    return achievements
+        return achievements
+    except:
+        return []
 
 
 def every(html, achievements):

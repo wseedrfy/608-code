@@ -1,5 +1,5 @@
 import re
-from school.茂名职业技术学院.data import data
+# from school.茂名职业技术学院.data import data
 from bs4 import BeautifulSoup
 
 

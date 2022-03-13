@@ -150,6 +150,7 @@ Page({
             school: that.data.school[that.data.index]
           },
           success: res => {
+            wx.clearStorageSync();        // 清除缓存
             wx.setStorageSync('time', null)
             if (res.result.msg == "welcome") {
               console.log(res.result)

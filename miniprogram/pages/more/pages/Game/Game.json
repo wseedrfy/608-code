@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "TabScroll": "../../components/TabScroll/TabScroll",
+    "InfoFlowCards": "../../components/InfoFlowCards/InfoFlowCards"
+  },
+  "navigationStyle":"custom",
+  "enablePullDownRefresh": true
+}
