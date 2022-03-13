@@ -1,68 +1,112 @@
 
-Page({
-  /**
-   * 页面的初始数据
-   */
-  data: {
-    imgWidth: 0, imgHeight: 0,
-    item: [
-      {
-        title: '案例名称1',
-        url: 'https://s2.loli.net/2022/02/09/nsT8MXBPzRrbxfW.png',
-        
-      },
-      {
-        title: '你所不知道的红酒知识2',
-        url: 'http://img3.imgtn.bdimg.com/it/u=1417732605,3777474040&fm=26&gp=0.jpg',
-        
-      },
-      {
-        title: '案例名称3',
-        url: 'http://zq.jhcms.cn/attachs/photo/201711/20171130_9E39DA252E3946BE36218D85876C4AB4.jpg',
-        
-      },
-      {
-        title: '案例名称4',
-        url: 'https://s2.loli.net/2022/02/09/nsT8MXBPzRrbxfW.png'
-      },
- 
-      {
-        title: '案例名称5',
-        url: 'http://f10.baidu.com/it/u=121654667,1482133440&fm=72'
-       
-      },
-      {
-        title: '案例名称',
-        url: 'http://img4.imgtn.bdimg.com/it/u=2748975304,2710656664&fm=26&gp=0.jpg'
-      },
-      {
-        title: '案例名称',
-        url: 'http://img2.imgtn.bdimg.com/it/u=1561660534,130168102&fm=26&gp=0.jpg'
-      },
-      {
-        title: '案例名称',
-        url: 'http://img3.imgtn.bdimg.com/it/u=1417732605,3777474040&fm=26&gp=0.jpg'
-      },
 
+Page({
+  data: {
+    // 丢入瀑布流的数据
+    list:[],
+    item:"一半山河一般啊,江河一半山河一般啊,江河,一半山河一般啊,江河一半山河一般啊,江河,",
+    　 array:[
       {
-        title: '案例名称5',
-        url: 'http://f10.baidu.com/it/u=121654667,1482133440&fm=72'
-       
+        biaoqian: "张三",
       },
       {
-        title: '案例名称',
-        url: 'http://img4.imgtn.bdimg.com/it/u=2748975304,2710656664&fm=26&gp=0.jpg'
+        biaoqian:"李四"
       },
       {
-        title: '案例名称',
-        url: 'http://img2.imgtn.bdimg.com/it/u=1561660534,130168102&fm=26&gp=0.jpg'
-      },
-      {
-        title: '案例名称',
-        url: 'http://img3.imgtn.bdimg.com/it/u=1417732605,3777474040&fm=26&gp=0.jpg'
+        biaoqian:"王五"
       }
 
+     
     ]
-  }
-})
+  },
 
+  onLazyLoad(info) {
+    console.log(info)
+  },
+  getData(e) { //分页加载数据
+    let args = wx.getStorageSync('args');
+    let currentPage = e.detail.currentPage;
+    console.log(currentPage,"currentPage");
+    // 拉取数据
+    let that = this;
+    let list = this.data.list;
+
+    wx.cloud.callFunction({
+      name: "CampusCircle",
+      data: {
+        type: "readUser",
+        currentPage: currentPage,
+        username: args.username
+      },
+      success(res) {
+        console.log(res);
+        const currComponent = that.selectComponent(`#waterFlowCards`);
+        // 数据存在时
+        if (res.result && res.result.data.length > 0) {
+          // 页数++
+          currComponent.setData({ currentPage: ++currentPage});
+          // 添加新数据到 list 里 
+          list = list.concat(res.result.data);
+          console.log(list, "list");
+          that.setData({ list });
+          // 数据少于一页时
+          if (res.result.data.length < 10) {
+            currComponent.setData({
+              loadAll: true
+            });
+          }
+          // 新数据进行左右处理
+          currComponent.RightLeftSolution()
+        } else { // 不存在数据时
+          if (currComponent.data.leftH == 0 && currComponent.data.rightH == 0) {
+            currComponent.setData({
+              leftList: [],
+              rightList: [],
+            })
+          }
+          currComponent.setData({
+            loadAll: true,
+            list: [null]
+          });
+        }
+      },
+      fail(res) {
+        console.log("请求失败", res)
+      }
+    })
+  },
+  init() {
+    let list = [];
+    this.setData({list})
+  },
+  onLoad: function (options) {
+    this.init()
+    this.onPullDownRefresh()
+  },
+    
+  // 下拉刷新
+  onPullDownRefresh() { 
+    // 在标题栏中显示加载
+    wx.showNavigationBarLoading();
+    // 重置组件内的 currentPage 和 loadAll
+    this.selectComponent(`#waterFlowCards`).setData({currentPage: 0});
+    this.selectComponent(`#waterFlowCards`).setData({loadAll: false});
+
+    console.log("下拉刷新")
+    this.selectComponent(`#waterFlowCards`).RightLeftSolution(true)
+    this.selectComponent(`#waterFlowCards`).getData()
+    // 完成停止加载
+    wx.hideNavigationBarLoading() 
+  },
+  // 上拉触底改变状态
+  onReachBottom() {
+    console.log(123);
+    wx.showLoading({
+      title: '加载更多中',
+      mask: true
+    })
+    this.selectComponent(`#waterFlowCards`).getData();
+    wx.hideLoading();
+  },
+
+})

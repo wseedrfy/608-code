@@ -4,6 +4,20 @@ Page({
   data: {
     // 丢入瀑布流的数据
     list:[],
+    item:"一半山河一般啊,江河一半山河一般啊,江河,一半山河一般啊,江河一半山河一般啊,江河,",
+    　 array:[
+      {
+        biaoqian: "张三",
+      },
+      {
+        biaoqian:"李四"
+      },
+      {
+        biaoqian:"王五"
+      }
+
+     
+    ]
   },
 
   onLazyLoad(info) {
