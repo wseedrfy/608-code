@@ -17,6 +17,7 @@ Page({
     Commentindex: 0, // 评论区的 index
     Starurl: "../../../../images/zan1.png",
     edit_style: 'edit_hide',
+    sendCom:[]
   },
   callFunction: function (type,be_character,Input) {
     const args = wx.getStorageSync('args')
@@ -32,7 +33,7 @@ Page({
         type: type,
         character: character,
         be_character: be_character,
-        username: that.data.username,
+        username: args.username,
         be_username: that.data.content.username,
         content: Input,
         createTime: new Date().getTime(),
@@ -69,17 +70,18 @@ Page({
     })
   },
   xx:function(e){
-    // if (e.detail.comReply){
-    //   this.setData({
-    //     comReply: false,
-    //   })
-    // }
     setTimeout(() => {
       this.setData({
         comReply: !e.detail.comReply,
       })
     }, 200);
     console.log("接收子组件传过来的值" + '....',e.detail.comReply)
+  },
+  hh:function(e){
+    if(e.detail.CommentList){
+      this.data.sendCom=e.detail.CommentList
+      this.ShowComment()
+    }
   },
   popUp: function () {
     let edit_style = this.data.edit_style;
@@ -139,81 +141,16 @@ Page({
       setTimeout(() => {
         this.setData({
           comReply: !this.data.comReply,
+          outIndex: this.data.Commentindex,
+          inIndex: this.data.inIndex,
+          CommentList:this.data.CommentList,
+          content:this.data.content
         })
       }, 200);
   },
-  replySubmit: function (e) {
-    var that = this;
-    let res = that.isNull(e.detail.value);
-    var outIndex = that.data.Commentindex
-    var inIndex = that.data.inIndex
-    const args = wx.getStorageSync('args')
-    if (res) {
-      wx.showToast({
-        title: '内容不能为空',
-        icon: 'none'
-      })
-    } else {
-      var add = {
-        "InputReply": e.detail.value,
-        "ReplyTime": new Date().getTime(),
-        "iconUser": args.iconUrl,
-        "nickName": args.nickName,
-        "username": args.username,
-        "Replied": "",
-      }
-      if (inIndex === -1 || inIndex === undefined) {
-        add.Replied = that.data.CommentList[outIndex].nickName
-        var be_character = {
-          userName: that.data.CommentList[outIndex].username,
-          iconUrl: that.data.CommentList[outIndex].iconUrl,
-          nickName: that.data.CommentList[outIndex].nickName
-        }
-      } else {
-        add.Replied = that.data.CommentList[outIndex].Reply[inIndex].nickName
-        var be_character = {
-          userName: that.data.CommentList[outIndex].Reply[inIndex].username,
-          iconUrl: that.data.CommentList[outIndex].Reply[inIndex].iconUrl,
-          nickName: that.data.CommentList[outIndex].Reply[inIndex].nickName
-        }
-      }
-      wx.cloud.callFunction({
-        name: 'NewCampusCircle',
-        data: {
-          url: 'CommentControl',
-          addData: add,
-          index: outIndex,
-          _id: that.data.content._id,
-          username: that.data.username,
-          type: 'replyComment'
-        },
-        success: res => {
-          that.data.CommentList[outIndex].Reply.push(add)
-          wx.hideLoading()
-          that.ShowComment()
-        },
-        fail: err => {
-          wx.showToast({
-            title: '请求失败',
-            icon: 'none',
-          })
-          console.error
-        }
-      })
-      that.setData({
-        Input: ""
-      })
-      that.callFunction('ReplyCommentControlLogs',be_character,e.detail.value)
-      setTimeout(() => {
-        that.setData({
-          comReply: !that.data.comReply,
-        })
-      }, 200);
-      
-    }
-    that.data.inIndex = -1
-  },
+  
   DelComment: function () {
+    const args = wx.getStorageSync('args')
     var outIndex = this.data.Commentindex
     var inIndex=this.data.inIndex
     var that = this
@@ -249,7 +186,7 @@ Page({
             data: {
               url: 'CommentControl',
               type: type1,
-              username : that.data.username,
+              username : args.username,
               _id: that.data.content._id,
               index:outIndex,
               delData: delData
@@ -317,7 +254,7 @@ Page({
             name: 'CampusCircle',
             data: {
               _id: that.data.CardID,
-              username: that.data.username,
+              username: args.username,
               type: 'delCard'
             },
             success: res => {
@@ -386,7 +323,7 @@ Page({
         data: {
           url: 'CommentControl',
           addData: add,
-          username: that.data.username,
+          username: args.username,
           Time: that.data.content.Time,
           _id: that.data.content._id,
           type: 'writeComment'
@@ -427,21 +364,24 @@ Page({
   },
   ShowComment: function () {
     var Show = []
+    if(this.data.sendCom.length!=0){
+      this.data.CommentList=this.data.sendCom
+    }
     var copyList = JSON.parse(JSON.stringify(this.data.CommentList))
-    for (let i = 0; i < this.data.CommentList.length; i++) {
-      if (this.data.CommentList[i] != null) {
-        var AftTime = util.timeago(this.data.CommentList[i].CommentTime, 'Y年M月D日')
+    for (let i = 0; i < copyList.length; i++) {
+      if (copyList[i] != null) {
+        var AftTime = util.timeago(copyList[i].CommentTime, 'Y年M月D日')
         if (copyList[i].Reply != null) {
           for (let j = 0; j < copyList[i].Reply.length; j++) {
             copyList[i].Reply[j].ReplyTime = util.timeago(copyList[i].Reply[j].ReplyTime, 'Y年M月D日')
           }
         }
         Show.push({
-          InputContent: this.data.CommentList[i].InputComment,
+          InputContent: copyList[i].InputComment,
           InputTime: AftTime,
-          iconUser: this.data.CommentList[i].iconUser,
-          nickName: this.data.CommentList[i].nickName,
-          username: this.data.CommentList[i].username,
+          iconUser: copyList[i].iconUser,
+          nickName: copyList[i].nickName,
+          username: copyList[i].username,
           Reply: copyList[i].Reply
         })
       }
@@ -497,12 +437,11 @@ Page({
       more = 1
     }
     var Time = util.timeago(that.data.content.Time, 'Y年M月D日')
-    that.data.username = args.username
     this.data.CardID = content._id
     wx.cloud.callFunction({
       name: 'CampusCircle',
       data: {
-        username: that.data.username,
+        username: args.username,
         Time: content.Time,
         _id: content._id,
         type: 'readComment'
