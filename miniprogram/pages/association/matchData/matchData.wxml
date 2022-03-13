@@ -1,0 +1,11 @@
+<view class="wrap">
+  <view class="caption">招新数据</view>
+  <scroll-view class="item_wrap" wx:for="{{contetn}}" wx:key="item">
+    <view class="content_wrap" data-item="{{item}}" bindtap="godetail">
+      <view class="from">来自{{item.userMess.name}}的比赛申请</view>
+      <view class="status" style="color:{{item.read==false?'blue':''}};">
+        {{item.read==false?'未读':'已读'}} >
+      </view>
+    </view>
+  </scroll-view>
+</view>

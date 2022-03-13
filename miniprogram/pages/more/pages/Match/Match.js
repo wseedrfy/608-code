@@ -38,7 +38,7 @@ Page({
     html: 1,
     content: {},
     matchStatus: false,//false不能参与  true能参与
-    time:Date.now()
+    time: Date.now()
   },
 
   /**
@@ -94,15 +94,15 @@ Page({
     this.showModal();
   },
   // 已截止
-  timeOut(){
+  timeOut() {
     wx.showToast({
       title: '已截止',
       icon: 'none',
       image: '',
       duration: 1500,
       mask: false,
-      success: (result)=>{
-        
+      success: (result) => {
+
       },
     });
   },
@@ -197,16 +197,18 @@ Page({
             title: "提交中",
             mask: true,
             success: (result) => {
+              let data = this.data
               wx.cloud.callFunction({
                 name: "associationSend",
                 data: {
                   type: 5,
-                  userMess: this.data.userMess,
+                  userMess: data.userMess,
                   matchDetail: matchDetail,
-                  assoName: this.data.content.assoMess.association,
-                  assoCount: this.data.content.assoMess.card,
+                  assoName: data.content.assoMess.association,
+                  assoCount: data.content.assoMess.card,
                   pusherCount: count,
-                  match_id: this.data.content._id
+                  match_id: data.content._id,
+                  index: data.content.assoMess.card
                 }
               }).then(res => {
                 console.log(res);
