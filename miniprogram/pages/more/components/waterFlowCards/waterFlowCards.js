@@ -22,6 +22,11 @@ Component({
       currentTab: {
         type: Number
       },
+      // 控制可否滑动
+      ifScroll: {
+        type: Boolean,
+        value: false
+      }
     },
 
   /**
@@ -66,7 +71,7 @@ Component({
    */
   methods: {
     onReachBottom(){
-      console.log("eeeee");
+      console.log("瀑布流 - 上拉触底");
       this.triggerEvent("onReachBottom");
     },
     onPullDownRefresh() {

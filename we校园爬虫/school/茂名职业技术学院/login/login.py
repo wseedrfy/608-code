@@ -29,13 +29,16 @@ def login(session, username, password):
 
             res = session.post(
                 'https://jwc.mmpt.edu.cn/default2.aspx', data=data)
-            status_code = res.status_code
-            if status_code != 200:
-                return search('1', username, password, "login")
             return res.text
-        except:
+        except Exception as e:
+            return {
+                "msg": "茂职有问题",
+                "name": "未知",
+                "code": 606,
+                "error": str(e)
+            }
             # print("茂名职业技术学院登录有问题，返回代码为", status_code)
-            return search('1', username, password, "login")
+            # return search('1', username, password, "login")
 
         # print(res.text)
 
@@ -58,19 +61,17 @@ def login(session, username, password):
             returnData = login_test(session, username, password)
         elif '安全退出' in returnData:
             break
-        elif 'msg' in returnData:
-            return returnData['name'], headers, {
-                'msg': returnData['msg'],
-                'code': returnData['code']
-            }
+        # elif 'msg' in returnData:
+        #     return returnData['name'], headers, {
+        #         'msg': returnData['msg'],
+        #         'code': returnData['code']
+        #     }
         else:
             return name, headers, {
                 "msg": '异常，请重试'
             }
     regname = re.compile(r'xm=(.*?)&')
     name = regname.findall(returnData)[0]
-
-
 
     return name, headers, {
         "msg": 'welcome',

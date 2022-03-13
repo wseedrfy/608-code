@@ -1,0 +1,6 @@
+/* 头部 */
+.head .head_second {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
