@@ -183,6 +183,12 @@ Page({
           icon: 'none',
           duration: 1000
         })
+      }else if(task.length >= 8){
+        wx.showToast({
+          title: '任务名字不能过长噢~最多7个字',
+          icon: 'none',
+          duration: 1000
+        })
       }else if(startTime == "输入开始时间"){
         wx.showToast({
           title: '请选择您的开始时间~',
