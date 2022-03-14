@@ -1,5 +1,4 @@
-// pages/association/matchData/matchData.js
-let count = ''
+// pages/association/matchDataDetail/matchDataDetail.js
 const db = wx.cloud.database()
 Page({
 
@@ -7,29 +6,25 @@ Page({
    * 页面的初始数据
    */
   data: {
-
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let args = wx.getStorageSync('args')
-    count = args.username
-    db.collection("assoMatchPush").where({ index: count }).get().then(res => {
-      this.setData({
-        contetn: res.data
-      })
+    let content = JSON.parse(options.content)
+    this.setData({ content: content })
+    this.updateStatus(content._id)
+  },
+  // 标记状态
+  updateStatus(_id) {
+    db.collection("assoMatchPush").where({ _id }).update({
+      data: {
+        read: true
+      }
     })
   },
-  // 跳转
-  godetail(e) {
-    let content = e.currentTarget.dataset.item
-    content = JSON.stringify(content)
-    wx.navigateTo({
-      url: `/pages/association/matchDataDetail/matchDataDetail?content=${content}`,
-    })
-  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
