@@ -12,8 +12,7 @@ Page({
         animPlus: {},//旋转动画
         animCollect: {},//item位移,透明度
         animTranspond: {},//item位移,透明度
-        animInput: {},//item位移,透明度 
-       
+        animInput: {},//item位移,透明度       
         sysW: wx.getSystemInfoSync().windowWidth,
         xAxial: 0,
         x: 0,
@@ -21,14 +20,11 @@ Page({
         cssAnimation: 'translate3d(0, 0, 0)',
         succeedMsg: '',
         pullStatus: true,//是否允许验证成功后继续滑动
-
         task_name:'背单词',
         showModel3:false,
         dakacount:'19',
         dakatime:'12:00',
         showModel2:false,
-        // showModel5:true,
-
         currentid:0,
         currentIndex: 0, // 列表操作项的index
         taskdata:[
@@ -466,7 +462,7 @@ Page({
         let isDaka=this.data.taskdata
         isDaka=isDaka[id].task_isDaka
         //如果触摸的X轴坐标大于等于限定的可移动范围，则验证成功
-        if (this.data.x >= this.data.w&isDaka==false) {
+        if (this.data.x >= this.data.w&&!isDaka) {
           this.data.xAxial = this.data.w;
           this.data.succeedMsg = '';
           detail.msg = true;
