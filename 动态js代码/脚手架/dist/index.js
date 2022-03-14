@@ -6,12 +6,22 @@ var __webpack_exports__ = {};
   \\***********************/
 
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 function runCode() {
+
+  var db = wx.cloud.database({ env: 'mall-7gi19fir46652cb4' });
 
   var Page = function Page(page) {
     return page;
   };
   return Page({
+
+    onLoad: function onLoad(options) {
+      options = this.options;
+      this.setdata({});
+    },
+
     parseTag: function parseTag(tag) {
       var res = {
         type1: "tag",
@@ -113,60 +123,529 @@ function runCode() {
       for (var i in dictData) {
         this.data[i] = dictData[i];
       }
-      var html = "<view  " + (this.data.dark === 'dark' ? 'style="    filter: invert(0%)!important;    background-color: #FFA07A;  "' : '') + " class='body' style='align-items: center; background-color: rgba(214,231,242); border-radius: 24rpx; box-sizing: border-box; display: flex; height: 700rpx; justify-content: center; margin-top: -350rpx; position: absolute; top: 50%; width: 100%;'>  <view  " + (this.data.dark === 'dark' ? 'style="    filter: invert(10%)!important;  "' : '') + " class='body-box'>    <view  " + (this.data.dark === 'dark' ? 'style="    filter: invert(100%)!important;  "' : '') + " class='body-box-block color1' style='align-items: center; background-color: rgba(164,208,244); border-radius: 24rpx; color: rgba(5,66,104); display: flex; font-size: 60rpx; font-weight: 600; height: 130rpx; justify-content: center; margin-bottom: 40rpx; width: 610rpx;'>            <view  " + (this.data.dark === 'dark' ? 'style="    filter: invert(10%)!important;  "' : '') + " class='body-box-block-text' style='align-items: center; display: flex; text-align: center; vertical-align: middle;'>        <image src='data:image/png;base64,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' style='color: rgba(249,238,172); height: 100rpx; margin-right: 30rpx; vertical-align: middle; width: 100rpx;'></image>        <text>\\u7533\\u8BF7\\u5165\\u9A7B</text>      </view>    </view>    <view  " + (this.data.dark === 'dark' ? 'style="    filter: invert(100%)!important;  "' : '') + " class='body-box-block color2' style='align-items: center; background-color: rgba(189,196,244); border-radius: 24rpx; color: rgba(5,66,104); display: flex; font-size: 60rpx; font-weight: 600; height: 130rpx; justify-content: center; margin-bottom: 40rpx; width: 610rpx;'>            <view  " + (this.data.dark === 'dark' ? 'style="    filter: invert(10%)!important;  "' : '') + " class='body-box-block-text' style='align-items: center; display: flex; text-align: center; vertical-align: middle;'>        <image src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEcAAABVCAYAAAAbrvmPAAAACXBIWXMAAAsSAAALEgHS3X78AAADfklEQVR4nO2c3Y3TQBCAJyjvpANyFRAqwPeKhQkVEOQCCBUQKsC8Y3HpACz5maQCkg7uOrirIGhhfOzl7NlZe+14nfkkK1L8k/i7mdk/50aHwwHOgTBKJwCwBIAgz+KAc8vjoXsJo3QKACsAeGd77mAjJ4zSOUbKy5Ldl3kWb0zXGFTkYOrMMVKeEYdOOdcbhBxMHRUlCwB4yjhl+HLCKA1QiG09GW5BDqN0gZHyvOYlWJHzpObFTwbWlaCBGDDUo3u8ba2aNNHIizyLd9QB3kVOQZ7F13kWq/S6AIB1jUsYU8tbOQWapK+Wp85MB3gvR2Nuefx5yMHWi1VkNYafVsiqxjnG1s57OTWjpjiXTK0hRA4naj4DwEcAuDt6n0wtr+WEUWoaYAIKSfIsTlDGT23fMCNHG2yaWOZZfAv/mv3bPItVq3YJADcmOT4PPBPGCHybZ/HV8Zs4lzPFOZ9KvBw+hFGqIuYL49AL1Ums+zk+Djyn3CLcRAz4Fjk4It8w+ij7PIuNPWATvkVOwhBzV2MoUYo3csIoTZjTE8um6VTgRVphL/g749A1jtCd0PvIsRCzZ/Z72PQ6cizEqDozc5VOBb2NHKwxXDGBazHQxx4yNteqV/uGecrcNBdcl15FDk4hbCzEvOcs69alN3JwSPCbueSiUult2bjJJSdPK4yWpGLBv4yixrSSSjonk4O1RY2RPlictsca47z4ltG5HO0hoiVz0b9grc/NwP9BqKtO3/VxmnYmR7sRWykqjRZ5Fv8o2aeu+cnRV9xiK3lP63JwQmlh0QLpqIW6lR4tXdKKHBRSbDZRUrDFaOmktlTRWA7WkBk++RBYtDplrHEyvPWWiANLDj4kVBBor9O6a0Yae8z1q1OlTxWP5GDhVDc+w61JJJRxg73gv9upU4fikRz8sg+qNgrTtwlnIR4AVCTstNdd36KDgpVWKKy3f+G2GNIjKM4ROQQih0DkEHQyttKmJVygWjynE+lVdDXwnLTQX2odSSsCkUMgcghEDoHIIRA5BCKHQOQQlE12sX7ix6HNpdouKOsh/3L4uaP+3Ko9klYEIodA5BCIHAKRQyByCEQOgcghEDkEIodA5BCIHAKRQyByCEQOgcghEDkEIodA5BCIHIKz+a+2dZDIIRi9ev1thg8XCUeMLX8ld1ZIWhGIHIIx/s7B6zXtVgCAP/bD+y/8xBWvAAAAAElFTkSuQmCC' style='color: rgba(249,238,172); height: 100rpx; margin-right: 30rpx; vertical-align: middle; width: 100rpx;'></image>        <text>\\u5B9E\\u65F6\\u6570\\u636E</text>      </view>    </view>    <view  " + (this.data.dark === 'dark' ? 'style="    filter: invert(100%)!important;    background-color: rgba(249,238,172);  "' : '') + " class='body-box-block color3' style='align-items: center; background-color: rgba(249,238,172); border-radius: 24rpx; color: rgba(5,66,104); display: flex; font-size: 60rpx; font-weight: 600; height: 130rpx; justify-content: center; margin-bottom: 0rpx; width: 610rpx;'>            <view  " + (this.data.dark === 'dark' ? 'style="    filter: invert(10%)!important;  "' : '') + " class='body-box-block-text' style='align-items: center; display: flex; text-align: center; vertical-align: middle;'>        <image src='data:image/png;base64,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' style='color: rgba(249,238,172); height: 100rpx; margin-right: 30rpx; vertical-align: middle; width: 100rpx;'></image>        <text  " + (this.data.dark === 'dark' ? 'style="    filter: invert(10%)!important;  "' : '') + " class='body-box-block-text-end'>\\u6295\\u653E\\u5E7F\\u544A</text>      </view>    </view>  </view></view>";
+      var html = "<view class='bg-red flex justify-center'>\\t<view class='action'>\\t\\t" + (_typeof(this.data.userinfo.userlocation.school) === "object" ? JSON.stringify(this.data.userinfo.userlocation.school) : this.data.userinfo.userlocation.school == _typeof(this.data.sf) === "object" ? JSON.stringify(this.data.sf) : this.data.sf ? "<text >\\u6709\\u95EE\\u9898\\u8054\\u7CFB\\u7535\\u8BDD:xxxxx\\uFF01</text>" : "") + "\\t</view></view><view class='cu-card article'>\\t<view class='cu-item shadow' style='margin:30rpx 30rpx 0 30rpx' bindtap='location'>\\t\\t" + (_typeof(this.data.userinfo.havelocation) === "object" ? JSON.stringify(this.data.userinfo.havelocation) : this.data.userinfo.havelocation ? "<view >\\t\\t\\t<view class='title'>\\t\\t\\t\\t<view class='text-cut text-xl text-black text-bold'>\\t\\t\\t\\t\\t" + (_typeof(this.data.userinfo.userlocation.school) === "object" ? JSON.stringify(this.data.userinfo.userlocation.school) : this.data.userinfo.userlocation.school) + "-" + (_typeof(this.data.userinfo.userlocation.location) === "object" ? JSON.stringify(this.data.userinfo.userlocation.location) : this.data.userinfo.userlocation.location) + "-" + (_typeof(this.data.userinfo.userlocation.sushehao) === "object" ? JSON.stringify(this.data.userinfo.userlocation.sushehao) : this.data.userinfo.userlocation.sushehao) + "</view>\\t\\t\\t</view>\\t\\t\\t<view class='title' style='font-weight:10;line-height:30rpx'>\\t\\t\\t\\t<view class='text-cut'>" + (_typeof(this.data.userinfo.userlocation.name) === "object" ? JSON.stringify(this.data.userinfo.userlocation.name) : this.data.userinfo.userlocation.name) + "-" + (_typeof(this.data.userinfo.userlocation.tell) === "object" ? JSON.stringify(this.data.userinfo.userlocation.tell) : this.data.userinfo.userlocation.tell) + "</view>\\t\\t\\t</view>\\t\\t</view>" : "\\t\\t<view wx:else>\\t\\t\\t<view class='title'>\\t\\t\\t\\t<view class='text-cut text-xl text-black text-bold text-blue'>\\u70B9\\u51FB\\u6DFB\\u52A0\\u5730\\u5740</view>\\t\\t\\t</view>\\t\\t</view>") + "\\t</view></view><view class='cu-card article'>\\t<view class='cu-item shadow' style='margin:10rpx 30rpx;padding-bottom:0'>\\t\\t<view class='title'>\\t\\t\\t<view class='text-cut text text-black'>" + (_typeof(this.data.shop.name) === "object" ? JSON.stringify(this.data.shop.name) : this.data.shop.name) + "</view>\\t\\t</view>\\t\\t" + this.data.buy.buy.map(function (item, index) {
+        return " <view >\\t\\t\\t<view class='padding-xs flex align-center'>\\t\\t\\t\\t<image style='cu-avatar radius lg' src='" + (_typeof(item.img) === "object" ? JSON.stringify(item.img) : item.img) + "' style='font-size: 2em; height: 130rpx; left: 20rpx; width: 130rpx;'></image>\\t\\t\\t\\t<view class='flex-sub' style='padding-left: 30rpx;'>\\t\\t\\t\\t\\t<view class=' text-xl'>\\t\\t\\t\\t\\t\\t<text class='text-black text-bold'>" + (_typeof(item.name) === "object" ? JSON.stringify(item.name) : item.name) + "</text>\\t\\t\\t\\t\\t</view>\\t\\t\\t\\t\\t<view style='font-size: 30rpx;'>\\uFFE5" + (_typeof(item.nowprice) === "object" ? JSON.stringify(item.nowprice) : item.nowprice) + "X" + (_typeof(item.number) === "object" ? JSON.stringify(item.number) : item.number) + "</view>\\t\\t\\t\\t</view>\\t\\t\\t\\t<view class='cu-avatar radius lg' style='background-color: white; font-size: 2em; height: 130rpx; width: 130rpx;'>\\t\\t\\t\\t\\t<text style='color:black;font-size:40rpx'></text>\\t\\t\\t\\t</view>\\t\\t\\t</view>\\t\\t</view>";
+      }) + "\\t\\t<view class='flex title justify-end solids-top' style='font-weight:10'>\\t\\t\\t<view class='text-cut text-xxl'>\\t\\t\\t\\t<text class='text-red text-bold'>\\uFFE5" + (_typeof(this.data.buy.totalprice) === "object" ? JSON.stringify(this.data.buy.totalprice) : this.data.buy.totalprice) + "</text>\\t\\t\\t</view>\\t\\t</view>\\t</view></view><view class='cu-card article'>\\t<view class='cu-item shadow' style='margin:10rpx 30rpx;padding-bottom:0'>\\t\\t<view class='cu-form-group'>\\t\\t\\t<view>\\u9884\\u7EA6\\u60C5\\u51B5</view>\\t\\t\\t<picker bindchange='PickerChange' value='" + (_typeof(this.data.index) === "object" ? JSON.stringify(this.data.index) : this.data.index) + "' range='" + (_typeof(this.data.picker) === "object" ? JSON.stringify(this.data.picker) : this.data.picker) + "'>\\t\\t\\t\\t<view class='picker'>\\t\\t\\t\\t\\t" + (_typeof(this.data.picker[_typeof(this.data.index) === "object" ? JSON.stringify(this.data.index) : this.data.index]) === "object" ? JSON.stringify(this.data.picker[_typeof(this.data.index) === "object" ? JSON.stringify(this.data.index) : this.data.index]) : this.data.picker[_typeof(this.data.index) === "object" ? JSON.stringify(this.data.index) : this.data.index]) + "\\t\\t\\t\\t</view>\\t\\t\\t</picker>\\t\\t</view>\\t</view></view><view class='cu-card article'>\\t<view class='shadow' style='margin:10rpx 60rpx;padding-bottom:0'>\\t\\t<text decode='true'>\\u6CE8\\uFF1A\\u4E0A\\u534811\\u70B9\\u4E4B\\u540E\\u4E0D\\u53EF\\u9884\\u7EA6\\u4ECA\\u5929\\u4E2D\\u5348\\uFF0C&emsp;&emsp;\\u4E0B\\u534817\\u70B9\\u4E4B\\u540E\\u4E0D\\u53EF\\u9884\\u7EA6\\u4ECA\\u5929\\u665A\\u4E0A</text>" + (_typeof(this.data.userinfo.userlocation.school) === "object" ? JSON.stringify(this.data.userinfo.userlocation.school) : this.data.userinfo.userlocation.school == _typeof(this.data.sf) === "object" ? JSON.stringify(this.data.sf) : this.data.sf ? "<text decode='true' >\\u5E08\\u8303:&emsp;&emsp;\\u5468\\u4E00\\u5230\\u5468\\u4E94\\u4E2D\\u5348\\u4E1C\\u95E8\\u81EA\\u53D6&emsp;&emsp;\\u5468\\u4E94\\u4E0B\\u5348\\u5230\\u5468\\u65E5\\u9001\\u5230\\u5BBF\\u820D\\uFF01</text>" : "") + "\\t</view></view><view class='cu-card article'>\\t<view class='cu-item shadow' style='margin:0rpx 30rpx 0 30rpx'>\\t\\t<view class='title'>\\t\\t\\t<view class='text-cut text-xl text-black text-bold'>\\u5907\\u6CE8</view>\\t\\t</view>\\t\\t<view class='cu-form-group'>\\t\\t\\t<textarea bindinput='beizu' style='margin: 0rpx' maxlength='-1' placeholder='\\u8BF7\\u5907\\u6CE8\\u5FCC\\u53E3\\u3001\\u9700\\u6C42'></textarea>\\t\\t</view>\\t</view></view>" + (_typeof(this.data.allok) === "object" ? JSON.stringify(this.data.allok) : this.data.allok ? "<view  class='padding flex flex-direction'>\\t<button bindtap='newpay' class='cu-btn bg-green margin-tb-sm lg'>\\u652F\\u4ED8</button>\\t</view>" : "3");
       this.setData({ html: this.parse(html) });
     },
 
-    /**
-     * 页面的初始数据
-     */
-    data: {},
-
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad: function onLoad(options) {
-      var _this = this;
-
-      options = this.options;this.data.dark = wx.getSystemInfoSync().theme;wx.onThemeChange(function (e) {
-        console.log(e.theme);_this.setdata({ dark: e.theme });
-      });this.setdata();
+    data: {
+      shop: { name: '' },
+      buy: { buy: [] },
+      allok: false,
+      sf: "师范(目前东门自取)",
+      freepay: false,
+      index: '0',
+      beizu: '',
+      picker: ['预约今天中午', '预约今天晚上', '预约明天中午', '预约明天晚上'],
+      userinfo: { userlocation: {} }
     },
 
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function onReady() {},
+    onShow: function onShow(options) {
+      wx.showLoading({
+        mask: true,
+        title: '获取订单信息...'
+      });
+      var self = this;
+      db.collection('zzzTEXT').doc('test').get().then(function (res) {
+        console.log(res.data.freepay);
+        self.setdata({
+          freepay: res.data.freepay
+        });
+      });
+      wx.cloud.callFunction({
+        // 要调用的云函数名称
+        name: 'time',
+        config: {
+          env: 'mall-7gi19fir46652cb4'
+        },
 
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow: function onShow() {},
+        // 传递给云函数的参数
+        data: {},
+        success: function success(res) {
 
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide: function onHide() {},
+          var nowtime = dayjs(res.result.time).format('HH:mm');
+          console.log(11);
+          if (nowtime < "11") {
+            self.setdata({
+              oldindex: '0',
+              index: '0'
+            });
+          }
+          console.log(12);
+          if (nowtime >= "11" && nowtime < "17") {
+            self.setdata({
+              oldindex: '1',
+              index: '1'
+            });
+          }
+          console.log(13);
+          if (nowtime >= "17") {
+            self.setdata({
+              oldindex: '2',
+              index: '2'
+            });
+          }
+          console.log(11);
+          wx.getStorage({
+            key: 'userinfo',
+            success: function success(res) {
+              wx.getStorage({
+                key: 'pay',
+                success: function success(pay) {
+                  wx.getStorage({
+                    key: 'shop',
+                    success: function success(shop) {
+                      console.log(shop.data, 233);
+                      console.log(pay.data);
+                      self.setdata({
+                        shop: shop.data,
+                        userinfo: res.data,
+                        buy: pay.data
+                      });
 
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload: function onUnload() {},
+                      wx.hideLoading();
+                      self.setdata({
+                        allok: true
+                      });
+                    }
+                  });
+                }
+              });
+            }
+          });
+        },
+        fail: function fail(err) {
+          // this.onShow();
+        },
+        complete: function complete() {
 
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh: function onPullDownRefresh() {},
+          // ...
+        }
+      });
+    },
+    /* onShow(e) {
+      var self = this
+      wx.showLoading({
+        mask:true,
+        title: '加载中...',
+      })
+      
+    }, */
+    /* 备注 */
+    beizu: function beizu(e) {
+      this.setdata({
+        beizu: e.detail.value
+      });
+    },
+    PickerChange: function PickerChange(e) {
+      console.log(e);
 
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function onReachBottom() {},
+      console.log(e.detail.value);
+      var oldindex = this.data.oldindex;
+      console.log("old:" + oldindex);
+      if (oldindex <= e.detail.value) {
+        console.log("更新");
+        this.setdata({
+          index: e.detail.value
+        });
+      } else {
+        wx.showToast({
+          icon: "none",
+          title: '不在规定时间内'
+        });
+      }
+    },
 
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage: function onShareAppMessage() {}
+    /* 地址设置 */
+    location: function location(e) {
+      wx.navigateTo({
+        url: '../HotTop/HotTop?content=地址&pay=' + true
+      });
+    },
+    testpay: function testpay(e) {
+      wx.showLoading({
+        mask: true,
+        title: '正在调起支付...'
+      });
+      var self = this;
+      var shopdayin = self.data.dayin;
+      var shop_id = self.data.shop._id; //商铺编号
+      var shopid = self.data.shop.shopid; //商铺编号
+      var shopname = self.data.shop.name; //商铺名称
+      var totalprice = parseFloat(self.data.buy.totalprice).toFixed(2);
+      var aaaa = totalprice.split(".");
+      var price = aaaa[0] + aaaa[1];
+      var outTradeNo = shopid + 'A' + price + "F" + new Date().getTime(); //商户订单号
+      var userinfo = self.data.userinfo;
+      var buy = self.data.buy.buy; //商品内容
+      var totalnumber = self.data.buy.totalnumber; //商品数量
+      //商品价格
+      var day = dayjs().format('YYYY-MM-DD');
+      if (self.data.index > 1) {
+        var day = dayjs().add(1, 'day').format('YYYY-MM-DD');
+      } else {}
+      var yuyue = self.data.picker[self.data.index]; //预约情况
+      var beizu = self.data.beizu; //备注
+      var xxlocation = userinfo.userlocation.location + '-' + userinfo.userlocation.sushehao + '-' + userinfo.userlocation.name + '-' + userinfo.userlocation.tell;
+      if (userinfo.userlocation.tell) {
+        var dingdan = {
+          go: 0, //出单情况  0待出  1已出单
+          day: day, //下单所属日期，预约明天天数加一
+          upday: dayjs().format('YYYY-MM-DD'), //下单日期
+          uptime: dayjs().format('HH:mm:ss'), //下单时间
+          outTradeNo: outTradeNo, //商户订单号
+          school: userinfo.userlocation.school, //地址
+          location: userinfo.userlocation.location, //地址
+          sushehao: userinfo.userlocation.sushehao,
+          name: userinfo.userlocation.name,
+          tell: userinfo.userlocation.tell,
+          shopid: shopid, //商家id
+          shopname: shopname, //商家名字
+          buy: buy, //商品
+          yuyue: yuyue, //预约情况
+          beizu: beizu, //备注
+          totalnumber: totalnumber, //总件数
+          totalprice: parseFloat(parseFloat(totalprice).toFixed(2)) //总价
+        };
+
+        db.collection('dindan').add({
+          data: dingdan,
+          success: function success(res) {
+            wx.cloud.callFunction({
+              // 要调用的云函数名称
+              name: 'goodsyuenumber',
+              config: {
+                env: 'mall-7gi19fir46652cb4'
+              },
+              // 传递给云函数的event参数
+              data: {
+                shopid: shop_id,
+                buy: buy
+              }
+            }).then(function (res) {
+              /* util.test(shopdayin,dingdan,shopname) */
+              console.log(res);
+            }).catch(function (err) {
+              console.log(err);
+            });
+
+            /* wx.cloud.callFunction({
+              // 要调用的云函数名称
+              name: 'goodsdaynumber',
+              // 传递给云函数的event参数
+              data: {
+                shopid: shop_id,
+                buy: buy
+              }
+            }).then(res => {
+              
+            }).catch(err => {
+              console.log(err)
+            }) */
+            wx.hideLoading();
+            wx.reLaunch({
+              url: '../HotTop/HotTop?content=商场&shop_id=' + shop_id
+            });
+          },
+          fail: console.error,
+          complete: console.log
+        });
+      } else {
+        wx.showToast({
+          icon: "none",
+          title: '请添加送餐地址'
+        });
+      }
+      console.log(dingdan);
+    },
+    pay: function pay(e) {
+      wx.showLoading({
+        mask: true,
+        title: '正在调起支付...'
+      });
+      var self = this;
+      var num = self.createNonceStr();
+      var shopdayin = self.data.dayin;
+      var shop_id = self.data.shop._id; //商铺编号
+      var shopid = self.data.shop.shopid; //商铺编号
+      var shopname = self.data.shop.name; //商铺名称
+      var totalprice = parseFloat(self.data.buy.totalprice).toFixed(2); //商品价格
+      var aaaa = totalprice.split(".");
+      var price = aaaa[0] + aaaa[1];
+      var timeStamp = new Date().getTime();
+      var outTradeNo = shopid + 'A' + price + "F" + num; //商户订单号
+      console.log();
+      var userinfo = self.data.userinfo;
+      var buy = self.data.buy.buy; //商品内容
+      var totalnumber = self.data.buy.totalnumber; //商品数量
+      if (self.data.index > 1) {
+        var day = dayjs().add(1, 'day').format('YYYY-MM-DD');
+      } else {
+        var day = dayjs().format('YYYY-MM-DD');
+      }
+      var yuyue = self.data.picker[self.data.index]; //预约情况
+      var beizu = self.data.beizu; //备注
+      var xxlocation = userinfo.userlocation.location + '-' + userinfo.userlocation.sushehao + '-' + userinfo.userlocation.name + '-' + userinfo.userlocation.tell;
+      console.log(userinfo.userlocation.tell);
+      console.log(xxlocation.length);
+      if (userinfo.userlocation.tell) {
+        var dingdan = {
+          go: 0, //出单情况  0待出  1已出单
+          day: day, //下单所属日期，预约明天天数加一
+          upday: dayjs().format('YYYY-MM-DD'), //下单日期
+          uptime: dayjs().format('HH:mm:ss'), //下单时间
+          outTradeNo: outTradeNo, //商户订单号
+          school: userinfo.userlocation.school, //地址
+          location: userinfo.userlocation.location, //地址
+          sushehao: userinfo.userlocation.sushehao,
+          name: userinfo.userlocation.name,
+          tell: userinfo.userlocation.tell,
+          shopid: shopid, //商家id
+          shopname: shopname, //商家名字
+          buy: buy, //商品
+          yuyue: yuyue, //预约情况
+          beizu: beizu, //备注
+          totalnumber: totalnumber, //总件数
+          totalprice: parseFloat(parseFloat(totalprice).toFixed(2)) //总价
+        };
+
+        wx.cloud.callFunction({
+          name: 'pay',
+          config: {
+            env: 'mall-7gi19fir46652cb4'
+          },
+          data: {
+            beizu: beizu,
+            yuyue: yuyue,
+            buy: buy,
+            shangpuname: shopname,
+            outTradeNo: outTradeNo,
+            price: price
+          },
+          success: function success(res) {
+            wx.hideLoading();
+            console.log('获取支付参数成功：', res);
+            var payment = res.result.payment;
+            console.log('获取支付参数成功：', payment);
+
+            wx.requestPayment(Object.assign(payment, {
+              success: function success(res) {
+                console.log('支付成功：', res);
+                db.collection('dindan').add({
+                  data: dingdan,
+                  success: function success(res) {
+                    wx.cloud.callFunction({
+                      // 要调用的云函数名称
+                      name: 'goodsyuenumber',
+                      config: {
+                        env: 'mall-7gi19fir46652cb4'
+                      },
+                      // 传递给云函数的event参数
+                      data: {
+                        shopid: shop_id,
+                        buy: buy
+                      }
+                    }).then(function (res) {
+                      wx.showToast({
+                        title: '成功',
+                        icon: 'success',
+                        duration: 2000
+                      });
+                      setTimeout(function () {
+                        wx.reLaunch({
+                          url: '../HotTop/HotTop?content=商场&shop_id=' + shop_id
+                        });
+                      }, 1500);
+                      wx.hideLoading();
+                    }).catch(function (err) {
+                      console.log(err);
+                    });
+                    /* util.test(shopdayin,dingdan,shopname) */
+                  },
+                  fail: console.error,
+                  complete: console.log
+                });
+              },
+              fail: function fail(err) {
+                console.error('支付失败：', err);
+              }
+            }));
+          },
+          fail: function fail(res) {
+            console.log('获取支付参数失败：' + res);
+          }
+        });
+      } else {
+        wx.hideLoading();
+        wx.showToast({
+          icon: "none",
+          title: '请添加送餐地址'
+        });
+      }
+    },
+    newpay: function newpay(e) {
+      wx.showLoading({
+        mask: true,
+        title: '正在调起支付...'
+      });
+      var self = this;
+      var num = self.createNonceStr();
+      var shopdayin = self.data.dayin;
+      var shop_id = self.data.shop._id; //商铺编号
+      var shopid = self.data.shop.shopid; //商铺编号
+      var shopname = self.data.shop.name; //商铺名称
+      var totalprice = parseFloat(self.data.buy.totalprice).toFixed(2); //商品价格
+      var aaaa = totalprice.split(".");
+      var price = aaaa[0] + aaaa[1];
+      var timeStamp = new Date().getTime();
+      var outTradeNo = "A" + timeStamp + "F" + num; //商户订单号
+      console.log(outTradeNo);
+      var userinfo = self.data.userinfo;
+      var buy = self.data.buy.buy; //商品内容
+      var totalnumber = self.data.buy.totalnumber; //商品数量
+      var day = dayjs().format('YYYY-MM-DD');
+      if (self.data.index > 1) {
+        var day = dayjs().add(1, 'day').format('YYYY-MM-DD');
+      } else {}
+      var yuyue = self.data.picker[self.data.index]; //预约情况
+      var beizu = self.data.beizu; //备注
+      var xxlocation = userinfo.userlocation.location + '-' + userinfo.userlocation.sushehao + '-' + userinfo.userlocation.name + '-' + userinfo.userlocation.tell;
+      console.log(userinfo.userlocation.tell);
+      console.log(xxlocation.length);
+      if (userinfo.userlocation.tell) {
+        var dingdan = {
+          _id: outTradeNo,
+          go: 0, //出单情况  0待出  1已出单
+          day: day, //下单所属日期，预约明天天数加一
+          upday: dayjs().format('YYYY-MM-DD'), //下单日期
+          uptime: dayjs().format('HH:mm:ss'), //下单时间
+          outTradeNo: outTradeNo, //商户订单号
+          location: userinfo.userlocation.location, //地址
+          school: userinfo.userlocation.school,
+          sushehao: userinfo.userlocation.sushehao,
+          name: userinfo.userlocation.name,
+          tell: userinfo.userlocation.tell,
+          shopid: shopid, //商家id
+          shopname: shopname, //商家名字
+          buy: buy, //商品
+          yuyue: yuyue, //预约情况
+          beizu: beizu, //备注
+          totalnumber: totalnumber, //总件数
+          totalprice: parseFloat(parseFloat(totalprice).toFixed(2)) //总价
+        };
+        db.collection('zdindan').add({
+          data: dingdan,
+          success: function success(res) {
+            wx.cloud.callFunction({
+              name: 'newpay',
+              config: {
+                env: 'mall-7gi19fir46652cb4'
+              },
+              data: {
+                buy: buy,
+                dingdan: dingdan,
+                shangpuname: shopname,
+                outTradeNo: outTradeNo,
+                price: price
+              },
+              success: function success(res) {
+                wx.hideLoading();
+                console.log('获取支付参数成功：', res);
+                var payment = res.result.payment;
+                console.log('获取支付参数成功：', payment);
+                wx.requestPayment(Object.assign(payment, {
+                  success: function success(res) {
+                    console.log('支付成功：', res);
+                    db.collection('dindan').where({
+                      _id: outTradeNo
+                    }).count().then(function (res) {
+                      console.log(res.total);
+                      if (res.total == 0) {
+                        db.collection('dindan').add({
+                          data: dingdan,
+                          success: function success(res) {
+                            wx.cloud.callFunction({
+                              // 要调用的云函数名称
+                              name: 'goodsyuenumber',
+                              config: {
+                                env: 'mall-7gi19fir46652cb4'
+                              },
+                              // 传递给云函数的event参数
+                              data: {
+                                shopid: shop_id,
+                                buy: buy
+                              }
+                            }).then(function (res) {
+                              wx.showToast({
+                                title: '成功',
+                                icon: 'success',
+                                duration: 2000
+                              });
+                              setTimeout(function () {
+                                wx.reLaunch({
+                                  url: '../HotTop/HotTop?content=商场&shop_id=' + shop_id
+                                });
+                              }, 1500);
+                              wx.hideLoading();
+                            }).catch(function (err) {
+                              console.log(err);
+                            });
+                            /* util.test(shopdayin,dingdan,shopname) */
+                          },
+                          fail: console.error,
+                          complete: console.log
+                        });
+                      }
+                    });
+                  },
+                  fail: function fail(err) {
+                    db.collection('zdindan').doc(outTradeNo).remove().then(console.log).catch(console.error);
+                    wx.hideLoading();
+                    console.error('支付失败：', err);
+                  }
+                }));
+              },
+              fail: function fail(res) {
+                db.collection('zdindan').doc(outTradeNo).remove().then(console.log).catch(console.error);
+                wx.hideLoading();
+                console.log('获取支付参数失败：' + res);
+              }
+            });
+          },
+          fail: function fail(res) {
+            wx.hideLoading();
+            console.log('获取支付参数失败：' + res);
+          },
+          complete: console.log
+        });
+      } else {
+        wx.hideLoading();
+        wx.showToast({
+          icon: "none",
+          title: '请添加送餐地址'
+        });
+      }
+    },
+
+
+    createNonceStr: function createNonceStr() {
+      var str = "",
+          range = 7,
+          //min
+      arr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+
+      // 随机产生
+      /* if (true) {
+        range = Math.round(Math.random() * (36 - 20)) + 20;
+      } */
+      for (var i = 0; i < range; i++) {
+        var pos = Math.round(Math.random() * (arr.length - 1));
+        str += arr[pos];
+      }
+      return str;
+    }
+
   });
 }
 module.exports = runCode;
