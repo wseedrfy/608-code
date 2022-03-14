@@ -12,27 +12,27 @@ Page({
       {
         title: "姓名",
         placeholder: "输入姓名",
-        name: "name"
+        name: "姓名"
       },
       {
         title: "学号",
         placeholder: "输入学号",
-        name: "count"
+        name: "学号"
       },
       {
         title: "性别",
         placeholder: "输入有效性别",
-        name: "sex"
+        name: "性别"
       },
       {
         title: "班级",
         placeholder: "如:生工20-3",
-        name: "class"
+        name: "班级"
       },
       {
         title: "校区",
         placeholder: "如无分校则不填",
-        name: "campus"
+        name: "校区"
       },
     ],
     html: 1,
@@ -153,7 +153,7 @@ Page({
   submitMess(e) {
     // 效验信息-->保存信息
     let data = e.detail.value
-    if (!data.class || !data.count || !data.name || !data.sex) {
+    if (!data.班级 || !data.学号 || !data.姓名 || !data.性别) {
       wx.showToast({
         title: '请检查信息完整',
         icon: 'none',
