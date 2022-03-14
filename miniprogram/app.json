@@ -60,7 +60,8 @@
           "add_question/add_question",
           "edit/edit",
           "freshmanData/freshmanData",
-          "freshmanDetail/freshmanDetail"
+          "freshmanDetail/freshmanDetail",
+          "matchDataDetail/matchDataDetail"
         ]
       },
       {
