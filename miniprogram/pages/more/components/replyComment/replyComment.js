@@ -1,5 +1,6 @@
 // components/inform.js
 var app = getApp()
+var moreUtil = require(".././../utils/utils")
 Component({
   /**
    * 组件的属性列表
@@ -15,7 +16,7 @@ Component({
     },
     outIndex:{
       type: Number,
-      value: 0
+      value: -1
     },
     inIndex:{
       type: Number,
@@ -35,28 +36,10 @@ Component({
   /**
    * 组件的初始数据
    */
-  data: {
-    isChecked: true,
-    // CommentList: this.properties.CommentList,
-    showComtBox: false,
-    showEdit: false, // 控制评论区弹窗显示
-    // showModal: false
-    // CardID: "",
-    // inIndex: -1,
-    // ShowDelCom: 0, // 评论区控制是否出现“删除”按钮
-    // Commentindex: 0, // 评论区的 index
-    // Starurl: "../../../../images/zan1.png",
-    // edit_style: 'edit_hide',
-  },
-
-
-  lifetimes: {
-
-  },
+  
   attached: function () {
     // 在组件实例进入页面节点树时执行
     this.popUp()
-    console.log("comReply", this.properties.comReply)
   },
   /**
    * 组件的方法列表
@@ -76,40 +59,6 @@ Component({
       })
     },
     
-    // ShowComment: function () {
-    //   var Show = []
-    //   var copyList = JSON.parse(JSON.stringify(this.properties.CommentList))
-    //   for (let i = 0; i < this.properties.CommentList.length; i++) {
-    //     if (this.properties.CommentList[i] != null) {
-    //       var AftTime = util.timeago(this.properties.CommentList[i].CommentTime, 'Y年M月D日')
-    //       if (copyList[i].Reply != null) {
-    //         for (let j = 0; j < copyList[i].Reply.length; j++) {
-    //           copyList[i].Reply[j].ReplyTime = util.timeago(copyList[i].Reply[j].ReplyTime, 'Y年M月D日')
-    //         }
-    //       }
-    //       Show.push({
-    //         InputContent: this.properties.CommentList[i].InputComment,
-    //         InputTime: AftTime,
-    //         iconUser: this.properties.CommentList[i].iconUser,
-    //         nickName: this.properties.CommentList[i].nickName,
-    //         username: this.data.CommentList[i].username,
-    //         Reply: copyList[i].Reply
-    //       })
-    //     }
-    //   }
-  
-    //   app.globalData.allList.forEach(e => {
-    //     if (e) {
-    //       if (e._id === this.data.CardID) {
-    //         e.CommentList = this.data.CommentList
-    //       }
-    //     }
-    //   })
-    //   this.setData({
-    //     ShowList: Show,
-    //     CommentNum: this.data.CommentList.length,
-    //   })
-    // },
 
     ReplyComment: function () {
       setTimeout(() => {
@@ -162,12 +111,6 @@ Component({
               icon: 'none'
             })
           }
-          // if(type === StarControlLogs){
-          //   wx.showToast({
-          //     title: '点赞失败',
-          //     icon: 'none'
-          //   })
-          // }
         }
       })
     },
@@ -184,6 +127,7 @@ Component({
       let res = that.isNull(e.detail.value);
       var outIndex = that.properties.outIndex
       var inIndex = that.properties.inIndex
+      var type='replyComment'
       const args = wx.getStorageSync('args')
       if (res) {
         wx.showToast({
@@ -199,20 +143,35 @@ Component({
           "username": args.username,
           "Replied": "",
         }
-        if (inIndex === -1 || inIndex === undefined) {
-          add.Replied = that.properties.CommentList[outIndex].nickName
+        if(outIndex===-1 && inIndex===-1) {
+          add = {
+            "InputComment": e.detail.value,
+            "CommentTime": new Date().getTime(),
+            "iconUser": args.iconUrl,
+            "nickName": args.nickName,
+            "username": args.username,
+            "Reply": [],
+          }
+          var be_character = {
+            userName: that.properties.content.username,
+            iconUrl: that.properties.content.iconUrl,
+            nickName: that.properties.content.nickName
+          }
+          type='writeComment'
+        } else if (inIndex === -1 || inIndex === undefined) {
           var be_character = {
             userName: that.properties.CommentList[outIndex].username,
             iconUrl: that.properties.CommentList[outIndex].iconUrl,
             nickName: that.properties.CommentList[outIndex].nickName
           }
+          add.Replied = be_character.nickName
         } else {
-          add.Replied = that.properties.CommentList[outIndex].Reply[inIndex].nickName
           var be_character = {
             userName: that.properties.CommentList[outIndex].Reply[inIndex].username,
             iconUrl: that.properties.CommentList[outIndex].Reply[inIndex].iconUrl,
             nickName: that.properties.CommentList[outIndex].Reply[inIndex].nickName
           }
+          add.Replied = be_character.nickName
         }
         wx.cloud.callFunction({
           name: 'NewCampusCircle',
@@ -221,11 +180,25 @@ Component({
             addData: add,
             index: outIndex,
             _id: that.properties.content._id,
+            Time: that.properties.content.Time,
             username: args.username,
-            type: 'replyComment'
+            type: type
           },
           success: res => {
-            that.properties.CommentList[outIndex].Reply.push(add)
+            if(outIndex===-1 && inIndex===-1) {
+              that.properties.CommentList.push(add);
+              app.globalData.allList.forEach(item => {
+                item.forEach(e => {
+                  if (e._id === that.properties.content._id) {
+                    e["CommentList"] = that.properties.CommentList;
+                  }
+                })
+              })
+              // 内外渲染一致
+              moreUtil.setAllList(app.globalData.allList,"评论")
+            }else{
+              that.properties.CommentList[outIndex].Reply.push(add)
+            }
             wx.hideLoading()
             this.triggerEvent(
               "sendCom", {
@@ -244,10 +217,16 @@ Component({
         that.setData({
           Input: ""
         })
-        that.callFunction('ReplyCommentControlLogs', be_character, e.detail.value)
+        if (inIndex === -1 || inIndex === undefined) {
+          that.callFunction('CommentControlLogs',be_character,e.detail.value)
+        }else{
+          that.callFunction('ReplyCommentControlLogs', be_character, e.detail.value)
+        }
         that.ReplyComment()
       }
+      that.properties.outIndex=-1
       that.properties.inIndex = -1
+
     },
 
     async ctFocus(e) {
