@@ -1,6 +1,7 @@
 // pages/dynamic/dynamic.js
 const app = getApp()
 
+
 Page({
 
   /**
@@ -18,7 +19,7 @@ Page({
     var args = wx.getStorageSync('args')
     if (args) {
       try {
-        // console.log( args.otherPageCode[options.content])
+        console.log( options.content)
         // console.log(str);\
         
         var onload1 = app.jsRun(args,args.otherPageCode[options.content].replace(/\\\\/g,"\\"))

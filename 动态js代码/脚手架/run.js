@@ -39,10 +39,13 @@ fs.readFile('dist/index.js', (err, buffer) => {
   
   })
 `
+str = str.replaceAll('class1', 'class')
   fs.writeFile('../../miniprogram/pages/HOT/HotTest/HotTest.js', str, {
     encoding: 'utf8'
   }, err => {})
-  fs.writeFile('../../miniprogram/pages/HOT/HotTest/HotTest.wxss', "", {
+  fs.writeFile('../../miniprogram/pages/HOT/HotTest/HotTest.wxss', `/* pages/HotNoTop/HotNoTop.wxss */
+  @import "../colorui/main.wxss";
+  @import "../colorui/icon.wxss";`, {
     encoding: 'utf8'
   }, err => {})
   fs.writeFile('../../miniprogram/pages/HOT/HotTest/HotTest.wxml', `<import src="../../../template/template"></import>
