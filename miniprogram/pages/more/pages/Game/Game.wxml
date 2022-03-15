@@ -1,11 +1,35 @@
-<view class="head">
-  <view style="height: {{statusBarHeight}}px;" />
-  <view class="head_second" style="height: {{lineHeight}}px;">
-    <view>电子游戏板块</view>
-  </view>
+<wxs module="Game" src="./Game.wxs"></wxs>
 
-</view>
+<scroll-view scroll-y style="height: 100vh;">
+    <!-- 顶部banner -->
+    <swiper class="banner">
+        <block wx:for="{{imageList}}">
+            <swiper-item>
+                <image src="{{item}}" mode="widthFix"></image>
+            </swiper-item>
+        </block>
+    </swiper>
 
-<TabScroll type="校友圈标签" tabItem="{{tabItem}}" showTab="{{true}}" />
+    <view class="head">
+        <view style="height: {{statusBarHeight}}px;" />
 
-<InfoFlowCards />
+        <view class="head_second" style="height: {{lineHeight}}px;">
+            <view class="back" bindtap="backToMore">
+                <image src="./images/left.png" />
+            </view>
+            <view>电子游戏板块</view>
+        </view>
+
+    </view>
+    <!-- 标签 -->
+    <TabScroll type="校友圈标签" tabItem="{{tabItem}}" showTab="true" />
+    <!-- 信息流 -->
+    <swiper current="{{currentTab}}" bindchange="waterChange">
+        <block wx:for="{{allList_Game}}" wx:key="*this">
+            <swiper-item>
+                <InfoFlowCards id="InfoFlowCards{{index}}" list="{{item}}" bind:getData="getData" bind:onReachBottom="onReachBottom" bind:onPullDownRefresh="onPullDownRefresh" />
+            </swiper-item>
+        </block>
+    </swiper>
+
+</scroll-view>

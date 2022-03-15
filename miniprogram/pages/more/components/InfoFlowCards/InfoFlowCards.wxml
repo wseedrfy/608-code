@@ -1,2 +1,35 @@
-<!--pages/more/components/InfoFlowCards/InfoFlowCards.wxml-->
-<text>pages/more/components/InfoFlowCards/InfoFlowCards.wxml</text>
+<scroll-view scroll-y style="height: {{height}}px;">
+
+    <block wx:for="{{list}}" wx:key="*this">
+        <view class="InfoCard">
+            <!-- 头部 -->
+            <view class="InfoCard_head">
+                <view class="avatar">
+                    <image src="{{iconUrl}}"></image>
+                </view>
+                <view class="head_text">
+                    <view class="head_text_title">标题标题标题标题标题标题标题标题标题标题标题标题</view>
+                    <view class="head_text_time">49分钟前</view>
+                </view>
+                <image src="../../../../images/more.png" class="more"></image>
+            </view>
+            <!-- 内容主体 -->
+            <view class="InfoCard_body">
+                <view class="textBody">
+                    <text>哈哈哈哈哈哈哈哈哈哈哈哈哈</text>
+                    <view class="imageBox">
+                        <image src=""></image>
+                    </view>
+                    <view class="bodyTab"></view>
+                </view>
+            </view>
+            <!-- 底部 -->
+            <view class="InfoCard_bottom">
+                <view>点赞</view>
+                <view>回复</view>
+                <view>浏览</view>
+            </view>
+        </view>
+    </block>
+
+</scroll-view>

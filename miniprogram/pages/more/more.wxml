@@ -28,9 +28,9 @@
 <!-- 填充 -->
 <view style="height: {{(statusBarHeight + lineHeight)}}px;"></view>
 
-<scroll-view class="container" style="height: {{windowHeight - (statusBarHeight + lineHeight)}}px;" scroll-y enhanced="{{true}}" show-scrollbar="{{false}}"  bounces="{{false}}" bindscrolltoupper="onPullDownRefresh" upper-threshold="0">
+<scroll-view class="container" bindscroll="{{more.funcA}}" style="height: {{windowHeight - (statusBarHeight + lineHeight)}}px;" scroll-y enhanced="{{true}}" show-scrollbar="{{false}}"  bounces="{{false}}" bindscrolltoupper="onPullDownRefresh" upper-threshold="0">
   <!-- 更多模块 -->
-  <!-- <view class="naviModule_box">
+  <view class="naviModule_box">
     <view class="naviModule">
       <view class="module module1" id="Game" bindtap="navigate">
         <text>电子游戏</text>
@@ -49,7 +49,7 @@
     <view class="leaderBoard">
       <text>热度榜</text>
     </view>
-  </view> -->
+  </view>
 
   
 

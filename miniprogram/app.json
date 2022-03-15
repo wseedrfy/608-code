@@ -81,7 +81,8 @@
           "PublishContent/PublishContent",
           "Freshman/Freshman",
           "Match/Match",
-          "LoseDetailContent/LoseDetailContent"
+          "LoseDetailContent/LoseDetailContent",
+          "Game/Game"
         ]
       },
       {
