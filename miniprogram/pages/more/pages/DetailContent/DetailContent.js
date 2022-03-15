@@ -1,5 +1,3 @@
-// const { isGeneratorFunction } = require("util/types")
-// const { Console } = require("console")
 var util = require("../../../../utils/util.js")
 var moreUtil = require("../../utils/utils")
 var app = getApp()
@@ -7,14 +5,13 @@ var app = getApp()
 Page({
   data: {
     CommentList: [],
-    showEdit: false, // 控制评论区弹窗显示
-    comEdit: false, // 评论区复制/删除弹窗
-    comReply: false,
-    inIndex: -1,
-    Commentindex: -1, // 评论区的 index
-    Starurl: "../../../../images/zan1.png",
-    edit_style: 'edit_hide',
-    sendCom:[]
+    showEdit: false,      // 卡片区删除弹窗
+    comEdit: false,       // 评论区复制/删除弹窗
+    comReply: false,      //控制评论组件的出现
+    inIndex: -1,          //子评论的索引
+    Commentindex: -1,     //主评论的索引
+    Starurl: "../../../../images/zan1.png",   //不知道这有啥用，注释掉的话会出现：从主页面取消点赞再进入详细页面，详细页面的点赞图标会没有
+    sendCom:[]    //接受从replyComment组件传递过来的数组，用于增加评论后的渲染
   },
   callFunction: function (type,be_character,Input) {
     const args = wx.getStorageSync('args')
@@ -54,22 +51,21 @@ Page({
       }
     })
   },
-  xx:function(e){
+  xx:function(e){         //接受从replyComment组件传递过来的值，控制评论组件出现
     setTimeout(() => {
       this.setData({
         comReply: !e.detail.comReply,
       })
     }, 200);
-    console.log("接收子组件传过来的值" + '....',e.detail.comReply)
   },
-  hh:function(e){
+  hh:function(e){         //接收从replyComment组件传递来的数组，用于渲染
     if(e.detail.CommentList){
       this.data.sendCom=e.detail.CommentList
       this.ShowComment()
     }
   },
-  popUp: function () {
-    let edit_style = this.data.edit_style;
+  popUp: function () {          //控制卡片/评论弹窗
+    var edit_style = 'edit_hide';
     // picker动画样式
     if (edit_style == undefined || edit_style == 'edit_hide') {
       edit_style = 'edit_show'
@@ -79,7 +75,7 @@ Page({
     this.setData({ edit_style })
   },
 
-  More: function () {
+  More: function () {           //控制卡片
     var showEdit = this.data.showEdit
     this.popUp()
     this.setData({ showEdit: !showEdit })
@@ -117,7 +113,7 @@ Page({
     }
     outIndex = 0
   },
-  ReplyComment: function () {
+  ReplyComment: function () {       //控制replyComment组件，并向组件传递数据
       this.popUp()
       this.setData({
         comEdit: false,
@@ -370,7 +366,7 @@ Page({
       })
     }
     for (var i = 0; i < content.Star_User.length; i++) {
-      if (content.Star_User[i].username === args.username) {
+      if (content.Star_User[i]!=null && content.Star_User[i].username === args.username) {
         that.setData({
           Starurl: "../../../../images/zan.png",
         })
@@ -397,10 +393,14 @@ Page({
     var that = this
     var Starif = false
     //判断是不是为点赞过的username
+    console.log("inter")
+    console.log("this.data.content.Star_User1",that.data.content.Star_User)
     for (var i = 0; i < Star_User.length; i++) {
-      if (Star_User[i].username === args.username) {
+      if (Star_User[i]!=null && Star_User[i].username === args.username) {
         Starif = true
         Star_User.splice(Star_User.indexOf(args.username), 1)
+        console.log("this.data.content.Star_User2",that.data.content.Star_User)
+        console.log("取消点赞")
         that.setData({
           Starurl: "../../../../images/zan1.png",
         })
@@ -408,6 +408,7 @@ Page({
       }
     }
     if (!Starif) {
+      console.log("None")
       let obj = {
         username: args.username
       }

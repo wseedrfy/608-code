@@ -217,7 +217,7 @@ Component({
         that.setData({
           Input: ""
         })
-        if (inIndex === -1 || inIndex === undefined) {
+        if(outIndex===-1 && inIndex===-1) {
           that.callFunction('CommentControlLogs',be_character,e.detail.value)
         }else{
           that.callFunction('ReplyCommentControlLogs', be_character, e.detail.value)

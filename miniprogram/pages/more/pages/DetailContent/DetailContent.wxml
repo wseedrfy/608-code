@@ -48,10 +48,13 @@
         </span>
       </view>
       <view class="Show_Commend" wx:for="{{ShowList}}" wx:key="kk" data-item="item"  data-index="{{index}}">  <!-- bindtap从EditComment更改为obtainIndex-->
-        <!-- <view catchtap="EditComment" class="seses" >  这个标签是新增 -->
           <view class="fatherComment" bindtap="EditComment" data-bigindex="{{index}}">
             <image src="{{item.iconUser}}" class="text_user"/>
             <span class="text_username">{{item.nickName}}
+              <!-- <view class="comment_User">
+                  <view class="comment_usename" >{{item.nickName}}</view>
+                  <image bindtap="get_Star" src="{{Starurl}}"/>
+              </view> -->
               <view class="Comment_Content">{{item.InputContent}}
                 <span class="Comment_Time">{{item.InputTime}}</span>
               </view>
@@ -60,6 +63,10 @@
           <view class="showReply" wx:for="{{item.Reply}}" wx:key="hh" data-item="item" wx:for-index="index1" data-index="{{index1}}" bindtap="EditComment" data-bigindex="{{index}}" data-small="{{index1}}">
             <image src="{{item.iconUser}}" class="reply_user"/>
             <span class="reply_username">{{item.nickName}}
+              <!-- <view class="comment_User">
+                  <view class="comment_usename" >{{item.nickName}}</view>
+                  <image bindtap="get_Star" src="{{Starurl}}"/>
+              </view> -->
               <view class="reply_Content">回复 
                 <span class="replied">{{item.Replied}}</span>：{{item.InputReply}}
                 <span class="Comment_Time">{{item.ReplyTime}}</span>
