@@ -41,19 +41,12 @@
     <view class="comment">
       <view class="All_Comment" wx:if="{{CommentNum!=0}}">共 {{CommentNum}} 条评论</view>
       <view class="All_Comment" wx:if="{{CommentNum==0}}">这里还没有评论哟~</view>
-      <form  bindsubmit="formSubmit" bindreset="formReset" style="display:{{args.school=='游客登录'?'none':''}}" >
-        <view class="Send_Commend" bindtap="Comment_Inputting">
-          <image src="{{iconUrl}}" class="text_user"/>
-          <span class="{{isChecked?'old_Comment_second':'new_Comment_second'}}">
-            <!-- <textarea placeholder="来发句评论吧ヾ(≧▽≦*)o" name="InputComment"  value="{{Input}}" auto-height></textarea> -->
-            <text>"来发句评论吧ヾ(≧▽≦*)o"</text>
-            <!-- bindtap="ReplyComment" -->
-          </span>
-          <span wx:if="{{!isChecked}}" class="Pre_Send">
-            <button form-type="submit" class="Sending" hover-class="Sending-hover">发送</button>
-          </span>
-        </view>
-      </form>
+      <view class="Send_Commend">
+        <image src="{{iconUrl}}" class="text_user"/>
+        <span class="old_Comment_second" bindtap="ReplyComment">
+          <text>"来发句评论吧ヾ(≧▽≦*)o"</text>
+        </span>
+      </view>
       <view class="Show_Commend" wx:for="{{ShowList}}" wx:key="kk" data-item="item"  data-index="{{index}}">  <!-- bindtap从EditComment更改为obtainIndex-->
         <!-- <view catchtap="EditComment" class="seses" >  这个标签是新增 -->
           <view class="fatherComment" bindtap="EditComment" data-bigindex="{{index}}">
@@ -91,23 +84,10 @@
              复制
           </view>
           <view class="Line"></view>
-          <view class="DelComment" bindtap="DelComment" wx:if=" {{ShowDelCom==1}}" style="color: rgba(255, 0, 0, 0.753);">
+          <view class="DelComment" bindtap="DelComment" wx:if="{{ShowDelCom===1}}" style="color: rgba(255, 0, 0, 0.753);">
              删除
           </view>
         </view>
     </view>
-
-
-    <!-- <view class="ReplyCom" wx:if="{{comReply}}" >
-        <view class="ReplyCom_background" bindtap="ReplyComment"></view>
-        <view class="ReplyCom_contain {{edit_style}}">
-          <view class="good-main">
-            <view id="ctInput"  class="ct-input"  style="top: {{ ctInput_top }}px;">
-              <input type='text' placeholder='说点什么... o(≧v≦)o' focus='true' value="" maxlength="-1" auto-height bindfocus="ctFocus" bindlinechange="ctLineChange" bindinput="" bindconfirm="replySubmit" show-confirm-bar="{{ false }}" adjust-position="{{ false }}"/>
-            </view>
-          </view>
-        </view>
-        <replyComment edit_style="{{edit_style}}"></replyComment>
-    </view> -->
-    <replyComment wx:if="{{comReply}}" edit_style="{{edit_style}}"></replyComment>
+    <replyComment wx:if="{{comReply}}" comReply="{{comReply}}" edit_style="{{edit_style}}" outIndex="{{outIndex}}" inIndex="{{inIndex}}" CommentList="{{CommentList}}" content="{{content}}" bind:sendEvent="xx" bind:sendCom="hh"></replyComment>
 </view>

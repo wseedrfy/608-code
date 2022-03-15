@@ -1,24 +1,11 @@
-<view class="ReplyCom" wx:if="{{comReply}}" >
-    <view class="ReplyCom_background" bindtap="ReplyComment"></view>
-    <view class="ReplyCom_contain {{edit_style}}">
-      <view class="good-main">
-        <view id="ctInput"  class="ct-input"  style="top: {{ ctInput_top }}px;">
-          <!-- <input type='text' placeholder='说点什么... o(≧v≦)o' focus='auto' value="" maxlength="-1" auto-height bindfocus="ctFocus" bindinput="" bindconfirm="replySubmit" show-confirm-bar="{{ false }}" adjust-position="{{ false }}"/> -->
-          <input
-        placeholder="说点什么吧…"
-        focus="{{ showComtBox }}" 
-        bindblur="comtBlur"
-        maxlength="-1"
-        auto-height
-        bindfocus="ctFocus"
-        bindlinechange="ctLineChange"
-        bindinput=""
-        bindconfirm=""
-        show-confirm-bar="{{ false }}"
-        adjust-position="{{ false }}"
-      >
+
+<wxs module="replyComment" src="./replyComment.wxs"></wxs>
+<view class="ReplyCom">
+  <view class="ReplyCom_background" catchtap="ReplyComment"></view>
+  <view class="ReplyCom_contain">
+    <view class="good-main">
+      <input placeholder="说点什么吧…" focus="true" maxlength="-1" bindblur="{{replyComment.ctBlur}}" auto-height bindfocus="{{replyComment.ctFocus}}" bindlinechange="ctLineChange" bindinput="" bindconfirm="replySubmit" show-confirm-bar="{{ false }}" adjust-position="{{ false }}" >
       </input>
-        </view>
-      </view>
     </view>
+  </view>
 </view>

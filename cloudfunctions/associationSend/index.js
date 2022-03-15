@@ -104,7 +104,9 @@ exports.main = async (event, context) => {
         assoName: event.assoName,
         assoCount: event.assoCount,
         pusherCount: event.pusherCount,
-        match_id: event.match_id
+        match_id: event.match_id,
+        index: event.index,
+        read: false
       }
     })
   }

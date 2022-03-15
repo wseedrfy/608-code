@@ -1,5 +1,6 @@
 // components/inform.js
 var app = getApp()
+var moreUtil = require(".././../utils/utils")
 Component({
   /**
    * 组件的属性列表
@@ -7,87 +8,126 @@ Component({
   properties: {
     edit_style: {
       type: String,
-      value: "edit_show"
+      value: "edit_hide"
     },
-    comReply:{
+    comReply: {
       type: String,
-      value: " "
+      value: "False"
+    },
+    outIndex:{
+      type: Number,
+      value: -1
+    },
+    inIndex:{
+      type: Number,
+      value: -1
+    },
+    CommentList:{
+      type: Array,
+      value: []
+    },
+    content:{
+      type: Object,
+      value: {}
     }
-    
+
   },
 
   /**
    * 组件的初始数据
    */
-  data: {
-    isChecked: true,
-    CommentList: [],
-    showComtBox: false,
-    showEdit: false, // 控制评论区弹窗显示
-    comEdit: false, // 评论区复制/删除弹窗
-    CardID: "",
-    inIndex: -1,
-    ShowDelCom: 0, // 评论区控制是否出现“删除”按钮
-    Commentindex: 0, // 评论区的 index
-    Starurl: "../../../../images/zan1.png",
-    // edit_style: 'edit_hide',
-  },
   
-  
-  lifetimes: {
-    
-  },
   attached: function () {
     // 在组件实例进入页面节点树时执行
-    this.getWindowData()
+    this.popUp()
   },
   /**
    * 组件的方法列表
    */
   methods: {
-    // 激活焦点
-    showComtBox () {
-      this.setData({ showComtBox: true })
-    },
-   
-    // 失去焦点
-    comtBlur () {
-      this.setData({ showComtBox: false })
-    },
+
     popUp: function () {
-      let edit_style = this.data.edit_style;
+      var edit_style = this.properties.edit_style;
       // picker动画样式
       if (edit_style == undefined || edit_style == 'edit_hide') {
         edit_style = 'edit_show'
       } else {
         edit_style = 'edit_hide'
       }
-      console.log("2333")
-      this.setData({ edit_style })
+      this.setData({
+        edit_style
+      })
     },
-    async getWindowData () {
-      let h = await app.getSystemData('windowHeight')
-      this.setData({ windowHeight: h })
-    },
+    
 
     ReplyComment: function () {
-      this.popUp()
-      console.log("inter")
-      this.setData({
-        comEdit: false,
-      })
       setTimeout(() => {
         this.setData({
-          comReply: !this.data.comReply,
+          comReply: !this.properties.comReply,
         })
       }, 200);
+      this.triggerEvent(
+        "sendEvent", {
+          comReply: this.properties.comReply
+        }
+      )
+    },
+
+    callFunction: function (type,be_character,Input) {
+      const args = wx.getStorageSync('args')
+      var that=this
+      let character = { // 处理得到点赞者信息
+        userName: args.username,
+        iconUrl: args.iconUrl,
+        nickName: args.nickName
+      }
+      wx.cloud.callFunction({
+        name: "CampusCircle",
+        data: {
+          type: type,
+          character: character,
+          be_character: be_character,
+          username: args.username,
+          be_username: that.properties.content.username,
+          content: Input,
+          createTime: new Date().getTime(),
+          arcticle: that.properties.content,
+          arcticle_id: that.properties.content._id,
+          _id: that.properties.content._id,
+        },
+        success(res) {
+          console.log(res, "调用评论云函数成功");
+        },
+        fail(e) {
+          if(type === "ReplyCommentControlLogs"){
+            wx.showToast({
+              title: '回复评论失败',
+              icon: 'none'
+            })
+          }
+          if(type === "CommentControlLogs"){
+            wx.showToast({
+              title: '评论失败',
+              icon: 'none'
+            })
+          }
+        }
+      })
+    },
+
+    isNull(str) {
+      if (str == "") return true;
+      var regu = "^[ ]+$";
+      var re = new RegExp(regu);
+      return re.test(str);
     },
 
     replySubmit: function (e) {
       var that = this;
       let res = that.isNull(e.detail.value);
-      var outIndex = that.data.Commentindex
-      var inIndex = that.data.inIndex
+      var outIndex = that.properties.outIndex
+      var inIndex = that.properties.inIndex
+      var type='replyComment'
       const args = wx.getStorageSync('args')
       if (res) {
         wx.showToast({
@@ -103,20 +143,35 @@ Component({
           "username": args.username,
           "Replied": "",
         }
-        if (inIndex === -1 || inIndex === undefined) {
-          add.Replied = that.data.CommentList[outIndex].nickName
-          var be_character = {
-            userName: that.data.CommentList[outIndex].username,
-            iconUrl: that.data.CommentList[outIndex].iconUrl,
-            nickName: that.data.CommentList[outIndex].nickName
+        if(outIndex===-1 && inIndex===-1) {
+          add = {
+            "InputComment": e.detail.value,
+            "CommentTime": new Date().getTime(),
+            "iconUser": args.iconUrl,
+            "nickName": args.nickName,
+            "username": args.username,
+            "Reply": [],
           }
+          var be_character = {
+            userName: that.properties.content.username,
+            iconUrl: that.properties.content.iconUrl,
+            nickName: that.properties.content.nickName
+          }
+          type='writeComment'
+        } else if (inIndex === -1 || inIndex === undefined) {
+          var be_character = {
+            userName: that.properties.CommentList[outIndex].username,
+            iconUrl: that.properties.CommentList[outIndex].iconUrl,
+            nickName: that.properties.CommentList[outIndex].nickName
+          }
+          add.Replied = be_character.nickName
         } else {
-          add.Replied = that.data.CommentList[outIndex].Reply[inIndex].nickName
           var be_character = {
-            userName: that.data.CommentList[outIndex].Reply[inIndex].username,
-            iconUrl: that.data.CommentList[outIndex].Reply[inIndex].iconUrl,
-            nickName: that.data.CommentList[outIndex].Reply[inIndex].nickName
+            userName: that.properties.CommentList[outIndex].Reply[inIndex].username,
+            iconUrl: that.properties.CommentList[outIndex].Reply[inIndex].iconUrl,
+            nickName: that.properties.CommentList[outIndex].Reply[inIndex].nickName
           }
+          add.Replied = be_character.nickName
         }
         wx.cloud.callFunction({
           name: 'NewCampusCircle',
@@ -124,14 +179,32 @@ Component({
             url: 'CommentControl',
             addData: add,
             index: outIndex,
-            _id: that.data.content._id,
-            username: that.data.username,
-            type: 'replyComment'
+            _id: that.properties.content._id,
+            Time: that.properties.content.Time,
+            username: args.username,
+            type: type
           },
           success: res => {
-            that.data.CommentList[outIndex].Reply.push(add)
+            if(outIndex===-1 && inIndex===-1) {
+              that.properties.CommentList.push(add);
+              app.globalData.allList.forEach(item => {
+                item.forEach(e => {
+                  if (e._id === that.properties.content._id) {
+                    e["CommentList"] = that.properties.CommentList;
+                  }
+                })
+              })
+              // 内外渲染一致
+              moreUtil.setAllList(app.globalData.allList,"评论")
+            }else{
+              that.properties.CommentList[outIndex].Reply.push(add)
+            }
             wx.hideLoading()
-            that.ShowComment()
+            this.triggerEvent(
+              "sendCom", {
+                CommentList: that.properties.CommentList
+              }
+            )
           },
           fail: err => {
             wx.showToast({
@@ -144,24 +217,24 @@ Component({
         that.setData({
           Input: ""
         })
-        that.callFunction('ReplyCommentControlLogs',be_character,e.detail.value)
-        setTimeout(() => {
-          that.setData({
-            comReply: !that.data.comReply,
-          })
-        }, 200);
-        
+        if (inIndex === -1 || inIndex === undefined) {
+          that.callFunction('CommentControlLogs',be_character,e.detail.value)
+        }else{
+          that.callFunction('ReplyCommentControlLogs', be_character, e.detail.value)
+        }
+        that.ReplyComment()
       }
-      that.data.inIndex = -1
+      that.properties.outIndex=-1
+      that.properties.inIndex = -1
+
     },
 
-    async ctFocus (e) {
-      let { windowHeight } = this.data
-      let keyboard_h = e.detail.height
-      let ctInput_top = windowHeight - keyboard_h
-      let ctInput_h = await app.queryNodes('#ctInput', 'height')
-      ctInput_top -= ctInput_h
-      this.setData({ ctInput_top })
+    async ctFocus(e) {
+      // 获取键盘高度
+      let keyboard_h = e.detail.height;
+      this.setData({
+        keyboard_h
+      })
     },
   }
 })

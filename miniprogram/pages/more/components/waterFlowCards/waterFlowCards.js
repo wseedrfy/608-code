@@ -33,7 +33,7 @@ Component({
    * 组件的初始数据
    */
   data: {
-    windowHeight: getApp().globalData.windowHeight,
+
     currentPage: 0,   // 当前第几页,0代表第一页 
     loadAll: false,   // 状态标志 - 是否加载完所有内容
     Label: '全部',    // 当前标签

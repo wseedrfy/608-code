@@ -60,7 +60,8 @@
           "add_question/add_question",
           "edit/edit",
           "freshmanData/freshmanData",
-          "freshmanDetail/freshmanDetail"
+          "freshmanDetail/freshmanDetail",
+          "matchDataDetail/matchDataDetail"
         ]
       },
       {
@@ -82,7 +83,8 @@
           "Freshman/Freshman",
           "Match/Match",
           "LoseDetailContent/LoseDetailContent",
-          "Game/Game"
+          "Game/Game",
+          "UserCenter/index"
         ]
       },
       {

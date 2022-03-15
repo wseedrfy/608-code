@@ -168,7 +168,7 @@ Page({
 
     async saveRecord(res){
       let username = wx.getStorageSync('args').username
-      await db.collection('daka_record').where({username:username}).get().then(res=>{
+      await db.collection('daka_record').where({username:username,is_delete:false}).get().then(res=>{
         this.setData({len:res.data.length})
       })
       let len =this.data.len
@@ -180,6 +180,12 @@ Page({
       if(!task){
         wx.showToast({
           title: '任务不能为空~',
+          icon: 'none',
+          duration: 1000
+        })
+      }else if(task.length >= 8){
+        wx.showToast({
+          title: '任务名字不能过长噢~最多7个字',
           icon: 'none',
           duration: 1000
         })
