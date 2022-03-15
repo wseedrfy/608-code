@@ -58,5 +58,5 @@
 </view> -->
 
 
-
+<!-- <Loading wx:if="{{showLoading == 0}}"></Loading> -->
 <waterFlowCards id="waterFlowCards" list="{{list}}" height="100vh" bind:getData="getData" bind:testFnc="onReachBottom" bind:onPullDownRefresh="onPullDownRefresh"></waterFlowCards>
