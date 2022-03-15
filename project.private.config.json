@@ -149,6 +149,12 @@
           "pathName": "pages/HOT/HotTop/HotTop",
           "query": "content=商场",
           "scene": null
+        },
+        {
+          "name": "pages/more/more",
+          "pathName": "pages/more/more",
+          "query": "",
+          "scene": null
         }
       ]
     }

@@ -26,13 +26,15 @@ Page({
     Star_count: 0,
     edit_style: 'edit_hide',
     reply_style: 'reply_hide',
-    showComtBox: true,
-    switch1Checked:false
+    showComtBox: false,
+    isactive:"noactive"
+    // switch1Checked:true
 
   },
   switch1Change:function(){
     console.log(this.data.switch1Checked)
     this.data.switch1Checked?this.setData({switch1Checked:false}):this.setData({switch1Checked:true})
+    this.setData({isactive:this.data.switch1Checked?"active":"noactive"})
     //更新数据库
     wx.cloud.callFunction({
       name:"CampusCircle",
@@ -47,7 +49,7 @@ Page({
     // 更新全局
     app.globalData.allList.forEach(item => {
       item.forEach(e => {
-        console.log(e._id)
+        // console.log(e._id)
         console.log(this.data.CardID)
         if (e._id === this.data.CardID) {
           e.LoseState = this.data.switch1Checked;
@@ -775,8 +777,12 @@ Page({
 
 
   onLoad: function (options) {
+    console.log(1111)
     var that = this;
-    var content = JSON.parse(options.content) // 将JSON帖子信息转成对象
+    const args = wx.getStorageSync('args')
+    let jsonStr = decodeURIComponent(options.content)
+
+    var content = JSON.parse(jsonStr) // 将JSON帖子信息转成对象
     var more = 0
     this.getWindowData()
     that.setData({
@@ -803,16 +809,22 @@ Page({
         username: that.data.username,
         Time: content.Time,
         _id: content._id,
-        type: 'readComment'
+        type: 'read_lose'
       },
-      complete: res => {
+      success: res => {
+        console.log(res)
         // this.data.Star = res
         this.data.CommentList = res.result.data[0].CommentList
         this.data.Star_User = res.result.data[0].Star_User
         this.data.Star_count = res.result.data[0].Star_count
+        this.setData({switch1Checked:res.result.data[0].LoseState,isactive:res.result.data[0].LoseState?"active":"noactive" })
+        // this.data.switch1Checked = res.result.data[0].LoseState
+        // console.log(this.data.switch1Checked)
         if (this.data.CommentList) {
           this.setData({
-            content: content
+            content: content,
+            switch1Checked:res.result.data[0].LoseState,
+
           })
           this.ShowComment()
         } else {
@@ -851,8 +863,9 @@ Page({
       Time: Time,
       more: more,
     })
-    console.log(content)
-    this.setData({switch1Checked:content.LoseState})
+    // console.log(content.LoseState)
+    // this.setData({switch1Checked:content.LoseState})
+
   },
   //点赞
   get_Star() {
