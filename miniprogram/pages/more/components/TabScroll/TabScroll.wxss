@@ -77,6 +77,16 @@
   flex-direction: row;
   align-items: center;
 }
+
+/* 游戏板块 */
+.Game_Scroll{
+  background-color: rgba(236, 236, 236);
+}
+.Game_Scroll .Game_block {
+  display: flex;
+  flex-direction: column;
+  width: 100rpx;
+}
 /* 暗黑 */
 @media (prefers-color-scheme: dark) {
   .Choose_Label{

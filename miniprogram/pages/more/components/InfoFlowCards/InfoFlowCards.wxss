@@ -1,1 +1,122 @@
-/* pages/more/components/InfoFlowCards/InfoFlowCards.wxss */
+
+.InfoCard {
+    width: 100%;
+    height: 400rpx;
+    background-color: pink;
+    padding: 20rpx;
+    box-sizing: border-box;
+}
+.InfoCard .InfoCard_head {
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    width: 100%;
+    height: 100rpx;
+    background-color: green;
+
+}
+/* 头像 */
+.InfoCard .InfoCard_head .avatar {
+    width: 80rpx;
+    height: 80rpx;
+    /* background-color: #fff; */
+    margin-right: 20rpx;
+}
+.InfoCard .InfoCard_head .avatar image {
+    width: 80rpx;
+    height: 80rpx;
+    border-radius: 50%;
+    /* background-color: pink; */
+}
+/* 头部文本 */
+.InfoCard .InfoCard_head .head_text {
+    width: 70%;
+    height: 80rpx;
+    display: flex;
+    flex-direction: column;
+    background-color: blue;
+}
+.head_text .head_text_title {
+    width: 100%;
+    height: 40rpx;
+    margin-bottom: 10rpx;
+    background-color: pink;
+    font-weight: 550;
+    letter-spacing: 2rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.head_text .head_text_time {
+    width: 100%;
+    height: 30rpx;
+    background-color: pink;
+    font-size: 25rpx;
+    color: #ccc;
+}
+/* 设置icon */
+.InfoCard_head .more {
+    position: absolute;
+    top: 10rpx;
+    right: 30rpx;
+    width: 65rpx;
+    height: 65rpx;
+}
+/* 主体内容 */
+.InfoCard_body .textBody {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    margin-top: 30rpx;
+}
+.InfoCard_body .textBody text{
+    min-width: 50%;
+    max-height: 80rpx;
+    margin-right: 15rpx;
+    background-color: #fff;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    font-size: 26rpx;
+    color: #ccc;
+}
+.InfoCard_body .textBody .imageBox {
+    width: 40%;
+    height: 150rpx;
+    background-color: green;
+    border-radius: 15rpx;
+}
+.InfoCard_body .textBody .imageBox image{
+    width: 100%;
+    height: 150rpx;
+}
+.InfoCard_body .textBody .bodyTab {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100rpx;
+    height: 40rpx;
+    background-color: green;
+}
+/* 底部 */
+.InfoCard_bottom {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 50rpx;
+    margin-top: 30rpx;
+    background-color: #fff;
+    font-size: 26rpx;
+    color: #ccc;
+}
+.InfoCard_bottom :first-child::after {
+    content: '·';
+    margin: 0 10rpx;
+}
+.InfoCard_bottom :nth-child(2)::after {
+    content: '·';
+    margin:  0 10rpx;
+}
