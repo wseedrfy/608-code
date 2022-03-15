@@ -1,6 +1,32 @@
+/* 头部banner */
+swiper-item image{
+    width: 100%;
+    height: 200rpx;
+}
 /* 头部 */
 .head .head_second {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.head_second .back {
+    position: absolute;
+    left: 20rpx;
+    width: 40rpx;
+    height: 40rpx;
+}
+.head_second .back image {
+    width: 40rpx;
+    height: 40rpx;
+}
+
+
+.test {
+    display: flex;
+    flex-direction: row;
+}
+@media (prefers-color-scheme: dark) { 
+    .head_second .back image {
+        filter: invert(0) !important;
+    }
 }

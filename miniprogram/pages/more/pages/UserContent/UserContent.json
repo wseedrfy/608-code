@@ -1,6 +1,7 @@
 {
   "usingComponents": {
-    "waterFlowCards": "../../components/waterFlowCards/waterFlowCards"
+    "waterFlowCards": "../../components/waterFlowCards/waterFlowCards",
+    "Loading": "../../components/Loading/Loading"
   },
   "navigationBarTitleText": "我的发布"
 }
