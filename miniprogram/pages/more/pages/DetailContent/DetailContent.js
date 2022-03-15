@@ -228,7 +228,8 @@ Page({
   },
   //删除
   DelCard: function () {
-    var that = this
+    var that = this;
+    const args = wx.getStorageSync('args');
     wx.showModal({
       title: '提示',
       content: '确定删除?',
