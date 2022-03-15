@@ -175,5 +175,6 @@
   <image src="../images/rank.png" class="img-style" animation="{{animCollect}}" bindtap="collect"></image>
   <image src="../images/time.png" class="img-style" animation="{{animTranspond}}" bindtap="transpond"></image>
   <image src="../images/log.png" class="img-style" animation="{{animInput}}" bindtap="input"></image>
-  <image src="../images/timeadd.png" class="img-plus-style" animation="{{animPlus}}" bindtap="plus"></image>
+  <image src="../images/time_2.png" class="img-plus-style" animation="{{animPlus}}" bindtap="plus"></image>
+  <text class="text_time">计时</text>
 </view>

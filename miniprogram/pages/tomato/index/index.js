@@ -16,29 +16,60 @@ Page({
         rate: '',
         cateArr: [{
                 icon: 'work',
-                text: '工作'
+                text: '工作',
+                blue:true
             },
             {
                 icon: 'study',
-                text: '学习'
+                text: '学习',
+                blue:false
             },
             {
                 icon: 'think',
-                text: '思考'
+                text: '思考',
+                blue:true
             },
             {
                 icon: 'write',
-                text: '写作'
+                text: '写作',
+                blue:false
             },
             {
                 icon: 'sport',
-                text: '运动'
+                text: '运动',
+                blue:true
             },
             {
                 icon: 'read',
-                text: '阅读'
+                text: '阅读',
+                blue:false
             }
         ],
+        cateArr_yellow: [{
+            icon: 'work',
+            text: '工作'
+        },
+        {
+            icon: 'study',
+            text: '学习'
+        },
+        {
+            icon: 'think',
+            text: '思考'
+        },
+        {
+            icon: 'write',
+            text: '写作'
+        },
+        {
+            icon: 'sport',
+            text: '运动'
+        },
+        {
+            icon: 'read',
+            text: '阅读'
+        }
+    ],
         cateActive: '0',
         okShow: false,
         pauseShow: true,
@@ -282,5 +313,9 @@ Page({
     res(res){
         console.log(res)
     },
-        
+    backto(){
+        wx.navigateBack({
+            delta: 1
+          })
+    }
 })

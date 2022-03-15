@@ -83,12 +83,19 @@ swiper .wx-swiper-dot {
   /* vertical-align: middle; */
   box-sizing: border-box;
 }
+.comment_usename,
 .content_Time{
   font-size: 23rpx;
   color:rgba(78, 78, 78, 0.541);
   position: relative;
   top: 15rpx;
   margin-bottom: 35rpx;
+}
+.comment_User{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40rpx;
 }
 .content_sec{
   display: flex;
@@ -175,8 +182,20 @@ swiper .wx-swiper-dot {
    position: relative;
    bottom:68rpx;
    left:90rpx;
+   width: 87%;
    display: flex;
    flex-direction:column;
+ }
+ .comment_User image{
+   height: 35rpx;
+   width: 35rpx;
+   position: relative;
+   top: 5rpx;
+   right: 8rpx;
+ }
+ .frfr{
+   display: flex;
+  justify-content: space-between;
  }
  .reply_username{
   color: rgba(94, 94, 94, 0.541);
