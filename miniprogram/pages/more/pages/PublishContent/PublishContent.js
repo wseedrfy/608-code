@@ -281,9 +281,10 @@ Page({
       console.log(options);
       console.log(photo);
       if(photo[0].tempFilePath){
-        let Input_Title = "模板标题";
-        let Input_Text = "模板文字";
-        let choosenLabel = "日常";
+        let nickName = wx.getStorageSync('args').nickName;
+        let Input_Title = nickName+" 今天已打卡~";
+        let Input_Text = "每天都要坚持打卡噢！";
+        let choosenLabel = "打卡";
         this.setData({
           photo,
           Input_Title,

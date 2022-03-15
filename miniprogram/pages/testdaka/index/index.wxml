@@ -19,10 +19,10 @@
      <!--左右滑动画层 -->
      <view class="dayclock_data_huadong"  bindtouchstart="touchstartX" bindtap="resetX" bindtouchmove="touchmoveX" bindtouchend="touchendX" animation="{{currentIndex === index ?animation : ''}}" data-index="{{index}}"><view class="border">
           <!--左右滑动画层--右滑打卡盒子 -->
-          <view id="{{index}}" data-id="{{index}}" class='operationBgBox' style="left: {{ -(w + 2) }}px; transform: {{ currentIndex == index ?cssAnimation:'' }};background:{{item.task_isDaka==true?  '#fff' : ''}};">
+          <view id="{{index}}" data-id="{{index}}" class="{{item.task_isDaka==true?  'operationBgBoxtrue' : 'operationBgBox'}}" style="left: {{ -(w + 2) }}px; transform: {{ currentIndex == index ?cssAnimation:'' }};background:{{item.task_isDaka==true?  '#fff' : ''}};">
                <text>{{ succeedMsg }}</text>
                <!-- 右滑盒子 -->
-               <view id="{{index}}" style="background:{{item.task_isDaka==true?  '#fff' : ''}};" class='operationBox' catchtouchstart="startFun" catchtouchmove='moveFun' catchtouchend='endFun'>
+               <view id="{{index}}" style="background:{{item.task_isDaka==true?  '#fff' : ''}};" class="{{item.task_isDaka==true?  'operationBoxtrue' : 'operationBox'}}" catchtouchstart="startFun" catchtouchmove='moveFun' catchtouchend='endFun'>
                <image src="{{item.task_isDaka==true?  '../images/complete.png' : '../images/right.png'}} "></image>
                </view>
           </view>
@@ -167,14 +167,20 @@
 <view class="attention" wx:if="{{showModel3}}">
      <view class="attention_bg"></view>
      <view class="attention_text">
+          <view class="attention_text_title">使用注意</view>
+          <view class="attention_text_duanluo">
+               <view>1.当新建一个打卡任务时，除了热度榜里的标签可自行选择之外，其他记录打卡的信息都要填写。</view>
+               <view>2.对于同一任务，不能一天打卡两次或以上。</view>
+               <view>注意事项：如发生显示问题，请尝试着刷新页面重新加载。</view>
+               </view>
      </view>
      <image class="attention_close" src="../images/close.png" bindtap="attention"></image>
 </view>
 <!-- 番茄时钟入口 -->
-<view>
+<!-- <view>
   <image src="../images/rank.png" class="img-style" animation="{{animCollect}}" bindtap="collect"></image>
   <image src="../images/time.png" class="img-style" animation="{{animTranspond}}" bindtap="transpond"></image>
   <image src="../images/log.png" class="img-style" animation="{{animInput}}" bindtap="input"></image>
   <image src="../images/time_2.png" class="img-plus-style" animation="{{animPlus}}" bindtap="plus"></image>
   <text class="text_time">计时</text>
-</view>
+</view> -->

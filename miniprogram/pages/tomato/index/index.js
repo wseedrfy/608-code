@@ -80,6 +80,8 @@ Page({
     },
     //监听加载页
     onLoad: function() {
+        console.log("w",wx.getSystemInfoSync().windowWidth);
+        console.log("h",wx.getSystemInfoSync().windowHeight);
         var res = wx.getSystemInfoSync(); //获取设备的信息
         var rate = 750 / res.windowWidth;
         //console.log(rate);
@@ -102,6 +104,8 @@ Page({
               console.log("失败失败失败");
             }
           })
+          this.drawBg();
+          this.drawActive();
     },
     getUserInfo(e) {
         // 不推荐使用getUserInfo获取用户信息，预计自2021年4月13日起，getUserInfo将不再弹出弹窗，并直接返回匿名的用户个人信息

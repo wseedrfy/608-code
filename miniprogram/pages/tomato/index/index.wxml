@@ -29,8 +29,12 @@
 </view> -->
 
 <view class="clock" hidden="{{!clockshow}}" style="height:{{clockHeight}}rpx">
+   <image class="progress_water_left" src="../../testdaka/images/water_samll.png"></image>
+   <image class="progress_water_right" src="../../testdaka/images/water_samll.png"></image>
+   <image class="progress_water_center" src="../../testdaka/images/water.png"></image>
   <!-- 动态画圆倒计时-->
   <view class="progress">
+    
     <canvas canvas-id="progress_bg" class="progress_bg"></canvas>
     <canvas canvas-id="progress_active" class="progress_active"></canvas>  
     <view class="progress_text">{{timeStr}}</view>
@@ -78,7 +82,7 @@
             <view class="taskbox_choice_time_task_leftbox_icon">
                <image src="../../../images/tomato/{{item.icon}}.png"></image>
             </view>
-            <view class="taskbox_choice_time_task_leftbox_icontext"><view>{{item.text}}</view></view>
+            <view class="{{index == cateActive ? 'taskbox_choice_time_task_leftbox_icontextchoice' : 'taskbox_choice_time_task_leftbox_icontext'}}"><view>{{item.text}}</view></view>
          </view>
          <view class="taskbox_choice_time_task_rightbox">
             <image src="{{item.blue?'../../testdaka/images/blue.png':'../../testdaka/images/yellow.png'}}" bindtap="start">
