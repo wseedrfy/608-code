@@ -139,11 +139,12 @@
 .local2{
   position: relative;
   bottom: 80rpx;
-  background-image:  linear-gradient(rgba(255,255,255, 0) , rgba(0,0,0,0.9));
+  /* background-ime:  linear-gradient(rgba(255,255,255, 0) , rgba(0,0,0,0.9)); */
+  background-image:  linear-gradient(rgba(0,0,0, 0.1) 10% , rgba(0,0,0));
   height: 72rpx;
   /* height: 30%; */
   width: 100%;
-  opacity: 0.2;
+  /* opacity: 0.2; */
   z-index:1
 }
 .local_block{
@@ -177,13 +178,12 @@
   .end_state{
     filter: invert(0%) !important;
     color:black;
-    background-color:#ff793f;
-
+    background-color:rgba(255,121,63,0.6);
   }
   .end_reward{
     filter: invert(0%) !important;
     color:black;
-    background-color: #474787;
+    background-color: rgba(71,71,135,0.6);
 
   }
   .body{
@@ -193,23 +193,20 @@
 
   }
   .color1{
-    background-color:#ff4d4d;
+    background-color:rgba(255,77,77,0.6);
 
   }
   .color2{
-    background-color:#218c74;
+    
+    background-color:rgba(33,140,116,0.6);
 
   }
-  .local{
-    filter: invert(90%) !important;
-    color:white
-  }
+
   .local_text{
-    color:rgba(245,245,245,1);
     filter: invert(100%) !important;
   }
   .local2{
-    filter: invert(0%) !important;
+    filter: invert(100%) !important;
 
   }
 }
