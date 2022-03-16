@@ -27,7 +27,7 @@
     <!-- 问卷编辑 -->
     <view class="mess_item">
         <view class="title">招新问卷[{{sendStatus==false?'未发布':'已发布'}}]</view>
-        <view class="content_item" wx:for="{{freshman}}">
+        <view class="content_item" wx:for="{{freshman}}" wx:key="item">
             <view class="name">{{index+1}}.{{item.content}}</view>
             <view class="operation">
                 <view class="delete" data-item="{{item}}" bind:tap="delete">删除</view>
