@@ -671,10 +671,10 @@ swiper .wx-swiper-dot {
 .image_tabar_local2{
   position: absolute;
   bottom: 0rpx;
-  background-image:  linear-gradient(rgba(136,136,136,0) 20% , rgba(116,116,116,1));
+  background-image:  linear-gradient(rgba(0,0,0, 0) , rgba(0,0,0,0.9));
   height: 160rpx;
   width: 100%;
-  opacity: 0.4;
+  opacity: 0.25;
 }
 .image_tabar_local{
   /* height: 0rpx; */
@@ -724,8 +724,11 @@ swiper .wx-swiper-dot {
 }
 @media (prefers-color-scheme: dark) {
 .image_tabar_local{
-  filter: invert(100%)!important;
+  filter: invert(0%)!important;
   color:black;
+}
+.image_tabar_local2{
+  filter: invert(100%) !important;
 }
 .content_switch{
   filter: invert(100%) !important;
@@ -745,4 +748,5 @@ swiper .wx-swiper-dot {
 }.color3{
   background: rgba(125,95,255,0.6)
 }
+
 }

@@ -281,9 +281,10 @@ Page({
       console.log(options);
       console.log(photo);
       if(photo[0].tempFilePath){
-        let Input_Title = "模板标题";
-        let Input_Text = "模板文字";
-        let choosenLabel = "日常";
+        let nickName = wx.getStorageSync('args').nickName;
+        let Input_Title = nickName+" 今天已打卡~";
+        let Input_Text = "每天都要坚持打卡噢！";
+        let choosenLabel = "打卡";
         this.setData({
           photo,
           Input_Title,
@@ -298,6 +299,7 @@ Page({
       // menu_.push("寻物发布")
       // 兜底数据
       let menu = ["日常","晒出课表🤣", "树洞👂", "2022新年Flag🚩", "2021回顾◀", "三行情书❤️", "故事屋⭐️","寻物发布"]
+      
       this.setData({
         menu: args.tabitem ? menu_ : menu,
         theme

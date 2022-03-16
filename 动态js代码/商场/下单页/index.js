@@ -30,9 +30,9 @@ Page({
     list: [],
     load: true
   },
-  onLoad(option) {
+  onLoad: function (option)  {
     console.log(option)
-    var shop_id = '17e3426e622c9c2a131d12ee336df585'
+    var shop_id = 'uncanny'
     wx.showLoading({
       title: '加载中...',
       mask: true
@@ -393,6 +393,8 @@ Page({
     }
     this.setData({
       totalprice: totalprice.toFixed(2),
+      totalTrue: totalprice.toFixed(2) < this.data.goprice,
+      totalyuNumber: this.data.goprice - totalprice.toFixed(2),
       totalnumber: totalnumber,
     })
   },
@@ -426,7 +428,7 @@ Page({
     var shop_id=this.data.shop_id
     console.log(shop_id)
     wx.navigateTo({
-      url: '../userlocation/userlocation?shop_id='+shop_id,
+      url: '../HotTop/HotTop?content=地址&shop_id='+shop_id,
     })
   },
   /* 跳转支付 */
@@ -442,7 +444,8 @@ Page({
       }
     })
     wx.navigateTo({
-      url: '../pay/pay',
+
+      url: '../HotTop/HotTop?content=支付',
     })
   },
   /* 用户授权 */

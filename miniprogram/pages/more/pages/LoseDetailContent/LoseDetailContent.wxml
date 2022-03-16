@@ -19,7 +19,7 @@
         <swiper-item class="photo">
           <image src="{{item}}"  mode="aspectFill" style="z-index: 11;" bindtap="ShowImg" class="ShowImg" data-index="{{index}}"/>
           <view class="image_tabar_local">
-              <image  src="./images/local2.png"></image>
+              <image  src="./images/local.png"></image>
               <text class="image_tabar_text">{{content.campus}}</text>
           </view>
             <view class="image_tabar_local2">

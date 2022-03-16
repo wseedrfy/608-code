@@ -488,7 +488,7 @@ fs.readFile('src/index.js', (err, buffer) => {
             
                       if (c[1]) {
                         if(c[0] === 'style'){
-                          style = p + style
+                          style = ';' + p + style 
                           res[c[0]] = style
                         }else{
                           res[c[0]] = p

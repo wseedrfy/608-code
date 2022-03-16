@@ -17,3 +17,14 @@
   min-height: 100rpx;
   justify-content: space-between;
 }
+
+@media (prefers-color-scheme: dark) {
+  .bg-red {
+    filter: invert(90%) !important;
+  }
+
+ .text-red{
+  filter: invert(90%) !important;
+ }
+  
+}

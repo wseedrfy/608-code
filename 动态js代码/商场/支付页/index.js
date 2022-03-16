@@ -13,6 +13,9 @@ Page({
     picker: ['预约今天中午', '预约今天晚上', '预约明天中午', '预约明天晚上', ],
     userinfo:{userlocation:{}},
   },
+  onLoad: function (options) {
+
+  },
 
   onShow: function (options) {
     wx.showLoading({
