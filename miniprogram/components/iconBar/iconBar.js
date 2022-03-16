@@ -10,7 +10,7 @@ Component({
   methods: {
     _onRefresh(newVal, oldVal) { //这里只要父级值改变，就会执行
 
-      var newiconList = wx.getStorageSync('configData').iconList
+      var newiconList = wx.getStorageSync('configData').iconList || []
       var other_btn = wx.getStorageSync('other_btn')
       var other_iconList = other_btn.other_iconList || []
       // 处理旧数据
