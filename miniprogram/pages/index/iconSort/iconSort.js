@@ -11,30 +11,14 @@ Page({
   },
 
   //界面初始，读取首页按钮缓存、其余按钮缓存
-  onLoad: function (options) {
+  onShow: function (options) {
       //从缓存中或取iconList
       var that = this
-      wx.getStorage({
-          key: 'other_btn',
-          success(res) {
-              // console.log('666',res);
-              that.setData({
-                  other_iconList: res.data.other_iconList,
-              })
-          }
-      })
-      wx.getStorage({
-          key: 'configData',
-          success(res) {
-              // console.log(res.data.iconList);
-              // console.log('888',res);
-              let data = res.data.iconList
-              that.setData({
-                  iconList: data,
-                  inform: res.data.inform
-              })
-          }
-      })
+      var other_btn = wx.getStorageSync('other_btn')
+      that.setData({
+        other_iconList: other_btn.other_iconList,
+        iconList: other_btn.iconList
+    })
   },
 
   //管理按钮，turn时触发移除、增加按钮；false时禁用
@@ -42,10 +26,6 @@ Page({
 
       let init_other_iconList = JSON.parse(JSON.stringify(this.data.other_iconList))
       let init_iconList = JSON.parse(JSON.stringify(this.data.iconList))
-      // console.log(init);
-      // console.log(init_other_iconList)
-      // console.log(init_iconList)
-      // console.log(this.data.ismanage)
       if (this.data.ismanage) {
           //
           // console.log('取消');
@@ -105,6 +85,14 @@ Page({
 
       arr.push(other_arr[id])
       other_arr.splice(id, 1)
+    
+      arr.forEach((e, index) => 
+      {
+          if(e.name === '更多'){
+            arr[index] = arr.splice(arr.length - 1, 1, arr[index])[0];
+          }
+    
+      })
 
       this.setData({
           other_iconList: other_arr,
@@ -119,18 +107,10 @@ Page({
       var that = this
       //console.log(that.data.iconList)
       let bb = {
-          other_iconList: that.data.other_iconList
-      }
-      let aa = {
+          other_iconList: that.data.other_iconList,
           iconList: that.data.iconList,
-          inform: that.data.inform,
-          timeYear: "2022-2-28"
       }
       wx.setStorageSync('other_btn', bb)
-      wx.setStorage({
-          key: "configData",
-          data: aa
-      })
       //回到初始状态
       that.setData({
           ismanage: false,
