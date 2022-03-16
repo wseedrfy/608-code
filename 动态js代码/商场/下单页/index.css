@@ -105,3 +105,18 @@
   background-color: #f1f1f1;
   height: 50px;
 }
+
+@media (prefers-color-scheme: dark) {
+  .hhh {
+    filter: invert(100%) !important;
+  }
+  .cu-avatar {
+    filter: invert(100%) !important;
+  }
+  .bg-white{
+    background-color: #000;
+  }
+
+  
+}
+

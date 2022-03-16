@@ -1,4 +1,4 @@
-<view class="bg-red flex justify-center">
+<view class="flex justify-center bg-red ">
 	<view class="action">
 		<text wx:if="{{userinfo.userlocation.school==sf}}">有问题联系电话:xxxxx！</text>
 	</view>
@@ -44,7 +44,7 @@
 		</view>
 		<view class="flex title justify-end solids-top" style="font-weight:10">
 			<view class="text-cut text-xxl">
-				<text class="text-red text-bold">￥{{buy.totalprice}}</text>
+				<text class="text-bold text-red">￥{{buy.totalprice}}</text>
 			</view>
 		</view>
 	</view>
