@@ -70,18 +70,40 @@
 
 .clock {
     overflow: hidden;
-    background: #E7624F;
-    /* background-image: url('http://bpic.588ku.com/back_pic/05/34/50/795a2baa7135c82.jpg!ww650'); */
+    /* background: #E7624F; */
+    background-image: url('https://636c-cloud1-6gtqj1v4873bad50-1307814679.tcb.qcloud.la/tomato_daka/time_bg.jpg?sign=dfd427ce07bca11ea72e4cbfb8e74f31&t=1647312070');
     background-repeat: no-repeat;
     background-size: 100% 100%;
+    position: relative;
 }
-
+.progress_water_left{
+  width: 70rpx;
+  height: 70rpx;
+  position: absolute;
+  left: 100rpx;
+  top: 120rpx;
+}
+.progress_water_right{
+  width: 70rpx;
+  height: 70rpx;
+  position: absolute;
+  right: 100rpx;
+  top: 200rpx;
+}
+.progress_water_center{
+  width: 100rpx;
+  height: 100rpx;
+  position: absolute;
+  top: 260rpx;
+  left: 320rpx;
+}
 .progress {
     width: 400rpx;
     height: 400rpx;
     /* background: orange; */
-    margin: 140rpx auto;
+    margin: 400rpx auto 0 auto;
     position: relative;
+    /* top: 300rpx; */
 }
 
 .progress .progress_bg,
@@ -98,7 +120,7 @@
     height: 60rpx;
     line-height: 60rpx;
     font-size: 30rpx;
-    color: #ffffff;
+    color: #96cddd;
     text-align: center;
     position: absolute;
     left: 120rpx;
@@ -117,7 +139,7 @@
     color: #ffffff;
     border: 3rpx solid #ffffff;
     border-radius: 20rpx;
-    margin: 0 auto 20rpx auto;
+    margin: 100rpx auto 20rpx auto;
 }
 .nav-head {
     display: flex;
@@ -197,8 +219,8 @@
   }
   .bgimage{
       height: 35.3%;
-      background-image: url('https://imgpp.ztupic.com/bup/so/20210930/30c2f4084e29bc2cbf6745aade292364-1.jpg?x-oss-process=image/resize,w_1024/quality,q_85/watermark,image_d2F0ZXIucG5n,type_ZmFuZ3poZW5naGVpdGk,text_5L2c5ZOB57yW5Y%2B3OjMwOTY0Mjc%3D,order_0,interval_530,align_1,t_100,g_se,x_10,y_10,color_FFFFFF,size_23,shadow_90');
-      background-size:750rpx 620rpx;
+      background-image: url('https://636c-cloud1-6gtqj1v4873bad50-1307814679.tcb.qcloud.la/tomato_daka/%E6%8F%92%E7%94%BB-%E7%99%BD%E5%A4%A9_%E7%94%BB%E6%9D%BF%201.png?sign=0889ed3e3511e85d4b9e7da22c8ec589&t=1647320383');
+      background-size:100% 100%;
       background-repeat:no-repeat;
   }
   .taskbox{
@@ -321,11 +343,17 @@
     height: 100%;
     /* background-color: pink; */
   }
-  .taskbox_choice_time_task_leftbox_icontext >view{
+  .taskbox_choice_time_task_leftbox_icontextchoice{
+    float: left;
+    width: 60%;
+    height: 100%;
+    color: #E7624F;
+  }
+  .taskbox_choice_time_task_leftbox_icontextchoice,.taskbox_choice_time_task_leftbox_icontext >view{
     background-color: #fff;
     width: auto;
     height: auto;
     /* text-align: center; */
     margin: 55rpx auto;
-    font-weight: 600;
+    font-weight: 500;
   }
