@@ -10,6 +10,12 @@
   justify-content: center;
   flex-direction: column;
 }
+.ShowImg{
+  z-index:999;
+  background-image:  linear-gradient( #ffffff 90% , #c3e8ef);
+  /* opacity:0.6; filter: alpha(opacity=60); */
+
+}
 .user{
   width: 100%;
   display: flex;
@@ -653,7 +659,6 @@ swiper .wx-swiper-dot {
   float: right;
   margin-top :10rpx ;
   /* background-color: rgba(230,130,130,1); */
-  background:rgba(200,220,190);
   font-size:22rpx;
   line-height: 40rpx;
   padding: 0 8rpx;
@@ -663,19 +668,28 @@ swiper .wx-swiper-dot {
   /* vertical-align: middle; */
   /* box-sizing: border-box; */
 } 
+.image_tabar_local2{
+  position: absolute;
+  bottom: 0rpx;
+  background-image:  linear-gradient(rgba(136,136,136,0) 20% , rgba(116,116,116,1));
+  height: 160rpx;
+  width: 100%;
+  opacity: 0.4;
+}
 .image_tabar_local{
   /* height: 0rpx; */
   position: absolute;
-  font-size: 20rpx;
+  font-size: 24rpx;
   color:white;
   /* height: 20rpx; */
   padding: 3rpx;
-  background-color: rgba(105,105,105);
+  /* background-color: rgba(105,105,105); */
   /* background-color: #fff; */
-  opacity: 0.3;
+  /* opacity: 0.3; */
+  z-index: 999;
   border-radius: 15rpx;
   bottom: 20rpx;
-  color:white;
+  /* color:white; */
   font-size: 24rpx;
   vertical-align: middle;
   margin-left: 20rpx;
@@ -690,4 +704,45 @@ swiper .wx-swiper-dot {
 .image_tabar_text{
   vertical-align: middle;
   padding:0rpx 10rpx;
+}
+.active{
+  background-color: rgba(	0,206,209,0.6);
+
+}
+.noactive{
+  background:rgba(200,220,190);
+
+}
+.color1{
+  background:rgba(90,155,155,0.5)
+}
+.color2{
+  background:rgba(255,215,0,0.5)
+}.color3{
+  background: (125,95,255,0.1)
+  
+}
+@media (prefers-color-scheme: dark) {
+.image_tabar_local{
+  filter: invert(100%)!important;
+  color:black;
+}
+.content_switch{
+  filter: invert(100%) !important;
+
+}
+.noactive{
+  /* filter: invert(100%) !important; */
+  background-color: #ffb8b8;
+}
+.color1{
+  filter: invert(0%) !important;
+  color:white;
+  background:rgba(90,155,155,0.8)
+}
+.color2{
+  background:rgba(255,215,0,0.7)
+}.color3{
+  background: rgba(125,95,255,0.6)
+}
 }

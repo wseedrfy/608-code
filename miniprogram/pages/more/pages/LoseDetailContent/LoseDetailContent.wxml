@@ -16,12 +16,16 @@
     </view>
     <swiper indicator-dots='true' indicator-color="rgba(223, 223, 223, 0.39)" indicator-active-color='rgb(235, 21, 21)' style="height: {{content.ShowHeight > 300 ? 700+'rpx':content.ShowHeight+'px'}};">
       <block wx:for="{{content.AllPhoto}}" wx:key="Photo" class="photo">
-        <swiper-item >
+        <swiper-item class="photo">
           <image src="{{item}}"  mode="aspectFill" style="z-index: 11;" bindtap="ShowImg" class="ShowImg" data-index="{{index}}"/>
           <view class="image_tabar_local">
               <image  src="./images/local2.png"></image>
               <text class="image_tabar_text">{{content.campus}}</text>
           </view>
+            <view class="image_tabar_local2">
+                
+            </view>
+
         </swiper-item>
       </block>
     </swiper>
@@ -31,15 +35,15 @@
       <view class="content_LabelBox">
         <!-- <view class="content_Label" >失物</view> -->
         <view class="content_Label" >{{content.Label}}</view>
-        <view class="content_Label" style="background:rgba(90,155,155,0.5)">{{content.LoseType}}</view>
-        <view class="content_Label" style="background:rgba(255,215,0,0.5)">{{content.Other}}</view>
-        <span class="content_Label" style="#7d5fff">{{content.LoseTime}}</span>
+        <view class="content_Label color1" >{{content.LoseType}}</view>
+        <view class="content_Label color2" >{{content.Other}}</view>
+        <span class="content_Label color3" >{{content.LoseTime}}</span>
       </view>
       <view class="content_sec">
         <view class="content_Time" >{{Time}}</view>
         <view class="content_Star" wx:if="{{more==1}}">
           <switch  checked="{{switch1Checked}}" bindchange="switch1Change"/>
-          <span class="content_switch" style='background:{{switch1Checked?"rgba(	0,206,209,0.6)":""}}'>{{switch1Checked?"已找到":"未找到"}}</span>
+          <span class="content_switch {{isactive}}" >{{switch1Checked?"已找到":"未找到"}}</span>
         </view>
      </view>
     </view>

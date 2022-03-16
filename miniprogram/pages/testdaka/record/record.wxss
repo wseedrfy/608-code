@@ -300,28 +300,45 @@ button:not([size=mini]) {
 }
 @media (prefers-color-scheme: dark) {
     .dakacancel{
-        color: #74D5D3;
-        border: 2rpx solid #74D5D3;
+        filter: invert(1) !important;
+        color:gray;
+         /* #74D5D3; */
+        border: 2rpx solid gray;
     }
     /* #74D5D3 绿*/
     /* #F77A7A 红*/
     checkbox .wx-checkbox-input.wx-checkbox-input-checked{
-        border: 1rpx solid #F77A7A;
-        background: #F77A7A;
+        filter: invert(1) !important;
+        border: 1rpx solid rgb(172, 211, 254);
+        background: rgb(172, 211, 254);
+        color: #fff;
     }
     .dakatop_box_input_placeholder{
         color: gray;
     }
     .dakaconfirm_button_abc{
-        background: #fc9090;
+        filter: invert(90%) !important;
+        background: rgb(172, 211, 254);
     }
     .dakatop_box_input{
         filter: invert(1) !important;
         color: white;
         /* caret-color: red; */
     }
+    checkbox .wx-checkbox-input{
+        filter: invert(1) !important;
+        background: gray;
+    }
+    .dakatop_box_image,.dakatop_box2_image,.dakatop_cycle_image{
+        filter: invert(30%) !important;
+    }
+    .dakacenter_buttom_topbox_right {
+        filter: invert(70%) !important;
+    }
+    .checkboxcheckedActive{
+        filter: invert(90%) !important;
+    }
     /* .dakatop_box_input{
         color: black;
     } */
-
   }

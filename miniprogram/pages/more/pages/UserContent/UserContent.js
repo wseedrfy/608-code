@@ -3,21 +3,20 @@
 Page({
   data: {
     // 丢入瀑布流的数据
-    list:[],
-    item:"一半山河一般啊,江河一半山河一般啊,江河,一半山河一般啊,江河一半山河一般啊,江河,",
-    　 array:[
+    list: [],
+    item: "一半山河一般啊,江河一半山河一般啊,江河,一半山河一般啊,江河一半山河一般啊,江河,",
+    array: [
       {
         biaoqian: "张三",
       },
       {
-        biaoqian:"李四"
+        biaoqian: "李四"
       },
       {
-        biaoqian:"王五"
+        biaoqian: "王五"
       }
-
-     
-    ]
+    ],
+    showLoading: 1,   // 动画显示
   },
 
   onLazyLoad(info) {
@@ -26,7 +25,7 @@ Page({
   getData(e) { //分页加载数据
     let args = wx.getStorageSync('args');
     let currentPage = e.detail.currentPage;
-    console.log(currentPage,"currentPage");
+    console.log(currentPage, "currentPage");
     // 拉取数据
     let that = this;
     let list = this.data.list;
@@ -44,7 +43,7 @@ Page({
         // 数据存在时
         if (res.result && res.result.data.length > 0) {
           // 页数++
-          currComponent.setData({ currentPage: ++currentPage});
+          currComponent.setData({ currentPage: ++currentPage });
           // 添加新数据到 list 里 
           list = list.concat(res.result.data);
           console.log(list, "list");
@@ -77,26 +76,38 @@ Page({
   },
   init() {
     let list = [];
-    this.setData({list})
+    this.setData({ list })
   },
   onLoad: function (options) {
     this.init()
     this.onPullDownRefresh()
   },
-    
+
   // 下拉刷新
-  onPullDownRefresh() { 
+  onPullDownRefresh() {
     // 在标题栏中显示加载
     wx.showNavigationBarLoading();
+    // 初始化定时器
+    clearTimeout(this.TimeOut);
+    // 开启动画
+    this.setData({
+      showLoading: 0,
+    })
     // 重置组件内的 currentPage 和 loadAll
-    this.selectComponent(`#waterFlowCards`).setData({currentPage: 0});
-    this.selectComponent(`#waterFlowCards`).setData({loadAll: false});
+    this.selectComponent(`#waterFlowCards`).setData({ currentPage: 0 });
+    this.selectComponent(`#waterFlowCards`).setData({ loadAll: false });
+    this.TimeOut = setTimeout(() => {
+      console.log("下拉刷新")
+      this.selectComponent(`#waterFlowCards`).RightLeftSolution(true)
+      this.selectComponent(`#waterFlowCards`).getData()
+      // 完成停止加载
+      wx.hideNavigationBarLoading()
+      // 停止动画
+      this.setData({
+        showLoading: 1
+      })
+    }, 1000)
 
-    console.log("下拉刷新")
-    this.selectComponent(`#waterFlowCards`).RightLeftSolution(true)
-    this.selectComponent(`#waterFlowCards`).getData()
-    // 完成停止加载
-    wx.hideNavigationBarLoading() 
   },
   // 上拉触底改变状态
   onReachBottom() {

@@ -3,6 +3,7 @@ const db = wx.cloud.database();
 const _ = db.command;
 let movedistance = 0;
 var app = getApp();
+var util = require('../../../utils/util')
 Page({
     /**
      * 页面的初始数据
@@ -12,8 +13,7 @@ Page({
         animPlus: {},//旋转动画
         animCollect: {},//item位移,透明度
         animTranspond: {},//item位移,透明度
-        animInput: {},//item位移,透明度 
-       
+        animInput: {},//item位移,透明度       
         sysW: wx.getSystemInfoSync().windowWidth,
         xAxial: 0,
         x: 0,
@@ -21,14 +21,11 @@ Page({
         cssAnimation: 'translate3d(0, 0, 0)',
         succeedMsg: '',
         pullStatus: true,//是否允许验证成功后继续滑动
-
-        task_name:'背单词',
+        task_name:'测试测试测试',
         showModel3:false,
         dakacount:'19',
         dakatime:'12:00',
         showModel2:false,
-        // showModel5:true,
-
         currentid:0,
         currentIndex: 0, // 列表操作项的index
         taskdata:[
@@ -40,24 +37,10 @@ Page({
                 task_isDaka:false,
                 count:0
             },
-            {
-                task_name:'示例：看电视',
-                task_cycle:['周一','周二','周三','周四','周五'],
-                task_start_time:'6:00',
-                task_end_time:'8:00',
-                task_isDaka:false,
-                count:0
-            },
-            {
-                task_name:'示例：看电视',
-                task_cycle:['周一','周二','周三','周四','周五'],
-                task_start_time:'6:00',
-                task_end_time:'8:00',
-                task_isDaka:false,
-                count:0
-            },
         ],
-        daytext:[{Eng_daytext:"Above all,try something.",Ch_daytext:"最重要的是尝试新的可能。"}],
+        daytext:[{Eng_daytext:"Above all,try something.",Ch_daytext:"最重要的是尝试新的可能。"},{Eng_daytext:"If you want it,work for it.",Ch_daytext:"想要的东西就去争取。"},
+        {Eng_daytext:"A good laugh recharges your battery.",Ch_daytext:"笑是最好的充电方式。"},{Eng_daytext:"Putting yourself first is not selfish.",Ch_daytext:"把自己放第一位不是自私。"},{Eng_daytext:"Work on yourself for yourself.",Ch_daytext:"为了自己变得更好。"},{Eng_daytext:"One day,has not benn able again to come.",Ch_daytext:"一天过完，不会再来"},
+        {Eng_daytext:"Ldleness is the factory of poverty.",Ch_daytext:"怠惰是贫穷的制造厂"},{Eng_daytext:"Hang in there!Come on!",Ch_daytext:"坚持下来！加油！"}],
         arr :["http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mccErIrW3xz*gbdII0f2XxWb532vMFM40Z1GLB1qy0PJerOEUFI*g*oZuZ35D1lhyDT.clH6YZMOs3.8EPCzGmVA!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mccErIrW3xz*gbdII0f2XxWYzgI97WA4qJSXOKv*.4QFn3Eg2qYyEPp*FEqQ324LfbLGZlnl2rr4FS5hFO8u0ZTs!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcWo.8232YNIC*jkUYG2CaL02oENRjq4FgVYfJRGAQkUFIHqSHOgKJN7PwN8eneBAJ3Xuao69KnlIiWFTLek*xbA!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcWo.8232YNIC*jkUYG2CaL0U9WK413d9yuItDSS6iVc8eijth7NxjoSIIegtYx1e5ge50x9TYGSoI1tspf4Eo4Y!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcWo.8232YNIC*jkUYG2CaL3iIKgpjMwyrYqipU5hEly9ayItSyv33FzZ4ib5F9ve2AlY40CT8VGvo4aYHsf4PaI!/r","http://m.qpic.cn/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcWo.8232YNIC*jkUYG2CaL1gQqPp*29X8poNeV1JgSwuGeLqduMlr1RfAksUAUYIEPN37EwlqtdvxQ8SPnTaRYw!/b&bo=OAQFBTgEBQUBKQ4!&rf=viewer_4","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcddykwK5pChyfjlr.MGCQ8Mn1xgktufw23sOXfGiwfYDceE0Sm9dtSOJoxNd6a7mGPCV7NonZqctFYy6dWw2wn8!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcddykwK5pChyfjlr.MGCQ8OEqMkdr*5dA3.jQ3lK3l3d1xwMgnjGXM*Y9JKOWn5MTRAO1dRfUGwgWxQMZXcIruI!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcddykwK5pChyfjlr.MGCQ8OSyjf8imUzh5VQeto*9CH6YmXSw9chNfjsZZaZbpwP1*tcOKZUfgBNpQu6qOdbkn8!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcddykwK5pChyfjlr.MGCQ8MmLdH4z*DD*NoKPNIx.71uvCzHA4Lbvag7wPzA.B9B1LLHvxmZlw5RV9ozcVBUx1w!/r"]
     },
     plus: function () {
@@ -170,16 +153,16 @@ Page({
         //   fileType:'png',
           quality:1,
             success:function(res){
-                wx.saveImageToPhotosAlbum({
-                    filePath: res.tempFilePath,
-                    success(result){
-                      wx.showToast({
-                        title: '图片保存成功',
-                        icon: 'success',
-                        duration: 2000
-                      })
-                    }
-                  })
+                // wx.saveImageToPhotosAlbum({
+                //     filePath: res.tempFilePath,
+                //     success(result){
+                //       wx.showToast({
+                //         title: '图片保存成功',
+                //         icon: 'success',
+                //         duration: 2000
+                //       })
+                //     }
+                //   })
                 wx.getImageInfo({
                   src:res.tempFilePath,
                 }).then(res=>{
@@ -197,7 +180,7 @@ Page({
                   })
                 }else{
                   // 标签兜底
-                  args.tabitem ? args.tabitem : args["tabitem"] = ["全部","日常","开学季"];
+                  args.tabitem ? args.tabitem : args["tabitem"] = ["全部","日常","开学季","打卡"];
                   // 初始化allList
                   let allList = args.tabitem.map( (item,index) => {
                     let allList = [];
@@ -211,16 +194,6 @@ Page({
                     })
                 }
                 })
-                // wx.saveImageToPhotosAlbum({
-                //     filePath: res.tempFilePath,
-                //     success(result){
-                //       wx.showToast({
-                //         title: '图片保存成功',
-                //         icon: 'success',
-                //         duration: 2000
-                //       })
-                //     }
-                //   })
             }
         })
 
@@ -252,6 +225,7 @@ Page({
     },
     draw_new_bg(ctx,canvas,wpx){
         let num=Math.floor(Math.random() * 9);
+        let inum=Math.floor(Math.random() * 7);
         let Wetext="—— We校园每日分享"
         let nickName= wx.getStorageSync('args').nickName;
         let bgurl = this.data.arr[num]
@@ -291,16 +265,16 @@ Page({
               this.draw_we_iconurl(ctx,canvas,wpx);//We校园图标
               this.drawiconurl(ctx,canvas,wpx);//画头像
               ctx.fillStyle='black';
-              ctx.font='15px Arial';
+              ctx.font=String(15*wpx)+'px Arial';
               ctx.fillText("We 打卡",66*wpx,40*wpx);
-              ctx.font='13px Arial';
+              ctx.font=String(13*wpx)+'px Arial';
               ctx.fillText(nickName,64*wpx,274*wpx);//画wx名字
-              ctx.font='14px Arial';
-              ctx.fillText(this.data.daytext[0].Eng_daytext,20*wpx,88*wpx);//英文语句
-              ctx.font='9px Arial';
-              ctx.fillText(this.data.daytext[0].Ch_daytext,20*wpx,110*wpx);//中文语句
+              ctx.font=String(11*wpx)+'px Arial';
+              ctx.fillText(this.data.daytext[inum].Eng_daytext,20*wpx,88*wpx);//英文语句
+              ctx.font=String(9*wpx)+'px Arial';
+              ctx.fillText(this.data.daytext[inum].Ch_daytext,20*wpx,110*wpx);//中文语句
               ctx.fillStyle='gray';
-              ctx.font='9px Arial ';
+              ctx.font=String(9*wpx)+'px Arial ';
               ctx.fillText(Wetext,172*wpx,120*wpx);//we校园每日分享
               //图片
               ctx.save();
@@ -329,14 +303,14 @@ Page({
               ctx.globalAlpha="1"
               // ctx.font='30px Arial'
               ctx.font = String(11*wpx)+"px Arial"
-              ctx.fillText(this.data.task_name,18*wpx,310*wpx)//任务名字
+              ctx.fillText(this.data.task_name,16*wpx,310*wpx)//任务名字
               ctx.font = String(9*wpx)+"px Arial"
               ctx.fillStyle='gray'
               ctx.fillText('任务',18*wpx,330*wpx)//任务
-              ctx.fillText('打卡时间',80*wpx,330*wpx)
+              ctx.fillText('打卡时间',83*wpx,330*wpx)
               ctx.font = String(11*wpx)+"px Arial"
               ctx.fillStyle='black'
-              ctx.fillText(this.data.dakatime,80*wpx,310*wpx)//打卡时间
+              ctx.fillText(this.data.dakatime,83*wpx,310*wpx)//打卡时间
               ctx.font = String(9*wpx)+"px Arial"
               ctx.fillStyle='gray'
               ctx.fillText('坚持天数',155*wpx,330*wpx)//坚持天数
@@ -466,13 +440,16 @@ Page({
         let isDaka=this.data.taskdata
         isDaka=isDaka[id].task_isDaka
         //如果触摸的X轴坐标大于等于限定的可移动范围，则验证成功
-        if (this.data.x >= this.data.w&isDaka==false) {
+        if (this.data.x >= this.data.w&&!isDaka) {
           this.data.xAxial = this.data.w;
           this.data.succeedMsg = '';
           detail.msg = true;
           this.daka_prompt(res)
           console.log(res);
           this.data.xAxial = 0;
+          this.setData({
+            x:0
+          })
         } else {
           this.data.xAxial = 0;
           this.data.succeedMsg = '';
@@ -554,6 +531,11 @@ Page({
     // 获取当天时间，看是否可以打卡
     // 注意：当滑动时执行：故不用进行判断是否重复打卡
     async allowDaka(res){
+        let dakatime = util.dakaTime(new Date());
+        console.log(dakatime);
+        this.setData({
+          dakatime:dakatime
+        });
         console.log(res);
         //子腾兄秒法：获取index来获取到页面的数据
         var id = Number(res.currentTarget.id);
@@ -662,6 +644,8 @@ Page({
 
 
     async daka(hashid){
+        let dakatime = util.formatTime(new Date())
+        console.log(dakatime);
         let result = await wx.cloud.callFunction({
             name: "daka",
             data: {
@@ -822,7 +806,6 @@ Page({
             //判断该数据是否打卡的状态
             let task_isDakaTemp = data[i].isDaka;
             let daka_lastTime = new Date(data[i].daka_lastTime);
-
             //为了防止第一次打卡没有daka_lastTime
             if(daka_lastTime != null){
                 //获取最后一次打卡的日期
@@ -866,6 +849,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad() {
+      
         wx.showLoading({
           title: '加载中',
           mask:true

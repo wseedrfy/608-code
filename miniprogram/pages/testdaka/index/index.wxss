@@ -282,7 +282,7 @@
   .attention_text{
     z-index: 99999;
     position: fixed;
-    bottom: 500rpx;
+    top: 200rpx;
     left: 88rpx;
     width: 570rpx;
     height: 700rpx;
@@ -293,7 +293,7 @@
     height: 70rpx;
     width: 70rpx;
     position: fixed;
-    bottom: 400rpx;
+    top: 1000rpx;
     left: 338rpx;
     z-index: 99999;
   }
@@ -309,13 +309,23 @@
     color: #fff;
     margin: 7rpx 0;
   }
-  
+  .operationBgBoxtrue{
+    float: left;
+    height: 90rpx;
+    width:100%;
+    background-color: #fff;
+    border-radius: 0px 45px 45px 0px;
+    overflow: hidden;
+    position: absolute;
+    /* top: 0; */
+    color: #fff;
+    margin: 7rpx 0;
+  }
   .operationBox {
     width: 145rpx;
     height: 90rpx;
     background: #74D5D3;
-    border-radius: 0px 45px 45px 0px;
-    
+    border-radius: 0px 45px 45px 0px;   
     display: flex;
     align-items: center;
     justify-content: center;
@@ -323,8 +333,19 @@
     right: 0;
     top: 0;
   }
-  
-  .operationBox image {
+  .operationBoxtrue{
+    width: 145rpx;
+    height: 90rpx;
+    background: #fff;
+    border-radius: 0px 45px 45px 0px;   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .operationBox image,.operationBoxtrue image{
     /* width: 50%;
     height: 50%; */
     float: right;
@@ -410,44 +431,102 @@
   opacity: 0;
   z-index: 999;
 }
+.text_time{
+  position: fixed;
+  bottom: 250rpx;
+  right: 70rpx;
+}
+.attention_text_title{
+  margin: 40rpx auto;
+  text-align: center;
+}
+.attention_text_duanluo{
+  margin: 10rpx 40rpx;
+}
+.attention_text_duanluo >view{
+  line-height: 75rpx;
+}
   @media (prefers-color-scheme: dark) {
     .complete_share_box_button{
-      background-color: #F77A7A;
-      color: black;
+      filter: invert(90%) !important;
+      background: rgb(172, 211, 254);
+      color: #fff;
     }
     .operationBgBox{
-      background: #F77A7A;
+      filter: invert(90%) !important;
+      background: rgb(172, 211, 254);
+      /* background: #F77A7A; */
       /* background: rgb(167, 167, 86); */
     }
     .operationBox{
-      background: #F77A7A;
-      /* background: rgb(167, 167, 86); */
+      filter: invert(0) !important;
+      background-color: rgb(172, 211, 254);
+    }
+    .operationBox image{
+      filter: invert(0) !important;
     }
     .dayclock_data_column_text_true{
-      color: #F77A7A;
+      filter: invert(90%) !important;
+      color: rgb(172, 211, 254);
       /* color: rgb(167, 167, 86); */
     }
     .dayclock_data_column_text_false{
-      
       color: gray;
       /* color: rgb(167, 167, 86); */
     }
     .img-plus-style{
       filter: invert(0) !important;
       color: black;
+      position: fixed;
+      bottom: 600rpx;
+      right: 50rpx;
+      z-index: 999;
     }
     .img-style{
       filter: invert(0) !important;
       color: blanchedalmond;
+      position: fixed;
+      bottom: 600rpx;
+      right: 25rpx;
+      opacity: 0;
+      z-index: 999;
     }
     .dayclock_data_huadong_bg_bg{
-      filter: invert(1) !important;
-      /* background-color: #fc9090; */
-      background-color: gray;
-      color: black;
+      filter: invert(90%) !important;
+      background-color: #fc9090;
+      /* background-color: gray; */
+      color: #fff;
     }
     .complete_share_image{
       filter: invert(1) !important;
+    }
+    .text_time{
+      position: fixed;
+      bottom: 550rpx;
+      right: 70rpx;
+    }
+    .attention_bg{
+      filter: invert(90%) !important;
+    }
+    .operationBoxtrue image{
+      filter: invert(60%) !important;
+    }
+    .dayclock_column_right{
+      filter: invert(60%) !important;
+    }
+    .dayclock_column_left{
+      filter: invert(80%) !important;
+    }
+    .dayclock_data_column_2_task{
+      filter: invert(1) !important;
+      color: #fff;
+    }
+    .dayclock_column_center{
+      filter: invert(1) !important;
+      color: #fff;
+    }
+    .complete_bg{
+      filter: invert(90%) !important;
     }
   }
   

@@ -11,9 +11,11 @@ Page({
     pageSize:10,
   },
   naviToDetail(e) {
-    var content = JSON.stringify(e.currentTarget.dataset.content);
+    var jsonStr = JSON.stringify(e.currentTarget.dataset.content);
+    // 对数据进行URI编码，防止数据被截断。少量数据没问题，如果对象较大则容易被截断，获取不到完整数据
+    let data = encodeURIComponent(jsonStr);
     wx.navigateTo({
-      url: '../DetailContent/DetailContent?content='+content,
+      url: `../DetailContent/DetailContent?content=${data}`,
     })
   },
   //页面显示的事件
