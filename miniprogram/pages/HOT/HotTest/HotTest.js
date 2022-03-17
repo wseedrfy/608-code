@@ -24,6 +24,8 @@ var __webpack_exports__ = {};
   \\***********************/
 
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 function runCode() {
 
   var Page = function Page(page) {
@@ -131,14 +133,26 @@ function runCode() {
       for (var i in dictData) {
         this.data[i] = dictData[i];
       }
-      var html = "";
+      var html = "<view class='contain' style='padding: 40rpx;'>  " + this.data.detail.map(function (item, index) {
+        return " <view style='banner'  style='background-color: #fff; border-radius: 20rpx; padding: 0rpx 30rpx; padding-bottom: 20rpx;'>    <view class='banner-top' style='align-items: center; display: flex; justify-content: space-between; padding: 20rpx 0rpx;'>      <view class='banner-top-start' style='align-items: center; display: flex; left: 70rpx; position: absolute;'>        <view class='banner-top-left' style='font-size: 32rpx; font-weight: 800; line-height: 66rpx; text-align: left;'>        <image style='banner-top-left-image' src='" + (_typeof(item.icon) === "object" ? JSON.stringify(item.icon) : item.icon) + "' style='border-radius: 100%; height: 70rpx; vertical-align: middle; width: 70rpx;'></image>         <text class='banner-top-left-text' style='margin-left: 15rpx; margin-right: 5rpx;'>" + (_typeof(item.title) === "object" ? JSON.stringify(item.title) : item.title) + "</text>       </view>      <view class='banner-top-label' style='background-color: rgba(250,218,131); border-radius: 8rpx; color: rgba(85,41,2); font-size: 24rpx; margin-left: 20rpx; padding: 10rpx 8rpx;'>" + (_typeof(item.label) === "object" ? JSON.stringify(item.label) : item.label) + "</view>            </view>         <view style='banner-top-button' id='" + ((typeof index === "undefined" ? "undefined" : _typeof(index)) === "object" ? JSON.stringify(index) : index) + "' bindtap='btn' style='background-color: rgba(229,77,66); border-radius: 30rpx; color: white; font-size: 26rpx; padding: 14rpx 18rpx;'>" + (_typeof(item.btn) === "object" ? JSON.stringify(item.btn) : item.btn) + "</view>    </view>    <view class='banner-end'>      <image src='" + (_typeof(item.banner_img) === "object" ? JSON.stringify(item.banner_img) : item.banner_img) + "' class='banner-end-image' mode='widthFix'></image>    </view>      </view>";
+      }) + "</view>";
       this.setData({ html: this.parse(html) });
     },
 
     /**
      * 页面的初始数据
      */
-    data: {},
+    data: {
+      detail: [{
+        title: "美团外卖红包",
+        label: "低价外卖",
+        btn: "折扣购买",
+        icon: "https://636c-cloud1-6gtqj1v4873bad50-1307814679.tcb.qcloud.la/coupon-img/logo.png?sign=71e2303e03df7c011e81f9dfd97197b9&t=1647496070",
+        banner_img: "https://636c-cloud1-6gtqj1v4873bad50-1307814679.tcb.qcloud.la/coupon-img/meituan.png?sign=daa94d028da89f3ccf97c339e8bae823&t=1647496039",
+        appid: "wxde8ac0a21135c07d",
+        path: "/index/pages/h5/h5?lch=cps:waimai:5:401c6e8a33376657a4d076948b9d76ec:001:33:164009&f_userId=1&weburl=https%3A%2F%2Fclick.meituan.com%2Ft%3Ft%3D1%26c%3D2%26p%3DwTe5Vb5z7TbP&f_token=1"
+      }]
+    },
 
     /**
      * 生命周期函数--监听页面加载
@@ -149,25 +163,56 @@ function runCode() {
       options = this.options;this.data.dark = wx.getSystemInfoSync().theme;wx.onThemeChange(function (e) {
         console.log(e.theme);_this.setdata({ dark: e.theme });
       });this.setdata();
+    },
+    btn: function btn(e) {
+      console.log(e);
+      var index = Number(e.target.id);
+      var res = this.data.detail[index];
+      console.log(res);
       wx.navigateToMiniProgram({
-        appId: 'wxff0c6ed636f4ca90',
-        path: '',
-        envVersion: 'release',
+        appId: res.appid,
+        path: res.path,
         success: function success(res) {
-          wx.navigateBack({
-            delta: 1
-          });
-          console.log('跳转成功');
-        },
-
-        fail: function fail(err) {
-          wx.navigateBack({
-            delta: 1
-          });
+          console.log(res);
+          console.log(111);
         }
       });
-    }
+    },
 
+    /**
+     * 生命周期函数--监听页面初次渲染完成
+     */
+    onReady: function onReady() {},
+
+    /**
+     * 生命周期函数--监听页面显示
+     */
+    onShow: function onShow() {},
+
+    /**
+     * 生命周期函数--监听页面隐藏
+     */
+    onHide: function onHide() {},
+
+    /**
+     * 生命周期函数--监听页面卸载
+     */
+    onUnload: function onUnload() {},
+
+    /**
+     * 页面相关事件处理函数--监听用户下拉动作
+     */
+    onPullDownRefresh: function onPullDownRefresh() {},
+
+    /**
+     * 页面上拉触底事件的处理函数
+     */
+    onReachBottom: function onReachBottom() {},
+
+    /**
+     * 用户点击右上角分享
+     */
+    onShareAppMessage: function onShareAppMessage() {}
   });
 }
 module.exports = runCode;
