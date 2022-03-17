@@ -2,11 +2,11 @@ import ddddocr
 
 
 ###识别技术
-def code_ocr(session):
+def code_ocr(username,session):
     status_code=0
     code, cookies='',''
     try:
-        image_url = 'MZ_code.png'
+        image_url = 'MZ_code.png'+username
         res = session.get('https://jwc.mmpt.edu.cn/CheckCode.aspx')
         cookies = res.cookies.items()
         status_code = res.status_code

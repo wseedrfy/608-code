@@ -14,7 +14,10 @@ def login(session, username, password):
     def login_test(session, username, password):
         status_code = 0
         try:
-            code, cookies = code_ocr(session)
+            code, cookies = code_ocr(username,session)
+            import os
+            if os.path.exists("MZ_code.png" + username):
+                os.remove("MZ_code.png" + username)
             cookie = ''
             for name, value in cookies:
                 cookie += '{0}={1};'.format(name, value)
