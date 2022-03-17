@@ -1,22 +1,17 @@
-// const { isGeneratorFunction } = require("util/types")
-// const { Console } = require("console")
 var util = require("../../../../utils/util.js")
 var moreUtil = require("../../utils/utils")
 var app = getApp()
 
 Page({
   data: {
-    isChecked: true,
     CommentList: [],
-    showEdit: false, // 控制评论区弹窗显示
-    comEdit: false, // 评论区复制/删除弹窗
-    comReply: false,
-    CardID: "",
-    inIndex: -1,
-    ShowDelCom: 0, // 评论区控制是否出现“删除”按钮
-    Commentindex: 0, // 评论区的 index
-    Starurl: "../../../../images/zan1.png",
-    edit_style: 'edit_hide',
+    showEdit: false,      // 卡片区删除弹窗
+    comEdit: false,       // 评论区复制/删除弹窗
+    comReply: false,      //控制评论组件的出现
+    inIndex: -1,          //子评论的索引
+    Commentindex: -1,     //主评论的索引
+    Starurl: "../../../../images/zan1.png",   //不知道这有啥用，注释掉的话会出现：从主页面取消点赞再进入详细页面，详细页面的点赞图标会没有
+    sendCom:[]    //接受从replyComment组件传递过来的数组，用于增加评论后的渲染
   },
   callFunction: function (type,be_character,Input) {
     const args = wx.getStorageSync('args')
@@ -32,7 +27,7 @@ Page({
         type: type,
         character: character,
         be_character: be_character,
-        username: that.data.username,
+        username: args.username,
         be_username: that.data.content.username,
         content: Input,
         createTime: new Date().getTime(),
@@ -47,18 +42,6 @@ Page({
         console.log(res, "调用评论云函数成功");
       },
       fail(e) {
-        if(type === "ReplyCommentControlLogs"){
-          wx.showToast({
-            title: '回复评论失败',
-            icon: 'none'
-          })
-        }
-        if(type === "CommentControlLogs"){
-          wx.showToast({
-            title: '评论失败',
-            icon: 'none'
-          })
-        }
         if(type === StarControlLogs){
           wx.showToast({
             title: '点赞失败',
@@ -68,8 +51,21 @@ Page({
       }
     })
   },
-  popUp: function () {
-    let edit_style = this.data.edit_style;
+  xx:function(e){         //接受从replyComment组件传递过来的值，控制评论组件出现
+    setTimeout(() => {
+      this.setData({
+        comReply: !e.detail.comReply,
+      })
+    }, 200);
+  },
+  hh:function(e){         //接收从replyComment组件传递来的数组，用于渲染
+    if(e.detail.CommentList){
+      this.data.sendCom=e.detail.CommentList
+      this.ShowComment()
+    }
+  },
+  popUp: function () {          //控制卡片/评论弹窗
+    var edit_style = 'edit_hide';
     // picker动画样式
     if (edit_style == undefined || edit_style == 'edit_hide') {
       edit_style = 'edit_show'
@@ -79,7 +75,7 @@ Page({
     this.setData({ edit_style })
   },
 
-  More: function () {
+  More: function () {           //控制卡片
     var showEdit = this.data.showEdit
     this.popUp()
     this.setData({ showEdit: !showEdit })
@@ -89,7 +85,7 @@ Page({
     const args = wx.getStorageSync('args')
     let outIndex = e.currentTarget.dataset.bigindex
     let inIndex = e.currentTarget.dataset.small
-    let ShowDelCom = 0;
+    var ShowDelCom = 0;
     this.data.Commentindex = outIndex
     this.data.inIndex = inIndex
     this.popUp()
@@ -115,92 +111,26 @@ Page({
         isChecked: true,
       })
     }
-    // this.data.ShowDelCom = 0;    //初始化
     outIndex = 0
   },
-  ReplyComment: function () {
+  ReplyComment: function () {       //控制replyComment组件，并向组件传递数据
       this.popUp()
       this.setData({
-        comEdit: !this.data.comEdit,
+        comEdit: false,
       })
       setTimeout(() => {
         this.setData({
           comReply: !this.data.comReply,
+          outIndex: this.data.Commentindex,
+          inIndex: this.data.inIndex,
+          CommentList:this.data.CommentList,
+          content:this.data.content
         })
       }, 200);
   },
-  replySubmit: function (e) {
-    var that = this;
-    let res = that.isNull(e.detail.value);
-    var outIndex = that.data.Commentindex
-    var inIndex = that.data.inIndex
-    const args = wx.getStorageSync('args')
-    if (res) {
-      wx.showToast({
-        title: '内容不能为空',
-        icon: 'none'
-      })
-    } else {
-      var add = {
-        "InputReply": e.detail.value,
-        "ReplyTime": new Date().getTime(),
-        "iconUser": args.iconUrl,
-        "nickName": args.nickName,
-        "username": args.username,
-        "Replied": "",
-      }
-      if (inIndex === -1 || inIndex === undefined) {
-        add.Replied = that.data.CommentList[outIndex].nickName
-        var be_character = {
-          userName: that.data.CommentList[outIndex].username,
-          iconUrl: that.data.CommentList[outIndex].iconUrl,
-          nickName: that.data.CommentList[outIndex].nickName
-        }
-      } else {
-        add.Replied = that.data.CommentList[outIndex].Reply[inIndex].nickName
-        var be_character = {
-          userName: that.data.CommentList[outIndex].Reply[inIndex].username,
-          iconUrl: that.data.CommentList[outIndex].Reply[inIndex].iconUrl,
-          nickName: that.data.CommentList[outIndex].Reply[inIndex].nickName
-        }
-      }
-      wx.cloud.callFunction({
-        name: 'NewCampusCircle',
-        data: {
-          url: 'CommentControl',
-          addData: add,
-          index: outIndex,
-          _id: that.data.content._id,
-          username: that.data.username,
-          type: 'replyComment'
-        },
-        success: res => {
-          that.data.CommentList[outIndex].Reply.push(add)
-          wx.hideLoading()
-          that.ShowComment()
-        },
-        fail: err => {
-          wx.showToast({
-            title: '请求失败',
-            icon: 'none',
-          })
-          console.error
-        }
-      })
-      that.setData({
-        Input: ""
-      })
-      that.callFunction('ReplyCommentControlLogs',be_character,e.detail.value)
-      setTimeout(() => {
-        that.setData({
-          comReply: !that.data.comReply,
-        })
-      }, 200);
-      
-    }
-    that.data.inIndex = -1
-  },
+  
   DelComment: function () {
+    const args = wx.getStorageSync('args')
     var outIndex = this.data.Commentindex
     var inIndex=this.data.inIndex
     var that = this
@@ -236,7 +166,7 @@ Page({
             data: {
               url: 'CommentControl',
               type: type1,
-              username : that.data.username,
+              username : args.username,
               _id: that.data.content._id,
               index:outIndex,
               delData: delData
@@ -252,7 +182,7 @@ Page({
               // 更新全局
               app.globalData.allList.forEach((item,outIndex) => {
                 item.forEach((e,i) => {
-                  if (e._id === that.data.CardID) {
+                  if (e._id === that.data.content._id) {
                     e.CommentList.pop()
                   }
                 })
@@ -294,7 +224,8 @@ Page({
   },
   //删除
   DelCard: function () {
-    var that = this
+    var that = this;
+    const args = wx.getStorageSync('args');
     wx.showModal({
       title: '提示',
       content: '确定删除?',
@@ -303,8 +234,8 @@ Page({
           wx.cloud.callFunction({
             name: 'CampusCircle',
             data: {
-              _id: that.data.CardID,
-              username: that.data.username,
+              _id: that.data.content._id,
+              username: args.username,
               type: 'delCard'
             },
             success: res => {
@@ -314,7 +245,7 @@ Page({
               // 更新全局
               app.globalData.allList.forEach((item,index) => {
                 item.forEach((e,i) => {
-                  if (e._id === that.data.CardID) {
+                  if (e._id === that.data.content._id) {
                     app.globalData.allList[index].splice(i,1);
                   }
                 })
@@ -334,9 +265,6 @@ Page({
     })
   },
 
-  Comment_Inputting: function () {
-    this.setData({ isChecked: false })
-  },
   // 评论内容判空 返回布尔值：false -> 非空; true -> 空/全是空格
   isNull(str) {
     if (str == "") return true;
@@ -344,99 +272,33 @@ Page({
     var re = new RegExp(regu);
     return re.test(str);
   },
-  formSubmit: function (e) { //添加与存储
-    var that = this;
-    const args = wx.getStorageSync('args')
-    // 判空
-    let res = that.isNull(e.detail.value.InputComment);
-    if (res) {
-      wx.showToast({
-        title: '内容不能为空',
-        icon: 'none'
-      })
-    } else {
-      let add = {
-        "InputComment": e.detail.value.InputComment,
-        "CommentTime": new Date().getTime(),
-        "iconUser": args.iconUrl,
-        "nickName": args.nickName,
-        "username": args.username,
-        "Reply": [],
-      }
-      wx.showLoading({
-        title: '发送中',
-        mask: true
-      })
-
-      wx.cloud.callFunction({
-        name: 'NewCampusCircle',
-        data: {
-          url: 'CommentControl',
-          addData: add,
-          username: that.data.username,
-          Time: that.data.content.Time,
-          _id: that.data.content._id,
-          type: 'writeComment'
-        },
-        success: res => {
-          that.data.CommentList.push(add);
-          wx.hideLoading()
-          that.ShowComment()
-          // 更新全局
-          app.globalData.allList.forEach(item => {
-            item.forEach(e => {
-              if (e._id === that.data.CardID) {
-                e["CommentList"] = that.data.CommentList;
-              }
-            })
-          })
-          // 内外渲染一致
-          moreUtil.setAllList(app.globalData.allList,"评论")
-        },
-        fail: err => {
-          wx.showToast({
-            title: '请求失败',
-            icon: 'none',
-          })
-          console.error
-        }
-      })
-      that.setData({ Input: "" })
-      // 被评论者信息
-      let be_character = {
-        userName: this.data.content.username,
-        iconUrl: this.data.content.iconUrl,
-        nickName: this.data.content.nickName
-      }
-      // 云函数增加一条评论记录
-      that.callFunction('CommentControlLogs',be_character,e.detail.value.InputComment)
-    }
-  },
   ShowComment: function () {
     var Show = []
+    if(this.data.sendCom.length!=0){
+      this.data.CommentList=this.data.sendCom
+    }
     var copyList = JSON.parse(JSON.stringify(this.data.CommentList))
-    for (let i = 0; i < this.data.CommentList.length; i++) {
-      if (this.data.CommentList[i] != null) {
-        var AftTime = util.timeago(this.data.CommentList[i].CommentTime, 'Y年M月D日')
+    for (let i = 0; i < copyList.length; i++) {
+      if (copyList[i] != null) {
+        var AftTime = util.timeago(copyList[i].CommentTime, 'Y年M月D日')
         if (copyList[i].Reply != null) {
           for (let j = 0; j < copyList[i].Reply.length; j++) {
             copyList[i].Reply[j].ReplyTime = util.timeago(copyList[i].Reply[j].ReplyTime, 'Y年M月D日')
           }
         }
         Show.push({
-          InputContent: this.data.CommentList[i].InputComment,
+          InputContent: copyList[i].InputComment,
           InputTime: AftTime,
-          iconUser: this.data.CommentList[i].iconUser,
-          nickName: this.data.CommentList[i].nickName,
-          username: this.data.CommentList[i].username,
+          iconUser: copyList[i].iconUser,
+          nickName: copyList[i].nickName,
+          username: copyList[i].username,
           Reply: copyList[i].Reply
         })
       }
     }
-
     app.globalData.allList.forEach(e => {
       if (e) {
-        if (e._id === this.data.CardID) {
+        if (e._id === this.data.content._id) {
           e.CommentList = this.data.CommentList
         }
       }
@@ -445,6 +307,8 @@ Page({
       ShowList: Show,
       CommentNum: this.data.CommentList.length,
     })
+    this.data.Commentindex=-1
+    this.data.inIndex=-1
   },
 
   ShowImg: function (e) {
@@ -456,40 +320,22 @@ Page({
     })
   },
 
-  //
-  async getWindowData () {
-    let h = await app.getSystemData('windowHeight')
-    this.setData({ windowHeight: h })
-  },
- 
-  async ctFocus (e) {
-    let { windowHeight } = this.data
-    let keyboard_h = e.detail.height
-    let ctInput_top = windowHeight - keyboard_h
-    let ctInput_h = await app.queryNodes('#ctInput', 'height')
-    ctInput_top -= ctInput_h
-    this.setData({ ctInput_top })
-  },
-  
   onLoad: function (options) {
     var that = this;
     const args = wx.getStorageSync('args')
     let jsonStr = decodeURIComponent(options.content)
     var content = JSON.parse(jsonStr) // 将JSON帖子信息转成对象
     var more = 0;
-    this.getWindowData()
     this.setData({content})
     // 被评论者信息
     if (args.username === content.username) {
       more = 1
     }
     var Time = util.timeago(that.data.content.Time, 'Y年M月D日')
-    that.data.username = args.username
-    this.data.CardID = content._id
     wx.cloud.callFunction({
       name: 'CampusCircle',
       data: {
-        username: that.data.username,
+        username: args.username,
         Time: content.Time,
         _id: content._id,
         type: 'readComment'
@@ -520,7 +366,7 @@ Page({
       })
     }
     for (var i = 0; i < content.Star_User.length; i++) {
-      if (content.Star_User[i].username === args.username) {
+      if (content.Star_User[i]!=null && content.Star_User[i].username === args.username) {
         that.setData({
           Starurl: "../../../../images/zan.png",
         })
@@ -547,10 +393,14 @@ Page({
     var that = this
     var Starif = false
     //判断是不是为点赞过的username
+    console.log("inter")
+    console.log("this.data.content.Star_User1",that.data.content.Star_User)
     for (var i = 0; i < Star_User.length; i++) {
-      if (Star_User[i].username === args.username) {
+      if (Star_User[i]!=null && Star_User[i].username === args.username) {
         Starif = true
         Star_User.splice(Star_User.indexOf(args.username), 1)
+        console.log("this.data.content.Star_User2",that.data.content.Star_User)
+        console.log("取消点赞")
         that.setData({
           Starurl: "../../../../images/zan1.png",
         })
@@ -558,7 +408,7 @@ Page({
       }
     }
     if (!Starif) {
-      // openusername.Star_time = new Date().getTime()
+      console.log("None")
       let obj = {
         username: args.username
       }
@@ -575,7 +425,7 @@ Page({
     // 更新全局
     app.globalData.allList.forEach(item => {
       item.forEach(e => {
-        if (e._id === that.data.CardID) {
+        if (e._id === that.data.content._id) {
           e.Star_User = Star_User;
         }
       })

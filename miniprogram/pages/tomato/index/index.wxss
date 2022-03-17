@@ -70,18 +70,40 @@
 
 .clock {
     overflow: hidden;
-    background: #E7624F;
-    /* background-image: url('http://bpic.588ku.com/back_pic/05/34/50/795a2baa7135c82.jpg!ww650'); */
+    /* background: #E7624F; */
+    background-image: url('https://636c-cloud1-6gtqj1v4873bad50-1307814679.tcb.qcloud.la/tomato_daka/time_bg.jpg?sign=dfd427ce07bca11ea72e4cbfb8e74f31&t=1647312070');
     background-repeat: no-repeat;
     background-size: 100% 100%;
+    position: relative;
 }
-
+.progress_water_left{
+  width: 70rpx;
+  height: 70rpx;
+  position: absolute;
+  left: 100rpx;
+  top: 120rpx;
+}
+.progress_water_right{
+  width: 70rpx;
+  height: 70rpx;
+  position: absolute;
+  right: 100rpx;
+  top: 200rpx;
+}
+.progress_water_center{
+  width: 100rpx;
+  height: 100rpx;
+  position: absolute;
+  top: 260rpx;
+  left: 320rpx;
+}
 .progress {
     width: 400rpx;
     height: 400rpx;
     /* background: orange; */
-    margin: 140rpx auto;
+    margin: 400rpx auto 0 auto;
     position: relative;
+    /* top: 300rpx; */
 }
 
 .progress .progress_bg,
@@ -98,7 +120,7 @@
     height: 60rpx;
     line-height: 60rpx;
     font-size: 30rpx;
-    color: #ffffff;
+    color: #96cddd;
     text-align: center;
     position: absolute;
     left: 120rpx;
@@ -117,7 +139,7 @@
     color: #ffffff;
     border: 3rpx solid #ffffff;
     border-radius: 20rpx;
-    margin: 0 auto 20rpx auto;
+    margin: 100rpx auto 20rpx auto;
 }
 .nav-head {
     display: flex;
@@ -180,4 +202,158 @@
     border-bottom-left-radius: 100%;
     border-top-left-radius: 100%;
     z-index: 9;
+  }
+  /* 新样式 */
+  .bg{
+    position: relative;
+    height: 100vh;  
+  }
+  .backto{
+      position: fixed; 
+       left: 20rpx;
+       top: 60rpx;
+       background-color: gray;
+      width: 100rpx;
+      width: 100rpx;
+      z-index: 999;
+  }
+  .bgimage{
+      height: 35.3%;
+      background-image: url('https://636c-cloud1-6gtqj1v4873bad50-1307814679.tcb.qcloud.la/tomato_daka/%E6%8F%92%E7%94%BB-%E7%99%BD%E5%A4%A9_%E7%94%BB%E6%9D%BF%201.png?sign=0889ed3e3511e85d4b9e7da22c8ec589&t=1647320383');
+      background-size:100% 100%;
+      background-repeat:no-repeat;
+  }
+  .taskbox{
+      position: absolute;
+      top: 400rpx;
+      border-radius: 80rpx;
+      background-color: #ffffff;
+      width: 100%;
+      height: 1300rpx;
+      z-index: 99;
+  }
+  .taskbox_choice_time{
+      /* background-color: gray; */
+      width: 100%;
+      height: 100rpx;
+      margin-top: 60rpx;
+      border-radius: 100rpx;
+  }
+  .taskbox_choice_time >image{
+    float: right;
+    width: 20%;
+    height: 50rpx;
+    width: 50rpx;
+    margin: 20rpx 40rpx 20rpx 15rpx;
+  }
+  .taskbox_choice_time_slider{
+    float: right;
+    width: 80%;
+    margin: 20rpx 0 20rpx 40rpx;
+    /* background-color: black; */
+  }
+  wx-slider .wx-slider-handle-wrapper {
+    height: 30rpx;
+  }
+  .taskbox_text{
+    width: auto;
+    height: auto;
+    text-align: center;
+    color: gray;
+    font-size: 28rpx;
+    margin-bottom: 60rpx;
+  }
+  .taskbox_choice_time_task_blue:nth-child(1n+0){
+    margin: 30rpx auto;
+    width: 700rpx;
+    height: 150rpx;
+    background-color: #ffffff;
+    border-radius: 20rpx;
+    box-shadow: 0 0 20rpx 8rpx #e5f2f6
+  }
+  .taskbox_choice_time_task_blue:nth-child(2n+0){
+    margin: 30rpx auto;
+    width: 700rpx;
+    height: 150rpx;
+    background-color: #ffffff;
+    border-radius: 20rpx;
+    box-shadow: 0 0 20rpx 8rpx #fff4df
+  }
+  .taskbox_choice_time_task_yellow{
+    margin: 30rpx auto;
+    width: 700rpx;
+    height: 150rpx;
+    background-color: #ffffff;
+    border-radius: 20rpx;
+    box-shadow: 0 0 20rpx 8rpx #fff4df
+  }
+  .taskbox_choice_time_task_leftbox{
+    width: 70%;
+    height: 100%;
+    /* background-color: gray; */
+    float: left;
+  }
+  .taskbox_choice_time_task_rightbox{
+    width: 30%;
+    height: 100%;
+    /* background-color: pink; */
+    float: left;
+  }
+  .taskbox_choice_time_task_rightbox >image:nth-child(1n+0){
+    position: relative;
+    /* background-color: yellow; */
+    width: 75%;
+    height: 90%;
+    margin:8rpx 0 0 50rpx;
+  }
+  .taskbox_choice_time_task_rightbox >image:nth-child(2n+0){
+    position: relative;
+    /* background-color: yellow; */
+    width: 75%;
+    height: 90%;
+    margin:8rpx 0 0 50rpx;
+  }
+  .taskbox_choice_time_task_rightbox_text{
+    /* background-color: black; */
+    position: absolute;
+    top: 49rpx;
+    right: 55rpx;
+    width: auto;
+    height: auto;
+    color: #ffffff;
+    z-index: 99;
+    font-size: 28rpx;
+    font-weight: 550;
+  }
+  .taskbox_choice_time_task_leftbox_icon{
+    float: left;
+    width: 30%;
+    height: 100%;
+    /* background-color: yellow; */
+  }
+  .taskbox_choice_time_task_leftbox_icon >image{
+    width: 30%;
+    height: 30%;
+    background-color: #fff;
+    margin: 55rpx 55rpx;
+  }
+  .taskbox_choice_time_task_leftbox_icontext{
+    float: left;
+    width: 60%;
+    height: 100%;
+    /* background-color: pink; */
+  }
+  .taskbox_choice_time_task_leftbox_icontextchoice{
+    float: left;
+    width: 60%;
+    height: 100%;
+    color: #E7624F;
+  }
+  .taskbox_choice_time_task_leftbox_icontextchoice,.taskbox_choice_time_task_leftbox_icontext >view{
+    background-color: #fff;
+    width: auto;
+    height: auto;
+    /* text-align: center; */
+    margin: 55rpx auto;
+    font-weight: 500;
   }

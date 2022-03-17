@@ -2,6 +2,7 @@
 import {
   runInContext
 } from './utils/evil-eval.min.js';
+const dayjs = require('./dayjs')
 const api = require('./utils/api')
 const util = require("./utils/util.js")
 App({
@@ -37,6 +38,7 @@ App({
       util,
       api,
       args,
+      dayjs,
       app: getApp()
     };
     const runCode = runInContext(code, sandbox);
@@ -66,9 +68,9 @@ App({
     wx.getSystemInfo({
       success: res => {
         this.globalData.windowHeight = res.windowHeight
-        this.globalData.rectHeight = rect.height;     // 胶囊高度
-        let windowWidth = res.windowWidth;            // 获取屏幕宽度
-        let statusBarHeight = res.statusBarHeight;    // 获取状态栏的高度
+        this.globalData.rectHeight = rect.height; // 胶囊高度
+        let windowWidth = res.windowWidth; // 获取屏幕宽度
+        let statusBarHeight = res.statusBarHeight; // 获取状态栏的高度
 
         this.globalData.statusBarHeight = statusBarHeight;
 
@@ -135,7 +137,7 @@ App({
     // func: {}
   },
 
-  getSystemData (attr) {
+  getSystemData(attr) {
     return new Promise((resolve, reject) => {
       wx.getSystemInfo({
         success: (res) => {
@@ -144,17 +146,17 @@ App({
       })
     })
   },
-   
-  queryNodes (id, attr) {
-    if(attr!=null){
-    return new Promise((resolve, reject) => {
-      let query = wx.createSelectorQuery()
-      query.select(id).boundingClientRect()
-      query.exec((res) => {
-        resolve(res[0][attr])
+
+  queryNodes(id, attr) {
+    if (attr != null) {
+      return new Promise((resolve, reject) => {
+        let query = wx.createSelectorQuery()
+        query.select(id).boundingClientRect()
+        query.exec((res) => {
+          resolve(res[0][attr])
+        })
       })
-    })
-  }
+    }
   }
 })
 //app.json校友圈

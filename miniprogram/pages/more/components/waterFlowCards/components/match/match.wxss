@@ -110,6 +110,7 @@
 }
 .match_wrap .mess_wrap .time {
   flex: 2;
+  padding-bottom: 12rpx;
 }
 .match_wrap .mess_wrap .person {
   flex: 1;
@@ -125,9 +126,10 @@
   white-space: normal !important;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
+  padding-bottom: 12rpx;
 }
 .match_wrap .tip_wrpa {
-  padding: 12rpx 4rpx 21rpx;
+  padding: 12rpx 4rpx 24rpx;
 }
 .match_wrap .tip_wrpa .tip {
   background-color: #FDB28B;

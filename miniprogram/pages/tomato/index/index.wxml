@@ -1,5 +1,5 @@
 <!-- 番茄时钟 -->
-<view hidden="{{clockshow}}">
+<!-- <view hidden="{{clockshow}}">
   <view class="slider">
        <slider min="1" max="120" show-value activeColor="#E7624F"
       backgroundColor="#666666" value="{{time}}" bindchange="slideChange"></slider>
@@ -26,13 +26,17 @@
        <image src="../../../images/tomato/rank.png"></image>
        </view>
     </view>
-</view>
+</view> -->
 
 <view class="clock" hidden="{{!clockshow}}" style="height:{{clockHeight}}rpx">
+   <image class="progress_water_left" src="../../testdaka/images/water_samll.png"></image>
+   <image class="progress_water_right" src="../../testdaka/images/water_samll.png"></image>
+   <image class="progress_water_center" src="../../testdaka/images/water.png"></image>
   <!-- 动态画圆倒计时-->
   <view class="progress">
+    
     <canvas canvas-id="progress_bg" class="progress_bg"></canvas>
-    <canvas canvas-id="progress_active" class="progress_active"></canvas>
+    <canvas canvas-id="progress_active" class="progress_active"></canvas>  
     <view class="progress_text">{{timeStr}}</view>
   </view>
    <view class="btns">
@@ -45,3 +49,48 @@
    </view>
 </view>
 
+<!-- 新界面 -->
+<!-- 主页 -->
+<view class="bg" hidden="{{clockshow}}">
+   <view class="backto" bindtap="backto">返回</view>
+   <!-- 上部分背景图片35.3% -->
+   <view class="bgimage"></view>
+   <view class="nav-head1">
+       <view class="img-button feedback-btn" bindtap="statistics">
+       <image src="../../../images/tomato/tongji.png"></image>
+       </view>
+    </view>
+    <view class="nav-head2">
+       <view class="img-button feedback-btn" bindtap="rank">
+       <image src="../../../images/tomato/rank.png"></image>
+       </view>
+    </view>
+   <!-- 下部分选择任务 -->
+   <view class="taskbox">
+      <!-- 时间选择 -->
+      <view class="taskbox_choice_time">
+         <image src="../../testdaka/images/tishi.png"></image>
+         <slider class="taskbox_choice_time_slider" min="1" max="120" show-value activeColor="#96cddd"
+      backgroundColor="#e5f2f6" value="{{time}}" bindchange="slideChange" block-color="#98ccde"></slider>
+         
+      </view>
+      <view class="taskbox_text">在接下来的{{time}}分钟内，您将专注做这件事</view>
+      <!-- 选择任务 -->
+      <view class="taskbox_choice_time_task_blue" wx:key="cate" 
+      bindtap="clickCate" data-index="{{index}}" wx:for="{{cateArr}}">
+         <view class="taskbox_choice_time_task_leftbox">
+            <view class="taskbox_choice_time_task_leftbox_icon">
+               <image src="../../../images/tomato/{{item.icon}}.png"></image>
+            </view>
+            <view class="{{index == cateActive ? 'taskbox_choice_time_task_leftbox_icontextchoice' : 'taskbox_choice_time_task_leftbox_icontext'}}"><view>{{item.text}}</view></view>
+         </view>
+         <view class="taskbox_choice_time_task_rightbox">
+            <image src="{{item.blue?'../../testdaka/images/blue.png':'../../testdaka/images/yellow.png'}}" bindtap="start">
+               <view class="taskbox_choice_time_task_rightbox_text">开始</view>
+            </image>
+         </view>
+      </view>
+   </view>
+</view>
+<!-- 动态画圆弹窗 -->
+<view></view>

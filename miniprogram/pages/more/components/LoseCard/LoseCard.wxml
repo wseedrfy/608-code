@@ -2,11 +2,14 @@
   <view class="contain"  bindtap="ShowContent">
   <!-- 这里需要插入高度 -->
     <view class="contain-img" >
-      <image src='{{item.Cover}}' class="img" style="height: {{item.ShowHeight > 500 ? 500+'rpx':item.ShowHeight+'rpx'}};"></image>
+      <image src='{{item.Cover}}'  class="img" lazy-load style="height: {{item.ShowHeight > 500 ? 500+'rpx':item.ShowHeight+'rpx'}};"></image>
       <view class="local_block">
         <view class="local">
-            <image class="local_img" src="./images/local.png"></image>
+            <image class="local_img"  src="./images/local.png"></image>
             <text class="local_text">{{item.campus}}</text>
+          </view>
+          <view class="local2">
+            
           </view>
         </view>
     </view>
@@ -21,9 +24,9 @@
       <view class="end_left">
         <text class="end_state">{{item.Label}}</text>
         <text class="end_reward" style="display:{{item.Other=='悬赏'?'block':'none'}}">{{item.Other}}</text>
-        <text class="end_state" style="background:rgba(90,155,155,0.5)">{{item.LoseType}}</text>
+        <text class="end_state color1" >{{item.LoseType}}</text>
       </view>
-      <view class="body" style="background:rgba(200,220,190);display:{{item.LoseState?'block':'none'}}">已找到</view>
+      <view class="body color2"  style="display:{{item.LoseState?'block':'none'}}">已找到</view>
     </view>
   </view>
 </block>

@@ -69,7 +69,7 @@ Page({
       {
         img: "img/match.png",
         name: "赛事反馈",
-        tap: "loading"
+        tap: "goMatchData"
       },
       {
         img: "img/delete.png",
@@ -102,6 +102,17 @@ Page({
       list: list
     })
     this.search(card)
+  },
+  // 赛事反馈
+  goMatchData() {
+    wx.navigateTo({
+      url: '/pages/association/matchData/matchData',
+      success: (result) => {
+
+      },
+      fail: () => { },
+      complete: () => { }
+    });
   },
   // goMatch(){},
   // 查询用户状态
@@ -164,8 +175,6 @@ Page({
       success: (result) => {
 
       },
-      fail: () => { },
-      complete: () => { }
     });
   },
   // 开发中

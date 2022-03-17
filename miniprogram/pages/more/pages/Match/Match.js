@@ -12,33 +12,33 @@ Page({
       {
         title: "姓名",
         placeholder: "输入姓名",
-        name: "name"
+        name: "姓名"
       },
       {
         title: "学号",
         placeholder: "输入学号",
-        name: "count"
+        name: "学号"
       },
       {
         title: "性别",
         placeholder: "输入有效性别",
-        name: "sex"
+        name: "性别"
       },
       {
         title: "班级",
         placeholder: "如:生工20-3",
-        name: "class"
+        name: "班级"
       },
       {
         title: "校区",
         placeholder: "如无分校则不填",
-        name: "campus"
+        name: "校区"
       },
     ],
     html: 1,
     content: {},
     matchStatus: false,//false不能参与  true能参与
-    time:Date.now()
+    time: Date.now()
   },
 
   /**
@@ -94,15 +94,15 @@ Page({
     this.showModal();
   },
   // 已截止
-  timeOut(){
+  timeOut() {
     wx.showToast({
       title: '已截止',
       icon: 'none',
       image: '',
       duration: 1500,
       mask: false,
-      success: (result)=>{
-        
+      success: (result) => {
+
       },
     });
   },
@@ -153,7 +153,7 @@ Page({
   submitMess(e) {
     // 效验信息-->保存信息
     let data = e.detail.value
-    if (!data.class || !data.count || !data.name || !data.sex) {
+    if (!data.班级 || !data.学号 || !data.姓名 || !data.性别) {
       wx.showToast({
         title: '请检查信息完整',
         icon: 'none',
@@ -197,16 +197,18 @@ Page({
             title: "提交中",
             mask: true,
             success: (result) => {
+              let data = this.data
               wx.cloud.callFunction({
                 name: "associationSend",
                 data: {
                   type: 5,
-                  userMess: this.data.userMess,
+                  userMess: data.userMess,
                   matchDetail: matchDetail,
-                  assoName: this.data.content.assoMess.association,
-                  assoCount: this.data.content.assoMess.card,
+                  assoName: data.content.assoMess.association,
+                  assoCount: data.content.assoMess.card,
                   pusherCount: count,
-                  match_id: this.data.content._id
+                  match_id: data.content._id,
+                  index: data.content.assoMess.card
                 }
               }).then(res => {
                 console.log(res);

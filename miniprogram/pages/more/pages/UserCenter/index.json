@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "waterFlowCards": "../../components/waterFlowCards/waterFlowCards"
+  },
+  "navigationBarTitleText": "我的页面"
 }

@@ -83,12 +83,19 @@ swiper .wx-swiper-dot {
   /* vertical-align: middle; */
   box-sizing: border-box;
 }
+.comment_usename,
 .content_Time{
   font-size: 23rpx;
   color:rgba(78, 78, 78, 0.541);
   position: relative;
   top: 15rpx;
   margin-bottom: 35rpx;
+}
+.comment_User{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40rpx;
 }
 .content_sec{
   display: flex;
@@ -152,48 +159,6 @@ swiper .wx-swiper-dot {
    font-size: 27rpx;
    color:#4b4b4bbe;
  }
- .new_Comment_second{
-   width:480rpx;
-   min-height: 56rpx;
-   background-color: rgba(202, 202, 202, 0.164);
-   margin-top:2rpx;
-   color: rgb(63, 63, 63);
-   padding-left: 15rpx;
-   border-radius: 40rpx;
-   margin-left: 20rpx; 
-   display: flex;
-   align-items: center;
-   justify-content: center;
- }
- .new_Comment_second text{
-  width:95%;
-  font-size: 27rpx;
-  color:#4b4b4bbe;
-}
- .Sending{
-  color: rgba(63, 63, 63, 0.986);
-  font-size: 26rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 40rpx;
-  background-color: rgba(38, 176, 255, 0.308);
-  padding: 0rpx;
-  box-shadow: 0px 0px 4px 0px #c7c7c7;
- }
- .Sending-hover{
-  position: relative;
-  top: 3rpx;
-  box-shadow:0px 0px 3px rgba(153, 153, 153, 0.507) inset;
- }
- .Pre_Send{
-  height: 58rpx;
-  width: 145rpx!important;
-  display: flex;
-  position: relative;
-  left: 15rpx;
- }
- 
  .Send_Commend{
    display: flex;
    padding-bottom: 20rpx;
@@ -217,8 +182,20 @@ swiper .wx-swiper-dot {
    position: relative;
    bottom:68rpx;
    left:90rpx;
+   width: 87%;
    display: flex;
    flex-direction:column;
+ }
+ .comment_User image{
+   height: 35rpx;
+   width: 35rpx;
+   position: relative;
+   top: 5rpx;
+   right: 8rpx;
+ }
+ .frfr{
+   display: flex;
+  justify-content: space-between;
  }
  .reply_username{
   color: rgba(94, 94, 94, 0.541);
@@ -251,9 +228,7 @@ swiper .wx-swiper-dot {
   color:rgba(94, 94, 94, 0.541);
  }
 .EditCom,
-.ReplyCom,
 .EditCom_background,
-.ReplyCom_background,
 .CardMore,
 .CardMore_background{
   position: fixed;
@@ -305,13 +280,11 @@ swiper .wx-swiper-dot {
   width:40rpx;
   height:40rpx;
 }
-.ReplyCom_background,
 .EditCom_background{
   background-color: rgba(0, 0, 0, 0.171);
   opacity: 0.6;
   height: 100%;
 }
-.ReplyCom_contain,
 .EditCom_contain{
   position: relative;
   position: fixed;
@@ -376,24 +349,6 @@ swiper .wx-swiper-dot {
   }
 }
 
-
-.ReplyCom_background{
-  background-color: rgba(0, 0, 0, 0.171);
-  opacity: 0.6;
-  height: 100%;
-}
-.ReplyCom_contain{
-  position: relative;
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  bottom: 30rpx;
-  width: 95%;
-  padding: 0rpx;
-  z-index: 99999;
-}
  .fatherComment{
     min-height: 110rpx;
  }
@@ -403,86 +358,6 @@ swiper .wx-swiper-dot {
   bottom: 20rpx;
   min-height: 90rpx;
  }
- .ct-input {
-  position: fixed;
-  top: -110rpx;
-  right: 0rpx;
-  display: flex;
-  justify-content: space-between;
-  align-items: top;
-  width: 100%;
-  box-sizing: border-box;
-  padding: 20rpx 15rpx;
-  background: #F8F8F8;
-  z-index: 1000;
-}
- 
-.ct-input input {
-  background-color: #dadada42;
-  height: 65rpx;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  padding: 0rpx 30rpx;
-  border-radius: 20rpx;
-  flex: 1;
-  font-size: 28rpx;
-}
- 
-.ct-input image {
-  margin-left: 40rpx;
-  width: 40rpx;
-  height: 40rpx;
-}
-
-.tab-bottom {
-  position: fixed;
-  padding: 0 34rpx 0 70rpx;
-  box-sizing: border-box;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  height: 124rpx;
-  background: #fff;
-}
- 
-.tab-bottom .tb-buy {
-  min-width: 210rpx;
-  height: 80rpx;
-  line-height: 80rpx;
-  font-size: 28rpx;
-  color: #FFFFFF;
-  text-align: center;
-  background: #21326A;
-  border-radius: 8rpx;
-}
- 
-.tab-bottom .tb-left {
-  margin-right: 80rpx;
-  flex: 1;
-  display: flex;
-  justify-content: space-between;
-}
- 
-.tb-item {
-  font-size: 0;
-  text-align: center;
-}
- 
-.tb-item image {
-  margin-bottom: 16rpx;
-  width: 40rpx;
-  height: 40rpx;
-}
- 
-.tb-item view {
-  font-size: 20rpx;
-  color: #050505;
-}
-
  .reply_Content{
   width: 80%;
   color:rgb(54, 54, 54);
@@ -496,35 +371,6 @@ swiper .wx-swiper-dot {
   color: rgba(94, 94, 94, 0.541);
 }
 
-
-.reply_show{
-  animation: reply_show .5s;
-}
-
-.reply_hide{
-  animation: reply_hide .5s;
-}
-
-@keyframes reply_show {
-  0% {
-      opacity: 0;
-      transform: translateY(100%);
-  }
-  100% {
-      opacity: 1;
-      transform: translateY(0%);
-  }
-}
-@keyframes reply_hide {
-  0% {
-      opacity: 1;
-      transform: translateY(0%);
-  }
-  100% {
-      opacity: 0;
-      transform: translateY(100%);
-  }
-}
 @media (prefers-color-scheme: dark) {
   .wx-swiper-dot {
     filter: invert(100%) !important;

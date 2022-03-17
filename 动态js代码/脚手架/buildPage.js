@@ -352,7 +352,13 @@ fs.readFile('src/index.js', (err, buffer) => {
                       if(array[j].match(/\[(.*?)\]/g)){
                         let arrayre  = re(array[j].match(/\[(.*?)\]/)[1], '')
                         // console.log(arrayre, 233)
-                        array[j] = array[j].replaceAll(array[j].match(/\[(.*?)\]/)[1], arrayre)
+                        try{
+                          if(arrayre){
+                            array[j] = array[j].replaceAll(array[j].match(/\[(.*?)\]/)[1], arrayre)
+                          }
+                        }catch{}
+          
+                
            
                       }
                       // console.log(array[j], 244)
@@ -414,6 +420,7 @@ fs.readFile('src/index.js', (err, buffer) => {
                 html = html.replace(wxForhtml1[i], wxForhtml[i])
   
               }
+              html = html.replaceAll('this.data.item', 'item')
               console.log(html)
               let str = buffer.toString()
               str = `function runCode(){
@@ -481,7 +488,7 @@ fs.readFile('src/index.js', (err, buffer) => {
             
                       if (c[1]) {
                         if(c[0] === 'style'){
-                          style = p + style
+                          style = ';' + p + style 
                           res[c[0]] = style
                         }else{
                           res[c[0]] = p
