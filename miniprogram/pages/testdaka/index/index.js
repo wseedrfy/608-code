@@ -625,7 +625,12 @@ Page({
                 type:"getDakaRecord_ByHashId",
                 hashId:hashid,
             }
-        })
+        }).catch(err => {
+          wx.showToast({
+            title: '网络请求失败',
+            icon: 'none',
+          })
+      })
         console.log(result);
         //细节坑：预防第一次打卡没有daka_lastTime的情况
         var daka_lastTime = new Date(result.result.data[0].daka_lastTime);
@@ -659,7 +664,12 @@ Page({
                 type:"updateDakaRedord_ByHashId",
                 hashId:hashid,
             }
-        })
+        }).catch(err => {
+          wx.showToast({
+            title: '网络请求失败',
+            icon: 'none',
+          })
+      })
         //要是能成功打卡就打开弹窗可以选择分享
         this.setData({showModel2:true});
         this.sharecanvas_new();
@@ -728,7 +738,12 @@ Page({
                 type:"delDakaRecord_ByHashId",
                 hashId:hashid,
             }
-        })
+        }).catch(err => {
+          wx.showToast({
+            title: '网络请求失败',
+            icon: 'none',
+          })
+      })
 
         console.log('删除：',id)
     },
@@ -790,7 +805,12 @@ Page({
                             hashId:hashid,
                             isDaka:false,
                         }
-                    })
+                    }).catch(err => {
+                      wx.showToast({
+                        title: '网络请求失败',
+                        icon: 'none',
+                      })
+                  })
                 }
             }
             

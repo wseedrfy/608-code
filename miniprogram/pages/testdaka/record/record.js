@@ -252,7 +252,12 @@ Page({
                   is_delete:false,
                   count:0,
               }
-          })
+          }).catch(err => {
+            wx.showToast({
+              title: '网络请求失败',
+              icon: 'none',
+            })
+        })
           .then(res=>{
             console.log(res);
             wx.hideLoading();
