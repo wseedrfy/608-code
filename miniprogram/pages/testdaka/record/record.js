@@ -145,8 +145,7 @@ Page({
     async saveRecord(res){
       let username = wx.getStorageSync('args').username
       await db.collection('daka_record').where({username:username,is_delete:false}).get().then(res=>{
-        // this.setData({len:res.data.length})
-        return res.data.length
+        this.setData({len:res.data.length})
       }).catch(err => {
         wx.showToast({
           title: '网络请求失败',
@@ -195,7 +194,7 @@ Page({
           icon: 'none',
           duration: 1000
         })
-      }else if(len>10){
+      }else if(len>=10){
         wx.showToast({
           title: '最多创建10个打卡噢，请返回删除多余打卡~',
           icon: 'none',
