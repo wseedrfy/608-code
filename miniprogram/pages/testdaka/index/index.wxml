@@ -38,117 +38,12 @@
                    <view class="dayclock_data_column_2_cycle_time">- {{item.task_end_time}}</view>
               </view>
          </view>
-         <!-- 原来的打卡触发代码 -->
-         <!-- <view class="operation" id="{{index}}" catchtap="daka_prompt"><image class="operation_daka_image" src="../images/edit.png"></image></view> -->
-         <!-- class="operation2_del_image" src="../images/del.png" -->
-         <!-- <view class="operation2" id="{{index}}" ><image class="operation2_del_image" ></image></view> -->
      </view></view>
-
      </view>
-     <!-- <view class="dayclock_data"><view class="border">
-         <view class="dayclock_data_column_1">
-              <view class="dayclock_data_slide" style="background-color: #EDD68B;">
-                    <image class="dayclock_data_slide_image" src="../images/right.png"></image>
-              </view>
-         </view>
-         <view class="dayclock_data_column_2">
-              <view class="dayclock_data_column_2_task">看电视剧</view>
-              <view class="dayclock_data_column_2_cycle">
-                   <view class="dayclock_data_column_2_cycle_week">周一、周二、周三、周四、周五</view>
-                   <view class="dayclock_data_column_2_cycle_time">6：00-8：00</view>
-                   
-              </view>
-         </view>
-         <view class="dayclock_data_column_3"><view class="dayclock_data_column_text">待补签</view></view>
-     </view></view> -->
      <view class="dayclock_bottom"></view>
 </view>
-<!-- 下面注释的是其他功能的代码，不要删 -->
-<!-- <view class="dayclock" >
-     <view class="dayclock_title">
-         <view class="dayclock_data_column_1"><image class="dayclock_column_left" src="../images/tishi.png"></image></view>
-         <view class="dayclock_data_column_2"><view class="dayclock_column_center">我参与的小组打卡</view></view>
-         <view class="dayclock_data_column_3">
-              <image class="dayclock_column_right_more" src="../images/more.png"></image>
-              <image class="dayclock_column_right" src="../images/tianjia.png"></image>         
-         </view>
-     </view>
-     <view class="dayclock_data"><view class="border">
-         <view class="dayclock_data_column_1">
-              <view class="dayclock_data_slide">
-                    <image class="dayclock_data_slide_image" src="../images/right.png"></image>
-              </view>
-         </view>
-         <view class="dayclock_data_column_2">
-              <view class="dayclock_data_column_2_task">看电视剧</view>
-              <view class="dayclock_data_column_2_cycle">
-                   <view class="dayclock_data_column_2_cycle_week">周一、周二、周三、周四、周五</view>
-                   <view class="dayclock_data_column_2_cycle_time">6：00-8：00</view>
-                   
-              </view>
-         </view>
-         <view class="dayclock_data_column_3"><view class="dayclock_data_column_text">待完成</view></view>
-     </view></view>
-     <view class="dayclock_bottom"></view>
-</view> -->
-<!-- <view class="dayclock" >
-     <view class="dayclock_title">
-         <view class="dayclock_data_column_1"><image class="dayclock_column_left" src="../images/tishi.png"></image></view>
-         <view class="dayclock_data_column_2"><view class="dayclock_column_center">我监督的小组打卡</view></view>
-         <view class="dayclock_data_column_3">
-               <image class="dayclock_column_right_more" src="../images/more.png"></image>
-               <image class="dayclock_column_right" src="../images/tianjia.png"></image>
-         </view>
-     </view>
-     <view class="dayclock_data"><view class="border">
-         <view class="dayclock_data_column_1">
-              <view class="dayclock_data_slide">
-                    <image class="dayclock_data_slide_image" src="../images/right.png"></image>
-              </view>
-         </view>
-         <view class="dayclock_data_column_2">
-              <view class="dayclock_data_column_2_task">看电视剧</view>
-              <view class="dayclock_data_column_2_cycle">
-                   <view class="dayclock_data_column_2_cycle_week">周一、周二、周三、周四、周五</view>
-                   <view class="dayclock_data_column_2_cycle_time">6：00-8：00</view>
-                   
-              </view>
-         </view>
-         <view class="dayclock_data_column_3"><view class="dayclock_data_column_text">待完成</view></view>
-     </view></view>
-     <view class="dayclock_data"><view class="border">
-         <view class="dayclock_data_column_1">
-              <view class="dayclock_data_slide">
-                    <image class="dayclock_data_slide_image" src="../images/right.png"></image>
-              </view>
-         </view>
-         <view class="dayclock_data_column_2">
-              <view class="dayclock_data_column_2_task">看电视剧</view>
-              <view class="dayclock_data_column_2_cycle">
-                   <view class="dayclock_data_column_2_cycle_week">周一、周二、周三、周四、周五</view>
-                   <view class="dayclock_data_column_2_cycle_time">6：00-8：00</view>
-                   
-              </view>
-         </view>
-         <view class="dayclock_data_column_3"><view class="dayclock_data_column_text">待完成</view></view>
-     </view></view>
-     <view class="dayclock_bottom"></view>
-</view> -->
 
 </view>
-<!-- 打卡成功弹窗 -->
-<!-- if动态判断showModel2 -->
-<!-- <view class="complete" wx:if="{{showModel2}}">
-     <view class="complete_bg"></view>
-     <view class="complete_share">
-          <view class="complete_share_image"></view>
-          <view class="complete_share_box">
-               <view class="complete_share_box_text">您已经累计完成{{dakacount}}天！加油！</view>
-               <view class="complete_share_box_button">校友圈一键分享</view>
-          </view>
-     </view>
-     <image class="complete_share_close" bindtap="complete_share_close" src="../images/close.png"></image>
-</view> -->
 <!-- 生成图片弹窗 -->
 <view class="complete" wx:if="{{showModel2}}">
      <view class="complete_bg"></view>
