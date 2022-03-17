@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 
   const app = getApp()
   Page({
@@ -236,3 +238,4 @@ module.exports = runCode;
     },
   
   })
+>>>>>>> ba87e9e65953e5f79a0eaa12c8cd1a8c0a7ce83e
