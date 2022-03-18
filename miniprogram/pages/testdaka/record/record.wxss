@@ -199,7 +199,7 @@ checkbox .wx-checkbox-input{
     border-radius: 40rpx;
     position: absolute;
     top:925rpx;
-    right: 60rpx;
+    right:80rpx;
 
 }
 .dakaconfirm_button{
@@ -219,7 +219,7 @@ checkbox .wx-checkbox-input{
     border-radius: 40rpx;
     position: absolute;
     top: 1045rpx;
-    right: 60rpx;
+    right: 80rpx;
     text-align: center;
     line-height: 80rpx;
     font-size: 32rpx;
