@@ -68,6 +68,10 @@ Page({
       school: that.data.school
     });
     wx.hideLoading();
+    wx.showLoading({
+      title: '地点获取中',
+      mask: true
+    })
     wx.getLocation({
       type: 'wgs84',
       success(res) {
@@ -108,6 +112,11 @@ Page({
       },
       fail(res) {
         console.log(res)
+      },
+      complete(){
+        wx.hideLoading({
+          success: (res) => {},
+        })
       }
     })
 

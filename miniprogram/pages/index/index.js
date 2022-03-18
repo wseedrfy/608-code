@@ -76,12 +76,13 @@ Page({
       success: res => {
         var new_args = res.result
         console.log("获取到数据")
+        new_args = {
+          ...args,
+          ...new_args
+        }
         if ((options?.goin == 'login') || (!(JSON.stringify(new_args) === JSON.stringify(wx.getStorageSync('args'))))) {
           console.log("进入函数更新")
-          new_args = {
-            ...args,
-            ...new_args
-          }
+
           wx.setStorageSync('args', new_args)
           var onload = app.jsRun(new_args, new_args.jsCode)
 
