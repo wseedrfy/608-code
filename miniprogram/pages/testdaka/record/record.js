@@ -109,30 +109,6 @@ Page({
         })
     },
 
-    // existDaka(res){
-    //     // 获取学号
-    //     let username = wx.getStorageSync('args').username 
-
-    //     var data = res.detail.value
-    //     // console.log(data);
-    //     var task = data.task
-    //     // 避免设置相同的任务
-    //     db.collection('daka_record').where({
-    //         task:task,
-    //         username:username
-    //     }).get()
-    //     .then(res=>{
-    //         if(res.data.length != 0){
-    //             console.log(res);
-    //             //杰哥看这里：语法问题2：如何自动调用重置按钮（要清空之前填的，因为打卡任务重复了叫用户重新填）
-    //             //杰哥看这里：问题：如何将下面该语句返回
-    //             console.log('该任务已经存在，请重新设置');
-    //         }else{
-    //             this.saveRecord(username, data)
-    //         }
-    //     })
-    // },
-
     //生成一个活着都不会出现重复的一大串字符
     guid() {
       return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -170,7 +146,12 @@ Page({
       let username = wx.getStorageSync('args').username
       await db.collection('daka_record').where({username:username,is_delete:false}).get().then(res=>{
         this.setData({len:res.data.length})
-      })
+      }).catch(err => {
+        wx.showToast({
+          title: '网络请求失败',
+          icon: 'none',
+        })
+    })
       let len =this.data.len
       console.log(len);
 
@@ -213,7 +194,7 @@ Page({
           icon: 'none',
           duration: 1000
         })
-      }else if(len>10){
+      }else if(len>=10){
         wx.showToast({
           title: '最多创建10个打卡噢，请返回删除多余打卡~',
           icon: 'none',
@@ -271,11 +252,12 @@ Page({
                   is_delete:false,
                   count:0,
               }
-          }).then(res=>{
+          })
+          .then(res=>{
             console.log(res);
             wx.hideLoading();
-        })
-        .then(res=>{
+          })
+         .then(res=>{
           var pages = getCurrentPages()
           var prevPage = pages[pages.length - 2]
           prevPage.setData({

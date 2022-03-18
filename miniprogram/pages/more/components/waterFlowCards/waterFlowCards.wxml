@@ -8,9 +8,9 @@
       <LoseCard item="{{item}}" type="left" currentTab="{{currentTab}}"></LoseCard>
       
     </block>
-      <!-- <loveCards wx:if="{{item.Title == '闲聊'}}" item="{{item}}" type="left" bind:ShowContent="getBackData"></loveCards> -->
-      <!-- <freshman wx:if="{{item.Label=='社团招新'}}" item="{{item}}" type="left" currentTab="{{currentTab}}" /> -->
-      <!-- <match wx:elif="{{item.Label=='社团赛事'}}" item="{{item}}" type="left" currentTab="{{currentTab}}" /> -->
+      <loveCards wx:if="{{item.Title == '闲聊'}}" item="{{item}}" type="left" bind:ShowContent="getBackData"></loveCards>
+      <freshman wx:if="{{item.Label=='社团招新'}}" item="{{item}}" type="left" currentTab="{{currentTab}}" />
+      <match wx:elif="{{item.Label=='社团赛事'}}" item="{{item}}" type="left" currentTab="{{currentTab}}" />
       <block wx:else>
       <campusCards  item="{{item}}" type="left" currentTab="{{currentTab}}" />
       </block>
@@ -22,8 +22,8 @@
       <LoseCard  item="{{item}}" type="right" currentTab="{{currentTab}}"></LoseCard>
       
     </block>
-      <!-- <freshman wx:if="{{item.Label=='社团招新'}}" item="{{item}}" type="fight" currentTab="{{currentTab}}" /> -->
-      <!-- <match wx:elif="{{item.Label=='社团赛事'}}" item="{{item}}" type="left" currentTab="{{currentTab}}" /> -->
+      <freshman wx:if="{{item.Label=='社团招新'}}" item="{{item}}" type="fight" currentTab="{{currentTab}}" />
+      <match wx:elif="{{item.Label=='社团赛事'}}" item="{{item}}" type="left" currentTab="{{currentTab}}" />
       <block wx:else>
       <campusCards item="{{item}}" type="right" currentTab="{{currentTab}}" />
         

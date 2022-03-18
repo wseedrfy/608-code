@@ -7,7 +7,8 @@ from school.广东交通职业技术学院.main import login_GDJT
 from school.浙江工商大学杭州商学院.main import login_ZJGSHZ,getData_ZJGSHZ
 from another.physical import physical_Default,physical_Linear
 from another.YiBan import YiBan_login,YiBan_post
-# from school.广东石油化工学院.main import upData_GY,getData_GY
+from school.广东石油化工学院.main import upData_GY,getData_GY
+from school.嘉应学院.main import login_JY,getData_JY
 # from another.chemical import chemical_chemistry,chemical_chemical_two,chemical_F_value
 
 # import logging
@@ -36,13 +37,13 @@ def getData(school_name):
     except:
         return {"msg": "没有此学校,或者方法错误"}
 
-# @app.route('/upData_<school_name>',methods=['POST'])
-# def upData(school_name):
-#     try:
-#         data = json.loads(request.data)
-#         return eval("upData_" + school_name)(data)
-#     except:
-#         return {"msg": "没有此学校,或者方法错误"}
+@app.route('/upData_<school_name>',methods=['POST'])
+def upData(school_name):
+    try:
+        data = json.loads(request.data)
+        return eval("upData_" + school_name)(data)
+    except:
+        return {"msg": "没有此学校,或者方法错误"}
 
 @app.route('/physical_<physical_name>',methods=['POST'])
 def get_physical_data(physical_name):
@@ -69,7 +70,7 @@ def Yiban(yiban_name):
 #         return{"msg":"化学有问题"}
 
 if __name__ == '__main__':
-    app.run(host = '0.0.0.0',port=82)
+    app.run(host = '0.0.0.0',port=80)
 
 # if __name__ != '__main__':
 #     # 如果不是直接运行，则将日志输出到 gunicorn 中

@@ -3,8 +3,8 @@ from pyquery import PyQuery as pq
 import ddddocr
 
 
-def code_ocr(sessions: requests.session()):
-    image_url = 'ZJ_code.png'
+def code_ocr(username,sessions: requests.session()):
+    image_url = 'ZJ_code.png'+username
     url = 'http://jxgl.zjhzcc.edu.cn'
     res = sessions.get(url + "/default2.aspx")
     # print(res.text)

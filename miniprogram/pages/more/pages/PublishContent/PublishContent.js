@@ -129,7 +129,7 @@ Page({
               "iconUrl": args.iconUrl,
               "lose_detail":this.data.lose_detail
             }
-            let list = app.globalData.allList[0]
+            let list = app.globalData.allList[0] || [];
             list.push(add);      
             let NewData = list.length - 1;
 
@@ -299,6 +299,7 @@ Page({
       // menu_.push("寻物发布")
       // 兜底数据
       let menu = ["日常","晒出课表🤣", "树洞👂", "2022新年Flag🚩", "2021回顾◀", "三行情书❤️", "故事屋⭐️","寻物发布"]
+      
       this.setData({
         menu: args.tabitem ? menu_ : menu,
         theme

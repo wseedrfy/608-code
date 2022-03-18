@@ -15,7 +15,10 @@ def login(sessions: requests.session(), username, password):
         status_code = 0
         try:
             t = time.time()
-            code = code_ocr(sessions)
+            code = code_ocr(username,sessions)
+            import os
+            if os.path.exists("ZJ_code.png" + username):
+                os.remove("ZJ_code.png" + username)
             # print('验证码识别',time.time()-t)
             t = time.time()
 

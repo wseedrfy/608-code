@@ -910,61 +910,61 @@
 </template>
 
 <template name="test-image1">
-    <image src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <image src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}" mode="{{item.mode}}">
         <text></text>{{item.text}}
     </image>
 </template>
 
 <template name="test-image2">
-    <image src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <image src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}" mode="{{item.mode}}">
         <text></text>{{item.text}}
     </image>
 </template>
 
 <template name="test-image3">
-    <image src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <image src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}" mode="{{item.mode}}">
         <text></text>{{item.text}}
     </image>
 </template>
 
 <template name="test-image4">
-    <image src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <image src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}" mode="{{item.mode}}">
         <text></text>{{item.text}}
     </image>
 </template>
 
 <template name="test-image5">
-    <image src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <image src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}" mode="{{item.mode}}">
         <text></text>{{item.text}}
     </image>
 </template>
 
 <template name="test-image6">
-    <image src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <image src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}" mode="{{item.mode}}">
         <text></text>{{item.text}}
     </image>
 </template>
 
 <template name="test-image7">
-    <image src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <image src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}" mode="{{item.mode}}">
         <text></text>{{item.text}}
     </image>
 </template>
 
 <template name="test-image8">
-    <image src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <image src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}" mode="{{item.mode}}">
         <text></text>{{item.text}}
     </image>
 </template>
 
 <template name="test-image9">
-    <image src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <image src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}" mode="{{item.mode}}">
         <text></text>{{item.text}}
     </image>
 </template>
 
 <template name="test-image10">
-    <image src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <image src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}" mode="{{item.mode}}">
         <text></text>{{item.text}}
     </image>
 </template>

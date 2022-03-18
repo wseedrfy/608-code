@@ -28,10 +28,12 @@ def login(session, username, password):
 
 
 def login_test(session, username, password):
-    code, cookie, nowTime = code_ocr(session)
+    code, cookie, nowTime = code_ocr(username,session)
+    import os
+    if os.path.exists("GKY_code.png" + username):
+        os.remove("GKY_code.png" + username)
     res = session.get('http://gkwst8.gjob.info:9903/xtgl/login_getPublicKey.html?time=' + nowTime)
     res_json = json.loads(res.text)
-    print(1)
     modulus = res_json['modulus']
     exponent = res_json['exponent']
     rsa = RSAJS.RSAKey()

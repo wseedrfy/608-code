@@ -24,6 +24,8 @@ var __webpack_exports__ = {};
   \\***********************/
 
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 function runCode() {
 
   var Page = function Page(page) {
@@ -131,14 +133,26 @@ function runCode() {
       for (var i in dictData) {
         this.data[i] = dictData[i];
       }
-      var html = "<view  " + (this.data.dark === 'dark' ? 'style="    filter: invert(90%) !important;    /* background-color: #fff; */  "' : '') + " class='flex justify-center bg-red '>  <view class='action'>    <text>\\u897F\\u57CE\\u6682\\u65F6\\u6CA1\\u6709\\uFF0C\\u5B98\\u6E211,3,4\\u9001\\u4E0A\\u5BBF\\u820D\\uFF0C2,5\\u5BBF\\u820D\\u697C\\u4E0B\\uFF01</text>  </view></view><view  " + (this.data.dark === 'dark' ? 'style="    filter: invert(90%) !important;    /* background-color: #fff; */  "' : '') + " class='flex justify-center bg-red '>  <view class='action'>    <text>\\u7EDF\\u4E00\\u914D\\u9001\\uFF01\\uFF01\\u95EE\\u9898\\u53CD\\u9988\\u5FAE\\u4FE1\\uFF1Amiao_08-31</text>  </view></view><view  " + (this.data.dark === 'dark' ? 'style="    filter: invert(90%) !important;    /* background-color: #fff; */  "' : '') + " class='flex justify-center bg-red '>  <view class='action'>    <text>\\u4E0B\\u5355\\u65F6\\u95F4\\u4E3A10:00-12:30  16:30-18:3020:00-21:40</text>  </view></view><view class='cu-bar bg-white solid-bottom'>  <view class='action' style='margin-left: -300rpx'>    <text class='cuIcon-title text-blue'></text><text>\\u5E97\\u94FA\\u4ECB\\u7ECD</text>  </view>  <view class='action'>    <view id bindtap='goin' class='action' url='design' hover-class='none' style='padding-left: 20rpx;'>      <text class='cuIcon-skinfill'></text>      <text class='text-df'>\\u5E7F\\u6CB9\\u751F\\u6D3B</text>    </view>  </view></view><view class='cu-card article' :class='isCard?' no-card':'''>  <view id='wxf1f3fa6588601737' bindtap='goin' class='cu-item shadow'>    <view class='title'>      <view class='text-cut'>\\u65B0\\u7586\\u7092\\u7C73\\u7C89</view>    </view>    <view class='content'>      <image src='https://s1.ax1x.com/2022/03/16/qpBE3n.jpg' mode='aspectFill'></image>      <view class='desc'>        <view class='text-content'> \\u672C\\u5E97\\u4E3B\\u6253: \\u65B0\\u7586\\u7092\\u7C73\\u7C89\\uFF0C\\u5E7F\\u5F0F\\u624B\\u6495\\u9E21\\uFF0C\\u8F66\\u4ED4\\u9762...          <view  " + (this.data.dark === 'dark' ? 'style="    filter: invert(96%) !important;    /* background-color: #fff; */  "' : '') + " style='word-wrap:break-word;opacity: 0.6; font-size: 26rpx; padding-top:7rpx ' class='text-red'>            \\u70B9\\u51FB--\\u300B\\u53EF\\u5916\\u5356\\u54DF          </view>        </view>        <view>          <view  " + (this.data.dark === 'dark' ? 'style="    filter: invert(90%) !important;    background-color: #000;  "' : '') + " class='cu-tag bg-red light sm round'>\\u514D\\u914D\\u9001</view>          <view  " + (this.data.dark === 'dark' ? 'style="    filter: invert(90%) !important;    background-color: #000;  "' : '') + " class='cu-tag bg-green light sm round'>\\u5730\\u5740\\uFF1A\\u5B98\\u6E21</view>        </view>      </view>    </view>  </view>  <view id='wx0bea4f67fea460a8' bindtap='goin' class='cu-item shadow'>    <view class='title'>      <view class='text-cut'>\\u8FC7\\u6865\\u7C73\\u7EBF</view>    </view>    <view class='content'>      <image src='https://s1.ax1x.com/2022/03/16/qpwfL8.jpg' mode='aspectFill'></image>      <view class='desc'>        <view class='text-content'> \\u672C\\u5E97\\u4E3B\\u6253: \\u79D8\\u5236\\u4E4C\\u51AC\\u9762\\u5E72\\u635E          <view style='word-wrap:break-word;'>            \\u7F51\\u7EA2\\u6B66\\u5927\\u90CE\\u714E\\u997C\\uFF0C\\u714E\\u997C\\u679C\\u5B50          </view>          <view  " + (this.data.dark === 'dark' ? 'style="    filter: invert(96%) !important;    /* background-color: #fff; */  "' : '') + " style='word-wrap:break-word;opacity: 0.6; font-size: 26rpx; padding-top:7rpx ' class='text-red'>            \\u70B9\\u51FB--\\u300B\\u53EF\\u5916\\u5356\\u54DF          </view>        </view>        <view>          <view  " + (this.data.dark === 'dark' ? 'style="    filter: invert(90%) !important;    background-color: #000;  "' : '') + " class='cu-tag bg-red light sm round'>\\u514D\\u914D\\u9001</view>          <view  " + (this.data.dark === 'dark' ? 'style="    filter: invert(90%) !important;    background-color: #000;  "' : '') + " class='cu-tag bg-green light sm round'>\\u5730\\u5740\\uFF1A\\u5B98\\u6E21</view>        </view>      </view>    </view>  </view>  <view id='wxf5832f54e00a492b' bindtap='goin' class='cu-item shadow'>    <view class='title'>      <view class='text-cut'>\\u53F6\\u8BB0\\u4E91\\u541E</view>    </view>    <view class='content'>      <image src='https://s1.ax1x.com/2022/03/16/qpBI8s.jpg' mode='aspectFill'></image>      <view class='desc'>        <view class='text-content'> \\u672C\\u5E97\\u4E3B\\u6253:\\u9EC4\\u7116\\u9E21\\u7C73\\u996D\\uFF0C\\u798F\\u5EFA\\u4E91\\u541E\\uFF0C\\u997A\\u5B50\\uFF0C\\u9984\\u9968...          <view  " + (this.data.dark === 'dark' ? 'style="    filter: invert(96%) !important;    /* background-color: #fff; */  "' : '') + " style='word-wrap:break-word;opacity: 0.6; font-size: 26rpx; padding-top:7rpx ' class='text-red'>            \\u70B9\\u51FB--\\u300B\\u53EF\\u5916\\u5356\\u54DF          </view>        </view>        <view>          <view  " + (this.data.dark === 'dark' ? 'style="    filter: invert(90%) !important;    background-color: #000;  "' : '') + " class='cu-tag bg-red light sm round'>\\u514D\\u914D\\u9001</view>          <view  " + (this.data.dark === 'dark' ? 'style="    filter: invert(90%) !important;    background-color: #000;  "' : '') + " class='cu-tag bg-green light sm round'>\\u5730\\u5740\\uFF1A\\u5B98\\u6E21</view>        </view>      </view>    </view>  </view>  <view id='wxbb412a3b85b695c8' bindtap='goin' class='cu-item shadow'>    <view class='title'>      <view class='text-cut'>\\u7CA4\\u9999\\u5FEB\\u9910</view>    </view>    <view class='content'>      <image src='https://s1.ax1x.com/2022/03/16/qprZwT.jpg' mode='aspectFill'></image>      <view class='desc'>        <view class='text-content'> \\u672C\\u5E97\\u4E3B\\u6253:\\u5404\\u7C7B\\u5FEB\\u9910\\uFF0C\\u7172\\u4ED4\\u996D\\uFF0C\\u70E4\\u9C7C\\u996D\\uFF0C\\u9178\\u83DC\\u9C7C\\u996D...          <view  " + (this.data.dark === 'dark' ? 'style="    filter: invert(96%) !important;    /* background-color: #fff; */  "' : '') + " style='word-wrap:break-word;opacity: 0.6; font-size: 26rpx; padding-top:7rpx ' class='text-red'>            \\u70B9\\u51FB--\\u300B\\u53EF\\u5916\\u5356\\u54DF          </view>        </view>        <view>          <view  " + (this.data.dark === 'dark' ? 'style="    filter: invert(90%) !important;    background-color: #000;  "' : '') + " class='cu-tag bg-red light sm round'>\\u514D\\u914D\\u9001</view>          <view  " + (this.data.dark === 'dark' ? 'style="    filter: invert(90%) !important;    background-color: #000;  "' : '') + " class='cu-tag bg-green light sm round'>\\u5730\\u5740\\uFF1A\\u5B98\\u6E21</view>        </view>      </view>    </view>  </view>  <view id='wxff0c6ed636f4ca90' bindtap='goin' class='cu-item shadow'>    <view class='title'>      <view class='text-cut'>\\u65E0\\u5FE7\\u5C0F\\u5E97</view>    </view>    <view class='content'>      <image src='https://s1.ax1x.com/2022/03/16/qpWiL9.jpg' mode='aspectFill'></image>      <view class='desc'>        <view class='text-content'> \\u76EE\\u524D\\u4E1A\\u52A1: \\u2460\\u5916\\u5356\\u2461\\u684C\\u7403\\u2462\\u5BC6\\u5BA4\\u2464\\u684C\\u6E38\\u2465\\u624B\\u51B2\\u5496\\u5561          <view  " + (this.data.dark === 'dark' ? 'style="    filter: invert(96%) !important;    /* background-color: #fff; */  "' : '') + " style='word-wrap:break-word;opacity: 0.6; font-size: 26rpx; padding-top:7rpx ' class='text-red'>            \\u70B9\\u51FB--\\u300B\\u53EF\\u9884\\u7EA6\\u54DF          </view>        </view>        <view>          <view  " + (this.data.dark === 'dark' ? 'style="    filter: invert(90%) !important;    background-color: #000;  "' : '') + " class='cu-tag bg-red light sm round'>\\u9884\\u7EA6</view>          <view  " + (this.data.dark === 'dark' ? 'style="    filter: invert(90%) !important;    background-color: #000;  "' : '') + " class='cu-tag bg-green light sm round'>\\u7269\\u7F8E\\u4EF7\\u5EC9</view>        </view>      </view>    </view>  </view></view>";
+      var html = "<view class='contain' style='padding: 40rpx;'>  " + this.data.detail.map(function (item, index) {
+        return " <view style='banner'  style='background-color: #fff; border-radius: 20rpx; padding: 0rpx 30rpx; padding-bottom: 20rpx;'>    <view class='banner-top' style='align-items: center; display: flex; justify-content: space-between; padding: 20rpx 0rpx;'>      <view class='banner-top-start' style='align-items: center; display: flex; left: 70rpx; position: absolute;'>        <view class='banner-top-left' style='font-size: 32rpx; font-weight: 800; line-height: 66rpx; text-align: left;'>        <image style='banner-top-left-image' src='" + (_typeof(item.icon) === "object" ? JSON.stringify(item.icon) : item.icon) + "' style='border-radius: 100%; height: 70rpx; vertical-align: middle; width: 70rpx;'></image>         <text class='banner-top-left-text' style='margin-left: 15rpx; margin-right: 5rpx;'>" + (_typeof(item.title) === "object" ? JSON.stringify(item.title) : item.title) + "</text>       </view>      <view class='banner-top-label' style='background-color: rgba(250,218,131); border-radius: 8rpx; color: rgba(85,41,2); font-size: 24rpx; margin-left: 20rpx; padding: 10rpx 8rpx;'>" + (_typeof(item.label) === "object" ? JSON.stringify(item.label) : item.label) + "</view>            </view>         <view style='banner-top-button' id='" + ((typeof index === "undefined" ? "undefined" : _typeof(index)) === "object" ? JSON.stringify(index) : index) + "' bindtap='btn' style='background-color: rgba(229,77,66); border-radius: 30rpx; color: white; font-size: 26rpx; padding: 14rpx 18rpx;'>" + (_typeof(item.btn) === "object" ? JSON.stringify(item.btn) : item.btn) + "</view>    </view>    <view class='banner-end'>      <image src='" + (_typeof(item.banner_img) === "object" ? JSON.stringify(item.banner_img) : item.banner_img) + "' class='banner-end-image' mode='widthFix'></image>    </view>      </view>";
+      }) + "</view>";
       this.setData({ html: this.parse(html) });
     },
 
     /**
      * 页面的初始数据
      */
-    data: {},
+    data: {
+      detail: [{
+        title: "美团外卖红包",
+        label: "低价外卖",
+        btn: "折扣购买",
+        icon: "https://636c-cloud1-6gtqj1v4873bad50-1307814679.tcb.qcloud.la/coupon-img/logo.png?sign=71e2303e03df7c011e81f9dfd97197b9&t=1647496070",
+        banner_img: "https://636c-cloud1-6gtqj1v4873bad50-1307814679.tcb.qcloud.la/coupon-img/meituan.png?sign=daa94d028da89f3ccf97c339e8bae823&t=1647496039",
+        appid: "wxde8ac0a21135c07d",
+        path: "/index/pages/h5/h5?lch=cps:waimai:5:401c6e8a33376657a4d076948b9d76ec:001:33:164009&f_userId=1&weburl=https%3A%2F%2Fclick.meituan.com%2Ft%3Ft%3D1%26c%3D2%26p%3DwTe5Vb5z7TbP&f_token=1"
+      }]
+    },
 
     /**
      * 生命周期函数--监听页面加载
@@ -150,20 +164,55 @@ function runCode() {
         console.log(e.theme);_this.setdata({ dark: e.theme });
       });this.setdata();
     },
-
-    goin: function goin(e) {
+    btn: function btn(e) {
       console.log(e);
+      var index = Number(e.target.id);
+      var res = this.data.detail[index];
+      console.log(res);
       wx.navigateToMiniProgram({
-        appId: e.currentTarget.id,
-        path: '',
-        envVersion: 'release',
+        appId: res.appid,
+        path: res.path,
         success: function success(res) {
-
-          console.log('跳转成功');
+          console.log(res);
+          console.log(111);
         }
       });
-    }
+    },
 
+    /**
+     * 生命周期函数--监听页面初次渲染完成
+     */
+    onReady: function onReady() {},
+
+    /**
+     * 生命周期函数--监听页面显示
+     */
+    onShow: function onShow() {},
+
+    /**
+     * 生命周期函数--监听页面隐藏
+     */
+    onHide: function onHide() {},
+
+    /**
+     * 生命周期函数--监听页面卸载
+     */
+    onUnload: function onUnload() {},
+
+    /**
+     * 页面相关事件处理函数--监听用户下拉动作
+     */
+    onPullDownRefresh: function onPullDownRefresh() {},
+
+    /**
+     * 页面上拉触底事件的处理函数
+     */
+    onReachBottom: function onReachBottom() {},
+
+    /**
+     * 用户点击右上角分享
+     */
+    onShareAppMessage: function onShareAppMessage() {}
   });
 }
 module.exports = runCode;

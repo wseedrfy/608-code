@@ -3,14 +3,14 @@ import ddddocr
 
 
 ###识别技术
-def code_ocr(session):
+def code_ocr(username,session):
     status_code = 0
     code = ''
     cookies = ''
 
     try:
 
-        image_url = 'NL_code.png'
+        image_url = 'NL_code.png'+username
         res = session.get('http://campus.gdnlxy.cn/campus-xmain/api/main-vcode')
         # print(1)
         cookies = res.cookies.items()
