@@ -153,6 +153,7 @@ Page({
   // 滑动切换标签时
   waterChange(e) {
     let currentTab = e.detail.current;
+    console.log(currentTab);
     this.switchTab(currentTab);
   },
 
@@ -208,6 +209,7 @@ Page({
         School
       },
       success(res) {
+        console.log("getData-more-成功");
         const currComponent = that.selectComponent(`#waterFlowCards${currentTab}`);
         // 数据存在时
         if (res.result && res.result.data.length > 0) {
@@ -218,7 +220,6 @@ Page({
           allList[currentTab] = allList[currentTab].concat(res.result.data);
           // 赋值全局变量
           app.globalData.allList = allList;
-          console.log(allList);
           that.setData({
             allList
           });
@@ -231,6 +232,7 @@ Page({
           // 新数据进行左右处理
           currComponent.RightLeftSolution()
         } else { // 不存在数据时
+          app.globalData.allList = that.data.allList;
           if (currComponent.data.leftH == 0 && currComponent.data.rightH == 0) {
             currComponent.setData({
               leftList: [],
@@ -357,6 +359,7 @@ Page({
       currentTab
     })
     this.selectComponent(`#TabScroll`).setData({ currentTab });
+
     // 新页面获取数据 - 没有东西时才获取数据
     if (app.globalData.allList[currentTab].length) {
       console.log("页面已经有数据了，不请求数据库");
@@ -418,7 +421,7 @@ Page({
       })
     }
     // 初始化 allList
-    let allList = this.data.tabitem.map((item, index) => {
+    let allList = tabitem.map((item, index) => {
       let allList = [];
       return allList[index] = []
     });
@@ -433,10 +436,11 @@ Page({
       iconUrl: args.iconUrl,     // 获取头像
       school: args.school        // 获取学校
     })
-    // 初始化动画
-    _animationIndex = 0;
-    _animationIntervalId = -1;
-    this.data.animation = '';
+    for(let i in tabitem) {
+      console.log(i);
+      this.selectComponent(`#waterFlowCards${i}`).setData({ loadAll: false });
+    }
+    
   },
   onLoad: function () {
     this.init()
