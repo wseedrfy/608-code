@@ -1,21 +1,24 @@
 @media (prefers-color-scheme: dark) {
 
 
- .text-green{
-  filter: invert(90%) !important;
- }
- .bg-red{
-  filter: invert(90%) !important;
-  /* background-color: #fff; */
+  .text-green {
+    filter: invert(90%) !important;
+  }
 
- }
- .text-red{
-  filter: invert(96%) !important;
-  /* background-color: #fff; */
+  .bg-red {
+    filter: invert(90%) !important;
+    /* background-color: #fff; */
 
- }
- .light{
-  filter: invert(90%) !important;
-     background-color: #000;
- }
+  }
+
+  .text-red {
+    filter: invert(96%) !important;
+    /* background-color: #fff; */
+
+  }
+
+  .light {
+    filter: invert(90%) !important;
+    background-color: #000;
+  }
 }
