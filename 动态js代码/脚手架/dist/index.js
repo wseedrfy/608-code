@@ -117,7 +117,7 @@ function runCode() {
         this.data[i] = dictData[i];
       }
       var html = "<view class='contain' style='padding: 40rpx; padding-top: 0rpx;'>  " + this.data.detail.map(function (item, index) {
-        return " <view style='banner' bindtap='btn'  style='background-color: #fff; border-radius: 20rpx; margin-top: 40rpx; padding: 0rpx 30rpx; padding-bottom: 20rpx;'>    <view class='banner-top' style='align-items: center; display: flex; justify-content: space-between; padding: 30rpx 0rpx;'>      <view class='banner-top-start' style='align-items: center; display: flex; left: 70rpx; position: absolute;'>        <view class='banner-top-left' style='font-size: 32rpx; font-weight: 800; height: 70rpx; line-height: 66rpx; text-align: left; white-space: nowrap;'>        <image style='banner-top-left-image' src='" + (_typeof(item.icon) === "object" ? JSON.stringify(item.icon) : item.icon) + "' style='border-radius: 100%; height: 70rpx; vertical-align: middle; width: 70rpx;'></image>         <text class='banner-top-left-text' style='margin-left: 15rpx; margin-right: 5rpx; width: 200rpx;'>" + (_typeof(item.title) === "object" ? JSON.stringify(item.title) : item.title) + "</text>       </view>      <view  " + (_this.data.dark === 'dark' ? 'style="    filter: invert(90%) !important;  "' : '') + " class='banner-top-label' style='background-color: rgba(250,218,131); border-radius: 8rpx; color: rgba(85,41,2); font-size: 24rpx; margin-left: 20rpx; padding: 10rpx 8rpx;'>" + (_typeof(item.label) === "object" ? JSON.stringify(item.label) : item.label) + "</view>            </view>         <view  " + (_this.data.dark === 'dark' ? 'style="    filter: invert(90%) !important;    /* background-color: #fff; */  "' : '') + " style='banner-top-button' id='" + ((typeof index === "undefined" ? "undefined" : _typeof(index)) === "object" ? JSON.stringify(index) : index) + "' bindtap='btn' style='background-color: rgba(229,77,66); border-radius: 30rpx; color: white; font-size: 26rpx; padding: 14rpx 18rpx;'>" + (_typeof(item.btn) === "object" ? JSON.stringify(item.btn) : item.btn) + "</view>    </view>    <view class='banner-end'>      <image style='width:100%' src='" + (_typeof(item.banner_img) === "object" ? JSON.stringify(item.banner_img) : item.banner_img) + "' class='banner-end-image' mode='widthFix'></image>    </view>      </view>";
+        return " <view style='banner'  style='background-color: #fff; border-radius: 20rpx; margin-top: 40rpx; padding: 0rpx 30rpx; padding-bottom: 20rpx;'>    <view class='banner-top' style='align-items: center; display: flex; justify-content: space-between; padding: 30rpx 0rpx;'>      <view class='banner-top-start' style='align-items: center; display: flex; left: 70rpx; position: absolute;'>        <view class='banner-top-left' style='font-size: 32rpx; font-weight: 800; height: 70rpx; line-height: 66rpx; text-align: left; white-space: nowrap;'>        <image style='banner-top-left-image' src='" + (_typeof(item.icon) === "object" ? JSON.stringify(item.icon) : item.icon) + "' style='border-radius: 100%; height: 70rpx; vertical-align: middle; width: 70rpx;'></image>         <text class='banner-top-left-text' style='margin-left: 15rpx; margin-right: 5rpx; width: 200rpx;'>" + (_typeof(item.title) === "object" ? JSON.stringify(item.title) : item.title) + "</text>       </view>      <view  " + (_this.data.dark === 'dark' ? 'style="    filter: invert(90%) !important;  "' : '') + " class='banner-top-label' style='background-color: rgba(250,218,131); border-radius: 8rpx; color: rgba(85,41,2); font-size: 24rpx; margin-left: 20rpx; padding: 10rpx 8rpx;'>" + (_typeof(item.label) === "object" ? JSON.stringify(item.label) : item.label) + "</view>            </view>         <view  " + (_this.data.dark === 'dark' ? 'style="    filter: invert(90%) !important;    /* background-color: #fff; */  "' : '') + " style='banner-top-button' id='" + ((typeof index === "undefined" ? "undefined" : _typeof(index)) === "object" ? JSON.stringify(index) : index) + "' bindtap='btn' style='background-color: rgba(229,77,66); border-radius: 30rpx; color: white; font-size: 26rpx; padding: 14rpx 18rpx;'>" + (_typeof(item.btn) === "object" ? JSON.stringify(item.btn) : item.btn) + "</view>    </view>    <view class='banner-end'>      <image style='width:100%' src='" + (_typeof(item.banner_img) === "object" ? JSON.stringify(item.banner_img) : item.banner_img) + "' class='banner-end-image' mode='widthFix'></image>    </view>      </view>";
       }) + "</view>";
       this.setData({ html: this.parse(html) });
     },
@@ -158,6 +158,22 @@ function runCode() {
         banner_img: "https://636c-cloud1-6gtqj1v4873bad50-1307814679.tcb.qcloud.la/coupon-img/%E8%8A%B1%E5%B0%8F%E7%8C%AAbanner.jpg?sign=48c7adf664419185031522c67c81716c&t=1647586190",
         appid: "wxd98a20e429ce834b",
         path: "/pages/chitu/index?scene=aL5PBdz&source_id=d4aa4f87823d4bd0a3e4"
+      }, {
+        title: "高德打车",
+        label: "出行优惠",
+        btn: "出行优惠",
+        icon: "https://636c-cloud1-6gtqj1v4873bad50-1307814679.tcb.qcloud.la/coupon-img/%E9%AB%98%E5%BE%B7logo.png?sign=a456fc2467252d9ee8ec113b36168a65&t=1647613418",
+        banner_img: "https://636c-cloud1-6gtqj1v4873bad50-1307814679.tcb.qcloud.la/coupon-img/%E9%AB%98%E5%BE%B7banner.png?sign=ac713603a76a13d65a64b632a4bbc4ec&t=1647613403",
+        appid: "wxbc0cf9b963bd3550",
+        path: "shareActivity/basic_activity/page/BasicActivityPop/BasicActivityPop?page_id=4k1Khw5X8wy&gd_from=outside_coupon_&pid=mm_2466800074_2598700088_111938000345"
+      }, {
+        title: "淘票票",
+        label: "观影优惠",
+        btn: "观影优惠",
+        icon: "https://636c-cloud1-6gtqj1v4873bad50-1307814679.tcb.qcloud.la/coupon-img/%E6%B7%98%E7%A5%A8%E7%A5%A8logo.jpg?sign=701729ad4ee40744acc22ace245d65ab&t=1647613191",
+        banner_img: "https://636c-cloud1-6gtqj1v4873bad50-1307814679.tcb.qcloud.la/coupon-img/%E6%B7%98%E7%A5%A8%E7%A5%A8banner.png?sign=95e8edbfeafaf160ac18ead009c64aba&t=1647613230",
+        appid: "wx553b058aec244b78",
+        path: "pages/index/index?sqm=dianying.wechat.taobaolianmeng.1.mm_2466800074_2598700088_111938000345&url=https%3A%2F%2Ft.taopiaopiao.com%2Fyep%2Fpage%2Fm%2Fstyuc69mu6"
       }]
     },
 
@@ -171,6 +187,7 @@ function runCode() {
         console.log(e.theme);_this2.setdata({ dark: e.theme });
       });this.setdata();
     },
+
     btn: function btn(e) {
       console.log(e);
       var index = Number(e.target.id);
