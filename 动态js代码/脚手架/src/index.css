@@ -9,11 +9,12 @@ page{
   background-color: #fff;
   border-radius: 20rpx;
   padding-bottom: 20rpx;
+  margin-top:40rpx
   /* box-shadow: 1rpx 1rpx rgba(16,16,16,0.3); */
 }
 .banner-top{
   display: flex;
-  padding:20rpx 0rpx;
+  padding:30rpx 0rpx;
   align-items: center;
   justify-content: space-between;
 }
@@ -26,6 +27,8 @@ page{
 
 }
 .banner-top-left{
+  white-space:nowrap;
+  height: 70rpx;
   font-weight: 800;
   font-size: 32rpx;
   text-align: left;
