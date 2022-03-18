@@ -1,7 +1,7 @@
 // const { isGeneratorFunction } = require("util/types")
 var util = require("../../../../utils/util.js")
+var moreUtil = require("../../utils/utils")
 var app = getApp()
-const args = wx.getStorageSync('args')
 Page({
   data: {
     CommentList: [],
@@ -14,7 +14,6 @@ Page({
     sendCom:[]  ,  //接受从replyComment组件传递过来的数组，用于增加评论后的渲染
     isactive:"noactive"
     // switch1Checked:true
-
   },
   switch1Change:function(){
     console.log(this.data.switch1Checked)
