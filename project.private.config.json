@@ -155,6 +155,12 @@
           "pathName": "pages/more/more",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "pages/more/more",
+          "pathName": "pages/more/more",
+          "query": "",
+          "scene": null
         }
       ]
     }
