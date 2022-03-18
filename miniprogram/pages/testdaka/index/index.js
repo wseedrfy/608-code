@@ -742,7 +742,9 @@ Page({
     //获取数据交与页面渲染
     async getDaka_record(){
         let that = this
-        let username = wx.getStorageSync('args').username;
+        let username = wx.getStorageSync('args').username
+        console.log(username);
+        if(username){
         //用username查找uuid
         var dakaArr = [];
         //根据username获取到该用户的所有打卡记录
@@ -810,12 +812,15 @@ Page({
             taskdata:dakaArr
         })
         console.log(this.data.taskdata);
+      }
     },
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad() {
-      
+        // 判断登录
+        let username = wx.getStorageSync('args').username;
+        console.log(username);
         wx.showLoading({
           title: '加载中',
           mask:true
@@ -838,8 +843,6 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow() {
-    //    this.getDaka_record();
-
        var pages = getCurrentPages();
        var currPage = pages[pages.length - 1]; //当前页面
        let json = currPage.data.mydata;
