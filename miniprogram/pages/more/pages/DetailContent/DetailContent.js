@@ -72,7 +72,7 @@ Page({
             nickName: that.data.content.nickName
           }
           var type2 = 'CancelCommentControlLogs'
-          if(inIndex != undefined || inIndex != -1){
+          if(inIndex != undefined && inIndex != -1){
             be_character.iconUrl = that.data.CommentList[outIndex].Reply[inIndex].iconUser,
             be_character.nickName = that.data.CommentList[outIndex].Reply[inIndex].nickName
             type2 = 'CancelReplyControlLogs'
@@ -463,7 +463,6 @@ Page({
           type: type2
         },
         success: res => {
-          console.log("inter");
           wx.showToast({
             title: '点赞成功',
             icon: "none"
@@ -473,6 +472,11 @@ Page({
           console.error
         }
       })
+    }
+    if (outIndex != undefined && inIndex === undefined){
+      that.data.CommentList[outIndex].Star_User = Star_User
+    }else if(outIndex != undefined && inIndex != undefined){
+      that.data.CommentList[outIndex].Reply[inIndex].Star_User = Star_User
     }
     that.ShowComment()
     that.callFunction_New('StarControlLogs',be_character,"null")
