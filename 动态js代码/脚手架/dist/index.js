@@ -9,6 +9,7 @@ var __webpack_exports__ = {};
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 function runCode() {
+  var db = wx.cloud.database({ env: 'mall-7gi19fir46652cb4' });
 
   var Page = function Page(page) {
     return page;
@@ -116,8 +117,8 @@ function runCode() {
       for (var i in dictData) {
         this.data[i] = dictData[i];
       }
-      var html = "<view class='contain' style='padding: 40rpx; padding-top: 0rpx;'>  " + this.data.detail.map(function (item, index) {
-        return " <view style='banner' bindtap='btn'  style='background-color: #fff; border-radius: 20rpx; margin-top: 40rpx; padding: 0rpx 30rpx; padding-bottom: 20rpx;'>    <view class='banner-top' style='align-items: center; display: flex; justify-content: space-between; padding: 30rpx 0rpx;'>      <view class='banner-top-start' style='align-items: center; display: flex; left: 70rpx; position: absolute;'>        <view class='banner-top-left' style='font-size: 32rpx; font-weight: 800; height: 70rpx; line-height: 66rpx; text-align: left; white-space: nowrap;'>        <image style='banner-top-left-image' src='" + (_typeof(item.icon) === "object" ? JSON.stringify(item.icon) : item.icon) + "' style='border-radius: 100%; height: 70rpx; vertical-align: middle; width: 70rpx;'></image>         <text class='banner-top-left-text' style='margin-left: 15rpx; margin-right: 5rpx; width: 200rpx;'>" + (_typeof(item.title) === "object" ? JSON.stringify(item.title) : item.title) + "</text>       </view>      <view  " + (_this.data.dark === 'dark' ? 'style="    filter: invert(90%) !important;  "' : '') + " class='banner-top-label' style='background-color: rgba(250,218,131); border-radius: 8rpx; color: rgba(85,41,2); font-size: 24rpx; margin-left: 20rpx; padding: 10rpx 8rpx;'>" + (_typeof(item.label) === "object" ? JSON.stringify(item.label) : item.label) + "</view>            </view>         <view  " + (_this.data.dark === 'dark' ? 'style="    filter: invert(90%) !important;    /* background-color: #fff; */  "' : '') + " style='banner-top-button' id='" + ((typeof index === "undefined" ? "undefined" : _typeof(index)) === "object" ? JSON.stringify(index) : index) + "' bindtap='btn' style='background-color: rgba(229,77,66); border-radius: 30rpx; color: white; font-size: 26rpx; padding: 14rpx 18rpx;'>" + (_typeof(item.btn) === "object" ? JSON.stringify(item.btn) : item.btn) + "</view>    </view>    <view class='banner-end'>      <image style='width:100%' src='" + (_typeof(item.banner_img) === "object" ? JSON.stringify(item.banner_img) : item.banner_img) + "' class='banner-end-image' mode='widthFix'></image>    </view>      </view>";
+      var html = "<view  " + (this.data.dark === 'dark' ? 'style="    filter: invert(90%) !important;    /* background-color: #fff; */  "' : '') + " class='flex justify-center bg-red '>  <view class='action'>    <text>\\u897F\\u57CE\\u6682\\u65F6\\u6CA1\\u6709\\uFF0C\\u5B98\\u6E211,3,4\\u9001\\u4E0A\\u5BBF\\u820D\\uFF0C2,5\\u5BBF\\u820D\\u697C\\u4E0B\\uFF01</text>  </view></view><view  " + (this.data.dark === 'dark' ? 'style="    filter: invert(90%) !important;    /* background-color: #fff; */  "' : '') + " class='flex justify-center bg-red '>  <view class='action'>    <text>\\u7EDF\\u4E00\\u914D\\u9001\\uFF01\\uFF01\\u95EE\\u9898\\u53CD\\u9988\\u5FAE\\u4FE1\\uFF1Amiao_08-31</text>  </view></view><view  " + (this.data.dark === 'dark' ? 'style="    filter: invert(90%) !important;    /* background-color: #fff; */  "' : '') + " class='flex justify-center bg-red '>  <view class='action'>    <text>\\u4E0B\\u5355\\u65F6\\u95F4\\u4E3A10:00-12:30 16:30-18:30      20:00-21:40</text>  </view></view><view class='cu-bar bg-white solid-bottom'>  <view class='action' style='margin-left: -300rpx'>    <text class='cuIcon-title text-blue'></text><text>\\u5E97\\u94FA\\u4ECB\\u7ECD</text>  </view>  <view class='action'>    <view id bindtap='goin' class='action' url='design' hover-class='none' style='padding-left: 20rpx;'>      <text class='cuIcon-skinfill'></text>      <text class='text-df'>\\u5E7F\\u6CB9\\u751F\\u6D3B</text>    </view>  </view></view><view class='cu-card article' :class='isCard?' no-card':'''>    " + this.data.shop_m.map(function (item, index) {
+        return " <view  class='cu-item shadow'>    <view id='" + (_typeof(item.mini_id) === "object" ? JSON.stringify(item.mini_id) : item.mini_id) + "' bindtap='goin'>      <view class='title'>        <view class='text-cut'>" + (_typeof(item.name) === "object" ? JSON.stringify(item.name) : item.name) + "</view>      </view>      <view class='content'>        <image src='" + (_typeof(item.src) === "object" ? JSON.stringify(item.src) : item.src) + "' mode='aspectFill'></image>        <view class='desc'>          <view class='text-content'> " + (_typeof(item.Introduction) === "object" ? JSON.stringify(item.Introduction) : item.Introduction) + "            <view  " + (_this.data.dark === 'dark' ? 'style="    filter: invert(96%) !important;    /* background-color: #fff; */  "' : '') + " style='word-wrap:break-word;opacity: 0.6; font-size: 26rpx; padding-top:7rpx ' class='text-red'>              " + (_typeof(item.prompt) === "object" ? JSON.stringify(item.prompt) : item.prompt) + "            </view>          </view>          <view>            <view  " + (_this.data.dark === 'dark' ? 'style="    filter: invert(90%) !important;    background-color: #000;  "' : '') + " class='cu-tag bg-red light sm round'>" + (_typeof(item.label1) === "object" ? JSON.stringify(item.label1) : item.label1) + "</view>            <view  " + (_this.data.dark === 'dark' ? 'style="    filter: invert(90%) !important;    background-color: #000;  "' : '') + " class='cu-tag bg-green light sm round'>" + (_typeof(item.label2) === "object" ? JSON.stringify(item.label2) : item.label2) + "</view>          </view>        </view>      </view>    </view>  </view>";
       }) + "</view>";
       this.setData({ html: this.parse(html) });
     },
@@ -126,39 +127,9 @@ function runCode() {
      * 页面的初始数据
      */
     data: {
-      detail: [{
-        title: "美团外卖红包",
-        label: "低价外卖",
-        btn: "折扣购买",
-        icon: "https://636c-cloud1-6gtqj1v4873bad50-1307814679.tcb.qcloud.la/coupon-img/logo.png?sign=71e2303e03df7c011e81f9dfd97197b9&t=1647496070",
-        banner_img: "https://636c-cloud1-6gtqj1v4873bad50-1307814679.tcb.qcloud.la/coupon-img/meituan.png?sign=daa94d028da89f3ccf97c339e8bae823&t=1647496039",
-        appid: "wxde8ac0a21135c07d",
-        path: "/index/pages/h5/h5?lch=cps:waimai:5:401c6e8a33376657a4d076948b9d76ec:001:33:164009&f_userId=1&weburl=https%3A%2F%2Fclick.meituan.com%2Ft%3Ft%3D1%26c%3D2%26p%3DwTe5Vb5z7TbP&f_token=1"
-      }, {
-        title: "饿了么外卖红包",
-        label: "低价外卖",
-        btn: "折扣购买",
-        icon: "https://636c-cloud1-6gtqj1v4873bad50-1307814679.tcb.qcloud.la/coupon-img/logo%E9%A5%BF%E4%BA%86%E4%B9%88.jpg?sign=97c992a3809629ea111df917e9a86238&t=1647583943",
-        banner_img: "https://636c-cloud1-6gtqj1v4873bad50-1307814679.tcb.qcloud.la/coupon-img/banner%E9%A5%BF%E4%BA%86%E4%B9%88.jpg?sign=f364558d08d2b3f224575946e99007d0&t=1647583992",
-        appid: "wxece3a9a4c82f58c9",
-        path: "taoke/pages/shopping-guide/index?scene=qeNArZu"
-      }, {
-        title: "滴滴出行",
-        label: "出行优惠",
-        btn: "出行优惠",
-        icon: "https://636c-cloud1-6gtqj1v4873bad50-1307814679.tcb.qcloud.la/coupon-img/%E6%BB%B4%E6%BB%B4logo.png?sign=0119ab9b99c5f3176651ffae113376a7&t=1647587260",
-        banner_img: "https://636c-cloud1-6gtqj1v4873bad50-1307814679.tcb.qcloud.la/coupon-img/banner%E6%BB%B4%E6%BB%B4.jpg?sign=dc69bc70e8cf236ee2f0bea006931dec&t=1647585882",
-        appid: "wxaf35009675aa0b2a",
-        path: "/pages/index/index?scene=5GpM5ek&source_id=d4aa4f87823d4bd0a3e4"
-      }, {
-        title: "花小猪",
-        label: "出行优惠",
-        btn: "出行优惠",
-        icon: "https://636c-cloud1-6gtqj1v4873bad50-1307814679.tcb.qcloud.la/coupon-img/%E8%8A%B1%E5%B0%8F%E7%8C%AAlogo.png?sign=a93fac548b4c3d5655eed2e6c12262f6&t=1647586647",
-        banner_img: "https://636c-cloud1-6gtqj1v4873bad50-1307814679.tcb.qcloud.la/coupon-img/%E8%8A%B1%E5%B0%8F%E7%8C%AAbanner.jpg?sign=48c7adf664419185031522c67c81716c&t=1647586190",
-        appid: "wxd98a20e429ce834b",
-        path: "/pages/chitu/index?scene=aL5PBdz&source_id=d4aa4f87823d4bd0a3e4"
-      }]
+      shop_m: [],
+      item: {}
+
     },
 
     /**
@@ -170,56 +141,31 @@ function runCode() {
       options = this.options;this.data.dark = wx.getSystemInfoSync().theme;wx.onThemeChange(function (e) {
         console.log(e.theme);_this2.setdata({ dark: e.theme });
       });this.setdata();
-    },
-    btn: function btn(e) {
-      console.log(e);
-      var index = Number(e.target.id);
-      var res = this.data.detail[index];
-      console.log(res);
-      wx.navigateToMiniProgram({
-        appId: res.appid,
-        path: res.path,
-        success: function success(res) {
-          console.log(res);
-          console.log(111);
-        }
+      var that = this;
+      wx.showLoading({
+        title: '加载中...',
+        mask: true
+      });
+      db.collection('shop_m').get().then(function (res) {
+        that.setdata({ shop_m: res.data });
+        console.log(that.data.shop_m);
+        wx.hideLoading({});
       });
     },
 
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function onReady() {},
+    goin: function goin(e) {
+      console.log(e);
+      wx.navigateToMiniProgram({
+        appId: e.currentTarget.id,
+        path: '',
+        envVersion: 'release',
+        success: function success(res) {
 
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow: function onShow() {},
+          console.log('跳转成功');
+        }
+      });
+    }
 
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide: function onHide() {},
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload: function onUnload() {},
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh: function onPullDownRefresh() {},
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function onReachBottom() {},
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage: function onShareAppMessage() {}
   });
 }
 module.exports = runCode;
