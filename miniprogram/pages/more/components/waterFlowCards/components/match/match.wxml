@@ -1,11 +1,20 @@
 <wxs module="m1">
-  var color=['#355e32', '#83a263', '#7d9df0', '#6f429c']
+  var color=['#95c395', '#f7c1b7', '#779de6', '#6f429c']
   module.exports.message=color
 </wxs>
 <wxs src="time.wxs" module="tools"></wxs>
 <view class="pic" bindtap="ShowContent" data-index="{{index}}">
-  <span class="host" style="top:{{item.ShowHeight}}rpx">主办方 {{item.assoMess.association}}</span>
+  <!-- <view class="in_img" style="bottom:{{item.ShowHeight}}rpx">
+    <span class="host" >主办方 {{item.assoMess.association}}</span>
+    <view class="loacal2"></view>
+  </view> -->
   <image class="Show_Image" lazy-load src='{{item.Cover}}' mode="aspectFill" style="height: {{item.ShowHeight > 500 ? 500+'rpx':item.ShowHeight+'rpx'}};" binderror="binderrorimg" bindload='onLazyLoad'></image>
+  <view class="local_block">
+    <view class="local" >
+      <text class="local_text" style="bottom:{{item.ShowHeight}}rpx">主办方 {{item.assoMess.association}}</text>
+    </view>
+    <view class="local2"></view>
+  </view>
   <view class="content_wrap">
     <span class="pic_Title">
       <text>{{item.Text}}</text>

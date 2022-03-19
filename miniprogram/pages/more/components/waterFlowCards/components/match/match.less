@@ -4,32 +4,46 @@
     background-color: rgb(255, 255, 255);
     margin-bottom   : 15rpx;
     overflow        : hidden;
-    .host {
-        // background-color: red;
-        display           : flex;
-        align-items       : center;
-        z-index           : 999999;
-        position          : relative;
-        font-size         : 28rpx;
-        color             : white;
-        vertical-align    : middle;
-        display           : -webkit-box;
-        overflow          : hidden;
-        text-overflow     : ellipsis;
-        word-wrap         : break-word;
-        white-space       : normal !important;
-        -webkit-line-clamp: 1;
-        -webkit-box-orient: vertical;
-        padding           : 3rpx 3rpx 12rpx 12rpx;
-        position          : relative;
-        background-image  : linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4));
-        width             : 100%;
-        z-index           : 1;
-    }
 
     .Show_Image {
         width           : 360rpx;
         background-color: #ebebebd8;
+    }
+
+    .local_block {
+        height: 0rpx;
+
+        .local {
+            display               : flex;
+            align-items           : center;
+            z-index               : 999;
+            float                 : left;
+            // position           : absolute;
+            bottom                : 50rpx;
+            padding-left          : 12rpx;
+            font-size             : 20rpx;
+            color                 : white;
+            // border-radius      : 8rpx;
+            vertical-align        : middle;
+            opacity               : 1;
+
+            position            : relative;
+            background-image    : linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4));
+            // height           : 74rpx;
+            /* height           : 30%; */
+            width               : 100%;
+            /* opacity          : 0.2; */
+            // z-index          :1;
+
+            .local_text {
+                opacity  : 1;
+                font-size: 24rpx;
+                color    : white;
+                padding  : 5rpx 3rpx;
+            }
+
+
+        }
     }
 
     .content_wrap {
@@ -54,35 +68,35 @@
             padding       : 4rpx 8rpx;
 
             .mess_wrap {
-                padding: 12rpx 16rpx 22rpx;
+                padding        : 12rpx 16rpx 22rpx;
                 display        : flex;
                 flex-direction : row;
                 justify-content: center;
 
                 .time {
-                    flex: 2;
+                    flex : 2;
                     color: rgba(73, 73, 73, 0.726);
                 }
 
                 .person {
-                    flex : 1;
-                    color: rgba(8, 8, 8, 0.4);
+                    flex               : 1;
+                    color              : rgba(8, 8, 8, 0.4);
                     // background-color: ;
                 }
             }
 
-            .host {
-                padding           : 4rpx 16rpx;
-                color             : rgb(141, 140, 140);
-                display           : -webkit-box;
-                overflow          : hidden;
-                text-overflow     : ellipsis;
-                word-wrap         : break-word;
-                white-space       : normal !important;
-                -webkit-line-clamp: 1;
-                -webkit-box-orient: vertical;
-                padding-bottom    : 12rpx;
-            }
+            // .host {
+            //     padding           : 4rpx 16rpx;
+            //     color             : rgb(141, 140, 140);
+            //     display           : -webkit-box;
+            //     overflow          : hidden;
+            //     text-overflow     : ellipsis;
+            //     word-wrap         : break-word;
+            //     white-space       : normal !important;
+            //     -webkit-line-clamp: 1;
+            //     -webkit-box-orient: vertical;
+            //     padding-bottom    : 12rpx;
+            // }
 
             .tip_wrpa {
                 padding       : 10rpx 4rpx;
@@ -90,15 +104,15 @@
                 flex-direction: row;
 
                 .tip {
-                    display         : flex;
-                    color           : white;
-                    padding         : 4rpx;
-                    border-radius   : 6rpx;
-                    margin-left     : 12rpx;
-                    font-size       : 20rpx;
-                    text-align      : center;
-                    align-items     : center;
-                    justify-content : center;
+                    display        : flex;
+                    color          : white;
+                    padding        : 4rpx;
+                    border-radius  : 6rpx;
+                    margin-left    : 12rpx;
+                    font-size      : 20rpx;
+                    text-align     : center;
+                    align-items    : center;
+                    justify-content: center;
                 }
             }
         }
