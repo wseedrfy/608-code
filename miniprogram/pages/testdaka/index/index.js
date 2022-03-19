@@ -658,7 +658,13 @@ Page({
             data: {
                 type:"updateDakaRedord_ByHashId",
                 hashId:hashid,
-            }
+            },
+            fail: err => {
+              wx.showToast({
+                icon: 'none',
+                title: '出错啦！请稍后重试'
+              })
+            }      
         })
         //要是能成功打卡就打开弹窗可以选择分享
         this.setData({showModel2:true});
@@ -735,24 +741,27 @@ Page({
 
     //获取数据交与页面渲染
     async getDaka_record(){
-        let username = wx.getStorageSync('args').username;
+        let that = this
+        let username = wx.getStorageSync('args').username
+        console.log(username);
+        if(username){
         //用username查找uuid
         var dakaArr = [];
         //根据username获取到该用户的所有打卡记录
-        const res= await wx.cloud.callFunction({
+        const res = await wx.cloud.callFunction({
             name: "daka",
             data: {
                 type:"getAllDakaRecord",
                 username:username,
                 is_delete:false,
-            }
-        }).catch(err => {
+            },
+        }).catch(err=>{
           wx.showToast({
-            title: '网络请求失败',
             icon: 'none',
+            title: '出错啦！请稍后重试'
           })
-      })
-        console.log(res);
+        })
+
         let data = res.result.data
         for(var i = 0; i < data.length; i++){
             var hashid = data[i].hashId
@@ -803,12 +812,15 @@ Page({
             taskdata:dakaArr
         })
         console.log(this.data.taskdata);
+      }
     },
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad() {
-      
+        // 判断登录
+        let username = wx.getStorageSync('args').username;
+        console.log(username);
         wx.showLoading({
           title: '加载中',
           mask:true
@@ -831,8 +843,6 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow() {
-    //    this.getDaka_record();
-
        var pages = getCurrentPages();
        var currPage = pages[pages.length - 1]; //当前页面
        let json = currPage.data.mydata;
