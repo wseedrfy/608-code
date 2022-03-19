@@ -12,10 +12,11 @@ Page({
     Commentindex: -1,     //主评论的索引
     Starurl: "../../../../images/zan1.png",   //不知道这有啥用，注释掉的话会出现：从主页面取消点赞再进入详细页面，详细页面的点赞图标会没有
     sendCom:[]  ,  //接受从replyComment组件传递过来的数组，用于增加评论后的渲染
-    isactive:"noactive"
-    // switch1Checked:true
+    isactive:"noactive",
+    switch1Checked:false
   },
   switch1Change:function(){
+    
     console.log(this.data.switch1Checked)
     this.data.switch1Checked?this.setData({switch1Checked:false}):this.setData({switch1Checked:true})
     this.setData({isactive:this.data.switch1Checked?"active":"noactive"})
@@ -34,18 +35,23 @@ Page({
     app.globalData.allList.forEach(item => {
       item.forEach(e => {
         // console.log(e._id)
-        console.log(this.data.CardID)
-        if (e._id === this.data.CardID) {
+        console.log(this.data.content._id)
+        if (e._id === this.data.content._id) {
+          console.log("我是41行")
           e.LoseState = this.data.switch1Checked;
+          console.log(e.LoseState)
         }
       })
     })
-    let pages = getCurrentPages(); //获取小程序页面栈
-    let beforePage = pages[pages.length - 2]; //上个页面的实例对象
-    let e = {
-      detail: app.globalData.allList
-    }
-    beforePage.setAllList(e);
+    console.log(app.globalData.allList)
+    
+    moreUtil.setAllList(app.globalData.allList,"寻物发布")
+
+    // moreUtil.setAllList(app.globalData.allList,"点赞")
+
+    // beforePage.setAllList(e);
+    // this.ShowComment()
+
     console.log(app.globalData.allList)
   },
 
@@ -394,6 +400,8 @@ Page({
         type: 'readComment'
       },
       success: res => {
+        console.log(res)
+        this.setData({switch1Checked:res.result.data[0].LoseState})
         this.data.CommentList = res.result.data[0].CommentList
         if (this.data.CommentList) {
           this.setData({
@@ -415,12 +423,11 @@ Page({
     
     this.setData({
       iconUrl: args.iconUrl,
-    })
-
-    this.setData({
       Time: Time,
       more: more,
     })
+
+
     // console.log(content.LoseState)
     // this.setData({switch1Checked:content.LoseState})
 
