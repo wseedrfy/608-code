@@ -129,7 +129,7 @@ Page({
               "iconUrl": args.iconUrl,
               "lose_detail":this.data.lose_detail
             }
-            let list = app.globalData.allList[0]
+            let list = app.globalData.allList[0] || [];
             list.push(add);      
             let NewData = list.length - 1;
 

@@ -2,6 +2,7 @@
 // 原理分析：打卡会操作daka_status表，删了会空指针报错
 const _=wx.cloud.database().command
 const db = wx.cloud.database()
+const util = require('../../../utils/util')
 Page({
 
     /**
@@ -109,30 +110,6 @@ Page({
         })
     },
 
-    // existDaka(res){
-    //     // 获取学号
-    //     let username = wx.getStorageSync('args').username 
-
-    //     var data = res.detail.value
-    //     // console.log(data);
-    //     var task = data.task
-    //     // 避免设置相同的任务
-    //     db.collection('daka_record').where({
-    //         task:task,
-    //         username:username
-    //     }).get()
-    //     .then(res=>{
-    //         if(res.data.length != 0){
-    //             console.log(res);
-    //             //杰哥看这里：语法问题2：如何自动调用重置按钮（要清空之前填的，因为打卡任务重复了叫用户重新填）
-    //             //杰哥看这里：问题：如何将下面该语句返回
-    //             console.log('该任务已经存在，请重新设置');
-    //         }else{
-    //             this.saveRecord(username, data)
-    //         }
-    //     })
-    // },
-
     //生成一个活着都不会出现重复的一大串字符
     guid() {
       return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -165,16 +142,27 @@ Page({
       
      return retValue;
     },
+    //节流
+    saveRecord:util.throttle(function(res){
+      console.log(res);
+      this.saveRecord_last(res)
+    },500),
 
-    async saveRecord(res){
+    async saveRecord_last(res){
+      console.log(res);
       let username = wx.getStorageSync('args').username
       await db.collection('daka_record').where({username:username,is_delete:false}).get().then(res=>{
         this.setData({len:res.data.length})
-      })
+      }).catch(err => {
+        wx.showToast({
+          title: '网络请求失败',
+          icon: 'none',
+        })
+    })
       let len =this.data.len
       console.log(len);
 
-      var value = res.detail.value
+      var value = res[0].detail.value
       console.log(value)
       let {cycle,endTime,lable1,startTime,task} = value
       if(!task){
@@ -213,7 +201,7 @@ Page({
           icon: 'none',
           duration: 1000
         })
-      }else if(len>10){
+      }else if(len>=10){
         wx.showToast({
           title: '最多创建10个打卡噢，请返回删除多余打卡~',
           icon: 'none',
@@ -270,29 +258,60 @@ Page({
                   isDaka:false,
                   is_delete:false,
                   count:0,
-              }
-          }).then(res=>{
-            console.log(res);
-            wx.hideLoading();
-        })
-        .then(res=>{
-          var pages = getCurrentPages()
-          var prevPage = pages[pages.length - 2]
-          prevPage.setData({
-            mydata: {
-                count:0,
-                task_name:value.task,
-                task_cycle: cycleChinese,//
-                task_start_time: value.startTime,//
-                task_end_time: value.endTime,//
-                task_isDaka:false,
-                task_hashId:this.hash(username+value.task+uid),
-            }
+              },
+                  success: res => {
+                    console.log("add", res)
+                    wx.showToast({
+                      duration: 4000,
+                      title: '添加成功'
+                    })
+                    var pages = getCurrentPages()
+                    var prevPage = pages[pages.length - 2]
+                    prevPage.setData({
+                      mydata: {
+                          count:0,
+                          task_name:value.task,
+                          task_cycle: cycleChinese,//
+                          task_start_time: value.startTime,//
+                          task_end_time: value.endTime,//
+                          task_isDaka:false,
+                          task_hashId:this.hash(username+value.task+uid),
+                      }
+                    })
+                    wx.navigateBack({
+                      delta: 1
+                    })
+                  },
+                  fail: err => {
+                    wx.showToast({
+                      icon: 'none',
+                      title: '出错啦！请稍后重试'
+                    })
+                    console.error
+                  },
           })
-          wx.navigateBack({
-            delta: 1
-          })
-        })
+          // .then(res=>{
+          //   console.log(res);
+          //   wx.hideLoading();
+          // })
+        //  .then(res=>{
+        //   var pages = getCurrentPages()
+        //   var prevPage = pages[pages.length - 2]
+        //   prevPage.setData({
+        //     mydata: {
+        //         count:0,
+        //         task_name:value.task,
+        //         task_cycle: cycleChinese,//
+        //         task_start_time: value.startTime,//
+        //         task_end_time: value.endTime,//
+        //         task_isDaka:false,
+        //         task_hashId:this.hash(username+value.task+uid),
+        //     }
+        //   })
+        //   wx.navigateBack({
+        //     delta: 1
+        //   })
+        // })
       }
     },
     

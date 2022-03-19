@@ -41,26 +41,7 @@ Page({
         banner_img:"https://636c-cloud1-6gtqj1v4873bad50-1307814679.tcb.qcloud.la/coupon-img/%E8%8A%B1%E5%B0%8F%E7%8C%AAbanner.jpg?sign=48c7adf664419185031522c67c81716c&t=1647586190",
         appid:"wxd98a20e429ce834b",
         path:"/pages/chitu/index?scene=aL5PBdz&source_id=d4aa4f87823d4bd0a3e4"
-      },
-      {
-        title:"高德打车",
-        label:"出行优惠",
-        btn:"出行优惠",
-        icon:"https://636c-cloud1-6gtqj1v4873bad50-1307814679.tcb.qcloud.la/coupon-img/%E9%AB%98%E5%BE%B7logo.png?sign=a456fc2467252d9ee8ec113b36168a65&t=1647613418",
-        banner_img:"https://636c-cloud1-6gtqj1v4873bad50-1307814679.tcb.qcloud.la/coupon-img/%E9%AB%98%E5%BE%B7banner.png?sign=ac713603a76a13d65a64b632a4bbc4ec&t=1647613403",
-        appid:"wxbc0cf9b963bd3550",
-        path:"shareActivity/basic_activity/page/BasicActivityPop/BasicActivityPop?page_id=4k1Khw5X8wy&gd_from=outside_coupon_&pid=mm_2466800074_2598700088_111938000345"
-      },
-      {
-        title:"淘票票",
-        label:"观影优惠",
-        btn:"观影优惠",
-        icon:"https://636c-cloud1-6gtqj1v4873bad50-1307814679.tcb.qcloud.la/coupon-img/%E6%B7%98%E7%A5%A8%E7%A5%A8logo.jpg?sign=701729ad4ee40744acc22ace245d65ab&t=1647613191",
-        banner_img:"https://636c-cloud1-6gtqj1v4873bad50-1307814679.tcb.qcloud.la/coupon-img/%E6%B7%98%E7%A5%A8%E7%A5%A8banner.png?sign=95e8edbfeafaf160ac18ead009c64aba&t=1647613230",
-        appid:"wx553b058aec244b78",
-        path:"pages/index/index?sqm=dianying.wechat.taobaolianmeng.1.mm_2466800074_2598700088_111938000345&url=https%3A%2F%2Ft.taopiaopiao.com%2Fyep%2Fpage%2Fm%2Fstyuc69mu6"
-      },
-     
+      }
     ]
   },
 
@@ -70,7 +51,6 @@ Page({
   onLoad: function (options) {
 
   },
-
   btn(e){
     console.log(e)
     let index = Number(e.target.id)

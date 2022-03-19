@@ -1,0 +1,141 @@
+<view class="flex justify-center bg-red ">
+  <view class="action">
+    <text>西城暂时没有，官渡1,3,4送上宿舍，2,5宿舍楼下！</text>
+
+  </view>
+</view>
+<view class="flex justify-center bg-red ">
+  <view class="action">
+    <text>统一配送！！问题反馈微信：miao_08-31</text>
+
+  </view>
+</view>
+<view class="flex justify-center bg-red ">
+  <view class="action">
+    <text>下单时间为10:00-12:30  16:30-18:30
+20:00-21:40</text>
+
+  </view>
+</view>
+<view class="cu-bar bg-white solid-bottom">
+  <view class="action" style="margin-left: -300rpx">
+    <text class="cuIcon-title text-blue"></text><text>店铺介绍</text>
+  </view>
+  <view class="action">
+    <view id="" bindtap="goin" class="action" url="design" hover-class="none" style="padding-left: 20rpx;">
+      <text class="cuIcon-skinfill"></text>
+      <text class="text-df">广油生活</text>
+    </view>
+  </view>
+</view>
+<view class="cu-card article" :class="isCard?'no-card':''">
+
+  <view id="wxf1f3fa6588601737" bindtap="goin" class="cu-item shadow">
+    <view class="title">
+      <view class="text-cut">新疆炒米粉</view>
+    </view>
+    <view class="content">
+      <image src="https://s1.ax1x.com/2022/03/16/qpBE3n.jpg" mode="aspectFill"></image>
+      <view class="desc">
+        <view class="text-content"> 本店主打: 新疆炒米粉，广式手撕鸡，车仔面...
+
+
+          <view style="word-wrap:break-word;opacity: 0.6; font-size: 26rpx; padding-top:7rpx " class="text-red">
+            点击--》可外卖哟
+          </view>
+        </view>
+
+        <view>
+          <view class="cu-tag bg-red light sm round">免配送</view>
+          <view class="cu-tag bg-green light sm round">地址：官渡</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view id="wx0bea4f67fea460a8" bindtap="goin" class="cu-item shadow">
+    <view class="title">
+      <view class="text-cut">过桥米线</view>
+    </view>
+    <view class="content">
+      <image src="https://s1.ax1x.com/2022/03/16/qpwfL8.jpg" mode="aspectFill"></image>
+      <view class="desc">
+        <view class="text-content"> 本店主打: 秘制乌冬面干捞
+          <view style="word-wrap:break-word;">
+            网红武大郎煎饼，煎饼果子
+          </view>
+
+          <view style="word-wrap:break-word;opacity: 0.6; font-size: 26rpx; padding-top:7rpx " class="text-red">
+            点击--》可外卖哟
+          </view>
+        </view>
+
+        <view>
+          <view class="cu-tag bg-red light sm round">免配送</view>
+          <view class="cu-tag bg-green light sm round">地址：官渡</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view id="wxf5832f54e00a492b" bindtap="goin" class="cu-item shadow">
+    <view class="title">
+      <view class="text-cut">叶记云吞</view>
+    </view>
+    <view class="content">
+      <image src="https://s1.ax1x.com/2022/03/16/qpBI8s.jpg" mode="aspectFill"></image>
+      <view class="desc">
+        <view class="text-content"> 本店主打:黄焖鸡米饭，福建云吞，饺子，馄饨...
+
+          <view style="word-wrap:break-word;opacity: 0.6; font-size: 26rpx; padding-top:7rpx " class="text-red">
+            点击--》可外卖哟
+          </view>
+        </view>
+
+        <view>
+          <view class="cu-tag bg-red light sm round">免配送</view>
+          <view class="cu-tag bg-green light sm round">地址：官渡</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view id="wxbb412a3b85b695c8" bindtap="goin" class="cu-item shadow">
+    <view class="title">
+      <view class="text-cut">粤香快餐</view>
+    </view>
+    <view class="content">
+      <image src="https://s1.ax1x.com/2022/03/16/qprZwT.jpg" mode="aspectFill"></image>
+      <view class="desc">
+        <view class="text-content"> 本店主打:各类快餐，煲仔饭，烤鱼饭，酸菜鱼饭...
+
+          <view style="word-wrap:break-word;opacity: 0.6; font-size: 26rpx; padding-top:7rpx " class="text-red">
+            点击--》可外卖哟
+          </view>
+        </view>
+
+        <view>
+          <view class="cu-tag bg-red light sm round">免配送</view>
+          <view class="cu-tag bg-green light sm round">地址：官渡</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view id="wxff0c6ed636f4ca90" bindtap="goin" class="cu-item shadow">
+    <view class="title">
+      <view class="text-cut">无忧小店</view>
+    </view>
+    <view class="content">
+      <image src="https://s1.ax1x.com/2022/03/16/qpWiL9.jpg" mode="aspectFill"></image>
+      <view class="desc">
+        <view class="text-content"> 目前业务: ①外卖②桌球③密室⑤桌游⑥手冲咖啡
+          <view style="word-wrap:break-word;opacity: 0.6; font-size: 26rpx; padding-top:7rpx " class="text-red">
+            点击--》可预约哟
+          </view>
+        </view>
+
+        <view>
+          <view class="cu-tag bg-red light sm round">预约</view>
+          <view class="cu-tag bg-green light sm round">物美价廉</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
