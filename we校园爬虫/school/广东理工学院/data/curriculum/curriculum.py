@@ -1,11 +1,8 @@
 import re
 from bs4 import BeautifulSoup
-# from lib.proxy import proxy_dict
-
-
-def curriculum(session,proxy):
+def curriculum(session):
     try:
-        res = session.get('http://jwxt.gdlgxy.edu.cn/jsxsd/xskb/xskb_list.do',proxies=proxy).text
+        res = session.get('http://121.40.128.199:81/jsxsd/xskb/xskb_list.do').text
 
         a, _ = re.subn('\r', '', res)
         a, _ = re.subn('\n', '', a)
@@ -48,11 +45,11 @@ def curriculum(session,proxy):
                         a = re.findall('(\d+)-(\d+)', week)
                         b = week.split(',')
                         if section < 5:
-                            c = f'0{section * 1}0{section * 2}'
+                            c = f'0{section * 2-1}0{section * 2}'
                         elif section == 5:
                             c = f'0910'
                         else:
-                            c = f'{section * 1}{section * 2}'
+                            c = f'{section * 2-1}{section * 2}'
                         if len(b) > 1:
                             for h in b:
                                 obj = {
