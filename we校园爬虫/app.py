@@ -71,7 +71,7 @@ def Yiban(yiban_name):
 #         return{"msg":"化学有问题"}
 
 if __name__ == '__main__':
-    app.run(host = '0.0.0.0',port=80)
+    app.run(host='0.0.0.0',port=80)
 
 # if __name__ != '__main__':
 #     # 如果不是直接运行，则将日志输出到 gunicorn 中

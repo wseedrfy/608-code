@@ -1,10 +1,11 @@
 import re
 from bs4 import BeautifulSoup
+from lib.proxy import proxy_dict
 
 
 def curriculum(session):
     try:
-        res = session.get('http://jwxt.gdlgxy.edu.cn/jsxsd/xskb/xskb_list.do').text
+        res = session.get('http://jwxt.gdlgxy.edu.cn/jsxsd/xskb/xskb_list.do', proxies=proxy_dictcd).text
 
         a, _ = re.subn('\r', '', res)
         a, _ = re.subn('\n', '', a)

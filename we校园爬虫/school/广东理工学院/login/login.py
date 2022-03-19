@@ -1,5 +1,5 @@
 import execjs
-
+from lib.proxy import proxy_dict
 
 def encodeInp(msg):  # python 调用JS加密 返回 加密后的结果
     with open('conwork.js', encoding='utf-8') as f:
@@ -9,6 +9,7 @@ def encodeInp(msg):  # python 调用JS加密 返回 加密后的结果
 
 def login(xh, pwd, session):
     try:
+
         account = encodeInp(xh)
         passwd = encodeInp(pwd)
         encoded = account + "%%%" + passwd
@@ -18,8 +19,8 @@ def login(xh, pwd, session):
             "encoded": encoded
         }
 
-        session.get('http://jwxt.gdlgxy.edu.cn/jsxsd/')
-        res = session.post('http://jwxt.gdlgxy.edu.cn/jsxsd/xk/LoginToXk', data=data)
+        session.get('http://jwxt.gdlgxy.edu.cn/jsxsd/',proxies=proxy_dict)
+        res = session.post('http://jwxt.gdlgxy.edu.cn/jsxsd/xk/LoginToXk', data=data,proxies=proxy_dict)
         if "用户名或密码错误" in res.text:
             return {
                 "msg":"用户名或密码错误"
