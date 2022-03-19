@@ -34,7 +34,6 @@ def curriculum(username, session):
             b = '0' + jc[1]
         else:
             b = jc[1]
-
         d = re.findall("(\d+)", zcd[0])
         if "单" in zcd[1]:
             m = 0
@@ -55,15 +54,19 @@ def curriculum(username, session):
                     }
                     arr.append(obj)
             elif len(d) == 1:
-                obj = {
-                    'jcdm': a + b,  # 第几节课
-                    'jxcdmc': test['cdmc'],  # 教室
-                    'kcmc': test['kcmc'],  # 课程名称
-                    'teaxms': test['xm'],  # 任课教师
-                    'xq': week[test['xqjmc']],  # 星期几
-                    'zc': d[0]  # 第几周
-                }
-                arr.append(obj)
+                for i in range(len(zcd)):
+                    zcd[i]=zcd[i].replace(',','')
+                for zc in zcd:
+                    if zc != '':
+                        obj = {
+                            'jcdm': a + b,  # 第几节课
+                            'jxcdmc': test['cdmc'],  # 教室
+                            'kcmc': test['kcmc'],  # 课程名称
+                            'teaxms': test['xm'],  # 任课教师
+                            'xq': week[test['xqjmc']],  # 星期几
+                            'zc': zc  # 第几周
+                        }
+                        arr.append(obj)
         elif m == 1:
             for h in range(int(d[0]), int(d[1]) + 1):
                 if h % 2 == 0:
