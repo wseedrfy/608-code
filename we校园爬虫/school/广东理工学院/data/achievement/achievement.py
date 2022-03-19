@@ -1,7 +1,7 @@
 import re
-from lib.proxy import proxy_dict
+# from lib.proxy import proxy_dict
 
-def achievement(session):
+def achievement(session,proxy):
     try:
         data = {
             "kksj": "",
@@ -10,7 +10,7 @@ def achievement(session):
             "xsfs": "all"
         }
         arr = []
-        cj = session.post('http://jwxt.gdlgxy.edu.cn/jsxsd/kscj/cjcx_list', data=data,proxies=proxy_dict).text
+        cj = session.post('http://jwxt.gdlgxy.edu.cn/jsxsd/kscj/cjcx_list', data=data,proxies = proxy).text
         a, _ = re.subn('\r', '', cj)
         a, _ = re.subn('\n', '', a)
         a, _ = re.subn('\t', '', a)
