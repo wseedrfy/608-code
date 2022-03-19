@@ -4,6 +4,7 @@
     justify-content: center;
     overflow       : hidden;
     margin         : 10rpx;
+    height         : 100%;
 }
 
 .left {
@@ -18,7 +19,9 @@
 .Show_Image {
     width           : 360rpx;
     background-color: #ebebebd8;
+
 }
+
 
 .pic {
     border-radius   : 10rpx;
@@ -26,24 +29,64 @@
     background-color: rgb(255, 255, 255);
     margin-bottom   : 10rpx;
     overflow        : hidden;
+
+    .host {
+        display               : flex;
+        align-items           : center;
+        z-index               : 999999;
+        float                 : left;
+        position              : relative;
+        // bottom             : 50rpx;
+        left                  : 20rpx;
+        // font-size          : 20rpx;
+        font-size             : 28rpx;
+        color                 : rgb(0, 0, 0);
+        /* height             : 20rpx; */
+        padding               : 3rpx;
+        border-radius         : 8rpx;
+        vertical-align        : middle;
+        opacity               : 1;
+        display               : -webkit-box;
+        overflow              : hidden;
+        text-overflow         : ellipsis;
+        word-wrap             : break-word;
+        white-space           : normal !important;
+        -webkit-line-clamp    : 1;
+        -webkit-box-orient    : vertical;
+    }
+
+    // .time {
+    //     display            : flex;
+    //     z-index            : 999999;
+    //     float              : right;
+    //     right: 12rpx;
+    //     color: rgb(255, 218, 98);
+    //     position           : relative;
+    //     font-size: 28rpx;
+    //     padding            : 3rpx;
+    //     border-radius      : 8rpx;
+    //     vertical-align     : middle;
+    //     opacity            : 1;
+    // }
+
 }
 
-.pic_Label {
-    /* color:rgb(252, 219, 129);
-    margin-right: 5px;
-    font-size: 24rpx; */
-    color           : white;
-    background-color: rgba(230, 130, 130, 1);
-    font-size       : 20rpx;
-    padding         : 4rpx 8rpx;
-    /* margin       : 0rpx auto ; */
-    margin-right    : 10rpx;
-    vertical-align  : middle;
-    border-radius   : 5rpx;
-}
+// .pic_Label {
+//     /* color:rgb(252, 219, 129);
+//     margin-right: 5px;
+//     font-size: 24rpx; */
+//     color           : white;
+//     background-color: rgba(230, 130, 130, 1);
+//     font-size       : 20rpx;
+//     padding         : 4rpx 8rpx;
+//     /* margin       : 0rpx auto ; */
+//     margin-right    : 10rpx;
+//     vertical-align  : middle;
+//     border-radius   : 5rpx;
+// }
 
 .pic_Title {
-    color: rgb(0, 0, 0);
+    color             : rgb(0, 0, 0);
     font-size         : 28rpx;
     font-family       : "Arial", "Microsoft YaHei", "黑体", "宋体", sans-serif;
     line-height       : 46rpx;
@@ -56,46 +99,46 @@
     -webkit-line-clamp: 2;
 }
 
-.text_user {
-    width        : 35rpx;
-    height       : 35rpx;
-    border-radius: 50rpx;
-    margin       : 15rpx 21rpx;
-}
+// .text_user {
+//     width        : 35rpx;
+//     height       : 35rpx;
+//     border-radius: 50rpx;
+//     margin       : 15rpx 21rpx;
+// }
 
-.text_username {
-    font-size: 20rpx;
-    position : relative;
-    bottom   : 22rpx;
-    right    : 10rpx;
-    color    : rgba(128, 128, 128, 0.8)
-}
+// .text_username {
+//     font-size: 20rpx;
+//     position : relative;
+//     bottom   : 22rpx;
+//     right    : 10rpx;
+//     color    : rgba(128, 128, 128, 0.8)
+// }
 
-.comment {
-    width   : 20rpx;
-    height  : 20rpx;
-    position: sticky;
-    left    : 240rpx;
-    bottom  : 13rpx;
-}
+// .comment {
+//     width   : 20rpx;
+//     height  : 20rpx;
+//     position: sticky;
+//     left    : 240rpx;
+//     bottom  : 13rpx;
+// }
 
-.commentImg {
-    width      : 32rpx;
-    height     : 32rpx;
-    /* position: relative;
-    bottom     : 10rpx;
-    left       : 150rpx; */
-    /* margin  : 10rpx 0rpx 10rpx 150rpx; */
-}
+// .commentImg {
+//     width      : 32rpx;
+//     height     : 32rpx;
+//     /* position: relative;
+//     bottom     : 10rpx;
+//     left       : 150rpx; */
+//     /* margin  : 10rpx 0rpx 10rpx 150rpx; */
+// }
 
-.commentNum {
-    font-size  : 22rpx;
-    position   : relative;
-    bottom     : 8rpx;
-    padding-top: 2rpx;
-    left       : 2rpx;
-    color      : rgba(0, 0, 0, 0.4)
-}
+// .commentNum {
+//     font-size  : 22rpx;
+//     position   : relative;
+//     bottom     : 8rpx;
+//     padding-top: 2rpx;
+//     left       : 2rpx;
+//     color      : rgba(0, 0, 0, 0.4)
+// }
 
 
 @media (prefers-color-scheme: dark) {
@@ -115,23 +158,29 @@
 }
 
 .match_wrap {
-    display       : flex;
-    flex-direction: column;
-    font-size     : 22rpx;
-    padding       : 4rpx 8rpx;
+    display           : flex;
+    flex-direction    : column;
+    font-size         : 22rpx;
+    padding           : 4rpx 8rpx;
+    // justify-content: center;
+    // align-items: center;
 
     .mess_wrap {
-        padding       : 4rpx 16rpx;
-        display       : flex;
-        flex-direction: row;
+        padding        : 4rpx 16rpx;
+        display        : flex;
+        flex-direction : row;
+        justify-content: center;
+        padding-bottom : 12rpx;
+        padding-top    : 12rpx;
 
         .time {
-            flex: 2;
-            padding-bottom: 12rpx;
+            flex            : 2;
+            // background-color: #f1eded;
+
         }
 
         .person {
-            flex : 1;
+            flex: 1;
             color: rgba(8, 8, 8, 0.4);
         }
     }
@@ -146,21 +195,27 @@
         white-space       : normal !important;
         -webkit-line-clamp: 1;
         -webkit-box-orient: vertical;
-        padding-bottom: 12rpx;
+        padding-bottom    : 12rpx;
     }
 
     .tip_wrpa {
         padding: 12rpx 4rpx 24rpx;
+        display: flex;
+        flex-direction: row;
         .tip {
+            display: flex;
             background-color: #FDB28B;
-            color: white;
-            border-radius: 8rpx;
+            color           : white;
+            border-radius   : 8rpx;
             // border       : 1rpx solid #FDB28B;
             // color        : #FDB28B;
-            padding      : 6rpx;
-            border-radius: 6rpx;
-            margin-left  : 12rpx;
-            font-size: 20rpx;
+            padding         : 6rpx;
+            border-radius   : 6rpx;
+            margin-left     : 12rpx;
+            font-size       : 20rpx;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
         }
     }
 }

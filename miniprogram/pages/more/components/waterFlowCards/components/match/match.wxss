@@ -4,6 +4,7 @@
   justify-content: center;
   overflow: hidden;
   margin: 10rpx;
+  height: 100%;
 }
 .left {
   width: 360rpx;
@@ -23,18 +24,27 @@
   margin-bottom: 10rpx;
   overflow: hidden;
 }
-.pic_Label {
-  /* color:rgb(252, 219, 129);
-    margin-right: 5px;
-    font-size: 24rpx; */
-  color: white;
-  background-color: #e68282;
-  font-size: 20rpx;
-  padding: 4rpx 8rpx;
-  /* margin       : 0rpx auto ; */
-  margin-right: 10rpx;
+.pic .host {
+  display: flex;
+  align-items: center;
+  z-index: 999999;
+  float: left;
+  position: relative;
+  left: 20rpx;
+  font-size: 28rpx;
+  color: #000000;
+  /* height             : 20rpx; */
+  padding: 3rpx;
+  border-radius: 8rpx;
   vertical-align: middle;
-  border-radius: 5rpx;
+  opacity: 1;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  white-space: normal !important;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 }
 .pic_Title {
   color: #000000;
@@ -48,42 +58,6 @@
   word-break: break-all;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
-}
-.text_user {
-  width: 35rpx;
-  height: 35rpx;
-  border-radius: 50rpx;
-  margin: 15rpx 21rpx;
-}
-.text_username {
-  font-size: 20rpx;
-  position: relative;
-  bottom: 22rpx;
-  right: 10rpx;
-  color: rgba(128, 128, 128, 0.8);
-}
-.comment {
-  width: 20rpx;
-  height: 20rpx;
-  position: sticky;
-  left: 240rpx;
-  bottom: 13rpx;
-}
-.commentImg {
-  width: 32rpx;
-  height: 32rpx;
-  /* position: relative;
-    bottom     : 10rpx;
-    left       : 150rpx; */
-  /* margin  : 10rpx 0rpx 10rpx 150rpx; */
-}
-.commentNum {
-  font-size: 22rpx;
-  position: relative;
-  bottom: 8rpx;
-  padding-top: 2rpx;
-  left: 2rpx;
-  color: rgba(0, 0, 0, 0.4);
 }
 @media (prefers-color-scheme: dark) {
   .pic {
@@ -107,10 +81,12 @@
   padding: 4rpx 16rpx;
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  padding-bottom: 12rpx;
+  padding-top: 12rpx;
 }
 .match_wrap .mess_wrap .time {
   flex: 2;
-  padding-bottom: 12rpx;
 }
 .match_wrap .mess_wrap .person {
   flex: 1;
@@ -130,8 +106,11 @@
 }
 .match_wrap .tip_wrpa {
   padding: 12rpx 4rpx 24rpx;
+  display: flex;
+  flex-direction: row;
 }
 .match_wrap .tip_wrpa .tip {
+  display: flex;
   background-color: #FDB28B;
   color: white;
   border-radius: 8rpx;
@@ -139,4 +118,7 @@
   border-radius: 6rpx;
   margin-left: 12rpx;
   font-size: 20rpx;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
 }
