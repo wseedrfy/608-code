@@ -252,21 +252,72 @@ page{
   border-radius: 20rpx;
   height: 200rpx;
 }
-
-.other{
-  margin-top: 17rpx;
-  border-radius: 20rpx;
-  margin-left: 20rpx;
-  display: flex;
-  flex-direction: row;
-  height: 200rpx;
-  width: 730rpx;
-}
 .zt {
   font-size: 30rpx;margin-left: 20rpx;margin-top: 25rpx; color: #393939;
 }
 .otherkp{
   position: absolute; margin-left: 170rpx; margin-top:75rpx
+}
+.other{
+  border-radius: 20rpx;
+  margin: 17rpx 20rpx 17rpx 20rpx;
+  display: flex;
+  flex-direction: column;
+  height: 400rpx;
+  width: 712rpx;
+  background-color: #343458;
+  /* #343458 背景黑
+  #626076 打卡标题灰
+  #66637e 底部背景灰
+  #bdbbd1 底部浅白
+  #a4a3b5 数据浅白
+  #59c3c1 绿
+  #18bdac 课表绿 */
+}
+.other_daka_topbox{
+  height: 77%;
+  /* background: gray; */
+  border-radius: 20rpx 20rpx 0 0;
+  display: flex;
+  flex-direction: row;
+}
+.other_daka_topbox_left{
+  width: 50%;
+  /* background-color: green; */
+  border-radius: 20rpx 0rpx 0 0;
+  display: flex;
+  flex-direction: column;
+}
+.other_daka_topbox_left_title{
+  height: 18%;
+  /* background-color: gray; */
+  border-radius: 20rpx 0rpx 0 0;
+}
+.other_daka_topbox_left_title_text{
+  height: 80%;
+  width: 40%;
+  border-radius: 20rpx;
+  background-color: #626076;
+  text-align: center;
+  font-size: 25rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+.other_daka_topbox_left_dakadata{
+  height: 82%;
+}
+
+.other_daka_topbox_right{
+  width: 50%;
+  background-color: hotpink;
+  border-radius: 0rpx 20rpx 0 0;
+}
+.other_daka_bottombox{
+  height: 23%;
+  background-color: #66637e;
+  border-radius: 0 0 20rpx 20rpx;
 }
 @media (prefers-color-scheme: dark) {
   .wx-remind-mask{

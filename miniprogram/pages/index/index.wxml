@@ -72,8 +72,33 @@
 
   <!-- 其他功能 -->
   <!-- <view class="other">
-
-    <view class="countdown" style="border-color:{{theme ?' rgba(135,206,235, 0.13)': '#fcfbfb'}};">
+    <view class="other_daka_topbox">
+      <view class="other_daka_topbox_left">
+        <view class="other_daka_topbox_left_title">
+          <view class="other_daka_topbox_left_title_text">每日打卡</view>
+        </view>
+        <view class="other_daka_topbox_left_dakadata">
+          <scroll-view>
+            <view class="other_daka_topbox_left_dakadata_task">冥想5分钟</view>
+            <view class="other_daka_topbox_left_dakadata_task">晚10点睡觉</view>
+            <view class="other_daka_topbox_left_dakadata_task">健身半小时</view>
+            <view class="other_daka_topbox_left_dakadata_task">跑步800米</view>
+          </scroll-view>
+        </view>
+      </view>
+      <view class="other_daka_topbox_right">
+        <view class="other_daka_topbox_right_dakaday"></view>
+        <view class="other_daka_topbox_right_dakaimage">
+          <image></image>
+        </view>
+      </view>
+    </view>
+    <view class="other_daka_bottombox">
+      <view class="other_daka_bottombox_left"></view>
+      <view class="other_daka_bottombox_right"></view>
+    </view>
+  </view> -->
+      <!-- <view class="countdown" style="border-color:{{theme ?' rgba(135,206,235, 0.13)': '#fcfbfb'}};">
 
       <view class="wx-remind-mask">
         <view class="otherkp">
@@ -91,9 +116,9 @@
           </view>
         </view>
       </view>
-    </view>
-    <view class="countdown" style="border-color:{{theme?' rgba(135,206,235, 0.13)': '#fcfbfb'}};">
-
+    </view> -->
+    <!-- <view class="countdown" style="border-color:{{theme?' rgba(135,206,235, 0.13)': 
+    '#fcfbfb'}};">
       <view class="wx-remind-mask">
         <view class="zt">
           打卡
@@ -110,9 +135,8 @@
             <text style="color: #4afa61;"> 20分钟</text>
           </view>
         </view>
-      </view>
-    </view>
-  </view> -->
+      </view> 
+    </view> -->
   <!-- 测试用，不要删 -->
   <!-- <view class="wx-remind-detail" bindtap="tomato"><text>test1</text></view>
   <view class="wx-remind-detail" bindtap="daka"><text>test2</text></view> -->

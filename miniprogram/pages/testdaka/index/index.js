@@ -199,10 +199,13 @@ Page({
     },
     //canvas初始化
     sharecanvas_new(){
+      wx.showLoading({
+        title: '生成中',
+        mask:true,
+      })
         let that =this;
         let wpx = wx.getSystemInfoSync().windowWidth/375
         let iconurl = wx.getStorageSync('args').iconUrl;
-        
         const query = wx.createSelectorQuery()
         query.select('#shareCanvas')
         .fields({ node: true, size: true })
@@ -216,9 +219,6 @@ Page({
           ctx.scale( dpr,dpr)
           this.setData({
             ctx,canvas,wpx
-          })
-          wx.showLoading({
-            title: '生成中',
           })
           this.draw_new_bg(ctx,canvas,wpx)//开始画图
         })
