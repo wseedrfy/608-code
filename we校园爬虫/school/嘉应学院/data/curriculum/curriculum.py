@@ -29,9 +29,9 @@ def curriculum(username,session):
         else:
             a = jc[0]
         if int(jc[1]) < 10:
-            b = '0' + jc[0]
+            b = '0' + jc[1]
         else:
-            b = jc[0]
+            b = jc[1]
 
         for i in zcd:
             d = re.findall("(\d+)", i)
