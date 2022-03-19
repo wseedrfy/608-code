@@ -9,6 +9,8 @@ const app = getApp()
 
 Page({
   data: {
+    modle:["https://636c-cloud1-6gtqj1v4873bad50-1307814679.tcb.qcloud.la/tomato_daka/%E5%83%8F%E7%B4%A0%E7%94%BB%E4%BA%BA%E7%89%A92.png?sign=312a73ffb6956314699bb6dd723524b6&t=1647683154","https://636c-cloud1-6gtqj1v4873bad50-1307814679.tcb.qcloud.la/tomato_daka/%E5%83%8F%E7%B4%A0%E7%94%BB%E4%BA%BA%E7%89%A94.png?sign=a60a5b2426a09e42f4511405b033cacb&t=1647683175","https://636c-cloud1-6gtqj1v4873bad50-1307814679.tcb.qcloud.la/tomato_daka/%E5%83%8F%E7%B4%A0%E7%94%BB%E4%BA%BA%E7%89%A96.png?sign=fcca8d7a1f445cb3882ac003423b1f15&t=1647683193","https://636c-cloud1-6gtqj1v4873bad50-1307814679.tcb.qcloud.la/tomato_daka/%E5%83%8F%E7%B4%A0%E7%94%BB%E4%BA%BA%E7%89%A95.png?sign=95ee702d75515ef883087580402b42cc&t=1647683205"],
+    modle_display:"",
     theme: true,
     dark : wx.getSystemInfoSync().theme,
     time: {
@@ -44,7 +46,9 @@ Page({
   },
   async onLoad(options) {
     
-
+    let num=Math.floor(Math.random() * (this.data.modle.length-1));
+    let res = this.data.modle[num]
+    this.setData({modle_display:res})
     var that = this;
     wx.onThemeChange(function (e) {
       that.setData({ dark:  e.theme  });
