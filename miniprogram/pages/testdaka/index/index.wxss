@@ -1,9 +1,12 @@
 /* pages/testdaka/index/index.wxss */
+page{
+  background-color:  #F4F4F4;
+}
 .bg{
     background-color:  #F4F4F4;
     /* height: 100vh; */
     height: auto;
-    height: 130vh;
+    /* height: 130vh; */
     width: 100%;
     /* position:fixed; */
 }
@@ -110,14 +113,15 @@
         /* padding: 24rpx 0; */
 }
 .dayclock_data_column_2_task{
-    margin: 20rpx auto 0 22rpx;
+    margin: 13rpx auto 0 22rpx;
     font-size: 25rpx;
     font-family: Source Han Sans CN;
     font-weight: 600;
     color: #666666;
 }
 .dayclock_data_column_2_cycle{
-    margin: 6rpx auto auto 22rpx;
+    margin: 6rpx auto 6rpx 22rpx;
+    padding: 6rpx auto 6rspx 22rpx;
     font-size: 18rpx;
     font-family: Source Han Sans CN;
     font-weight: 500;
@@ -285,9 +289,10 @@
     top: 200rpx;
     left: 88rpx;
     width: 570rpx;
-    height: 700rpx;
+    /* height: 700rpx; */
     background-color: #fff;
     border-radius: 40rpx;
+    padding-bottom:30rpx;
   }
   .attention_close{
     height: 70rpx;
@@ -442,6 +447,7 @@
 }
 .attention_text_duanluo{
   margin: 10rpx 40rpx;
+  text-align: justify;
 }
 .attention_text_duanluo >view{
   line-height: 75rpx;

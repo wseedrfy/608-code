@@ -19,11 +19,11 @@
     </view>
     <view class="end">
       <view class="end_left">
-        <text class="end_state">{{item.Label}}</text>
-        <text class="end_reward" style="display:{{item.Other=='悬赏'?'block':'none'}}">
+        <view class="end_state">{{item.Label}}</view>
+        <view class="end_reward" style="display:{{item.Other=='悬赏'?'block':'none'}}">
           {{item.Other}}
-        </text>
-        <text class="end_state color1">{{item.LoseType}}</text>
+        </view>
+        <view class="end_state color1">{{item.LoseType}}</view>
       </view>
       <view class="body color2" style="display:{{item.LoseState?'block':'none'}}">已找到</view>
     </view>
