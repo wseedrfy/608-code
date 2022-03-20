@@ -19,5 +19,4 @@ def getData_GDLG(username, password):
     return data(session)
 
 
-print(getData_GDLG("2112408040416", "Sdlsjs2bsd+"))
-
+print(getData_GDLG('2112402040530', 'Wbf680218/'))

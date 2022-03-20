@@ -10,6 +10,7 @@ from another.YiBan import YiBan_login,YiBan_post
 from school.广东石油化工学院.main import upData_GY,getData_GY
 from school.嘉应学院.main import login_JY,getData_JY
 from school.广东理工学院.main import login_GDLG,getData_GDLG
+from school.广东医科大学.main import login_GYK,getData_GYK
 # from another.chemical import chemical_chemistry,chemical_chemical_two,chemical_F_value
 
 # import logging

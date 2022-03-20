@@ -62,22 +62,22 @@ Page({
     ],
     data_list: [
       {
-        img: "img/freshman.png",
+        img: "img/freshman_data.png",
         name: "招新数据",
         tap: "goFreshmanData"
       },
       {
-        img: "img/match.png",
+        img: "img/match_data.png",
         name: "赛事反馈",
         tap: "goMatchData"
       },
       {
-        img: "img/delete.png",
+        img: "img/more.png",
         name: "推广数据",
         tap: "loading"
       },
       {
-        img: "img/delete.png",
+        img: "img/more.png",
         name: "创作中心",
         tap: "loading"
       },

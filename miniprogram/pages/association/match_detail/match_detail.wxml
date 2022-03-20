@@ -1,13 +1,18 @@
 <view class="wrap">
-    <view class="img">
-        <image src="/images/Camera-3.png" hidden="{{imgUrl}}" bind:tap="addImg" />
-        <swiper indicator-dots='true' indicator-color="#fff" indicator-active-color='red' current="{{current}}" hidden="{{!imgUrl}}">
-            <block>
-                <swiper-item>
-                    <image data-src="{{imgUrl}}" src="{{imgUrl}}" mode="aspectFill" style="z-index: 11;width:600rpx;height:100%;" />
-                </swiper-item>
-            </block>
-        </swiper>
+    <view class="top_wrap">
+        <view class="img">
+            <image src="/images/Camera-3.png" hidden="{{imgUrl}}" bind:tap="addImg" />
+        </view>
+        <view class="img_1">
+            <swiper indicator-dots='true' indicator-color="#fff" indicator-active-color='red' current="{{current}}" hidden="{{!imgUrl}}">
+                <block>
+                    <swiper-item>
+                        <image bind:longpress="changeImg" data-src="{{imgUrl}}" src="{{imgUrl}}" mode="aspectFill" style="z-index: 11;width:100%;height:100%" class="imgUrl" />
+                    </swiper-item>
+                </block>
+            </swiper>
+        </view>
+        <view class="title" >[宣传海报]长按修改</view>
     </view>
     <view class="content_wrap">
         <view class="top_wrap">

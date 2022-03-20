@@ -72,6 +72,7 @@ exports.main = async (event, context) => {
         borderArr: event.borderArr,
         date: event.date,
         personArr: [],
+        match_id: event.match_id
       }
     })
   }
@@ -104,8 +105,9 @@ exports.main = async (event, context) => {
         assoName: event.assoName,
         assoCount: event.assoCount,
         pusherCount: event.pusherCount,
-        match_id: event.match_id,
+        CampusCircle_id: event.match_id,
         index: event.index,
+        match_id: event.match_id,
         read: false
       }
     })

@@ -1,14 +1,28 @@
 page {
   background-color: #f6f6f6;
 }
-.wrap .img {
+.wrap .top_wrap {
+  border-radius: 24rpx;
+  padding: 24rpx;
+  background-color: white;
+  margin: 24rpx;
+}
+.wrap .top_wrap .img {
   background-color: rgba(241, 229, 201, 0.26);
   text-align: center;
+  justify-content: center;
+  align-content: center;
 }
-.wrap .img image {
+.wrap .top_wrap .img image {
   padding: 96rpx;
   width: 90rpx;
   height: 90rpx;
+}
+.wrap .top_wrap .title {
+  text-align: center;
+  padding: 12rpx;
+  font-size: 28rpx;
+  font-weight: 700;
 }
 .wrap .content_wrap {
   padding: 24rpx;

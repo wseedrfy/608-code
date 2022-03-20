@@ -626,7 +626,12 @@ Page({
                 type:"getDakaRecord_ByHashId",
                 hashId:hashid,
             }
-        })
+        }).catch(err => {
+          wx.showToast({
+            title: '网络请求失败',
+            icon: 'none',
+          })
+      })
         console.log(result);
         //细节坑：预防第一次打卡没有daka_lastTime的情况
         var daka_lastTime = new Date(result.result.data[0].daka_lastTime);
@@ -735,7 +740,12 @@ Page({
                 type:"delDakaRecord_ByHashId",
                 hashId:hashid,
             }
-        })
+        }).catch(err => {
+          wx.showToast({
+            title: '网络请求失败',
+            icon: 'none',
+          })
+      })
 
         console.log('删除：',id)
     },
@@ -744,7 +754,6 @@ Page({
     async getDaka_record(){
         let that = this
         let username = wx.getStorageSync('args').username
-        console.log(username);
         if(username){
         //用username查找uuid
         var dakaArr = [];
@@ -800,19 +809,25 @@ Page({
                             hashId:hashid,
                             isDaka:false,
                         }
-                    })
+                    }).catch(err => {
+                      wx.showToast({
+                        title: '网络请求失败',
+                        icon: 'none',
+                      })
+                  })
                 }
             }
             
             obj.task_isDaka = task_isDakaTemp;
-            console.log(obj.task_isDaka);
             dakaArr.push(obj);
         }
         console.log(dakaArr);
         this.setData({
             taskdata:dakaArr
         })
-        console.log(this.data.taskdata);
+        //放入缓存
+        wx.setStorageSync('dakaArr', dakaArr);
+        // wx.getStorageSync('dakaArr');
       }
     },
     /**
