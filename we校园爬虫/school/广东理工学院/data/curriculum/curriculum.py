@@ -1,11 +1,12 @@
 import re
+import requests
 from bs4 import BeautifulSoup
-from lib.proxy import proxy_dict
+from school.广东理工学院.login.login import login
 
 
 def curriculum(session):
     try:
-        res = session.get('http://jwxt.gdlgxy.edu.cn/jsxsd/xskb/xskb_list.do', proxies=proxy_dictcd).text
+        res = session.get('http://121.40.128.199:81/jsxsd/xskb/xskb_list.do').text
 
         a, _ = re.subn('\r', '', res)
         a, _ = re.subn('\n', '', a)
@@ -21,8 +22,9 @@ def curriculum(session):
             '5': 'D6841451324848E5B9B825A03AD94414'
         }
         all = []
+        arr_all = []
         for section in range(1, 6):
-            for day in range(1, 7):
+            for day in range(1, 8):
                 soup = BeautifulSoup(tr[section], 'html.parser')
                 id = f"{weekday[str(section)]}-{day}-2"
                 div = soup.find(attrs={'id': id})
@@ -37,45 +39,66 @@ def curriculum(session):
                 arr = []
                 for i in range(len(div)):
                     div[i] = div[i].split('<br>')
+                    # print(div[i])
                     for j in div[i]:
                         if j != '---------------------' and j != '':
                             arr.append(j)
-                if len(arr) > 2:
-                    n = len(arr) // 4
-                    for l in range(0, n):
-                        week = arr[4 * l + 2].split('(周)')[0]
-                        # print(week)
-                        a = re.findall('(\d+)-(\d+)', week)
-                        b = week.split(',')
-                        if section < 5:
-                            c = f'0{section * 1}0{section * 2}'
-                        elif section == 5:
-                            c = f'0910'
-                        else:
-                            c = f'{section * 1}{section * 2}'
-                        if len(b) > 1:
-                            for h in b:
-                                obj = {
-                                    'jcdm': c,  # 第几节课
-                                    'jxcdmc': arr[4 * l + 3],  # 教室
-                                    'kcmc': arr[4 * l],  # 课程名称
-                                    'teaxms': arr[4 * l + 1],  # 任课教师
-                                    'xq': day,  # 星期几
-                                    'zc': h  # 第几周
-                                }
-                                all.append(obj)
-                        if (len(a) > 0):
-                            for h in range(int(a[0][0]), int(a[0][1]) + 1):
-                                obj = {
-                                    'jcdm': c,  # 第几节课
-                                    'jxcdmc': arr[4 * l + 3],  # 教室
-                                    'kcmc': arr[4 * l],  # 课程名称
-                                    'teaxms': arr[4 * l + 1],  # 任课教师
-                                    'xq': day,  # 星期几
-                                    'zc': h  # 第几周
-                                }
-                                all.append(obj)
+                # print(arr)
+                if len(arr) > 6:
+                    n = len(arr) // 2
+                    B = arr[:n]
+                    C = arr[n:]
+                    isarr(B)
+                    isarr(C)
+                    get(B, day, all)
+                    get(C, day, all)
+                else:
+                    if len(arr) > 2:
+                        isarr(arr)
+                        get(arr, day, all)
+
         return all
     except Exception as e:
         print(e)
         return []
+
+
+
+def get(arr, day, all):
+    week = arr[2].split('(周)')[0]
+    # print(week)
+    a = re.findall('(\d+)-(\d+)', week)
+    b = week.split(',')
+    c = re.findall('(\d+)-(\d+)', arr[2].split('(周)')[1])[0]
+    if len(a)>0:
+        m=a[0]
+        for h in range(int(m[0]), int(m[1]) + 1):
+            obj = {
+                'jcdm': c[0] + c[1],  # 第几节课
+                'jxcdmc': arr[3],  # 教室
+                'kcmc': arr[0],  # 课程名称
+                'teaxms': arr[1],  # 任课教师
+                'xq': day,  # 星期几
+                'zc': h  # 第几周
+            }
+            all.append(obj)
+    elif len(b)> 0:
+        for h in b:
+            obj = {
+                'jcdm': c[0] + c[1],  # 第几节课
+                'jxcdmc': arr[3],  # 教室
+                'kcmc': arr[0],  # 课程名称
+                'teaxms': arr[1],  # 任课教师
+                'xq': day,  # 星期几
+                'zc': h  # 第几周
+            }
+            all.append(obj)
+
+        # print(arr)
+def isarr(arr):
+    if '(' in arr[1]:
+        arr[0]=arr[0]+arr[1]
+        arr[1]=arr[2]
+        arr[2]=arr[3]
+        arr[3]=arr[4]
+        arr.pop()

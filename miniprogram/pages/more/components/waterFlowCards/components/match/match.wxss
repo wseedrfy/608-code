@@ -1,42 +1,41 @@
-.content {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  overflow: hidden;
-  margin: 10rpx;
-}
-.left {
-  width: 360rpx;
-}
-.right {
-  width: 360rpx;
-  margin-left: 10rpx;
-}
-.Show_Image {
-  width: 360rpx;
-  background-color: #ebebebd8;
-}
 .pic {
   border-radius: 10rpx;
   width: 360rpx;
   background-color: #ffffff;
-  margin-bottom: 10rpx;
+  margin-bottom: 15rpx;
   overflow: hidden;
 }
-.pic_Label {
-  /* color:rgb(252, 219, 129);
-    margin-right: 5px;
-    font-size: 24rpx; */
-  color: white;
-  background-color: #e68282;
-  font-size: 20rpx;
-  padding: 4rpx 8rpx;
-  /* margin       : 0rpx auto ; */
-  margin-right: 10rpx;
-  vertical-align: middle;
-  border-radius: 5rpx;
+.pic .Show_Image {
+  width: 360rpx;
+  background-color: #ebebebd8;
 }
-.pic_Title {
+.pic .local_block {
+  height: 0rpx;
+}
+.pic .local_block .local {
+  display: flex;
+  align-items: center;
+  z-index: 999;
+  float: left;
+  bottom: 50rpx;
+  padding-left: 12rpx;
+  font-size: 20rpx;
+  color: white;
+  vertical-align: middle;
+  opacity: 1;
+  position: relative;
+  background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4));
+  /* height           : 30%; */
+  width: 100%;
+  /* opacity          : 0.2; */
+}
+.pic .local_block .local .local_text {
+  opacity: 1;
+  font-size: 24rpx;
+  color: white;
+  padding: 5rpx 3rpx;
+}
+.pic .content_wrap .pic_Title {
   color: #000000;
   font-size: 28rpx;
   font-family: "Arial", "Microsoft YaHei", "黑体", "宋体", sans-serif;
@@ -49,41 +48,41 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
-.text_user {
-  width: 35rpx;
-  height: 35rpx;
-  border-radius: 50rpx;
-  margin: 15rpx 21rpx;
-}
-.text_username {
-  font-size: 20rpx;
-  position: relative;
-  bottom: 22rpx;
-  right: 10rpx;
-  color: rgba(128, 128, 128, 0.8);
-}
-.comment {
-  width: 20rpx;
-  height: 20rpx;
-  position: sticky;
-  left: 240rpx;
-  bottom: 13rpx;
-}
-.commentImg {
-  width: 32rpx;
-  height: 32rpx;
-  /* position: relative;
-    bottom     : 10rpx;
-    left       : 150rpx; */
-  /* margin  : 10rpx 0rpx 10rpx 150rpx; */
-}
-.commentNum {
+.pic .content_wrap .match_wrap {
+  display: flex;
+  flex-direction: column;
   font-size: 22rpx;
-  position: relative;
-  bottom: 8rpx;
-  padding-top: 2rpx;
-  left: 2rpx;
-  color: rgba(0, 0, 0, 0.4);
+  padding: 4rpx 8rpx;
+}
+.pic .content_wrap .match_wrap .mess_wrap {
+  padding: 12rpx 16rpx 22rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.pic .content_wrap .match_wrap .mess_wrap .time {
+  flex: 2;
+  color: rgba(73, 73, 73, 0.726);
+}
+.pic .content_wrap .match_wrap .mess_wrap .person {
+  flex: 1;
+  color: rgba(8, 8, 8, 0.4);
+}
+.pic .content_wrap .match_wrap .tip_wrpa {
+  padding: 10rpx 4rpx;
+  display: flex;
+  flex-direction: row;
+}
+.pic .content_wrap .match_wrap .tip_wrpa .tip {
+  display: flex;
+  color: white;
+  padding: 4rpx;
+  border-radius: 6rpx;
+  margin-left: 12rpx;
+  font-size: 20rpx;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
 }
 @media (prefers-color-scheme: dark) {
   .pic {
@@ -96,47 +95,4 @@
   .pic_Label {
     filter: invert(100%) !important;
   }
-}
-.match_wrap {
-  display: flex;
-  flex-direction: column;
-  font-size: 22rpx;
-  padding: 4rpx 8rpx;
-}
-.match_wrap .mess_wrap {
-  padding: 4rpx 16rpx;
-  display: flex;
-  flex-direction: row;
-}
-.match_wrap .mess_wrap .time {
-  flex: 2;
-  padding-bottom: 12rpx;
-}
-.match_wrap .mess_wrap .person {
-  flex: 1;
-  color: rgba(8, 8, 8, 0.4);
-}
-.match_wrap .host {
-  padding: 4rpx 16rpx;
-  color: #8d8c8c;
-  display: -webkit-box;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  word-wrap: break-word;
-  white-space: normal !important;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  padding-bottom: 12rpx;
-}
-.match_wrap .tip_wrpa {
-  padding: 12rpx 4rpx 24rpx;
-}
-.match_wrap .tip_wrpa .tip {
-  background-color: #FDB28B;
-  color: white;
-  border-radius: 8rpx;
-  padding: 6rpx;
-  border-radius: 6rpx;
-  margin-left: 12rpx;
-  font-size: 20rpx;
 }

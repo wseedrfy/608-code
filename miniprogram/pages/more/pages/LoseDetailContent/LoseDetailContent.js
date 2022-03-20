@@ -114,14 +114,9 @@ Page({
             nickName: that.data.content.nickName
           }
           var type2 = 'CancelCommentControlLogs'
-          if(inIndex != undefined || inIndex != -1){
-            be_character.iconUrl = that.data.CommentList[outIndex].Reply[inIndex].iconUser,
-            be_character.nickName = that.data.CommentList[outIndex].Reply[inIndex].nickName
-            type2 = 'CancelReplyControlLogs'
-            that.data.CommentList[outIndex].Reply.splice(inIndex, 1)
-          }else{
+
             that.data.CommentList.splice(outIndex, 1)
-          }
+  
           that.callFunction_New(type2,be_character)
           that.ShowComment()
           // 更新全局

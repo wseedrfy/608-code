@@ -437,7 +437,6 @@ Page({
       school: args.school        // 获取学校
     })
     for(let i in tabitem) {
-      console.log(i);
       this.selectComponent(`#waterFlowCards${i}`).setData({ loadAll: false });
     }
     

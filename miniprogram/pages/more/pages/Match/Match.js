@@ -51,7 +51,7 @@ Page({
     let args = wx.getStorageSync('args');
     count = args.username
     // 比赛状态
-    this.judgeMatch(count, content._id)
+    this.judgeMatch(count, content.match_id)
     //查询点击状态
     wx.cloud.callFunction({
       name: "associationSend",
@@ -207,8 +207,9 @@ Page({
                   assoName: data.content.assoMess.association,
                   assoCount: data.content.assoMess.card,
                   pusherCount: count,
-                  match_id: data.content._id,
-                  index: data.content.assoMess.card
+                  CampusCircle_id: data.content._id,
+                  index: data.content.assoMess.card,
+                  match_id: data.content.match_id
                 }
               }).then(res => {
                 console.log(res);
