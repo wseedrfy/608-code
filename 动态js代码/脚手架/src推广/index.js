@@ -73,7 +73,8 @@ Page({
 
   btn(e){
     console.log(e)
-    let index = Number(e.target.id)
+    let index = Number(e.currentTarget.id)
+    console.log(index)
     let res = this.data.detail[index]
     console.log(res)
     wx.navigateToMiniProgram({
