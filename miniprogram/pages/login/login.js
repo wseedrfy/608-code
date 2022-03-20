@@ -55,18 +55,27 @@ Page({
       schoolName: true, //默认显示_id，这个隐藏
       url: true,
       location: true,
+      open: true
     }).get()).data
+    const open = false
     res.forEach(e => {
+      if(e.open === true){
+        open = true
+      }
       if (e.schoolName !== '空' | "游客登录") {
         this.data.school.push(e.schoolName)
         this.data.urls.push(e.url)
       }
     })
-
+    if(open){
+      res = [{schoolName : '广东石油化工学院'}]
+      this.data.school = ["广东石油化工学院"]
+    }
     this.setData({
       res: res,
       school: that.data.school
     });
+    console.log(this.data.school)
     wx.hideLoading();
     wx.showLoading({
       title: '地点获取中',
