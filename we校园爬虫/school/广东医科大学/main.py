@@ -1,6 +1,6 @@
 import requests
-from school.嘉应学院.login.login import login
-from school.嘉应学院.data.data import data
+from school.广东医科大学.login.login import login
+from school.广东医科大学.data.data import data
 
 
 
