@@ -23,12 +23,35 @@ function setAllList(allList,type) {
                 pages[pages.length -2].onLoad();
             }
         }
+     
         // 校园圈首页更新
         let e = {
             detail: allList
         }
         morePage.setAllList(e, "点赞和评论");
     };
+    const SetFindComment = (allList) =>{
+        console.log(pages)
+        if(pages[pages.length -2]) {
+            if(pages[pages.length -2].route == "pages/more/pages/UserContent/UserContent"||"pages/more/more") {
+                console.log(222222222)
+                pages[pages.length -2].onLoad();
+            }
+           
+        }
+        // if(pages[pages.length -1]) {
+        //     console.log(33333333333)
+        //     if(pages[pages.length -1].route == "pages/more/more") {
+        //          console.log(3333333)
+
+        //         pages[pages.length -1].onLoad();
+        //     }
+        // }
+        let e = {
+            detail: allList
+        }
+        morePage.setAllList(e, "点赞和评论");
+    }
     const setCardQuick = (allList) => {
         // 校园圈首页更新
         let e = {
@@ -82,6 +105,8 @@ function setAllList(allList,type) {
         case "删除卡片":
             delCard(allList);
             break;
+        case "寻物发布":
+            SetFindComment(allList)
     }
     
     
@@ -89,6 +114,6 @@ function setAllList(allList,type) {
 
 
 module.exports = {
-    setAllList
-
+    setAllList,
+    // setStarAndComment
 }

@@ -1,3 +1,4 @@
+const db = wx.cloud.database({env:'mall-7gi19fir46652cb4'})
 
 Page({
 
@@ -5,6 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    shop_m: [],
+    item: {}
 
   },
 
@@ -12,7 +15,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    var that = this;
+    wx.showLoading({
+      title: '加载中...',
+      mask: true
+    });
+    db.collection('shop_m').get().then(res => {
+        that.setData({shop_m: res.data})
+        console.log(that.data.shop_m)
+        wx.hideLoading({
+        })
+    
+    })
   },
 
   goin: function (e) {

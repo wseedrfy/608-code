@@ -45,6 +45,7 @@ Component({
   },
   methods: {
     ShowContent: function (e) {
+      console.log(this.data.item.LoseState)
       //对数据进行更新
       // var content = JSON.stringify(this.data.item)
       let content = {
@@ -56,6 +57,7 @@ Component({
         Label: this.data.item.Label,
         LoseTime: this.data.item.LoseTime,
         LoseType: this.data.item.LoseType,
+        LoseState:this.data.item.LoseState,
         Other: this.data.item.Other,
         School: this.data.item.School,
         ShowHeight: this.data.item.ShowHeight,
