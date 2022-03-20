@@ -43,7 +43,8 @@ Page({
         {Eng_daytext:"Hang in there!Come on!",Ch_daytext:"坚持下来！加油！"},
         {Eng_daytext:"Don't worry about things you can't control.",Ch_daytext:"不要担心你控制不了的东西。"}
       ],
-        arr :["http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mccErIrW3xz*gbdII0f2XxWb532vMFM40Z1GLB1qy0PJerOEUFI*g*oZuZ35D1lhyDT.clH6YZMOs3.8EPCzGmVA!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mccErIrW3xz*gbdII0f2XxWYzgI97WA4qJSXOKv*.4QFn3Eg2qYyEPp*FEqQ324LfbLGZlnl2rr4FS5hFO8u0ZTs!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcWo.8232YNIC*jkUYG2CaL02oENRjq4FgVYfJRGAQkUFIHqSHOgKJN7PwN8eneBAJ3Xuao69KnlIiWFTLek*xbA!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcWo.8232YNIC*jkUYG2CaL0U9WK413d9yuItDSS6iVc8eijth7NxjoSIIegtYx1e5ge50x9TYGSoI1tspf4Eo4Y!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcWo.8232YNIC*jkUYG2CaL3iIKgpjMwyrYqipU5hEly9ayItSyv33FzZ4ib5F9ve2AlY40CT8VGvo4aYHsf4PaI!/r","http://m.qpic.cn/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcWo.8232YNIC*jkUYG2CaL1gQqPp*29X8poNeV1JgSwuGeLqduMlr1RfAksUAUYIEPN37EwlqtdvxQ8SPnTaRYw!/b&bo=OAQFBTgEBQUBKQ4!&rf=viewer_4","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcddykwK5pChyfjlr.MGCQ8Mn1xgktufw23sOXfGiwfYDceE0Sm9dtSOJoxNd6a7mGPCV7NonZqctFYy6dWw2wn8!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcddykwK5pChyfjlr.MGCQ8OEqMkdr*5dA3.jQ3lK3l3d1xwMgnjGXM*Y9JKOWn5MTRAO1dRfUGwgWxQMZXcIruI!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcddykwK5pChyfjlr.MGCQ8OSyjf8imUzh5VQeto*9CH6YmXSw9chNfjsZZaZbpwP1*tcOKZUfgBNpQu6qOdbkn8!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcddykwK5pChyfjlr.MGCQ8MmLdH4z*DD*NoKPNIx.71uvCzHA4Lbvag7wPzA.B9B1LLHvxmZlw5RV9ozcVBUx1w!/r"]
+      
+      arr :["http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mccErIrW3xz*gbdII0f2XxWb532vMFM40Z1GLB1qy0PJerOEUFI*g*oZuZ35D1lhyDT.clH6YZMOs3.8EPCzGmVA!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mccErIrW3xz*gbdII0f2XxWYzgI97WA4qJSXOKv*.4QFn3Eg2qYyEPp*FEqQ324LfbLGZlnl2rr4FS5hFO8u0ZTs!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcWo.8232YNIC*jkUYG2CaL02oENRjq4FgVYfJRGAQkUFIHqSHOgKJN7PwN8eneBAJ3Xuao69KnlIiWFTLek*xbA!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcWo.8232YNIC*jkUYG2CaL0U9WK413d9yuItDSS6iVc8eijth7NxjoSIIegtYx1e5ge50x9TYGSoI1tspf4Eo4Y!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcWo.8232YNIC*jkUYG2CaL3iIKgpjMwyrYqipU5hEly9ayItSyv33FzZ4ib5F9ve2AlY40CT8VGvo4aYHsf4PaI!/r","http://m.qpic.cn/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcWo.8232YNIC*jkUYG2CaL1gQqPp*29X8poNeV1JgSwuGeLqduMlr1RfAksUAUYIEPN37EwlqtdvxQ8SPnTaRYw!/b&bo=OAQFBTgEBQUBKQ4!&rf=viewer_4","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcddykwK5pChyfjlr.MGCQ8Mn1xgktufw23sOXfGiwfYDceE0Sm9dtSOJoxNd6a7mGPCV7NonZqctFYy6dWw2wn8!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcddykwK5pChyfjlr.MGCQ8OEqMkdr*5dA3.jQ3lK3l3d1xwMgnjGXM*Y9JKOWn5MTRAO1dRfUGwgWxQMZXcIruI!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcddykwK5pChyfjlr.MGCQ8OSyjf8imUzh5VQeto*9CH6YmXSw9chNfjsZZaZbpwP1*tcOKZUfgBNpQu6qOdbkn8!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcddykwK5pChyfjlr.MGCQ8MmLdH4z*DD*NoKPNIx.71uvCzHA4Lbvag7wPzA.B9B1LLHvxmZlw5RV9ozcVBUx1w!/r"]
     },
     plus: function () {
       if (this.data.isPopping) {
@@ -199,10 +200,13 @@ Page({
     },
     //canvas初始化
     sharecanvas_new(){
+      wx.showLoading({
+        title: '生成中',
+        mask:true,
+      })
         let that =this;
         let wpx = wx.getSystemInfoSync().windowWidth/375
         let iconurl = wx.getStorageSync('args').iconUrl;
-        
         const query = wx.createSelectorQuery()
         query.select('#shareCanvas')
         .fields({ node: true, size: true })
@@ -216,9 +220,6 @@ Page({
           ctx.scale( dpr,dpr)
           this.setData({
             ctx,canvas,wpx
-          })
-          wx.showLoading({
-            title: '生成中',
           })
           this.draw_new_bg(ctx,canvas,wpx)//开始画图
         })
@@ -663,13 +664,14 @@ Page({
             data: {
                 type:"updateDakaRedord_ByHashId",
                 hashId:hashid,
-            }
-        }).catch(err => {
-          wx.showToast({
-            title: '网络请求失败',
-            icon: 'none',
-          })
-      })
+            },
+            fail: err => {
+              wx.showToast({
+                icon: 'none',
+                title: '出错啦！请稍后重试'
+              })
+            }      
+        })
         //要是能成功打卡就打开弹窗可以选择分享
         this.setData({showModel2:true});
         this.sharecanvas_new();
@@ -750,24 +752,27 @@ Page({
 
     //获取数据交与页面渲染
     async getDaka_record(){
-        let username = wx.getStorageSync('args').username;
+        let that = this
+        let username = wx.getStorageSync('args').username
+        console.log(username);
+        if(username){
         //用username查找uuid
         var dakaArr = [];
         //根据username获取到该用户的所有打卡记录
-        const res= await wx.cloud.callFunction({
+        const res = await wx.cloud.callFunction({
             name: "daka",
             data: {
                 type:"getAllDakaRecord",
                 username:username,
                 is_delete:false,
-            }
-        }).catch(err => {
+            },
+        }).catch(err=>{
           wx.showToast({
-            title: '网络请求失败',
             icon: 'none',
+            title: '出错啦！请稍后重试'
           })
-      })
-        console.log(res);
+        })
+
         let data = res.result.data
         for(var i = 0; i < data.length; i++){
             var hashid = data[i].hashId
@@ -823,12 +828,15 @@ Page({
             taskdata:dakaArr
         })
         console.log(this.data.taskdata);
+      }
     },
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad() {
-      
+        // 判断登录
+        let username = wx.getStorageSync('args').username;
+        console.log(username);
         wx.showLoading({
           title: '加载中',
           mask:true
@@ -851,8 +859,6 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow() {
-    //    this.getDaka_record();
-
        var pages = getCurrentPages();
        var currPage = pages[pages.length - 1]; //当前页面
        let json = currPage.data.mydata;

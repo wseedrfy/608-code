@@ -74,15 +74,11 @@ const getweekString = () => {
   }
   var Date2 = new Date(wx.getStorageSync('configData').timeYear);
   var dayOfWeek = Date2.getDay();
-  var day1fWeek = Date1.getDay();
   //如果把周日算在一周的最后一天，请加上下面这句
   dayOfWeek = dayOfWeek == 0 ? 7 : dayOfWeek
   //如果把周日算在一周的第一天，请删除上面这句
   var num = (Date1 - Date2) / 1000 / 3600 / 24;
   var whichWeek = Math.ceil((num + dayOfWeek) / 7);
-  if (day1fWeek == 0) {
-    whichWeek = whichWeek - 1;
-  }
   return whichWeek;
 }
 
@@ -141,6 +137,58 @@ function timeago(dateTimeStamp, format) {	//这里融合了上面的自定义时
   return result;
 }
 
+/*节流*/
+function throttle(fn, interval) {
+ 
+  var enterTime = 0; //触发的时间
+ 
+  var gapTime = interval || 300; //间隔时间，interval默认300ms
+ 
+  return function () {
+ 
+    var context = this;
+ 
+    var backTime = new Date(); //第一次函数return即触发的时间
+ 
+    if (backTime - enterTime > gapTime) {
+ 
+      fn.call(context, arguments);
+ 
+      enterTime = backTime; //赋值给第一次触发的时间，这样就保存了第二次触发的时间
+ 
+    }
+ 
+  };
+ 
+}
+ 
+ 
+/*防抖*/
+ 
+function debounce(fn, interval) {
+ 
+  var timer;
+ 
+  var gapTime = interval || 1000; //间隔时间，interval默认1000ms
+ 
+  return function () {
+ 
+    clearTimeout(timer);
+ 
+    var context = this;
+ 
+    var args = arguments; //保存此处的arguments，因为setTimeout是全局的，arguments不是防抖函数需要的。
+ 
+    timer = setTimeout(function () {
+ 
+      fn.call(context, args);
+ 
+    }, gapTime);
+ 
+  };
+ 
+}
+
 module.exports = {
   getStorageImage,
   formatTime,
@@ -148,4 +196,6 @@ module.exports = {
   timeago:timeago,
   formatTime2: formatTime2,
   dakaTime,
+  throttle,
+  debounce
 }

@@ -1,7 +1,11 @@
+page{
+    background-color:  #F4F4F4;
+
+}
 .bg{
     background-color:  #F4F4F4;
-    height:1450rpx;
-    /* height: 100vh; */
+    /* height:1450rpx; */
+    height: 100vh;
     width: 100%;
     position: relative;
 }
@@ -108,6 +112,9 @@
     width: 56rpx;
     padding: 67.5rpx 0 67.5rpx 30rpx;
 }
+.dakatop_box2_cycle_checkbox{
+    width: 110%;
+}
 .dakatop_box2_cycle{
     float: left;
     width: 80%;
@@ -199,7 +206,7 @@ checkbox .wx-checkbox-input{
     border-radius: 40rpx;
     position: absolute;
     top:925rpx;
-    right: 60rpx;
+    right:80rpx;
 
 }
 .dakaconfirm_button{
@@ -219,7 +226,7 @@ checkbox .wx-checkbox-input{
     border-radius: 40rpx;
     position: absolute;
     top: 1045rpx;
-    right: 60rpx;
+    right: 80rpx;
     text-align: center;
     line-height: 80rpx;
     font-size: 32rpx;

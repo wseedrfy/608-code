@@ -2,6 +2,7 @@
 // 原理分析：打卡会操作daka_status表，删了会空指针报错
 const _=wx.cloud.database().command
 const db = wx.cloud.database()
+const util = require('../../../utils/util')
 Page({
 
     /**
@@ -141,8 +142,14 @@ Page({
       
      return retValue;
     },
+    //节流
+    saveRecord:util.throttle(function(res){
+      console.log(res);
+      this.saveRecord_last(res)
+    },500),
 
-    async saveRecord(res){
+    async saveRecord_last(res){
+      console.log(res);
       let username = wx.getStorageSync('args').username
       await db.collection('daka_record').where({username:username,is_delete:false}).get().then(res=>{
         this.setData({len:res.data.length})
@@ -155,7 +162,7 @@ Page({
       let len =this.data.len
       console.log(len);
 
-      var value = res.detail.value
+      var value = res[0].detail.value
       console.log(value)
       let {cycle,endTime,lable1,startTime,task} = value
       if(!task){
@@ -251,35 +258,60 @@ Page({
                   isDaka:false,
                   is_delete:false,
                   count:0,
-              }
-          }).catch(err => {
-            wx.showToast({
-              title: '网络请求失败',
-              icon: 'none',
-            })
-        })
-          .then(res=>{
-            console.log(res);
-            wx.hideLoading();
+              },
+                  success: res => {
+                    console.log("add", res)
+                    wx.showToast({
+                      duration: 4000,
+                      title: '添加成功'
+                    })
+                    var pages = getCurrentPages()
+                    var prevPage = pages[pages.length - 2]
+                    prevPage.setData({
+                      mydata: {
+                          count:0,
+                          task_name:value.task,
+                          task_cycle: cycleChinese,//
+                          task_start_time: value.startTime,//
+                          task_end_time: value.endTime,//
+                          task_isDaka:false,
+                          task_hashId:this.hash(username+value.task+uid),
+                      }
+                    })
+                    wx.navigateBack({
+                      delta: 1
+                    })
+                  },
+                  fail: err => {
+                    wx.showToast({
+                      icon: 'none',
+                      title: '出错啦！请稍后重试'
+                    })
+                    console.error
+                  },
           })
-         .then(res=>{
-          var pages = getCurrentPages()
-          var prevPage = pages[pages.length - 2]
-          prevPage.setData({
-            mydata: {
-                count:0,
-                task_name:value.task,
-                task_cycle: cycleChinese,//
-                task_start_time: value.startTime,//
-                task_end_time: value.endTime,//
-                task_isDaka:false,
-                task_hashId:this.hash(username+value.task+uid),
-            }
-          })
-          wx.navigateBack({
-            delta: 1
-          })
-        })
+          // .then(res=>{
+          //   console.log(res);
+          //   wx.hideLoading();
+          // })
+        //  .then(res=>{
+        //   var pages = getCurrentPages()
+        //   var prevPage = pages[pages.length - 2]
+        //   prevPage.setData({
+        //     mydata: {
+        //         count:0,
+        //         task_name:value.task,
+        //         task_cycle: cycleChinese,//
+        //         task_start_time: value.startTime,//
+        //         task_end_time: value.endTime,//
+        //         task_isDaka:false,
+        //         task_hashId:this.hash(username+value.task+uid),
+        //     }
+        //   })
+        //   wx.navigateBack({
+        //     delta: 1
+        //   })
+        // })
       }
     },
     
@@ -288,6 +320,7 @@ Page({
         delta: 1
       })
     },
+
     /**
      * 生命周期函数--监听页面加载
      */

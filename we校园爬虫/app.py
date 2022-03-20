@@ -9,6 +9,7 @@ from another.physical import physical_Default,physical_Linear
 from another.YiBan import YiBan_login,YiBan_post
 from school.广东石油化工学院.main import upData_GY,getData_GY
 from school.嘉应学院.main import login_JY,getData_JY
+from school.广东理工学院.main import login_GDLG,getData_GDLG
 # from another.chemical import chemical_chemistry,chemical_chemical_two,chemical_F_value
 
 # import logging
@@ -70,7 +71,7 @@ def Yiban(yiban_name):
 #         return{"msg":"化学有问题"}
 
 if __name__ == '__main__':
-    app.run(host = '0.0.0.0',port=80)
+    app.run(host='0.0.0.0',port=80)
 
 # if __name__ != '__main__':
 #     # 如果不是直接运行，则将日志输出到 gunicorn 中

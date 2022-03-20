@@ -71,18 +71,21 @@
   -webkit-line-clamp: 1;
 }
 .body{
-  opacity: 0.6;
+  /* opacity: 0.6; */
 
   /* color: #3C96F0; */
   /* margin-top: 20rpx; */
   font-size: 18rpx;
   padding: 5rpx;
+  padding-right: 7rpx;
+  padding-left: 7rpx;
   color:white;
   border-radius: 10rpx;
   
 }
 .end_left{
   display: flex;
+  flex-direction: row;
 }
 .end{
   display: flex;
@@ -91,23 +94,29 @@
   justify-content: space-between;
 }
 .end_state{
-  /* margin-left: 10rpx;  */
-  opacity: 0.6;
-  margin-right: 5rpx;
-  background-color: rgba(60,150,240,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 7rpx;
+  background-color: rgba(73, 160, 247, 0.45);
   padding: 5rpx;
+  padding-left: 7rpx;
+  padding-right: 7rpx;
   color:white;
   border-radius: 10rpx;
 }
 .end_reward{
-  opacity: 0.6;
-
-  margin-right: 5rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 7rpx;
   /* background-color:#FFE1B0; */
-  background-color: #ffd4ae;
+  background-color: rgba(255,212,174, 0.7);
   color:white;
   border-radius: 10rpx;
   padding: 5rpx;
+  padding-left: 7rpx;
+  padding-right: 7rpx;
 }
 .local_img{
   width: 28rpx;
@@ -140,8 +149,8 @@
   position: relative;
   bottom: 80rpx;
   /* background-ime:  linear-gradient(rgba(255,255,255, 0) , rgba(0,0,0,0.9)); */
-  background-image:  linear-gradient(rgba(0,0,0, 0.1) 10% , rgba(0,0,0));
-  height: 72rpx;
+  background-image:  linear-gradient(rgba(0,0,0, 0) , rgba(0,0,0, 0.4));
+  height: 74rpx;
   /* height: 30%; */
   width: 100%;
   /* opacity: 0.2; */
@@ -164,7 +173,7 @@
   background:rgba(200,220,190)
 }
 .color1{
-  background:rgba(90,155,155,0.5)
+  background:rgba(90,155,155,0.45)
   
 }
 @media (prefers-color-scheme: dark) {
@@ -176,29 +185,29 @@
 
   }
   .end_state{
-    filter: invert(0%) !important;
+    filter: invert(10%) !important;
     color:black;
-    background-color:rgba(255,121,63,0.6);
+    background-color:rgba(255,121,63,0.5);
   }
   .end_reward{
-    filter: invert(0%) !important;
+    filter: invert(10%) !important;
     color:black;
-    background-color: rgba(71,71,135,0.6);
+    background-color: rgba(71,71,135,0.5);
 
   }
   .body{
-    filter: invert(0%) !important;
+    filter: invert(10%) !important;
     color:black;
 
 
   }
   .color1{
-    background-color:rgba(255,77,77,0.6);
+    background-color:rgba(255,77,77,0.5);
 
   }
   .color2{
     
-    background-color:rgba(33,140,116,0.6);
+    background-color:rgba(33,140,116,0.5);
 
   }
 
