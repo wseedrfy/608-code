@@ -754,7 +754,6 @@ Page({
     async getDaka_record(){
         let that = this
         let username = wx.getStorageSync('args').username
-        console.log(username);
         if(username){
         //用username查找uuid
         var dakaArr = [];
@@ -820,14 +819,15 @@ Page({
             }
             
             obj.task_isDaka = task_isDakaTemp;
-            console.log(obj.task_isDaka);
             dakaArr.push(obj);
         }
         console.log(dakaArr);
         this.setData({
             taskdata:dakaArr
         })
-        console.log(this.data.taskdata);
+        //放入缓存
+        wx.setStorageSync('dakaArr', dakaArr);
+        // wx.getStorageSync('dakaArr');
       }
     },
     /**
