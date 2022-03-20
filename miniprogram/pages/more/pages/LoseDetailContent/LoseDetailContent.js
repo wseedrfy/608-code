@@ -814,9 +814,9 @@ Page({
       success: res => {
         console.log(res)
         // this.data.Star = res
-        this.data.CommentList = res.result.data[0].CommentList
+        this.data.CommentList = res.result.data[0].CommentList 
         this.data.Star_User = res.result.data[0].Star_User
-        this.data.Star_count = res.result.data[0].Star_count
+        this.data.Star_count = res.result.data[0].Star_count 
         this.setData({switch1Checked:res.result.data[0].LoseState,isactive:res.result.data[0].LoseState?"active":"noactive" })
         // this.data.switch1Checked = res.result.data[0].LoseState
         // console.log(this.data.switch1Checked)
