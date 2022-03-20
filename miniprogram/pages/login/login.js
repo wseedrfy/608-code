@@ -57,7 +57,7 @@ Page({
       location: true,
       open: true
     }).get()).data
-    const open = false
+    var open = false
     res.forEach(e => {
       if(e.open === true){
         open = true
