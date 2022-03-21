@@ -444,7 +444,7 @@ Page({
   onLoad: function () {
     this.init()
     this.onPullDownRefresh()
-  },
+  },                 
   onShow: function () {
     let currentTab = this.data.currentTab;
     this.selectComponent(`#waterFlowCards${currentTab}`).RightLeftSolution();
