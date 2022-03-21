@@ -1,8 +1,0 @@
-@media (prefers-color-scheme: dark) {
-  .bg-red {
-    filter: invert(90%) !important;
-  }
-
-
-  
-}

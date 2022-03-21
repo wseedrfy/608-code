@@ -62,6 +62,10 @@ Page({
       })
     })
   },
+  // 修改海报
+  changeImg(){
+    this.addImg()
+  },
   // 时间选择
   bindDateChange(e) {
     this.setData({

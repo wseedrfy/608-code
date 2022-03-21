@@ -1,3 +1,8 @@
+<view class="top_wrap">
+  <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+    <view class="picker">当前选择:{{array[index]}}</view>
+  </picker>
+</view>
 <view class="wrap">
   <view class="caption">招新数据</view>
   <scroll-view class="item_wrap" wx:for="{{contetn}}" wx:key="item">

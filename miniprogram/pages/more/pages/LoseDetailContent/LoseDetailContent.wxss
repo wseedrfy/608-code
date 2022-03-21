@@ -676,6 +676,32 @@ swiper .wx-swiper-dot {
   width: 100%;
   opacity: 0.25;
 }
+.comment{
+  width:100%;
+ }
+ .All_Comment{
+   font-size: 23rpx;
+   margin: 28rpx 20rpx;
+   color: rgb(61, 61, 61);
+ }
+ .Send_Commend{
+  display: flex;
+  padding-bottom: 20rpx;
+  flex-direction: row;
+  align-items: center;
+}
+.text_user{
+  width:55rpx;
+  height: 55rpx;
+  border-radius: 100rpx;
+  margin-left: 21rpx
+}
+.reply_user{
+ width:45rpx;
+ height: 45rpx;
+ border-radius: 100rpx;
+ margin-left: 19rpx;
+}
 .image_tabar_local{
   /* height: 0rpx; */
   position: absolute;
@@ -694,7 +720,25 @@ swiper .wx-swiper-dot {
   vertical-align: middle;
   margin-left: 20rpx;
 }
-
+.old_Comment_second{
+  width:630rpx;
+  min-height: 56rpx;
+  background-color: rgba(202, 202, 202, 0.164);
+  margin-top:2rpx;
+  color: rgb(63, 63, 63);
+  border-radius: 40rpx;
+  margin-left: 20rpx;
+  padding-left: 15rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+.old_Comment_second text{
+  width:95%;
+  font-size: 27rpx;
+  color:#4b4b4bbe;
+}
 .image_tabar_local image{
   width: 40rpx;
   height: 40rpx;
@@ -748,5 +792,8 @@ swiper .wx-swiper-dot {
 }.color3{
   background: rgba(125,95,255,0.6)
 }
-
+.old_Comment_second textarea {
+  color: #fff;
+  filter: invert(1) !important;
+}
 }

@@ -114,7 +114,8 @@ Page({
                 question: item.question,
                 assoMess: item.assoMess,
                 borderArr: item.borderArr,
-                date:item.date
+                date:item.date,
+                match_id:id
                 // Label:
               }
             }).then(res => {
