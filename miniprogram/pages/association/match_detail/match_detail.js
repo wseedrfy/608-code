@@ -251,8 +251,9 @@ Page({
           wx.getImageInfo({
             src: imgUrl,
             success: (res) => {
+              console.log(res);
               // let CoverHeight = res.height + 'rpx'
-              let tempHeight = res.height > 500 ? 500 : tempHeight
+              let tempHeight = res.height > 500 ? 500 : res.height
               let CoverHeight = tempHeight + 'rpx'
               let CoverWidth = res.width
               let ShowHeight = tempHeight

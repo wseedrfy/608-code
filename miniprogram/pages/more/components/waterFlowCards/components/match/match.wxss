@@ -16,24 +16,30 @@
   display: flex;
   align-items: center;
   z-index: 999;
-  float: left;
+  position: relative;
   bottom: 50rpx;
-  padding-left: 12rpx;
+  left: 20rpx;
   font-size: 20rpx;
   color: white;
+  padding: 3rpx;
+  border-radius: 8rpx;
   vertical-align: middle;
   opacity: 1;
-  position: relative;
-  background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4));
-  /* height           : 30%; */
-  width: 100%;
-  /* opacity          : 0.2; */
 }
 .pic .local_block .local .local_text {
   opacity: 1;
   font-size: 24rpx;
+  line-height: 20rpx;
   color: white;
   padding: 5rpx 3rpx;
+}
+.pic .local_block .local2 {
+  bottom: 115rpx;
+  position: relative;
+  background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4));
+  height: 74rpx;
+  width: 100%;
+  z-index: 1;
 }
 .pic .content_wrap .pic_Title {
   color: #000000;
