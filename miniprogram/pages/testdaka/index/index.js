@@ -820,6 +820,7 @@ Page({
      */
     onLoad() {
         // 判断登录
+        app.loginState();
         let username = wx.getStorageSync('args').username;
         console.log(username);
         wx.showLoading({
