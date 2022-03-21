@@ -114,14 +114,14 @@ Page({
       complete: () => { }
     });
   },
-  // goMatch(){},
   // 查询用户状态
   search(card) {
-    if (card != 'guest') {
-      card = Number(card)
-    }
+    // if (card != 'guest') {
+    //   card = Number(card)
+    // }
+    card = String(card)
     db.collection("associationApply").where({ count: card }).get().then(res => {
-      // console.log(res);
+      console.log(res);
       if (res.data.length == 0) {
         this.setData({
           HtmlStatus: 0
@@ -194,13 +194,7 @@ Page({
   },
   formSubmit(e) {
     let data = e.detail.value
-    if (data.card == 'f281q') {
-      this.search('f281q')
-      // this.setData({
-      //   HtmlStatus:2
-      // })
-    }
-    else if (data.association == "" || data.card == "" || data.name == "" || data.phone == "") {
+    if (data.association == "" || data.card == "" || data.name == "" || data.phone == "") {
       wx.showModal({
         title: '提示',
         content: '请输入完整信息',
@@ -234,7 +228,7 @@ Page({
                   data: {
                     status: false,
                     hostMess: data,
-                    count: Number(data.card)
+                    count: String(data.card)
                   }
                 }).then(res => {
                   this.setData({
@@ -248,78 +242,6 @@ Page({
         },
       });
     }
-  },
-  // 发布信息弹窗
-  // clickme() {
-  //   this.showModal();
-  // },
-  // showModal: function () {
-  //   // 显示遮罩层
-  //   var animation = wx.createAnimation({
-  //     duration: 200,
-  //     timingFunction: "linear",
-  //     delay: 0
-  //   })
-  //   this.animation = animation
-  //   animation.translateY(300).step()
-  //   this.setData({
-  //     animationData: animation.export(),
-  //     showModalStatus: true
-  //   })
-  //   setTimeout(function () {
-  //     animation.translateY(0).step()
-  //     this.setData({
-  //       animationData: animation.export()
-  //     })
-  //   }.bind(this), 200)
-  // },
-  // //隐藏对话框
-  // hideModal: function () {
-  //   // 隐藏遮罩层
-  //   var animation = wx.createAnimation({
-  //     duration: 200,
-  //     timingFunction: "linear",
-  //     delay: 0
-  //   })
-  //   this.animation = animation
-  //   animation.translateY(300).step()
-  //   this.setData({
-  //     animationData: animation.export(),
-  //   })
-  //   setTimeout(function () {
-  //     animation.translateY(0).step()
-  //     this.setData({
-  //       animationData: animation.export(),
-  //       showModalStatus: false
-  //     })
-  //   }.bind(this), 200)
-  // },
-  // 选择图片
-  add_img() {
-    wx.chooseImage({
-      count: 2,
-      sizeType: ['original', 'compressed'],
-      sourceType: ['album', 'camera'],
-      success: (res) => {
-        this.setData({
-          photo: res.tempFilePaths,
-          photoStatus: true
-        })
-      },
-    });
-  },
-  // 发布
-  confirm(e) {
-    console.log(e);
-  },
-  // 普通活动
-  activity() {
-    wx.navigateTo({
-      url: '/pages/association/activity/activity?count=' + card,
-      success: (result) => {
-
-      },
-    });
   },
   // 赛事
   match() {
@@ -368,9 +290,6 @@ Page({
       url: '/pages/association/edit/edit?count=' + card,
     })
   },
-
-
-
   // 跳转
   freshman() {
     let assoMess = this.data.assoMess
