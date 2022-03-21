@@ -36,10 +36,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // let count=options.count
     let id = options.id
     let args = wx.getStorageSync('args');
-    count = args.username
+    count = String(args.username)
     if (id) {
       db.collection("associtaionMath").where({ _id: id }).get().then(res => {
         let data = res.data[0]
@@ -51,7 +50,7 @@ Page({
           weatherChange: true,
           id: id,
           date: data.date,
-          borderArr:data.borderArr
+          borderArr: data.borderArr
         })
       })
     }
@@ -63,7 +62,7 @@ Page({
     })
   },
   // 修改海报
-  changeImg(){
+  changeImg() {
     this.addImg()
   },
   // 时间选择
@@ -252,8 +251,9 @@ Page({
           wx.getImageInfo({
             src: imgUrl,
             success: (res) => {
+              console.log(res);
               // let CoverHeight = res.height + 'rpx'
-              let tempHeight = res.height > 500 ? 500 : tempHeight
+              let tempHeight = res.height > 500 ? 500 : res.height
               let CoverHeight = tempHeight + 'rpx'
               let CoverWidth = res.width
               let ShowHeight = tempHeight

@@ -1048,82 +1048,82 @@
 </template>
 
 <template name="test-input1">
-    <input name="{{item.name}}" wx:if="{{item.value}}" type="{{item.type}}" value="{{item.value}}" bindinput="{{item.bindinput}}" id="{{item.id}}" src="{{item.src}}" style="{{item.style}}" placeholder="{{item.placeholder}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <input name="{{item.name}}" wx:if="{{item.value}}" type="{{item.type}}" value="{{item.value}}" bindinput="{{item.bindinput}}" id="{{item.id}}" src="{{item.src}}" style="{{item.style}}" placeholder="{{item.placeholder}}" password="{{item.password}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
     <text ></text>{{item.text}}
     </input>
-    <input name="{{item.name}}" wx:else type="{{item.type}}" placeholder="{{item.placeholder}}" bindinput="{{item.bindinput}}" id="{{item.id}}" src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <input name="{{item.name}}" wx:else type="{{item.type}}" placeholder="{{item.placeholder}}" bindinput="{{item.bindinput}}" id="{{item.id}}"  password="{{item.password}}" src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
     <text></text>{{item.text}}
     </input>
 </template>
 
 <template name="test-input2">
-    <input name="{{item.name}}" wx:if="{{item.value}}" placeholder="{{item.placeholder}}" type="{{item.type}}" value="{{item.value}}" id="{{item.id}}" bindinput="{{item.bindinput}}" src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <input name="{{item.name}}" wx:if="{{item.value}}" placeholder="{{item.placeholder}}" type="{{item.type}}" value="{{item.value}}"  password="{{item.password}}" id="{{item.id}}" bindinput="{{item.bindinput}}" src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
     <text></text>{{item.text}}
     </input>
-    <input name="{{item.name}}" wx:else type="{{item.type}}" placeholder="{{item.placeholder}}" bindinput="{{item.bindinput}}" id="{{item.id}}" src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <input name="{{item.name}}" wx:else type="{{item.type}}" placeholder="{{item.placeholder}}" bindinput="{{item.bindinput}}" id="{{item.id}}"  password="{{item.password}}" src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
     <text></text>{{item.text}}
     </input>
 </template>
 
 <template name="test-input3">
-    <input name="{{item.name}}" wx:if="{{item.value}}" type="{{item.type}}" placeholder="{{item.placeholder}}" value="{{item.value}}" id="{{item.id}}" bindinput="{{item.bindinput}}" src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <input name="{{item.name}}" wx:if="{{item.value}}" type="{{item.type}}" placeholder="{{item.placeholder}}" value="{{item.value}}"  password="{{item.password}}" id="{{item.id}}" bindinput="{{item.bindinput}}" src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
     <text space="emsp"></text>{{item.text}}
     </input>
-    <input name="{{item.name}}" wx:else type="{{item.type}}" placeholder="{{item.placeholder}}" bindinput="{{item.bindinput}}" id="{{item.id}}" src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <input name="{{item.name}}" wx:else type="{{item.type}}" placeholder="{{item.placeholder}}" bindinput="{{item.bindinput}}" id="{{item.id}}"  password="{{item.password}}" src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
     <text space="emsp"></text>{{item.text}}
     </input>
 </template>
 
 <template name="test-input4">
-    <input name="{{item.name}}" wx:if="{{item.value}}" placeholder="{{item.placeholder}}" type="{{item.type}}" value="{{item.value}}" id="{{item.id}}" bindinput="{{item.bindinput}}" src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <input name="{{item.name}}" wx:if="{{item.value}}" placeholder="{{item.placeholder}}" type="{{item.type}}" value="{{item.value}}"  password="{{item.password}}" id="{{item.id}}" bindinput="{{item.bindinput}}" src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
     <text space="emsp"></text>{{item.text}}
     </input>
-    <input name="{{item.name}}" wx:else type="{{item.type}}" placeholder="{{item.placeholder}}" bindinput="{{item.bindinput}}" id="{{item.id}}" src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <input name="{{item.name}}" wx:else type="{{item.type}}" placeholder="{{item.placeholder}}" bindinput="{{item.bindinput}}" id="{{item.id}}"  password="{{item.password}}" src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
     <text space="emsp"></text>{{item.text}}
     </input>
 </template>
 
 <template name="test-input5">
-    <input name="{{item.name}}" id="{{item.id}}" wx:if="{{item.value}}" placeholder="{{item.placeholder}}" type="{{item.type}}" value="{{item.value}}" bindinput="{{item.bindinput}}" src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <input name="{{item.name}}" id="{{item.id}}" wx:if="{{item.value}}" placeholder="{{item.placeholder}}" type="{{item.type}}"  password="{{item.password}}" value="{{item.value}}" bindinput="{{item.bindinput}}" src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
     <text space="emsp"></text>{{item.text}}
     </input>
-    <input name="{{item.name}}" id="{{item.id}}" wx:else type="{{item.type}}" placeholder="{{item.placeholder}}" bindinput="{{item.bindinput}}" src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <input name="{{item.name}}" id="{{item.id}}" wx:else type="{{item.type}}" placeholder="{{item.placeholder}}"  password="{{item.password}}" bindinput="{{item.bindinput}}" src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
     <text space="emsp"></text>{{item.text}}
     </input>
 </template>
 
 <template name="test-input6">
-    <input name="{{item.name}}" id="{{item.id}}" wx:if="{{item.value}}" placeholder="{{item.placeholder}}" type="{{item.type}}" value="{{item.value}}" bindinput="{{item.bindinput}}" src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <input name="{{item.name}}"  password="{{item.password}}" id="{{item.id}}" wx:if="{{item.value}}" placeholder="{{item.placeholder}}" type="{{item.type}}" value="{{item.value}}" bindinput="{{item.bindinput}}" src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
     <text space="emsp"></text>{{item.text}}
     </input>
-    <input name="{{item.name}}" id="{{item.id}}" wx:else type="{{item.type}}" placeholder="{{item.placeholder}}" bindinput="{{item.bindinput}}" src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <input name="{{item.name}}"  password="{{item.password}}" id="{{item.id}}" wx:else type="{{item.type}}" placeholder="{{item.placeholder}}" bindinput="{{item.bindinput}}" src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
     <text space="emsp"></text>{{item.text}}
     </input>
 </template>
 
 <template name="test-input7">
-    <input name="{{item.name}}" id="{{item.id}}" wx:if="{{item.value}}" placeholder="{{item.placeholder}}" type="{{item.type}}" value="{{item.value}}" bindinput="{{item.bindinput}}" src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <input name="{{item.name}}"  password="{{item.password}}" id="{{item.id}}" wx:if="{{item.value}}" placeholder="{{item.placeholder}}" type="{{item.type}}" value="{{item.value}}" bindinput="{{item.bindinput}}" src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
     <text space="emsp"></text>{{item.text}}
     </input>
-    <input name="{{item.name}}" id="{{item.id}}" wx:else type="{{item.type}}" placeholder="{{item.placeholder}}" bindinput="{{item.bindinput}}" src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <input name="{{item.name}}"  password="{{item.password}}" id="{{item.id}}" wx:else type="{{item.type}}" placeholder="{{item.placeholder}}" bindinput="{{item.bindinput}}" src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
     <text space="emsp"></text>{{item.text}}
     </input>
 </template>
 
 <template name="test-input8">
-    <input name="{{item.name}}" id="{{item.id}}" wx:if="{{item.value}}" placeholder="{{item.placeholder}}" type="{{item.type}}" value="{{item.value}}" bindinput="{{item.bindinput}}" src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <input name="{{item.name}}"  password="{{item.password}}" id="{{item.id}}" wx:if="{{item.value}}" placeholder="{{item.placeholder}}" type="{{item.type}}" value="{{item.value}}" bindinput="{{item.bindinput}}" src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
     <text space="emsp"></text>{{item.text}}
     </input>
-    <input name="{{item.name}}" id="{{item.id}}"  wx:else type="{{item.type}}" placeholder="{{item.placeholder}}" bindinput="{{item.bindinput}}" src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <input name="{{item.name}}"  password="{{item.password}}" id="{{item.id}}"  wx:else type="{{item.type}}" placeholder="{{item.placeholder}}" bindinput="{{item.bindinput}}" src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
     <text space="emsp"></text>{{item.text}}
     </input>
 </template>
 
 <template name="test-input9">
-    <input name="{{item.name}}" id="{{item.id}}" wx:if="{{item.value}}" placeholder="{{item.placeholder}}" type="{{item.type}}" value="{{item.value}}" bindinput="{{item.bindinput}}" src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <input name="{{item.name}}"  password="{{item.password}}" id="{{item.id}}" wx:if="{{item.value}}" placeholder="{{item.placeholder}}" type="{{item.type}}" value="{{item.value}}" bindinput="{{item.bindinput}}" src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
     <text space="emsp"></text>{{item.text}}
     </input>
-    <input name="{{item.name}}" id="{{item.id}}" wx:else type="{{item.type}}" placeholder="{{item.placeholder}}" bindinput="{{item.bindinput}}" src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <input name="{{item.name}}"  password="{{item.password}}" id="{{item.id}}" wx:else type="{{item.type}}" placeholder="{{item.placeholder}}" bindinput="{{item.bindinput}}" src="{{item.src}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
     <text space="emsp"></text>{{item.text}}
     </input>
 </template>
@@ -1490,55 +1490,55 @@
 </template>
 
 <template name="test-textarea1">
-    <textarea value="{{item.value}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <textarea value="{{item.value}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}" bindinput="{{item.bindinput == 'undefined'?'':item.bindinput}}">
         <text></text>{{item.text}}
     </textarea>
 </template>
 
 <template name="test-textarea2">
-    <textarea value="{{item.value}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <textarea value="{{item.value}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}" bindinput="{{item.bindinput == 'undefined'?'':item.bindinput}}">
         <text></text>{{item.text}}
     </textarea>
 </template>
 
 <template name="test-textarea3">
-    <textarea value="{{item.value}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <textarea value="{{item.value}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}" bindinput="{{item.bindinput == 'undefined'?'':item.bindinput}}">
         <text></text>{{item.text}}
     </textarea>
 </template>
 
 <template name="test-textarea4">
-    <textarea value="{{item.value}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <textarea value="{{item.value}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}" bindinput="{{item.bindinput == 'undefined'?'':item.bindinput}}">
         <text></text>{{item.text}}
     </textarea>
 </template>
 
 <template name="test-textarea5">
-    <textarea value="{{item.value}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <textarea value="{{item.value}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}" bindinput="{{item.bindinput == 'undefined'?'':item.bindinput}}">
         <text></text>{{item.text}}
     </textarea>
 </template>
 
 <template name="test-textarea6">
-    <textarea value="{{item.value}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <textarea value="{{item.value}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}" bindinput="{{item.bindinput == 'undefined'?'':item.bindinput}}">
         <text></text>{{item.text}}
     </textarea>
 </template>
 
 <template name="test-textarea7">
-    <textarea value="{{item.value}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <textarea value="{{item.value}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}" bindinput="{{item.bindinput == 'undefined'?'':item.bindinput}}">
         <text></text>{{item.text}}
     </textarea>
 </template>
 
 <template name="test-textarea8">
-    <textarea value="{{item.value}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <textarea value="{{item.value}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}" bindinput="{{item.bindinput == 'undefined'?'':item.bindinput}}">
         <text></text>{{item.text}}
     </textarea>
 </template>
 
 <template name="test-textarea9">
-    <textarea value="{{item.value}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <textarea value="{{item.value}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}" bindinput="{{item.bindinput == 'undefined'?'':item.bindinput}}">
         <text></text>{{item.text}}
     </textarea>
 </template>

@@ -1,7 +1,7 @@
 
 //在js前端进行运算实在太复杂了这里实在封装数组运算的函数。
 //求和
-sum=(x)=>{
+const sum=(x)=>{
   let val = 0
   for(var i=0;i<x.length;i++){
     val = val+x[i]
@@ -9,23 +9,23 @@ sum=(x)=>{
   return val
 }
 //数组相乘
-Multi_array = (x,y)=>{
-  res = []
+const Multi_array = (x,y)=>{
+  var res = []
   for (var i = 0;i<x.length;i++){
   res[i] = x[i]*y[i]
   }
   return res
 }
 //数组相除
-except_array = (x,y)=>{
-  res=[]
+const except_array = (x,y)=>{
+  var res=[]
   for(var i=0;i<x.length;i++){
       res[i] = x[i]/y[i]
   }
   return res
 }
 //数组相求幂
-pow_array = (x,n)=>{
+const pow_array = (x,n)=>{
   let res=[]
   for(var i=0;i<x.length;i++){
       res[i] = Math.pow(x[i],n)
@@ -34,7 +34,7 @@ pow_array = (x,n)=>{
   return res
 }
 //数组求根号
-sqrt_array = (x,n)=>{
+const sqrt_array = (x,n)=>{
   let res=[]
   for(var i=0;i<x.length;i++){
       res[i] = Math.pow(x[i],1/n)
@@ -46,37 +46,38 @@ sqrt_array = (x,n)=>{
 
 
 //x+y
-add_u=(ux,uy)=>{
-  return Math.sqrt(ux**2+uy**2)
+const add_u=(ux,uy)=>{
+  return Math.round(Math.sqrt(ux**2+uy**2)*100)/100
 }
 
 //N=x*y
-multiply_u=(ux,uy,x,y)=>{
+const multiply_u=(ux,uy,x,y)=>{
   let  N = sum(Multi_array(x,y))/x.length
-  x_ = sum(x)/x.length
-  y_ = sum(y)/y.length
-  return Math.sqrt((ux/x_)**2+(uy/y_)**2)*N
+  let x_ = sum(x)/x.length
+  let y_ = sum(y)/y.length
+  return Math.round( (Math.sqrt((ux/x_)**2+(uy/y_)**2)*N)*100)/100
 }
 
 //N=x/y
-expect_u=(ux,uy,x,y)=>{
+const expect_u=(ux,uy,x,y)=>{
   let  N = sum(except_array(x,y))/x.length
-  x_ = sum(x)/x.length
-  y_ = sum(y)/y.length
-  return Math.sqrt((ux/x_)**2+(uy/y_)**2)*N
+  let x_ = sum(x)/x.length
+  let y_ = sum(y)/y.length
+  return   Math.round(Math.sqrt((ux/x_)**2+(uy/y_)**2)*N*100)/100
+
 }
 //N = kx
-linear_u=(ux,k)=>{
-  return Math.abs(k)*ux
+const linear_u=(ux,k)=>{
+  return Math.round(Math.abs(k)*ux*100)/100
 }
 //N = X的n次方
-pow_u=(ux,x,n)=>{
+const pow_u=(ux,x,n)=>{
   let u_N = (n*ux)/(sum(x)/x.length)
   let N_ = pow_array(x,n)
   return u_N*N_
 }
 //N=X的n次根
-sqrt_u=(ux,x,n)=>{
+const sqrt_u=(ux,x,n)=>{
   let u_N = (1/n*ux)/(sum(x)/x.length)
   let N_ = pow_array(x,n)
   return u_N*N_
@@ -88,12 +89,12 @@ sqrt_u=(ux,x,n)=>{
 
 // }
 //N=sinx
-sin_u=(ux,x)=>{
+const sin_u=(ux,x)=>{
   let x_ = sum(x)/x.length
   return Math.abs(Math.cos(x_)*ux)
 }
 //N=lnx
-lnx_u=(ux,x)=>{
+const lnx_u=(ux,x)=>{
   return ux/(sum(x)/x.length)
 }
 module.exports = {

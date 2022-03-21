@@ -11,10 +11,23 @@ Page({
   onLoad: function (options) {
     
   },
-
-
-
-
+  computer1(){
+    wx.navigateTo({
+      url: '/pages/HOT/HotTop/HotTop?content=实验计算器',
+    })
+  },
+  computer2(){
+    wx.navigateTo({
+      url: '/pages/HOT/HotTop/HotTop?content=间接不确定度',
+    })
+  }, 
+   computer3(){
+    wx.showToast({
+      title: '正在开发中~',
+      icon:"none"
+    })
+  },
+  
 
   /**
    * 生命周期函数--监听页面初次渲染完成

@@ -15,13 +15,13 @@
         <view class="title" >[宣传海报]长按修改</view>
     </view>
     <view class="content_wrap">
-        <view class="top_wrap">
-            <view class="title">标题</view>
+        <view class="top_wrap_top">
+            <view class="title_top">标题</view>
             <input maxlength="-1" placeholder="赛事标题" bind:input="title" value="{{title}}" />
         </view>
         <view class="mid_wrap">
-            <view class="title">描述</view>
-            <input maxlength="-1" placeholder="赛事内容描述" bind:input="detail" value="{{contentDetail}}" />
+            <view class="title_top">描述</view>
+            <textarea class="handle_top" maxlength="-1" placeholder="赛事内容描述" bind:input="detail" value="{{contentDetail}}" style="height:120rpx;"></textarea>
         </view>
     </view>
     <!-- 奖励 -->
