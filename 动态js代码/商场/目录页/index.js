@@ -20,7 +20,7 @@ Page({
       title: '加载中...',
       mask: true
     });
-    db.collection('shop_m').get().then(res => {
+    db.collection('shop_m').orderBy('sort', 'desc').get().then(res => {
         that.setData({shop_m: res.data})
         console.log(that.data.shop_m)
         wx.hideLoading({
