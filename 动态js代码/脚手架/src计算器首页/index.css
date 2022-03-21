@@ -1,7 +1,9 @@
+
 .body{
-  height:700rpx;
-  width: 100%;
   background-color: rgba(214,231,242);
+  height:700rpx;
+  margin:0 20rpx;
+  width: 95%;
   border-radius: 24rpx;
   box-sizing: border-box;
   display: flex;
@@ -18,7 +20,7 @@
    border-radius: 24rpx;
    display:flex;
    align-items: center;
-   justify-content: center;
+   /* justify-content: center; */
    /* margin:0 auto; */
    margin-bottom:40rpx;
    font-size: 60rpx;
@@ -40,7 +42,8 @@
   /* line-height: 130rpx; */
   display: flex;
   align-items: center;
-  text-align: center;
+  margin-left:30rpx;
+  /* text-align: center; */
   vertical-align: middle;
 
 }
