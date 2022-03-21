@@ -71,7 +71,7 @@
   </view>
 
   <!-- 其他功能 -->
-  <view class="other">
+  <!-- <view class="other">
     <view class="other_daka_topbox">
       <view class="other_daka_topbox_left">
         <view class="other_daka_topbox_left_title">
@@ -79,36 +79,9 @@
         </view>
         <view class="other_daka_topbox_left_dakadata">
           <scroll-view scroll-y="true" class="other_daka_topbox_left_dakadata_scroll_view">
-          <!-- 未选中 -->
-            <view class="other_daka_topbox_left_dakadata_task">
-              <!-- <image class="other_daka_topbox_left_dakadata_task_image"></image> -->
+            <view class="other_daka_topbox_left_dakadata_task" wx:for="{{dakaArr}}">
               <image class="other_daka_topbox_left_dakadata_task_yuan" src="../testdaka/images/white_ring.png"></image>
-              <view class="other_daka_topbox_left_dakadata_task_text">冥想5分钟</view>
-              <!-- <image class="other_daka_topbox_left_dakadata_task" src="{{modle_display}}"></image> -->
-            </view>
-            <!-- 已选中 -->
-            <!-- <view class="other_daka_topbox_left_dakadata_task_true">
-              <image class="other_daka_topbox_left_dakadata_task_yuan" src="../testdaka/images/white_ring.png"></image>
-              <view class="other_daka_topbox_left_dakadata_task_text">冥想5分钟</view>
-              <image class="other_daka_topbox_left_dakadata_task_modle" src="{{modle_display}}"></image>
-            </view> -->
-            <view class="other_daka_topbox_left_dakadata_task">
-              <!-- <image class="other_daka_topbox_left_dakadata_task_image"></image> -->
-              <image class="other_daka_topbox_left_dakadata_task_yuan" src="../testdaka/images/white_ring.png"></image>
-              <view class="other_daka_topbox_left_dakadata_task_text">冥想5分钟</view>
-              <!-- <image class="other_daka_topbox_left_dakadata_task" src="{{modle_display}}"></image> -->
-            </view>
-            <view class="other_daka_topbox_left_dakadata_task">
-              <!-- <image class="other_daka_topbox_left_dakadata_task_image"></image> -->
-              <image class="other_daka_topbox_left_dakadata_task_yuan" src="../testdaka/images/white_ring.png"></image>
-              <view class="other_daka_topbox_left_dakadata_task_text">冥想5分钟</view>
-              <!-- <image class="other_daka_topbox_left_dakadata_task" src="{{modle_display}}"></image> -->
-            </view>
-            <view class="other_daka_topbox_left_dakadata_task">
-              <!-- <image class="other_daka_topbox_left_dakadata_task_image"></image> -->
-              <image class="other_daka_topbox_left_dakadata_task_yuan" src="../testdaka/images/white_ring.png"></image>
-              <view class="other_daka_topbox_left_dakadata_task_text">冥想5分钟</view>
-              <!-- <image class="other_daka_topbox_left_dakadata_task" src="{{modle_display}}"></image> -->
+              <view class="other_daka_topbox_left_dakadata_task_text">{{item.task_name}}</view>
             </view>
           </scroll-view>
         </view>
@@ -126,11 +99,11 @@
     
     <view class="other_daka_bottombox">
       <view class="other_daka_bottombox_left">今日有xxx人打卡</view>
-      <view class="other_daka_bottombox_center">去打卡</view>
-      <image class="other_daka_bottombox_right" src="../testdaka/images/turn_right.png"></image>
+      <view class="other_daka_bottombox_center" bindtap="daka">去打卡</view>
+      <image class="other_daka_bottombox_right" bindtap="daka" src="../testdaka/images/turn_right.png"></image>
     </view>
-  </view>
-
+  </view> -->
+<!-- 原代码 -->
       <!-- <view class="countdown" style="border-color:{{theme ?' rgba(135,206,235, 0.13)': '#fcfbfb'}};">
 
       <view class="wx-remind-mask">

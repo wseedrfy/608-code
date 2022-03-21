@@ -540,6 +540,7 @@ Page({
             this.setData({
                 taskdata:tasktemp
             })
+            wx.setStorageSync('dakaArr', tasktemp);
             return;
         }
         //先判断周期能不能打再进行是否二次打卡判断
@@ -552,6 +553,7 @@ Page({
                     this.setData({
                         taskdata:tasktemp
                     })
+                    wx.setStorageSync('dakaArr', tasktemp);
                     return;   
             }else if(cycle[i] == '周二' && day == 2){   
                     this.daka(hashid);
@@ -561,6 +563,7 @@ Page({
                     this.setData({
                         taskdata:tasktemp
                     })
+                    wx.setStorageSync('dakaArr', tasktemp);
                     return;    
             }else if(cycle[i] == '周三' && day == 3){   
                     this.daka(hashid);
@@ -570,6 +573,7 @@ Page({
                     this.setData({
                         taskdata:tasktemp
                     })
+                    wx.setStorageSync('dakaArr', tasktemp);
                     return;    
             }else if(cycle[i] == '周四' && day == 4){   
                     this.daka(hashid);
@@ -579,6 +583,7 @@ Page({
                     this.setData({
                         taskdata:tasktemp
                     })
+                    wx.setStorageSync('dakaArr', tasktemp);
                     return;  
             }else if(cycle[i] == '周五' && day == 5){ 
                     this.daka(hashid);
@@ -588,6 +593,7 @@ Page({
                     this.setData({
                     taskdata:tasktemp
                     })
+                    wx.setStorageSync('dakaArr', tasktemp);
                     return; 
             }else if(cycle[i] == '周六' && day == 6){   
                     this.daka(hashid);
@@ -597,6 +603,7 @@ Page({
                     this.setData({
                         taskdata:tasktemp
                     })
+                    wx.setStorageSync('dakaArr', tasktemp);
                     return;
             }else if(cycle[i] == '周日' && day == 0){
                     this.daka(hashid);
@@ -606,6 +613,7 @@ Page({
                     this.setData({
                         taskdata:tasktemp
                     })
+                    wx.setStorageSync('dakaArr', tasktemp);
                     return;
             }
         }
@@ -860,6 +868,8 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow() {
+       let dakaArr = this.data.dakaArr
+       wx.setStorageSync('dakaArr', dakaArr);
        var pages = getCurrentPages();
        var currPage = pages[pages.length - 1]; //当前页面
        let json = currPage.data.mydata;
