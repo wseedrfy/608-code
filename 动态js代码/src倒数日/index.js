@@ -393,10 +393,20 @@ Page({
     }
   },
   showPic: function () {
-    wx.previewImage({
-      // cloud://un1-d62c68.756e-un1-d62c68-1258307938/xl.png
-      current: 'cloud://un1-d62c68.756e-un1-d62c68-1258307938/2021-2022xl.png', // 当前显示图片的http链接
-      urls: ['cloud://un1-d62c68.756e-un1-d62c68-1258307938/2021-2022xl.png'] // 需要预览的图片http链接列表
-    })
+    const args = wx.getStorageSync('args');
+    console.log("asd");
+    if(args.xiao_li_Url) {
+      wx.previewImage({
+        // 广油：cloud://un1-d62c68.756e-un1-d62c68-1258307938/xl.png
+        current: args.xiao_li_Url, // 当前显示图片的http链接
+        urls: [args.xiao_li_Url] // 需要预览的图片http链接列表
+      })
+    }else {
+      wx.showToast({
+        title: '暂未配置~请联系管理员',
+        icon: 'none'
+      })
+    }
+    
   },
 })
