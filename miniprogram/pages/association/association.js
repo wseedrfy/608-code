@@ -84,9 +84,8 @@ Page({
     ],
     HtmlStatus: 0,//0为申请 1审核中 2审核通过  3注销中
     assoMess: "",
-    // showModalStatus: false,
     photoStatus: false,
-    // showModalStatus:false
+    img: false
   },
 
   /**
@@ -193,8 +192,9 @@ Page({
     });
   },
   formSubmit(e) {
+    console.log(e);
     let data = e.detail.value
-    if (data.association == "" || data.card == "" || data.name == "" || data.phone == "") {
+    if (data.association == "" || data.card == "" || data.name == "" || data.phone == "" || !this.data.imgUrl) {
       wx.showModal({
         title: '提示',
         content: '请输入完整信息',
@@ -228,7 +228,8 @@ Page({
                   data: {
                     status: false,
                     hostMess: data,
-                    count: String(data.card)
+                    count: String(data.card),
+                    logoUrl: this.data.imgUrl
                   }
                 }).then(res => {
                   this.setData({
@@ -299,6 +300,50 @@ Page({
       success: (result) => {
 
       },
+    });
+  },
+  // 上传logo
+  add_logo() {
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success: (res) => {
+        let tempUel = res.tempFilePaths[0]
+        wx.cloud.uploadFile({
+          cloudPath: 'association/' + Date.now() + 'jpg',
+          filePath: tempUel
+        }).then(res => {
+          let imgUrl = res.fileID
+          wx.showToast({
+            title: '上传成功',
+            icon: 'none',
+            image: '',
+            duration: 1500,
+            mask: false,
+            success: (res) => {
+              this.setData({
+                img: true,
+                imgUrl: imgUrl
+              })
+            },
+          });
+        })
+      },
+    });
+  },
+  showTip() {
+    wx.showToast({
+      title: '审核后可修改',
+      icon: 'none',
+      image: '',
+      duration: 1500,
+      mask: false,
+      success: (result) => {
+
+      },
+      fail: () => { },
+      complete: () => { }
     });
   },
 

@@ -1,0 +1,19 @@
+<!-- <scroll-view class="wrap">
+    <view class="detail_wrap" wx:for="{{3}}">
+        <view class="img">
+            <image src="https://z3.ax1x.com/2021/04/26/gplvi4.png" />
+        </view>
+        <view class="mess_wrap">
+            <view class="name">#biubb创业实践社团</view>
+            <view class="detail">
+                <view class="activity">1个活动</view>
+                <view class="tip">|</view>
+                <view class="hot_num">120人参与</view>
+            </view>
+        </view>
+        <view class="bt_wrap">
+            <view class="go">去参与</view>
+        </view>
+    </view>
+</scroll-view> -->
+<assoCard wx:for="{{content}}" item="{{item}}"></assoCard>

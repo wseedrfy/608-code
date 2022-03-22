@@ -1,0 +1,16 @@
+<view class="detail_wrap">
+  <view class="img">
+    <image src="{{item.logoUrl}}" lazy-load="{{true}}"/>
+  </view>
+  <view class="mess_wrap">
+    <view class="name">#{{item.hostMess.association}}</view>
+    <view class="detail">
+      <view class="activity">1个活动</view>
+      <view class="tip">|</view>
+      <view class="hot_num">120人参与</view>
+    </view>
+  </view>
+  <view class="bt_wrap">
+    <view class="go">去参与</view>
+  </view>
+</view>
