@@ -1542,3 +1542,34 @@
         <text></text>{{item.text}}
     </textarea>
 </template>
+
+<template name="test-progress1">
+    <progress percent="{{item.percent}}" show-info stroke-width="{{item.stroke-width}}" backgroundColor="{{item.backgroundColor}}" activeColor="{{item.activeColor}}" font-size="{{item.font-size}}" border-radius="{{border-radius}}" style="{{item.style}}"></progress>
+</template>
+<template name="test-progress2">
+    <progress percent="{{item.percent}}" show-info stroke-width="{{item.stroke-width}}" backgroundColor="{{item.backgroundColor}}" activeColor="{{item.activeColor}}" font-size="{{item.font-size}}" border-radius="{{border-radius}}" style="{{item.style}}"></progress>
+</template>
+<template name="test-progress3">
+    <progress percent="{{item.percent}}" show-info stroke-width="{{item.stroke-width}}" backgroundColor="{{item.backgroundColor}}" activeColor="{{item.activeColor}}" font-size="{{item.font-size}}" border-radius="{{border-radius}}" style="{{item.style}}"></progress>
+</template>
+<template name="test-progress4">
+    <progress percent="{{item.percent}}" show-info stroke-width="{{item.stroke-width}}" backgroundColor="{{item.backgroundColor}}" activeColor="{{item.activeColor}}" font-size="{{item.font-size}}" border-radius="{{border-radius}}" style="{{item.style}}"></progress>
+</template>
+<template name="test-progress5">
+    <progress percent="{{item.percent}}" show-info stroke-width="{{item.stroke-width}}" backgroundColor="{{item.backgroundColor}}" activeColor="{{item.activeColor}}" font-size="{{item.font-size}}" border-radius="{{border-radius}}" style="{{item.style}}"></progress>
+</template>
+<template name="test-progress6">
+    <progress percent="{{item.percent}}" show-info stroke-width="{{item.stroke-width}}" backgroundColor="{{item.backgroundColor}}" activeColor="{{item.activeColor}}" font-size="{{item.font-size}}" border-radius="{{border-radius}}" style="{{item.style}}"></progress>
+</template>
+<template name="test-progress7">
+    <progress percent="{{item.percent}}" show-info stroke-width="{{item.stroke-width}}" backgroundColor="{{item.backgroundColor}}" activeColor="{{item.activeColor}}" font-size="{{item.font-size}}" border-radius="{{border-radius}}" style="{{item.style}}"></progress>
+</template>
+<template name="test-progress8">
+    <progress percent="{{item.percent}}" show-info stroke-width="{{item.stroke-width}}" backgroundColor="{{item.backgroundColor}}" activeColor="{{item.activeColor}}" font-size="{{item.font-size}}" border-radius="{{border-radius}}" style="{{item.style}}"></progress>
+</template>
+<template name="test-progress9">
+    <progress percent="{{item.percent}}" show-info stroke-width="{{item.stroke-width}}" backgroundColor="{{item.backgroundColor}}" activeColor="{{item.activeColor}}" font-size="{{item.font-size}}" border-radius="{{border-radius}}" style="{{item.style}}"></progress>
+</template>
+<template name="test-progress10">
+    <progress percent="{{item.percent}}" show-info stroke-width="{{item.stroke-width}}" backgroundColor="{{item.backgroundColor}}" activeColor="{{item.activeColor}}" font-size="{{item.font-size}}" border-radius="{{border-radius}}" style="{{item.style}}"></progress>
+</template>
