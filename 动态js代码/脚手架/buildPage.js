@@ -75,17 +75,22 @@ function AstRead(html, css, js, otherCss, darkCss) {
                 htmlNode[' style'] += ';' + "${this.data.dark === 'dark' ? '" + a + "' : ''}"
               }
             }else if(eKey === ' src'){
-              let src1
+              try{
+                let src1
            
-              if (htmlNode[eKey].match(/\.\.\//)) {
-                src1 = htmlNode[eKey].replace('../', './')
-              } else {
-                src1 = htmlNode[eKey].replace('./', './src/')
+                if (htmlNode[eKey].match(/\.\.\//)) {
+                  src1 = htmlNode[eKey].replace('../', './')
+                } else {
+                  src1 = htmlNode[eKey].replace('./', './src/')
+                }
+                let img01 = base64img(src1);
+                img01 = img01.replace(/[\n]/g, "");
+                img01 = img01.replace(/\s+/g, "");
+                htmlNode[eKey] = img01
+              }catch(e){
+
               }
-              let img01 = base64img(src1);
-              img01 = img01.replace(/[\n]/g, "");
-              img01 = img01.replace(/\s+/g, "");
-              htmlNode[eKey] = img01
+
             }
 
           }
