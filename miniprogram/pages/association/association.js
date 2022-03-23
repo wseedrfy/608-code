@@ -94,13 +94,14 @@ Page({
   onLoad: function (options) {
     let res = wx.getStorageSync('args');
     let list = this.data.list
-    card = res.username
+    card = String(res.username)
     school = res.school
     list[3].value = card
     this.setData({
       list: list
     })
     this.search(card)
+    this.updateCount(card)
   },
   // 赛事反馈
   goMatchData() {
@@ -229,7 +230,9 @@ Page({
                     status: false,
                     hostMess: data,
                     count: String(data.card),
-                    logoUrl: this.data.imgUrl
+                    logoUrl: this.data.imgUrl,
+                    activityCount: 1,
+                    personCount: 1
                   }
                 }).then(res => {
                   this.setData({
@@ -345,6 +348,18 @@ Page({
       fail: () => { },
       complete: () => { }
     });
+  },
+  // 更新人数活动数量
+  updateCount(count) {
+    wx.cloud.callFunction({
+      name: "associationSend",
+      data: {
+        type: 6,
+        count,
+      }
+    }).then(res => {
+      console.log(res);
+    })
   },
 
   /**
