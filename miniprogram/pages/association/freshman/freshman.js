@@ -351,8 +351,9 @@ Page({
             src: imgUrl,
             success: (res) => {
               let height = res.height > 500 ? 500 : res.height
+              let width = res.width < 370 ? 370 : res.width
               let CoverHeight = height + 'rpx'
-              let CoverWidth = res.width
+              let CoverWidth = width
               let ShowHeight = height
               db.collection("associationMess").where({ count: count }).update({
                 data: {
@@ -506,7 +507,7 @@ Page({
       });
     }
   },
- 
+
 
   /**
    * 生命周期函数--监听页面初次渲染完成

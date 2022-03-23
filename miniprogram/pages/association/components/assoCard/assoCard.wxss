@@ -2,16 +2,18 @@
   display: flex;
   flex-direction: row;
   font-size: 28rpx;
-  padding: 8rpx;
+  padding: 12rpx 8rpx 8rpx 8rpx;
   height: 120rpx;
 }
 .detail_wrap .img {
   flex: 1;
   padding-left: 12rpx;
+  text-align: center;
+  padding-top: 10rpx;
 }
 .detail_wrap .img image {
-  height: 120rpx;
-  width: 120rpx;
+  height: 100rpx;
+  width: 100rpx;
   border-radius: 24rpx;
 }
 .detail_wrap .mess_wrap {
@@ -39,7 +41,7 @@
   display: flex;
 }
 .detail_wrap .bt_wrap .go {
-  padding: 10rpx;
+  padding: 12rpx;
   border-radius: 24rpx;
   color: #022b2b;
   background-color: #63A1A0;

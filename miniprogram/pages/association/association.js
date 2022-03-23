@@ -232,7 +232,8 @@ Page({
                     count: String(data.card),
                     logoUrl: this.data.imgUrl,
                     activityCount: 1,
-                    personCount: 1
+                    personCount: 1,
+                    school: school
                   }
                 }).then(res => {
                   this.setData({
