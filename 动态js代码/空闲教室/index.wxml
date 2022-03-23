@@ -37,7 +37,7 @@
         </view>
         <view class="add_week">
           <view class="add_weekBtn" wx:for="{{week}}" wx:key="key">
-            <label id="{{index}}" bindtap="changeWB" class="{{item? dark == 'dark' ?  'add_weekBtn_select1' :'add_weekBtn_select':  'add_weekBtn_noSelect'}}"  >
+            <label id="{{index}}" bindtap="changeWB" class="{{item ? dark == 'dark' ?  'add_weekBtn_select1' :'add_weekBtn_select':  'add_weekBtn_noSelect'}}"  >
               {{index+1}}
             </label>
           </view>
@@ -47,7 +47,7 @@
         <!-- 按钮 -->
         <view class="add_btn">
           <button bindtap="block_show">取 消</button>
-          <button bindtap="addSubmit" class="{{addSubmitStyle?'cansubmit':''}}" disabled="{{!addSubmitStyle}}">查 询</button>
+          <button  bindtap="addSubmit" class="{{addSubmitStyle? (dark == 'dark' ? 'cansubmit1' :  'cansubmit'):''}}" disabled="{{!addSubmitStyle}} ">查 询</button>
         </view>
 
       </view>
@@ -79,7 +79,7 @@
            
             <view class="data-adj">
               <view class="upWard" style="background-color:{{id==0?'#fff':'#fff'}}"></view>
-              <view class="dot" style='background-color:{{color[id]}}'></view>
+              <view class="dot" style="background-color:{{color[id]}}"></view>
               <view class="offWard"></view>
             </view>
             <view class="grade">
