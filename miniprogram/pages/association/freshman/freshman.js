@@ -35,7 +35,8 @@ Page({
                 nickName: nickName,
                 freshman: [],
                 sendStatus: false,
-                assoMess: assoMess
+                assoMess: assoMess,
+                personArr: []
               }
             }).then(res => {
               wx.hideLoading();
@@ -43,7 +44,7 @@ Page({
                 freshman: [],
                 sendStatus: false,
                 school: school,
-                assoMess: assoMess
+                assoMess: assoMess,
               })
             })
           }
@@ -60,7 +61,7 @@ Page({
                 school: school,
                 assoMess: assoMess,
                 date: res.data[0].date,
-                add_title: res.data[0].title
+                add_title: res.data[0].title,
               })
             })
           }
@@ -349,10 +350,11 @@ Page({
           wx.getImageInfo({
             src: imgUrl,
             success: (res) => {
-              // console.log(res);
-              let CoverHeight = res.height + 'rpx'
-              let CoverWidth = res.width
-              let ShowHeight = res.height
+              let height = res.height > 500 ? 500 : res.height
+              let width = res.width < 370 ? 370 : res.width
+              let CoverHeight = height + 'rpx'
+              let CoverWidth = width
+              let ShowHeight = height
               db.collection("associationMess").where({ count: count }).update({
                 data: {
                   imgUrl: imgUrl,
@@ -505,6 +507,7 @@ Page({
       });
     }
   },
+
 
   /**
    * 生命周期函数--监听页面初次渲染完成
