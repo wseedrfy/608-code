@@ -13,6 +13,7 @@ var base64img = function (file) {
 
 // 运行转译过程
 function AstRead(html, css, js, otherCss, darkCss) {
+
   css = css ? css : '.page{}'
   html = html.replaceAll(`"`, `'`)
   let options = {
@@ -28,8 +29,8 @@ function AstRead(html, css, js, otherCss, darkCss) {
       htmlAst.forEach(htmlNode => {
         Object.keys(htmlNode).forEach(eKey => {
 
-          item = item || htmlNode[' wx:for-item'] || 'item'
-          index = index || htmlNode[' wx:for-index'] || 'index'
+          item =  htmlNode[' wx:for-item'] ||item || 'item'
+          index = htmlNode[' wx:for-index'] ||  index ||'index'
           if (htmlNode[eKey]) {
             let tagRE = /{{.*?}}/g
             let inside = (htmlNode[eKey]).toString().match(tagRE)
@@ -314,20 +315,21 @@ function re(k, p1, noChange, eKey, otherCss) {
 
   let array = k.split(/\s+/g)
   for (j in array) {
-    if (array[j].match(/\[(.*?)\]/g)) {
-      let arrayre = re(array[j].match(/\[(.*?)\]/)[1], '', noChange, eKey, otherCss)
-      array[j] = array[j].replaceAll(array[j].match(/\[(.*?)\]/)[1], arrayre)
-    }
+
     if (array[j].match(/^[a-zA-Z]/)) {
       if (eKey == ' wx:for') {
         p1 += '(this.data.' + array[j] + ')'
       } else {
         let noThisData = false
         noChange.forEach(e => {
-          if (array[j].match(e)) {
+          if (e === array[j]) {
             noThisData = true
           }
         })
+        if (array[j].match(/\[(.*?)\]/g)) {
+          let arrayre = re(array[j].match(/\[(.*?)\]/)[1], '', noChange, eKey, otherCss)
+          array[j] = array[j].replaceAll(array[j].match(/\[(.*?)\]/)[1], arrayre)
+        }
         if (noThisData) {
           p1 += '(typeof ' + array[j] + ' === "object" ? JSON.stringify( ' + array[j] + ') : ' + array[j] + ')'
         } else {
@@ -348,6 +350,14 @@ function re(k, p1, noChange, eKey, otherCss) {
 
   for (j in dz) {
 
+    for (let dd of otherCss) {
+  
+      if(`'${Object.keys(dd)[0]}'` === dz[j]){
+        dz[j] = `'${dd[Object.keys(dd)[0]]}'`
+    
+      }
+    }
+    // otherCss.
     p1 = p1.replace(/~~~/, dz[j])
   }
 

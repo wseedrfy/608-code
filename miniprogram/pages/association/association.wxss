@@ -31,6 +31,13 @@ page {
 .wrap .list_wrap .list_item .left {
   flex: 1;
 }
+.wrap .list_wrap .list_item .add_logo {
+  text-align: center;
+  flex: 3;
+  background-color: #d4d4d4;
+  margin-top: 10rpx;
+  border-radius: 12rpx;
+}
 .wrap .list_wrap .list_item .rigth {
   flex: 3;
   padding-left: 24rpx;

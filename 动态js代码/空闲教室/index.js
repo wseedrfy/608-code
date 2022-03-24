@@ -197,10 +197,7 @@ Page({
               //如果把周日算在一周的第一天，请删除上面这句
               var num = (Date1 - Date2) / 1000 / 3600 / 24;
               var whichWeek = Math.ceil((num + dayOfWeek) / 7);
-              if (day1fWeek == 0) {
-                whichWeek = whichWeek - 1;
-              }
-              return whichWeek + 1;
+              return whichWeek ;
             }
               let data2 = {
                 order: 'asc',

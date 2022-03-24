@@ -252,10 +252,10 @@ Page({
             src: imgUrl,
             success: (res) => {
               console.log(res);
-              // let CoverHeight = res.height + 'rpx'
               let tempHeight = res.height > 500 ? 500 : res.height
+              let tempWidth = res.width < 370 ? 370 : res.width
               let CoverHeight = tempHeight + 'rpx'
-              let CoverWidth = res.width
+              let CoverWidth = tempWidth
               let ShowHeight = tempHeight
               if (this.data.weatherChange == false) {
                 db.collection("associtaionMath").add({

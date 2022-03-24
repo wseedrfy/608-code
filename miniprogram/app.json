@@ -61,7 +61,8 @@
           "edit/edit",
           "freshmanData/freshmanData",
           "freshmanDetail/freshmanDetail",
-          "matchDataDetail/matchDataDetail"
+          "matchDataDetail/matchDataDetail",
+          "allAsso/allAsso"
         ]
       },
       {
