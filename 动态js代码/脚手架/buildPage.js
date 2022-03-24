@@ -322,7 +322,8 @@ function re(k, p1, noChange, eKey, otherCss) {
       } else {
         let noThisData = false
         noChange.forEach(e => {
-          if (e === array[j]) {
+          console.log(e,array[j])
+          if (e === array[j].split('.')[0]) {
             noThisData = true
           }
         })
