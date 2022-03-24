@@ -52,6 +52,7 @@ async function read(event) {
 }
 
 async function search(event) {
+  console.log(event);
   try {
     return await db.collection('Campus-Circle').field({
       'CommentList.InputComment': false,
@@ -62,12 +63,20 @@ async function search(event) {
       'Star_User.Star_time': false,
       'Star_User.iconUrl': false,
       'Star_User.nickName': false,
-    }).where({
-      Title: db.RegExp({
-        regexp: event.searchKey,
-        options: 'i',
-      })
-    }).get()
+    }).where(_.or([
+      {
+        Title: db.RegExp({
+          regexp: event.searchKey,
+          options: 'i',
+        })
+      },
+      {
+        Text: db.RegExp({
+          regexp: event.searchKey,
+          options: 'i',
+        })
+      }
+    ])).orderBy('indexFront', 'desc').orderBy('SortTime', 'desc').orderBy('Time', 'desc').get()
 
   } catch (e) {
     return e
