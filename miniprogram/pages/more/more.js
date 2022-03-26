@@ -125,6 +125,8 @@ Page({
     if (!args.username) {
       return;
     }
+    // args.username = Number(args.username);
+    // console.log(args.username);
     wx.cloud.database().collection('New-Information').where({
       'be_character.userName': args.username,
       status: 0
