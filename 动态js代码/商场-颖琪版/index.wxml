@@ -124,18 +124,17 @@
 </view>
 <view class="flex" style="padding:50rpx"></view>
 </view>
-</view>
-<view class="hhh">
+
 
 <view  class="box" style="width:100%;position:fixed;bottom:0;z-index:9999">
 
-  <view class="settle">
+  <view class="settle" bindtap="showModal">
     <view class="settleAll">
       <view class="calcAll">
           合计：<text>￥{{totalprice==0 ? '0.00':totalprice}}</text>
           <view class="freight">不含运费</view>
       </view>
-      <view class="goSettle">结算</view>
+      <view class="goSettle" bindtap="pay">结算</view>
     </view>
   </view>
 
@@ -159,4 +158,26 @@
   <view class="end-text" bindtap="Check">查看公式</view>
 </view>
 </view>
+
+<view class="EditCom" wx:if="{{modalName}}">
+    <view class="EditCom_background" bindtap="showModal"></view>
+    <view class="EditCom_contain {{payStyle}}" >
+      <view wx:for="{{buy}}">
+        <view class="buy">
+          <view class="buyImg"><image src="{{item.img}}" mode="aspectFill"/></view>
+          <view class="buyContent">
+            <view class="buyName">{{item.name}}</view>
+            <view>
+              <view class="buyPrice">￥{{item.price}}</view>
+              <view class="buyNumber">
+                <view class="numberDel" bindtap="reducenumber" id="{{index}}">-</view>
+                <view class="numberShow">{{item.number}}</view>
+                <view class="numberAdd" bindtap="addgoods" id="{{index}}">+</view>
+              </view>
+            </view>
+          </view>
+        </view>
+          
+      </view>
+    </view>
 </view>

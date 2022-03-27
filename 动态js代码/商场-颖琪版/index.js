@@ -23,7 +23,6 @@ Page({
     tabbar: true,
     havelocation: false,
     /* --------------------- */
-    modalName: false, //购物车弹出
     TabCur: '0',
     MainCur: 0,
     VerticalNavTop: 0,
@@ -39,14 +38,15 @@ Page({
       mask: true
     });
     var self = this
-    
+
     db.collection('shop').doc(shop_id).get().then(res => {
  
       wx.setStorage({
         key: "shop",
         data: res.data
       })
-      console.log("goods",res.data.goods);
+      console.log("goods", res.data.goods);
+      
       self.setData({
         shop_id: shop_id,
         caidan: res.data.caidan,
@@ -247,7 +247,6 @@ Page({
         name: self.data.goods[index].name,
         price: self.data.goods[index].price,
         zhekou: self.data.goods[index].zhekou,
-        zhekouprice: self.data.goods[index].zhekouprice,
         nowprice: self.data.goods[index].nowprice,
         shangpu: self.data.goods[index].shangpu, //所属商铺
         shopid: self.data.goods[index].shopid,
@@ -268,64 +267,74 @@ Page({
   /* 购物车+1 */
   addgoods(e) {
     var self = this
-    var index = e.currentTarget.dataset.index
-    var goodsnumber = self.data.goods[index].number
-    var buy = self.data.buy
-
-    if (!self.data.goods[index].guige) {
-      for (var i = 0; i < buy.length; i++) {
-        if (buy[i].id == self.data.goods[index].id) {
-          buy[i].number++;
-        }
-      }
-      self.data.goods[index].number += 1
-      var goodsdata = "goods[" + index + "].number"
-      self.setData({
-        buy: buy,
-        goods: self.data.goods,
-        [goodsdata]: goodsnumber + 1,
-
-      })
-
-      self.buy(buy)
-    } 
+    var index = e.currentTarget.id
+    // if (!self.data.goods[index].guige) {
+    self.data.buy[index].number += 1
+    self.data.goods[index].number += 1
+    self.setData({
+      buy: self.data.buy,
+      goods: self.data.goods,
+    })
+    self.buy(buy)
+    // } 
+     // var goodsnumber = self.data.goods[index].number
+    // var buy = self.data.buy
+    // var goodsdata = "goods[" + index + "].number"
+    // for (var i = 0; i < buy.length; i++) {
+      //   if (buy[i].id == self.data.goods[index].id) {
+      //     buy[i].number++;
+      //   }
+      // }
   },
   /* 购物车-1 */
   reducenumber(e) {
     var self = this
-    var index = e.currentTarget.dataset.index
-    var goodsnumber = self.data.goods[index].number
-    var goodsdata = 'goods[' + index + '].number'
-    var buy = self.data.buy
-    for (var i = 0; i < buy.length; i++) {
-      if (buy[i].id == self.data.goods[index].id) {
-        if (buy[i].number == 1) {
-          buy.splice(i, 1)
-        } else {
-          buy[i].number--;
-          break;
-        }
-      }
-    }
-    if (goodsnumber > 0) {
-      console.log(buy)
+    var index = e.currentTarget.id
+    if(self.data.buy[index].number === 1) {
+      self.data.buy.splice(index,1)
+    }else{
+      self.data.buy[index].number -= 1;
       self.data.goods[index].number -= 1
-      self.setData({
-        buy: buy,
-        [goodsdata]: goodsnumber - 1,
-        goods: self.data.goods
-      })
+    }
+    // var goodsnumber = self.data.goods[index].number
+    // var goodsdata = 'goods[' + index + '].number'
+    // var buy = self.data.buy
+    // for (var i = 0; i < buy.length; i++) {
+    //   if (buy[i].id == self.data.goods[index].id) {
+    //     if (buy[i].number == 1) {
+    //       buy.splice(i, 1)
+    //     } else {
+    //       buy[i].number--;
+    //       break;
+    //     }
+    //   }
+    // }
+   
+    // if (goodsnumber > 0) {
+    //   self.data.goods[index].number -= 1
+    //   self.setData({
+    //     buy: self.data.buy,
+    //     // [goodsdata]: goodsnumber - 1,
+    //     goods: self.data.goods
+    //   })
 
-        self.buy(buy)
+    //     self.buy(self.data.buy)
       
 
-    }
+    // }
+    self.setData({
+      buy: self.data.buy,
+      // [goodsdata]: goodsnumber - 1,
+      goods: self.data.goods
+    })
+
+    self.buy(self.data.buy)
     return res
   },
   /* 购物车规格+1 */
   guigeaddgoods(e) {
     var self = this
-    var index = e.currentTarget.dataset.index
+    var index = e.currentTarget.id
     var goods = self.data.goods
     var buy = self.data.buy
     for (var i = 0; i < goods.length; i++) {
@@ -386,14 +395,16 @@ Page({
     //   }
     //   totalnumber = totalnumber + buy[i].number
     // }
-
+    // 购物车加购的商品数量（numberSum）加一
     var numberSum = buy.reduce((numberSum, item) => {
       return numberSum + item.number;
     },0)
+     // 购物车加购的商品价格（priceSum）加一
     var priceSum = buy.reduce((priceSum, item) => {
       return priceSum + item.number * item.nowprice;
+      // return priceSum + item.number * (item.nowprice * item.zhekou * 0.1);      //---后期优化，无折扣商品：zhekou=10；有折扣商品：zhekou=zhekou*0.1
     },0)
-    
+
     if (numberSum == 0) {
       this.setData({
         modalName: false
@@ -406,18 +417,29 @@ Page({
       totalnumber: numberSum,
     })
   },
+  popUp: function () {          //控制卡片/评论弹窗
+    var self=this
+    var payStyle = 'payHide';
+    // picker动画样式
+    if (payStyle == undefined || payStyle == 'payHide') {
+      payStyle = 'payShow'
+    } else {
+      payStyle = 'payHide'
+    }
+    self.setData({
+       payStyle,
+    })
+  },
   /* 购物车弹出 */
-  showModal(e) {
-    if (this.data.buy.length != 0) {
-      this.setData({
-        modalName: !this.data.modalName
+  showModal() {
+    var self = this
+    if (self.data.buy.length != 0) {
+      self.popUp()
+      self.setData({
+        modalName: !this.data.modalName,
+        buy: self.data.buy,
       })
     }
-  },
-  hideModal(e) {
-    this.setData({
-      modalName: false
-    })
   },
   /* 商铺 */
   tabbarshop(e) {
@@ -441,6 +463,7 @@ Page({
   },
   /* 跳转支付 */
   pay(e) {
+    console.log("pay");
     var self = this
     var buy = self.data.buy
     wx.setStorage({
@@ -583,6 +606,7 @@ Page({
       self.buy(buy)
     })
   },
+  
 
   /**
    * 生命周期函数--监听页面隐藏
