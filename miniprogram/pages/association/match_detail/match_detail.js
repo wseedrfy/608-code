@@ -260,7 +260,7 @@ Page({
               if (this.data.weatherChange == false) {
                 db.collection("associtaionMath").add({
                   data: {
-                    count: userInfo.username,
+                    count: String(userInfo.username),
                     schoolName: userInfo.schoolName,
                     senderMess,
                     question,

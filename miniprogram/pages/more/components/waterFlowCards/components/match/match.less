@@ -14,18 +14,18 @@
         height: 0rpx;
 
         .local {
-            display               : flex;
-            align-items           : center;
-            z-index               : 999;
-            position              : relative;
-            bottom                : 50rpx;
-            left                  : 20rpx; 
-            font-size             : 20rpx;
-            color                 : white;
-            padding               : 3rpx;
-            border-radius         : 8rpx;
-            vertical-align        : middle;
-            opacity               : 1;
+            display       : flex;
+            align-items   : center;
+            z-index       : 999;
+            position      : relative;
+            bottom        : 50rpx;
+            left          : 20rpx;
+            font-size     : 20rpx;
+            color         : white;
+            padding       : 3rpx;
+            border-radius : 8rpx;
+            vertical-align: middle;
+            opacity       : 1;
 
             .local_text {
                 opacity    : 1;
@@ -112,15 +112,29 @@
 @media (prefers-color-scheme: dark) {
 
     .pic {
-        background-color: #f1eded;
+        background-color: black;
         filter          : invert(100%) !important;
     }
 
     .Show_Image {
-        /* background-color: #fff; */
+        filter: invert(0%) !important;
     }
 
     .pic_Label {
         filter: invert(100%) !important;
+    }
+
+    .content_wrap {
+        .pic_Title {
+            color : white;
+            filter: invert(100%) !important;
+        }
+
+        .match_wrap {
+            .mess_wrap {
+                color : white;
+                filter: invert(100%) !important;
+            }
+        }
     }
 }
