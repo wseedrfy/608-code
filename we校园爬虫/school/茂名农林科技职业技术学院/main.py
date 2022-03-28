@@ -10,7 +10,7 @@ def login_NL(username, password):
     return login(session, username, password)
 
 
-def getData_NL(username, password):
+def getData_NL(username, password,other):
     session = requests.session()
     msg = login(session, username, password)
     if msg != {"msg": 'welcome'}:

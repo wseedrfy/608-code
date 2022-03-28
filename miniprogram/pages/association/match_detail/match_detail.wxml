@@ -53,7 +53,7 @@
         <view class="keep" bindtap="hold" data-status="{{false}}">保存</view>
         <!-- 选择时间 -->
         <view class="change_time">
-            <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
+            <picker mode="date" value="{{date}}" start="2022-03-01" end="2024-09-01" bindchange="bindDateChange">
                 <view class="picker">截止日期:{{date}}</view>
             </picker>
         </view>

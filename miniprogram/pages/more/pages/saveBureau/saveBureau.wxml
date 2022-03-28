@@ -1,0 +1,49 @@
+<!--pages/more/pages/saveBureau/saveBureau.wxml-->
+  <view class="head">
+    <view class="savedNumber">
+      已攒<text>  99117 </text>人
+    </view>
+  </view>
+  <view class="All">
+    <view class="manual">
+      <view class="manualText">攒局速成手册</view>
+      <view class="manualText">萌新必看</view>
+      <view class="manualImg">
+        <image src="../../../../images/saveBureau.png"/>
+      </view>
+      
+      <view class="manualBotton">
+        <view class="myJoining">
+          <image src="../../../../images/user2.png"/>
+          <text>我加入的</text>
+        </view>
+        <view class="myLaunch" bindtap="toSavepublish">
+          <image src="../../../../images/flag.png"/>
+          <text>发起攒局</text>
+        </view>
+      </view>
+    </view>
+    <view class="categories">
+      <view wx:for="{{arry}}" wx:key="id">
+        <view class="categoriesContent" bindtap="hh" id="{{index}}">
+          <view class="circle background-color_{{index%2}}"></view>
+          <text>{{item.name}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="cards">
+      <view class="cardsType">
+        <text>自习</text>
+      </view>
+      <view class="cardsContent">
+        <view class="title">有没有29号早上要去周浦卫生中心打九价的姐妹，可以一起拼车去哇哈哈哈哈哈哈</view>
+        <view class="bottom">
+          <view class="leader">局长： 浙大云朵朵</view>
+          <view class="time">1小时前</view>
+        </view>
+        <view class="progress">
+          <progress percent="20" stroke-width="5" backgroundColor="#E29E8F" color="#94D3AE" border-radius="20rpx" active/>
+        </view>
+      </view>
+    </view>
+  </view>

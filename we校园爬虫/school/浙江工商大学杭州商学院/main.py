@@ -11,7 +11,7 @@ def login_ZJGSHZ(username, password):
     return res
 
 
-def getData_ZJGSHZ(username, password):
+def getData_ZJGSHZ(username, password,other):
     # t=time.time()
     while True:
         session = requests.session()

@@ -15,6 +15,10 @@ def code_ocr(username):
         image_url = 'GDJT_code.png'+username
 
         res = session.get('http://jw.gdcp.cn/index_mobile.jsp')
+        if res.status_code!=200:
+            return {
+                "msg":"教务系统关闭"
+            }
         cookies = res.cookies.items()
         res = session.get('http://jw.gdcp.cn/yzm?d=' + nowTime)
         # cookies = res.cookies
@@ -24,6 +28,7 @@ def code_ocr(username):
         image = open(image_url, 'rb')
         ocr = ddddocr.DdddOcr()
         code = ocr.classification(image.read())
+        image.close()
         import os
         if os.path.exists("GDJT_code.png" + username):
             os.remove("GDJT_code.png" + username)
@@ -33,8 +38,9 @@ def code_ocr(username):
             "nowTime": nowTime
         }
 
-    except:
+    except Exception as e:
         return {
+            "error": str(e),
             "code": code,
             "cookies": cookies,
             "nowTime": nowTime

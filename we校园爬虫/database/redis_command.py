@@ -29,8 +29,15 @@ def insert(obj: dict):
 
 
 def get_data(obj: dict):
-    r = connect_redis(host="127.0.0.1", port="6379", db=0)
-    get = r.hgetall(obj['hash_id'])
+    try:
+        r = connect_redis(host="127.0.0.1", port="6379", db=0)
+        get = r.hgetall(obj['hash_id'])
+    except Exception as e:
+        return {
+            "msg":"Redis有问题",
+            "code":"607",
+            "error":str(e)
+        }
     # print(len(get))
     # print(obj['methods'])
     if obj['methods'] == 'login':
@@ -40,8 +47,15 @@ def get_data(obj: dict):
             if returnData['code'] != 601:
                 return returnData
             else:
-                insert(returnData)
-                return returnData
+                try:
+                    insert(returnData)
+                    return returnData
+                except Exception as e:
+                    return {
+                        "msg": "Redis有问题",
+                        "code": "605",
+                        "error": str(e)
+                    }
         else:
             # print("123456")
             object = {}
@@ -54,8 +68,15 @@ def get_data(obj: dict):
             if returnData['code'] != 601:
                 return returnData
             else:
-                insert(returnData)
-                return returnData
+                try:
+                    insert(returnData)
+                    return returnData
+                except Exception as e:
+                    return {
+                        "msg": "Redis有问题",
+                        "code": "605",
+                        "error": str(e)
+                    }
         else:
             # print("123456")
             object = {}
@@ -64,14 +85,14 @@ def get_data(obj: dict):
             return object
 
 
-if __name__ == '__main__':
-    obj = {
-        "hash_id": md5("21034530115Zhangyue12210".encode('utf8')).hexdigest(),
-        "hash_username": md5("210345301150".encode('utf8')).hexdigest(),
-        "school": "0",
-        "name": "张粤",
-        "curriculum":str([{"m":"n"}]),
-        "achievement":str([{"f":"e"}]),
-        "other":"quality:"+str([{"a":"b"}])+"classTask:"+str([{"c":"d"}])
-    }
+# if __name__ == '__main__':
+#     obj = {
+#         "hash_id": md5("21034530115Zhangyue12210".encode('utf8')).hexdigest(),
+#         "hash_username": md5("210345301150".encode('utf8')).hexdigest(),
+#         "school": "0",
+#         "name": "张粤",
+#         "curriculum":str([{"m":"n"}]),
+#         "achievement":str([{"f":"e"}]),
+#         "other":"quality:"+str([{"a":"b"}])+"classTask:"+str([{"c":"d"}])
+#     }
 

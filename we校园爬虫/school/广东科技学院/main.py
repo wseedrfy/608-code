@@ -8,7 +8,7 @@ def login_GKY(username, password):
     return login(session, username, password)
 
 
-def getData_GKY(username, password):
+def getData_GKY(username, password,other):
     session = requests.session()
     msg = login(session, username, password)
     if msg != {"msg": 'welcome'}:

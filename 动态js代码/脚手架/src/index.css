@@ -129,7 +129,138 @@
   font-size: 26rpx;
   background-color: #696BA4;
 }
+.EditCom,
+.EditCom_background{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  font-family: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.EditCom_background{
+  background-color: rgba(0, 0, 0, 0.92);
+  opacity: 0.6;
+  height: 100%;
+}
+.EditCom_contain{
+  position: relative;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  bottom: 0;
+  width: 100%;
+  background-color: rgb(244, 244, 244);
+  padding: 20rpx;
+  z-index: 99999;
+  overflow: hidden;
+  border-radius: 20rpx;
+}
+.buy{
+  width: 100%;
+  height: 150rpx;
+  display: flex;
+  width: 100%;
+  padding-bottom: 20rpx;
+}
+.buyImg{
+  width: 130rpx;
+  height: 130rpx;
+}
+.buyImg image{
+  width: 100%;
+  height: 100%;
+}
+.buyContent{
+  display: flex;
+  flex-direction: column;
+  line-height: 65rpx;
+  padding: 0 15rpx;
+  width: 80%;
+}
+.buyName{
+  font-weight: 550;
+  width: 100%;
+  font-size: 30rpx;
+}
+.buyPrice{
+  color: #8984A8;
+  font-weight: 550;
+  font-size: 38rpx;
+}
+.buyNumber{
+  position: relative;
+  bottom: 60rpx;
+  float: right;
+  width: 182rpx;
+  height: 50rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
+.numberAdd{
+  background-color: rgba(179, 179, 179, 0.14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 62rpx;
+  height: 100%;
+  margin:0 7rpx;
+  border-bottom-right-radius: 8rpx;
+  border-top-right-radius: 8rpx;
+}
+.numberDel{
+  background-color: rgba(179, 179, 179, 0.14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 62rpx;
+  height: 100%;
+  margin:0 7rpx;
+  border-bottom-left-radius: 8rpx;
+  border-top-left-radius: 8rpx;
+}
+.numberShow{
+  background-color: rgba(179, 179, 179, 0.14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  width: 70rpx;
+  height: 100%;
+}
+.payShow{
+  animation: payShow 0.5s;
+}
+.payHide{
+  animation: payHide 0.5s;
+}
+@keyframes payShow {
+  0% {
+      opacity: 0;
+      transform: translateY(100%);
+  }
+  100% {
+      opacity: 1;
+      transform: translateY(0%);
+  }
+}
+@keyframes payHide {
+  0% {
+      opacity: 1;
+      transform: translateY(0%);
+  }
+  100% {
+      opacity: 0;
+      transform: translateY(100%);
+  }
+}
 
 
 

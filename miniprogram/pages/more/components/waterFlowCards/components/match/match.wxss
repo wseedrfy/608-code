@@ -92,13 +92,21 @@
 }
 @media (prefers-color-scheme: dark) {
   .pic {
-    background-color: #f1eded;
+    background-color: black;
     filter: invert(100%) !important;
   }
   .Show_Image {
-    /* background-color: #fff; */
+    filter: invert(0%) !important;
   }
   .pic_Label {
+    filter: invert(100%) !important;
+  }
+  .content_wrap .pic_Title {
+    color: white;
+    filter: invert(100%) !important;
+  }
+  .content_wrap .match_wrap .mess_wrap {
+    color: white;
     filter: invert(100%) !important;
   }
 }
