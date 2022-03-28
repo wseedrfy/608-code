@@ -2,6 +2,13 @@
 page{
   background-color:  #F4F4F4;
 }
+.date-string{
+  margin-top: 20rpx;
+  background-color: #fff;
+  font-size: 28rpx;
+  padding: 0 30rpx;
+  line-height: 60rpx;
+}
 .bg{
     background-color:  #F4F4F4;
     /* height: 100vh; */
@@ -71,7 +78,6 @@ page{
         bottom: 0rpx;
         height: 2rpx;
         width: 531rpx;
-        /* 630rpx */
         background-color: #E5E5E5;
 }
 .dayclock_data_column_1{
@@ -421,10 +427,12 @@ page{
 .img-plus-style {
   height: 100rpx;
   width: 100rpx;
-  position: fixed;
-  bottom: 300rpx;
-  right: 50rpx;
-  z-index: 999;
+  transform: rotate(-45deg);
+  /* padding-top: 20rpx; */
+  /* margin-top: 20rpx; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
  
 .img-style {
@@ -451,6 +459,73 @@ page{
 }
 .attention_text_duanluo >view{
   line-height: 75rpx;
+}
+.tabBar{
+  height:120rpx;
+  width: 703rpx;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 0rpx;
+  border-radius: 45rpx;
+  z-index: 999;
+  margin: 25rpx;
+}
+.tabBar_ring{
+  height: 160rpx;
+  width: 160rpx;
+  border-radius: 110rpx 0rpx;
+  transform: rotate(45deg);
+  background: #fff;
+  position: fixed;
+  bottom: 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.icon{
+  height: 100%;
+  width: 690rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.icon_a{
+  height: 100%;
+  /* width: 22%; */
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.icon_a >image{
+  height: 50rpx;
+  width: 50rpx;
+}
+.icon_text{
+  padding-top: 10rpx;
+  font-size: 20rpx;
+  color: #7c66f5;
+}
+.icon_left{
+  /* padding-right: 10rpx; */
+  margin-right: 65rpx;
+}
+.icon_right{
+  /* padding-left: 10rpx; */
+  margin-left: 65rpx;
+}
+.icon_left_2{
+  /* padding-right: 10rpx; */
+  margin-right: 130rpx;
+}
+.icon_right_2{
+  /* padding-left: 10rpx; */
+  margin-left: 130rpx;
 }
   @media (prefers-color-scheme: dark) {
     .complete_share_box_button{

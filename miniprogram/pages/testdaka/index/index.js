@@ -5,6 +5,12 @@ var app = getApp();
 var util = require('../../../utils/util')
 Page({
     data: {
+        navState:0,
+        click_a:true,
+        today:"",
+        dateString: "",
+        spot: "",
+        week:"",
         isPopping: false,//是否已经弹出
         animPlus: {},//旋转动画
         animCollect: {},//item位移,透明度
@@ -46,7 +52,94 @@ Page({
       
       arr :["http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mccErIrW3xz*gbdII0f2XxWb532vMFM40Z1GLB1qy0PJerOEUFI*g*oZuZ35D1lhyDT.clH6YZMOs3.8EPCzGmVA!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mccErIrW3xz*gbdII0f2XxWYzgI97WA4qJSXOKv*.4QFn3Eg2qYyEPp*FEqQ324LfbLGZlnl2rr4FS5hFO8u0ZTs!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcWo.8232YNIC*jkUYG2CaL02oENRjq4FgVYfJRGAQkUFIHqSHOgKJN7PwN8eneBAJ3Xuao69KnlIiWFTLek*xbA!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcWo.8232YNIC*jkUYG2CaL0U9WK413d9yuItDSS6iVc8eijth7NxjoSIIegtYx1e5ge50x9TYGSoI1tspf4Eo4Y!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcWo.8232YNIC*jkUYG2CaL3iIKgpjMwyrYqipU5hEly9ayItSyv33FzZ4ib5F9ve2AlY40CT8VGvo4aYHsf4PaI!/r","http://m.qpic.cn/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcWo.8232YNIC*jkUYG2CaL1gQqPp*29X8poNeV1JgSwuGeLqduMlr1RfAksUAUYIEPN37EwlqtdvxQ8SPnTaRYw!/b&bo=OAQFBTgEBQUBKQ4!&rf=viewer_4","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcddykwK5pChyfjlr.MGCQ8Mn1xgktufw23sOXfGiwfYDceE0Sm9dtSOJoxNd6a7mGPCV7NonZqctFYy6dWw2wn8!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcddykwK5pChyfjlr.MGCQ8OEqMkdr*5dA3.jQ3lK3l3d1xwMgnjGXM*Y9JKOWn5MTRAO1dRfUGwgWxQMZXcIruI!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcddykwK5pChyfjlr.MGCQ8OSyjf8imUzh5VQeto*9CH6YmXSw9chNfjsZZaZbpwP1*tcOKZUfgBNpQu6qOdbkn8!/r","http://r.photo.store.qq.com/psc?/V54MznzN3PdMk03thBUu1QsVIG3pK07u/45NBuzDIW489QBoVep5mcddykwK5pChyfjlr.MGCQ8MmLdH4z*DD*NoKPNIx.71uvCzHA4Lbvag7wPzA.B9B1LLHvxmZlw5RV9ozcVBUx1w!/r"]
     },
-    plus: function () {
+    click_a:function(e){
+      
+      let navState = e.currentTarget.dataset.index
+      console.log("主页",navState);
+      console.log(navState);
+      this.setData({
+        click_a:true,
+        click_b:false,
+        click_c:false,
+        click_d:false,
+        navState
+      })
+    },
+    click_b:function(e){
+      let navState = e.currentTarget.dataset.index
+      console.log("打卡页",navState);
+      this.setData({
+        click_a:false,
+        click_b:true,
+        click_c:false,
+        click_d:false,
+        navState
+      })
+    },
+    click_tomato:function(e){
+      
+    },
+    click_c:function(e){
+      let navState = e.currentTarget.dataset.index
+      console.log("云留言页",navState);
+      this.setData({
+        click_a:false,
+        click_b:false,
+        click_c:true,
+        click_d:false,
+        navState
+      })
+    },
+    click_d:function(e){
+      let navState = e.currentTarget.dataset.index
+      console.log("自习室页",navState);
+      this.setData({
+        click_a:false,
+        click_b:false,
+        click_c:false,
+        click_d:true,
+        navState
+      })
+    },
+    //日历初始化
+    zero: function (i) {
+      return i >= 10 ? i : '0' + i;
+    },
+    today: function () {
+      let DATE = this.data.defaultValue ? new Date(this.data.defaultValue) : new Date(), 
+          year = DATE.getFullYear(),
+          month = DATE.getMonth() + 1,
+          date = DATE.getDate(),
+          today = year + '/' + this.zero(month) + '/' + this.zero(date),
+          dayarr = [today];
+      var weekArray = new Array("日", "一", "二", "三", "四", "五", "六");
+      var week = weekArray[new Date(today).getDay()];
+      console.log(week)
+      console.log("今天周",week); 
+      console.log(today);  
+      this.setData({
+        today,
+        spot:dayarr,
+        week
+      })
+    },
+    dateChange(e) {
+      console.log("选中日期变了,现在日期是", e.detail.dateString)
+      this.setData({
+        dateString: e.detail.dateString
+      })
+    },
+    //计时入口动画
+    plus: function (e) {
+      let navState = e.currentTarget.dataset.index
+      console.log("计时页",navState);
+      this.setData({
+        click_a:false,
+        click_b:false,
+        click_c:false,
+        click_d:false,
+        navState
+      })
       if (this.data.isPopping) {
           //缩回动画
           this.popp();
@@ -99,7 +192,7 @@ Page({
           duration: 500,
           timingFunction: 'ease-out'
       })
-      animationPlus.rotateZ(180).step();
+      animationPlus.rotateZ(135).step();
       animationcollect.translate(-100, -100).rotateZ(180).opacity(1).step();
       animationTranspond.translate(-140, 0).rotateZ(180).opacity(1).step();
       animationInput.translate(-100, 100).rotateZ(180).opacity(1).step();
@@ -129,7 +222,7 @@ Page({
         duration: 500,
         timingFunction: 'ease-out'
     })
-    animationPlus.rotateZ(0).step();
+    animationPlus.rotateZ(-45).step();
     animationcollect.translate(0, 0).rotateZ(0).opacity(0).step();
     animationTranspond.translate(0, 0).rotateZ(0).opacity(0).step();
     animationInput.translate(0, 0).rotateZ(0).opacity(0).step();
@@ -850,6 +943,7 @@ Page({
           title: '加载中',
           mask:true
         })
+        this.today()
         this.getDaka_record().then(res=>{wx.hideLoading()})
         wx.setNavigationBarTitle({
             title: 'We打卡',
