@@ -9,7 +9,7 @@ def login_JY(username, password):
 
     return login(username, password, session)
 
-def getData_JY(username,password):
+def getData_JY(username,password,other):
     session = requests.session()
     msg = login(username, password, session)
     if msg['msg']!='welcome':

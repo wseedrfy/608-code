@@ -4,30 +4,11 @@ from database.sql import updata, search
 # import logging
 
 
-def data(session, password, username, name, headers, msg):
-    # return {
-    #     "achievement": achievement(session, username, name, headers),
-    #     "curriculum": curriculum(session, username, name, headers)
-    # }
-    # if "code" in msg:
-    #     try:
-    #         data = search('1', username, password, "data")
-    #         return {
-    #             "achievement": eval(data['achievement']),
-    #             "curriculum": eval(data['curriculum']),
-    #             "code": msg['code']
-    #         }
-    #     except Exception as e:
-    #         a = 1
-    #         return {
-    #             "achievement": [],
-    #             "curriculum": [],
-    #             "code": 605
-    #         }
+def data(session, password, username, name, headers, msg,other):
+
     try:
         achievements=achievement(session, username, name, headers)
         curriculums=curriculum(session, username, name, headers)
-        # print(achievements.s())
         obj= {
             "username": username,
             "password": password,
@@ -37,14 +18,15 @@ def data(session, password, username, name, headers, msg):
             "achievement": str(achievements),
             "other": ""
         }
-        # print(obj)
         try:
-            updata(obj)
+            if other['out_interface']:
+                updata(obj)
         except Exception as e:
             a=1
         return {
             "achievement": achievements,
-            "curriculum": curriculums
+            "curriculum": curriculums,
+            "code":"801"
         }
 
     except:
@@ -59,5 +41,5 @@ def data(session, password, username, name, headers, msg):
             return {
                 "achievement": [],
                 "curriculum": [],
-                "code": 605
+                "code": 608
             }

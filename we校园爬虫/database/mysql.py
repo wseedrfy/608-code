@@ -65,13 +65,12 @@ def updata(obj: dict):
     session.close()
 
 
-
 def search(obj: dict):
     session = DBsession()
-    hash_id = obj['hash_id']
-    hash_username = obj['hash_username']
-    person = session.query(Person).filter_by(hash_username=hash_username).first()
     try:
+        hash_id = obj['hash_id']
+        hash_username = obj['hash_username']
+        person = session.query(Person).filter_by(hash_username=hash_username).first()
         if person is None:
             session.close()
             return {
@@ -99,27 +98,31 @@ def search(obj: dict):
                 "code": 604,
                 "name": "兜底"
             }
-    except:
+    except Exception as e:
         # print("有错误")
         session.close()
+        return {
+            "msg": "Mysql有问题",
+            "code": 606,
+            "error": str(e)
+        }
 
-
-if __name__ == '__main__':
-    # print(md5("210345301150".encode('utf8')).hexdigest())
-    # hash_id = obj['hash_id']
-    # hash_username = obj['hash_username']
-    # school = obj['school']
-    # name = obj['name']
-    # curriculum = obj['curriculum']
-    # achievement = obj['achievement']
-    # other = obj['other']
-    obj = {
-        "hash_id": md5("21034530115Zhangyue12210".encode('utf8')).hexdigest(),
-        "hash_username": md5("210345301150".encode('utf8')).hexdigest(),
-        "school": "0",
-        "name": "张粤",
-        "curriculum": str([{"m": "n"}]),
-        "achievement": str([{"f": "e"}]),
-        "other": "quality:" + str([{"a": "b"}]) + "classTask:" + str([{"c": "d"}])
-    }
-    search(obj)
+# if __name__ == '__main__':
+#     # print(md5("210345301150".encode('utf8')).hexdigest())
+#     # hash_id = obj['hash_id']
+#     # hash_username = obj['hash_username']
+#     # school = obj['school']
+#     # name = obj['name']
+#     # curriculum = obj['curriculum']
+#     # achievement = obj['achievement']
+#     # other = obj['other']
+#     obj = {
+#         "hash_id": md5("21034530115Zhangyue12210".encode('utf8')).hexdigest(),
+#         "hash_username": md5("210345301150".encode('utf8')).hexdigest(),
+#         "school": "0",
+#         "name": "张粤",
+#         "curriculum": str([{"m": "n"}]),
+#         "achievement": str([{"f": "e"}]),
+#         "other": "quality:" + str([{"a": "b"}]) + "classTask:" + str([{"c": "d"}])
+#     }
+#     search(obj)

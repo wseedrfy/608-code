@@ -5,14 +5,28 @@ import requests
 
 
 def login_MZ(username, password):
-    session = requests.session()
-    _,_,msg = login(session, username, password)
-    return msg
-
-
-def getData_MZ(username, password):
-    session = requests.session()
-    name,headers,msg = login(session, username, password)
-    if msg['msg'] != 'welcome':
+    try:
+        session = requests.session()
+        _,_,msg = login(session, username, password)
         return msg
-    return data(session,password, username, name, headers,msg)
+    except Exception as e:
+        return {
+            "msg":"登录失败,请找管理员",
+            "error":str(e),
+            "code":"707"
+        }
+
+
+def getData_MZ(username, password,other):
+    try:
+        session = requests.session()
+        name,headers,msg = login(session, username, password)
+        if msg['msg'] != 'welcome':
+            return msg
+    except Exception as e :
+        return {
+            "msg": "登录失败,请找管理员",
+            "error": str(e),
+            "code": "707"
+        }
+    return data(session,password, username, name, headers,msg,other)
