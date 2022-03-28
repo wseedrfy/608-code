@@ -220,10 +220,10 @@ Page({
                   duration: 1500,
                   mask: false,
                   success: (result) => {
-
+                    wx.navigateBack({
+                      delta: 1,
+                    })
                   },
-                  fail: () => { },
-                  complete: () => { }
                 });
               })
             },

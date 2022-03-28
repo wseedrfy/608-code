@@ -328,6 +328,7 @@ async function ReadControlLogs(event) {
     .skip(event.currentPage * event.pageSize)
     .limit(event.pageSize)
     .get()
+    console.log(event);
     console.log(data);
   // 更新
   await db.collection('New-Information').where({

@@ -6,6 +6,7 @@ page {
 }
 .wrap .caption {
   text-align: center;
+  color: #63A1A0;
 }
 .wrap .item_wrap .content_wrap {
   display: flex;

@@ -15,18 +15,18 @@ def login(username, password, session: requests.Session):
         import json
         nowTime = str(round(time.time() * 1000))
         res = session.get(
-            'http://jw.gdmu.edu.cn/zfcaptchaLogin?type=resource&instanceId=zfcaptchaLogin&name=zfdun_captcha.js')
+            'http://43.155.99.203:30002/zfcaptchaLogin?type=resource&instanceId=zfcaptchaLogin&name=zfdun_captcha.js')
         # print(res.text)
         # print(res.text)
         rtk = re.findall('rtk:\'(.*)\'', res.text)[0]
 
-        url = f'http://jw.gdmu.edu.cn/zfcaptchaLogin?type=refresh&rtk={rtk}&time={nowTime}&instanceId=zfcaptchaLogin'
+        url = f'http://43.155.99.203:30002/zfcaptchaLogin?type=refresh&rtk={rtk}&time={nowTime}&instanceId=zfcaptchaLogin'
         a = json.loads(session.get(url).text)
 
         id = a['si']
         imtk = a['imtk']
 
-        url = f'http://jw.gdmu.edu.cn/zfcaptchaLogin?type=image&id={id}&imtk={imtk}&t={nowTime}&instanceId=zfcaptchaLogin'
+        url = f'http://43.155.99.203:30002/zfcaptchaLogin?type=image&id={id}&imtk={imtk}&t={nowTime}&instanceId=zfcaptchaLogin'
         res = session.get(url)
         open("zfcaptchaLogin.png"+username, 'wb').write(res.content)
 
@@ -97,20 +97,20 @@ def login(username, password, session: requests.Session):
             "instanceId": "zfcaptchaLogin",
             "extend": extend
         }
-        res = session.post('http://jw.gdmu.edu.cn/zfcaptchaLogin', data=data)
+        res = session.post('http://43.155.99.203:30002/zfcaptchaLogin', data=data)
         # print(res.text)
         if json.loads(res.text)['status'] == 'fail':
             return res
 
 
-        res = session.get('http://jw.gdmu.edu.cn/xtgl/login_getPublicKey.html?time=' + nowTime)
+        res = session.get('http://43.155.99.203:30002/xtgl/login_getPublicKey.html?time=' + nowTime)
         res_json = json.loads(res.text)
         modulus = res_json['modulus']
         exponent = res_json['exponent']
         rsa = RSAJS.RSAKey()
         rsa.setPublic(HB64().b642hex(modulus), HB64().b642hex(exponent))
         mm = HB64().hex2b64(rsa.encrypt(password))
-        url = f'http://jw.gdmu.edu.cn/xtgl/login_slogin.html?time=' + nowTime
+        url = f'http://43.155.99.203:30002/xtgl/login_slogin.html?time=' + nowTime
         res = session.get(url)
         doc = pq(res.text)
         csrf = doc('#csrftoken').attr('value')
@@ -120,7 +120,7 @@ def login(username, password, session: requests.Session):
             "yhm": username,
             "mm": mm
         }
-        res = session.post('http://jw.gdmu.edu.cn/xtgl/login_slogin.html?time=' + nowTime, data=data)
+        res = session.post('http://43.155.99.203:30002/xtgl/login_slogin.html?time=' + nowTime, data=data)
         return res
 
     # result=''
@@ -141,7 +141,3 @@ def login(username, password, session: requests.Session):
     return {
         "msg": 'welcome'
     }
-
-
-
-

@@ -15,7 +15,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let args = wx.getStorageSync('args')
+    let args = String(wx.getStorageSync('args'))
     count = args.username
     this.getMatch(count, 0)
   },
@@ -34,21 +34,30 @@ Page({
       mask: true,
       success: (result) => {
         db.collection("associtaionMath").where({ count: count }).get().then(res => {
-          let arr = []
-          for (let i = 0; i < res.data.length; i++) {
-            arr.push(res.data[i].senderMess.title)
-          }
-          let match_id = res.data[index]._id
-          this.setData({
-            array: arr,
-            match_id: match_id
-          })
-          db.collection("assoMatchPush").where({ match_id }).get().then(res => {
-            this.setData({
-              contetn: res.data
+          // console.log(res);
+          if (res.data.length == 0) {
+            wx.showToast({
+              title: '暂无数据',
+              icon:"none"
             })
-            wx.hideLoading();
-          })
+          }
+          else {
+            let arr = []
+            for (let i = 0; i < res.data.length; i++) {
+              arr.push(res.data[i].senderMess.title)
+            }
+            let match_id = res.data[index]._id
+            this.setData({
+              array: arr,
+              match_id: match_id
+            })
+            db.collection("assoMatchPush").where({ match_id }).get().then(res => {
+              this.setData({
+                contetn: res.data
+              })
+              wx.hideLoading();
+            })
+          }
         })
       },
     });

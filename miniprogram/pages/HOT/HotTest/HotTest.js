@@ -26,12 +26,17 @@ var __webpack_exports__ = {};
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function runCode() {
+  var _Page;
+
+  var db = wx.cloud.database({ env: 'mall-7gi19fir46652cb4' });
 
   var Page = function Page(page) {
     return page;
   };
-  return Page({
+  return Page((_Page = {
     parseTag: function parseTag(tag) {
       var res = {
         type1: "tag",
@@ -71,8 +76,8 @@ function runCode() {
           } catch (e) {}
 
           if (c[1]) {
-            if (c[0] === 'style') {
-              style = ';' + p + style;
+            if (c[0] === ' style') {
+              style = p + style;
               res[c[0]] = style;
             } else {
               res[c[0]] = p;
@@ -129,968 +134,656 @@ function runCode() {
     },
 
     setdata: function setdata(dictData) {
+      var _this = this;
 
       for (var i in dictData) {
         this.data[i] = dictData[i];
       }
-      var html = "" + (_typeof(this.data.isLoading) === "object" ? JSON.stringify(this.data.isLoading) : this.data.isLoading ? "<view style='remind-box'  style='align-items: center; display: flex; flex: 1; flex-direction: column; justify-content: center;'>  <image class='remind-img' src='/images/loading.gif'></image></view>" : "<view wx:else>  <view  " + (this.data.dark === 'dark' ? 'style="    filter: invert(90%) !important;  "' : '') + " class='map_box' style='bottom: 130px; left: 0px; position: absolute; right: 0px; top: 0px;'>    <map style='height: 100%; width: 100%;' id='navi_map' longitude='" + (_typeof(this.data.userLongitude) === "object" ? JSON.stringify(this.data.userLongitude) : this.data.userLongitude) + "' latitude='" + (_typeof(this.data.userLatitude) === "object" ? JSON.stringify(this.data.userLatitude) : this.data.userLatitude) + "' scale='18' markers='" + (_typeof(this.data.markers) === "object" ? JSON.stringify(this.data.markers) : this.data.markers) + "' polyline='" + (_typeof(this.data.polyline) === "object" ? JSON.stringify(this.data.polyline) : this.data.polyline) + "' bindmarkertap='makertap' show-location subkey='JLHBZ-JQELU-I7HVD-B2XSN-5VU3Z-BZFDK' enable-3D='true' show-compass>      <cover-view style='controls " + (_typeof(this.data.fullscreen) === "object" ? JSON.stringify(this.data.fullscreen) : this.data.fullscreen ? "wx&class   ;    top  :   82 %   ;  " : "") + "' style='left: 85%; position: relative; top: 80%;'>        <cover-view>                  </cover-view>        <cover-view bindtap='popUp'>          <cover-image class='img' src='image/moveSchool.png' style='height: 80rpx; margin-top: 5px; width: 80rpx;'></cover-image>        </cover-view>        <cover-view bindtap='location'>          <cover-image class='img' src='image/location.png' style='height: 80rpx; margin-top: 5px; width: 80rpx;'></cover-image>        </cover-view>      </cover-view>    </map>  </view>    <view class='text_box' style='bottom: 0px; height: 130px; left: 0px; position: absolute; right: 0px;'>    <view class='text_box_text' style='margin: 15px;'>\\u5609\\u5E94\\u5B66\\u9662 (\\u90AE\\u7F16\\uFF1A525000)</view>    <view class='text_box_text' style='margin: 15px;'>\\u6C5F\\u5317\\u6821\\u533A\\uFF1A\\u5E7F\\u4E1C\\u7701\\u6885\\u5DDE\\u5E02\\u6885\\u6C5F\\u533A\\u6885\\u677E\\u8DEF100\\u53F7</view>    <view class='text_box_text' style='margin: 15px;'>\\u6C5F\\u5357\\u6821\\u533A\\uFF1A\\u5E7F\\u4E1C\\u7701\\u6885\\u5DDE\\u5E02\\u6885\\u6C5F\\u533A\\u4E09\\u89D2\\u9547\\u534E\\u5357\\u5927\\u905319\\u53F7</view>    <view class='text_box_text' style='margin: 15px;'>\\u5E08\\u8303\\u6821\\u533A\\uFF1A\\u5E7F\\u4E1C\\u7701\\u6885\\u5DDE\\u5E02\\u6885\\u53BF\\u533A\\u7A0B\\u6C5F\\u9547\\u5927\\u65B0\\u897F\\u8DEF241\\u53F7</view>    <view class='text_box_text' style='margin: 15px;'>\\u533B\\u5B66\\u9662\\uFF1A\\u5E7F\\u4E1C\\u7701\\u6885\\u5DDE\\u5E02\\u6885\\u6C5F\\u533A\\u9EC4\\u5858\\u8DEF146\\u53F7</view>  </view>  " + (_typeof(this.data.comEdit) === "object" ? JSON.stringify(this.data.comEdit) : this.data.comEdit ? "<view style='EditCom'  style='align-items: center; bottom: 0; display: flex; font-family: unset; justify-content: center; left: 0; position: fixed; right: 0; top: 0; z-index: 9999;'>    <view class='EditCom_background' bindtap='popUp' style='align-items: center; background-color: rgba(0, 0, 0, 0.171); bottom: 0; display: flex; font-family: unset; height: 100%; justify-content: center; left: 0; opacity: 0.6; position: fixed; right: 0; top: 0; z-index: 9999;'></view>    <view style='EditCom_contain " + (_typeof(this.data.edit_style) === "object" ? JSON.stringify(this.data.edit_style) : this.data.edit_style) + "' style='align-items: center; background-color: rgb(244, 244, 244); border-radius: 20rpx; bottom: 30rpx; display: flex; flex-direction: column; justify-content: center; padding: 0rpx; position: fixed; width: 95%; z-index: 99999;'>    <view class='EditCom_Title' style='align-items: center; color: rgba(70, 70, 70, 0.952); display: flex; font-size: 27rpx; justify-content: center; padding: 15rpx;'>\\u6821\\u533A\\u9009\\u62E9</view>    <picker bindchange='bindPickerChange' value='" + (_typeof(this.data.index) === "object" ? JSON.stringify(this.data.index) : this.data.index) + "' range='" + (_typeof(this.data.array) === "object" ? JSON.stringify(this.data.array) : this.data.array) + "'>      <view class='picker'>        \\u5F53\\u524D\\u9009\\u62E9\\uFF1A" + (_typeof(this.data.array[_typeof(this.data.index) === "object" ? JSON.stringify(this.data.index) : this.data.index]) === "object" ? JSON.stringify(this.data.array[_typeof(this.data.index) === "object" ? JSON.stringify(this.data.index) : this.data.index]) : this.data.array[_typeof(this.data.index) === "object" ? JSON.stringify(this.data.index) : this.data.index]) + "      </view>    </picker>    </view>  </view>" : "1") + "</view>");
+      var html = "" + ((_typeof(this.data.tabbar) === "object" ? JSON.stringify(this.data.tabbar) : this.data.tabbar) ? "<view >  " + (!(_typeof(this.data.shopyesno) === "object" ? JSON.stringify(this.data.shopyesno) : this.data.shopyesno) ? "<view  class='bg-red flex justify-center'>  <view  class='action'>  " + (!(_typeof(this.data.weihu) === "object" ? JSON.stringify(this.data.weihu) : this.data.weihu) ? "<text > \\u3010" + (_typeof(this.data.shopname) === "object" ? JSON.stringify(this.data.shopname) : this.data.shopname) + "\\u3011\\u76EE\\u524D\\u5DF2\\u6253\\u6837  </text> " : "") + ((_typeof(this.data.weihu) === "object" ? JSON.stringify(this.data.weihu) : this.data.weihu) ? "<text > \\u805A\\u98DF\\u96C6\\u5E73\\u53F023:50-00:00\\u5B9A\\u671F\\u7EF4\\u62A4  </text> " : "") + " </view>  </view> " : "") + "<scroll-view  scroll-y='true' style='height:100vh;display: flex;' scroll-into-view='main-" + (_typeof(this.data.MainCur) === "object" ? JSON.stringify(this.data.MainCur) : this.data.MainCur) + "' bindscroll='VerticalMain'>  " + this.data.goods.map(function (item, index) {
+        return "<view  wx:key='id'>  <view  class='goods' style='align-items: center; display: flex; height: 235rpx; margin: 0 40rpx 65rpx 40rpx; width: 100%;'>  <view  class='goodsImg' style='align-items: center; background-color: #cdb5d3; border-radius: 15rpx; display: flex; height: 100%; justify-content: center; width: 240rpx;'>  <image  src='" + (_typeof(item.img) === "object" ? JSON.stringify(item.img) : item.img) + "' mode='aspectFill' style='height: 94%; width: 94%;'>   </image>  </view> <view  class='goodsContent' style='height: 100%; line-height: 52rpx; padding: 0 0 0 19rpx; width: 58%;'>  <view  class='goodsName' style='-webkit-box-orient: vertical; -webkit-line-clamp: 2; display: -webkit-box; font-size: 30rpx; font-weight: 550; overflow: hidden; text-overflow: ellipsis; width: 100%; word-break: break-all;'> " + (_typeof(item.name) === "object" ? JSON.stringify(item.name) : item.name) + "  </view> <view  class='goodsBrief' style='color: rgba(58, 58, 58, 0.904); font-size: 26rpx; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 100%;'> \\u5F00\\u80C3\\u97E9\\u5F0F\\u6CE1\\u83DC + \\u4E94\\u5E38\\u5927\\u7C73 + \\u80A5\\u725B  </view> <view  class='goodsSold' style='color: rgba(78, 78, 78, 0.692); font-size: 24rpx; width: 100%;'> \\u6708\\u552E " + (_typeof(item.yuenumber) === "object" ? JSON.stringify(item.yuenumber) : item.yuenumber) + "  </view> <view  class='goodsPrice' style='color: #8984A8; font-family: inherit; font-size: 33rpx; position: relative; top: 27rpx;'>             \\uFFE5 <text  class='price' style='font-size: 43rpx; font-weight: 455; position: relative; right: 10rpx;'> " + (_typeof(item.price) === "object" ? JSON.stringify(item.price) : item.price) + "  </text>  </view> <view  class='goodsAdd' id='" + ((typeof index === "undefined" ? "undefined" : _typeof(index)) === "object" ? JSON.stringify(index) : index) + "' bindtap='oneaddgoods' style='align-items: center; background-color: #8584A3; border-radius: 50rpx; bottom: 28rpx; display: flex; float: right; height: 45rpx; justify-content: center; position: relative; width: 45rpx;'>  <image  src='data:image/png;base64,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' style='height: 58%; width: 58%;'>   </image>  </view>  </view>  </view>  </view> ";
+      }) + " </scroll-view>  </view> " : "") + (!(_typeof(this.data.tabbar) === "object" ? JSON.stringify(this.data.tabbar) : this.data.tabbar) ? "<view >  <view  class='hhh bg-gradual-green flex justify-center' style='undefined;" + (this.data.dark === 'dark' ? '    filter: invert(100%) !important;  ' : '') + "'>  <view  class='action'>  <text  class='cuIcon-title text-red'>   </text> <text > \\u5E73\\u53F0\\u8054\\u7CFB\\u65B9\\u5F0F\\uFF1A18403441128  </text>  </view>  </view> <view  class='  solid-bottom'>  <view  class='action' style='display: inline;'>  <view  class='flex'>  <text  class='cuIcon-location text-green'>   </text>  </view> " + (!(_typeof(this.data.havelocation) === "object" ? JSON.stringify(this.data.havelocation) : this.data.havelocation) ? "<view  style='padding-left:30rpx' bindtap='userlocation'>  <text  style='color:blue'> \\u70B9\\u51FB\\u8BBE\\u7F6E\\u5730\\u5740  </text>  </view> " : "") + "<view  style='padding-left:30rpx;font-size: 26rpx;' bindtap='userlocation'wx:else=''>  <text  class='text-bold'> " + (_typeof(this.data.userlocation.school) === "object" ? JSON.stringify(this.data.userlocation.school) : this.data.userlocation.school) + "-" + (_typeof(this.data.userlocation.location) === "object" ? JSON.stringify(this.data.userlocation.location) : this.data.userlocation.location) + "-" + (_typeof(this.data.userlocation.sushehao) === "object" ? JSON.stringify(this.data.userlocation.sushehao) : this.data.userlocation.sushehao) + "-" + (_typeof(this.data.userlocation.name) === "object" ? JSON.stringify(this.data.userlocation.name) : this.data.userlocation.name) + "-" + (_typeof(this.data.userlocation.tell) === "object" ? JSON.stringify(this.data.userlocation.tell) : this.data.userlocation.tell) + "  </text>  </view>  </view>  </view> <view  class='cu-bar solid-bottom'>  <view  class='action flex justify-between'>  <view >  <text  style='margin-left: -180%;;" + (this.data.dark === 'dark' ? '    filter: invert(100%) !important;  ' : '') + "' class='cuIcon-form text-green hhh'> \\u5168\\u90E8\\u8BA2\\u5355  </text>  </view>  </view> <view  style='padding-right:30rpx'>  <text  class='cuIcon-unfold lg' style='font-size: 2em; height: 175rpx; width: 175rpx;'>   </text>  </view>  </view> <view  class='cu-card case'>  " + this.data.mydingdan.map(function (item, index) {
+        return "<view  wx:key='_id'>  <view  class='cu-item shadow' style='background-color: #fff; margin: 10rpx;'>  <view  class='cu-list menu-avatar'>  <view  class='flex radius text-bold solids-bottommy justify-between' style='border-bottom: 1rpx solid #eee; padding: 20rpx 0 20rpx 30rpx;'>  <view > " + (_typeof(item.shopname) === "object" ? JSON.stringify(item.shopname) : item.shopname) + " <text  style='font-size:20rpx'> (\\u4E0B\\u5355\\u65F6\\u95F4" + (_typeof(item.upday) === "object" ? JSON.stringify(item.upday) : item.upday) + "-" + (_typeof(item.uptime) === "object" ? JSON.stringify(item.uptime) : item.uptime) + ")  </text>  </view> <view  class='hhh' style='undefined;" + (_this.data.dark === 'dark' ? '    filter: invert(100%) !important;  ' : '') + "'>  " + ((_typeof(item.go) === "object" ? JSON.stringify(item.go) : item.go) == 0 ? "<view  class='text-yellow ' style='padding-right:20rpx'> \\u5F85\\u51FA\\u5355  </view> " : "") + ((_typeof(item.go) === "object" ? JSON.stringify(item.go) : item.go) > 0 ? "<view  class='text-green ' style='padding-right:20rpx'> \\u5DF2\\u51FA\\u5355  </view> " : "") + " </view>  </view> <view  style='padding: 10rpx 0;'>  <scroll-view  class='bg-white nav' style='margin: 0 20rpx;" + (_this.data.dark === 'dark' ? '    background-color: #000;  ' : '') + "'>  " + _this.data.item.buy.map(function (dingdanbuy, index) {
+          return "<view  class='hhh' wx:key='id' wx:for-item='dingdanbuy' style='undefined;" + (_this.data.dark === 'dark' ? '    filter: invert(100%) !important;  ' : '') + "'>  <view  class='dingdanimg cu-list grid' style='display: inline-block; height: 90rpx; margin: 0 10rpx;'>  <image  class='cu-avatar xl' src='" + (_typeof(dingdanbuy.img) === "object" ? JSON.stringify(dingdanbuy.img) : dingdanbuy.img) + "' style='display: flex; font-size: 2em; height: 175rpx; width: 175rpx;;" + (_this.data.dark === 'dark' ? '    filter: invert(100%) !important;  ' : '') + "'>  " + ((_typeof(dingdanbuy.number) === "object" ? JSON.stringify(dingdanbuy.number) : dingdanbuy.number) > 1 ? "<view  class='cu-tag badge' style='top: 0rpx;right: 0rpx;'>                       " + (_typeof(dingdanbuy.number) === "object" ? JSON.stringify(dingdanbuy.number) : dingdanbuy.number) + "                      </view> " : "") + " </image> <view  class='flex' style='width:128rpx'>  <text  class='text-cut'> " + (_typeof(dingdanbuy.name) === "object" ? JSON.stringify(dingdanbuy.name) : dingdanbuy.name) + "  </text>  </view>  </view>  </view> ";
+        }) + " </scroll-view> <view  class='flex solids-topmy justify-start' style='border-bottom: 1rpx solid #eee;'>  <view  style='padding:10rpx 20rpx 10rpx 20rpx'>  <text  style='color:grey;font-size:25rpx'> \\u5907\\u6CE8: " + ((_typeof(item.beizu) === "object" ? JSON.stringify(item.beizu) : item.beizu) ? "<block > " + (_typeof(item.beizu) === "object" ? JSON.stringify(item.beizu) : item.beizu) + "  </block> " : "") + "<block wx:else=''> \\u65E0  </block>  </text>  </view>  </view> <view  class='flex solids-topmy justify-start' style='border-bottom: 1rpx solid #eee;'>  <view  style='padding:0rpx 20rpx'>  <text  style='color:grey;font-size:25rpx'> " + (_typeof(item.school) === "object" ? JSON.stringify(item.school) : item.school) + "-" + (_typeof(item.location) === "object" ? JSON.stringify(item.location) : item.location) + "-" + (_typeof(item.sushehao) === "object" ? JSON.stringify(item.sushehao) : item.sushehao) + "-" + (_typeof(item.name) === "object" ? JSON.stringify(item.name) : item.name) + "-" + (_typeof(item.tell) === "object" ? JSON.stringify(item.tell) : item.tell) + "  </text>  </view>  </view> <view  class='flex solids-topmy justify-start' style='border-bottom: 1rpx solid #eee;'>  <view  style='padding:0rpx 20rpx'>  " + ((_typeof(item.school) === "object" ? JSON.stringify(item.school) : item.school) == '师范 ( 目前东门自取 ) ' ? "<text  style='color:grey;font-size:25rpx'> \\u5E08\\u8303:\\u5468\\u4E00\\u5230\\u5468\\u4E94\\u4E2D\\u5348\\u4E1C\\u95E8\\u81EA\\u53D6,\\u5468\\u4E94\\u4E0B\\u5348\\u5230\\u5468\\u65E5\\u9001\\u5230\\u5BBF\\u820D\\uFF01  </text> " : "") + " </view>  </view> <view  class='flex solids-topmy justify-start' style='border-bottom: 1rpx solid #eee;'>  <view  style='padding:0rpx 20rpx'>  <text  style='color:grey;font-size:25rpx'> \\u8BA2\\u5355\\u53F7\\uFF1A" + (_typeof(item.outTradeNo) === "object" ? JSON.stringify(item.outTradeNo) : item.outTradeNo) + "  </text>  </view>  </view> <view  class='flex solids-topmy justify-between' style='border-bottom: 1rpx solid #eee;'>  <view  style='padding:10rpx 20rpx 10rpx 20rpx'>  <text  style='font-size:35rpx'> " + (_typeof(item.yuyue) === "object" ? JSON.stringify(item.yuyue) : item.yuyue) + "  </text>  </view> <view  style='padding:10rpx 20rpx 10rpx 0'>  <text  style='color:grey;font-size:25rpx'> \\u5171" + (_typeof(item.totalnumber) === "object" ? JSON.stringify(item.totalnumber) : item.totalnumber) + "\\u4EF6  </text> <text  style='color:red;font-size:35rpx'> \\uFFE5" + (_typeof(item.totalprice) === "object" ? JSON.stringify(item.totalprice) : item.totalprice) + "  </text>  </view>  </view>  </view>  </view>  </view>  </view> ";
+      }) + " </view>  </view> " : "") + "<view  class='flex' style='padding:50rpx'>   </view> <view  class='box' style='width:100%;position:fixed;bottom:0;z-index:9999'>  <view  class='settle' bindtap='showModal' style='background-color: rgb(255, 255, 255); height: 90rpx; width: 100%;'>  <view  class='settleAll' style='display: flex; flex-direction: row; float: right; font-size: 30rpx; height: 100%; width: 50%;'>  <view  class='calcAll' style='color: rgb(0, 0, 0); font-size: 28rpx; height: 100%; line-height: 43rpx; width: 60%;'>           \\u5408\\u8BA1\\uFF1A <text  style='color: #7C73A9; font-size: 30rpx; position: relative; right: 10rpx;'> \\uFFE5" + ((_typeof(this.data.totalprice) === "object" ? JSON.stringify(this.data.totalprice) : this.data.totalprice) == 0 ? '0.00' : _typeof(this.data.totalprice) === "object" ? JSON.stringify(this.data.totalprice) : this.data.totalprice) + "  </text> <view  class='freight' style='color: rgba(78, 78, 78, 0.692); float: right; font-size: 25rpx; margin-right: 35rpx;'> \\u4E0D\\u542B\\u8FD0\\u8D39  </view>  </view> <view  class='goSettle' bindtap='pay' style='align-items: center; background-color: #696BA4; color: rgb(255, 255, 255); display: flex; font-size: 26rpx; height: 100%; justify-content: center; width: 50%;'> \\u7ED3\\u7B97  </view>  </view>  </view> <view  class='cu-bar bg-white tabbar border shop' style='font-size:35rpx; height: 130rpx;;" + (this.data.dark === 'dark' ? '    background-color: #000;  ' : '') + "'>  <view  bindtap='tabbarshop' class='bg-green submit " + ((_typeof(this.data.tabbar) === "object" ? JSON.stringify(this.data.tabbar) : this.data.tabbar) ? 'bg-green' : '    background-color: #000;  ') + "'>  <text  class='cuIcon-shopfill'>  \\u5546\\u94FA  </text>  </view> <view  bindtap='tabbaruser' class='bg-green submit " + ((_typeof(this.data.tabbar) === "object" ? JSON.stringify(this.data.tabbar) : this.data.tabbar) ? '    background-color: #000;  ' : 'bg-green') + "'>  <text  class='cuIcon-my'> \\u6211\\u7684  </text>  </view>  </view> <view  class='body'>  " + this.data.data_show.map(function (item, index) {
+        return "<view  class='body-describe'>  <text  class='body-describe-text'> " + (_typeof(item.name) === "object" ? JSON.stringify(item.name) : item.name) + ":  </text> <view  class='body-describe-data'> " + (_typeof(item.res) === "object" ? JSON.stringify(item.res) : item.res) + "  </view>  </view> ";
+      }) + " </view> <view  class='end'>  <view  class='end-text' bindtap='Check'> \\u67E5\\u770B\\u516C\\u5F0F  </view>  </view>  </view> " + ((_typeof(this.data.modalName) === "object" ? JSON.stringify(this.data.modalName) : this.data.modalName) ? "<view  class='EditCom' style='align-items: center; bottom: 0; display: flex; font-family: unset; justify-content: center; left: 0; position: fixed; right: 0; top: 0; z-index: 9999;'>  <view  class='EditCom_background' bindtap='showModal' style='align-items: center; background-color: rgba(0, 0, 0, 0.92); bottom: 0; display: flex; font-family: unset; height: 100%; justify-content: center; left: 0; opacity: 0.6; position: fixed; right: 0; top: 0; z-index: 9999;'>   </view> <view  class='EditCom_contain ' style='background-color: rgb(244, 244, 244); border-radius: 20rpx; bottom: 0; display: flex; flex-direction: column; justify-content: center; overflow: hidden; padding: 20rpx; position: fixed; width: 100%; z-index: 99999;;EditCom_contain " + (_typeof(this.data.payStyle) === "object" ? JSON.stringify(this.data.payStyle) : this.data.payStyle) + "'>  " + this.data.buy.map(function (item, index) {
+        return "<view >  <view  class='buy' style='display: flex; height: 150rpx; padding-bottom: 20rpx; width: 100%;'>  <view  class='buyImg' style='height: 130rpx; width: 130rpx;'>  <image  src='" + (_typeof(item.img) === "object" ? JSON.stringify(item.img) : item.img) + "' mode='aspectFill' style='height: 100%; width: 100%;'>   </image>  </view> <view  class='buyContent' style='display: flex; flex-direction: column; line-height: 65rpx; padding: 0 15rpx; width: 80%;'>  <view  class='buyName' style='font-size: 30rpx; font-weight: 550; width: 100%;'> " + (_typeof(item.name) === "object" ? JSON.stringify(item.name) : item.name) + "  </view> <view >  <view  class='buyPrice' style='color: #8984A8; font-size: 38rpx; font-weight: 550;'> \\uFFE5" + (_typeof(item.price) === "object" ? JSON.stringify(item.price) : item.price) + "  </view> <view  class='buyNumber' style='align-items: center; bottom: 60rpx; display: flex; float: right; height: 50rpx; justify-content: center; position: relative; width: 182rpx;'>  <view  class='numberDel' bindtap='reducenumber' id='" + ((typeof index === "undefined" ? "undefined" : _typeof(index)) === "object" ? JSON.stringify(index) : index) + "' style='align-items: center; background-color: rgba(179, 179, 179, 0.14); border-bottom-left-radius: 8rpx; border-top-left-radius: 8rpx; display: flex; height: 100%; justify-content: center; margin: 0 7rpx; width: 62rpx;'> -  </view> <view  class='numberShow' style='align-items: center; background-color: rgba(179, 179, 179, 0.14); display: flex; font-size: 24rpx; height: 100%; justify-content: center; width: 70rpx;'> " + (_typeof(item.number) === "object" ? JSON.stringify(item.number) : item.number) + "  </view> <view  class='numberAdd' bindtap='addgoods' id='" + ((typeof index === "undefined" ? "undefined" : _typeof(index)) === "object" ? JSON.stringify(index) : index) + "' style='align-items: center; background-color: rgba(179, 179, 179, 0.14); border-bottom-right-radius: 8rpx; border-top-right-radius: 8rpx; display: flex; height: 100%; justify-content: center; margin: 0 7rpx; width: 62rpx;'> +  </view>  </view>  </view>  </view>  </view>  </view> ";
+      }) + " </view>  </view> " : "");
       this.setData({ html: this.parse(html) });
     },
 
-    /**
-     * 页面的初始数据
-     */
     data: {
-      mapHeight: "800",
-      placeName: "",
-      hideOrNot: 0,
-      activePlaceID: -1,
-      markers: [{
-        id: 1,
-        latitude: 24.276696602909194,
-        longitude: 116.11826238028718,
-        iconPath: "../image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '理科楼',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 2,
-        latitude: 24.276202707342065,
-        longitude: 116.11729678504182,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '17栋',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 3,
-        latitude: 24.287994546817508,
-        longitude: 116.09116305325315,
-        iconPath: "image/shitang.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '梅师超顺饭堂',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 4,
-        latitude: 24.287358895845834,
-        longitude: 116.08919431183622,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '艺术楼（师范）',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 5,
-        latitude: 21.653321,
-        longitude: 110.815943,
-        iconPath: "image/sushe.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '西南区饭堂',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 6,
-        latitude: 24.314904110637062,
-        longitude: 116.09845866177366,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '教学楼（医学院）',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 7,
-        latitude: 24.31473301043974,
-        longitude: 116.09653283570097,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '医学基础实验楼',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 8,
-        latitude: 24.288537292435954,
-        longitude: 116.08927477810667,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '北门',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 9,
-        latitude: 24.288361267084177,
-        longitude: 116.09139908764647,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '东门',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 10,
-        latitude: 24.324453607827753,
-        longitude: 116.12867631415558,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '嘉应学院-梅州市客家研究院',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 11,
-        latitude: 24.325289488222086,
-        longitude: 116.12851001719666,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '正南门',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 12,
-        latitude: 24.325739199369874,
-        longitude: 116.12793602446747,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '嘉应学院-县域经济研究院',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 13,
-        latitude: 24.325563225632838,
-        longitude: 116.12681486109925,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '大鑫豪文化传媒有限公司（嘉应学院分点）',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 14,
-        latitude: 24.325431245169813,
-        longitude: 116.12662174205018,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '5栋',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 15,
-        latitude: 24.325265047353835,
-        longitude: 116.12620331744385,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '4栋',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 16,
-        latitude: 24.325719646745203,
-        longitude: 116.12659491996003,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '6栋',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 17,
-        latitude: 24.325660988850878,
-        longitude: 116.12573124865723,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '2栋',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 18,
-        latitude: 24.325929837310557,
-        longitude: 116.125688333313,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '1栋',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 19,
-        latitude: 24.326291559792615,
-        longitude: 116.12575807074738,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '7栋',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 20,
-        latitude: 24.325880955814995,
-        longitude: 116.12886943320466,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '德龙会堂',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 21,
-        latitude: 24.32647730877433,
-        longitude: 116.127850193779,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '田家炳科学馆',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 22,
-        latitude: 24.32659951190328,
-        longitude: 116.12887479762269,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '丽群图书馆',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 23,
-        latitude: 24.32688791082026,
-        longitude: 116.13116003970337,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '百年纪念大楼',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 24,
-        latitude: 24.326716826796314,
-        longitude: 116.12887479762269,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '宪梓艺术馆',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 25,
-        latitude: 24.327450042416316,
-        longitude: 116.12784482936097,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '中国农业银行（嘉大自助点）',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 26,
-        latitude: 24.327557580350568,
-        longitude: 116.12730838755799,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '水电中心',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 27,
-        latitude: 24.327528251832142,
-        longitude: 116.12820960978699,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '外国语学院',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 28,
-        latitude: 24.327586908862276,
-        longitude: 116.12881042460633,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '嘉应学院-企业管理研究中心',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 29,
-        latitude: 24.328334783616885,
-        longitude: 116.12969555358124,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '梅州市计算机学会',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 30,
-        latitude: 24.328105044783037,
-        longitude: 116.12860121230317,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '中国建设银行（嘉应学院校园e银行）',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 31,
-        latitude: 24.328285903049025,
-        longitude: 116.12773217658234,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '国际会议中心',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 32,
-        latitude: 24.3285254176527,
-        longitude: 116.12740494708252,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '1A栋',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 33,
-        latitude: 24.3288871327267,
-        longitude: 116.12665392855835,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '中1号楼',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 34,
-        latitude: 24.32871116336029,
-        longitude: 116.12751223544312,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '田家炳图书馆',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 34,
-        latitude: 24.328540081797737,
-        longitude: 116.12904645899964,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '世纪广场',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 34,
-        latitude: 24.328848028444476,
-        longitude: 116.12967946032715,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '宪梓体育馆',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 34,
-        latitude: 24.329063101849158,
-        longitude: 116.12812914351655,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '黄桂清大楼',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 34,
-        latitude: 24.32954701567515,
-        longitude: 116.13159992198182,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '李小平教学楼',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 34,
-        latitude: 24.32924884676876,
-        longitude: 116.13028563956452,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '田家炳师范学院',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 35,
-        latitude: 24.329229294684872,
-        longitude: 116.1292020271225,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '钦贞纪念楼',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 36,
-        latitude: 24.329551903684454,
-        longitude: 116.12959362963868,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '化学与环境学院',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 37,
-        latitude: 24.329478583529443,
-        longitude: 116.12899281481934,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '5栋（2）',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 38,
-        latitude: 24.329478583529443,
-        longitude: 116.12899281481934,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '5栋（2）',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 39,
-        latitude: 24.32933683110943,
-        longitude: 116.12884261111451,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '中4A宿舍',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 40,
-        latitude: 24.329766975894533,
-        longitude: 116.12855829695893,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '3栋（2）',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 41,
-        latitude: 24.32980119189433,
-        longitude: 116.1272922943039,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '嘉大家教在线',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 42,
-        latitude: 24.329918503823556,
-        longitude: 116.126230139534,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '西门',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 43,
-        latitude: 24.330128687424832,
-        longitude: 116.12655200461579,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '电子信息工程学院',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 45,
-        latitude: 24.330236223086477,
-        longitude: 116.12668611506653,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '菜鸟驿站',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 46,
-        latitude: 24.330182455267405,
-        longitude: 116.13023199538422,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '嘉应学院-理想拉链表面技术研究所',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 47,
-        latitude: 24.330514837784207,
-        longitude: 116.13166429499817,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '易班发展中心',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 48,
-        latitude: 24.330549053582025,
-        longitude: 116.1311654041214,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '化学实验楼',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 49,
-        latitude: 24.33075434817502,
-        longitude: 116.13033928374482,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '15栋',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 50,
-        latitude: 24.33119426403993,
-        longitude: 116.12868704299164,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '桂英大楼',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 51,
-        latitude: 24.330861883305424,
-        longitude: 116.12710990409089,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '地理科学与旅游学院',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 52,
-        latitude: 24.331487540435095,
-        longitude: 116.13147654036713,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '嘉应学院东区食堂',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 53,
-        latitude: 24.331712385211468,
-        longitude: 116.13170721034241,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '学生宿舍',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 54,
-        latitude: 24.332235392169498,
-        longitude: 116.13144435385895,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '嘉应学院东区学生宿舍9',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 55,
-        latitude: 24.332254943789636,
-        longitude: 116.1312190483017,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '嘉应学院东区学生宿舍10',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 56,
-        latitude: 24.332401580844436,
-        longitude: 116.13033928374482,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '北门',
-          display: 'ALWAYS'
-        }
-      }, {
-        id: 57,
-        latitude: 24.332108306565424,
-        longitude: 116.12781264285279,
-        iconPath: "image/jiaoxuelou.png",
-        width: 23,
-        height: 24,
-        callout: {
-          content: '音乐与舞蹈学院',
-          display: 'ALWAYS'
-        }
-      }],
-      distance: '',
-      cost: '',
-      polyline: [],
-      // userLongitude: 110.922599,
-      // userLatitude: 21.679529,
-      userLongitude: 116.12839211437986,
-      userLatitude: 24.32836897202351,
-      inSchool: false,
-      isLoading: false,
-      comEdit: false,
-      array: ['江北校区', '江南校区', '师范校区', '医学院'],
-      index: 0
+      weihu: false,
+      guige: false,
+      goodsguigekouwei: [],
+      goodsguigekouwei2: [],
+      goods: [],
+      guigeindex: '0',
+      guigeindex2: '0',
+      shopyesno: true,
+      mydingdan: [], //订单
+      mydindantotal: 0,
+      skip: 0, //订单跳过前几条
+      newuser: true,
+      /* --------------------- */
+      buy: [], //购物车
+      totalprice: 0,
+      totalnumber: 0,
+      /* ---------------------- */
+      tabbar: true,
+      havelocation: false,
+      /* --------------------- */
+      TabCur: '0',
+      MainCur: 0,
+      VerticalNavTop: 0,
+      list: [],
+      load: true,
+      data_show: []
     },
-    popUp: function popUp() {
-      //控制弹窗
-      var edit_style = 'edit_hide';
-      // picker动画样式
-      if (edit_style == undefined || edit_style == 'edit_hide') {
-        edit_style = 'edit_show';
-      } else {
-        edit_style = 'edit_hide';
-      }
-      this.setdata({
-        edit_style: edit_style,
-        comEdit: !this.data.comEdit
-      });
-    },
-
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad: function onLoad(e) {
+    onLoad: function onLoad(option) {
       var _this2 = this;
 
       options = this.options;this.data.dark = wx.getSystemInfoSync().theme;wx.onThemeChange(function (e) {
         console.log(e.theme);_this2.setdata({ dark: e.theme });
       });this.setdata();
-      var _this = this;
-      // wx.showModal({
-      //   title: '选择校区',
-      //   showCancel: true, //是否显示取消按钮
-      //   content: "请选择校区",
-      //   cancelText: "西城校区", //默认是“取消”
-      //   confirmText: "官渡校区", //默认是“确定”
-      //   success: function (res) {
-      //     if (res.cancel) {
-      //       console.log(233)
-      //       _this.setdata({
-      //         userLongitude: 110.818019,
-      //         userLatitude: 21.654388
-      //       })
-      //     } else {
-
-      //       _this.setdata({
-      //         userLongitude: 110.922599,
-      //         userLatitude: 21.679529,
-      //       })
-      //     }
-      //   },
-      //   fail: function (res) {}, //接口调用失败的回调函数
-      //   complete: function (res) {}, //接口调用结束的回调函数（调用成功、失败都会执行）
-      // })
-
-
-      // if (e.markerId !== '' && Object.keys(e).length !== 0) {
-      //   _this.makertap(e);
-      // }
-      _this.popUp();
-      wx.getLocation({
-        type: 'gcj02', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标  
-        success: function success(res) {
-          _this.setdata({
-            userLongitude: res.longitude,
-            userLatitude: res.latitude
-          });
-        }
+      console.log(option);
+      var shop_id = 'uncanny';
+      wx.showLoading({
+        title: '加载中...',
+        mask: true
       });
-    },
-    onReady: function onReady() {
-      var that = this;
-      setTimeout(function () {
-        that.setdata({
-          isLoading: false
+      var self = this;
+
+      db.collection('shop').doc(shop_id).get().then(function (res) {
+
+        wx.setStorage({
+          key: "shop",
+          data: res.data
         });
-      }, 800);
-    },
-    makertap: function makertap(e) {
-      console.log(e);
-      var id = e.markerId;
-      var that = this;
-      wx.getLocation({
-        type: 'gcj02', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标  
-        success: function success(res) {
-          that.setdata({
-            userLongitude: res.longitude,
-            userLatitude: res.latitude
-          });
-          that.setdata({
-            activePlaceID: id,
-            placeName: that.data.markers[id].callout.content
-          });
-          var userLocation = that.data.userLongitude + ',' + that.data.userLatitude;
-          var destination = that.data.markers[id].longitude + ',' + that.data.markers[id].latitude;
-          that.planPolyline(userLocation, destination);
-        }
-      });
-    },
-    planPolyline: function planPolyline(origin, destination) {
-      var that = this;
-      var id = that.data.activePlaceID;
-      //规划步行路线
-      myAmapFun.getWalkingRoute({
-        origin: origin,
-        destination: destination,
-        success: function success(data) {
-          var points = [];
-          if (data.paths && data.paths[0] && data.paths[0].steps) {
-            var steps = data.paths[0].steps;
-            for (var i = 0; i < steps.length; i++) {
-              var poLen = steps[i].polyline.split(';');
-              for (var j = 0; j < poLen.length; j++) {
-                points.push({
-                  longitude: parseFloat(poLen[j].split(',')[0]),
-                  latitude: parseFloat(poLen[j].split(',')[1])
-                });
-              }
+        console.log("goods", res.data.goods);
+
+        self.setdata({
+          shop_id: shop_id,
+          caidan: res.data.caidan,
+          goods: res.data.goods,
+          goprice: res.data.goprice * 1,
+          shopyesno: res.data.shopyesno,
+          shopyesnoing: res.data.shopyesno,
+          shopname: res.data.name,
+          shopid: res.data.shopid
+        });
+        {
+          console.log(123);
+          /* if (nowtime >= "23:50" && nowtime <= "23:59") {
+            self.setdata({
+              weihu: true,
+              shopyesno: false,
+            })
+          } */
+          // 调用云函数获取用户openid
+          wx.cloud.callFunction({
+            name: 'login',
+            env: 'mall-7gi19fir46652cb4',
+            data: {},
+            success: function success(loginres) {
+              console.log('[云函数] [login] user openid: ', loginres.result.openid);
+              app.globalData.openid = loginres.result.openid;
+              db.collection('userinfo').where({
+                _openid: loginres.result.openid
+              }).get().then(function (userinfores) {
+                if (userinfores.data.length > 0) {
+                  wx.setStorage({
+                    key: "userinfo",
+                    data: userinfores.data[0]
+                  });
+                  self.setdata({
+                    newuser: false,
+                    username: userinfores.data[0].username,
+                    usertximg: userinfores.data[0].usertximg,
+                    userlocation: userinfores.data[0].userlocation,
+                    havelocation: userinfores.data[0].havelocation
+                  });
+
+                  self.onShow();
+                  console.log(res.data.caidan, 1233);
+                  self.caidanxuanran(res.data.caidan);
+                } else {
+                  var args = wx.getStorageSync('args');
+                  db.collection('userinfo').add({
+                    data: {
+                      _openid: loginres.result.openid,
+                      username: args.username,
+                      havelocation: false,
+                      userlocation: {},
+                      usertximg: args.iconUrl
+
+                    } }).then(self.onShow());
+                }
+              });
+            },
+            fail: function fail(err) {
+              console.error('[云函数] [login] 调用失败', err);
             }
-          }
-          that.setdata({
-            json: data.paths[0],
-            polyline: [{
-              points: points,
-              color: "#7acfa6",
-              width: 6
-            }]
           });
-          if (data.paths[0] && data.paths[0].distance) {
-            that.setdata({
-              distance: data.paths[0].distance + '米'
-            });
-          }
-          if (data.paths[0] && data.paths[0].duration) {
-            that.setdata({
-              cost: parseInt(data.paths[0].duration / 60) + '分钟'
-            });
-          }
-          var markers = that.data.markers;
-          var points = that.data.polyline[0].points;
-          //暂时一共70个坐标点
-          markers[22] = {
-            id: 22,
-            latitude: points[0].latitude,
-            longitude: points[0].longitude,
-            iconPath: '../..image/mapicon_navi_s.png',
-            width: 23,
-            height: 33
-          };
-          markers[23] = {
-            id: 23,
-            latitude: points[points.length - 1].latitude,
-            longitude: points[points.length - 1].longitude,
-            iconPath: '../..image/mapicon_navi_e.png',
-            width: 24,
-            height: 34
-          };
+        }
+        console.log(res.data);
+      });
+    },
+    onShow: function onShow(e) {
+      var self = this;
+      var skip = self.data.skip;
+      var userinfo = wx.getStorageSync('userinfo');
+      this.setdata({ userlocation: userinfo.userlocation });
 
-          that.setdata({
-            markers: markers
-          });
-        }
-      });
-    },
-    location: function location() {
-      var _this = this;
-      wx.getLocation({
-        type: 'gcj02', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标  
-        success: function success(res) {
-          _this.setdata({
-            userLongitude: res.longitude,
-            userLatitude: res.latitude
-          });
-        }
-      });
-    },
-    moveSchool: function moveSchool() {
-      //视图返回学校
-      var _this = this;
-      wx.showModal({
-        title: '选择校区',
-        showCancel: true, //是否显示取消按钮
-        content: "请选择校区",
-        cancelText: "西城校区", //默认是“取消”
-        confirmText: "官渡校区", //默认是“确定”
-        success: function success(res) {
-          if (res.cancel) {
-            _this.setdata({
-              userLongitude: 110.818019,
-              userLatitude: 21.654388
-            });
-          } else {
-            _this.setdata({
-              userLongitude: 110.922599,
-              userLatitude: 21.679529
-            });
+      if (!self.data.newuser) {
+        db.collection('dindan').where({
+          _openid: app.globalData.openid
+        }).count().then(function (totalres) {
+
+          if (totalres.total > 20) {
+            skip = totalres.total - 20;
           }
-        },
-        fail: function fail(res) {}, //接口调用失败的回调函数
-        complete: function complete(res) {} //接口调用结束的回调函数（调用成功、失败都会执行）
-      });
-    },
-    jtt: function jtt() {
-      wx.showModal({
-        title: '选择校区',
-        showCancel: true, //是否显示取消按钮
-        content: "请选择校区",
-        cancelText: "西城校区", //默认是“取消”
-        confirmText: "官渡校区", //默认是“确定”
-        success: function success(res) {
-          if (res.cancel) {
-            wx.previewImage({
-              current: "cloud://un1-d62c68.756e-un1-d62c68-1258307938/a.png", // 当前显示图片的http链接
-              urls: ["cloud://un1-d62c68.756e-un1-d62c68-1258307938/a.png"] // 需要预览的图片http链接列表
+          db.collection('dindan').where({
+            _openid: app.globalData.openid
+          }).skip(skip).limit(20).get().then(function (res) {
+
+            self.setdata({
+              mydindantotal: totalres.total,
+              mydingdan: res.data.reverse()
             });
-          } else {
-            wx.previewImage({
-              current: "cloud://un1-d62c68.756e-un1-d62c68-1258307938/b.png", // 当前显示图片的http链接
-              urls: "cloud://un1-d62c68.756e-un1-d62c68-1258307938/b.png" // 需要预览的图片http链接列表
-            });
-          }
-        },
-        fail: function fail(res) {}, //接口调用失败的回调函数
-        complete: function complete(res) {} //接口调用结束的回调函数（调用成功、失败都会执行）
-      });
-    },
-    goDetail: function goDetail() {
-      var that = this;
-      var latitude = that.data.markers[that.data.activePlaceID].latitude;
-      var longitude = that.data.markers[that.data.activePlaceID].longitude;
-      var name = that.data.markers[that.data.activePlaceID].callout.content;
-      wx.openLocation({
-        latitude: latitude,
-        longitude: longitude,
-        name: name,
-        address: '嘉应学院',
-        scale: 8
-      });
-    },
-    bindPickerChange: function bindPickerChange(e) {
-      this.setdata({
-        index: e.detail.value
-      });
-      if (e.detail.value == 0) {
-        this.setdata({
-          userLongitude: 116.12839211437986,
-          userLatitude: 24.32836897202351
-        });
-      } else if (e.detail.value == 1) {
-        this.setdata({
-          userLongitude: 116.11877202987671,
-          userLatitude: 24.276034461207942
-        });
-      } else if (e.detail.value == 2) {
-        this.setdata({
-          userLongitude: 116.09064102172852,
-          userLatitude: 24.28710509971846
-        });
-      } else if (e.detail.value == 3) {
-        this.setdata({
-          userLongitude: 116.09776496887207,
-          userLatitude: 24.315090341354686
+            wx.hideNavigationBarLoading();
+            wx.stopPullDownRefresh();
+            console.log(res.data);
+          }).catch(function (err) {
+            wx.hideNavigationBarLoading();
+            wx.stopPullDownRefresh();
+            console.error(err);
+          });
         });
       }
-    }
-  });
+
+      console.log(this.data.mydingdan, '55');
+      wx.hideHomeButton();
+    },
+
+    /* 菜单渲染 */
+    caidanxuanran: function caidanxuanran(e) {
+      var caidan = e;
+      var list = [{}];
+      for (var i = 0; i < caidan.length; i++) {
+        list[i] = {};
+        list[i].name = caidan[i].name;
+        list[i].id = i;
+        list[i].myid = caidan[i].myid;
+      }
+      console.log(list, 233);
+      this.setdata({
+        list: list,
+        listCur: list[0]
+      });
+      wx.hideLoading();
+    },
+    onReady: function onReady() {},
+    tabSelect: function tabSelect(e) {
+      this.setdata({
+        TabCur: String(e.currentTarget.dataset.id),
+        MainCur: e.currentTarget.dataset.id,
+        VerticalNavTop: (e.currentTarget.dataset.id - 1) * 50
+      });
+    },
+    VerticalMain: function VerticalMain(e) {
+      var that = this;
+      var list = this.data.list;
+      console.log("list", list);
+      var tabHeight = 0;
+      if (this.data.load) {
+        var _loop = function _loop(i) {
+          var view = wx.createSelectorQuery().select("#main-" + list[i].id);
+          view.fields({
+            size: true
+          }, function (data) {
+            list[i].top = tabHeight;
+            tabHeight = tabHeight + data.height;
+            list[i].bottom = tabHeight;
+          }).exec();
+        };
+
+        for (var i = 0; i < list.length; i++) {
+          _loop(i);
+        }
+        that.setdata({
+          load: false,
+          list: list
+        });
+      }
+      var scrollTop = e.detail.scrollTop + 20;
+      for (var i = 0; i < list.length; i++) {
+        if (scrollTop > list[i].top && scrollTop < list[i].bottom) {
+          that.setdata({
+            VerticalNavTop: (list[i].id - 1) * 50,
+            TabCur: String(list[i].id)
+          });
+          return false;
+        }
+      }
+    },
+
+    /* 第一次添加购物车 */
+    oneaddgoods: function oneaddgoods(e) {
+      var self = this;
+      var newuser = self.data.newuser;
+      console.log("newuser", newuser);
+      console.log("e", e);
+      if (newuser) {
+        wx.showToast({
+          title: '成功',
+          icon: 'success',
+          duration: 1000
+        });
+      } else {
+        var _self$setdata;
+
+        var index = e.currentTarget.id;
+        console.log("self.data.goods", self.data.goods);
+        var goodsnumber = self.data.goods[index].number;
+        var goodsdata = "goodt[" + index + "].number";
+        var buy = this.data.buy;
+        var goods = {
+          guige: false,
+          id: self.data.goods[index].id,
+          img: self.data.goods[index].img,
+          name: self.data.goods[index].name,
+          price: self.data.goods[index].price,
+          zhekou: self.data.goods[index].zhekou,
+          nowprice: self.data.goods[index].nowprice,
+          shangpu: self.data.goods[index].shangpu, //所属商铺
+          shopid: self.data.goods[index].shopid,
+          number: 1, //用户购物车数量
+          index: index //在goods列表里的index
+        };
+        buy.push(goods);
+        self.data.goods[index].number += 1;
+        self.setdata((_self$setdata = {
+          buy: buy
+        }, _defineProperty(_self$setdata, goodsdata, goodsnumber + 1), _defineProperty(_self$setdata, "goods", self.data.goods), _self$setdata));
+        console.log(goodsnumber + 1);
+        self.buy(buy);
+      }
+    },
+
+    /* 购物车+1 */
+    addgoods: function addgoods(e) {
+      var self = this;
+      var index = e.currentTarget.id;
+      // if (!self.data.goods[index].guige) {
+      self.data.buy[index].number += 1;
+      self.data.goods[index].number += 1;
+      self.setdata({
+        buy: self.data.buy,
+        goods: self.data.goods
+      });
+      self.buy(buy);
+      // } 
+      // var goodsnumber = self.data.goods[index].number
+      // var buy = self.data.buy
+      // var goodsdata = "goods[" + index + "].number"
+      // for (var i = 0; i < buy.length; i++) {
+      //   if (buy[i].id == self.data.goods[index].id) {
+      //     buy[i].number++;
+      //   }
+      // }
+    },
+
+    /* 购物车-1 */
+    reducenumber: function reducenumber(e) {
+      var self = this;
+      var index = e.currentTarget.id;
+      if (self.data.buy[index].number === 1) {
+        self.data.buy.splice(index, 1);
+      } else {
+        self.data.buy[index].number -= 1;
+        self.data.goods[index].number -= 1;
+      }
+      // var goodsnumber = self.data.goods[index].number
+      // var goodsdata = 'goods[' + index + '].number'
+      // var buy = self.data.buy
+      // for (var i = 0; i < buy.length; i++) {
+      //   if (buy[i].id == self.data.goods[index].id) {
+      //     if (buy[i].number == 1) {
+      //       buy.splice(i, 1)
+      //     } else {
+      //       buy[i].number--;
+      //       break;
+      //     }
+      //   }
+      // }
+
+      // if (goodsnumber > 0) {
+      //   self.data.goods[index].number -= 1
+      //   self.setdata({
+      //     buy: self.data.buy,
+      //     // [goodsdata]: goodsnumber - 1,
+      //     goods: self.data.goods
+      //   })
+
+      //     self.buy(self.data.buy)
+
+
+      // }
+      self.setdata({
+        buy: self.data.buy,
+        // [goodsdata]: goodsnumber - 1,
+        goods: self.data.goods
+      });
+
+      self.buy(self.data.buy);
+      return res;
+    },
+
+    /* 购物车规格+1 */
+    guigeaddgoods: function guigeaddgoods(e) {
+      var self = this;
+      var index = e.currentTarget.id;
+      var goods = self.data.goods;
+      var buy = self.data.buy;
+      for (var i = 0; i < goods.length; i++) {
+        if (buy[index].id == goods[i].id) {
+          var goodsnumber = goods[i].number;
+          var goodsdata = "goods[" + i + "].number";
+          break;
+        }
+      }
+      buy[index].number++;
+      self.setdata(_defineProperty({
+        buy: buy
+      }, goodsdata, goodsnumber + 1));
+
+      self.buy(buy);
+    },
+
+    /* 购物车规格-1 */
+    guigereducenumber: function guigereducenumber(e) {
+      var self = this;
+      var index = e.currentTarget.dataset.index;
+      var goods = self.data.goods;
+      var buy = self.data.buy;
+      for (var i = 0; i < goods.length; i++) {
+        if (buy[index].id == goods[i].id) {
+          var goodsnumber = self.data.goods[i].number;
+          var goodsdata = 'goods[' + i + '].number';
+          if (buy[index].number == 1) {
+            buy.splice(index, 1);
+            break;
+          } else {
+            buy[index].number--;
+            break;
+          }
+        }
+      }
+      if (goodsnumber > 0) {
+        console.log(buy);
+        self.setdata(_defineProperty({
+          buy: buy
+        }, goodsdata, goodsnumber - 1));
+
+        self.buy(buy);
+      }
+    },
+    buy: function (_buy) {
+      function buy(_x) {
+        return _buy.apply(this, arguments);
+      }
+
+      buy.toString = function () {
+        return _buy.toString();
+      };
+
+      return buy;
+    }(function (buy) {
+      // var totalprice = 0
+      // var totalnumber = 0
+      // for (var i = 0; i < buy.length; i++) {
+      //   if(buy[i].zhekou){
+      //     totalprice = totalprice + buy[i].number * buy[i].zhekouprice
+      //   }else{
+      //     totalprice = totalprice + buy[i].number * buy[i].nowprice
+      //   }
+      //   totalnumber = totalnumber + buy[i].number
+      // }
+      // 购物车加购的商品数量（numberSum）加一
+      var numberSum = buy.reduce(function (numberSum, item) {
+        return numberSum + item.number;
+      }, 0);
+      // 购物车加购的商品价格（priceSum）加一
+      var priceSum = buy.reduce(function (priceSum, item) {
+        return priceSum + item.number * item.nowprice;
+        // return priceSum + item.number * (item.nowprice * item.zhekou * 0.1);      //---后期优化，无折扣商品：zhekou=10；有折扣商品：zhekou=zhekou*0.1
+      }, 0);
+
+      if (numberSum == 0) {
+        this.setdata({
+          modalName: false
+        });
+      }
+      this.setdata({
+        totalprice: priceSum.toFixed(2),
+        totalTrue: priceSum.toFixed(2) < this.data.goprice,
+        totalyuNumber: this.data.goprice - priceSum.toFixed(2),
+        totalnumber: numberSum
+      });
+    }),
+
+    popUp: function popUp() {
+      //控制卡片/评论弹窗
+      var self = this;
+      var payStyle = 'payHide';
+      // picker动画样式
+      if (payStyle == undefined || payStyle == 'payHide') {
+        payStyle = 'payShow';
+      } else {
+        payStyle = 'payHide';
+      }
+      self.setdata({
+        payStyle: payStyle
+      });
+    },
+    /* 购物车弹出 */
+    showModal: function showModal() {
+      var self = this;
+      if (self.data.buy.length != 0) {
+        self.popUp();
+        self.setdata({
+          modalName: !this.data.modalName,
+          buy: self.data.buy
+        });
+      }
+    },
+
+    /* 商铺 */
+    tabbarshop: function tabbarshop(e) {
+      this.setdata({
+        tabbar: true
+      });
+    },
+
+    /* 个人 */
+    tabbaruser: function tabbaruser(e) {
+      this.setdata({
+        tabbar: false
+      });
+    },
+
+    /* 地址设置 */
+    userlocation: function userlocation(e) {
+      var shop_id = this.data.shop_id;
+      console.log(shop_id);
+      wx.navigateTo({
+        url: '../HotTop/HotTop?content=地址&shop_id=' + shop_id
+      });
+    },
+
+    /* 跳转支付 */
+    pay: function pay(e) {
+      console.log("pay");
+      var self = this;
+      var buy = self.data.buy;
+      wx.setStorage({
+        key: "pay",
+        data: {
+          buy: buy,
+          totalnumber: self.data.totalnumber,
+          totalprice: self.data.totalprice
+        }
+      });
+      wx.navigateTo({
+
+        url: '../HotTop/HotTop?content=支付'
+      });
+    },
+
+    /* 用户授权 */
+    onGetUserInfo: function onGetUserInfo(e) {
+      console.log(e);
+      var self = this;
+      var openid = app.globalData.openid;
+      if (self.data.newuser && e.detail.userInfo) {
+        wx.showLoading({
+          mask: 'none',
+          title: '用户信息建立中...'
+        });
+        db.collection('userinfo').add({
+          // data 字段表示需新增的 JSON 数据
+          data: {
+            username: e.detail.userInfo.nickName,
+            usertximg: e.detail.userInfo.avatarUrl,
+            userlocation: {},
+            havelocation: false
+          },
+          success: function success(res) {
+            wx.setStorage({
+              key: "userinfo",
+              data: {
+                _id: res._id,
+                _openid: openid,
+                username: e.detail.userInfo.nickName,
+                usertximg: e.detail.userInfo.avatarUrl,
+                userlocation: {},
+                havelocation: false
+              }
+            });
+            self.setdata({
+              newuser: false,
+              username: e.detail.userInfo.nickName,
+              usertximg: e.detail.userInfo.avatarUrl,
+              userlocation: {},
+              havelocation: false
+            });
+            console.log(res);
+          },
+          fail: console.error,
+          complete: function complete(res) {
+            wx.hideLoading();
+          }
+        });
+      }
+    },
+    /* 下拉刷新 */
+    onPullDownRefresh: function onPullDownRefresh() {
+      if (!this.data.tabbar) {
+        wx.showNavigationBarLoading();
+        this.onShow();
+      } else {
+        wx.hideNavigationBarLoading();
+        wx.stopPullDownRefresh();
+      }
+    },
+    /* 选规格弹窗开启 */
+    xuanguige: function xuanguige(e) {
+      var self = this;
+      var index = e.currentTarget.dataset.index;
+      var goodsname = self.data.goods[index].name;
+      var goodsguigekouwei = self.data.goods[index].guigekouwei;
+      var goodsguigekouwei2 = self.data.goods[index].guigekouwei2;
+      self.setdata({
+        xuanguigegoodsindex: index,
+        goodsname: goodsname,
+        goodsguigekouwei: goodsguigekouwei,
+        goodsguige2: self.data.goods[index].guige2,
+        goodsguigekouwei2: goodsguigekouwei2,
+        guige: true
+      });
+    },
+
+    /* 选规格弹窗隐藏 */
+    hidexuanguige: function hidexuanguige(e) {
+      var self = this;
+      self.setdata({
+        guige: false
+      });
+    },
+
+    /* 选规格-口味 */
+    guigekouwei: function guigekouwei(e) {
+      this.setdata({
+        guigeindex: e.currentTarget.dataset.index
+      });
+    },
+    guigekouwei2: function guigekouwei2(e) {
+      this.setdata({
+        guigeindex2: e.currentTarget.dataset.index
+      });
+    },
+
+    /* 选规格加购物车 */
+    guigeoneaddgoods: function guigeoneaddgoods(e) {
+      console.log(13);
+      var self = this;
+      var index = self.data.xuanguigegoodsindex;
+      var goodsnumber = self.data.goods[index].number;
+      var goodsdata = "good[" + index + "].number";
+      var buy = this.data.buy;
+      if (self.data.goodsguige2) {
+        var name = self.data.goods[index].name + "(" + self.data.goodsguigekouwei[self.data.guigeindex] + ")" + "(" + self.data.goodsguigekouwei2[self.data.guigeindex2] + ")";
+      } else {
+        var name = self.data.goods[index].name + "(" + self.data.goodsguigekouwei[self.data.guigeindex] + ")";
+      }
+
+      var goods = {
+        guige: true,
+        id: self.data.goods[index].id,
+        img: self.data.goods[index].img,
+        name: name,
+        price: self.data.goods[index].price,
+        zhekou: self.data.goods[index].zhekou,
+        zhekouprice: self.data.goods[index].zhekouprice,
+        nowprice: self.data.goods[index].nowprice,
+        shangpu: self.data.goods[index].shangpu, //所属商铺
+        shopid: self.data.goods[index].shopid,
+        number: 1, //用户购物车数量
+        index: index //在goods列表里的index
+      };
+      buy.push(goods);
+      self.setdata(_defineProperty({
+        guige: false,
+        buy: buy
+      }, goodsdata, goodsnumber + 1), function () {
+        self.buy(buy);
+      });
+    },
+
+
+    /**
+     * 生命周期函数--监听页面隐藏
+     */
+    onHide: function onHide() {},
+
+    /**
+     * 生命周期函数--监听页面卸载
+     */
+    onUnload: function onUnload() {}
+
+  }, _defineProperty(_Page, "onPullDownRefresh", function onPullDownRefresh() {}), _defineProperty(_Page, "onReachBottom", function onReachBottom() {}), _defineProperty(_Page, "onShareAppMessage", function onShareAppMessage() {}), _Page));
 }
 module.exports = runCode;
 /******/ })()

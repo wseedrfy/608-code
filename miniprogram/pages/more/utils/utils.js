@@ -39,14 +39,7 @@ function setAllList(allList,type) {
             }
            
         }
-        // if(pages[pages.length -1]) {
-        //     console.log(33333333333)
-        //     if(pages[pages.length -1].route == "pages/more/more") {
-        //          console.log(3333333)
-
-        //         pages[pages.length -1].onLoad();
-        //     }
-        // }
+       
         let e = {
             detail: allList
         }

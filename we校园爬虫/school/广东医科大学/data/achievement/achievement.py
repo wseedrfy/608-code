@@ -6,7 +6,7 @@ import json
 
 def achievement(username, session):
     nowTime = str(round(time.time() * 1000))
-    url = f'http://jw.gdmu.edu.cn/cjcx/cjcx_cxXsgrcj.html?doType=query&gnmkdm=N305005&su={username}'
+    url = f'http://43.155.99.203:30002/cjcx/cjcx_cxXsgrcj.html?doType=query&gnmkdm=N305005&su={username}'
     data = {
         "xnm": "",
         "xqm": "",

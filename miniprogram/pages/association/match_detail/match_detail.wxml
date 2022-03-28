@@ -15,13 +15,13 @@
         <view class="title" >[宣传海报]长按修改</view>
     </view>
     <view class="content_wrap">
-        <view class="top_wrap">
-            <view class="title">标题</view>
+        <view class="top_wrap_top">
+            <view class="title_top">标题</view>
             <input maxlength="-1" placeholder="赛事标题" bind:input="title" value="{{title}}" />
         </view>
         <view class="mid_wrap">
-            <view class="title">描述</view>
-            <input maxlength="-1" placeholder="赛事内容描述" bind:input="detail" value="{{contentDetail}}" />
+            <view class="title_top">描述</view>
+            <textarea class="handle_top" maxlength="-1" placeholder="赛事内容描述" bind:input="detail" value="{{contentDetail}}" style="height:120rpx;"></textarea>
         </view>
     </view>
     <!-- 奖励 -->
@@ -53,7 +53,7 @@
         <view class="keep" bindtap="hold" data-status="{{false}}">保存</view>
         <!-- 选择时间 -->
         <view class="change_time">
-            <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
+            <picker mode="date" value="{{date}}" start="2022-03-01" end="2024-09-01" bindchange="bindDateChange">
                 <view class="picker">截止日期:{{date}}</view>
             </picker>
         </view>

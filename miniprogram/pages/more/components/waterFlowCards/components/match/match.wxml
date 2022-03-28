@@ -4,14 +4,11 @@
 </wxs>
 <wxs src="time.wxs" module="tools"></wxs>
 <view class="pic" bindtap="ShowContent" data-index="{{index}}">
-  <!-- <view class="in_img" style="bottom:{{item.ShowHeight}}rpx">
-    <span class="host" >主办方 {{item.assoMess.association}}</span>
-    <view class="loacal2"></view>
-  </view> -->
   <image class="Show_Image" lazy-load src='{{item.Cover}}' mode="aspectFill" style="height: {{item.ShowHeight > 500 ? 500+'rpx':item.ShowHeight+'rpx'}};" binderror="binderrorimg" bindload='onLazyLoad'></image>
   <view class="local_block">
-    <view class="local" >
-      <text class="local_text" style="bottom:{{item.ShowHeight}}rpx">主办方 {{item.assoMess.association}}</text>
+    <view class="local">
+      <!-- <text class="local_text" style="bottom:{{item.ShowHeight}}rpx">主办方 {{item.assoMess.association}}</text> -->
+      <text class="local_text">主办方 {{item.assoMess.association}}</text>
     </view>
     <view class="local2"></view>
   </view>
@@ -31,15 +28,7 @@
             {{tools.getDateTime(time,item.date)>0?tools.getDateTime(time,item.date):''}}{{tools.getDateTime(time,item.date)>0?'天后结束':'已截止'}}
           </view>
         </view>
-        <!-- <view class="person">
-          {{item.personArr.length==0?'1':(item.personArr.length>100?'99+':item.personArr.length)}}人参与
-        </view> -->
       </view>
-      <!-- <span class="tip_wrpa">
-        <view class="tip" style="background-color: {{m1.message[index]}}" wx:for="{{item.borderArr}}" wx:key="item">
-          {{item}}
-        </view>
-      </span> -->
     </span>
   </view>
 </view>

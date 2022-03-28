@@ -55,18 +55,36 @@ Page({
       schoolName: true, //默认显示_id，这个隐藏
       url: true,
       location: true,
+      open: true,
+      open_yk: true
     }).get()).data
+    var open = false
+    var open_yk = false
     res.forEach(e => {
+      if(e.open === true){
+        open = true
+      }
+      if(e.open_yk === true){
+        open_yk = true
+      }
       if (e.schoolName !== '空' | "游客登录") {
         this.data.school.push(e.schoolName)
         this.data.urls.push(e.url)
       }
     })
-
+    if(open){
+      res = [{schoolName : '广东石油化工学院'}]
+      this.data.school = ["广东石油化工学院"]
+    }
+    if(open_yk){
+      res = [{schoolName : '游客模式'}]
+      this.data.school = ["游客模式"]
+    }
     this.setData({
       res: res,
       school: that.data.school
     });
+    console.log(this.data.school)
     wx.hideLoading();
     wx.showLoading({
       title: '地点获取中',

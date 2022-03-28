@@ -108,14 +108,14 @@ page {
 }
 .bt_wrap {
   display: flex;
-  margin: 24rpx;
+  margin: 42rpx;
   font-size: 32rpx;
   justify-content: center;
   background-color: #6f8569;
   margin-right: 20%;
   margin-left: 20%;
-  border-radius: 24rpx;
-  padding: 8rpx;
+  border-radius: 32rpx;
+  padding: 16rpx;
 }
 .bt_wrap .bt {
   color: white;
@@ -158,13 +158,13 @@ page {
   padding-top: 8rpx;
 }
 .commodity_attr_box .input_wrap .input_title {
-  padding-left: 12rpx;
+  padding: 12rpx;
 }
 .commodity_attr_box .input_wrap .input_content {
-  background-color: #f6f6f6;
-  padding-left: 12rpx;
+  border: 1rpx solid #4b4b4b;
   border-radius: 12rpx;
   padding: 12rpx;
+  margin-right: 24rpx;
 }
 .commodity_attr_box .tip_wrap {
   font-size: 24rpx;
@@ -177,4 +177,10 @@ page {
   font-size: 32rpx;
   margin-bottom: 24rpx;
   border-radius: 28rpx;
+}
+@media (prefers-color-scheme: dark) {
+  input {
+    filter: invert(100%) !important;
+    color: white;
+  }
 }

@@ -8,7 +8,7 @@ def curriculum(username, session):
         "xqm": "12",
         "kzlx": "ck"
     }
-    res = session.post(f'http://jw.gdmu.edu.cn/kbcx/xskbcx_cxXsgrkb.html?gnmkdm=N2151&su={username}', data=data)
+    res = session.post(f'http://43.155.99.203:30002/kbcx/xskbcx_cxXsgrkb.html?gnmkdm=N2151&su={username}', data=data)
     week = {
         "星期一": 1,
         "星期二": 2,

@@ -21,6 +21,7 @@
   margin-bottom: 10rpx
 }
 .img{
+  background-color: #ebebebd8;
   /* background-image:  linear-gradient( #ffffff 10% , #c3e8ef); */
   z-index: -1; 
 
