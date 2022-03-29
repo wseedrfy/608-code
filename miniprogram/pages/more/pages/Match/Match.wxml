@@ -76,8 +76,8 @@
     </view>
   </view>
   <!-- 报名按钮 -->
-  <view class="bt_wrap" style="{{matchStatus==false?'background-color: #4d4d4d;':(tools.getDateTime(time,date)>0?'background-color: #63A1A0':'background-color: #6f8569')}}">
-    <view class="bt"  bind:tap="{{matchStatus==false?'matched':(tools.getDateTime(time,date)>0?'timeOut':'clickme')}}">{{matchStatus==false?'您已参与':(tools.getDateTime(time,date)>0?'已截止':'立即报名')}}</view>
+  <view class="bt_wrap" style="{{matchStatus==false?'background-color: #4d4d4d;':(tools.getDateTime(time,date)>0?'background-color: #63A1A0':'background-color: #6f8569')}}" bind:tap="{{matchStatus==false?'matched':(tools.getDateTime(time,date)>0?'timeOut':'clickme')}}">
+    <view class="bt"  >{{matchStatus==false?'您已参与':(tools.getDateTime(time,date)>0?'已截止':'立即报名')}}</view>
   </view>
 </view>
 <!-- 报名弹窗 -->
