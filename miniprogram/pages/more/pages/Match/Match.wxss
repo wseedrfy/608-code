@@ -43,6 +43,9 @@ page {
   border-radius: 28rpx;
   color: white;
 }
+swiper {
+  text-align: center;
+}
 .match_wrap {
   display: flex;
   padding: 24rpx;
