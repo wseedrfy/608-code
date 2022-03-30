@@ -1,27 +1,44 @@
 /* pages/more/pages/saveBureau/publishBureau/publishBureau.wxss */
 page{
-  background-color: #fff3d0c2;
+  /* background-color: #ffedb7c2; */
+  background: linear-gradient(#fff3d0c2,#ffe8a4c2);
 }
-.head{
-  height: 190rpx;
+/* .head{
+  height: 170rpx;
   width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 2;
+  background-color: #fff5d7;
+} */
+.head{
+  position:fixed; 
+  background-color: #fff5d7;
+  z-index: 2;
+  width: 100%;
+	overflow-x: auto;
 }
+.head_second {
+  display: flex;
+  align-items: center;
+  font-size: 30rpx;
+  width: 100vw;
+}
+
 .head image{
   width: 50rpx;
   height: 50rpx;
-  position: relative;
-  top: 104rpx;
-  left: 34rpx;
+  margin-left: 34rpx;
   transform:rotate(90deg);
 }
 .All{
   width: 100%;
   height:100%;
   display: flex;
-  justify-content: center;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-top: 15rpx;
 }
 .activityTheme{
   margin-left: 10rpx;
@@ -48,7 +65,6 @@ page{
   margin: 0 12rpx;
   display: flex;
   align-items: center;
-  justify-content: center;
   color: #6060d8;
   font-size: 32rpx;
   letter-spacing: 6rpx;
@@ -59,11 +75,10 @@ page{
   height: 52rpx;
   border-radius: 23rpx;
   position: relative;
-  right: 35rpx;
-  top: 1rpx;
 }
 .categoriesContent text{
   position:absolute;
+  margin-left: 35rpx;
 }
 .activityDetails{
   margin-left: 10rpx;
@@ -74,11 +89,11 @@ page{
   margin-right: 550rpx;
 }
 .inputContent{
-  width: 660rpx;
-  min-height: 350rpx;
+  width: 684rpx;
+  min-height: 335rpx;
   background-color: white;
   margin-top: 18rpx;
-  padding: 20rpx;
+  padding: 10rpx;
   border-radius: 20rpx;
   border: 4rpx solid #F8931C;
   display: flex;
@@ -86,13 +101,14 @@ page{
   box-shadow: 3px 3px #6b421140;
 }
 .inputTitle{
-  height: 150rpx;
+  height: 160rpx;
   width: 95%;
-  margin-top: 30rpx;
+  margin-top: 10rpx;
   margin-left: 18rpx;
 }
 .inputTitle textarea{
   width: 100%;
+  height: 100%;
 }
 .inputImg{
   display: flex;
@@ -100,11 +116,43 @@ page{
   flex-wrap: wrap;
   margin-left: 7rpx;
 }
+.Img2{
+  width: 140rpx;
+  height: 140rpx;
+  margin: 8rpx 8rpx;
+  border: 4rpx solid #F8931C;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .Img{
   width: 140rpx;
   height: 140rpx;
   margin: 8rpx 8rpx;
   border: 4rpx solid #F8931C;
+  display: flex;
+  position: relative;
+}
+.Img image{
+  width: 100%;
+  height: 100%;
+}
+.Img2 image{
+  width: 37rpx;
+  height: 32rpx;
+}
+.delImg{
+  height: 43rpx;
+  width: 43rpx;
+  background-color: black;
+  border-radius: 50rpx;
+  z-index: 2;
+  position: absolute;
+  margin-left: 120rpx;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .position{
   margin-left: 10rpx;
@@ -116,13 +164,19 @@ page{
 }
 .choosePosition{
   background-color: white;
-  width: 675rpx;
+  width: 650rpx;
   height: 50rpx;
-  padding: 15rpx;
+  padding: 15rpx 28rpx;
   border-radius: 20rpx;
   border: 4rpx solid #F8931C;
   margin-top: 18rpx;
   box-shadow: 3px 3px #6b421140;
+  display: flex;
+  align-items: center;
+}
+.choosePosition text{
+  font-size: 30rpx;
+  font-weight: 550;
 }
 .totalNum{
   margin-left: 10rpx;

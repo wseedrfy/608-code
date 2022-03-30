@@ -5,11 +5,11 @@
   <form bindsubmit="subMatch">
     <view class="match_list_wrap" wx:for="{{content.question}}" wx:for-index="index" wx:for-item="item" wx:key="item">
       <!-- 单选盒子 -->
-      <view class="dan_wrap" wx:if="{{item.type=='单选'}}" >
-        <view class="match_title">{{index+1}}.{{item.title}}</view>
+      <view class="dan_wrap" wx:if="{{item.type=='单选'}}">
+        <view class="match_title">{{index+1}}.{{item.title}}{{item.must==true?'(必填)':''}}</view>
         <view class="chang_item">
-          <radio-group bindchange="radioChange" name="{{item.title}}">
-            <label class="weui_cell" wx:for="{{item.arr}}" wx:key="item" >
+          <radio-group  name="{{item.title}}" >
+            <label class="weui_cell" wx:for="{{item.arr}}" wx:key="item">
               <view class="weui_cell__hd">
                 <radio value="{{item}}" />
               </view>
@@ -19,10 +19,10 @@
         </view>
       </view>
       <!-- 多选盒子 -->
-      <view class="dan_wrap" wx:if="{{item.type=='多选'}}" >
-        <view class="match_title">{{index+1}}.{{item.title}}</view>
+      <view class="dan_wrap" wx:if="{{item.type=='多选'}}">
+        <view class="match_title">{{index+1}}.{{item.title}}{{item.must==true?'(必填)':''}}</view>
         <view class="chang_item">
-          <checkbox-group bindchange="checkboxChange" name="{{item.title}}">
+          <checkbox-group name="{{item.title}}">
             <label class="weui_cell" wx:for="{{item.arr}}" wx:key="item">
               <view class="weui_cell__hd">
                 <checkbox value="{{item}}" checked="{{item.checked}}" />
@@ -33,9 +33,9 @@
         </view>
       </view>
       <!-- 填空盒子 -->
-      <view class="tian_wrap" wx:if="{{item.type=='填空'}}" >
-        <view class="tian_title">{{index+1}}.{{item.title}}</view>
-        <textarea class="handle" name="{{item.title}}"></textarea>
+      <view class="tian_wrap" wx:if="{{item.type=='填空'}}">
+        <view class="tian_title">{{index+1}}.{{item.title}}{{item.must==true?'(必填)':''}}</view>
+        <textarea  class="handle" name="{{item.title}}"></textarea>
       </view>
       <!-- <button class="submit">提交</button> -->
     </view>
@@ -44,6 +44,17 @@
 </view>
 <!-- 信息展示 -->
 <view wx:if="{{html==1}}">
+  <!-- 顶部轮播 -->
+  <swiper indicator-dots='true' indicator-color="rgba(223, 223, 223, 0.39)" indicator-active-color='rgb(235, 21, 21)'
+    style="height: {{content.ShowHeight > 300 ? 700+'rpx':content.ShowHeight+'px'}};">
+    <block wx:for="{{content.AllPhoto}}" wx:key="Photo" class="photo">
+      <swiper-item>
+        <image src="{{item}}" mode="aspectFill" style="z-index: 11;" bindtap="ShowImg" class="ShowImg"
+          data-index="{{index}}" />
+      </swiper-item>
+    </block>
+  </swiper>
+  <!-- 信息详情 -->
   <view class="match_wrap">
     <view class="match_caption">主办信息</view>
     <view class="match_list_wrap">
@@ -71,13 +82,15 @@
       </view>
       <view class="rule_list">
         <view class="rule_title">详情</view>
-        <view class="rule_detail">{{content.Text}}</view>
+        <text class="rule_detail">{{content.Text}}</text>
       </view>
     </view>
   </view>
   <!-- 报名按钮 -->
-  <view class="bt_wrap" style="{{matchStatus==false?'background-color: #4d4d4d;':(tools.getDateTime(time,date)>0?'background-color: #63A1A0':'background-color: #6f8569')}}">
-    <view class="bt"  bind:tap="{{matchStatus==false?'matched':(tools.getDateTime(time,date)>0?'timeOut':'clickme')}}">{{matchStatus==false?'您已参与':(tools.getDateTime(time,date)>0?'已截止':'立即报名')}}</view>
+  <view class="bt_wrap"
+    style="{{matchStatus==false?'background-color: #4d4d4d;':(tools.getDateTime(time,date)>0?'background-color: #63A1A0':'background-color: #6f8569')}}"
+    bind:tap="{{matchStatus==false?'matched':(tools.getDateTime(time,date)>0?'timeOut':'clickme')}}">
+    <view class="bt">{{matchStatus==false?'您已参与':(tools.getDateTime(time,date)>0?'已截止':'立即报名')}}</view>
   </view>
 </view>
 <!-- 报名弹窗 -->
