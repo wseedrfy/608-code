@@ -19,8 +19,8 @@ def login(xh, pwd, session):
             "encoded": encoded
         }
 
-        session.get('http://121.40.128.199:81/jsxsd/')
-        res = session.post('http://121.40.128.199:81/jsxsd/xk/LoginToXk', data=data)
+        session.get('http://39.108.86.184:81/jsxsd/')
+        res = session.post('http://39.108.86.184:81/jsxsd/xk/LoginToXk', data=data)
         if "用户名或密码错误" in res.text:
             return {
                 "msg": "用户名或密码错误"

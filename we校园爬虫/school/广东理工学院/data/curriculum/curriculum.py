@@ -6,7 +6,7 @@ from school.广东理工学院.login.login import login
 
 def curriculum(session):
     try:
-        res = session.get('http://121.40.128.199:81/jsxsd/xskb/xskb_list.do').text
+        res = session.get('http://39.108.86.184:81/jsxsd/xskb/xskb_list.do').text
 
         a, _ = re.subn('\r', '', res)
         a, _ = re.subn('\n', '', a)

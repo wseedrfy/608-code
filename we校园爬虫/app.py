@@ -11,7 +11,7 @@ from school.广东理工学院.main import login_GDLG,getData_GDLG
 from school.广东医科大学.main import login_GYK,getData_GYK
 from another.physical import physical_Default,physical_Linear
 from another.YiBan import YiBan_login,YiBan_post
-from another.CWJ import YiBan_CWJ
+# from another.CWJ import YiBan_CWJ
 
 # from another.chemical import chemical_chemistry,chemical_chemical_two,chemical_F_value
 
