@@ -1,6 +1,9 @@
 page {
   background-color: #f6f6f6;
 }
+.wrap swiper {
+  text-align: center;
+}
 .wrap .top {
   display: flex;
   align-items: center;
@@ -66,7 +69,7 @@ page {
 .wrap .apply .input_list .input_item {
   display: flex;
   flex-direction: row;
-  padding: 8rpx;
+  padding: 12rpx;
 }
 .wrap .apply .input_list .input_item .input_title {
   flex: 2;
@@ -76,7 +79,7 @@ page {
   width: auto;
   margin-left: 12rpx;
   background-color: #ececec;
-  padding-left: 8rpx;
+  padding: 4rpx 8rpx;
   border-radius: 18rpx;
 }
 .wrap .end {
@@ -89,4 +92,5 @@ page {
   margin-right: 20%;
   margin-left: 20%;
   color: white;
+  width: 60%;
 }
