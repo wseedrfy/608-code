@@ -16,7 +16,7 @@ Page({
         name: "多选",
       },
       {
-        src: "../img/dan_change.png",
+        src: "../img/tian.png",
         name: "填空",
       },
     ],
