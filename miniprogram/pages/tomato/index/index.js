@@ -1,11 +1,9 @@
-// index.js
 const util = require('../../../utils/util.js')
-
-// 获取应用实例
 const app = getApp()
-//动画出现严重问题bug !!!!!!!!!!!!!!!!!!
 Page({
     data: {
+        statusBarHeight: getApp().globalData.statusBarHeight,
+        lineHeight: getApp().globalData.lineHeight,
         logsa:{},//放云端的logs
         clockshow: false,
         clockHeight: 0,
@@ -14,150 +12,100 @@ Page({
         timeStr: '05:00',
         timer: null,
         rate: '',
-        cateArr: [{
-                icon: 'work',
-                text: '工作',
-                blue:true
-            },
-            {
-                icon: 'study',
-                text: '学习',
-                blue:false
-            },
-            {
-                icon: 'think',
-                text: '思考',
-                blue:true
-            },
-            {
-                icon: 'write',
-                text: '写作',
-                blue:false
-            },
-            {
-                icon: 'sport',
-                text: '运动',
-                blue:true
-            },
-            {
-                icon: 'read',
-                text: '阅读',
-                blue:false
-            }
-        ],
-        cateArr_yellow: [{
-            icon: 'work',
-            text: '工作'
-        },
-        {
-            icon: 'study',
-            text: '学习'
-        },
-        {
-            icon: 'think',
-            text: '思考'
-        },
-        {
-            icon: 'write',
-            text: '写作'
-        },
-        {
-            icon: 'sport',
-            text: '运动'
-        },
-        {
-            icon: 'read',
-            text: '阅读'
-        }
-    ],
+        taskshow:'番茄时钟',
+        task:[{name:'工作'},{name:'学习'},{name:'休息'},{name:'睡觉'},{name:'写bug'},{name:'修bug'}],
         cateActive: '0',
         okShow: false,
-        pauseShow: true,
+        pauseShow: false,
         continueCancelShow: false,
         userInfo: {},
         hasUserInfo: false,
-
+        isRuning:false,
+        pickershow:false,
     },
-    //监听加载页
-    onLoad: function() {
-        console.log("w",wx.getSystemInfoSync().windowWidth);
-        console.log("h",wx.getSystemInfoSync().windowHeight);
-        var res = wx.getSystemInfoSync(); //获取设备的信息
-        var rate = 750 / res.windowWidth;
-        //console.log(rate);
+    clickpicker(){
+        console.log("clickpicker");
+        let pickershow = this.data.pickershow
         this.setData({
-            rate: rate,
-            clockHeight: rate * res.windowHeight
+            pickershow:!pickershow
         })
-        let that = this
-        wx.getStorage({
-            key: 'args',
-            success(res) {
-              //console.log(res.data)
-              that.setData({
-                // storageInfo: JSON.parse(res.data),
-                storageInfo: res.data,
-              });
-              //console.log(that.data.storageInfo.username)
-            },
-            fail(err) {
-              console.log("失败失败失败");
-            }
+    },
+    pickerdata(e){
+        console.log(e);
+        this.setData({
+            taskshow:e.currentTarget.dataset.task,
+            pickershow:false
+        })
+    },
+    init_canvas(){
+          let wpx = wx.getSystemInfoSync().windowWidth/375
+          let iconurl = wx.getStorageSync('args').iconUrl;
+          const query = wx.createSelectorQuery()
+          query.select('#bottombox_clock_bg')
+          .fields({ node: true, size: true })
+          .exec((res) => {
+              console.log(res);
+            const canvas = res[0].node
+            const ctx = canvas.getContext('2d')
+            const dpr = wx.getSystemInfoSync().pixelRatio
+            canvas.width = res[0].width * dpr
+            canvas.height = res[0].height * dpr
+            ctx.scale( dpr,dpr)
+            this.setData({
+              ctx,canvas,wpx
+            })
+            this.new_drawbg(ctx);
           })
-          this.drawBg();
-          this.drawActive();
-    },
-    getUserInfo(e) {
-        // 不推荐使用getUserInfo获取用户信息，预计自2021年4月13日起，getUserInfo将不再弹出弹窗，并直接返回匿名的用户个人信息
-        console.log(e)
-        this.setData({
-            userInfo: e.detail.userInfo,
-            hasUserInfo: true
-        })
-        app.globalData.userInfo = e.detail.userInfo
-        app.globalData.hasUserInfo = true
-    },
-    onShow:function(){
-    },
-    //更新滑动条时间
-    slideChange: function(e) {
-        this.setData({
-            time: e.detail.value
-        })
-    },
-    //更新点击选择做的事件获取index
-    clickCate: function(e) {
-        this.setData({
-            cateActive: e.currentTarget.dataset.index
-        })
-        console.log(e)
-    },
-    //更新开始键点击事件
+        
+      },
+      init_canvas2(){
+          let wpx = wx.getSystemInfoSync().windowWidth/375
+          const query = wx.createSelectorQuery()
+          query.select('#bottombox_clock_active')
+          .fields({ node: true, size: true })
+          .exec((res) => {
+            const canvas2 = res[0].node
+            const ctx2 = canvas2.getContext('2d')
+            const dpr = wx.getSystemInfoSync().pixelRatio
+            canvas2.width = res[0].width * dpr
+            canvas2.height = res[0].height * dpr
+            ctx2.scale( dpr,dpr)
+            this.setData({
+              ctx2,canvas2
+            })
+          })
+      },
+        //更新开始键点击事件
     start: function() {
-        this.setData({
-            clockshow: true,
-            mTime: this.data.time * 60 * 1000,
-            timeStr: parseInt(this.data.time) >= 10 ? this.data.time + ':00' : '0' + this.data.time + ':00',
-        })
-        this.drawBg();
-        this.drawActive();
-    },
-    //画黑圆
-    drawBg: function() {
-        //宽度转化为px
-        var lineWidth = 6 / this.data.rate;
-        var ctx = wx.createCanvasContext('progress_bg');
-        ctx.setLineWidth(lineWidth);
-        ctx.setStrokeStyle('#000000');
-        ctx.setLineCap('round'); //形状
-        ctx.beginPath(); //开新路径
-        ctx.arc(400 / this.data.rate / 2, 400 / this.data.rate / 2, 400 / this.data.rate / 2 - 2 * lineWidth, 0, 2 * Math.PI, false);
-        //(圆心x，y，度数0，到2*math.PI,逆时针false)
-        ctx.stroke();
-        ctx.draw();
+        console.log('start');
+        let ctx2 = this.data.ctx2
+        let isRuning = this.data.isRuning
+        if (!isRuning) {
+            //开始计时
+            this.setData({
+                pauseShow:true,
+                isRuning:true,
+                mTime: this.data.time * 60 * 1000,
+                timeStr: parseInt(this.data.time) >= 10 ? this.data.time + ':00' : '0' + this.data.time + ':00',
+            })
+            this.drawActive();
+          } else {
+            //放弃
+            ctx2.clearRect(0,0,600,600)
+            clearInterval(this.data.timer);
+            this.setData({
+                isRuning:false,
+                pauseShow: false,
+                continueCancelShow: false,
+                okShow: false,
+                mTime: this.data.time * 60 * 1000,
+                timeStr: parseInt(this.data.time) >= 10 ? this.data.time + ':00' : '0' + this.data.time + ':00',
+            })
+          }
     },
     //动态画圆
     drawActive: function() {
+        let ctx2 = this.data.ctx2;
         var _this = this; //此this指向该页的page
         var timer = setInterval(function() {
             var angle = 1.5 + 2 * (_this.data.time * 60 * 1000 - _this.data.mTime) / (_this.data.time * 60 * 1000);
@@ -175,27 +123,30 @@ Page({
                         timeStr: timeStr2 + ':' + timeStr3
                     })
                 }
-                var lineWidth = 6 / _this.data.rate;
-                var ctx = wx.createCanvasContext('progress_active');
-                ctx.setLineWidth(lineWidth);
-                ctx.setStrokeStyle('#ffffff');
-                ctx.setLineCap('round'); //形状
-                ctx.beginPath(); //开新路径
-                ctx.arc(400 / _this.data.rate / 2, 400 / _this.data.rate / 2, 400 / _this.data.rate / 2 - 2 * lineWidth, 1.5 * Math.PI, angle * Math.PI, false);
+                var lineWidth = 13 / _this.data.rate;
+                ctx2.lineWidth=Number(lineWidth);
+                ctx2.strokeStyle='#5879fa';
+                ctx2.lineCap='round'; //形状
+                ctx2.beginPath(); //开新路径
+                ctx2.arc(600 / _this.data.rate / 2, 600 / _this.data.rate / 2, 600 / _this.data.rate / 2 - 2 * lineWidth, 1.5 * Math.PI, angle * Math.PI, false);
                 //(圆心x，y，度数0，到2*math.PI,逆时针false)  一点一点得画
-                ctx.stroke();
-                ctx.draw();
+                ctx2.stroke();
             } else {
+                wx.showLoading({
+                  title: '上传数据中',
+                })
                 let logs = [
                     {date:util.formatTime(new Date),
-                    cate:Number(_this.data.cateActive),  
+                    cate:_this.data.taskshow,
+                    // Number(_this.data.cateActive),  
                     time:Number(_this.data.time),}
-                    ]
+                ]
                 let date=util.formatTime(new Date)
-                let cate=_this.data.cateActive
+                let cate=_this.data.taskshow
+                // _this.data.cateActive
                 let time=_this.data.time
                 let storageInfo=_this.data.storageInfo
-                let username = storageInfo.username
+                let username = String(storageInfo.username)
                 wx.cloud.database().collection("totaltime").where({username:username}).get().then(res=>{
                     let name = storageInfo.nickName
                     let touxiangurl = storageInfo.iconUrl
@@ -212,14 +163,13 @@ Page({
                                 logs:logs,
                                 name,
                                 touxiangurl,
-                                username:username
+                                username:String(username)
                             }
                         }).then(res => {
                             console.log(res);
                             wx.hideLoading();
                         })
                     }else {
-                        console.log('ddd')
                         totaltime.where({username:username}).update({
                             data: {
                                 logs: _.push({
@@ -227,10 +177,8 @@ Page({
                                     cate:cate,
                                     time:_this.data.time
                                 })
-
                             }
                         }).then(res=>{
-                            // console.log(logs);
                             console.log('添加成功')
                         })
                     }
@@ -243,11 +191,65 @@ Page({
                 })
                 clearInterval(timer);
                 console.log(logs);
+                wx.hideLoading();
             }
         }, 100);
         _this.setData({
             timer: timer
         })
+    },
+    new_drawbg(ctx){
+        var lineWidth = 13 / this.data.rate;
+        ctx.lineWidth=Number(lineWidth);
+        ctx.strokeStyle='#d0dafd';
+        ctx.lineCap='round'; //形状
+        ctx.beginPath(); //开新路径
+        ctx.arc(600 / this.data.rate / 2, 600 / this.data.rate / 2, 600 / this.data.rate / 2 - 2 * lineWidth, 0, 2 * Math.PI, false);
+        //(圆心x，y，度数0，到2*math.PI,逆时针false)
+        ctx.stroke();
+    },
+    //监听加载页
+    onLoad: function() {
+        console.log("w",wx.getSystemInfoSync().windowWidth);
+        console.log("h",wx.getSystemInfoSync().windowHeight);
+        var res = wx.getSystemInfoSync(); //获取设备的信息
+        var rate = 750 / res.windowWidth;
+        //console.log(rate);
+        this.setData({
+            rate: rate,
+            clockHeight: rate * res.windowHeight
+        })
+        let that = this
+        wx.getStorage({
+            key: 'args',
+            success(res) {
+              that.setData({
+                storageInfo: res.data,
+              });
+            },
+            fail(err) {
+              console.log("失败失败失败");
+            }
+          })
+        this.init_canvas();
+        this.init_canvas2();
+    },
+    //更新滑动条时间
+    slideChange: function(e) {
+        this.setData({
+            time: e.detail.value,
+        })
+        this.setData({
+            mTime: this.data.time * 60 * 1000,
+            timeStr: parseInt(this.data.time) >= 10 ? this.data.time + ':00' : '0' + this.data.time + ':00',
+        })
+    },
+    //更新点击选择做的事件获取index
+    clickCate: function(e) {
+        this.setData({
+            cateActive: e.currentTarget.dataset.index
+        })
+        console.log(e)
     },
     //暂停
     pause: function() {
@@ -267,20 +269,13 @@ Page({
             okShow: false,
         })
     },
-    cancel: function() {
-        clearInterval(this.data.timer);
-        this.setData({
-            pauseShow: true,
-            continueCancelShow: false,
-            okShow: false,
-            clockshow: false,
-        })
-    },
-    
     ok: function() {
+        let ctx2 =this.data.ctx2
+        ctx2.clearRect(0,0,600,600);
         clearInterval(this.data.timer);
         this.setData({
-            pauseShow: true,
+            isRuning:false,
+            pauseShow: false,
             continueCancelShow: false,
             okShow: false,
             clockshow: false,

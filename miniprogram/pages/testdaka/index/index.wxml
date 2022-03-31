@@ -1,7 +1,9 @@
 <!-- 主页 -->
 <view wx:if="{{navState==0}}">
 <view>
-<calendar bind:change="dateChange" spot="{{spot}}" week="{{week}}"defaultTime="{{today}}"></calendar>
+     <view style="height: {{statusBarHeight}}px;width: 100%;background: #7c66f5;"></view>
+     <view style="height: {{lineHeight}}px;background: #7c66f5;line-height: {{lineHeight}}px;color: white;text-align: center;">We打卡</view>
+     <calendar bind:change="dateChange" spot="{{spot}}" week="{{week}}"defaultTime="{{today}}"></calendar>
 </view>
 <view class="bg">
 <view class="dayclock">
@@ -49,7 +51,44 @@
 <!-- 打卡页 -->
 <view wx:elif="{{navState==1}}"></view>
 <!-- 计时页 -->
-<view wx:elif="{{navState==2}}"></view>
+<view wx:elif="{{navState==2}}">
+<view class="timer {{isRuning ? 'timer--runing': ''}}">
+<view class="topbox">
+   <view class="topbox_topbar" style="height: {{statusBarHeight}}px;width: 100%;"></view>
+   <view class="topbox_bar" style="height: {{lineHeight}}px;">
+      <view class="topbox_bar_picker {{pickershow?'picker_bar':''}}">
+         <view bindtap="clickpicker">{{taskshow}}</view>
+         <view class="topbox_bar_picker_sanjiao" bindtap="clickpicker"></view>
+         <view class="topbox_bar_picker_box">
+            <view class="topbox_bar_picker_box_data" bindtap="pickerdata" data-task="{{item.task_name}}"           wx:for="{{taskdata}}" >{{item.task_name}}</view>
+         </view>
+      </view>
+      <image src="../../testdaka/images/log.png" bindtap="statistics"></image>
+      <image src="../../testdaka/images/rank.png" bindtap="rank"></image>
+   </view>
+   <view class="topbox_tips">
+      <view style="margin-top: 10rpx;text-align: center;color: white;font-size: 26rpx;">请滑动选择时间： {{time}}分钟</view>
+      <slider class="topbox_tips_slider" min="1" max="120" activeColor="#96cddd" backgroundColor="#e5f2f6" value="{{time}}" bindchange="slideChange" block-color="#98ccde"></slider>
+      <view style="width: 80%;color: white;font-size: 26rpx;margin-top: 20rpx;">Tips:</view>
+      <view style="width:80%;color: white;font-size: 26rpx;">点击左上角可以切换番茄任务</view>
+   </view>
+   <view class="topbox_btn">
+      <view class="topbox_btn_start" bindtap="start">{{ isRuning ? '放弃' : '开始计时' }}</view>
+      <view wx:if="{{pauseShow}}" bindtap="pause" class="topbox_btn_stop">暂停</view>
+      <view wx:if="{{continueCancelShow}}" bindtap="continue" class="topbox_btn_ct">继续</view>
+      <view wx:if="{{okShow}}" bindtap="ok" class="topbox_btn_complete">完成</view>
+   </view>
+</view>
+<view class="bottombox {{ isRuning ? 'bottomboxruning' : '' }} ">
+   <view class="bottombox_showtask ">{{taskshow}}</view>
+   <view class="bottombox_clock">
+      <canvas type="2d" id="bottombox_clock_bg" class="bottombox_clock_bg"></canvas>
+      <canvas type="2d" id="bottombox_clock_active" class="bottombox_clock_active"></canvas>
+      <view class="bottombox_clock_text" style="color: #5879fa;" >{{timeStr}}</view>
+   </view>
+</view>
+</view>
+</view>
 <!-- 云留言页 -->
 <view wx:elif="{{navState==3}}"></view>
 <!-- 自习室页 -->
@@ -80,34 +119,31 @@
      <image class="attention_close" src="../images/close.png" bindtap="attention"></image>
 </view>
 <!-- 底部导航栏 -->
-<view class="tabBar">
-         
+<view class="{{isRuning ? 'tabBar_running': 'tabBar'}}">
      <view class="tabBar_ring">
           <!-- 番茄时钟入口 -->
               <!-- <image src="../images/rank.png" class="img-style" animation="{{animCollect}}" bindtap="collect"></image> -->
               <!-- <image src="../images/time.png" class="img-style" animation="{{animTranspond}}" bindtap="transpond"></image> -->
               <!-- <image src="../images/log.png" class="img-style" animation="{{animInput}}" bindtap="input"></image> -->
-              <image src="../images/time_2.png"  data-index="2"class="img-plus-style" animation="{{animPlus}}" bindtap="plus"></image>
+              <image src="../images/time_2.png"  data-index="2" class="img-plus-style" animation="{{animPlus}}" bindtap="plus"></image>
               <!-- <text class="text_time">计时</text> -->
      </view>
      <view class="icon">
           <view class="icon_a" data-index="0" bindtap="click_a">
               <image class="icon_left" src="{{click_a ? '../images/rili.png' : '../images/rini.png'}}"></image>
-              <view wx:if="{{click_a}}" class="icon_left icon_text">主页</view>
+              <view class="{{click_a?'icon_left icon_text':'icon_left icon_text_false'}}">主页</view>
           </view>
           <view class="icon_a" data-index="1" bindtap="click_b">
               <image class="icon_left_2" src="{{click_b ?' ../images/fenlei(1).png  ': '../images/fenlei.png'}}"></image>
-              <view wx:if="{{click_b}}" class="icon_left_2 icon_text">打卡</view>
+              <view class="{{click_b?'icon_left_2 icon_text':'icon_left_2 icon_text_false'}}">打卡</view>
           </view>
           <view class="icon_a" data-index="3" bindtap="click_c">
               <image class="icon_right_2" src="{{click_c ?'../images/yun(1).png': '../images/yun.png'}}"></image>
-              <view wx:if="{{click_c}}" class="icon_right_2 icon_text">云留言</view>
+              <view class="{{click_c?'icon_right_2 icon_text':'icon_right_2 icon_text_false'}}">云留言</view>
           </view>
           <view class="icon_a" data-index="4" bindtap="click_d">
               <image class="icon_right" src="{{click_d ?'../images/pinktu(1).png': '../images/pinktu.png'}}"></image>
-              <view wx:if="{{click_d}}" class="icon_right icon_text">自习室</view>
+              <view class="{{click_d?'icon_right icon_text':'icon_right icon_text_false'}}">自习室</view>
           </view>
      </view>
 </view>
-
-

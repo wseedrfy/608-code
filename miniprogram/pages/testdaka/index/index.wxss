@@ -460,6 +460,21 @@ page{
 .attention_text_duanluo >view{
   line-height: 75rpx;
 }
+.tabBar_running{
+  height:20rpx;
+  width: 100rpx;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 0rpx;
+  border-radius: 50%;
+  z-index: 999;
+  margin: 25rpx;
+  overflow: hidden;
+  transition: all .5s;
+}
 .tabBar{
   height:120rpx;
   width: 703rpx;
@@ -472,6 +487,7 @@ page{
   border-radius: 45rpx;
   z-index: 999;
   margin: 25rpx;
+  transition: all .5s;
 }
 .tabBar_ring{
   height: 160rpx;
@@ -494,39 +510,253 @@ page{
   align-items: center;
 }
 .icon_a{
-  height: 100%;
+  height: auto;
   /* width: 22%; */
-  width: auto;
+  width: 22%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 .icon_a >image{
+  transition: all .7s;
   height: 50rpx;
   width: 50rpx;
 }
+.icon_text_false{
+  transition: all .7s;
+  height: 0.5rpx;
+  width: 2rpx;
+  overflow: hidden;
+  font-size: 1rpx;
+  width: 100%;
+}
 .icon_text{
+  width: 100%;
   padding-top: 10rpx;
   font-size: 20rpx;
   color: #7c66f5;
+  transition: all .7s;
+  text-align: center;
 }
 .icon_left{
   /* padding-right: 10rpx; */
   margin-right: 65rpx;
+  /* transition: all .5s; */
 }
 .icon_right{
   /* padding-left: 10rpx; */
   margin-left: 65rpx;
+  /* transition: all .5s; */
 }
 .icon_left_2{
   /* padding-right: 10rpx; */
   margin-right: 130rpx;
+  /* transition: all .5s; */
 }
 .icon_right_2{
   /* padding-left: 10rpx; */
   margin-left: 130rpx;
+  /* transition: all .5s; */
 }
+
+/* 计时样式 */
+.topbox{
+  height: 40vh;
+  width: 100%;
+  background: linear-gradient(to bottom, #5677fc 45% ,  rgb(78, 78, 78));
+   /* #5677fc; */
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  position: relative;
+  transition: all .3s;
+  border-radius: 0 0 10rpx 10rpx;
+}
+.topbox_bar{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  /* background:#fff; */
+  align-items: center;
+  color: #fff;
+}
+.topbox_bar >image{
+  width: 50rpx;
+  height: 50rpx;
+  margin-right: 20rpx;
+  transform: rotate(180deg);
+  filter: invert(1) !important;
+}
+.topbox_bar_picker{
+  margin-left: 20rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.topbox_bar_picker_box{
+  height: 0;
+  position: absolute;
+  left: -10rpx;
+  top: 50rpx;
+  width: 30vw;
+  transition: all .5s;
+  z-index: 99;
+  overflow: hidden;
+}
+.topbox_bar_picker_box_data{
+  height: 0;
+  margin-top: 10rpx;
+  padding-left: 15rpx;
+  background: #fff;
+  color: black;
+  border-radius: 10rpx;
+  transition: all .5s;
+}
+.picker_bar .topbox_bar_picker_box{
+  height: auto;
+  transition: all .5s;
+}
+.picker_bar .topbox_bar_picker_box_data{
+  height: 50rpx;
+  transition: all .5s;
+}
+.topbox_bar_picker_sanjiao{
+margin: 15rpx 20rpx 0 20rpx ;
+width: 0px;
+height: 0px;
+border-width: 11rpx;
+border-top: 25rpx;
+border-style: solid;
+border-color:  #fff transparent transparent transparent;
+}
+.topbox_tips{
+width: 100%;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+}
+.topbox_tips_slider{
+width: 80%;
+}
+wx-slider .wx-slider-handle-wrapper {
+  height: 30rpx;
+}
+.topbox_btn{
+width: 100%;
+position: absolute;
+bottom: -40rpx;
+/* height: 80rpx; */
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+}
+.topbox_btn_start{
+width: 250rpx;
+height: 80rpx;
+text-align: center;
+line-height: 80rpx;
+background: #5677fc;
+border-radius: 40rpx;
+color: white;
+}
+.bottombox{
+height: 60vh;
+display: flex;
+flex-direction: column;
+/* justify-content: center; */
+align-items: center;
+transition: all .5s;
+}
+.bottombox_showtask{
+width: 500rpx;height: 1rpx;overflow: hidden;
+}
+.bottomboxruning .bottombox_showtask{
+text-align: center;
+width: 300rpx;
+background: #d0dafd;
+line-height: 80rpx;
+border-radius: 40rpx;
+height: 80rpx;
+transition: all .7s;
+}
+
+.bottombox_clock{
+flex: 1;
+width: 600rpx;
+height: 600rpx;
+margin: 7vh auto 0 auto;
+position: relative;
+}
+.bottomboxruning .bottombox_clock{
+margin: 3vh auto 0 auto;
+}
+.bottombox_clock_bg,
+.bottombox_clock_active{
+display: block;
+position: absolute;
+left: 0;
+top: 0;
+width: 600rpx;
+height: 600rpx;
+}
+.bottombox_clock_text{
+line-height: 60rpx;
+font-size: 90rpx;
+text-align: center;
+position: absolute;
+left: 190rpx;
+top: 250rpx;
+}
+.timer{
+height: calc(100% - 102rpx);
+transition: all .7s;
+display: flex;
+flex-direction: column;
+}
+.timer--runing .topbox{
+height: 10vh;
+transition: all .5s;
+background: white;
+}
+.timer--runing .bottombox{
+height: 90vh;
+transition: all .5s;
+background: white;
+}
+.timer--runing .topbox_bar{
+display: none;
+}
+.timer--runing .topbox_tips{
+display: none;
+}
+.timer--runing .topbox_topbar{
+background: white;
+}
+.timer--runing .topbox_btn{
+bottom: -1000rpx;
+z-index: 99;
+}
+.timer--runing .topbox_btn_start,
+.timer--runing .topbox_btn_stop,
+.timer--runing .topbox_btn_ct,
+.timer--runing .topbox_btn_complete{
+margin-top:4vh;
+width: 300rpx;
+height: 80rpx;
+text-align: center;
+line-height: 80rpx;
+background: #5677fc;
+border-radius: 40rpx;
+color: white;
+transition: all .7s;
+}
+/* 计时样式结束 */
   @media (prefers-color-scheme: dark) {
     .complete_share_box_button{
       filter: invert(90%) !important;

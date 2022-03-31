@@ -2,8 +2,8 @@
   "usingComponents": {
     "calendar":"../components/calendar/calendar"
   },
-  "enablePullDownRefresh": true,
   "backgroundTextStyle": "dark",
   "navigationBarTextStyle": "white",
-  "navigationBarBackgroundColor": "#7c66f5"
+  "navigationBarBackgroundColor": "#7c66f5",
+  "navigationStyle": "custom"
 }
