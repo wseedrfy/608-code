@@ -22,13 +22,16 @@
           {{item}}
         </view>
       </span>
-      <view class="mess_wrap">
+      <view class="outTime" style="color:{{tools.getDateTime(time,item.date)>0?'':'#a8dba8'}};">
+        {{tools.getDateTime(time,item.date)>0?'剩'+tools.getDateTime(time,item.date)+'天':'已截止'}}
+      </view>
+      <!-- <view class="mess_wrap">
         <view class="time" style="color:{{tools.getDateTime(time,item.date)>0?'':'#a8dba8'}};">
-          <view>
+          <view style="color:{{tools.getDateTime(time,item.date)>0?'':'#a8dba8'}};">
             {{tools.getDateTime(time,item.date)>0?tools.getDateTime(time,item.date):''}}{{tools.getDateTime(time,item.date)>0?'天后结束':'已截止'}}
           </view>
         </view>
-      </view>
+      </view> -->
     </span>
   </view>
 </view>

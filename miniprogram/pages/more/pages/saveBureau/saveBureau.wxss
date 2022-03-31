@@ -3,8 +3,28 @@ page{
   background-color: #fff3d0c2;
 }
 .head{
-  height: 200rpx;
+  position:fixed; 
+  background-color: #fff5d7;
+  z-index: 2;
   width: 100%;
+	overflow-x: auto;
+}
+.head_second {
+  display: flex;
+  align-items: center;
+  font-size: 30rpx;
+  width: 100vw;
+}
+.savedNumber{
+  font-size: 38rpx;
+  font-weight: 550;
+  color: #4C4945;
+  margin-left: 50rpx;
+  top: 102rpx;
+}
+.savedNumber text{
+  color:#E18D77;
+  font-size: 45rpx;
 }
 .All{
   width: 100%;
@@ -13,19 +33,7 @@ page{
   align-items: center;
   justify-content: center;
   flex-direction: column;
-}
-.savedNumber{
-  font-size: 38rpx;
-  font-weight: 550;
-  color: #4C4945;
-  position: relative;
-  left: 50rpx;
-  top: 102rpx;
-
-}
-.savedNumber text{
-  color:#E18D77;
-  font-size: 45rpx;
+  margin-top: 20rpx;
 }
 .manual{
   background-color: #94D3AE;
@@ -38,15 +46,19 @@ page{
   flex-direction: column;
   box-shadow: 3px 3px #6b421140;
 }
-.manualImg image{
+.manualImg{
+  position: relative;
+  left: 180rpx;
+  bottom: 110rpx;
   width: 251rpx;
   height: 251rpx;
-  position: relative;
-  left: 190rpx;
-  bottom: 120rpx;
+}
+.manualImg image{
+  width: 100%;
+  height: 100%;
 }
 .manualText{
-  font-size: 46rpx;
+  font-size: 45rpx;
   color: white;
   position: relative;
   top: 32rpx;
@@ -58,49 +70,31 @@ page{
 }
 .manualBotton{
   width: 92%;
-  height: 95rpx;
-  position: absolute;
-  top: 360rpx;
-  left: 80rpx;
+  height: 160rpx;
+  position: relative;
+  /* bottom: 214rpx; */
+  bottom: 236rpx;
   display: flex;
   flex-direction: row;
+  justify-content: center;
 }
 .myJoining{
-  width: 280rpx;
-  background-color: #dd8c7a;
-  height: 100%;
-  border-radius: 50rpx;
-  border: 4rpx solid #F8931C;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 34rpx;
-  color: #C1411A;
-  letter-spacing: 5rpx;
+  width: 330rpx;
+  height: 105%;
 }
 .myJoining image{
-  height: 60rpx;
-  width:60rpx
+  height: 100%;
+  width:320rpx;
+  margin-top: 6rpx;
+  margin-left: 10rpx;
 }
 .myLaunch{
-  width: 280rpx;
-  background-color: #F3CF87;
-  height: 100%;
-  position: relative;
-  left: 24rpx;
-  border-radius: 50rpx;
-  border: 4rpx solid #F8931C;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 34rpx;
-  color: white;
-  letter-spacing: 5rpx;
+  width: 330rpx;
+  height: 105%;
 }
 .myLaunch image{
-  height: 60rpx;
-  width:60rpx;
-  transform:rotate(-20deg);
+  height: 100%;
+  width:320rpx;
 }
 .categories{
   height: 200rpx;
@@ -111,6 +105,9 @@ page{
   flex-wrap: wrap;
   align-items:center;
   justify-content: center;
+  position: sticky;
+  z-index: 2;
+  background-color: #fff5d7;
 }
 .categoriesContent{
   background-color:rgb(255, 255, 255);
@@ -121,7 +118,6 @@ page{
   margin: 0 12rpx;
   display: flex;
   align-items: center;
-  justify-content: center;
   color: #6060d8;
   font-size: 32rpx;
   letter-spacing: 6rpx;
@@ -132,11 +128,14 @@ page{
   height: 52rpx;
   border-radius: 23rpx;
   position: relative;
-  right: 35rpx;
-  top: 1rpx;
+  /* right: 35rpx;
+  top: 1rpx; */
 }
 .categoriesContent text{
   position:absolute;
+  margin-left: 35rpx;
+  font-weight: 550;
+  font-family: math;
 }
 .cards{
   height: 200rpx;
@@ -154,18 +153,14 @@ page{
 }
 .cardsType{
   width: 140rpx;
-  height: 195rpx;
-  border: 4rpx solid #F8931C;
-  border-radius: 43rpx;
-  background-color: #DD8C7A;
-  font-size: 65rpx;
-  color: white;
+  height: 210rpx;
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
+  justify-content: center;
 }
-.cardsType text{
-  margin-left: 35rpx
+.cardsType image{
+  width: 100%;
+  height: 100%;
 }
 .cardsContent{
   height: 195rpx;
@@ -213,6 +208,16 @@ page{
   position: relative;
   top: 70rpx;
   width: 455rpx;
+}
+.loading{
+  margin-top: 30rpx;
+  color: #4b4b4b8c;
+  font-size: 25rpx;
+}
+.none{
+  margin-top: 30rpx;
+  color: #4b4b4b8c;
+  font-size: 25rpx;
 }
 .background-color_0{
   background-color: #DDC6A4;

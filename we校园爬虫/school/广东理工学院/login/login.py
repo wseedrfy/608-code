@@ -1,12 +1,4 @@
-import execjs
-import json
-
-def encodeInp(msg):  # python 调用JS加密 返回 加密后的结果
-    with open('conwork.js', encoding='utf-8') as f:
-        js = execjs.compile(f.read())
-        return js.call('encodeInp', msg)
-
-
+from another.conwork import encodeInp
 def login(xh, pwd, session):
     try:
 
@@ -19,8 +11,8 @@ def login(xh, pwd, session):
             "encoded": encoded
         }
 
-        session.get('http://121.40.128.199:81/jsxsd/')
-        res = session.post('http://121.40.128.199:81/jsxsd/xk/LoginToXk', data=data)
+        session.get('http://39.108.86.184:81/jsxsd/')
+        res = session.post('http://39.108.86.184:81/jsxsd/xk/LoginToXk', data=data)
         if "用户名或密码错误" in res.text:
             return {
                 "msg": "用户名或密码错误"

@@ -62,7 +62,6 @@ Page({
                 success: (res) => {
                   photo[0].imageHeight = res.height;
                   photo[0].imageWidth = res.width;
-                  console.log(photo);
                   that.setData({ photo })
                 }
               })

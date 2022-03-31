@@ -42,7 +42,7 @@
         <view class="item_wrap">
             <view class="item" wx:for="{{tempContent}}" wx:key="item">
                 <view class="list_1" bind:tap="toFixed" data-item="{{item}}">
-                    {{index+1}}.{{item.title}}
+                    {{index+1}}.{{item.must==true?'*':''}}{{item.title}}
                 </view>
                 <view class="list_2" bind:tap="delete" data-index="{{index}}">删除</view>
             </view>

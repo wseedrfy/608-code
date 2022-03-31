@@ -91,7 +91,18 @@ Page({
   // 弹窗
   //点击我显示底部弹出框
   clickme: function () {
-    this.showModal();
+    // this.showModal();
+    // this.submitMess()
+    wx.showLoading({
+      title: "加载中",
+      mask: true,
+      success: (result) => {
+        this.setData({
+          html: 0
+        })
+        wx.hideLoading();
+      },
+    });
   },
   // 已截止
   timeOut() {
@@ -152,37 +163,38 @@ Page({
   // 提交表单
   submitMess(e) {
     // 效验信息-->保存信息
-    let data = e.detail.value
-    if (!data.班级 || !data.学号 || !data.姓名 || !data.性别) {
-      wx.showToast({
-        title: '请检查信息完整',
-        icon: 'none',
-        image: '',
-        duration: 1500,
-        mask: false,
-        success: (result) => {
+    // let data = e.detail.value
+    // if (!data.班级 || !data.学号 || !data.姓名 || !data.性别) {
+    //   wx.showToast({
+    //     title: '请检查信息完整',
+    //     icon: 'none',
+    //     image: '',
+    //     duration: 1500,
+    //     mask: false,
+    //     success: (result) => {
 
-        },
-      });
-    }
-    else {
-      wx.showLoading({
-        title: "加载中",
-        mask: true,
-        success: (result) => {
-          this.hideModal()
-          this.setData({
-            userMess: data,
-            html: 0
-          })
-          wx.hideLoading();
-        },
-      });
-    }
+    //     },
+    //   });
+    // }
+    // else {
+    wx.showLoading({
+      title: "加载中",
+      mask: true,
+      success: (result) => {
+        // this.hideModal()
+        this.setData({
+          // userMess: data,
+          html: 0
+        })
+        wx.hideLoading();
+      },
+    });
+    // }
   },
   // 提交答案
   subMatch(e) {
     let matchDetail = e.detail.value
+    let that = this
     wx.showModal({
       title: '提示',
       content: '确认提交',
@@ -197,41 +209,75 @@ Page({
             title: "提交中",
             mask: true,
             success: (result) => {
-              let data = this.data
-              wx.cloud.callFunction({
-                name: "associationSend",
-                data: {
-                  type: 5,
-                  userMess: data.userMess,
-                  matchDetail: matchDetail,
-                  assoName: data.content.assoMess.association,
-                  assoCount: data.content.assoMess.card,
-                  pusherCount: count,
-                  CampusCircle_id: data.content._id,
-                  index: data.content.assoMess.card,
-                  match_id: data.content.match_id
-                }
-              }).then(res => {
-                console.log(res);
-                wx.showToast({
-                  title: '提交成功',
-                  icon: 'none',
-                  image: '',
-                  duration: 1500,
-                  mask: false,
-                  success: (result) => {
-                    wx.navigateBack({
-                      delta: 1,
-                    })
-                  },
-                });
-              })
+              let res = this.testMust(that.data.content.question, matchDetail)
+              if (res == true) {
+                let data=that.data
+                wx.cloud.callFunction({
+                  name: "associationSend",
+                  data: {
+                    type: 5,
+                    userMess: data.userMess,
+                    matchDetail: matchDetail,
+                    assoName: data.content.assoMess.association,
+                    assoCount: data.content.assoMess.card,
+                    pusherCount: count,
+                    CampusCircle_id: data.content._id,
+                    index: data.content.assoMess.card,
+                    match_id: data.content.match_id
+                  }
+                }).then(res => {
+                  console.log(res);
+                  wx.showToast({
+                    title: '提交成功',
+                    icon: 'none',
+                    image: '',
+                    duration: 1500,
+                    mask: false,
+                    success: (result) => {
+                      wx.navigateBack({
+                        delta: 1,
+                      })
+                    },
+                  });
+                })
+              }
+              else{
+                wx.hideLoading({})
+              }
             },
           });
         }
       },
     });
     // console.log(e);
+  },
+  ShowImg(e) {
+    var Photo = this.data.content.AllPhoto
+    var index = e.target.dataset.index
+    wx.previewImage({
+      current: Photo[index],
+      urls: Photo,
+    })
+  },
+  testMust(question, matchDetail) {
+    let len = question.length
+    let i = 0
+    while (i < len) {
+      let key = question[i].title
+      if (question[i].must == true && (matchDetail[key] == "" || matchDetail[key].length == 0)) {
+        wx.showModal({
+          title: '提示',
+          content: key + '必填',
+          success: res => {
+          }
+        })
+        break
+      }
+      i++
+    }
+    if (i == len) {
+      return true
+    }
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

@@ -10,7 +10,7 @@ def achievement(session):
             "xsfs": "all"
         }
         arr = []
-        cj = session.post('http://121.40.128.199:81/jsxsd/kscj/cjcx_list', data=data).text
+        cj = session.post('http://39.108.86.184:81/jsxsd/kscj/cjcx_list', data=data).text
         a, _ = re.subn('\r', '', cj)
         a, _ = re.subn('\n', '', a)
         a, _ = re.subn('\t', '', a)
