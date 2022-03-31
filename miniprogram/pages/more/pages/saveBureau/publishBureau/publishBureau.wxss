@@ -3,14 +3,6 @@ page{
   /* background-color: #ffedb7c2; */
   background: linear-gradient(#fff3d0c2,#ffe8a4c2);
 }
-/* .head{
-  height: 170rpx;
-  width: 100%;
-  position: fixed;
-  top: 0;
-  z-index: 2;
-  background-color: #fff5d7;
-} */
 .head{
   position:fixed; 
   background-color: #fff5d7;

@@ -70,53 +70,31 @@ page{
 }
 .manualBotton{
   width: 92%;
-  height: 95rpx;
+  height: 160rpx;
   position: relative;
   /* bottom: 214rpx; */
-  bottom: 205rpx;
+  bottom: 236rpx;
   display: flex;
   flex-direction: row;
+  justify-content: center;
 }
 .myJoining{
-  width: 280rpx;
-  background-color: #dd8c7a;
-  height: 100%;
-  border-radius: 50rpx;
-  border: 4rpx solid #F8931C;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 34rpx;
-  color: #C1411A;
-  letter-spacing: 5rpx;
-  font-family: math;
-  font-weight: 550;
+  width: 330rpx;
+  height: 105%;
 }
 .myJoining image{
-  height: 60rpx;
-  width:60rpx
+  height: 100%;
+  width:320rpx;
+  margin-top: 6rpx;
+  margin-left: 10rpx;
 }
 .myLaunch{
-  width: 280rpx;
-  background-color: #F3CF87;
-  height: 100%;
-  position: relative;
-  left: 24rpx;
-  border-radius: 50rpx;
-  border: 4rpx solid #F8931C;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 34rpx;
-  color: white;
-  letter-spacing: 5rpx;
-  font-family: math;
-  font-weight: 550;
+  width: 330rpx;
+  height: 105%;
 }
 .myLaunch image{
-  height: 60rpx;
-  width:60rpx;
-  transform:rotate(-20deg);
+  height: 100%;
+  width:320rpx;
 }
 .categories{
   height: 200rpx;
@@ -175,20 +153,14 @@ page{
 }
 .cardsType{
   width: 140rpx;
-  height: 195rpx;
-  border: 4rpx solid #F8931C;
-  border-radius: 43rpx;
-  background-color: #DD8C7A;
-  font-size: 63rpx;
-  color: white;
+  height: 210rpx;
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
-  font-weight: 550;
-  font-family: math;
+  justify-content: center;
 }
-.cardsType text{
-  margin-left: 35rpx
+.cardsType image{
+  width: 100%;
+  height: 100%;
 }
 .cardsContent{
   height: 195rpx;

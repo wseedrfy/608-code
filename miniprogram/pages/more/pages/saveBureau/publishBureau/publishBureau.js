@@ -36,8 +36,8 @@ Page({
       type:0
     }],
     photo:[],
-    womanNum:2,
-    manNum:2
+    womanNum:[1,1],
+    manNum:[1,1]
   },
   back(){
     wx.navigateBack({
@@ -70,6 +70,7 @@ Page({
   },
 
   getText(e){
+    console.log(e);
     this.setData({
       text:e.detail.value
     })
@@ -78,7 +79,7 @@ Page({
   addImg(){
     var that = this;
     wx.chooseMedia({                                // 上传图片
-      count: 2,
+      count: 9,
       mediaType:'image',
       sourceType:['album','camera'],
       sizeType: ['original', 'compressed'],       // 可选择原图、压缩图
@@ -93,10 +94,8 @@ Page({
   },
 
   delImg(e){
-    var index = e.currentTarget.id
-    console.log("index",index);
-    if(this.data.photo.length!=0){
-      this.data.photo.splice(index,1)
+    if(!!this.data.photo.length){
+      this.data.photo.splice(e.currentTarget.id,1)
       this.setData({
         photo:this.data.photo
       })
@@ -123,18 +122,25 @@ Page({
       },
       fail(res){
         console.log(res)
+        wx.showToast({
+          title: '请求失败！',
+          icon: 'none',
+        })
       }
     })
   },
   addNum(e){
     var sex=e.currentTarget.dataset.sex
     if(sex === "man"){
-      this.data.manNum++
+      // this.data.manNum++
+
+      this.data.manNum.push(1)
       this.setData({
         manNum:this.data.manNum
       })
     }else{
-      this.data.womanNum++
+      // this.data.womanNum++
+      this.data.womanNum.push(1)
       this.setData({
         womanNum:this.data.womanNum
       })
@@ -142,13 +148,15 @@ Page({
   },
   reduceNum(e){
     var sex=e.currentTarget.dataset.sex
-    if(sex === "man" && this.data.manNum>=1){
-      this.data.manNum--
+    if(sex === "man" && this.data.manNum.length>=1){
+      // this.data.manNum--
+      this.data.manNum.pop()
       this.setData({
         manNum:this.data.manNum
       })
-    }else if(sex === "woman" && this.data.womanNum>=1){
-      this.data.womanNum--
+    }else if(sex === "woman" && this.data.womanNum.length>=1){
+      // this.data.womanNum--
+      this.data.womanNum.pop()
       this.setData({
         womanNum:this.data.womanNum
       })
@@ -162,7 +170,7 @@ Page({
         title: '请选择主题！',
         icon: 'none',
       })
-    }else if(this.data.photo===undefined){
+    }else if(this.data.text===undefined){
       wx.showToast({
         title: '请填写内容！',
         icon: 'none',
@@ -181,6 +189,7 @@ Page({
         nickName:args.nickName,
         school:args.school
       }
+      console.log(this.data.text);
       wx.cloud.callFunction({
         name: 'saveBureau',
         data: {
@@ -196,6 +205,7 @@ Page({
           wx.navigateBack({
             delta: 1,  // 返回上一级页面。
           })
+          
         },
         fail: err => {
           console.error
