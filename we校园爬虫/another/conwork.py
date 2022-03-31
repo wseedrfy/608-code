@@ -1,22 +1,18 @@
-import math
-
-keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/="
-
-
-def encodeInp(input):
+def encodeInp(message):
+    keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/="
     output = ''
     i = 0
     while True:
-        char1 = ord(input[i])
+        char1 = ord(message[i])
         i += 1
-        if i < len(input):
-            char2 = ord(input[i])
+        if i < len(message):
+            char2 = ord(message[i])
         else:
             char2 = 'nan'
 
         i += 1
-        if i < len(input):
-            char3 = ord(input[i])
+        if i < len(message):
+            char3 = ord(message[i])
         else:
             char3 = 'nan'
         i += 1
@@ -34,15 +30,13 @@ def encodeInp(input):
         if char3 != 'nan':
             enc4 = char3 & 63
         else:
-            enc4=0
-        if char2=='nan':
+            enc4 = 0
+        if char2 == 'nan':
             enc3 = 64
             enc4 = 64
-        elif char3=='nan':
+        elif char3 == 'nan':
             enc4 = 64
         output = output + keyStr[enc1] + keyStr[enc2] + keyStr[enc3] + keyStr[enc4]
-        if i >= len(input):
+        if i >= len(message):
             break
     return output
-
-
