@@ -10,6 +10,7 @@
 
   </view>
 </view>
+
 <view class="flex justify-center bg-red ">
   <view class="action">
     <text>下单时间为10:00-12:30 16:30-18:30
@@ -17,6 +18,7 @@
 
   </view>
 </view>
+<view class="bg-white ss"> 搜店铺或想吃(例如奶茶):<input class="input" bindinput="ss"></input> </view>
 <view class="cu-bar bg-white solid-bottom">
   <view class="action" style="margin-left: -300rpx">
     <text class="cuIcon-title text-blue"></text><text>店铺介绍</text>
