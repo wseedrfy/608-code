@@ -5,6 +5,7 @@ var app = getApp();
 var util = require('../../../utils/util')
 Page({
     data: {
+        //打卡data
         statusBarHeight: getApp().globalData.statusBarHeight,
         lineHeight: getApp().globalData.lineHeight,
         navState:0,
@@ -74,6 +75,15 @@ Page({
       hasUserInfo: false,
       isRuning:false,
       pickershow:false,
+      // 自习室的data
+      studynavState:5,
+    },
+    //自习室的js
+    navclick(e){
+      let studynavState = e.currentTarget.dataset.index
+      this.setData({
+        studynavState
+      })
     },
     // 计时的js
      clickpicker(){
