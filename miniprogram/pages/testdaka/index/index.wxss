@@ -856,134 +856,188 @@ wx-slider .wx-slider-handle-wrapper {
 }
 
 /* 计时样式结束 */
+/* 自习室css */
+.selfstudy_bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.topbar_true {
+  margin-left: 20rpx;
+  color: #7c66f5;
+  transition: all .7s;
+  font-size: 33rpx;
+}
+
+.topbar {
+  color: black;
+  margin-left: 20rpx;
+  font-size: 25rpx;
+  transition: all .7s;
+}
+
+/* 自习室 */
+.self_wrap {
+  padding: 24rpx;
+}
+
+.top_wrap {
+  display: flex;
+  flex-direction: row;
+  margin-top: 24rpx;
+  padding: 12rpx;
+}
+
+.left {
+  display: flex;
+  flex-direction: row;
+  flex: 4;
+  background-color: white;
+  padding: 12rpx;
+  border-radius: 12rpx;
+}
+
+.img {}
+
+.img image {
+  height: 80rpx;
+  width: 80rpx;
+  border-radius: 50%;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  padding-left: 24rpx;
+}
+
+.team_name {
+  font-weight: 700;
+}
+
+.my_team {
+  padding-top: 12rpx;
+  color: #666666;
+}
+
+.right {
+  flex: 1;
+  background-color: white;
+  margin-left: 12rpx;
+  border-radius: 12rpx;
+  text-align: center;
+  align-items: center;
+  display: flex;
+}
+
+.right image {
+  padding-left: 24rpx;
+  height: 80rpx;
+  width: 80rpx;
+}
+
+.title {
+  padding: 24rpx;
+  font-weight: 700;
+}
+
+.rowScroll {
+  background-color: white;
+  padding: 24rpx;
+  margin: 24rpx;
+  border-radius: 12rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.row_top {
+  /* background-color: rebeccapurple; */
+  display: flex;
+  flex-direction: column;
+  flex: 4;
+}
+
+.row_title {
+  font-size: 36rpx;
+  font-weight: 700;
+}
+
+.row_detail {
+  padding-top: 12rpx;
+}
+
+.row_bottom {
+  text-align: right;
+  flex: 1;
+  position: relative;
+  top: 50rpx;
+  right: 8rpx;
+}
+
+.row_bottom image {
+  height: 80rpx;
+  width: 80rpx;
+}
+
+.scroll_tip {
+  background-color: white;
+  margin: 12rpx 12rpx 12rpx 24rpx;
+  text-align: center;
+  border-radius: 12rpx;
+}
+.tip_content{
+  line-height: 50rpx;
+  margin-top: 25rpx;
+  font-size: 34rpx;
+}
+.list_wrap{
+  display: flex;
+  flex-direction: row;
+  padding: 24rpx;
+  background-color: white;
+  margin: 24rpx;
+  border-radius: 12rpx;
+  height: 100rpx;
+}
+.list_left{
+  display: flex;
+  flex-direction: column;
+  flex: 3;
+}
+.left_top{
+  font-size: 34rpx;
+  font-weight: 700;
+}
+.left_time{
+  font-size: 22rpx;
+  color: #666666;
+  padding-top: 20rpx;
+
+}
+.list_right{}
+.right_top{
+  text-align: right;
+}
+.right_top image{
+  height: 40rpx;
+  width: 40rpx;
+}
+.right_tip{
+  background-color: #b2edf1;
+  color: white;
+  padding: 12rpx;
+  border-radius: 12rpx;
+  font-size: 24rpx;
+  margin-top: 8rpx;
+}
+
+/* 自习室css结束 */
 @media (prefers-color-scheme: dark) {
   .complete_share_box_button {
     filter: invert(90%) !important;
     background: rgb(172, 211, 254);
     color: #fff;
-  }
-
-  /* 自习室css */
-  .selfstudy_bar {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-  }
-
-  .topbar_true {
-    margin-left: 20rpx;
-    color: #7c66f5;
-    transition: all .7s;
-    font-size: 33rpx;
-  }
-
-  .topbar {
-    color: black;
-    margin-left: 20rpx;
-    font-size: 25rpx;
-    transition: all .7s;
-  }
-
-  /* 自习室css结束 */
-  @media (prefers-color-scheme: dark) {
-    .complete_share_box_button {
-      filter: invert(90%) !important;
-      background: rgb(172, 211, 254);
-      color: #fff;
-    }
-
-    .operationBgBox {
-      filter: invert(90%) !important;
-      background: rgb(172, 211, 254);
-      /* background: #F77A7A; */
-      /* background: rgb(167, 167, 86); */
-    }
-
-    .operationBox {
-      filter: invert(0) !important;
-      background-color: rgb(172, 211, 254);
-    }
-
-    .operationBox image {
-      filter: invert(0) !important;
-    }
-
-    .dayclock_data_column_text_true {
-      filter: invert(90%) !important;
-      color: rgb(172, 211, 254);
-      /* color: rgb(167, 167, 86); */
-    }
-
-    .dayclock_data_column_text_false {
-      color: gray;
-      /* color: rgb(167, 167, 86); */
-    }
-
-    .img-plus-style {
-      filter: invert(0) !important;
-      color: black;
-      position: fixed;
-      bottom: 600rpx;
-      right: 50rpx;
-      z-index: 999;
-    }
-
-    .img-style {
-      filter: invert(0) !important;
-      color: blanchedalmond;
-      position: fixed;
-      bottom: 600rpx;
-      right: 25rpx;
-      opacity: 0;
-      z-index: 999;
-    }
-
-    .dayclock_data_huadong_bg_bg {
-      filter: invert(90%) !important;
-      background-color: #fc9090;
-      /* background-color: gray; */
-      color: #fff;
-    }
-
-    .complete_share_image {
-      filter: invert(1) !important;
-    }
-
-    .text_time {
-      position: fixed;
-      bottom: 550rpx;
-      right: 70rpx;
-    }
-
-    .attention_bg {
-      filter: invert(90%) !important;
-    }
-
-    .operationBoxtrue image {
-      filter: invert(60%) !important;
-    }
-
-    .dayclock_column_right {
-      filter: invert(60%) !important;
-    }
-
-    .dayclock_column_left {
-      filter: invert(80%) !important;
-    }
-
-    .dayclock_data_column_2_task {
-      filter: invert(1) !important;
-      color: #fff;
-    }
-
-    .dayclock_column_center {
-      filter: invert(1) !important;
-      color: #fff;
-    }
-
-    .complete_bg {
-      filter: invert(90%) !important;
-    }
   }
 
   .operationBgBox {
@@ -1078,66 +1132,4 @@ wx-slider .wx-slider-handle-wrapper {
   .complete_bg {
     filter: invert(90%) !important;
   }
-}
-
-/* 自习室 */
-.self_wrap {
-  padding: 24rpx;
-}
-
-.top_wrap {
-  display: flex;
-  flex-direction: row;
-}
-
-.left {
-  display: flex;
-  flex-direction: row;
-  flex: 4;
-  background-color: white;
-  padding: 12rpx;
-  border-radius: 12rpx;
-}
-
-.img {}
-
-.img image {
-  height: 80rpx;
-  width: 80rpx;
-  border-radius: 50%;
-}
-
-.content {
-  display: flex;
-  flex-direction: column;
-  padding-left: 24rpx;
-}
-
-.team_name {
-  font-weight: 700;
-}
-
-.my_team {
-  padding-top: 12rpx;
-  color: #666666;
-}
-
-.right {
-  flex: 1;
-  background-color: white;
-  margin-left: 12rpx;
-  border-radius: 12rpx;
-  text-align: center;
-  align-items: center;
-  display: flex;
-}
-
-.right image {
-  padding-left: 24rpx;
-  height: 80rpx;
-  width: 80rpx;
-}
-
-.title {
-  padding: 24rpx;
 }
