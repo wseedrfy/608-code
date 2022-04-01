@@ -92,7 +92,23 @@
 <!-- 云留言页 -->
 <view wx:elif="{{navState==3}}"></view>
 <!-- 自习室页 -->
-<view wx:elif="{{navState==4}}"></view>
+<view wx:elif="{{navState==4}}" class="self_wrap">
+     <view class="top_wrap">
+          <view class="left">
+               <view class="img">
+                    <image src="https://z3.ax1x.com/2021/10/15/58cq9e.png"></image>
+               </view>
+               <view class="content">
+                    <view class="team_name">未命名昵称</view>
+                    <view class="my_team">我的队伍</view>
+               </view>
+          </view>
+          <view class="right">
+               <image src="https://z3.ax1x.com/2021/10/15/58cq9e.png"></image>
+          </view>
+     </view>
+     <view class="title">我</view>
+</view>
 <!-- 生成图片弹窗 -->
 <view class="complete" wx:if="{{showModel2}}">
      <view class="complete_bg"></view>
