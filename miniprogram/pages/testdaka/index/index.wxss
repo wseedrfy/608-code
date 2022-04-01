@@ -757,7 +757,26 @@ color: white;
 transition: all .7s;
 }
 /* 计时样式结束 */
-  @media (prefers-color-scheme: dark) {
+/* 自习室css */
+.selfstudy_bar{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.topbar_true{
+  margin-left: 20rpx;
+  color: #7c66f5;
+  transition: all .7s;
+  font-size: 33rpx;
+}
+.topbar{
+  color: black;
+  margin-left: 20rpx;
+  font-size: 25rpx;
+  transition: all .7s;
+}
+/* 自习室css结束 */
+@media (prefers-color-scheme: dark) {
     .complete_share_box_button{
       filter: invert(90%) !important;
       background: rgb(172, 211, 254);
