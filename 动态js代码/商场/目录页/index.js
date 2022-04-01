@@ -1,4 +1,8 @@
-const db = wx.cloud.database({env:'mall-7gi19fir46652cb4'})
+const db = wx.cloud.database({
+  env: 'mall-7gi19fir46652cb4'
+})
+
+const _ = db.command
 
 Page({
 
@@ -21,14 +25,39 @@ Page({
       mask: true
     });
     db.collection('shop_m').orderBy('sort', 'desc').get().then(res => {
-        that.setData({shop_m: res.data})
-        console.log(that.data.shop_m)
-        wx.hideLoading({
-        })
-    
+      that.setData({
+        shop_m: res.data
+      })
+      console.log(that.data.shop_m)
+      wx.hideLoading({})
+
     })
   },
 
+  ss: function (e) {
+    var that = this;
+    console.log(e.detail.value)
+    db.collection('shop_m').where(_.or([{
+        name: db.RegExp({
+          regexp: e.detail.value,
+          options: 'i',
+        })
+      },
+      {
+        Introduction: db.RegExp({
+          regexp: e.detail.value,
+          options: 'i',
+        })
+      }
+    ])).orderBy('sort', 'desc').get().then(res => {
+      that.setData({
+        shop_m: res.data
+      })
+
+      wx.hideLoading({})
+    })
+
+  },
   goin: function (e) {
     console.log(e)
     wx.navigateToMiniProgram({
