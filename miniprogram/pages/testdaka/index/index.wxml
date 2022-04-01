@@ -101,11 +101,15 @@
           <view data-index="6" class="{{studynavState==6?'topbar_true':'topbar' }}" bindtap="navclick">其他小组</view>
           <view data-index="7" class="{{studynavState==7?'topbar_true':'topbar' }}" bindtap="navclick">计时</view>
      </view>
-     <view wx:if="{{studynavState==5}}">
-
-
+     <view wx:if="{{studynavState==5}}"></view>
+     <view wx:elif="{{studynavState==6}}" class="selfstudy_othergroup">
+          <view class="selfstudy_othergroup_title">
+               <view>let's go</view>
+               <view></view>
+          </view>
+          <view class="selfstudy_othergroup_mygroup"></view>
+          <view class="selfstudy_othergroup_lablegroup"></view>
      </view>
-     <view wx:elif="{{studynavState==6}}"></view>
      <view wx:elif="{{studynavState==7}}"></view>
 </view>
 <!-- 生成图片弹窗 -->
