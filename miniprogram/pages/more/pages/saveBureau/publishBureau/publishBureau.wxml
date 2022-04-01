@@ -47,7 +47,7 @@
       <image src="../../../../../images/sexm.png"/>
       <view class="manNum">
         <view class="reduceNum" data-sex="man" bindtap="reduceNum">-</view>
-        <view class="num">{{manNum}}</view>
+        <view class="num">{{manNum.length}}</view>
         <view class="addNum" data-sex="man" bindtap="addNum">+</view>
       </view>
     </view>
@@ -56,7 +56,7 @@
       <image src="../../../../../images/sexw.png"/>
       <view class="womanNum">
         <view class="reduceNum" data-sex="woman" bindtap="reduceNum">-</view>
-        <view class="num">{{womanNum}}</view>
+        <view class="num">{{womanNum.length}}</view>
         <view class="addNum" data-sex="woman" bindtap="addNum">+</view>
       </view>
     </view>

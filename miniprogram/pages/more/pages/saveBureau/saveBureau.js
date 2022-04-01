@@ -34,7 +34,7 @@ Page({
       name:"游戏",
       type:0
     },{
-      name:"旅行",
+      name:"其他",
       type:0
     }],
     cardList:[],
@@ -49,6 +49,8 @@ Page({
   chooseLabel(e){
     var index = e.currentTarget.id
     var getIndex=this.data.arry.findIndex(item => item.type===1)    //---判断arry数组里面有没有标签已被选择，没有则getIndex=-1，有则返回已选择的标签索引
+    this.data.currentPage=0     //----切换标签对页面进行初始化
+    this.data.cardList=[]       //----切换标签对页面进行初始化
     if(getIndex!=-1){     //----将前面已选择的标签取消“选择”样式
       this.animate('.circle'+getIndex, [{
         width: '100%',
@@ -75,7 +77,7 @@ Page({
   transformTime(){
     var copyList = JSON.parse(JSON.stringify(this.data.cardList))
     copyList.forEach(item => {
-      if (item != null) {
+      if (!!item) {
         item.time = util.timeago(item.time, 'Y年M月D日')
       }
     })
@@ -86,10 +88,6 @@ Page({
   },
   readData(){
     const args = wx.getStorageSync('args')
-    console.log(this.data.label);
-    if(this.data.label){
-      console.log("enter");
-    }
     wx.cloud.callFunction({
       name: 'saveBureau',
       data: {
@@ -99,29 +97,38 @@ Page({
         label:this.data.label
       },
       success: res => {
-        console.log(res);
-        if(res.result!=null){
+        wx.hideLoading();
+        if(!!res.result){
+          console.log(res);
           this.data.cardList=this.data.cardList.concat(res.result.data)
           this.data.currentPage++
           this.transformTime()
         }
-        if(res.result==null || res.result.data.length<10){
+        if(!res.resul || res.result.data.length<10){
           this.setData({
             none:true,
             loading:false
           })
         }
-        if(res.result.data.length==0 && this.data.label==null){
-          console.log("233");
-          this.data.cardList=[]
-        }
-        if(res.result.data.length==0){
-          console.log("dede");
-        }
-        
       },
       fail: err => {
+        wx.showToast({
+          title: '请求失败！',
+          icon: 'none',
+        })
         console.error
+      }
+    })
+  },
+  toLookcontent(e){
+    var index=e.currentTarget.id
+    wx.setStorage({
+      key:"content",
+      data:this.data.cardList[index],
+      success:res => {
+        wx.navigateTo({
+          url: '../saveBureau/bureauContent/bureauContent',
+        })
       }
     })
   },
@@ -151,6 +158,7 @@ Page({
     if(this.data.addData){
       this.data.cardList.push(this.data.addData)
     }
+    this.data.addData=null
     this.transformTime()
     
   },
@@ -178,18 +186,13 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  // onReachBottom: function () {
-  //   wx.showLoading({
-  //     title: '加载更多中',
-  //     mask: true
-  //   })
-  //   this.setData({
-  //     loading:true,
-  //     none:false
-  //   })
-  //   this.readData();
-  //   wx.hideLoading();
-  // },
+  onReachBottom: function () {
+    this.setData({
+      loading:true,
+      none:false
+    })
+    this.readData();
+  },
 
   /**
    * 用户点击右上角分享

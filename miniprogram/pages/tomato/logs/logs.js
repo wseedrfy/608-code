@@ -38,31 +38,6 @@ Page({
                 val: '0分钟'
             }
         ],
-        cateArr: [{
-                icon: 'work',
-                text: '工作'
-            },
-            {
-                icon: 'study',
-                text: '学习'
-            },
-            {
-                icon: 'think',
-                text: '思考'
-            },
-            {
-                icon: 'write',
-                text: '写作'
-            },
-            {
-                icon: 'sport',
-                text: '运动'
-            },
-            {
-                icon: 'read',
-                text: '阅读'
-            }
-        ],
     },
     //echarts数据可视化
   setOption(chart,echarr) {
@@ -123,79 +98,91 @@ Page({
   },
   get_data(){
     let that = this
-    let username = wx.getStorageSync('args').username 
-    wx.cloud.database().collection("totaltime").where({username:username}).get().then(res=>{
-      console.log(res);
-      let logs=res.data[0].logs
-      console.log(logs);
-      var i=0
-      let time = logs[i].time
-      var itemtotaltime = 0
-      let tempArr=[]
-      for(let i=0;i<logs.length;i++){
-        if(tempArr.includes(logs[i].cate)==false){
-          tempArr.push(logs[i].cate)
-        }
-      }
-      let addObj=[]
-      for(let j=0;j<tempArr.length;j++){
-        let sum=0
-        for(let k=0;k<logs.length;k++){
-          if(logs[k].cate==tempArr[j]){
-            sum+=logs[k].time
-          }
-        }
-        addObj.push(tempArr[j]=sum)
-      }
-      console.log(addObj);
-      console.log(itemtotaltime);
-      //for循环构造arr
-      let echarr=[]
-      let cateArr=this.data.cateArr
-      for(let a=0 ; a<addObj.length ; a++){
-        let arr=[]
-        arr={value:addObj[a],name: cateArr[a].text }
-        echarr.push(arr)
-      }
+    let username = String(wx.getStorageSync('args').username)
+    wx.cloud.database().collection("totaltime").where({username:username}).get().then(abc=>{
+     let b=abc.data[0].logs
+      let dict = {}
+      let echarr = []
+      let a = b.map(i=>{
+          return i.cate
+      })
+      a = Array.from(new Set(a))
+      a.forEach(et => {
+          dict = {
+              name:"",
+              value:0
+          }
+          b.forEach((e=>{
+              if(e.cate==et){
+                  dict.name = e.cate
+                  dict.value = dict.value + e.time
+              }
+          }))
+          echarr.push(dict)
+      });
       console.log(echarr)
       that.echarts_opt(echarr)
     })
   },
   abc(){
-     var sum = []
-     let a =[]
-     let c= []
-     let res={}
-    a=[{"id":1,"time":2},
-       {"id":2,"time":2},
-       {"id":2,"time":2},
-       {"id":3,"time":2},
-       {"id":1,"time":2},
-       {"id":1,"time":2}]
-   for (var i = 0 ;i<a.length;i++){
-        if(res[a[i]["id"]]==undefined){
-            let re = []
-            re.push(a[i])
-             console.log(i+1)
-            console.log(a[i]["id"])
-            res[a[i]["id"]]=re
-            console.log(res)
-        }
-        else{
-            console.log(i+1)
-            console.log(a[i]["id"])
-            c= res[a[i]["id"]]
-            var sum = 0
-            c.push(a[i])
-            console.log(c);
-            // for(var a=o;a<c.length;a++){
-            //   sum = sum + c[a].time
-            // }
-            // c.splice(0,1,{id: a[i].id, time:sum})
-            res[a[i]["id"]]=c
-        }
-   }
-      console.log(res);//哈希表
+    //  var sum = []
+    //  let a =[]
+    //  let c= []
+    //  let res=[]
+    //  {id:1,time:1}
+  //   a=[
+  //     {cate: "番茄时钟", date: "2022/03/31 00:39:43", time: 1},
+  //     {cate: "工作", date: "2022/03/31 01:07:16", time: 1},
+  //     {cate: "休息", date: "2022/03/31 01:09:12", time: 1},
+  //     {cate: "休息", date: "2022/03/31 01:13:26", time: 1},
+  //     {cate: "睡觉", date: "2022/03/31 02:53:35", time: 1},
+  //     {cate: "写bug", date: "2022/03/31 02:54:46", time: 1},
+  //     {cate: "修bug", date: "2022/03/31 02:55:59", time: 1},
+  //     {cate: "修bug", date: "2022/03/31 02:57:10", time: 1},
+  // ]
+  //  console.log(a);
+  //  for (var i = 0 ;i<a.length;i++){
+  //       if(res[a[i]["cate"]]==undefined){
+  //           let re = []
+  //           re.push(a[i])
+  //            console.log(i+1)
+  //           console.log(a[i]["cate"])
+  //           res[a[i]["cate"]]=re
+  //           console.log(res)
+  //       }
+  //       else{
+  //           console.log(i+1)
+  //           console.log(a[i]["cate"])
+  //           c= res[a[i]["cate"]]
+  //           var sum = 0
+  //           c.push(a[i])
+  //           console.log(c);
+  //           res[a[i]["cate"]]=c
+  //       }
+  //  }  
+  //     console.log(res);//哈希表
+  //     console.log(res['休息']);
+  },
+  def(){
+    let a = []
+    a = [
+          {"休息":[{cate:"休息",time:1},{cate:"休息",time:2}]},
+          {"修bug":[{cate:"修bug",time:3},{cate:"修bug",time:5}]}
+      ]
+      let res = []
+      a.forEach((item,index)=>{
+          let dict = {
+              name:"",
+              value:0
+          }
+          dict.name = Object.keys(item)[0]
+          let temp  = item[Object.keys(item)]
+          temp.forEach((e,i)=>{
+              dict["value"]+=e.time
+          })
+          res.push(dict)
+      })
+      console.log(res)
   },
     onShow: function() {
         let username = wx.getStorageSync('args').username 
@@ -240,27 +227,22 @@ Page({
         wx.getStorage({
             key: 'args',
             success(res) {
-            //   console.log(res.data)
               that.setData({
-                // storageInfo: JSON.parse(res.data),
                 storageInfo: res.data,
               });
-            //   console.log(that.data.storageInfo.username)
             },
             fail(err) {
               console.log("学号获取失败失败失败");
             }
           });
-
     },
     updata(){
         wx.showLoading({
           title: '加载数据中',
         })
-        let username = wx.getStorageSync('args').username
+        let username = String(wx.getStorageSync('args').username)
         wx.cloud.database().collection("totaltime").where({username:username}).get().then(res=>{
             let totaltime = wx.cloud.database().collection("totaltime")
-            // let totalTime = this.data.totaltime123
             let len = res.data.length
             if(len == 0){
                 console.log("数据库无数据");
@@ -276,13 +258,12 @@ Page({
                         totalTime
                     }
                 }).then(res=>{
-                    //console.log(res)
+                  console.log(res);
                 }).catch(err=>{
-                    console.log(err)
+                  console.log(err)
                 })
                 wx.hideLoading();
             }
-
         })
     },
     changeType: function(e) {
@@ -298,7 +279,6 @@ Page({
                 this.setData({
                     list : logs
                 })
-                //console.log(this.data.list)
             })
         }
         this.setData({
@@ -306,15 +286,16 @@ Page({
         })
     },
     navSwitch: function(e) {
-        wx.showLoading({
-          title: '加载中',
-          mask:true
-        }).then(res=>{
-          this.get_data()
-          wx.hideLoading()
-        })
-        //console.log(e.currentTarget.dataset)
         let index = e.currentTarget.dataset.index;
+        if(index == 1){
+          wx.showLoading({
+            title: '加载中',
+            mask:true
+          }).then(res=>{
+            this.get_data()
+            wx.hideLoading()
+          })
+        }
         this.setData({
           navState:index
         })

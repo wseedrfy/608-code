@@ -23,7 +23,7 @@
   <view class="detail_list" wx:if="{{list.length > 0}}">
     <view class="list_item" wx:for="{{list}}">
       <view class="list_item_date">{{item.date}}</view>
-      <view class="list_item_text">{{cateArr[item.cate].text}}</view>
+      <view class="list_item_text">{{item.cate}}</view>
       <view class="list_item_time">{{item.time}}分钟</view>
     </view>
   </view>
@@ -33,6 +33,5 @@
 <view class="ec_box1">
   <ec-canvas id="mychart-dom" canvas-id="mychart" ec="{{ec}}"></ec-canvas>
 </view>
-<view bindtap="get_data">-----------------------------分界盒子-----------------------------</view>
-<view class="ec_box2"><ec-canvas ec="{{ecBar}}"></ec-canvas></view>
+<view bindtap="abc">-----------------------------分界盒子-----------------------------</view>
 </view>
