@@ -6,6 +6,7 @@
     },
     "pages": [
       "pages/index/index",
+      "pages/index/iconSort/iconSort",
       "pages/testdaka/index/index",      
       "pages/testdaka/record/record",
       "pages/login/login",
