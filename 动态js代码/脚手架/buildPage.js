@@ -304,10 +304,16 @@ setdata: function setdata(dictData) {
 
 //处理this.data
 function re(k, p1, noChange, eKey, otherCss) {
-
+  console.log(k)
   var fh = k.match(/[`~!@#$%^*()+?:{},\/;]|[==]|[===]|[<=]|[>=]/g)
+ 
   for (j in fh) {
     k = k.replaceAll(fh[j], ` ${fh[j]} `)
+  }
+
+  if (k.match(/\[(.*?)\]/g)) {
+    k = (k.match(/\[(.*?)\]/g)[0]).replaceAll("\\s+", "")
+    console.log(String(k.match(/\[(.*?)\]/g)[0]).replace(/\s+/g,""))
   }
 
   let dz = k.match(/'(.*?)'/g)
@@ -315,7 +321,7 @@ function re(k, p1, noChange, eKey, otherCss) {
 
   let array = k.split(/\s+/g)
   for (j in array) {
-
+  
     if (array[j].match(/^[a-zA-Z]/)) {
       if (eKey == ' wx:for') {
         p1 += '(this.data.' + array[j] + ')'
@@ -429,7 +435,7 @@ function parse(html) {
     let start = index + tag.length;
     // 标签之前的文本信息
     let text = html.slice(start, html.indexOf("<", start));
-
+    
     let parent;
     if (isOpen) {
       level++;
