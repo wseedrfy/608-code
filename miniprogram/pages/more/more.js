@@ -150,6 +150,14 @@ Page({
         break;
     }
   },
+
+  navigateSave(e) {
+    wx.navigateTo({
+      url: './pages/saveBureau/saveBureau',
+    })
+  },
+
+
   // 滑动切换标签时
   waterChange(e) {
     let currentTab = e.detail.current;

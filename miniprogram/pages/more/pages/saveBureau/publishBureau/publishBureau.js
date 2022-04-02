@@ -187,7 +187,8 @@ Page({
         userName:args.username,
         iconUrl:args.iconUrl,
         nickName:args.nickName,
-        school:args.school
+        school:args.school,
+        commentList:[]
       }
       console.log(this.data.text);
       wx.cloud.callFunction({
@@ -197,10 +198,12 @@ Page({
           type: "addCard"
         },
         success: res => {
+          console.log(res);
           let pages = getCurrentPages();
           let prevPage = pages[pages.length - 2];
           prevPage.setData({ 
             addData,
+            res:res.result._id
           })
           wx.navigateBack({
             delta: 1,  // 返回上一级页面。
