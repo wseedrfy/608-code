@@ -51,13 +51,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   joinIn(e){        //-----这代码写得太垃圾了，全是if else嵌套
-    if(this.endTime  - this.startTime < 350){     //----解决因长按事件与短按事件同时绑定而引发的冲突
-      console.log("enter");
-      if(e.currentTarget.id){
-        var index = parseInt(e.currentTarget.id)      //----直接获取的e.currentTarget.id类型为string，不能直接使用。需要转为number类型
-      }
-      var sex = e.currentTarget.dataset.sex
-      const args = wx.getStorageSync('args')
+    console.log(e);
+    // 判断是长按还是短按
+    if(this.endTime  - this.startTime < 350){
+      let that = this,
+        sex = e.currentTarget.dataset.sex,
+        args = wx.getStorageSync('args'),
+        index = e.currentTarget.id ? parseInt(e.currentTarget.id) : ''; // Str 转 Num
+      
       if(!args.sex){        //-----判断有无绑定性别
         this.chooseSex()
       }else{
@@ -66,6 +67,7 @@ Page({
           iconUrl:args.iconUrl,
           nickName:args.nickName,
         }
+
         if((sex==="manNum" && args.sex==="woman") || (sex==="womanNum" && args.sex==="man")){     //-----若点击事件的性别与绑定的性别不一致
           wx.showToast({
             title: '请正确选择性别',
@@ -73,13 +75,19 @@ Page({
           })
           return
         }else if(this.data.userName!=args.username){       //-----判断“我”是不是局长
-          var result = this.data.manNum.every((item) => {       //----分别对男女数组用every（）函数进行查找，如果找到item.userName===args.username（用户已加入），result返回false，没有则进入下一步
-            return item.userName!=args.username;
-          });
-          result = this.data.womanNum.every((item) => {
-            return item.userName!=args.username;
-          });
-          if(!!result){     //-----通过判断用户args.sex，决定用户进男组还是女组
+          var result;
+          this.data.manNum.forEach(item => {
+            if(item.userName == args.username) {
+              result = true;
+            }
+          })
+          this.data.womanNum.forEach(item => {
+            if(item.userName == args.username) {
+              result = true;
+            }
+          })
+          console.log(result);
+          if(!result){     //-----通过判断用户args.sex，决定用户进男组还是女组
             if(args.sex==="man"){
               index!=undefined ? this.data.manNum[index] = add : this.data.manNum[this.data.manNum.length-1] = add
             }else{
