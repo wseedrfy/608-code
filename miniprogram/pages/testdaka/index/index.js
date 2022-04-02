@@ -271,7 +271,6 @@ Page({
         //(圆心x，y，度数0，到2*math.PI,逆时针false)
         ctx.stroke();
     },
-
     //更新滑动条时间
     slideChange: function(e) {
         this.setData({

@@ -95,17 +95,52 @@
 <view wx:elif="{{navState==3}}"></view>
 <!-- 自习室页 -->
 <view wx:elif="{{navState==4}}">
-     <view style="height: {{statusBarHeight}}px;width: 100%;background: white;"></view>
+     <view class="selfstudy">
+          <view style="height: {{statusBarHeight}}px;width: 100%;background: white;"></view>
      <view class="selfstudy_bar" style="height: {{lineHeight}}px;background: white;line-height: {{lineHeight}}px;color: white;text-align: center;">
           <view data-index="5" class="{{studynavState==5?'topbar_true':'topbar' }}" bindtap="navclick">我的小组</view>
           <view data-index="6" class="{{studynavState==6?'topbar_true':'topbar' }}" bindtap="navclick">其他小组</view>
           <view data-index="7" class="{{studynavState==7?'topbar_true':'topbar' }}" bindtap="navclick">计时</view>
      </view>
+     </view>
+    
      <view wx:if="{{studynavState==5}}"></view>
      <view wx:elif="{{studynavState==6}}" class="selfstudy_othergroup">
           <view class="selfstudy_othergroup_title">
                <view>let's go</view>
-               <view></view>
+               <view>trip to africa</view>
+               <view>let's go</view>
+               <view>trip to africa</view>
+               <view>let's go</view>
+               <view>trip to africa</view>
+               <view>let's go</view>
+               <view>trip to africa</view>
+               <view>let's go</view>
+               <view>trip to africa</view>
+               <view>let's go</view>
+               <view>trip to africa</view>
+               <view>let's go</view>
+               <view>trip to africa</view>
+
+               <view>let's go</view>
+               <view>trip to africa</view>
+               <view>let's go</view>
+               <view>trip to africa</view>
+               <view>let's go</view>
+               <view>trip to africa</view>
+               <view>let's go</view>
+               <view>trip to africa</view>
+               <view>let's go</view>
+               <view>trip to africa</view>
+
+               <view>let's go</view>
+               <view>trip to africa</view>
+               <view>let's go</view>
+               <view>trip to africa</view>
+               <view>let's go</view>
+               <view>trip to africa</view>
+               <view>let's go</view>
+               <view>trip to africa</view>
           </view>
           <view class="selfstudy_othergroup_mygroup"></view>
           <view class="selfstudy_othergroup_lablegroup"></view>

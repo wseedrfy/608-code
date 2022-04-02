@@ -762,6 +762,11 @@ transition: all .7s;
   display: flex;
   flex-direction: row;
   align-items: center;
+
+}
+.selfstudy{
+  position: sticky;
+  top:0rpx;
 }
 .topbar_true{
   margin-left: 20rpx;
@@ -774,6 +779,12 @@ transition: all .7s;
   margin-left: 20rpx;
   font-size: 25rpx;
   transition: all .7s;
+}
+.selfstudy_othergroup_title >view{
+  margin-left: 30rpx;
+  margin-top: 30rpx;
+  font-size: 60rpx;
+  font-weight: 600;
 }
 /* 自习室css结束 */
 @media (prefers-color-scheme: dark) {
