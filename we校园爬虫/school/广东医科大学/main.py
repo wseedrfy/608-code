@@ -9,7 +9,7 @@ def login_GYK(username, password):
 
     return login(username, password, session)
 
-def getData_GYK(username,password):
+def getData_GYK(username,password,other):
     session = requests.session()
     msg = login(username, password, session)
     if msg['msg']!='welcome':

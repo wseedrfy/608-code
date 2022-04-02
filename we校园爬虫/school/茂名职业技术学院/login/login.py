@@ -14,10 +14,23 @@ def login(session, username, password):
     def login_test(session, username, password):
         status_code = 0
         try:
-            code, cookies = code_ocr(username,session)
-            import os
-            if os.path.exists("MZ_code.png" + username):
-                os.remove("MZ_code.png" + username)
+            try:
+                code, cookies = code_ocr(username, session)
+                import os
+                if os.path.exists("MZ_code.png" + username):
+                    os.remove("MZ_code.png" + username)
+            except Exception as e:
+                return {
+                    "msg": "登录失败,请找管理员",
+                    "error": str(e),
+                    "code": "704"
+                }
+            if code == '' or code is None:
+                return {
+                    "msg": "验证码错误",
+                    "code": "705"
+                }
+
             cookie = ''
             for name, value in cookies:
                 cookie += '{0}={1};'.format(name, value)
@@ -33,15 +46,18 @@ def login(session, username, password):
             res = session.post(
                 'https://jwc.mmpt.edu.cn/default2.aspx', data=data)
             return res.text
-        except Exception as e:
-            return {
-                "msg": "茂职有问题",
-                "name": "未知",
-                "code": 606,
-                "error": str(e)
-            }
+        except:
+
             # print("茂名职业技术学院登录有问题，返回代码为", status_code)
-            # return search('1', username, password, "login")
+            try:
+                return search('1', username, password, "login")
+            except Exception as e:
+                return {
+                    "msg": "茂职有问题",
+                    "name": "未知",
+                    "code": 606,
+                    "error": str(e)
+                }
 
         # print(res.text)
 
@@ -50,15 +66,18 @@ def login(session, username, password):
     while True:
         if '用户名或密码不正确' in returnData:
             return name, headers, {
-                "msg": '账号密码错误'
+                "msg": '账号密码错误',
+                "code": "703"
             }
         elif '账号已锁定无法登录' in returnData:
             return name, headers, {
-                "msg": '密码错误，您密码输入错误已达规定次数，账号已锁定无法登录，次日自动解锁！如忘记密码，请与教务处联系!'
+                "msg": '密码错误，您密码输入错误已达规定次数，账号已锁定无法登录，次日自动解锁！如忘记密码，请与教务处联系!',
+                "code": "702"
             }
         elif '密码错误' in returnData:
             return name, headers, {
-                "msg": '密码错误'
+                "msg": '密码错误',
+                "code": "703"
             }
         elif '验证码不正确' in returnData:
             returnData = login_test(session, username, password)
@@ -71,12 +90,13 @@ def login(session, username, password):
         #     }
         else:
             return name, headers, {
-                "msg": '异常，请重试'
+                "msg": '异常，请重试',
+                "code": "707"
             }
     regname = re.compile(r'xm=(.*?)&')
     name = regname.findall(returnData)[0]
 
     return name, headers, {
         "msg": 'welcome',
-
+        "code": "701"
     }

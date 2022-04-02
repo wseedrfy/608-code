@@ -11,12 +11,12 @@ def login_GDLG(username, password):
         print(e)
 
 
-def getData_GDLG(username, password):
+def getData_GDLG(username, password,other):
     session = requests.session()
     msg = login(username, password, session)
     if msg != {"msg": "welcome"}:
         return msg
     return data(session)
 
-
-print(getData_GDLG('2112402040530', 'Wbf680218/'))
+#
+# print(getData_GDLG('2112402040530', 'Wbf680218/'))

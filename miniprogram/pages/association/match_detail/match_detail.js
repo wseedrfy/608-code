@@ -16,7 +16,7 @@ Page({
         name: "多选",
       },
       {
-        src: "../img/dan_change.png",
+        src: "../img/tian.png",
         name: "填空",
       },
     ],
@@ -260,7 +260,7 @@ Page({
               if (this.data.weatherChange == false) {
                 db.collection("associtaionMath").add({
                   data: {
-                    count: userInfo.username,
+                    count: String(userInfo.username),
                     schoolName: userInfo.schoolName,
                     senderMess,
                     question,

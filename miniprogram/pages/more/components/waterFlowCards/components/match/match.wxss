@@ -34,7 +34,7 @@
   padding: 5rpx 3rpx;
 }
 .pic .local_block .local2 {
-  bottom: 115rpx;
+  bottom: 110rpx;
   position: relative;
   background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4));
   height: 74rpx;
@@ -56,28 +56,15 @@
 }
 .pic .content_wrap .match_wrap {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   font-size: 22rpx;
   padding: 4rpx 8rpx;
-}
-.pic .content_wrap .match_wrap .mess_wrap {
-  padding: 12rpx 16rpx 22rpx;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-.pic .content_wrap .match_wrap .mess_wrap .time {
-  flex: 2;
-  color: rgba(73, 73, 73, 0.726);
-}
-.pic .content_wrap .match_wrap .mess_wrap .person {
-  flex: 1;
-  color: rgba(8, 8, 8, 0.4);
 }
 .pic .content_wrap .match_wrap .tip_wrpa {
   padding: 10rpx 4rpx;
   display: flex;
   flex-direction: row;
+  flex: 3;
 }
 .pic .content_wrap .match_wrap .tip_wrpa .tip {
   display: flex;
@@ -85,20 +72,36 @@
   padding: 4rpx;
   border-radius: 6rpx;
   margin-left: 12rpx;
-  font-size: 20rpx;
+  font-size: 18rpx;
   text-align: center;
   align-items: center;
   justify-content: center;
 }
+.pic .content_wrap .match_wrap .outTime {
+  flex: 1;
+  font-size: 20rpx;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #7a7a7a;
+}
 @media (prefers-color-scheme: dark) {
   .pic {
-    background-color: #f1eded;
+    background-color: black;
     filter: invert(100%) !important;
   }
   .Show_Image {
-    /* background-color: #fff; */
+    filter: invert(0%) !important;
   }
   .pic_Label {
+    filter: invert(100%) !important;
+  }
+  .content_wrap .pic_Title {
+    color: white;
+    filter: invert(100%) !important;
+  }
+  .content_wrap .match_wrap .mess_wrap {
+    color: white;
     filter: invert(100%) !important;
   }
 }

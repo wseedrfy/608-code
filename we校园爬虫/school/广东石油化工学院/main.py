@@ -29,7 +29,7 @@ def upData_GY(data):
     }
 
 
-def getData_GY(username, password):
+def getData_GY(username, password,other):
     arr = search("0", username, password, "getData")
     # print(arr)
     other = eval(arr['other'])

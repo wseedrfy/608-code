@@ -37,21 +37,23 @@ page {
 }
 .wrap .content_wrap .top_wrap_top .title_top {
   color: #63A1A0;
+  padding: 12rpx;
 }
 .wrap .content_wrap .top_wrap_top input {
   background-color: #f6f6f6;
-  padding: 8rpx;
+  padding: 12rpx;
   border-radius: 12rpx;
 }
 .wrap .content_wrap .mid_wrap {
   padding: 12rpx;
 }
 .wrap .content_wrap .mid_wrap .title_top {
+  padding: 12rpx;
   color: #63A1A0;
 }
 .wrap .content_wrap .mid_wrap .handle_top {
   width: 100%;
-  padding: 8rpx;
+  padding: 12rpx;
   background-color: #f6f6f6;
   border-radius: 12rpx;
 }
@@ -60,6 +62,7 @@ page {
   background-color: white;
   margin: 24rpx;
   padding: 12rpx;
+  border-radius: 12rpx;
 }
 .wrap .reward_wrap .title {
   padding: 12rpx;

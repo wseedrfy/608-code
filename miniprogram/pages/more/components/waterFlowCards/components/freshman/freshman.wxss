@@ -91,13 +91,24 @@
 }
 @media (prefers-color-scheme: dark) {
   .pic {
-    background-color: #f1eded;
+    background-color: black;
     filter: invert(100%) !important;
   }
-  .Show_Image {
-    /* background-color: #fff; */
+  .pic .tip_wrap {
+    background-color: black;
+    color: white;
   }
-  .pic_Label {
-    filter: invert(100%) !important;
+  .pic .Show_Image {
+    filter: invert(0%) !important;
+  }
+  .pic .back {
+    background-color: black;
+    color: white;
+  }
+  .pic .back .pic_Title {
+    color: white;
+  }
+  .pic .back .acivity_wrap .association_wrap .person_num {
+    color: white;
   }
 }

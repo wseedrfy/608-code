@@ -158,6 +158,10 @@
   width: 54rpx;
   height: 54rpx;
 }
+.content_btn_save image{
+  width: 54rpx;
+  height: 54rpx;
+}
 
 
 .chooseImg-btn{

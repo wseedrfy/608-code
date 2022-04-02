@@ -40,7 +40,6 @@
     height: 40rpx;
     position: relative;
     top: 6rpx;
-    /* background-image: url('../../images/latercup.png'); */
 }
 .u-list .u-item .content .text .cup_top_text{
     color: #eec83f;

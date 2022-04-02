@@ -8,4 +8,5 @@
       </view>
     </view>
   </scroll-view>
+  <view class="tip">--没有更多啦--</view>
 </view>
