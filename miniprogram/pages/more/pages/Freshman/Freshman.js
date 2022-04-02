@@ -120,6 +120,14 @@ Page({
       },
     });
   },
+  ShowImg: function (e) {
+    var Photo = this.data.content.AllPhoto
+    var index = e.target.dataset.index
+    wx.previewImage({
+      current: Photo[index],
+      urls: Photo,
+    })
+  },
   // 查询是否已参与并操作
   // getPerson(){
 

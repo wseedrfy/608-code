@@ -1,645 +1,428 @@
-
-const db = wx.cloud.database({env:'mall-7gi19fir46652cb4'})
-
 Page({
-  data: {
-    weihu: false,
-    guige: false,
-    goodsguigekouwei: [],
-    goodsguigekouwei2: [],
-    goods: [],
-    guigeindex: '0',
-    guigeindex2: '0',
-    shopyesno: true,
-    mydingdan: [], //订单
-    mydindantotal: 0,
-    skip: 0, //订单跳过前几条
-    newuser: true,
-    /* --------------------- */
-    buy: [], //购物车
-    totalprice: 0,
-    totalnumber: 0,
-    /* ---------------------- */
-    tabbar: true,
-    havelocation: false,
-    /* --------------------- */
-    TabCur: '0',
-    MainCur: 0,
-    VerticalNavTop: 0,
-    list: [],
-    load: true,
-    data_show:[]
-  },
-  onLoad: function (option)  {
-    console.log(option)
-    var shop_id = 'uncanny'
-    wx.showLoading({
-      title: '加载中...',
-      mask: true
-    });
-    var self = this
+    data: {
+        ismanage: false, //判别状态
+        manage_text: "管理",
 
-    db.collection('shop').doc(shop_id).get().then(res => {
- 
-      wx.setStorage({
-        key: "shop",
-        data: res.data
-      })
-      console.log("goods", res.data.goods);
-      
-      self.setData({
-        shop_id: shop_id,
-        caidan: res.data.caidan,
-        goods: res.data.goods,
-        goprice: res.data.goprice * 1,
-        shopyesno: res.data.shopyesno,
-        shopyesnoing: res.data.shopyesno,
-        shopname: res.data.name,
-        shopid: res.data.shopid,
-      })
-{
-        console.log(123)
-        /* if (nowtime >= "23:50" && nowtime <= "23:59") {
-          self.setData({
-            weihu: true,
-            shopyesno: false,
-          })
-        } */
-        // 调用云函数获取用户openid
-        wx.cloud.callFunction({
-          name: 'login',
-          env:'mall-7gi19fir46652cb4',
-          data: {},
-          success: loginres => {
-            console.log('[云函数] [login] user openid: ', loginres.result.openid)
-            app.globalData.openid = loginres.result.openid
-            db.collection('userinfo').where({
-              _openid: loginres.result.openid
-            }).get().then(userinfores => {
-              if (userinfores.data.length > 0) {
-                wx.setStorage({
-                  key: "userinfo",
-                  data: userinfores.data[0]
-                })
-                self.setData({
-                  newuser: false,
-                  username: userinfores.data[0].username,
-                  usertximg: userinfores.data[0].usertximg,
-                  userlocation: userinfores.data[0].userlocation,
-                  havelocation: userinfores.data[0].havelocation
-                })
-                
-                  self.onShow()
-                  console.log(res.data.caidan, 1233)
-                  self.caidanxuanran(res.data.caidan)
-                
-              } else {
-                let args = wx.getStorageSync('args')
-                db.collection('userinfo').add( {
-                  data: {
-                  _openid:loginres.result.openid,
-                  username: args.username,
-                  havelocation: false,
-                  userlocation: {},
-                  usertximg: args.iconUrl
+        before_IconList: [], //点击取消，还原之前的首页按钮数组
+        before_other_iconList: [], //点击取消，还原之前的其余按钮数组
+        iconList: [], //首页按钮
+        other_iconList: [], //其余按钮
+        inform: [],
 
-                }}).then(
-                  self.onShow()
-                )
-   
-              }
-            })
-          },
-          fail: err => {
-            console.error('[云函数] [login] 调用失败', err)
-          }
-        })
-      }
-      console.log(res.data)
-    })
+        //移动排序数据
+        disable: true, //判断是否移动
+        list: [],
+        //移动
+        itemTransition: false,
+        //列数、行数
+        columns: 5,
+        rows: 0,
+        //按钮框高度、宽度
+        itemWrapHeight: 0,
+        //itemWrapWidth: 0,
+    },
 
-  },
-  onShow(e) {
-    var self = this
-    var skip = self.data.skip
-    var userinfo =wx.getStorageSync('userinfo')
-    this.setData({userlocation: userinfo.userlocation})
-    
-    if(!self.data.newuser){
-      db.collection('dindan').where({
-        _openid: app.globalData.openid
-      }).count().then(totalres => {
-   
-        if (totalres.total > 20) {
-          skip = totalres.total - 20
-        }
-        db.collection('dindan')
-          .where({
-            _openid: app.globalData.openid
-          })
-          .skip(skip)
-          .limit(20)
-          .get()
-          .then(res => {
-     
-            self.setData({
-              mydindantotal: totalres.total,
-              mydingdan: res.data.reverse()
-            })
-            wx.hideNavigationBarLoading()
-            wx.stopPullDownRefresh()
-            console.log(res.data)
-          })
-          .catch(err => {
-            wx.hideNavigationBarLoading()
-            wx.stopPullDownRefresh()
-            console.error(err)
-          })
-      })
-    }
-    
-    console.log(this.data.mydingdan, '55')
-    wx.hideHomeButton();
-  },
-  /* 菜单渲染 */
-  caidanxuanran(e) {
-    var caidan = e
-    let list = [{}];
-    for (let i = 0; i < caidan.length; i++) {
-      list[i] = {};
-      list[i].name = caidan[i].name;
-      list[i].id = i;
-      list[i].myid = caidan[i].myid;
-    }
-    console.log(list, 233)
-    this.setData({
-      list: list,
-      listCur: list[0]
-    })
-      wx.hideLoading()
-    
-  },
-  onReady() {
-
-  },
-  tabSelect(e) {
-    this.setData({
-      TabCur: String(e.currentTarget.dataset.id),
-      MainCur: e.currentTarget.dataset.id,
-      VerticalNavTop: (e.currentTarget.dataset.id - 1) * 50
-    })
-  },
-  VerticalMain(e) {
-    let that = this;
-    let list = this.data.list;
-    console.log("list",list);
-    let tabHeight = 0;
-    if (this.data.load) {
-      for (let i = 0; i < list.length; i++) {
-        let view = wx.createSelectorQuery().select("#main-" + list[i].id);
-        view.fields({
-          size: true
-        }, data => {
-          list[i].top = tabHeight;
-          tabHeight = tabHeight + data.height;
-          list[i].bottom = tabHeight;
-        }).exec();
-      }
-      that.setData({
-        load: false,
-        list: list
-      })
-    }
-    let scrollTop = e.detail.scrollTop + 20;
-    for (let i = 0; i < list.length; i++) {
-      if (scrollTop > list[i].top && scrollTop < list[i].bottom) {
+    //界面初始，读取首页按钮缓存、其余按钮缓存
+    onShow: function (options) {
+        //从缓存中或取iconList
+        var that = this
+        var other_btn = wx.getStorageSync('other_btn')
         that.setData({
-          VerticalNavTop: (list[i].id - 1) * 50,
-          TabCur: String(list[i].id)
+            other_iconList: other_btn.other_iconList,
+            iconList: other_btn.iconList
         })
-        return false
-      }
-    }
-  },
-  /* 第一次添加购物车 */
-  oneaddgoods(e) {
-    var self = this
-    var newuser = self.data.newuser
-   console.log("newuser",newuser);
-   console.log("e",e);
-    if (newuser) {
-      wx.showToast({
-        title: '成功',
-        icon: 'success',
-        duration: 1000
-      })
-    } else {
+        this.init(); //按钮排序坐标初始化
+    },
 
-      var index = e.currentTarget.id
-      console.log("self.data.goods",self.data.goods);
-      var goodsnumber = self.data.goods[index].number
-      var goodsdata = "goodt[" + index + "].number"
-      var buy = this.data.buy
-      var goods = {
-        guige: false,
-        id: self.data.goods[index].id,
-        img: self.data.goods[index].img,
-        name: self.data.goods[index].name,
-        price: self.data.goods[index].price,
-        zhekou: self.data.goods[index].zhekou,
-        nowprice: self.data.goods[index].nowprice,
-        shangpu: self.data.goods[index].shangpu, //所属商铺
-        shopid: self.data.goods[index].shopid,
-        number: 1, //用户购物车数量
-        index: index, //在goods列表里的index
-      }
-      buy.push(goods)
-      self.data.goods[index].number += 1
-      self.setData({
-        buy: buy,
-        [goodsdata]: goodsnumber + 1,
-        goods: self.data.goods
-      })
-      console.log(goodsnumber + 1)
-      self.buy(buy)
-    }
-  },
-  /* 购物车+1 */
-  addgoods(e) {
-    var self = this
-    var index = e.currentTarget.id
-    // if (!self.data.goods[index].guige) {
-    self.data.buy[index].number += 1
-    self.data.goods[index].number += 1
-    self.setData({
-      buy: self.data.buy,
-      goods: self.data.goods,
-    })
-    self.buy(buy)
-    // } 
-     // var goodsnumber = self.data.goods[index].number
-    // var buy = self.data.buy
-    // var goodsdata = "goods[" + index + "].number"
-    // for (var i = 0; i < buy.length; i++) {
-      //   if (buy[i].id == self.data.goods[index].id) {
-      //     buy[i].number++;
-      //   }
-      // }
-  },
-  /* 购物车-1 */
-  reducenumber(e) {
-    var self = this
-    var index = e.currentTarget.id
-    if(self.data.buy[index].number === 1) {
-      self.data.buy.splice(index,1)
-    }else{
-      self.data.buy[index].number -= 1;
-      self.data.goods[index].number -= 1
-    }
-    // var goodsnumber = self.data.goods[index].number
-    // var goodsdata = 'goods[' + index + '].number'
-    // var buy = self.data.buy
-    // for (var i = 0; i < buy.length; i++) {
-    //   if (buy[i].id == self.data.goods[index].id) {
-    //     if (buy[i].number == 1) {
-    //       buy.splice(i, 1)
-    //     } else {
-    //       buy[i].number--;
-    //       break;
-    //     }
-    //   }
-    // }
-   
-    // if (goodsnumber > 0) {
-    //   self.data.goods[index].number -= 1
-    //   self.setData({
-    //     buy: self.data.buy,
-    //     // [goodsdata]: goodsnumber - 1,
-    //     goods: self.data.goods
-    //   })
+    //管理按钮，turn时触发移除、增加按钮；false时禁用
+    Manage: function () {
+        let init_other_iconList = JSON.parse(JSON.stringify(this.data.other_iconList))
+        let init_iconList = JSON.parse(JSON.stringify(this.data.list))
 
-    //     self.buy(self.data.buy)
-      
-
-    // }
-    self.setData({
-      buy: self.data.buy,
-      // [goodsdata]: goodsnumber - 1,
-      goods: self.data.goods
-    })
-
-    self.buy(self.data.buy)
-    return res
-  },
-  /* 购物车规格+1 */
-  guigeaddgoods(e) {
-    var self = this
-    var index = e.currentTarget.id
-    var goods = self.data.goods
-    var buy = self.data.buy
-    for (var i = 0; i < goods.length; i++) {
-      if (buy[index].id == goods[i].id) {
-        var goodsnumber = goods[i].number
-        var goodsdata = "goods[" + i + "].number"
-        break;
-      }
-    }
-    buy[index].number++;
-    self.setData({
-      buy: buy,
-      [goodsdata]: goodsnumber + 1
-    })
-
-      self.buy(buy)
-    
-  },
-  /* 购物车规格-1 */
-  guigereducenumber(e) {
-    var self = this
-    var index = e.currentTarget.dataset.index
-    var goods = self.data.goods
-    var buy = self.data.buy
-    for (var i = 0; i < goods.length; i++) {
-      if (buy[index].id == goods[i].id) {
-        var goodsnumber = self.data.goods[i].number
-        var goodsdata = 'goods[' + i + '].number'
-        if (buy[index].number == 1) {
-          buy.splice(index, 1)
-          break;
+        if (this.data.ismanage) {
+            this.setData({
+                ismanage: false,
+                manage_text: "管理",
+                list: this.data._iconList,
+                // iconList: this.data.before_IconList,
+                other_iconList: this.data._other_iconList
+                // iconList:init_iconList,
+                // other_iconList:init_other_iconList
+            })
+            this.getWidth_Height()
+            //刷新按钮排序也可以用这个函数
+            this.getAfterRemove_Btn_Position(this.data.list);
         } else {
-          buy[index].number--;
-          break;
+            this.setData({
+                ismanage: true,
+                manage_text: "取消",
+                _iconList: init_iconList,
+                _other_iconList: init_other_iconList
+            })
         }
-      }
-    }
-    if (goodsnumber > 0) {
-      console.log(buy)
-      self.setData({
-        buy: buy,
-        [goodsdata]: goodsnumber - 1
-      })
+    },
 
-        self.buy(buy)
-      
-    }
-  },
+    //需求将obj这个对象拷贝出一个新对象修改新对象的值不会影响原对象的值
+    //定义一个函数
 
-  buy(buy) {
-    // var totalprice = 0
-    // var totalnumber = 0
-    // for (var i = 0; i < buy.length; i++) {
-    //   if(buy[i].zhekou){
-    //     totalprice = totalprice + buy[i].number * buy[i].zhekouprice
-    //   }else{
-    //     totalprice = totalprice + buy[i].number * buy[i].nowprice
-    //   }
-    //   totalnumber = totalnumber + buy[i].number
-    // }
-    // 购物车加购的商品数量（numberSum）加一
-    var numberSum = buy.reduce((numberSum, item) => {
-      return numberSum + item.number;
-    },0)
-     // 购物车加购的商品价格（priceSum）加一
-    var priceSum = buy.reduce((priceSum, item) => {
-      return priceSum + item.number * item.nowprice;
-      // return priceSum + item.number * (item.nowprice * item.zhekou * 0.1);      //---后期优化，无折扣商品：zhekou=10；有折扣商品：zhekou=zhekou*0.1
-    },0)
+    //移除按钮，把首页按键移除到其余按键
+    remove_click: function (e) {
+        var id = e.currentTarget.id
+        var arr = JSON.parse(JSON.stringify(this.data.list)) //上图标
+        var other_arr = JSON.parse(JSON.stringify(this.data.other_iconList)) //下图标
+        // console.log(arr,other_arr);
 
-    if (numberSum == 0) {
-      this.setData({
-        modalName: false
-      })
-    }
-    this.setData({
-      totalprice: priceSum.toFixed(2),
-      totalTrue: priceSum.toFixed(2) < this.data.goprice,
-      totalyuNumber: this.data.goprice - priceSum.toFixed(2),
-      totalnumber: numberSum,
-    })
-  },
-  popUp: function () {          //控制卡片/评论弹窗
-    var self=this
-    var payStyle = 'payHide';
-    // picker动画样式
-    if (payStyle == undefined || payStyle == 'payHide') {
-      payStyle = 'payShow'
-    } else {
-      payStyle = 'payHide'
-    }
-    self.setData({
-       payStyle,
-    })
-  },
-  /* 购物车弹出 */
-  showModal() {
-    var self = this
-    if (self.data.buy.length != 0) {
-      self.popUp()
-      self.setData({
-        modalName: !this.data.modalName,
-        buy: self.data.buy,
-      })
-    }
-  },
-  /* 商铺 */
-  tabbarshop(e) {
-    this.setData({
-      tabbar: true
-    })
-  },
-  /* 个人 */
-  tabbaruser(e) {
-    this.setData({
-      tabbar: false
-    })
-  },
-  /* 地址设置 */
-  userlocation(e) {
-    var shop_id=this.data.shop_id
-    console.log(shop_id)
-    wx.navigateTo({
-      url: '../HotTop/HotTop?content=地址&shop_id='+shop_id,
-    })
-  },
-  /* 跳转支付 */
-  pay(e) {
-    console.log("pay");
-    var self = this
-    var buy = self.data.buy
-    wx.setStorage({
-      key: "pay",
-      data: {
-        buy: buy,
-        totalnumber: self.data.totalnumber,
-        totalprice: self.data.totalprice,
-      }
-    })
-    wx.navigateTo({
+        other_arr.push(arr[id].data)
+        arr.splice(id, 1)
+        // console.log(arr);
 
-      url: '../HotTop/HotTop?content=支付',
-    })
-  },
-  /* 用户授权 */
-  onGetUserInfo: function (e) {
-    console.log(e)
-    var self = this
-    var openid = app.globalData.openid
-    if (self.data.newuser && e.detail.userInfo) {
-      wx.showLoading({
-        mask: 'none',
-        title: '用户信息建立中...',
-      })
-      db.collection('userinfo').add({
-        // data 字段表示需新增的 JSON 数据
-        data: {
-          username: e.detail.userInfo.nickName,
-          usertximg: e.detail.userInfo.avatarUrl,
-          userlocation: {},
-          havelocation: false
-        },
-        success: function (res) {
-          wx.setStorage({
-            key: "userinfo",
-            data: {
-              _id: res._id,
-              _openid: openid,
-              username: e.detail.userInfo.nickName,
-              usertximg: e.detail.userInfo.avatarUrl,
-              userlocation: {},
-              havelocation: false
+        let list = this.getAfterRemove_Btn_Position(arr)
+
+        //console.log(list)
+
+        this.setData({
+            other_iconList: other_arr,
+            list: list
+        })
+
+        this.getWidth_Height();
+    },
+
+    //增加按钮,把其余按键添加到首页按键
+    add_click: function (e) {
+        var id = e.currentTarget.id
+        var arr = JSON.parse(JSON.stringify(this.data.list))
+        var other_arr = JSON.parse(JSON.stringify(this.data.other_iconList))
+
+        let data = this.getAdd_Btn_Position(other_arr[id]);
+
+
+
+        arr.push(data)
+        other_arr.splice(id, 1)
+
+        arr.forEach((e, index) => {
+            if (e.data.name === '更多') {
+                arr[index] = arr.splice(arr.length - 1, 1, arr[index])[0];
             }
-          })
-          self.setData({
-            newuser: false,
-            username: e.detail.userInfo.nickName,
-            usertximg: e.detail.userInfo.avatarUrl,
-            userlocation: {},
-            havelocation: false
-          })
-          console.log(res)
-        },
-        fail: console.error,
-        complete: function (res) {
-          wx.hideLoading()
-        },
-      })
+
+        })
+
+        this.setData({
+            other_iconList: other_arr,
+            list: arr
+        })
+
+        this.getWidth_Height(); //根据按键数，更改按钮框体大小
+
+    },
+
+    //保存排序，回到初始状态
+    save: function () {
+        var that = this
+
+        //将list里面的data提取出来，赋值到iconList保存到手机内存上
+        let iconList = []
+        let list = that.data.list.forEach(item => {
+            //iconList.push(item.data)
+            //因为移动会打乱数据排序，为了保存打乱的数据排序，要用item.key
+            iconList[item.key] = item.data
+        })
+        //避免深存储无法更改数据
+        this.setData({
+            iconList: iconList
+        })
+
+        var arr = JSON.parse(JSON.stringify(this.data.iconList)) //上图标
+        var other_arr = JSON.parse(JSON.stringify(this.data.other_iconList)) //下图标
+
+        //console.log(that.data.iconList)
+        let bb = {
+            other_iconList: that.data.other_iconList,
+            iconList: iconList,
+        }
+        wx.setStorageSync('other_btn', bb)
+        //回到初始状态
+        that.setData({
+            ismanage: false,
+            manage_text: "管理",
+            _iconList: arr,
+            _other_iconList: other_arr
+        })
+    },
+
+    /**
+     *移动排序代码
+     *实现思路：
+     *一、初始化init()， 
+     **/
+    init: function () {
+        let list = this.data.iconList.map((item, index) => {
+            let data = {
+                key: index,
+                tranX: 0,
+                tranY: 0,
+                data: item
+            }
+            return data
+        });
+        this.setData({
+            list: list,
+        });
+
+        // 获取每一项的宽高等属性
+        this.createSelectorQuery().select(".iconn").boundingClientRect((res) => {
+
+            let rows = Math.ceil(this.data.list.length / this.data.columns); //获取行数
+
+            this.item = res;
+
+            this.getPosition(this.data.list, false);
+
+            let itemWrapHeight = rows * res.height;
+
+            //console.log("行数、按钮高度、按钮框体高度", rows, res.height, itemWrapHeight);
+
+            
+            //let itemWrapWidth = this.data.columns * res.width;
+            //console.log("按钮框体高度、宽度", itemWrapHeight, itemWrapWidth);
+
+            this.setData({
+                itemWrapHeight: itemWrapHeight,
+                //itemWrapWidth: itemWrapWidth
+            });
+        }).exec();
+    },
+
+    /**
+     * 长按触发移动排序
+     */
+    longPress(e) {
+        //console.log(1111)
+        //长按直接触发管理事件manage
+        if (!this.data.ismanage) this.Manage();
+
+        let list = []
+
+        this.data.list.forEach((item) => {
+            list[item.key] = item
+        })
+
+        this.setData({
+            list:list,
+            disable: false
+        });
+
+        //console.log(e)
+
+        this.startX = e.changedTouches[0].pageX
+        this.startY = e.changedTouches[0].pageY
+
+        let index = e.currentTarget.id;
+        //console.log(index)
+        //console.log("key",this.data.list[index].key)
+
+        //console.log("long",index)
+        if (this.data.columns === 1) { // 单列时候X轴初始不做位移
+            this.tranX = 0;
+        } else { // 多列的时候计算X轴初始位移, 使 item 水平中心移动到点击处
+            this.tranX = this.startX - this.item.width / 2 - 8;
+        }
+
+            // 计算Y轴初始位移, 使 item 垂直中心移动到点击处
+        this.tranY = this.startY - this.item.height / 2 - 40;
+
+        //console.log("计算后X/Y坐标",this.tranX, this.tranY);
+
+        this.setData({
+            cur: index,
+            //curZ: index,
+            tranX: this.tranX,
+            tranY: this.tranY,
+        });
+
+        wx.vibrateShort();
+    },
+    
+    touchMove(e) {
+        if (this.data.disable) return; //如果不可动，直接返回
+
+        //console.log(e)
+
+        let tranX = e.touches[0].pageX - this.startX + this.tranX,
+            tranY = e.touches[0].pageY - this.startY + this.tranY;
+
+        // let tranX = e.detail.x,
+        //     tranY = e.detail.y;
+        
+
+        this.setData({
+            tranX: tranX,
+            tranY: tranY
+        });
+
+        //console.log(e);
+        //触发拖到事件时，setdata无法更改e.currentTarget.id，只能读取数组中的key
+        //否则会触发if (originKey == endKey || this.originKey == originKey) return;，结果无反应
+        let originKey = this.data.list[e.currentTarget.id].key;
+
+        //console.log("点击的index", originKey)
+        let endKey = this.calculateMoving(tranX, tranY);
+        //console.log(e)
+        //console.log("id",this.originKey,originKey,endKey)
+        //console.log("移动到的位置", endKey)
+        // 防止拖拽过程中发生乱序问题
+        if (originKey == endKey || this.originKey == originKey) return;
+
+        this.originKey = originKey;
+
+        this.insert(originKey, endKey);
+    },
+
+    /**
+     * 根据当前的手指偏移量计算目标key
+     */
+    calculateMoving(tranX, tranY) {
+        let rows = Math.ceil(this.data.list.length / this.data.columns) - 1,
+            i = Math.round(tranX / this.item.width),
+            j = Math.round(tranY / this.item.height);
+
+        i = i > (this.data.columns - 1) ? (this.data.columns - 1) : i;
+        i = i < 0 ? 0 : i;
+
+        j = j < 0 ? 0 : j;
+        j = j > rows ? rows : j;
+
+        let endKey = i + this.data.columns * j;
+
+        endKey = endKey >= this.data.list.length ? this.data.list.length - 1 : endKey;
+
+        return endKey
+    },
+
+    touchEnd() {
+        if (this.data.disable) return;
+
+        this.clearData();
+    },
+
+    // /**
+    //  * 根据排序后 list 数据进行位移计算
+    //  */
+    getPosition(data, vibrate = true) {
+        let list = data.map((item, index) => {
+            item.tranX = this.item.width * (item.key % this.data.columns);
+            item.tranY = Math.floor(item.key / this.data.columns) * this.item.height;
+            // console.log(item.key)
+            //console.log("每个按钮的坐标", item.tranX, item.tranY);
+            return item
+        });
+
+        this.setData({
+            list: list
+        });
+
+        //console.log("list",this.data.list)
+
+        if (!vibrate) return;
+
+        wx.vibrateShort();
+
+        //let listData = []
+        let iconListData = []
+
+        list.forEach((item) => {
+            //console.log("item",item)
+            //listData[item.key] = item
+            iconListData[item.key] = item.data
+        });
+
+        this.setData({
+            //list: listData,
+            iconList: iconListData
+        })
+    
+        //this.triggerEvent('change', {list: listData});
+     //console.log("list",this.data.list)
+    },
+
+    //去除一个按键，重新计算其余按键排序
+    //刷新按钮坐标排序也可以用这个函数
+    getAfterRemove_Btn_Position(data) {
+        let list = data.map((item, index) => {
+            item.key = index
+            item.tranX = this.item.width * (item.key % this.data.columns);
+            item.tranY = Math.floor(item.key / this.data.columns) * this.item.height;
+            return item
+        });
+
+        return list
+    },
+
+    //增加一个按键，需计算其的位置x、y，直接调用init造成渲染重复
+    getAdd_Btn_Position(data) {
+        console.log(this.data.list.length)
+        let list = {
+            data: data,
+            key: this.data.list.length,
+            tranX: this.item.width * (this.data.list.length % this.data.columns),
+            tranY: Math.floor(this.data.list.length / this.data.columns) * this.item.height
+        };
+
+        return list
+    },
+
+
+    //根据按键数，更改按钮框体大小
+    getWidth_Height: function () {
+        let rows = Math.ceil(this.data.list.length / this.data.columns); //获取行数
+
+        let itemWrapHeight = rows * this.item.height;
+
+        let itemWrapWidth = this.data.columns * this.item.width;
+
+        this.setData({
+            itemWrapHeight: itemWrapHeight,
+            itemWrapWidth: itemWrapWidth
+        });
+    },
+
+    insert: function (origin, end) {
+        let list
+        if (origin < end) {
+            list = this.data.list.map((item) => {
+                //console.log("item",item)
+                if (item.key > origin && item.key <= end) {
+                    item.key = item.key - 1;
+                } else if (item.key == origin) {
+                    item.key = end;
+                }
+                return item
+            });
+            this.getPosition(list);
+        } else if (origin > end) {
+            list = this.data.list.map((item) => {
+                if (item.key >= end && item.key < origin) {
+                    item.key = item.key + 1;
+                } else if (item.key == origin) {
+                    item.key = end;
+                }
+                return item
+            });
+            this.getPosition(list);
+        }
+    },
+    /**
+     * 清除参数
+     */
+    clearData() {
+        this.originKey = -1;
+
+        this.setData({
+            disable: true,
+            cur: -1,
+            tranX: 0,
+            tranY: 0
+        });
     }
-  },
-  /* 下拉刷新 */
-  onPullDownRefresh: function () {
-    if (!this.data.tabbar) {
-      wx.showNavigationBarLoading()
-      this.onShow()
-    } else {
-      wx.hideNavigationBarLoading()
-      wx.stopPullDownRefresh()
-    }
-  },
-  /* 选规格弹窗开启 */
-  xuanguige(e) {
-    var self = this
-    var index = e.currentTarget.dataset.index
-    var goodsname = self.data.goods[index].name
-    var goodsguigekouwei = self.data.goods[index].guigekouwei
-    var goodsguigekouwei2=self.data.goods[index].guigekouwei2
-    self.setData({
-      xuanguigegoodsindex: index,
-      goodsname: goodsname,
-      goodsguigekouwei: goodsguigekouwei,
-      goodsguige2:self.data.goods[index].guige2,
-      goodsguigekouwei2:goodsguigekouwei2,
-      guige: true
-    })
-  },
-  /* 选规格弹窗隐藏 */
-  hidexuanguige(e) {
-    var self = this
-    self.setData({
-      guige: false
-    })
-  },
-  /* 选规格-口味 */
-  guigekouwei(e) {
-    this.setData({
-      guigeindex: e.currentTarget.dataset.index
-    })
-  },
-  guigekouwei2(e) {
-    this.setData({
-      guigeindex2: e.currentTarget.dataset.index
-    })
-  },
-  /* 选规格加购物车 */
-  guigeoneaddgoods(e) {
-    console.log(13)
-    var self = this
-    var index = self.data.xuanguigegoodsindex
-    var goodsnumber = self.data.goods[index].number
-    var goodsdata = "good[" + index + "].number"
-    var buy = this.data.buy
-    if(self.data.goodsguige2){
-      var name= self.data.goods[index].name + "(" + self.data.goodsguigekouwei[self.data.guigeindex] + ")"+ "(" + self.data.goodsguigekouwei2[self.data.guigeindex2] + ")"
-    }else{
-      var name= self.data.goods[index].name + "(" + self.data.goodsguigekouwei[self.data.guigeindex] + ")"
-    }
-    
-    var goods = {
-      guige: true,
-      id: self.data.goods[index].id,
-      img: self.data.goods[index].img,
-      name: name,
-      price: self.data.goods[index].price,
-      zhekou: self.data.goods[index].zhekou,
-      zhekouprice: self.data.goods[index].zhekouprice,
-      nowprice: self.data.goods[index].nowprice,
-      shangpu: self.data.goods[index].shangpu, //所属商铺
-      shopid: self.data.goods[index].shopid,
-      number: 1, //用户购物车数量
-      index: index, //在goods列表里的index
-    }
-    buy.push(goods)
-    self.setData({
-      guige: false,
-      buy: buy,
-      [goodsdata]: goodsnumber + 1
-    }, () => {
-      self.buy(buy)
-    })
-  },
-  
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-    
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-    
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-    
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-    
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-    
-  }
 })
