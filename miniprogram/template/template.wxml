@@ -1571,42 +1571,40 @@
 <template name="test-progress10">
     <progress percent="{{item.percent}}" show-info stroke-width="{{item.stroke-width}}" backgroundColor="{{item.backgroundColor}}" activeColor="{{item.activeColor}}" font-size="{{item.font-size}}" border-radius="{{border-radius}}" style="{{item.style}}"></progress>
 </template>
-<template name="text-movable-area1">
-    <movable-area class="{{item.class}}" scale-area="{{item.scale-area}}">
+<template name="test-movable-area1">
+    <movable-area class="{{item.class}}" scale-area="{{item.scale-area}}" style="{{item.style}}">
     </movable-area>
 </template>
-<template name="text-movable-area2">
-    <movable-area class="{{item.class}}" scale-area="{{item.scale-area}}">
+<template name="test-movable-area2">
+    <movable-area class="{{item.class}}" scale-area="{{item.scale-area}}" style="{{item.style}}">
     </movable-area>
 </template>
-<template name="text-movable-area3">
-    <movable-area class="{{item.class}}" scale-area="{{item.scale-area}}">
+<template name="test-movable-area3">
+    <movable-area class="{{item.class}}" scale-area="{{item.scale-area}}" style="{{item.style}}">
     </movable-area>
 </template>
-<template name="text-movable-area4">
-    <movable-area class="{{item.class}}" scale-area="{{item.scale-area}}">
+<template name="test-movable-area4">
+    <movable-area class="{{item.class}}" scale-area="{{item.scale-area}}" style="{{item.style}}">
     </movable-area>
 </template>
-<template name="text-movable-area5">
-    <movable-area class="{{item.class}}" scale-area="{{item.scale-area}}">
+<template name="test-movable-area5">
+    <movable-area class="{{item.class}}" scale-area="{{item.scale-area}}" style="{{item.style}}">
     </movable-area>
 </template>
-<template name="text-movable-area6">
-    <movable-area class="{{item.class}}" scale-area="{{item.scale-area}}">
+<template name="test-movable-area6">
+    <movable-area class="{{item.class}}" scale-area="{{item.scale-area}}" style="{{item.style}}">
     </movable-area>
 </template>
-<template name="text-movable-area7">
-    <movable-area class="{{item.class}}" scale-area="{{item.scale-area}}">
+<template name="test-movable-area7">
+    <movable-area class="{{item.class}}" scale-area="{{item.scale-area}}" style="{{item.style}}">
     </movable-area>
 </template>
-<template name="text-movable-area8">
-    <movable-area class="{{item.class}}" scale-area="{{item.scale-area}}">
+<template name="test-movable-area8">
+    <movable-area class="{{item.class}}" scale-area="{{item.scale-area}}" style="{{item.style}}">
     </movable-area>
 </template>
-<template name="text-movable-area9">
-    <movable-area class="{{item.class}}" scale-area="{{item.scale-area}}">
-        <movable-view class="{{item.class}}" wx:for="{{item.children}}" wx:for-item="childrenItem" id="{{item.id}}" wx:key="{{item.key}}" direction="{{item.direction}}" inertia="{{item.inertia}}" x="{{item.x}}" y="{{item.y}}" damping="{{item.damping}}" friction="{{item.friction}}" disabled="{{item.disable}}" longpress="{{ item.longpress == 'undefined'?'':item.longpress}}" touchmove="{{item.touchmove == 'undefined'?'':item.touchmove}}" touchend="{{ item.touchend == 'undefined'?'':item.touchend}}">
-        </movable-view>
+<template name="test-movable-area9">
+    <movable-area class="{{item.class}}" scale-area="{{item.scale-area}}" style="{{item.style}}">
     </movable-area>
 </template>
 <template name="test-movable-view1">

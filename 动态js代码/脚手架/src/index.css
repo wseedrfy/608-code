@@ -81,13 +81,13 @@ page {
   min-width: 120rpx;
 }
 
-.iconn_item_url image {
+.iconn_item_image{
   width: 80rpx;
   height: 80rpx;
   display: block;
 }
 
-.iconn_item_url text {
+.iconn_name{
   display: block;
   color: #888;
   margin-top: 10rpx;
@@ -158,13 +158,13 @@ page {
   min-width: 120rpx;
 }
 
-.icon_item_url image {
+.icon_item_image{
   width: 80rpx;
   height: 80rpx;
   display: block;
 }
 
-.icon_item_url text {
+.iconn_name {
   display: block;
   color: #888;
   margin-top: 10rpx;

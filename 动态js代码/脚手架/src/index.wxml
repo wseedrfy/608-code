@@ -12,12 +12,11 @@
             <view class="iconnBar_remove">
                 <movable-area class="moveArea" style="height: {{itemWrapHeight}}px;">
                     <movable-view class="iconn" wx:for="{{list}}" wx:key="key" id="{{item.key}}" x="{{index == cur ? tranX:item.tranX}}" y="{{index == cur ? tranY:item.tranY}}" direction="all" disabled="{{index == cur ? disable:'true'}}" bind:longpress="longPress" capture-catch:touchmove="touchMove" catch:touchend="touchEnd" friction="10000" damping='1000'>
-                    <!-- <movable-view class="iconn" wx:for="{{list}}" wx:key="key" id="{{item.key}}" x="{{index == cur ? tranX:item.tranX}}" out-of-bounds y="{{index == cur ? tranY:item.tranY}}" direction="all" disabled="{{index == cur ? disable:'true'}}" longpress="longPress" touchmove="touchMove" touchend="touchEnd" friction="10000" damping='1000'> -->
                         <view class="iconn_item" id="{{item.data.url}}">
                             <view wx:if="{{item.data.name !== '更多'}}">
                                 <navigator class="icon_item_url" url='{{ismanage ? "":item.data.url}}' open-type="{{item.data.type === 'tab跳转'? 'switchTab' : 'navigate'}}">
                                     <image class="iconn_item_image" src="{{item.data.icon}}"></image>
-                                    <text>{{item.data.name}}</text>
+                                    <text class="iconn_name">{{item.data.name}}</text>
                                 </navigator>
                                 <view bindtap="remove_click" id="{{index}}">
                                     <image wx:if="{{ismanage}}" class="jianjian" src="../../../images/zan.png"></image>
@@ -25,7 +24,7 @@
                             </view>
                             <view wx:else="" class="icon_item_url">
                                 <image class="iconn_item_image" src="{{item.icon}}"></image>
-                                <text>{{item.name}}</text>
+                                <text class="iconn_name">{{item.name}}</text>
                             </view>
                         </view>
                     </movable-view>
@@ -44,7 +43,7 @@
                         <navigator class="icon_item_url" url='{{ismanage ? "":item.url}}' open-type="{{item.type === 'tab跳转'? 'switchTab' : 'navigate'}}">
                             <image class="icon_item_image" src="{{item.icon}}"></image>
 
-                            <text>{{item.name}}</text>
+                            <text class="iconn_name">{{item.name}}</text>
                         </navigator>
                         <view bindtap="add_click" id="{{index}}" wx:if="{{ismanage}}">
                             <image wx:if="{{ismanage}}" class="jiajia" src="../../../images/zan1.png"></image>
