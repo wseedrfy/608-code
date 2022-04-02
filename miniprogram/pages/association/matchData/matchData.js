@@ -15,8 +15,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let args = String(wx.getStorageSync('args'))
-    count = args.username
+    let args = wx.getStorageSync('args')
+    count = String(args.username)
     this.getMatch(count, 0)
   },
   // 跳转
@@ -33,12 +33,12 @@ Page({
       title: "查询中",
       mask: true,
       success: (result) => {
-        db.collection("associtaionMath").where({ count: count }).get().then(res => {
-          // console.log(res);
+        db.collection("associtaionMath").where({ count }).get().then(res => {
+          console.log(res);
           if (res.data.length == 0) {
             wx.showToast({
               title: '暂无数据',
-              icon:"none"
+              icon: "none"
             })
           }
           else {
