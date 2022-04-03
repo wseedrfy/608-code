@@ -542,8 +542,8 @@ des:`1.坦诚、具有决策力的活动领导者。
         }
       })
       //存数据库
-      let username =20014260415
-      let School = "广东石油化工学院"
+      let username =wx.getStorageSync('args').username
+      let School = wx.getStorageSync('args').School
       db.collection('MBTI-Test').add({
         data:{
           username:username,
