@@ -23,10 +23,16 @@ exports.main = async (event) => {
     case "writeComment":
       data = await writeComment(event); // 
       break;
+      
+    case "replyComment":
+      data = await replyComment(event); // 
+      break;
     case "delComment":
       data = await delComment(event); // 
       break;
-    
+    case "delReply":
+      data = await delReply(event); // 
+      break;
       
 
 
@@ -107,6 +113,21 @@ async function writeComment(event) {
   }
 }
 
+async function replyComment(event, type, content) {
+  if (event.addData) {
+    await db.collection('saveBureau').where({
+      _id: event._id
+    }).update({
+      data: {
+        ['commentList.'+[event.index]+'.reply']: _.push(event.addData)
+      }
+    })
+    data = {
+      msg: 'success'
+    }
+  }
+}
+
 async function delComment(event, type, content) {
   if (event.delData) {
 
@@ -132,3 +153,27 @@ async function delComment(event, type, content) {
 
 
 }
+
+async function delReply(event) {
+
+  if (event.delData) {
+    await db.collection('saveBureau').where({
+      _id: event._id
+    }).update({
+      data: {
+        ['commentList.'+[event.outIndex]+'.reply']: _.pull({
+          iconUrl : _.eq(event.delData.iconUrl),
+          input : _.eq(event.delData.input),
+          nickName : _.eq(event.delData.nickName),
+          replyName : _.eq(event.delData.replyName),
+          time : _.eq(event.delData.time),
+          userName : _.eq(event.delData.userName),
+        })
+      }
+    })
+    data = {
+      msg: 'success'
+    }
+  }
+
+ }

@@ -82,11 +82,16 @@ Page({
         item.time = util.timeago(item.time, 'Y年M月D日')
       }
     })
+    copyList.map(item => {
+      var hh=item.label
+      item.showLabel = encodeURI(hh).replace(/%/g, "")
+    })
     this.setData({
       copyList,
       length:copyList.length,
     })
   },
+
   readData(){
     const args = wx.getStorageSync('args')
     console.log("this.data.label",this.data.label);
@@ -172,6 +177,7 @@ Page({
     }
     this.data.addData=null
     this.transformTime()
+    
     
   },
 

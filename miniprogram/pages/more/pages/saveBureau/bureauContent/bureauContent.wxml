@@ -72,25 +72,39 @@
   </view>
   <view class="discussTitle">公开讨论</view>
   <scroll-view class="discuss" scroll-y="true">
-    <view style="margin-bottom: 20rpx;" wx:for="{{showComment}}" wx:key="id" id="{{index}}" bindtap="editComment">
-      <view class="iconAndname">
-        <view class="discussIcon">
-          <image src="{{item.iconUrl}}"/>
+    <view style="margin-bottom: 20rpx;" wx:for="{{showComment}}" wx:key="id" >
+      <view id="{{index}}" bindtap="editComment">
+        <view class="iconAndname">
+          <view class="discussIcon">
+            <image src="{{item.iconUrl}}"/>
+          </view>
+          <view class="contentName">
+            <view class="userName">{{item.nickName}}</view>
+            <view class="time">{{item.time}}</view>
+          </view>
         </view>
-        <view class="contentName">
-          <view class="userName">{{item.nickName}}</view>
-          <view class="time">{{item.time}}</view>
-        </view>
+        <view class="discussContent">{{item.input}}</view>
       </view>
-      <view class="discussContent">{{item.input}}</view>
+      <view wx:for="{{item.reply}}" bindtap="editComment" wx:for-index="index1" data-in="{{index1}}" data-out="{{index}}">
+        <view class="iconAndname" style="margin-left: 80rpx;">
+          <view class="discussIcon" style="width: 65rpx;height: 65rpx;">
+            <image src="{{item.iconUrl}}"/>
+          </view>
+          <view class="contentName">
+            <view class="userName">{{item.nickName}}</view>
+            <view class="time">{{item.time}}</view>
+          </view>
+        </view>
+        <view class="discussContent" style="margin-left: 168rpx;"> 回复 <text style="color: #4D7BAE;">{{item.replyName}}</text> : {{item.input}}</view>
+      </view>
     </view>
     <view wx:if="{{none}}" class="none">- 这里什么也没有哦 -</view>
   </scroll-view>
   <view class="perch2"></view>
   <form bindsubmit="obatinComment">
   <view class="sendComment">
-    <view class="inputComment">
-      <textarea placeholder="在此输入公开讨论内容" auto-height bindconfirm="obatinComment" name="textarea" value="{{input}}" confirm-type="send" show-confirm-bar="" cursor-spacing="40rpx" />
+    <view class="inputComment" catchtap="showInput">
+      <textarea placeholder="在此输入公开讨论内容" auto-height bindconfirm="obatinComment" name="textarea" focus="{{showInput}}" value="{{input}}" confirm-type="send" show-confirm-bar="" cursor-spacing="40rpx" />
     </view>
     <button class="send" form-type="submit">发送</button>
   </view>

@@ -37,7 +37,7 @@
   </view>
   <view class="cards" wx:for="{{copyList}}" wx:key="id" id="{{index}}" bindtap="toLookcontent">
     <view class="cardsType">
-      <image src="../../../../images/{{item.label}}.png" />
+      <image src="../../../../images/{{item.showLabel}}.png" />
     </view>
     <view class="cardsContent">
       <view class="title">{{item.text}}</view>
