@@ -49,7 +49,7 @@ function AstRead(html, css, js, otherCss, darkCss) {
                     p1 = re(k, p1, [item, index], eKey, otherCss)
 
                   }
-                  if (eKey === ' wx:for' || eKey === ' wx:if' || eKey === ' wx:else') {
+                  if (eKey === ' wx:for' || eKey === ' wx:elif'|| eKey === ' wx:if' || eKey === ' wx:else') {
                     htmlNode[eKey] = htmlNode[eKey].replaceAll(a[0], `${p1}`)
                   } else if (eKey === ' class') {
 
@@ -109,7 +109,7 @@ function AstRead(html, css, js, otherCss, darkCss) {
     let newHtml = ''
     // 转回html
     const nodeReturn = (htmlNode) => {
-      noInKey = ['type', 'name', 'voidElement', 'text', 'children', ' wx:if', ' wx:for', ' wx:else']
+      noInKey = ['type', 'name', 'voidElement', 'text', 'children', ' wx:if', ' wx:for', ' wx:else', ' wx:elif']
       return Object.keys(htmlNode).map(eKey => {
         if (noInKey.includes(eKey)) {
           return ''
@@ -120,11 +120,14 @@ function AstRead(html, css, js, otherCss, darkCss) {
     }
     const parsehtml = (htmlAst) => {
       html = ''
-      htmlAst.forEach(htmlNode => {
+      htmlAst.forEach((htmlNode, index) => {
         let forBoolean = false
         let ifBoolean = false
         if (htmlNode[' wx:if']) {
           html = html + `\${${htmlNode[' wx:if']} ? \``
+          ifBoolean = true
+        } else if (htmlNode[' wx:elif']) {
+          html = html + `${htmlNode[' wx:elif']} ? \``
           ifBoolean = true
         } else if (htmlNode[' wx:for']) {
           let item = htmlNode[' wx:for-item'] || 'item'
@@ -133,9 +136,9 @@ function AstRead(html, css, js, otherCss, darkCss) {
           forBoolean = true
         }
         html = html + `<${htmlNode.type} ${nodeReturn(htmlNode).join("")}> ${htmlNode.text || ''} ${htmlNode.children.length > 0 ? parsehtml(htmlNode.children ) : ''} </${htmlNode.type}> `
-        if (htmlNode['wx:elif']) {
-          html = html + `\` ? \``
-        } else if (htmlNode['wx:else'] || ifBoolean) {
+        if (htmlAst[index + 1] && htmlAst[index + 1][' wx:elif']) {
+          html = html + `\` : `
+        } else if ((htmlAst[index + 1] && htmlAst[index + 1][' wx:else'])|| ifBoolean) {
           html = html + `\` : \`\`}`
         } else if (forBoolean) {
           html = html + `\`\)\}`
@@ -303,29 +306,28 @@ setdata: function setdata(dictData) {
 
 
 //处理this.data
-function re(k, p1, noChange, eKey, otherCss) {
+function re(k, p1, noChange, eKey, otherCss, noThisData = false) {
 
   var fh = k.match(/[`~!@#$%^*()+?:{},\/;]|[||]|[==]|[===]|[<=]|[>=]/g)
 
   for (j in fh) {
     k = k.replaceAll(fh[j], ` ${fh[j]} `)
   }
-
   if (k.match(/\[(.*?)\]/g)) {
-    k = (k.match(/\[(.*?)\]/g)[0]).replace(/\s+/g, "")
+    k = k.replaceAll(k.match(/\[(.*?)\]/g)[0],(k.match(/\[(.*?)\]/g)[0]).replace(/\s+/g, ""))
   }
 
   let dz = k.match(/'(.*?)'/g)
   k = k.replace(/'(.*?)'/g, '~~~')
   let array = k.split(/\s+/g)
 
+  // console.log(p1, 2)
   for (j in array) {
 
     if (array[j].match(/^[a-zA-Z]/) || array[j].match(/^\[/)) {
       if (eKey == ' wx:for') {
         p1 += '(this.data.' + array[j] + ')'
       } else {
-        let noThisData = false
         noChange.forEach(e => {
           console.log(e, array[j])
           if (e === array[j].split('.')[0]) {
@@ -337,7 +339,6 @@ function re(k, p1, noChange, eKey, otherCss) {
           let arraytemp = array[j]
           let arrayre = re(array[j].match(/\[(.*?)\]/)[1], '', noChange, eKey, otherCss)
           array[j] = arraytemp.replaceAll(arraytemp.match(/\[(.*?)\]/)[1], arrayre)
-          noThisData = true
         }
         if (noThisData) {
           p1 += '(typeof ' + array[j] + ' === "object" ? JSON.stringify( ' + array[j] + ') : ' + array[j] + ')'
