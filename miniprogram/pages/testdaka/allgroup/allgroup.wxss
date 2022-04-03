@@ -1,1 +1,177 @@
 /* pages/testdaka/allgroup/allgroup.wxss */
+page {
+    background-color: #F4F4F4;
+  }
+.selfstudy_bar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: #fff;
+
+}
+.selfstudy{
+    position: sticky;
+    top:0rpx;
+    z-index: 99;
+    background: #fff;
+}
+.selfstudy_othergroup_longbox{
+  margin: 20rpx auto;
+  margin-top: 70rpx;
+  margin-bottom: 0;
+  width: 650rpx;
+  height: 80rpx;
+  display: flex;
+  flex-direction: row;
+}
+.selfstudy_othergroup_longbox_left{
+  width: 80%;
+  height: 100%;
+  background: white;
+  border-radius: 20rpx;
+}
+.selfstudy_othergroup_longbox_right{
+  width: 15%;
+  height: 100%;
+  background: #7c66f5;
+  margin-left: 30rpx;
+  border-radius: 20rpx;
+}
+
+.lablegroup_scrollview{
+  height: 1;
+  width: auto;
+  /* background: pink; */
+  margin-top: 39rpx;
+}
+.lablegroup_scrollview_data{
+  margin-top: 2rpx;
+  margin-left: 41rpx;
+  height: 190rpx;
+  width: 403rpx;
+  background: white;
+  border-radius: 30rpx;
+}
+.lablegroup_scrollview_data_image{
+  float: left;
+  width: 35%;
+  height: 100%;
+  /* background: pink; */
+}
+.lablegroup_scrollview_data_image >image{
+  width: 90%;
+  height: 90%;
+  margin: 10rpx;
+  border-radius: 20rpx;
+}
+
+.lablegroup_scrollview_data_information{
+  float: left;
+  width: 65%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  /* background: gray; */
+}
+.lablegroup_scrollview_data_information_topbox{
+  height: 75%;
+  width: 100%;
+  /* background: pink; */
+  display: flex;
+  flex-direction: column;
+}
+.lablegroup_scrollview_data_information_topbox_roomname{
+  font-size: 20rpx;
+  font-weight: 600;
+  height: auto;
+  width: auto;
+  margin-top: 20rpx;
+  margin-left: 25rpx;
+}
+.lablegroup_scrollview_data_information_topbox_roomintroduce{
+  height: 100%;
+  width: 82%;
+  line-height: 25rpx;
+  color: gray;
+  margin-top: 20rpx;
+  margin-left: 25rpx;
+  font-size: 18rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space:pre-wrap;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  /* position: absolute; */
+}
+.lablegroup_scrollview_data_information_bottombox{
+  height: 25%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  /* background: gray; */
+}
+.lablegroup_scrollview_data_information_bottombox_left{
+  width: 25rpx;
+  height: 25rpx;
+  margin-left: 25rpx;
+  border-radius: 50%;
+  background: #7c66f5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
+  position: relative;
+}
+.lablegroup_scrollview_data_information_bottombox_left_yuandia{
+  /* width: 35%;
+  height: 35%;
+  border-radius: 50%;
+  background: #FFFFFF; */
+  width: 0px;
+  height: 0px;
+  border-width: 6px;
+  border-style: solid;
+  border-color: transparent #fff transparent transparent ;
+  margin-left: 5rpx;
+}
+.lablegroup_scrollview_data_information_bottombox_left_ring{
+  width: 6rpx;
+  height: 6rpx;
+  border-radius: 50%;
+  background: #FFFFFF;
+  position: absolute;
+  top: 5rpx;
+  left: 7rpx;
+}
+.lablegroup_scrollview_data_information_bottombox_right{
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 81%;
+}
+.information_bottombox_right_url{
+  width: 72%;
+  height: 100%;
+  /* background: gray; */
+  overflow: hidden;
+  /* padding-right: 10rpx; */
+}
+.information_bottombox_right_url >view{
+  padding-right: 10rpx;
+}
+.information_bottombox_right_url_image{
+  float: right;
+  width: 25rpx;
+  height: 25rpx;
+  border-radius: 50%;
+  margin-left: -6rpx;
+}
+.information_bottombox_right_numper{
+  /* margin-right: 20rpx; */
+  width: 28%;
+  height: 25rpx;
+  line-height: 25rpx;
+  font-size: 15rpx;
+  color: rgb(56, 56, 56);
+}

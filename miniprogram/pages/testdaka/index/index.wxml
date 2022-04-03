@@ -124,7 +124,8 @@
 <view wx:elif="{{navState==3}}"></view>
 <!-- 自习室页 -->
 <view wx:elif="{{navState==4}}">
-<view class="selfstudy">
+     <!-- 顶部导航栏 -->
+     <view class="selfstudy">
      <view style="height: {{statusBarHeight}}px;width: 100%;background: white;"></view>
      <view class="selfstudy_bar"style="height: {{lineHeight}}px;background: white;line-height: {{lineHeight}}px;color: white;text-align: center;">
           <view data-index="8" class="{{studynavState==8?'topbar_true':'topbar' }}" bindtap="navclick">新建任务</view>
@@ -133,6 +134,7 @@
           <view data-index="7" class="{{studynavState==7?'topbar_true':'topbar' }}" bindtap="navclick">计时</view>
      </view>
      </view>
+     <!-- 我的自习室 -->
      <view wx:if="{{studynavState==5}}">
           <view class="top_wrap">
                <view class="left">
@@ -176,6 +178,7 @@
                </view>
           </scroll-view>
      </view>
+     <!-- 我的任务 -->
      <view class="new_wrap" wx:elif="{{studynavState==8}}">
           <view class="top_wrap">
                <view class="left">
@@ -214,46 +217,91 @@
                </view>
           </view>
      </view>
+     <!-- 其他自习室 -->
      <view wx:elif="{{studynavState==6}}" class="selfstudy_othergroup">
           <view class="selfstudy_othergroup_title">
                <view>let's go</view>
-               <view>trip to africa</view>
-               <view>let's go</view>
-               <view>trip to africa</view>
-               <view>let's go</view>
-               <view>trip to africa</view>
-               <view>let's go</view>
-               <view>trip to africa</view>
-               <view>let's go</view>
-               <view>trip to africa</view>
-               <view>let's go</view>
-               <view>trip to africa</view>
-               <view>let's go</view>
-               <view>trip to africa</view>
-
-               <view>let's go</view>
-               <view>trip to africa</view>
-               <view>let's go</view>
-               <view>trip to africa</view>
-               <view>let's go</view>
-               <view>trip to africa</view>
-               <view>let's go</view>
-               <view>trip to africa</view>
-               <view>let's go</view>
-               <view>trip to africa</view>
-
-               <view>let's go</view>
-               <view>trip to africa</view>
-               <view>let's go</view>
-               <view>trip to africa</view>
-               <view>let's go</view>
-               <view>trip to africa</view>
-               <view>let's go</view>
-               <view>trip to africa</view>
+               <view>Join the study room</view>
           </view>
-          <view class="selfstudy_othergroup_mygroup"></view>
-          <view class="selfstudy_othergroup_lablegroup"></view>
+          <view class="selfstudy_othergroup_longbox">
+               <view class="selfstudy_othergroup_longbox_left"></view>
+               <view class="selfstudy_othergroup_longbox_right"></view>
+          </view>
+          <view class="selfstudy_othergroup_mygroup">
+               <view style="display: flex;flex-direction: row;margin: 41rpx auto;width: 650rpx;height:80rpx ;margin-bottom: 0;">
+                    <view style="height: 80rpx;width: 50%;text-align: left;line-height: 80rpx;font-size: 28rpx;font-weight: 550;">我的自习室</view>
+                    <view style="height: 80rpx;width: 50%;text-align: right;line-height: 80rpx;font-size: 23rpx;color: gray;">see more</view>
+               </view>
+               <scroll-view class="mygroup_scrollview" scroll-x="true" style=" display: flex">
+                    <view wx:for="{{5}}" class="mygroup_scrollview_data" style="display: inline-block;">
+                         <view class="mygroup_scrollview_data_topbox">
+                              <image src="https://636c-cloud1-6gtqj1v4873bad50-1307814679.tcb.qcloud.la/tomato_daka/%E5%9B%BE%E7%89%87/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_202204022334165.jpg?sign=bb6877c505b2096fc8dcdb68d76771ea&t=1648913767"></image>
+                         </view>
+                         <view class="mygroup_scrollview_data_bottombox">
+                              <view class="mygroup_scrollview_data_bottombox_left">
+                                   <view class="mygroup_scrollview_data_bottombox_left_roomname">
+                                        <view>四级</view>
+                                   </view>
+                                   <view class="mygroup_scrollview_data_bottombox_left_introduce">
+                                        <view>每天打卡1小时单词</view>
+                                   </view>
+                              </view>
+                              <view class="mygroup_scrollview_data_bottombox_right">
+                                   <view></view>
+                              </view>
+                         </view>
+                    </view>
+               </scroll-view>
+          </view>
+          <view class="selfstudy_othergroup_lablegroup" wx:for="{{room}}">
+               <view style="display: flex;flex-direction: row;margin: 0rpx auto;width: 650rpx;height:80rpx ;margin-bottom: 0;">
+                    <view style="height: 80rpx;width: 50%;text-align: left;line-height: 80rpx;font-size: 28rpx;font-weight: 550;">{{item.roomlable}}</view>
+                    <view style="height: 80rpx;width: 50%;text-align: right;line-height: 80rpx;font-size: 23rpx;color: gray;" bindtap="more">see more</view>
+               </view>
+               <scroll-view class="lablegroup_scrollview" scroll-x="true" style=" display: flex;white-space: nowrap;">
+                    <view wx:for="{{item.roomlist}}" class="lablegroup_scrollview_data"
+                     style="display: inline-block;">
+                         <view class="lablegroup_scrollview_data_image">
+                              <image src="https://636c-cloud1-6gtqj1v4873bad50-1307814679.tcb.qcloud.la/tomato_daka/%E5%9B%BE%E7%89%87/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_202204022334168.jpg?sign=e1ad16dec91bf0f9882fefcf735af7e5&t=1648924396"></image>
+                         </view>
+                         <view class="lablegroup_scrollview_data_information">
+                              <view class="lablegroup_scrollview_data_information_topbox">
+                                   <view class="lablegroup_scrollview_data_information_topbox_roomname">
+                                   {{item.roomname}}
+                                   </view>
+                                   <view class="lablegroup_scrollview_data_information_topbox_roomintroduce">{{item.roomintroduce}}
+                                   </view>
+                              </view>
+                              <view class="lablegroup_scrollview_data_information_bottombox">
+                                   <view class="lablegroup_scrollview_data_information_bottombox_left">
+                                        <view class="lablegroup_scrollview_data_information_bottombox_left_yuandia">
+                                        </view>
+                                        <view class="lablegroup_scrollview_data_information_bottombox_left_ring"></view>
+                                   </view>
+                                   <view class="lablegroup_scrollview_data_information_bottombox_right">
+                                        <view class="information_bottombox_right_url">
+                                             <view>
+                                             <view class="information_bottombox_right_url_image" style="background: pink;"></view>
+                                             <view class="information_bottombox_right_url_image"
+                                             style="background: powderblue;"></view>
+                                             <view class="information_bottombox_right_url_image"
+                                             style="background: purple;"></view>
+                                             <view class="information_bottombox_right_url_image"
+                                             style="background: rosybrown;"></view>
+                                             <view class="information_bottombox_right_url_image"
+                                             style="background: royalblue;"></view>
+                                             </view>
+                                        </view>
+                                        <view class="information_bottombox_right_numper">{{item.roomper}}人</view>
+                                   </view>
+                              </view>
+                         </view> 
+                    </view>
+               </scroll-view>
+          </view>
+          <view style="width: 100%;height: 200rpx;"></view>
      </view>
+     <!-- 自习室计时 -->
      <view wx:elif="{{studynavState==7}}"></view>
 </view>
 <!-- 生成图片弹窗 -->

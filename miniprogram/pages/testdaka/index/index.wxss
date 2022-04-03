@@ -866,6 +866,7 @@ wx-slider .wx-slider-handle-wrapper {
 .selfstudy{
   position: sticky;
   top:0rpx;
+  z-index: 99;
 }
 
 .topbar_true {
@@ -881,16 +882,256 @@ wx-slider .wx-slider-handle-wrapper {
   font-size: 25rpx;
   transition: all .7s;
 }
+/* 其他自习室css开始 */
+.selfstudy_othergroup_title{
+  margin-top: 70rpx;
+  width: 80%;
+  margin-left: 50rpx;
+}
 .selfstudy_othergroup_title >view{
-  margin-left: 30rpx;
-  margin-top: 30rpx;
+  margin-top: 20rpx;
   font-size: 60rpx;
   font-weight: 600;
 }
+.selfstudy_othergroup_longbox{
+  margin: 20rpx auto;
+  margin-top: 70rpx;
+  margin-bottom: 0;
+  width: 650rpx;
+  height: 80rpx;
+  display: flex;
+  flex-direction: row;
+}
+.selfstudy_othergroup_longbox_left{
+  width: 80%;
+  height: 100%;
+  background: white;
+  border-radius: 20rpx;
+}
+.selfstudy_othergroup_longbox_right{
+  width: 15%;
+  height: 100%;
+  background: #7c66f5;
+  margin-left: 30rpx;
+  border-radius: 20rpx;
+}
+.mygroup_scrollview{
+  height: 500rpx;
+  width: auto;
+  margin-top: 41rpx;
+  display: flex;
+  white-space: nowrap;
+}
+.mygroup_scrollview_data{
+  height: 90%;
+  width: 310rpx;
+  background: white;
+  border-radius: 70rpx;
+  margin-left: 51rpx;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 20rpx 20rpx 30rpx 0.1rpx rgb(228, 228, 228);
+  margin-top: 2rpx;
+}
+.mygroup_scrollview_data_topbox{
+  width: 100%;
+  height: 65%;
+}
+.mygroup_scrollview_data_topbox >image{
+  width: 90%;
+  height: 98%;
+  margin: 17rpx;
+  margin-bottom: 0;
+  border-radius: 55rpx;
+  box-shadow: 5rpx 15rpx 20rpx 0.5rpx rgb(228, 228, 228);
+}
+.mygroup_scrollview_data_bottombox{
+  width: 100%;
+  height: 35%;
+  display: flex;
+  flex-direction: row;
+  /* background: blue; */
+}
+.mygroup_scrollview_data_bottombox_left{
+  width: 78%;
+  height: 100%;
+  /* background: pink; */
+}
+.mygroup_scrollview_data_bottombox_right{
+  width: 22%;
+  height: 100%;
+  /* background: gray; */
+}
+.mygroup_scrollview_data_bottombox_left_roomname{
+  width: 100%;
+  height: 30%;
+  /* background: pink; */
+}
+.mygroup_scrollview_data_bottombox_left_roomname >view{
+  padding-top: 28rpx;
+  padding-left: 30rpx;
+  font-size: 20rpx;
+  font-weight: 550;
+}
+.mygroup_scrollview_data_bottombox_left_introduce{
+  width: 100%;
+  height: 70%;
+  /* background:yellow; */
+}
+.mygroup_scrollview_data_bottombox_left_introduce >view{
+  color: gray;
+  padding-left: 30rpx;
+  padding-top: 15rpx;
+  font-size: 18rpx;
+}
+.mygroup_scrollview_data_bottombox_right >view{
+  background: #7c66f5;
+  width: 30rpx;
+  height: 30rpx;
+  border-radius: 50%;
+  margin-top: 45rpx;
+}
+.lablegroup_scrollview{
+  height: 233rpx;
+  width: auto;
+  /* background: pink; */
+  margin-top: 39rpx;
+}
+.lablegroup_scrollview_data{
+  margin-top: 2rpx;
+  margin-left: 41rpx;
+  height: 190rpx;
+  width: 403rpx;
+  background: white;
+  border-radius: 30rpx;
+}
+.lablegroup_scrollview_data_image{
+  float: left;
+  width: 35%;
+  height: 100%;
+  /* background: pink; */
+}
+.lablegroup_scrollview_data_image >image{
+  width: 90%;
+  height: 90%;
+  margin: 10rpx;
+  border-radius: 20rpx;
+}
+
+.lablegroup_scrollview_data_information{
+  float: left;
+  width: 65%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  /* background: gray; */
+}
+.lablegroup_scrollview_data_information_topbox{
+  height: 75%;
+  width: 100%;
+  /* background: pink; */
+  display: flex;
+  flex-direction: column;
+}
+.lablegroup_scrollview_data_information_topbox_roomname{
+  font-size: 20rpx;
+  font-weight: 600;
+  height: auto;
+  width: auto;
+  margin-top: 20rpx;
+  margin-left: 25rpx;
+}
+.lablegroup_scrollview_data_information_topbox_roomintroduce{
+  height: 100%;
+  width: 82%;
+  line-height: 25rpx;
+  color: gray;
+  margin-top: 20rpx;
+  margin-left: 25rpx;
+  font-size: 18rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space:pre-wrap;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  /* position: absolute; */
+}
+.lablegroup_scrollview_data_information_bottombox{
+  height: 25%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  /* background: gray; */
+}
+.lablegroup_scrollview_data_information_bottombox_left{
+  width: 25rpx;
+  height: 25rpx;
+  margin-left: 25rpx;
+  border-radius: 50%;
+  background: #7c66f5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
+  position: relative;
+}
+.lablegroup_scrollview_data_information_bottombox_left_yuandia{
+  /* width: 35%;
+  height: 35%;
+  border-radius: 50%;
+  background: #FFFFFF; */
+  width: 0px;
+  height: 0px;
+  border-width: 6px;
+  border-style: solid;
+  border-color: transparent #fff transparent transparent ;
+  margin-left: 5rpx;
+}
+.lablegroup_scrollview_data_information_bottombox_left_ring{
+  width: 6rpx;
+  height: 6rpx;
+  border-radius: 50%;
+  background: #FFFFFF;
+  position: absolute;
+  top: 5rpx;
+  left: 7rpx;
+}
+.lablegroup_scrollview_data_information_bottombox_right{
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 81%;
+}
+.information_bottombox_right_url{
+  width: 72%;
+  height: 100%;
+  /* background: gray; */
+  overflow: hidden;
+  /* padding-right: 10rpx; */
+}
+.information_bottombox_right_url >view{
+  padding-right: 10rpx;
+}
+.information_bottombox_right_url_image{
+  float: right;
+  width: 25rpx;
+  height: 25rpx;
+  border-radius: 50%;
+  margin-left: -6rpx;
+}
+.information_bottombox_right_numper{
+  /* margin-right: 20rpx; */
+  width: 28%;
+  height: 25rpx;
+  line-height: 25rpx;
+  font-size: 15rpx;
+  color: rgb(56, 56, 56);
+}
+/* 其他自习室css结束 */
 .self_wrap {
   padding: 24rpx;
 }
-
 .top_wrap {
   display: flex;
   flex-direction: row;
@@ -907,7 +1148,9 @@ wx-slider .wx-slider-handle-wrapper {
   border-radius: 12rpx;
 }
 
-.img {}
+.img {
+
+}
 
 .img image {
   height: 80rpx;

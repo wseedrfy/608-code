@@ -5,7 +5,20 @@ Page({
      * 页面的初始数据
      */
     data: {
-
+        statusBarHeight: getApp().globalData.statusBarHeight,
+        lineHeight: getApp().globalData.lineHeight,
+        room:[
+            {roomlable:'学习',roomlist:[
+              {roomname:'六级',roomintroduce:'每天50个单词',roomper:'99'},
+              {roomname:'四级',roomintroduce:'每天50个单词',roomper:'99'},
+              {roomname:'读书',roomintroduce:'每天50个单词',roomper:'99'},
+            ]},
+            {roomlable:'运动',roomlist:[{roomname:'六级',roomintroduce:'每天50个单词',roomper:'99'}]},
+            {roomlable:'娱乐',roomlist:[{roomname:'六级',roomintroduce:'每天50个单词',roomper:'99'}]},
+            {roomlable:'日常',roomlist:[{roomname:'六级',roomintroduce:'每天50个单词',roomper:'99'}]},
+            {roomlable:'游戏',roomlist:[{roomname:'六级',roomintroduce:'每天50个单词',roomper:'99'}]},
+            {roomlable:'其他',roomlist:[{roomname:'六级',roomintroduce:'每天50个单词',roomper:'99'}]}
+          ]
     },
 
     /**

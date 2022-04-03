@@ -77,12 +77,29 @@ Page({
       pickershow:false,
       // 自习室的data
       studynavState:5,
+      room:[
+        {roomlable:'学习',roomlist:[
+          {roomname:'六级',roomintroduce:'每天50个单词',roomper:'99'},
+          {roomname:'四级',roomintroduce:'每天50个单词',roomper:'99'},
+          {roomname:'读书',roomintroduce:'每天50个单词',roomper:'99'},
+        ]},
+        {roomlable:'运动',roomlist:[{roomname:'六级',roomintroduce:'每天50个单词',roomper:'99'}]},
+        {roomlable:'娱乐',roomlist:[{roomname:'六级',roomintroduce:'每天50个单词',roomper:'99'}]},
+        {roomlable:'日常',roomlist:[{roomname:'六级',roomintroduce:'每天50个单词',roomper:'99'}]},
+        {roomlable:'游戏',roomlist:[{roomname:'六级',roomintroduce:'每天50个单词',roomper:'99'}]},
+        {roomlable:'其他',roomlist:[{roomname:'六级',roomintroduce:'每天50个单词',roomper:'99'}]}
+      ]
     },
     //自习室的js
     navclick(e){
       let studynavState = e.currentTarget.dataset.index
       this.setData({
         studynavState
+      })
+    },
+    more(){
+      wx.navigateTo({
+        url: '../allgroup/allgroup',
       })
     },
     // 计时的js
