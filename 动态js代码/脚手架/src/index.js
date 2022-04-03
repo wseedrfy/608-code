@@ -57,9 +57,8 @@ Page({
   var animation = wx.createAnimation({
       duration: 300,
       timingFunction: 'liner',
-    });
-  this.animation= animation;
-  let recordY;
+  });
+    this.animation= animation;
     this.animation.translateY(-280).rotate(-5).translateX(0).step(); //第一次动画 离开
     this.animation.translateY(0).translateX(0).rotate(0).step();//第二次动画 复位
     this.setData({
@@ -74,13 +73,16 @@ Page({
   },
   choose_ans(e){
     console.log(e)
+    console.log("id:",e.currentTarget.id);
     this.setData({
       click:e.currentTarget.id
     })
+    console.log("click:",this.data.click);
     setTimeout(() => {
       this.setData({
         click:0
       })
+      console.log('定时器里面更新的click',this.data.click);
       console.log(e.currentTarget.id,"2222222")
      let index = Number(e.currentTarget.id)
     let count = this.data.id_
@@ -91,7 +93,7 @@ Page({
     res[count] = index
     count = count +1
     this.setData({id_:count,idx:index})
-    // this.test();
+    this.test(); //这个函数是调用动画
     if(count==res.length){
       let end =  new Date().getTime()
       console.log(this.data.start)
