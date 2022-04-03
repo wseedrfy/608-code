@@ -110,6 +110,13 @@ Page({
     if(this.data.id_>0){
       this.setData({id_:this.data.id_-1})
     }
+    
+  },
+  return(){
+    // wx.navigateTo({url:"/pages/index/index"})
+    wx.navigateBack({
+      delta: 1,
+    })
   },
   initcanvas(MbtiType,describe){
     // wx.showLoading({
