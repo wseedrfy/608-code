@@ -1329,17 +1329,17 @@
 
 <template name="test-canvas1">
 
-    <canvas canvas-id="{{item.canvas_id}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <canvas type="{{item.type}}" canvas-id="{{item.canvas_id}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}" id="{{item.id}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
-            <template is="{{ 'test-'+childrenItem.type1+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+            <template is="{{ 'test-'+childrenItem.type1+(deep+1) }}"  data="{{ item:childrenItem, deep:deep+1 }}"></template>
         </block>
     </canvas>
 </template>
 
 <template name="test-canvas2">
 
-    <canvas canvas-id="{{item.canvas_id}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <canvas type="{{item.type}}" canvas-id="{{item.canvas_id}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}" id="{{item.id}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type1+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -1348,7 +1348,7 @@
 </template>
 
 <template name="test-canvas3">
-    <canvas canvas-id="{{item.canvas_id}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <canvas type="{{item.type}}" canvas-id="{{item.canvas_id}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}" id="{{item.id}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type1+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -1357,7 +1357,7 @@
 </template>
 
 <template name="test-canvas4">
-    <canvas canvas-id="{{item.canvas_id}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <canvas type="{{item.type}}" canvas-id="{{item.canvas_id}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}" id="{{item.id}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type1+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -1366,7 +1366,7 @@
 </template>
 
 <template name="test-canvas5">
-    <canvas canvas-id="{{item.canvas_id}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <canvas type="{{item.type}}" canvas-id="{{item.canvas_id}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}" id="{{item.id}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type1+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -1375,7 +1375,7 @@
 </template>
 
 <template name="test-canvas6">
-    <canvas canvas-id="{{item.canvas_id}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <canvas type="{{item.type}}" canvas-id="{{item.canvas_id}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}" id="{{item.id}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type1+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -1384,7 +1384,7 @@
 </template>
 
 <template name="test-canvas7">
-    <canvas canvas-id="{{item.canvas_id}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <canvas type="{{item.type}}" canvas-id="{{item.canvas_id}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}" id="{{item.id}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type1+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -1393,7 +1393,7 @@
 </template>
 
 <template name="test-canvas8">
-    <canvas canvas-id="{{item.canvas_id}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <canvas type="{{item.type}}" canvas-id="{{item.canvas_id}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}" id="{{item.id}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type1+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -1402,7 +1402,7 @@
 </template>
 
 <template name="test-canvas9">
-    <canvas canvas-id="{{item.canvas_id}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}">
+    <canvas type="{{item.type}}" canvas-id="{{item.canvas_id}}" style="{{item.style}}" class="{{item.class}}" catchtap="{{ item.bindtap == 'undefined'?'':item.bindtap}}" id="{{item.id}}">
         <text>{{item.text}}</text>
         <block wx:for="{{item.children}}" wx:for-item="childrenItem">
             <template is="{{ 'test-'+childrenItem.type1+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
@@ -1573,73 +1573,145 @@
 </template>
 <template name="test-movable-area1">
     <movable-area class="{{item.class}}" scale-area="{{item.scale-area}}" style="{{item.style}}">
+        <text></text>{{item.text}}
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type1+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
     </movable-area>
 </template>
 <template name="test-movable-area2">
     <movable-area class="{{item.class}}" scale-area="{{item.scale-area}}" style="{{item.style}}">
+        <text></text>{{item.text}}
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type1+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
     </movable-area>
 </template>
 <template name="test-movable-area3">
     <movable-area class="{{item.class}}" scale-area="{{item.scale-area}}" style="{{item.style}}">
+        <text></text>{{item.text}}
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type1+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
     </movable-area>
 </template>
 <template name="test-movable-area4">
     <movable-area class="{{item.class}}" scale-area="{{item.scale-area}}" style="{{item.style}}">
+        <text></text>{{item.text}}
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type1+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
     </movable-area>
 </template>
 <template name="test-movable-area5">
     <movable-area class="{{item.class}}" scale-area="{{item.scale-area}}" style="{{item.style}}">
+        <text></text>{{item.text}}
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type1+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
     </movable-area>
 </template>
 <template name="test-movable-area6">
     <movable-area class="{{item.class}}" scale-area="{{item.scale-area}}" style="{{item.style}}">
+        <text></text>{{item.text}}
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type1+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
     </movable-area>
 </template>
 <template name="test-movable-area7">
     <movable-area class="{{item.class}}" scale-area="{{item.scale-area}}" style="{{item.style}}">
+        <text></text>{{item.text}}
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type1+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
     </movable-area>
 </template>
 <template name="test-movable-area8">
     <movable-area class="{{item.class}}" scale-area="{{item.scale-area}}" style="{{item.style}}">
+        <text></text>{{item.text}}
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type1+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
     </movable-area>
 </template>
 <template name="test-movable-area9">
     <movable-area class="{{item.class}}" scale-area="{{item.scale-area}}" style="{{item.style}}">
+        <text></text>{{item.text}}
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type1+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
     </movable-area>
 </template>
 <template name="test-movable-view1">
     <movable-view class="{{item.class}}" id="{{item.id}}" wx:key="{{item.key}}" direction="{{item.direction}}" inertia="{{item.inertia}}" x="{{item.x}}" y="{{item.y}}" damping="{{item.damping}}" friction="{{item.friction}}" disabled="{{item.disable}}" longpress="{{ item.longpress == 'undefined'?'':item.longpress}}" touchmove="{{item.touchmove == 'undefined'?'':item.touchmove}}" touchend="{{ item.touchend == 'undefined'?'':item.touchend}}">
+        <text></text>{{item.text}}
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type1+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
     </movable-view>
 </template>
 <template name="test-movable-view2">
-    <movable-view class="{{item.class}}" id="{{item.id}}" wx:key="{{item.key}}" direction="{{item.direction}}" inertia="{{item.inertia}}" x="{{item.x}}" y="{{item.y}}" damping="{{item.damping}}" friction="{{item.friction}}" disabled="{{item.disable}}" htouchmove="{{item.htouchmove}}" htouchmove="{{item.htouchmove}}" vtouchmove="{{item.vtouchmove}}">
+    <movable-view class="{{item.class}}" id="{{item.id}}" wx:key="{{item.key}}" direction="{{item.direction}}" inertia="{{item.inertia}}" x="{{item.x}}" y="{{item.y}}" damping="{{item.damping}}" friction="{{item.friction}}" disabled="{{item.disable}}" longpress="{{ item.longpress == 'undefined'?'':item.longpress}}" touchmove="{{item.touchmove == 'undefined'?'':item.touchmove}}" touchend="{{ item.touchend == 'undefined'?'':item.touchend}}">
+        <text></text>{{item.text}}
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type1+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
     </movable-view>
 </template>
 <template name="test-movable-view3">
     <movable-view class="{{item.class}}" id="{{item.id}}" wx:key="{{item.key}}" direction="{{item.direction}}" inertia="{{item.inertia}}" x="{{item.x}}" y="{{item.y}}" damping="{{item.damping}}" friction="{{item.friction}}" disabled="{{item.disable}}" longpress="{{ item.longpress == 'undefined'?'':item.longpress}}" touchmove="{{item.touchmove == 'undefined'?'':item.touchmove}}" touchend="{{ item.touchend == 'undefined'?'':item.touchend}}">
+        <text></text>{{item.text}}
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type1+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
     </movable-view>
 </template>
 <template name="test-movable-view4">
     <movable-view class="{{item.class}}" id="{{item.id}}" wx:key="{{item.key}}" direction="{{item.direction}}" inertia="{{item.inertia}}" x="{{item.x}}" y="{{item.y}}" damping="{{item.damping}}" friction="{{item.friction}}" disabled="{{item.disable}}" longpress="{{ item.longpress == 'undefined'?'':item.longpress}}" touchmove="{{item.touchmove == 'undefined'?'':item.touchmove}}" touchend="{{ item.touchend == 'undefined'?'':item.touchend}}">
+        <text></text>{{item.text}}
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type1+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
     </movable-view>
 </template>
 <template name="test-movable-view5">
     <movable-view class="{{item.class}}" id="{{item.id}}" wx:key="{{item.key}}" direction="{{item.direction}}" inertia="{{item.inertia}}" x="{{item.x}}" y="{{item.y}}" damping="{{item.damping}}" friction="{{item.friction}}" disabled="{{item.disable}}" longpress="{{ item.longpress == 'undefined'?'':item.longpress}}" touchmove="{{item.touchmove == 'undefined'?'':item.touchmove}}" touchend="{{ item.touchend == 'undefined'?'':item.touchend}}">
+        <text></text>{{item.text}}
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type1+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
     </movable-view>
 </template>
 <template name="test-movable-view6">
     <movable-view class="{{item.class}}" id="{{item.id}}" wx:key="{{item.key}}" direction="{{item.direction}}" inertia="{{item.inertia}}" x="{{item.x}}" y="{{item.y}}" damping="{{item.damping}}" friction="{{item.friction}}" disabled="{{item.disable}}" longpress="{{ item.longpress == 'undefined'?'':item.longpress}}" touchmove="{{item.touchmove == 'undefined'?'':item.touchmove}}" touchend="{{ item.touchend == 'undefined'?'':item.touchend}}">
+        <text></text>{{item.text}}
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type1+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
     </movable-view>
 </template>
 <template name="test-movable-view7">
     <movable-view class="{{item.class}}" id="{{item.id}}" wx:key="{{item.key}}" direction="{{item.direction}}" inertia="{{item.inertia}}" x="{{item.x}}" y="{{item.y}}" damping="{{item.damping}}" friction="{{item.friction}}" disabled="{{item.disable}}" longpress="{{ item.longpress == 'undefined'?'':item.longpress}}" touchmove="{{item.touchmove == 'undefined'?'':item.touchmove}}" touchend="{{ item.touchend == 'undefined'?'':item.touchend}}">
+        <text></text>{{item.text}}
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type1+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
     </movable-view>
 </template>
 <template name="test-movable-view8">
     <movable-view class="{{item.class}}" id="{{item.id}}" wx:key="{{item.key}}" direction="{{item.direction}}" inertia="{{item.inertia}}" x="{{item.x}}" y="{{item.y}}" damping="{{item.damping}}" friction="{{item.friction}}" disabled="{{item.disable}}" longpress="{{ item.longpress == 'undefined'?'':item.longpress}}" touchmove="{{item.touchmove == 'undefined'?'':item.touchmove}}" touchend="{{ item.touchend == 'undefined'?'':item.touchend}}">
+        <text></text>{{item.text}}
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type1+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
     </movable-view>
 </template>
 <template name="test-movable-view9">
     <movable-view class="{{item.class}}" id="{{item.id}}" wx:key="{{item.key}}" direction="{{item.direction}}" inertia="{{item.inertia}}" x="{{item.x}}" y="{{item.y}}" damping="{{item.damping}}" friction="{{item.friction}}" disabled="{{item.disable}}" longpress="{{ item.longpress == 'undefined'?'':item.longpress}}" touchmove="{{item.touchmove == 'undefined'?'':item.touchmove}}" touchend="{{ item.touchend == 'undefined'?'':item.touchend}}">
+        <text></text>{{item.text}}
+        <block wx:for="{{item.children}}" wx:for-item="childrenItem">
+            <template is="{{ 'test-'+childrenItem.type1+(deep+1) }}" data="{{ item:childrenItem, deep:deep+1 }}"></template>
+        </block>
     </movable-view>
 </template>

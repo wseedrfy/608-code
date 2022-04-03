@@ -9,6 +9,7 @@ from school.广东石油化工学院.main import upData_GY,getData_GY
 from school.嘉应学院.main import login_JY,getData_JY
 from school.广东理工学院.main import login_GDLG,getData_GDLG
 from school.广东医科大学.main import login_GYK,getData_GYK
+from school.河南工业大学.main import login_HNGY,getData_HNGY
 from another.physical import physical_Default,physical_Linear
 from another.YiBan import YiBan_login,YiBan_post
 # from another.CWJ import YiBan_CWJ
@@ -41,8 +42,7 @@ def getData(school_name):
         data = json.loads(request.data)
         username = data['username']
         password = data['password']
-        other = data['other']
-        return eval("getData_" + school_name)(username,password,other)
+        return eval("getData_" + school_name)(username,password)
     except Exception as e:
         return {
             "msg": "没有此学校,或者方法错误",

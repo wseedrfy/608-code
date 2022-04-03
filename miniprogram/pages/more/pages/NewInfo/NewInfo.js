@@ -54,6 +54,7 @@ Page({
       mask: true
     })
     let that = this;
+
     wx.cloud.callFunction({
       name:'CampusCircle',
       data: {

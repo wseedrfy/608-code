@@ -176,8 +176,8 @@
                     "scene": null
                 },
                 {
-                    "name": "所有自习室",
-                    "pathName": "pages/testdaka/allgroup/allgroup",
+                    "name": "xxxx",
+                    "pathName": "pages/more/pages/saveBureau/bureauContent/bureauContent",
                     "query": "",
                     "scene": null,
                     "launchMode": "default"
