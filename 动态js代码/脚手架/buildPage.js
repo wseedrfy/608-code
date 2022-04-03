@@ -302,7 +302,7 @@ setdata: function setdata(dictData) {
 //处理this.data
 function re(k, p1, noChange, eKey, otherCss) {
 
-  var fh = k.match(/[`~!@#$%^*()+?:{},\/;]|[==]|[===]|[<=]|[>=]/g)
+  var fh = k.match(/[`~!@#$%^*()+?:{},\/;]|[||]|[==]|[===]|[<=]|[>=]/g)
 
   for (j in fh) {
     k = k.replaceAll(fh[j], ` ${fh[j]} `)
