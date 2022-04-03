@@ -40,6 +40,7 @@ Page({
     cardList:[],
     currentPage:0,
     label:null,
+    contentIndex:0
   },
   toSavepublish(){
     wx.navigateTo({
@@ -88,6 +89,7 @@ Page({
   },
   readData(){
     const args = wx.getStorageSync('args')
+    console.log("this.data.label",this.data.label);
     wx.cloud.callFunction({
       name: 'saveBureau',
       data: {
@@ -98,13 +100,14 @@ Page({
       },
       success: res => {
         wx.hideLoading();
-        if(!!res.result){
+        console.log(res);
+        if(res.result){
           console.log(res);
           this.data.cardList=this.data.cardList.concat(res.result.data)
           this.data.currentPage++
           this.transformTime()
         }
-        if(!res.resul || res.result.data.length<10){
+        if(!res.result || res.result.data.length<10){
           this.setData({
             none:true,
             loading:false
@@ -126,6 +129,9 @@ Page({
       key:"content",
       data:this.data.cardList[index],
       success:res => {
+        this.setData({
+          contentIndex:index
+        })
         wx.navigateTo({
           url: '../saveBureau/bureauContent/bureauContent',
         })
@@ -154,8 +160,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+    var index=this.data.contentIndex
+    if(this.data.manNum || this.data.womanNum){
+      this.data.cardList[index].manNum=this.data.manNum
+      this.data.cardList[index].womanNum=this.data.womanNum
+      this.data.cardList[index].commentList=this.data.commentList
+    }
     if(this.data.addData){
+      this.data.addData._id=this.data.res
       this.data.cardList.push(this.data.addData)
     }
     this.data.addData=null

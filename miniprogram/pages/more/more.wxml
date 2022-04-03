@@ -46,6 +46,9 @@
 
     </swiper>
 
+    <!-- 攒局按钮 -->
+    
+    <button bindtap="navigateSave" id="saveBureau" style="background-color: aqua; position: absolute;top: 0;">攒局</button>
     <!-- 发布按钮 -->
     <view class="img-button content_btn content_btn_add" style="display:{{school=='游客登录'?'none':'fixed'}}" bindtap="showPopUps" id="PublishContent">
       <image src="/images/btn_feed@2x.png"></image>
@@ -54,6 +57,7 @@
     <view class="img-button content_btn content_btn_user" bindtap="navigate" style="display:{{school=='游客登录'?'none':'fixed'}}" id="UserContent">
       <image src="../../images/User.png"></image>
     </view>
+    
 
     <!-- 弹窗 -->
     <view style="position: absolute; height: {{windowHeight - statusBarHeight - lineHeight - 28}}px;" class="popUps {{showPopUps ? 'popUpsActive' : ''}}">
