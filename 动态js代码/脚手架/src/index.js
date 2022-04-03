@@ -49,7 +49,6 @@ Page({
       console.log( e.currentTarget.id)
       // 获取触摸Y坐标
       this.recordY = e.touches[0].clientY;
-      
   },
   test() {
   console.log("test");
@@ -64,11 +63,12 @@ Page({
     this.setData({
       animationData: this.animation.export()//.export清除动画
     });
-    this.animation.translateY(40).rotate(0).translateX(0).step(); //第一次动画 离开
-    this.animation.translateY(-25).translateX(0).rotate(0).step();//第二次动画 复位
-    this.animation.translateY(0).translateX(0).rotate(0).step();//第二次动画 复位
+    this.animation2= animation;
+    this.animation2.translateY(40).rotate(0).translateX(0).step(); //第一次动画 离开
+    this.animation2.translateY(-25).translateX(0).rotate(0).step();//第二次动画 复位
+    this.animation2.translateY(0).translateX(0).rotate(0).step();//第二次动画 复位
     this.setData({
-      animationData2: this.animation.export()//.export清除动画
+      animationData2: this.animation2.export()//.export清除动画
     });
   },
   choose_ans(e){
@@ -78,7 +78,8 @@ Page({
       click:e.currentTarget.id
     })
     console.log("click:",this.data.click);
-    setTimeout(() => {
+    this.test(); //这个函数是调用动画
+      
       this.setData({
         click:0
       })
@@ -93,7 +94,7 @@ Page({
     res[count] = index
     count = count +1
     this.setData({id_:count,idx:index})
-    this.test(); //这个函数是调用动画
+    
     if(count==res.length){
       let end =  new Date().getTime()
       console.log(this.data.start)
@@ -102,7 +103,6 @@ Page({
       this.setData({use_Time})
       this.process(res)
     } 
-    }, 1000);
     
   },
   choose_return(){
@@ -544,8 +544,8 @@ des:`1.坦诚、具有决策力的活动领导者。
         }
       })
       //存数据库
-      let username =20014260415
-      let School = "广东石油化工学院"
+      let username =wx.getStorageSync('args').username
+      let School = wx.getStorageSync('args').School
       db.collection('MBTI-Test').add({
         data:{
           username:username,
