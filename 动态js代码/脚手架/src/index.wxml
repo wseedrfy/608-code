@@ -5,14 +5,15 @@
   <!-- <view class="top">MBTI测试</view> -->
   <view class="model" wx:if="{{id_<=7}}" animation="{{animationData}}">
     <view class="model-top">{{li[id_].question}}</view>
-    <view class="model-body {{click!=0?'model-body-true':''}}">
+    <view class="model-body ">  
+      <!-- {{click!=0?'model-body-true':''}} -->
       <view bindtouchstart="touchstartX" class="model-body-choose-1 {{click==1?'model-body-choose-1-true':''}}"
-        bindtap="choose_ans" data-index="1">
+        bindtap="choose_ans" id="1">
         <text
           class="model-body-choose-text {{click==1?'model-body-choose-text-1-true':''}}">{{li[id_].answer[0]}}</text>
       </view>
-      <view bindtap="test" bindtouchstart="touchstartX"
-        class="model-body-choose-2 {{click==2?'model-body-choose-2-true':''}}" bindtap="choose_ans" data-index="2">
+      <view bindtouchstart="touchstartX"
+        class="model-body-choose-2 {{click==2?'model-body-choose-2-true':''}}" bindtap="choose_ans" id="2">
         <text
           class="model-body-choose-text {{click==2?'model-body-choose-text-2-true':''}}">{{li[id_].answer[1]}}</text>
       </view>
@@ -27,10 +28,10 @@
     <view class="model-top">{{li[id_+1].question}}</view>
     <view class="model-body">
       <view bindtouchstart="touchstartX" class="model-body-choose-1 {{click==1?'model-body-choose-1-true':''}}"
-        bindtap="choose_ans" data-index="1">
+        bindtap="choose_ans" id="1">
         <text class="model-body-choose-text">{{li[id_+1].answer[0]}}</text>
       </view>
-      <view  bindtouchstart="touchstartX" class="model-body-choose-2" bindtap="choose_ans" data-index="2">
+      <view  bindtouchstart="touchstartX" class="model-body-choose-2" bindtap="choose_ans" id="2">
         <text class="model-body-choose-text">{{li[id_+1].answer[1]}}</text>
       </view>
     </view>

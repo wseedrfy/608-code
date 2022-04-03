@@ -44,9 +44,9 @@ Page({
   touchstartX(e) {
     console.log(e);
     this.setData({
-        currentIndex: e.currentTarget.dataset.index
+        currentIndex: e.currentTarget.id
       });
-      console.log( e.currentTarget.dataset.index)
+      console.log( e.currentTarget.id)
       // 获取触摸Y坐标
       this.recordY = e.touches[0].clientY;
       
@@ -73,14 +73,16 @@ Page({
     });
   },
   choose_ans(e){
+    console.log(e)
     this.setData({
-      click:e.currentTarget.dataset.index
+      click:e.currentTarget.id
     })
     setTimeout(() => {
       this.setData({
-        click:false
+        click:0
       })
-     let index = Number(e.currentTarget.dataset.index)
+      console.log(e.currentTarget.id,"2222222")
+     let index = Number(e.currentTarget.id)
     let count = this.data.id_
      if(count==0){
       this.setData({start:new Date().getTime()})
@@ -89,7 +91,7 @@ Page({
     res[count] = index
     count = count +1
     this.setData({id_:count,idx:index})
-    this.test();
+    // this.test();
     if(count==res.length){
       let end =  new Date().getTime()
       console.log(this.data.start)
@@ -97,7 +99,7 @@ Page({
       console.log(use_Time)
       this.setData({use_Time})
       this.process(res)
-    }
+    } 
     }, 1000);
     
   },
@@ -117,12 +119,14 @@ Page({
     console.log(describe);
     let that =this;
     let wpx = wx.getSystemInfoSync().windowWidth/375
-    let iconurl = wx.getStorageSync('args').iconUrl;
+    // let iconurl = wx.getStorageSync('args').iconUrl;
     const query = wx.createSelectorQuery()
+    // headerImg.src = iconurl;
     query.select('#shareCanvas')
     .fields({ node: true, size: true })
     .exec((res) => {
       const canvas = res[0].node
+      console.log(canvas)
       const ctx = canvas.getContext('2d')
       const dpr = wx.getSystemInfoSync().pixelRatio
       console.log(canvas);
@@ -285,7 +289,7 @@ draw_we_codeurl(ctx,canvas,wpx,x,y){
   },
 drawiconurl(ctx,canvas,wpx,){
   console.log("drawiconurl");
-  let iconurl = "../images/touxiang.png";
+  let iconurl = wx.getStorageSync('args').iconUrl;
   const headerImg = canvas.createImage();
   headerImg.src = iconurl;
   headerImg.onload = () => {
