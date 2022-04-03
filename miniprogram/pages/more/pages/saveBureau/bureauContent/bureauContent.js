@@ -51,14 +51,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   joinIn(e){        //-----这代码写得太垃圾了，全是if else嵌套
-    console.log(e);
-    // 判断是长按还是短按
-    if(this.endTime  - this.startTime < 350){
-      let that = this,
-        sex = e.currentTarget.dataset.sex,
-        args = wx.getStorageSync('args'),
-        index = e.currentTarget.id ? parseInt(e.currentTarget.id) : ''; // Str 转 Num
-      
+    if(this.endTime  - this.startTime < 350){     //----解决因长按事件与短按事件同时绑定而引发的冲突
+      var result=0
+      var sex = e.currentTarget.dataset.sex
+      const args = wx.getStorageSync('args')
+      if(e.currentTarget.id){
+        var index = parseInt(e.currentTarget.id)      //----直接获取的e.currentTarget.id类型为string，不能直接使用。需要转为number类型
+      }
       if(!args.sex){        //-----判断有无绑定性别
         this.chooseSex()
       }else{
@@ -74,20 +73,28 @@ Page({
             icon: 'none'
           })
           return
+        }else if(this.data.userName===args.username){
+          wx.showToast({
+            title: '您已经是局长',
+            icon: 'none'
+          })
         }else if(this.data.userName!=args.username){       //-----判断“我”是不是局长
-          var result;
           this.data.manNum.forEach(item => {
-            if(item.userName == args.username) {
-              result = true;
+            if(item.userName===args.username){
+              result=-1
             }
-          })
+          });
           this.data.womanNum.forEach(item => {
-            if(item.userName == args.username) {
-              result = true;
+            if(item.userName===args.username){
+              result=-1
             }
-          })
-          console.log(result);
-          if(!result){     //-----通过判断用户args.sex，决定用户进男组还是女组
+          });
+          if(result===-1){
+            wx.showToast({
+              title: '切勿重复加入',
+              icon: 'none'
+            })
+          }else{     //-----通过判断用户args.sex，决定用户进男组还是女组
             if(args.sex==="man"){
               index!=undefined ? this.data.manNum[index] = add : this.data.manNum[this.data.manNum.length-1] = add
             }else{
@@ -111,17 +118,7 @@ Page({
                 console.error
               }
             })
-          }else{
-            wx.showToast({
-              title: '切勿重复加入',
-              icon: 'none'
-            })
           }
-        }else if(this.data.userName===args.username){
-          wx.showToast({
-            title: '您已经是局长',
-            icon: 'none'
-          })
         }
         this.setData({
           manNum:this.data.manNum,
@@ -158,11 +155,7 @@ Page({
       title: '确定删除？',
       success (res) {
         if (res.confirm) {
-          if(sex==="manNum"){
-            that.data.manNum[index]=1
-          }else{
-            that.data.womanNum[index]=1
-          }
+          sex === "manNum" ? that.data.manNum[index] = 1 : that.data.womanNum[index] = 1
           wx.cloud.callFunction({
             name: 'saveBureau',
             data: {
@@ -198,13 +191,14 @@ Page({
 
 
   back(){
-    let pages = getCurrentPages();
-    let prevPage = pages[pages.length - 2];
-    prevPage.setData({ 
-      manNum:this.data.manNum,
-      womanNum:this.data.womanNum,
-      commentList:this.data.commentList,
-    })
+    // let pages = getCurrentPages();
+    // let prevPage = pages[pages.length - 2];
+    // console.log(this.data.commentList);
+    // prevPage.setData({ 
+    //   manNum:this.data.manNum,
+    //   womanNum:this.data.womanNum,
+    //   commentList:this.data.commentList,
+    // })
     wx.navigateBack({
       delta: 1,  // 返回上一级页面。
     })
@@ -213,8 +207,13 @@ Page({
     var showComment=[]
     if(this.data.commentList.length!=0){
       showComment=JSON.parse(JSON.stringify(this.data.commentList))
-      showComment.map(item => {
+      showComment.forEach(item => {
         item.time = util.timeago(item.time, 'Y年M月D日')
+        if(item.reply){
+          item.reply.map(item => {
+            item.time = util.timeago(item.time, 'Y年M月D日')
+          })
+        }
       })
       this.setData({
         showComment,
@@ -227,16 +226,28 @@ Page({
       })
     }
   },
+  showInput(){
+    this.setData({
+      showInput:true
+    })
+  },
   
   obatinComment(e){
     const args = wx.getStorageSync('args')
-    this.setData({
-      inputComment:e.detail.value
-    })
-    if(e.detail.value.textarea){
+    var outIndex=this.data.outIndex
+    var inIndex=this.data.inIndex
+    var index=this.data.index
+    var type=""
+    var indexTemp = -1
+    if(e){
       this.setData({
-        inputComment:e.detail.value.textarea
+        inputComment:e.detail.value
       })
+      if(e.detail.value.textarea){
+        this.setData({
+          inputComment:e.detail.value.textarea
+        })
+      }
     }
     var addData={
       input:this.data.inputComment,
@@ -244,15 +255,29 @@ Page({
       time:new Date().getTime(),
       iconUrl:args.iconUrl,
       nickName:args.nickName,
-      reply:[]
     }
-    this.data.commentList.push(addData)
+    if(outIndex>=0 || index>=0){
+      console.log("enter");
+      if(inIndex>=0){
+        addData.replyName=this.data.commentList[outIndex].reply[inIndex].nickName
+      }else{
+        outIndex>=0 ? addData.replyName=this.data.commentList[outIndex].nickName : addData.replyName=this.data.commentList[index].nickName
+      }
+      outIndex>=0 ? this.data.commentList[outIndex].reply.push(addData) : this.data.commentList[index].reply.push(addData)
+      outIndex>=0 ? indexTemp=outIndex : indexTemp=index
+      type="replyComment"
+    }else{
+      addData.reply=[]
+      this.data.commentList.push(addData)
+      type="writeComment"
+    }
     wx.cloud.callFunction({
       name: 'saveBureau',
       data: {
         addData:addData,
+        index:indexTemp,
         _id:this.data._id,
-        type: "writeComment"
+        type: type
       },
       success: res => {
         wx.showToast({
@@ -262,7 +287,8 @@ Page({
 
         this.transformTime()
         this.setData({
-          input:""
+          input:"",
+          index:-1
         })
       },
       fail: err => {
@@ -273,27 +299,48 @@ Page({
   editComment(e){
     const args = wx.getStorageSync('args')
     var index = parseInt(e.currentTarget.id)
+    var inIndex = e.currentTarget.dataset.in
+    var outIndex = e.currentTarget.dataset.out
     var ShowDelCom=false
     var CommentName=""
     var CommentContent=""
+    var that=this
     this.popUp()
     if(!!this.data.commentList[index]){
       if(this.data.commentList[index].userName===args.username){
         ShowDelCom=true
-        CommentName=this.data.commentList[index].nickName
-        CommentContent=this.data.commentList[index].input
       }
+      CommentName=this.data.commentList[index].nickName
+      CommentContent=this.data.commentList[index].input
+    }
+    if(!!this.data.commentList[outIndex]){
+      if(this.data.commentList[outIndex].reply[inIndex].userName===args.username){
+        ShowDelCom=true
+      }
+      CommentName=this.data.commentList[outIndex].reply[inIndex].nickName
+      CommentContent=this.data.commentList[outIndex].reply[inIndex].input
     }
     this.setData({ 
       comEdit:!this.data.comEdit,
       ShowDelCom,
       CommentName,
       CommentContent,
-      index
+      index,
+      inIndex,
+      outIndex
     })
   },
 
-  copyComment: function () {
+  replyComment(){
+    this.popUp()
+    this.setData({
+      showInput:true,
+      comEdit: !this.data.comEdit
+    })
+    // this.obatinComment()
+  },
+
+  copyComment() {
     var index=this.data.index
     wx.setClipboardData({
       //准备复制的数据
@@ -313,9 +360,19 @@ Page({
   },
 
   delComment(){
+    var inIndex=this.data.inIndex
+    var outIndex=this.data.outIndex
     var index=this.data.index
-    var delData=this.data.commentList[index]
+    var delData=""
+    var type=""
     var that=this
+    if(outIndex>=0){
+      type="delReply"
+      delData=that.data.commentList[outIndex].reply[inIndex]
+    }else{
+      type="delComment"
+      delData=that.data.commentList[index]
+    }
     wx.showModal({
       title: '确定删除？',
       success (res) {
@@ -325,11 +382,11 @@ Page({
             data: {
               delData:delData,
               _id:that.data._id,
-              type: "delComment"
+              outIndex:outIndex,
+              type: type
             },
             success: res => {
-              that.data.commentList.splice(index,1)
-              console.log("that.data.commentList",that.data.commentList);
+              outIndex>=0 ? that.data.commentList[outIndex].reply.splice(inIndex,1) : that.data.commentList.splice(index,1)
               that.transformTime()
               wx.showToast({
                 title: '删除成功!',
@@ -357,7 +414,6 @@ Page({
     var content=wx.getStorageSync('content')
     content.time = util.timeago(content.time, 'Y年M月D日')
     this.data.commentList=content.commentList
-    console.log(this.data.commentList);
     this.transformTime()
     this.setData({
       iconUrl:content.iconUrl,
@@ -399,7 +455,14 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    let pages = getCurrentPages();
+    let prevPage = pages[pages.length - 2];
+    console.log(this.data.commentList);
+    prevPage.setData({ 
+      manNum:this.data.manNum,
+      womanNum:this.data.womanNum,
+      commentList:this.data.commentList,
+    })
   },
 
   /**

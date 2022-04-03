@@ -148,7 +148,7 @@ page{
 }
 .contentName{
   height: 82rpx;
-  width: 510rpx;
+  /* width: 510rpx; */
   margin: 16rpx 0rpx 0rpx 20rpx;
   display: flex;
   flex-direction: column;
@@ -283,7 +283,7 @@ page{
   height: 100%;
 }
 .discussContent{
-  width: 620rpx;
+  /* width: 620rpx; */
   margin-left: 98rpx;
   font-size: 30rpx;
   font-weight: 550;
