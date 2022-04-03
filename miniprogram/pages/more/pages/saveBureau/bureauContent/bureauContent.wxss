@@ -125,10 +125,6 @@ page{
   background-color: violet;
   position:relative;
   left: 500rpx;
-
-  /* position: absolute;
-  top: -11rpx;
-  left: 20rpx; */
   transform: rotate(45deg);
   border: 1px #FFB5C5;
   border-style: solid none none solid ;
@@ -264,6 +260,7 @@ page{
 .discuss{
   width: 612rpx;
   max-height: 1150rpx;
+  min-height: 100rpx;
   padding: 0rpx 30rpx 30rpx 30rpx;
   background-color: white;
   border: 4rpx solid #df841c;
@@ -279,6 +276,11 @@ page{
   border-radius: 50rpx;
   margin-top: 13rpx;
   border: 2rpx solid #df841c;
+  overflow: hidden;
+}
+.discussIcon image{
+  width: 100%;
+  height: 100%;
 }
 .discussContent{
   width: 620rpx;
@@ -286,6 +288,14 @@ page{
   font-size: 30rpx;
   font-weight: 550;
   margin-top: 3rpx;
+}
+.none{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 60rpx;
+  color: #4b4b4b8c;
+  font-size: 25rpx;
 }
 .perch2{
   height: 180rpx;
@@ -296,6 +306,7 @@ page{
   background-color: #ffe69c;
   position: fixed;
   bottom: 0;
+  right: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -318,10 +329,11 @@ page{
   font-size: 32rpx;
 }
 .send{
-  height: 83rpx;
-  width: 120rpx;
+  height: 90rpx;
+  width: 170rpx!important;
   background-color: #fe6a62;
-  margin-left: 32rpx;
+  margin-left: 26rpx!important;
+  margin-right: 0rpx !important;
   border-radius: 50rpx;
   display: flex;
   align-items: center;
@@ -331,4 +343,87 @@ page{
   font-size: 30rpx;
   border: 6rpx solid #a3423dcc;
   box-shadow: inset -3px -3px 1px #d82016a2, inset 3px 3px 1px #fba9a2d3;
+}
+.EditCom,
+.EditCom_background,
+.CardMore,
+.CardMore_background{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  font-family: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.EditCom_background{
+  background-color: rgba(0, 0, 0, 0.171);
+  opacity: 0.6;
+  height: 100%;
+}
+.EditCom_contain{
+  position: relative;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  bottom: 30rpx;
+  width: 95%;
+  background-color: rgb(244, 244, 244);
+  padding: 0rpx;
+  z-index: 99999;
+  border-radius: 20rpx;
+}
+.EditCom_Title{
+  font-size: 27rpx;
+  color: rgba(70, 70, 70, 0.952);
+  padding: 15rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+}
+.ReplyComment,
+.CopyComment,
+.DelComment{
+  width:100%;
+  height:80rpx;
+  background-color: rgba(255, 255, 255, 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.edit_show{
+  animation: edit_show 0.5s;
+}
+.edit_hide{
+  animation: edit_hide 0.5s;
+}
+@keyframes edit_show {
+  0% {
+      opacity: 0;
+      transform: translateY(100%);
+  }
+  100% {
+      opacity: 1;
+      transform: translateY(0%);
+  }
+}
+@keyframes edit_hide {
+  0% {
+      opacity: 1;
+      transform: translateY(0%);
+  }
+  100% {
+      opacity: 0;
+      transform: translateY(100%);
+  }
 }
