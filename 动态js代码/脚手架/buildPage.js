@@ -283,11 +283,8 @@ setdata: function setdata(dictData) {
     str = str.replace(/\\n/g, "");
     str = str.replace(/\\"/g, "'");
     str += `
-
-
 }
   window.exports = runCode;
-
   `
 
     fs.writeFile('dist/index.js', str, {
