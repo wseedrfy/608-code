@@ -373,14 +373,7 @@ Page({
     },
     // tabbar js
     click_a:function(e){
-      wx.setNavigationBarColor({
-        frontColor: '#ffffff',
-        backgroundColor: '#7c66f5',
-        animation: {
-          duration: 300,
-          timingFunc: 'easeIn'
-        }
-      })
+      
       let navState = e.currentTarget.dataset.index
       console.log("主页",navState);
       console.log(navState);
@@ -393,6 +386,10 @@ Page({
       })
     },
     click_b:function(e){
+      wx.showToast({
+        title: '开发中，敬请期待',
+        icon: 'none',
+      })
       let navState = e.currentTarget.dataset.index
       console.log("打卡页",navState);
       this.setData({
@@ -400,13 +397,14 @@ Page({
         click_b:true,
         click_c:false,
         click_d:false,
-        navState
+        // navState
       })
     },
-    click_tomato:function(e){
-      
-    },
     click_c:function(e){
+      wx.showToast({
+        title: '开发中，敬请期待',
+        icon: 'none',
+      })
       let navState = e.currentTarget.dataset.index
       console.log("云留言页",navState);
       this.setData({
@@ -414,10 +412,14 @@ Page({
         click_b:false,
         click_c:true,
         click_d:false,
-        navState
+        // navState
       })
     },
     click_d:function(e){
+      wx.showToast({
+        title: '开发中，敬请期待',
+        icon: 'none',
+      })
       let navState = e.currentTarget.dataset.index
       console.log("自习室页",navState);
       this.setData({
@@ -425,7 +427,7 @@ Page({
         click_b:false,
         click_c:false,
         click_d:true,
-        navState
+        // navState
       })
     },
     //日历初始化
