@@ -30,7 +30,7 @@
         bindtap="choose_ans" data-index="1">
         <text class="model-body-choose-text">{{li[id_+1].answer[0]}}</text>
       </view>
-      <view bindtap="test" bindtouchstart="touchstartX" class="model-body-choose-2" bindtap="choose_ans" data-index="2">
+      <view  bindtouchstart="touchstartX" class="model-body-choose-2" bindtap="choose_ans" data-index="2">
         <text class="model-body-choose-text">{{li[id_+1].answer[1]}}</text>
       </view>
     </view>
