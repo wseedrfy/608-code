@@ -210,3 +210,32 @@ text-align: justify;
   background-color: #74b9ff;
   border-radius: 50rpx;
 }
+
+@media (prefers-color-scheme: dark) {
+  .model3{
+    filter: invert(100%) !important;
+  }
+  .model2{
+    filter: invert(100%) !important;
+  }
+  .model1{
+    filter: invert(100%) !important;
+
+  }
+  .model{
+    filter: invert(100%) !important;
+
+  }
+  .model-top{
+    filter: invert(0%) !important;
+
+  }
+  .model-body-choose-text{
+    filter: invert(0%) !important;
+
+  }
+  .model2_canvas{
+    filter: invert(0%) !important;
+    
+  }
+}
