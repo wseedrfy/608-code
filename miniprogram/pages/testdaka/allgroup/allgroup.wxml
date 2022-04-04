@@ -2,6 +2,8 @@
 <view class="selfstudy">
      <view style="height: {{statusBarHeight}}px;width: 100%;"></view>
      <view class="selfstudy_bar"style="height: {{lineHeight}}px;line-height: {{lineHeight}}px;color: white;text-align: center;">
+          <view class="back" bindtap="back"></view>
+          <view class="allstudyroom">全部自习室</view>
      </view>
 </view>
 <view class="selfstudy_othergroup_longbox">
@@ -9,12 +11,12 @@
                <view class="selfstudy_othergroup_longbox_right"></view>
 </view>
 <view class="selfstudy_othergroup_lablegroup">
-               <view style="display: flex;flex-direction: row;margin: 0rpx auto;width: 650rpx;height:80rpx ;margin-bottom: 0;">
+               <view class="selfstudy_othergroup_lablegroup_title" style="display: flex;flex-direction: row;margin: 0rpx auto;width: 660rpx;height:80rpx ;margin-bottom: 0;top: {{statusBarHeight + 38}}px;padding: 0 40rpx;">
                     <view style="height: 80rpx;width: 50%;text-align: left;line-height: 80rpx;font-size: 28rpx;font-weight: 550;">最近创建/the latest</view>
                     <view style="height: 80rpx;width: 50%;text-align: right;line-height: 80rpx;font-size: 23rpx;color: gray;" bindtap="more">see more</view>
                </view>
                <scroll-view class="lablegroup_scrollview" scroll-y="true" style=" display: flex;">
-                    <view wx:for="{{5}}" class="lablegroup_scrollview_data"
+                    <view wx:for="{{10}}" class="lablegroup_scrollview_data"
                      style="display: inline-block;">
                          <view class="lablegroup_scrollview_data_image">
                               <image src="https://636c-cloud1-6gtqj1v4873bad50-1307814679.tcb.qcloud.la/tomato_daka/%E5%9B%BE%E7%89%87/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_202204022334168.jpg?sign=e1ad16dec91bf0f9882fefcf735af7e5&t=1648924396"></image>
@@ -24,7 +26,7 @@
                                    <view class="lablegroup_scrollview_data_information_topbox_roomname">
                                    六级
                                    </view>
-                                   <view class="lablegroup_scrollview_data_information_topbox_roomintroduce">每天5个单词
+                                   <view class="lablegroup_scrollview_data_information_topbox_roomintroduce">每天5个单词8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
                                    </view>
                               </view>
                               <view class="lablegroup_scrollview_data_information_bottombox">
@@ -53,4 +55,5 @@
                          </view> 
                     </view>
                </scroll-view>
+               <view style="width: 100%;height: 102rpx;"></view>
 </view>

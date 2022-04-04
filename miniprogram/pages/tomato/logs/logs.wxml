@@ -30,8 +30,7 @@
 </view>
 
 <view wx:if="{{navState==1}}" class="ec_page">
-<view class="ec_box1">
-  <ec-canvas id="mychart-dom" canvas-id="mychart" ec="{{ec}}"></ec-canvas>
+<view class="ec_box1" style="margin-top: 150rpx;">
+  <ec-canvas  id="mychart-dom" canvas-id="mychart" ec="{{ec}}"></ec-canvas>
 </view>
-<view bindtap="abc">-----------------------------分界盒子-----------------------------</view>
 </view>

@@ -20,7 +20,11 @@ Page({
             {roomlable:'其他',roomlist:[{roomname:'六级',roomintroduce:'每天50个单词',roomper:'99'}]}
           ]
     },
-
+    back(){
+      wx.navigateBack({
+        delta: 1,
+      })
+    },
     /**
      * 生命周期函数--监听页面加载
      */

@@ -52,7 +52,7 @@ Page({
       },
       legend: {
         orient: 'vertical',
-        left: 'left'
+        left: 'right'
       },
       series: [
         {

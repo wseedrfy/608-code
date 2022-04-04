@@ -791,11 +791,34 @@ wx-slider .wx-slider-handle-wrapper {
   position: absolute;
   left: 0;
   top: 0;
+  /* bottom: 250rpx; */
   width: 600rpx;
   height: 600rpx;
+  margin-top: -50rpx;
 }
-
+.timer--runing .bottombox_clock_bg,
+.timer--runing .bottombox_clock_active
+{
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  /* bottom: 270rpx; */
+  width: 600rpx;
+  height: 600rpx;
+  margin-top: 0rpx;
+}
 .bottombox_clock_text {
+  color: #5879fa;
+  line-height: 60rpx;
+  font-size: 90rpx;
+  text-align: center;
+  position: absolute;
+  left: 190rpx;
+  top: 215rpx;
+}
+.timer--runing .bottombox_clock_text {
+  color: #5879fa;
   line-height: 60rpx;
   font-size: 90rpx;
   text-align: center;
@@ -803,7 +826,6 @@ wx-slider .wx-slider-handle-wrapper {
   left: 190rpx;
   top: 250rpx;
 }
-
 .timer {
   height: calc(100% - 102rpx);
   transition: all .7s;
@@ -1320,12 +1342,13 @@ wx-slider .wx-slider-handle-wrapper {
   }
 
   .img-plus-style {
-    filter: invert(0) !important;
-    color: black;
-    position: fixed;
-    bottom: 600rpx;
-    right: 50rpx;
-    z-index: 999;
+    filter: invert(1) !important;
+    height: 100rpx;
+    width: 100rpx;
+    transform: rotate(-45deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .img-style {
@@ -1384,4 +1407,57 @@ wx-slider .wx-slider-handle-wrapper {
   .complete_bg {
     filter: invert(90%) !important;
   }
+  .icon_a>image{
+    filter: invert(0) !important;
+
+  }
+  .top,.top2{
+    filter: invert(80%) !important;
+    background: rgb(172, 211, 254);
+  }
+  .topbox {
+    filter: invert(1) !important;
+    background: linear-gradient(to bottom, rgb(172, 211, 254) 35%, rgb(0, 0, 0));
+  }
+  .topbox_btn_start{
+    filter: invert(0) !important;
+    background: rgb(172, 211, 254) ;
+  }
+  .bottombox_clock_text{
+    filter: invert(1) !important;
+    color: rgb(172, 211, 254) ;
+
+  }
+  .timer--runing .topbox {
+    filter: invert(1) !important;
+    transition: all .5s;
+    background: rgb(172, 211, 254) ;
+    background: #000;
+  }
+  .timer--runing .topbox_topbar {
+    background: #000000;
+  }
+  .bottomboxruning .bottombox_showtask{
+    filter: invert(1) !important;
+    background: rgb(172, 211, 254) ;
+  }
+   .timer--runing .topbox_btn_start, .timer--runing .topbox_btn_stop, .timer--runing .topbox_btn_ct, .timer--runing .topbox_btn_complete {
+    filter: invert(0) !important;
+    background: rgb(172, 211, 254) ;
+    z-index: 99;
+  }
+  .timer--runing .topbox_btn {
+    bottom: -1000rpx;
+    flex: 0.5;
+  }
+  .bottomboxruning .bottombox_clock {
+    margin: 3vh auto 0 auto;
+    height: 100rpx;
+    z-index: 0;
+    flex: 0.5;
+  }
+  .bottombox_clock_bg,.bottombox_clock_active{
+    filter: invert(1) !important;
+  }
+
 }

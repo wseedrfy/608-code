@@ -184,3 +184,9 @@
   border-radius: 50%;
   margin: 6rpx auto 0;
 }
+@media (prefers-color-scheme: dark) {
+  .calendar {
+    filter: invert(80%) !important;
+    /* background: rgb(172, 211, 254); */
+  }
+}

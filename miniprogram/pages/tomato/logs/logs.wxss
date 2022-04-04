@@ -131,3 +131,9 @@
     height: 800rpx;
     background-color: #E7624F;
   } */
+  @media (prefers-color-scheme: dark) {
+    .sum .sum_item .sum_item_val,.active,.nav-switch-style{
+        filter: invert(1) !important;
+        color: rgb(172, 211, 254) ;
+    }
+  }
