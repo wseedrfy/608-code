@@ -416,10 +416,10 @@ Page({
       })
     },
     click_d:function(e){
-      wx.showToast({
-        title: '开发中，敬请期待',
-        icon: 'none',
-      })
+      // wx.showToast({
+      //   title: '开发中，敬请期待',
+      //   icon: 'none',
+      // })
       let navState = e.currentTarget.dataset.index
       console.log("自习室页",navState);
       this.setData({
@@ -427,7 +427,7 @@ Page({
         click_b:false,
         click_c:false,
         click_d:true,
-        // navState
+        navState
       })
     },
     //日历初始化

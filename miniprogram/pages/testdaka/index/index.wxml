@@ -1,8 +1,8 @@
 <!-- 主页 -->
 <view wx:if="{{navState==0}}">
      <view>
-          <view style="height: {{statusBarHeight}}px;width: 100%;background: #7c66f5;"></view>
-          <view
+          <view class="top" style="height: {{statusBarHeight}}px;width: 100%;background: #7c66f5;"></view>
+          <view class="top2"
                style="height: {{lineHeight}}px;background: #7c66f5;line-height: {{lineHeight}}px;color: white;text-align: center;">
                We打卡</view>
           <calendar bind:change="dateChange" spot="{{spot}}" week="{{week}}" defaultTime="{{today}}"></calendar>
@@ -99,7 +99,7 @@
                     <slider class="topbox_tips_slider" min="1" max="120" activeColor="#96cddd" backgroundColor="#e5f2f6"
                          value="{{time}}" bindchange="slideChange" block-color="#98ccde"></slider>
                     <view style="width: 80%;color: white;font-size: 26rpx;margin-top: 20rpx;">Tips:</view>
-                    <view style="width:80%;color: white;font-size: 26rpx; margin-top: 15rpx;">点击左上角可以切换番茄任务</view>
+                    <view style="width:80%;color: white;font-size: 26rpx; margin-top: 15rpx;">点击左上角番茄时钟可以切换番茄任务</view>
                     <view style="width:80%;color: white;font-size: 26rpx;margin-top: 15rpx;">左上角可以进入数据统计页面</view>
                     <view style="width:80%;color: white;font-size: 26rpx;margin-top: 15rpx;">左上角可以进入排行榜页面</view>
                </view>
@@ -115,7 +115,7 @@
                <view class="bottombox_clock">
                     <canvas type="2d" id="bottombox_clock_bg" class="bottombox_clock_bg"></canvas>
                     <canvas type="2d" id="bottombox_clock_active" class="bottombox_clock_active"></canvas>
-                    <view class="bottombox_clock_text" style="color: #5879fa;">{{timeStr}}</view>
+                    <view class="bottombox_clock_text" >{{timeStr}}</view>
                </view>
           </view>
      </view>

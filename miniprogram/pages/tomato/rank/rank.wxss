@@ -53,3 +53,13 @@
 .u-list .u-item .content .name{
     color: gray;
 }
+@media (prefers-color-scheme: dark) {
+    .u-list .u-item .toltaltime {
+        filter: invert(1) !important;
+        color: rgb(172, 211, 254) ;
+    }
+    .u-list .u-item .content .text .cup_top_text {
+        filter: invert(1) !important;
+        color: rgb(172, 211, 254) ;
+    }
+  }

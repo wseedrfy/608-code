@@ -2,6 +2,22 @@
 page {
     background-color: #F4F4F4;
   }
+  .allstudyroom{
+    margin-left: 28vw;
+    width: auto;
+    height: auto;
+    font-size: 28rpx;
+    color: #000000;
+  }
+  .back{
+    margin-left: 41rpx;
+    z-index: 99;
+    width: 15rpx;
+    height: 0rpx;
+    border-width: 9px;
+    border-style: solid;
+    border-color: #7c66f5 #7c66f5 #fff #fff;
+  }
 .selfstudy_bar {
     display: flex;
     flex-direction: row;
@@ -37,24 +53,32 @@ page {
   margin-left: 30rpx;
   border-radius: 20rpx;
 }
+.selfstudy_othergroup_lablegroup{
+  margin-top: 41rpx;
+}
+.selfstudy_othergroup_lablegroup_title{
+  position: sticky;
+  background-color: #F4F4F4;
+  z-index: 99;
 
+}
 .lablegroup_scrollview{
   height: 1;
   width: auto;
   /* background: pink; */
-  margin-top: 39rpx;
+  margin-top: 9rpx;
 }
 .lablegroup_scrollview_data{
-  margin-top: 2rpx;
+  margin-top: 32rpx;
   margin-left: 41rpx;
   height: 190rpx;
-  width: 403rpx;
+  width: 650rpx;
   background: white;
   border-radius: 30rpx;
 }
 .lablegroup_scrollview_data_image{
   float: left;
-  width: 35%;
+  width: 25%;
   height: 100%;
   /* background: pink; */
 }
@@ -67,7 +91,7 @@ page {
 
 .lablegroup_scrollview_data_information{
   float: left;
-  width: 65%;
+  width: 75%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -90,7 +114,7 @@ page {
 }
 .lablegroup_scrollview_data_information_topbox_roomintroduce{
   height: 100%;
-  width: 82%;
+  width: 87%;
   line-height: 25rpx;
   color: gray;
   margin-top: 20rpx;
@@ -151,10 +175,10 @@ page {
   width: 81%;
 }
 .information_bottombox_right_url{
-  width: 72%;
+  width: 82%;
   height: 100%;
   /* background: gray; */
-  overflow: hidden;
+  /* overflow: hidden; */
   /* padding-right: 10rpx; */
 }
 .information_bottombox_right_url >view{
@@ -162,16 +186,18 @@ page {
 }
 .information_bottombox_right_url_image{
   float: right;
-  width: 25rpx;
-  height: 25rpx;
+  width: 30rpx;
+  height: 30rpx;
   border-radius: 50%;
-  margin-left: -6rpx;
+  margin-left: -8rpx;
+  margin-top: -5rpx;
 }
 .information_bottombox_right_numper{
   /* margin-right: 20rpx; */
-  width: 28%;
+  text-align: right;
+  width: 18%;
   height: 25rpx;
   line-height: 25rpx;
-  font-size: 15rpx;
+  font-size: 20rpx;
   color: rgb(56, 56, 56);
 }
