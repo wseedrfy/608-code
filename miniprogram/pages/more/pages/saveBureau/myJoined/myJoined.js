@@ -1,7 +1,6 @@
-// pages/more/pages/saveBureau/saveBureau.js
+// pages/more/pages/saveBureau/myJoined/myJoined.js
 var app = getApp()
-var util = require("../../../../utils/util.js")
-
+var util = require("../../../../../utils/util.js")
 Page({
 
   /**
@@ -13,6 +12,9 @@ Page({
     rectHeight: getApp().globalData.rectHeight,
     windowHeight: getApp().globalData.windowHeight,
     arry:[{
+      name:"全部",
+      type:0
+    },{
       name:"自习",
       type:0
     },{
@@ -37,31 +39,28 @@ Page({
       name:"其他",
       type:0
     }],
-    cardList:[],
     currentPage:0,
-    label:null,
-    contentIndex:0,
-    enterMe:false,
+    cardList:[],
+    my_id:""
   },
-  toMyjoined(){
-    this.setData({
-      enterMe:true
-    })
-    wx.navigateTo({
-      url: '../saveBureau/myJoined/myJoined',
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  back(){
+    wx.navigateBack({
+      delta: 1,  // 返回上一级页面。
     })
   },
 
-  toSavepublish(){
-    wx.navigateTo({
-      url: '../saveBureau/publishBureau/publishBureau',
-    })
-  },
   chooseLabel(e){
     var index = e.currentTarget.id
-    var getIndex=this.data.arry.findIndex(item => item.type===1)    //---判断arry数组里面有没有标签已被选择，没有则getIndex=-1，有则返回已选择的标签索引
     this.data.currentPage=0     //----切换标签对页面进行初始化
     this.data.cardList=[]       //----切换标签对页面进行初始化
+    var getIndex=this.data.arry.findIndex(item => item.type===1)    //---判断arry数组里面有没有标签已被选择，没有则getIndex=-1，有则返回已选择的标签索引
+    if(getIndex===parseInt(index)){
+      return
+    }
     if(getIndex!=-1){     //----将前面已选择的标签取消“选择”样式
       this.animate('.circle'+getIndex, [{
         width: '100%',
@@ -69,11 +68,6 @@ Page({
         width: '52rpx',
       }], 200)
       this.data.arry[getIndex].type = 0
-      this.data.label=null
-      if(getIndex===parseInt(index)){
-        this.readData()
-        return
-      }
     }
     this.animate('.circle'+index, [{      //----给选定标签“选择”样式
       width: '52rpx',
@@ -81,8 +75,26 @@ Page({
       width: '100%',
     }], 200)
     this.data.arry[index].type = 1
-    this.data.label=this.data.arry[index].name
+    this.setData({
+      label:this.data.arry[index].name
+    })
     this.readData()
+  },
+
+  toLookcontent(e){
+    var index=e.currentTarget.id
+    wx.setStorage({
+      key:"content",
+      data:this.data.cardList[index],
+      success:res => {
+        this.setData({
+          contentIndex:index
+        })
+        wx.navigateTo({
+          url: '../../saveBureau/bureauContent/bureauContent',
+        })
+      }
+    })
   },
 
   transformTime(){
@@ -107,52 +119,24 @@ Page({
       var hh=item.label
       item.showLabel = encodeURI(hh).replace(/%/g, "")
     })
-    
     this.setData({
       copyList,
       length:copyList.length,
     })
   },
 
-  chooseSex(){
-    const args = wx.getStorageSync('args')
-    wx.showModal({
-      title: '请选择您的性别',
-      content: '*确定后不能更改，请谨慎选择',
-      cancelText: '男生',
-      cancelColor: '#5D81CF',
-      confirmText: '女生',
-      confirmColor: '#EC7A73',
-      success (res) {
-        if (res.confirm) {
-          args.sex="woman"
-        } else if (res.cancel) {
-          args.sex="man"
-        }
-        wx.setStorage({
-          key:"args",
-          data:args
-        })
-        this.readData()
-      },
-    })
-  },
-
   readData(){
     const args = wx.getStorageSync('args')
-    wx.showLoading({
-      title: '加载中',
-    })
     wx.cloud.callFunction({
       name: 'saveBureau',
       data: {
-        type: "readCard",
-        school: args.school,
+        type: "readMe",
         currentPage:this.data.currentPage,
+        userName:args.username,
+        sex:args.sex,
         label:this.data.label
       },
       success: res => {
-        wx.hideLoading()
         if(res.result){
           this.data.cardList=this.data.cardList.concat(res.result.data)
           this.data.currentPage++
@@ -174,44 +158,20 @@ Page({
       }
     })
   },
-  toLookcontent(e){
-    var index=e.currentTarget.id
-    wx.setStorage({
-      key:"content",
-      data:this.data.cardList[index],
-      success:res => {
-        this.setData({
-          contentIndex:index
-        })
-        wx.navigateTo({
-          url: '../saveBureau/bureauContent/bureauContent',
-        })
-      }
-    })
-  },
 
-  
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
-    const args = wx.getStorageSync('args')
-    console.log(args);
     this.setData({
       arry:this.data.arry,
+      label:"全部"
     })
-    if(!args.sex){
-      this.chooseSex()
-    }else{
-      this.readData()
-    }
+    this.readData()
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
- 
+
   },
 
   /**
@@ -219,34 +179,21 @@ Page({
    */
   onShow: function () {
     var index=this.data.contentIndex
-    console.log("this.data.my_id",this.data.my_id);
-    if(this.data.enterMe===true ){
-      if(this.data.delCard===true){
-        this.data.cardList.splice(this.data.cardList.findIndex(item => item._id === this.data.my_id), 1)
-        this.data.delCard=false
-      }
-      this.data.cardList.forEach(item => {
-        if(item._id===this.data.my_id){
-          item.manNum=this.data.manNum
-          item.womanNum=this.data.womanNum
-          item.commentList=this.data.commentList
-        }
-      })
-    }else{
-      if(this.data.manNum || this.data.womanNum){
-        this.data.cardList[index].manNum=this.data.manNum
-        this.data.cardList[index].womanNum=this.data.womanNum
-        this.data.cardList[index].commentList=this.data.commentList
-      }
-      if(this.data.delCard===true){
-        this.data.cardList.splice(index,1)
-      }
-      if(this.data.addData){
-        this.data.addData._id=this.data.res
-        this.data.cardList.push(this.data.addData)
-      }
-      this.data.addData=null
+    console.log("index",index);
+    if(this.data.manNum || this.data.womanNum){
+      this.data.cardList[index].manNum=this.data.manNum
+      this.data.cardList[index].womanNum=this.data.womanNum
+      this.data.cardList[index].commentList=this.data.commentList
     }
+    if(this.data.delCard===true || this.data.out===true){
+      this.data.my_id=this.data.cardList[index]._id
+      this.data.cardList.splice(index,1)
+    }
+    if(this.data.addData){
+      this.data.addData._id=this.data.res
+      this.data.cardList.push(this.data.addData)
+    }
+    this.data.addData=null
     this.transformTime()
   },
 
@@ -261,6 +208,34 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
+    let pages = getCurrentPages();
+    let prevPage = pages[pages.length - 2];
+    if(!!this.data.cardList[this.data.contentIndex] && this.data.out!=true){
+      console.log("enen");
+      prevPage.setData({ 
+        manNum:this.data.cardList[this.data.contentIndex].manNum,
+        womanNum:this.data.cardList[this.data.contentIndex].womanNum,
+        commentList:this.data.cardList[this.data.contentIndex].commentList,
+        my_id:this.data.cardList[this.data.contentIndex]._id
+      })
+    }else{
+      if(this.data.delCard===true){
+        prevPage.setData({ 
+          delCard:this.data.delCard,
+          my_id:this.data.my_id
+        })
+      }
+      if(this.data.out===true){
+        console.log("2333");
+        prevPage.setData({ 
+          manNum:this.data.manNum,
+          womanNum:this.data.womanNum,
+          commentList:this.data.commentList,
+          my_id:this.data.my_id
+        })
+      }
+    }
+
   },
 
   /**
@@ -274,11 +249,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    this.setData({
-      loading:true,
-      none:false
-    })
-    this.readData();
+
   },
 
   /**

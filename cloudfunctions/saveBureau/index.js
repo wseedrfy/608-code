@@ -17,13 +17,15 @@ exports.main = async (event) => {
     case "readCard":
       data = await readCard(event); // 
       break;
+    case "readMe":
+      data = await readMe(event); // 
+      break;
     case "bureauMember":
       data = await bureauMember(event); // 
       break;
     case "writeComment":
       data = await writeComment(event); // 
       break;
-      
     case "replyComment":
       data = await replyComment(event); // 
       break;
@@ -33,9 +35,9 @@ exports.main = async (event) => {
     case "delReply":
       data = await delReply(event); // 
       break;
-      
-
-
+    case "delBureau":
+      data = await delBureau(event); // 
+      break;
   }
   return data
 }
@@ -55,7 +57,8 @@ async function addCard(event) {
           iconUrl:event.addData.iconUrl,
           nickName:event.addData.nickName,
           school:event.addData.school,
-          commentList:event.addData.commentList
+          commentList:event.addData.commentList,
+          sex:event.sex
         }
       })
     } catch (e) {
@@ -64,7 +67,7 @@ async function addCard(event) {
   }
 }
 async function readCard(event) {
-  var page=event.currentPage * 10;
+  var page=event.currentPage * 15;
   var temp = {
     school: event.school
   }
@@ -82,6 +85,43 @@ async function readCard(event) {
     console.error(e);
   }
 }
+
+async function readMe(event) {
+  var page=event.currentPage * 10;
+  var obj={
+    manNum: {
+      userName: _.eq(event.userName)
+    },
+  }
+  if(event.sex==="woman"){
+    obj={
+      womanNum: {
+        userName: _.eq(event.userName)
+      },
+    }
+  }
+  var temp={
+    userName:event.userName,
+  }
+  if(event.label!="全部"){
+    temp={
+      userName:event.userName,
+      label:event.label
+    }
+    obj.label=event.label
+  }
+  try {
+    return await db.collection('saveBureau').orderBy('indexFront', 'desc').orderBy('SortTime', 'desc').orderBy('Time', 'desc').where(
+      _.or(
+        obj,
+        temp
+      ),
+    ).skip(page).limit(15).get();
+  } catch (e) {
+    console.error(e);
+  }
+}
+
 async function bureauMember(event) {
   try{
     await db.collection('saveBureau').where({
@@ -155,7 +195,6 @@ async function delComment(event, type, content) {
 }
 
 async function delReply(event) {
-
   if (event.delData) {
     await db.collection('saveBureau').where({
       _id: event._id
@@ -175,5 +214,11 @@ async function delReply(event) {
       msg: 'success'
     }
   }
-
  }
+
+ async function delBureau(event) {
+  await db.collection('saveBureau').doc(event._id).remove()
+  data = {
+    msg: 'success'
+  }
+}

@@ -13,7 +13,15 @@ Page({
     windowHeight: getApp().globalData.windowHeight,
     commentList:[],
     comEdit: false,       // 评论区复制/删除弹窗
+    charBox:false,
+    delCard:false
   },
+  back(){
+    wx.navigateBack({
+      delta: 1,  // 返回上一级页面。
+    })
+  },
+
   popUp: function () {          //控制卡片/评论弹窗
     var edit_style = 'edit_hide';
     // picker动画样式
@@ -24,108 +32,139 @@ Page({
     }
     this.setData({ edit_style })
   },
-  chooseSex(){
-    const args = wx.getStorageSync('args')
-    wx.showModal({
-      title: '请选择您的性别',
-      content: '*确定后不能更改，请谨慎选择',
-      cancelText: '男生',
-      cancelColor: '#5D81CF',
-      confirmText: '女生',
-      confirmColor: '#EC7A73',
-      success (res) {
-        if (res.confirm) {
-          args.sex="woman"
-        } else if (res.cancel) {
-          args.sex="man"
-        }
-        wx.setStorage({
-          key:"args",
-          data:args
-        })
-      }
-    })
-  },
-
   /**
    * 生命周期函数--监听页面加载
    */
   joinIn(e){        //-----这代码写得太垃圾了，全是if else嵌套
     if(this.endTime  - this.startTime < 350){     //----解决因长按事件与短按事件同时绑定而引发的冲突
-      var result=0
+      var result=true
       var sex = e.currentTarget.dataset.sex
       const args = wx.getStorageSync('args')
       if(e.currentTarget.id){
         var index = parseInt(e.currentTarget.id)      //----直接获取的e.currentTarget.id类型为string，不能直接使用。需要转为number类型
       }
-      if(!args.sex){        //-----判断有无绑定性别
-        this.chooseSex()
-      }else{
-        var add={
-          userName:args.username,
-          iconUrl:args.iconUrl,
-          nickName:args.nickName,
-        }
-
-        if((sex==="manNum" && args.sex==="woman") || (sex==="womanNum" && args.sex==="man")){     //-----若点击事件的性别与绑定的性别不一致
-          wx.showToast({
-            title: '请正确选择性别',
-            icon: 'none'
-          })
-          return
-        }else if(this.data.userName===args.username){
-          wx.showToast({
-            title: '您已经是局长',
-            icon: 'none'
-          })
-        }else if(this.data.userName!=args.username){       //-----判断“我”是不是局长
-          this.data.manNum.forEach(item => {
-            if(item.userName===args.username){
-              result=-1
-            }
-          });
-          this.data.womanNum.forEach(item => {
-            if(item.userName===args.username){
-              result=-1
-            }
-          });
-          if(result===-1){
+      var add={
+        userName:args.username,
+        iconUrl:args.iconUrl,
+        nickName:args.nickName,
+      }
+      if((sex==="manNum" && args.sex==="woman") || (sex==="womanNum" && args.sex==="man")){     //-----若点击事件的性别与绑定的性别不一致
+        wx.showToast({
+          title: '请正确选择性别',
+          icon: 'none'
+        })
+        return
+      }else if(this.data.userName===args.username){
+        wx.showToast({
+          title: '您已经是局长',
+          icon: 'none'
+        })
+        return
+      }else if((sex==="manNum" && !!this.data.manNum[index].userName) || (sex==="womanNum" && !!this.data.womanNum[index].userName)){
+        wx.showToast({
+          title: '这里已经有人了',
+          icon: 'none'
+        })
+      }else if(this.data.userName!=args.username){       //-----判断“我”是不是局长
+        this.data.manNum.forEach(item => {
+          if(item.userName===args.username){
             wx.showToast({
               title: '切勿重复加入',
               icon: 'none'
             })
-          }else{     //-----通过判断用户args.sex，决定用户进男组还是女组
-            if(args.sex==="man"){
-              index!=undefined ? this.data.manNum[index] = add : this.data.manNum[this.data.manNum.length-1] = add
-            }else{
-              index!=undefined ? this.data.womanNum[index] = add : this.data.womanNum[this.data.womanNum.length-1] = add
+            result=false
+          }
+        });
+        this.data.womanNum.forEach(item => {
+          if(item.userName===args.username){
+            wx.showToast({
+              title: '切勿重复加入',
+              icon: 'none'
+            })
+            result=false
+          }
+        });
+        if(result===true){     //-----通过判断用户args.sex，决定用户进男组还是女组
+          if(args.sex==="man"){
+            index!=undefined ? this.data.manNum[index] = add : this.data.manNum[this.data.manNum.length-1] = add
+          }else{
+            index!=undefined ? this.data.womanNum[index] = add : this.data.womanNum[this.data.womanNum.length-1] = add
+          }
+          wx.cloud.callFunction({
+            name: 'saveBureau',
+            data: {
+              manNum:this.data.manNum,
+              womanNum:this.data.womanNum,
+              _id:this.data._id,
+              type: "bureauMember"
+            },
+            success: res => {
+              wx.showToast({
+                title: '入局成功',
+                icon: 'none'
+              })
+            },
+            fail: err => {
+              console.error
             }
-            wx.cloud.callFunction({
-              name: 'saveBureau',
-              data: {
-                manNum:this.data.manNum,
-                womanNum:this.data.womanNum,
-                _id:this.data._id,
-                type: "bureauMember"
-              },
-              success: res => {
-                wx.showToast({
-                  title: '入局成功',
-                  icon: 'none'
-                })
-              },
-              fail: err => {
-                console.error
-              }
+          })
+        }
+      }
+      this.setData({
+        manNum:this.data.manNum,
+        womanNum:this.data.womanNum
+      })
+    }
+  },
+  charBoxdel(){
+    this.animate('.charBox', [
+      { scale: [1, 1], ease: 'ease-out'},
+      { scale: [0.65, 0.65],ease: 'ease-in'},
+      { scale: [0, 0]},
+    ], 500)
+  },
+  report(){
+    this.setData({
+      charBox:!this.data.charBox
+    })
+    this.animate('.charBox', [
+      { scale: [0, 0], ease:"linear",offset:0},
+      { scale: [0.65, 0.65],ease: 'linear',offset:0.5},
+      { scale: [1, 1],offset:1},
+    ], 500)
+  },
+
+  delCard(){
+    var that=this
+    wx.showModal({
+      title: '确定删除？',
+      success (res) {
+        wx.cloud.callFunction({
+          name: 'saveBureau',
+          data: {
+            _id:that.data._id,
+            type: "delBureau"
+          },
+          success: res => {
+            wx.showToast({
+              title: '删除成功!',
+              icon: 'none'
+            })
+            that.setData({
+              delCard:true
+            })
+            that.back()
+          },
+          fail: err => {
+            console.error
+            wx.showToast({
+              title: '删除失败!',
+              icon: 'none'
             })
           }
-        }
-        this.setData({
-          manNum:this.data.manNum,
-          womanNum:this.data.womanNum
         })
       }
-    }
+    })
   },
 
   bindTouchStart: function(e) {
@@ -171,7 +210,8 @@ Page({
               })
               that.setData({
                 manNum:that.data.manNum,
-                womanNum:that.data.womanNum
+                womanNum:that.data.womanNum,
+                out:true
               })
             },
             fail: err => {
@@ -188,26 +228,11 @@ Page({
   }
   },
 
-
-
-  back(){
-    // let pages = getCurrentPages();
-    // let prevPage = pages[pages.length - 2];
-    // console.log(this.data.commentList);
-    // prevPage.setData({ 
-    //   manNum:this.data.manNum,
-    //   womanNum:this.data.womanNum,
-    //   commentList:this.data.commentList,
-    // })
-    wx.navigateBack({
-      delta: 1,  // 返回上一级页面。
-    })
-  },
   transformTime(){
     var showComment=[]
     if(this.data.commentList.length!=0){
       showComment=JSON.parse(JSON.stringify(this.data.commentList))
-      showComment.forEach(item => {
+      showComment.map(item => {
         item.time = util.timeago(item.time, 'Y年M月D日')
         if(item.reply){
           item.reply.map(item => {
@@ -239,7 +264,7 @@ Page({
     var index=this.data.index
     var type=""
     var indexTemp = -1
-    if(e){
+    if(e.detail.value.textarea!="" && e.detail.value!=""){
       this.setData({
         inputComment:e.detail.value
       })
@@ -248,6 +273,12 @@ Page({
           inputComment:e.detail.value.textarea
         })
       }
+    }else{
+      wx.showToast({
+        title: '请填写内容！',
+        icon: 'none',
+      })
+      return
     }
     var addData={
       input:this.data.inputComment,
@@ -257,7 +288,6 @@ Page({
       nickName:args.nickName,
     }
     if(outIndex>=0 || index>=0){
-      console.log("enter");
       if(inIndex>=0){
         addData.replyName=this.data.commentList[outIndex].reply[inIndex].nickName
       }else{
@@ -288,7 +318,7 @@ Page({
         this.transformTime()
         this.setData({
           input:"",
-          index:-1
+          index:-1,
         })
       },
       fail: err => {
@@ -395,6 +425,7 @@ Page({
               that.popUp()
               that.setData({
                 comEdit:!that.data.comEdit,
+                com:true
               })
             },
             fail: err => {
@@ -412,11 +443,13 @@ Page({
   
   onLoad: function (options) {
     var content=wx.getStorageSync('content')
+    const args = wx.getStorageSync('args')
     content.time = util.timeago(content.time, 'Y年M月D日')
     this.data.commentList=content.commentList
     this.transformTime()
     this.setData({
       iconUrl:content.iconUrl,
+      sex:args.sex,
       locationName:content.locationName,
       manNum:content.manNum,
       womanNum:content.womanNum,
@@ -426,6 +459,7 @@ Page({
       text:content.text,
       time:content.time,
       _id:content._id,
+      args
     })
   },
 
@@ -457,11 +491,13 @@ Page({
   onUnload: function () {
     let pages = getCurrentPages();
     let prevPage = pages[pages.length - 2];
-    console.log(this.data.commentList);
     prevPage.setData({ 
+      out:this.data.out,
       manNum:this.data.manNum,
       womanNum:this.data.womanNum,
       commentList:this.data.commentList,
+      delCard:this.data.delCard,
+      my_id:this.data._id
     })
   },
 

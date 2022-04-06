@@ -19,7 +19,7 @@
     </view>
     
     <view class="manualBotton">
-      <view class="myJoining">
+      <view class="myJoining" bindtap="toMyjoined">
         <image src="../../../../images/join.png"/>
       </view>
       <view class="myLaunch" bindtap="toSavepublish">
@@ -46,7 +46,7 @@
         <view class="time">{{item.time}}</view>
       </view>
       <view class="progress">
-        <progress percent="20" stroke-width="5" backgroundColor="#E29E8F" color="#94D3AE" border-radius="30rpx" active />
+        <progress percent="{{item.process}}" stroke-width="5" backgroundColor="#E29E8F" color="#94D3AE" border-radius="30rpx" active />
       </view>
     </view>
   </view>

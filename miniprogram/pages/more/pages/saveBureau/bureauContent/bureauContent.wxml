@@ -16,7 +16,7 @@
         <view class="circle">
           <image src="{{iconUrl}}" class="directoricon"/>
         </view>
-        <view class="remake"><text>局长</text></view>
+        <view class="remake background-color_{{sex}}" ><text>局长</text></view>
       </view>
       <view class="icon" wx:for="{{manNum}}" bindtap="joinIn" id="{{index}}" data-sex="manNum" wx:key="id" bindlongtap="delNum" bindtouchstart="bindTouchStart" bindtouchend="bindTouchEnd">
         <view class="circle">
@@ -34,12 +34,16 @@
       </view>
     </scroll-view>
   </view>
-  <view class="bureauContent">
+  <view class="bureauContent" bindtap="charBoxdel">
     <view class="contentTop">
       <view class="contentTitle">局情</view>
-      <view style="display: flex;flex-direction: column;">
-        <image src="../../../../../images/more.png"/>
-        <!-- <view class="report"></view> -->
+      <view style="display: flex;flex-direction: column;position: relative;left: 500rpx;">
+        <image src="../../../../../images/more.png" catchtap="report"/>
+        <view class="charBox" wx:if="{{charBox}}">
+        <view class="angle"></view>
+        <view class="report" wx:if="{{args.username!=userName}}" catchtap="report"><text style="font-weight: 550; font-size: 25rpx;letter-spacing: 3rpx;">举报</text></view>
+        <view class="report" wx:else catchtap="delCard"><text style="font-weight: 550; font-size: 25rpx;letter-spacing: 3rpx;">删除</text></view>
+        </view>
       </view>
     </view>
     <view class="iconAndname">
@@ -56,13 +60,13 @@
       <view class="location">{{locationName}}</view>
       <view class="contentImage">
         <view class="img" wx:for="{{photo}}" wx:key="id">
-          <image src="{{item.tempFilePath}}" mode="aspectFill"/>
+          <image src="{{item}}" mode="aspectFill"/>
         </view>
       </view>
     <view class="perch"></view>
     </view>
     <view class="contentBottom">
-      <view class="wantTogo" bindtap="joinIn" bindtouchstart="bindTouchStart" bindtouchend="bindTouchEnd">
+      <view class="wantTogo" bindtap="joinIn" bindtouchstart="bindTouchStart" bindtouchend="bindTouchEnd" hover-class="wantTogo2">
         我想去
       </view>
       <view class="share">
@@ -71,7 +75,7 @@
     </view>
   </view>
   <view class="discussTitle">公开讨论</view>
-  <scroll-view class="discuss" scroll-y="true">
+  <scroll-view class="discuss" scroll-y="true" enhanced show-scrollbar="false">
     <view style="margin-bottom: 20rpx;" wx:for="{{showComment}}" wx:key="id" >
       <view id="{{index}}" bindtap="editComment">
         <view class="iconAndname">
@@ -102,13 +106,13 @@
   </scroll-view>
   <view class="perch2"></view>
   <form bindsubmit="obatinComment">
-  <view class="sendComment">
-    <view class="inputComment" catchtap="showInput">
-      <textarea placeholder="在此输入公开讨论内容" auto-height bindconfirm="obatinComment" name="textarea" focus="{{showInput}}" value="{{input}}" confirm-type="send" show-confirm-bar="" cursor-spacing="40rpx" />
+    <view class="sendComment">
+      <view class="inputComment" catchtap="showInput">
+        <textarea placeholder="在此输入公开讨论内容" auto-height bindconfirm="obatinComment" name="textarea" focus="{{showInput}}" value="{{input}}" confirm-type="send" show-confirm-bar="" cursor-spacing="40rpx" />
+      </view>
+      <button class="send" form-type="submit" hover-class="send2">发送</button>
     </view>
-    <button class="send" form-type="submit">发送</button>
-  </view>
-</form>
+  </form>
 </view>
 <view class="EditCom" wx:if="{{comEdit}}">
   <view class="EditCom_background" bindtap="editComment"></view>

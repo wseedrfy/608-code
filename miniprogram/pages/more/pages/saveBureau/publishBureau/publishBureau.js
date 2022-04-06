@@ -32,7 +32,7 @@ Page({
       name:"游戏",
       type:0
     },{
-      name:"旅行",
+      name:"其他",
       type:0
     }],
     photo:[],
@@ -68,14 +68,6 @@ Page({
       label:this.data.arry[index].name
     })
   },
-
-  getText(e){
-    console.log(e);
-    this.setData({
-      text:e.detail.value
-    })
-  },
-
   addImg(){
     var that = this;
     wx.chooseMedia({                                // 上传图片
@@ -84,9 +76,6 @@ Page({
       sourceType:['album','camera'],
       sizeType: ['original', 'compressed'],       // 可选择原图、压缩图
       success: (res) => {
-        console.log(
-          res
-        );
         var photo = that.data.photo.concat(res.tempFiles);
         that.setData({photo})
       }
@@ -132,14 +121,11 @@ Page({
   addNum(e){
     var sex=e.currentTarget.dataset.sex
     if(sex === "man"){
-      // this.data.manNum++
-
       this.data.manNum.push(1)
       this.setData({
         manNum:this.data.manNum
       })
     }else{
-      // this.data.womanNum++
       this.data.womanNum.push(1)
       this.setData({
         womanNum:this.data.womanNum
@@ -149,37 +135,61 @@ Page({
   reduceNum(e){
     var sex=e.currentTarget.dataset.sex
     if(sex === "man" && this.data.manNum.length>=1){
-      // this.data.manNum--
       this.data.manNum.pop()
       this.setData({
         manNum:this.data.manNum
       })
     }else if(sex === "woman" && this.data.womanNum.length>=1){
-      // this.data.womanNum--
       this.data.womanNum.pop()
       this.setData({
         womanNum:this.data.womanNum
       })
     }
   },
-
-  submit(){
+  chooseSex(){
     const args = wx.getStorageSync('args')
+    wx.showModal({
+      title: '请选择您的性别',
+      content: '*确定后不能更改，请谨慎选择',
+      cancelText: '男生',
+      cancelColor: '#5D81CF',
+      confirmText: '女生',
+      confirmColor: '#EC7A73',
+      success (res) {
+        if (res.confirm) {
+          args.sex="woman"
+        } else if (res.cancel) {
+          args.sex="man"
+        }
+        wx.setStorage({
+          key:"args",
+          data:args
+        })
+      }
+    })
+  },
+
+  submit(e){
+    console.log(e);
+    const args = wx.getStorageSync('args')
+    var fileIDs=[]
+    console.log(args);
     if(this.data.label===undefined){
       wx.showToast({
         title: '请选择主题！',
         icon: 'none',
       })
-    }else if(this.data.text===undefined){
+    }else if(e.detail.value.textarea===undefined){
       wx.showToast({
         title: '请填写内容！',
         icon: 'none',
       })
+    }else if(!args.sex){
+      this.chooseSex()
     }else{
       var addData={
-        text:this.data.text,
+        text:e.detail.value.textarea,
         label:this.data.label,
-        photo:this.data.photo,
         locationName:this.data.locationName,
         womanNum:this.data.womanNum,
         manNum:this.data.manNum,
@@ -188,34 +198,54 @@ Page({
         iconUrl:args.iconUrl,
         nickName:args.nickName,
         school:args.school,
-        commentList:[]
+        commentList:[],
+        sex:args.sex
       }
-      console.log(this.data.text);
-      wx.cloud.callFunction({
-        name: 'saveBureau',
-        data: {
-          addData: addData,
-          type: "addCard"
-        },
-        success: res => {
-          console.log(res);
-          let pages = getCurrentPages();
-          let prevPage = pages[pages.length - 2];
-          prevPage.setData({ 
-            addData,
-            res:res.result._id
+      const upLoaddata = (addData) => {
+        wx.cloud.callFunction({
+          name: 'saveBureau',
+          data: {
+            addData: addData,
+            type: "addCard"
+          },
+          success: res => {
+            let pages = getCurrentPages();
+            let prevPage = pages[pages.length - 2];
+            prevPage.setData({ 
+              addData,
+              res:res.result._id
+            })
+            wx.navigateBack({
+              delta: 1,  // 返回上一级页面。
+            })
+            
+          },
+          fail: err => {
+            console.error
+          }
+        })
+      }
+      if(this.data.photo.length!=0){
+        this.data.photo.forEach(item => {
+          wx.compressImage({
+            src: item.tempFilePath,    // 图片路径
+            quality: 50,                      // 压缩质量,
+            success:(res) => {
+              wx.cloud.uploadFile({
+                  cloudPath: 'saveBureau_images/' + new Date().getTime() + Math.floor(Math.random() * 150) + '.png',
+                  filePath: res.tempFilePath,
+              }).then(res => {
+                fileIDs.push(res.fileID);
+                addData.photo=fileIDs
+                upLoaddata(addData)
+              })
+            }
           })
-          wx.navigateBack({
-            delta: 1,  // 返回上一级页面。
-          })
-          
-        },
-        fail: err => {
-          console.error
-        }
-      })
+        });
+      }else{
+        upLoaddata(addData)
+      }
     }
-    
   },
   
   /**

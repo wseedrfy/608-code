@@ -87,6 +87,7 @@
                 "LoseDetailContent/LoseDetailContent",
                 "Game/Game",
                 "UserCenter/index",
+                "saveBureau/myJoined/myJoined",
                 "saveBureau/publishBureau/publishBureau",
                 "saveBureau/bureauContent/bureauContent",
                 "saveBureau/joinedBureau/joinedBureau"

@@ -78,7 +78,6 @@ page{
   width: 100%;
 }
 .remake{
-  background-color: #5D81CF;
   height: 38rpx;
   width: 70rpx;
   position: absolute;
@@ -112,22 +111,38 @@ page{
 .contentTop image{
   width: 50rpx;
   height: 50rpx;
-  position:relative;
-  left: 500rpx;
 }
 .contentTitle{
   font-size: 30rpx;
   font-weight: 550;
 }
-.report{
-  width: 20rpx;
-  height: 20rpx;
-  background-color: violet;
-  position:relative;
-  left: 500rpx;
+.angle {
+  display: flex;
+  align-items: center;
+  z-index: 2;
+  position: absolute;
+  top: 0rpx;
+  left: 15rpx;
+  background-color: rgb(255, 255, 255);
+  border-left: 4rpx solid #df841c;
+  border-top: 4rpx solid #df841c;
+  width: 15rpx;
+  height: 15rpx;
+  /* margin-top: 26rpx; */
   transform: rotate(45deg);
-  border: 1px #FFB5C5;
-  border-style: solid none none solid ;
+  }
+.report{
+  width: 125rpx;
+  height: 63rpx;
+  position: absolute;
+  right: -20rpx;
+  top: 8rpx;
+  border-radius: 10rpx;
+  border: 4rpx solid #df841c;
+  box-shadow: 2px 2px #643e1065;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .iconAndname{
   display: flex;
@@ -218,6 +233,23 @@ page{
   border: 6rpx solid #a3423dcc;
   box-shadow: inset -2px -3px 1px #d82016a2, inset 1px 3px 1px #fba9a2d3;
 }
+.wantTogo2{
+  height: 80rpx;
+  width: 360rpx;
+  background-color: #fe6a62;
+  position: absolute;
+  border-radius: 50rpx;
+  margin-left: 58rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 550;
+  font-size: 33rpx;
+  letter-spacing: 3rpx;
+  border: 6rpx solid #a3423dcc;
+  box-shadow:0px 0px 10px #91150ea2 inset; 
+}
 .share{
   height: 80rpx;
   width: 100rpx;
@@ -236,6 +268,12 @@ page{
 .share image{
   height: 40rpx;
   width: 40rpx;
+}
+::-webkit-scrollbar{
+  display: none;
+  width: 0;
+  height: 0;
+  color: transparent;
 }
 .discussTitle{
   width: 210rpx;
@@ -258,9 +296,8 @@ page{
   font-size: 30rpx;
 }
 .discuss{
-  width: 612rpx;
-  max-height: 1150rpx;
-  min-height: 100rpx;
+  width: 81.5%;
+  height: 70vh; 
   padding: 0rpx 30rpx 30rpx 30rpx;
   background-color: white;
   border: 4rpx solid #df841c;
@@ -269,6 +306,8 @@ page{
   border-bottom-left-radius: 20rpx;
   border-bottom-right-radius: 20rpx;
   overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 .discussIcon{
   width: 75rpx;
@@ -344,6 +383,22 @@ page{
   border: 6rpx solid #a3423dcc;
   box-shadow: inset -3px -3px 1px #d82016a2, inset 3px 3px 1px #fba9a2d3;
 }
+.send2{
+  height: 90rpx;
+  width: 170rpx!important;
+  background-color: #fe6a62;
+  margin-left: 26rpx!important;
+  margin-right: 0rpx !important;
+  border-radius: 50rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 550;
+  font-size: 30rpx;
+  border: 6rpx solid #a3423dcc;
+  box-shadow:0px 0px 10px #91150ea2 inset; 
+}
 .EditCom,
 .EditCom_background,
 .CardMore,
@@ -400,6 +455,12 @@ page{
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.background-color_man{
+  background-color: #5D81CF;
+}
+.background-color_woman{
+  background-color: #EC7A73;
 }
 .edit_show{
   animation: edit_show 0.5s;

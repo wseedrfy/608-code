@@ -256,8 +256,8 @@ page{
 }
 .submit{
   background-color: #fe6a62;
-  width: 710rpx;
-  height: 78rpx;
+  width: 710rpx !important;
+  height: 82rpx !important;
   margin-top: 80rpx;
   display: flex;
   align-items: center;
