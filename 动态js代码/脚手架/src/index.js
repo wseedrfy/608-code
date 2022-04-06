@@ -552,7 +552,7 @@ des:`1.坦诚、具有决策力的活动领导者。
       })
       //存数据库
       let username =wx.getStorageSync('args').username
-      let School = wx.getStorageSync('args').School
+      let School = wx.getStorageSync('args').school
       db.collection('MBTI-Test').add({
         data:{
           username:username,

@@ -1,5 +1,5 @@
 <view class="containers">
-  <image class="bgc" src="../images/bgc.png"></image>
+  <image class="bgc" src="cloud://cloud1-6gtqj1v4873bad50.636c-cloud1-6gtqj1v4873bad50-1307814679/bgc.png"></image>
 </view>
 <view class="title">
   <!-- <view class="top">MBTI测试</view> -->
