@@ -10,6 +10,7 @@ from school.嘉应学院.main import login_JY,getData_JY
 from school.广东理工学院.main import login_GDLG,getData_GDLG
 from school.广东医科大学.main import login_GYK,getData_GYK
 from school.河南工业大学.main import login_HNGY,getData_HNGY
+from school.南通大学杏林学院.main import login_NTXL,getData_NTXL
 from another.physical import physical_Default,physical_Linear
 from another.YiBan import YiBan_login,YiBan_post
 # from another.CWJ import YiBan_CWJ
