@@ -121,7 +121,7 @@ page{
   align-items: center;
   z-index: 2;
   position: absolute;
-  top: 0rpx;
+  top: 47rpx;
   left: 15rpx;
   background-color: rgb(255, 255, 255);
   border-left: 4rpx solid #df841c;
@@ -136,7 +136,7 @@ page{
   height: 63rpx;
   position: absolute;
   right: -20rpx;
-  top: 8rpx;
+  top: 55rpx;
   border-radius: 10rpx;
   border: 4rpx solid #df841c;
   box-shadow: 2px 2px #643e1065;
@@ -251,11 +251,11 @@ page{
   box-shadow:0px 0px 10px #91150ea2 inset; 
 }
 .share{
-  height: 80rpx;
-  width: 100rpx;
+  height: 93rpx!important;
+  width: 145rpx!important;
   background-color: #fe6a62;
   position: absolute;
-  margin-left: 443rpx;
+  margin-left: 443rpx!important;
   border-radius: 50rpx;
   display: flex;
   align-items: center;
@@ -486,5 +486,76 @@ page{
   100% {
       opacity: 0;
       transform: translateY(100%);
+  }
+}
+@media (prefers-color-scheme: dark) {
+  .head {
+    filter: invert(1) !important;
+  }
+  image{
+    filter: invert(0) !important;
+  }
+  scroll-view{
+    filter: invert(100%) !important;
+    z-index:37!important;
+  }
+  .All{
+    filter: invert(0) !important;
+  } 
+  .head{
+    position:fixed; 
+    background-color: #0a0a0a;
+  }
+  .member{
+    background: linear-gradient(#ffffff,#ffefc5);
+  }
+  .memberContent{
+    filter: invert(1) !important;
+  }
+  .circle{
+    filter: invert(1) !important;
+  }
+  .circle image{
+    filter: invert(0) !important;
+  }
+  .background-color_woman{
+    filter: invert(1) !important;
+  }
+  .background-color_man{
+    filter: invert(1) !important;
+  }
+  .remake{
+    filter: invert(1) !important;
+  }
+  .contentIcon image{
+    filter: invert(0) !important;
+  }
+  .discussTitle{
+    filter: invert(0) !important;
+  }
+  .discuss{
+    filter: invert(0) !important;
+  }
+  .discussIcon image{
+    filter: invert(0) !important;
+  }
+  .send{
+    filter: invert(0) !important;
+  }
+  .contentTop image{
+    filter: invert(0) !important;
+  }
+  .sendComment{
+    filter: invert(1) !important;
+    position: fixed;
+  }
+  .contentImage image{
+    filter: invert(0) !important;
+  }
+  .share{
+    filter: invert(0) !important;
+  }
+  .share image{
+    filter: invert(0) !important;
   }
 }

@@ -8,6 +8,7 @@
   </view>
 </view>
 <view style="height: {{(statusBarHeight + lineHeight)}}px;"></view>
+<scroll-view>
 <view class="All">
   <view class="member">
     <view class="memberTitle">局内成员</view>
@@ -38,7 +39,7 @@
     <view class="contentTop">
       <view class="contentTitle">局情</view>
       <view style="display: flex;flex-direction: column;position: relative;left: 500rpx;">
-        <image src="../../../../../images/more.png" catchtap="report"/>
+        <image src="../../../../../images/more.png" catchtap="showReport"/>
         <view class="charBox" wx:if="{{charBox}}">
         <view class="angle"></view>
         <view class="report" wx:if="{{args.username!=userName}}" catchtap="report"><text style="font-weight: 550; font-size: 25rpx;letter-spacing: 3rpx;">举报</text></view>
@@ -69,9 +70,9 @@
       <view class="wantTogo" bindtap="joinIn" bindtouchstart="bindTouchStart" bindtouchend="bindTouchEnd" hover-class="wantTogo2">
         我想去
       </view>
-      <view class="share">
+      <button class="share" open-type="share">
         <image src="../../../../../images/share(2).png"/>
-      </view>
+      </button>
     </view>
   </view>
   <view class="discussTitle">公开讨论</view>
@@ -105,15 +106,16 @@
     <view wx:if="{{none}}" class="none">- 这里什么也没有哦 -</view>
   </scroll-view>
   <view class="perch2"></view>
-  <form bindsubmit="obatinComment">
-    <view class="sendComment">
-      <view class="inputComment" catchtap="showInput">
-        <textarea placeholder="在此输入公开讨论内容" auto-height bindconfirm="obatinComment" name="textarea" focus="{{showInput}}" value="{{input}}" confirm-type="send" show-confirm-bar="" cursor-spacing="40rpx" />
-      </view>
-      <button class="send" form-type="submit" hover-class="send2">发送</button>
-    </view>
-  </form>
 </view>
+</scroll-view>
+<form bindsubmit="obatinComment">
+  <view class="sendComment">
+    <view class="inputComment" catchtap="showInput">
+      <textarea placeholder="在此输入公开讨论内容" auto-height bindconfirm="obatinComment" name="textarea" focus="{{showInput}}" value="{{input}}" confirm-type="send" show-confirm-bar="" cursor-spacing="40rpx" />
+    </view>
+    <button class="send" form-type="submit" hover-class="send2">发送</button>
+  </view>
+</form>
 <view class="EditCom" wx:if="{{comEdit}}">
   <view class="EditCom_background" bindtap="editComment"></view>
   <view class="EditCom_contain {{edit_style}}" >
@@ -132,3 +134,4 @@
     </view>
   </view>
 </view>
+

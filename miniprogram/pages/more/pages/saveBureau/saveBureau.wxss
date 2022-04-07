@@ -5,9 +5,10 @@ page{
 .head{
   position:fixed; 
   background-color: #fff5d7;
-  z-index: 2;
+  z-index: 2!important;
   width: 100%;
-	overflow-x: auto;
+  overflow-x: auto;
+  top: 0;
 }
 .head_second {
   display: flex;
@@ -224,4 +225,46 @@ page{
 }
 .background-color_1{
   background-color: #94D4AE;
+}
+@media (prefers-color-scheme: dark) {
+  .head {
+    filter: invert(1) !important;
+  }
+  image{
+    filter: invert(1) !important;
+  }
+  .All{
+    filter: invert(0) !important;
+    z-index: 0!important;
+  } 
+  .head{
+    position:fixed; 
+    background-color: #0a0a0a;
+  }
+  scroll-view{
+    filter: invert(100%) !important;
+    z-index:37!important;
+  }
+  .manual{
+    background-color: #94d3ae;
+  }
+  .manualImg{
+    filter: invert(1) !important;
+  }
+  .manualBotton{
+    filter: invert(1) !important;
+  }
+  .categories{
+    background-color: #0e0e0e;
+  }
+  
+  .background-color_0{
+    background-color: #ddc6a4;
+  }
+  .background-color_1{
+    background-color: #94d4ae;
+  }
+  .cardsType{
+    filter: invert(100) !important;
+  }
 }

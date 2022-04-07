@@ -119,21 +119,27 @@ Page({
     }
   },
   charBoxdel(){
-    this.animate('.charBox', [
-      { scale: [1, 1], ease: 'ease-out'},
-      { scale: [0.65, 0.65],ease: 'ease-in'},
-      { scale: [0, 0]},
-    ], 500)
+    this.setData({
+      charBox:false
+    })
   },
-  report(){
+  showReport(){
     this.setData({
       charBox:!this.data.charBox
     })
     this.animate('.charBox', [
-      { scale: [0, 0], ease:"linear",offset:0},
-      { scale: [0.65, 0.65],ease: 'linear',offset:0.5},
-      { scale: [1, 1],offset:1},
-    ], 500)
+      {opacity: 0.3, ease:"linear"},
+      {opacity: 1,ease:"linear"},
+    ], 1500)
+  },
+  report(){
+    // wx.navigateTo({
+    //   url: '../saveBureau/publishBureau/publishBureau',
+    // })
+    wx.showToast({
+      title: '局长太牛逼了，举报不了',
+      icon: 'none'
+    })
   },
 
   delCard(){
@@ -141,30 +147,34 @@ Page({
     wx.showModal({
       title: '确定删除？',
       success (res) {
-        wx.cloud.callFunction({
-          name: 'saveBureau',
-          data: {
-            _id:that.data._id,
-            type: "delBureau"
-          },
-          success: res => {
-            wx.showToast({
-              title: '删除成功!',
-              icon: 'none'
-            })
-            that.setData({
-              delCard:true
-            })
-            that.back()
-          },
-          fail: err => {
-            console.error
-            wx.showToast({
-              title: '删除失败!',
-              icon: 'none'
-            })
-          }
-        })
+        if (res.confirm) {
+          wx.cloud.callFunction({
+            name: 'saveBureau',
+            data: {
+              _id:that.data._id,
+              type: "delBureau"
+            },
+            success: res => {
+              wx.showToast({
+                title: '删除成功!',
+                icon: 'none'
+              })
+              that.setData({
+                delCard:true
+              })
+              that.back()
+            },
+            fail: err => {
+              console.error
+              wx.showToast({
+                title: '删除失败!',
+                icon: 'none'
+              })
+            }
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
       }
     })
   },
@@ -520,7 +530,16 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-
+  onShareAppMessage: function (res) {
+    var that = this;
+    var text=that.data.text;//获取产品标题
+    if (res.from === 'button') {
+    }
+        // 来自页面内转发按钮
+        return {
+          title: text,
+          path: '/miniprogram/pages/more/pages//saveBureau/bureauContent/bureauContent',
+        }
+      
   }
 })

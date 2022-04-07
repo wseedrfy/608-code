@@ -279,3 +279,25 @@ page{
 .background-color_1{
   background-color: #94D4AE;
 }
+@media (prefers-color-scheme: dark) {
+  .head {
+    filter: invert(0) !important;
+  }
+  /* image{
+    filter: invert(1) !important;
+  } */
+  .All{
+    filter: invert(1) !important;
+  } 
+  .head{
+    position:fixed; 
+    background-color: #faf9f900;
+  }
+  page{
+    filter: invert(1) !important;
+    background-color: #242424c2;
+  }
+  .submit{
+    filter: invert(0) !important;
+  }
+}

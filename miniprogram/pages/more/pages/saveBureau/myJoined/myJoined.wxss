@@ -38,6 +38,7 @@ page{
   align-items: center;
   justify-content: center;
   white-space: nowrap;
+  margin-top: 20rpx;
 }
 .categoriesContent{
   background-color:rgb(255, 255, 255);
@@ -152,4 +153,29 @@ page{
 }
 .background-color_1{
   background-color: #94D4AE;
+}
+@media (prefers-color-scheme: dark) {
+  .head {
+    filter: invert(1) !important;
+  }
+  image{
+    filter: invert(0) !important;
+  }
+  .All{
+    filter: invert(0) !important;
+  } 
+  .head{
+    position:fixed; 
+    background-color: #0a0a0a;
+  }
+  scroll-view{
+    filter: invert(100%) !important;
+    z-index:37!important;
+  }
+  .categories{
+    filter: invert(0) !important;
+  }
+  .cardsType{
+    filter: invert(0) !important;
+  }
 }

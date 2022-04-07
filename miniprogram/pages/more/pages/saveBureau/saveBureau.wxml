@@ -9,7 +9,7 @@
 </view>
 <view style="height: {{(statusBarHeight + lineHeight)}}px;"></view>
 
-
+<scroll-view>
 <view class="All">
   <view class="manual">
     <view class="manualText">攒局速成手册</view>
@@ -56,3 +56,15 @@
  
  
 </view>
+</scroll-view>
+<!-- <scroll-view>
+<view class="head">
+  <view style="height: {{statusBarHeight}}px;" />
+  <view class="head_second" style="height: {{lineHeight}}px;">
+    <view class="savedNumber" style="top: {{lineHeight}}px;">
+      已攒<text>  99117 </text>人
+    </view>
+  </view>
+</view>
+<view style="height: {{(statusBarHeight + lineHeight)}}px;"></view>
+</scroll-view> -->
