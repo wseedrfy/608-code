@@ -146,28 +146,28 @@ Page({
       })
     }
   },
-  chooseSex(){
-    const args = wx.getStorageSync('args')
-    wx.showModal({
-      title: '请选择您的性别',
-      content: '*确定后不能更改，请谨慎选择',
-      cancelText: '男生',
-      cancelColor: '#5D81CF',
-      confirmText: '女生',
-      confirmColor: '#EC7A73',
-      success (res) {
-        if (res.confirm) {
-          args.sex="woman"
-        } else if (res.cancel) {
-          args.sex="man"
-        }
-        wx.setStorage({
-          key:"args",
-          data:args
-        })
-      }
-    })
-  },
+  // chooseSex(){
+  //   const args = wx.getStorageSync('args')
+  //   wx.showModal({
+  //     title: '请选择您的性别',
+  //     content: '*确定后不能更改，请谨慎选择',
+  //     cancelText: '男生',
+  //     cancelColor: '#5D81CF',
+  //     confirmText: '女生',
+  //     confirmColor: '#EC7A73',
+  //     success (res) {
+  //       if (res.confirm) {
+  //         args.sex="woman"
+  //       } else if (res.cancel) {
+  //         args.sex="man"
+  //       }
+  //       wx.setStorage({
+  //         key:"args",
+  //         data:args
+  //       })
+  //     }
+  //   })
+  // },
 
   submit(e){
     console.log(e);
@@ -184,8 +184,6 @@ Page({
         title: '请填写内容！',
         icon: 'none',
       })
-    }else if(!args.sex){
-      this.chooseSex()
     }else{
       var addData={
         text:e.detail.value.textarea,

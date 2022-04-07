@@ -114,35 +114,8 @@ Page({
     })
   },
 
-  chooseSex(){
-    const args = wx.getStorageSync('args')
-    wx.showModal({
-      title: '请选择您的性别',
-      content: '*确定后不能更改，请谨慎选择',
-      cancelText: '男生',
-      cancelColor: '#5D81CF',
-      confirmText: '女生',
-      confirmColor: '#EC7A73',
-      success (res) {
-        if (res.confirm) {
-          args.sex="woman"
-        } else if (res.cancel) {
-          args.sex="man"
-        }
-        wx.setStorage({
-          key:"args",
-          data:args
-        })
-        this.readData()
-      },
-    })
-  },
-
   readData(){
     const args = wx.getStorageSync('args')
-    wx.showLoading({
-      title: '加载中',
-    })
     wx.cloud.callFunction({
       name: 'saveBureau',
       data: {
@@ -152,7 +125,6 @@ Page({
         label:this.data.label
       },
       success: res => {
-        wx.hideLoading()
         if(res.result){
           this.data.cardList=this.data.cardList.concat(res.result.data)
           this.data.currentPage++
@@ -172,6 +144,31 @@ Page({
         })
         console.error
       }
+    })
+  },
+
+  chooseSex(){
+    const args = wx.getStorageSync('args')
+    var that=this
+    wx.showModal({
+      title: '请选择您的性别',
+      content: '*确定后不能更改，请谨慎选择',
+      cancelText: '男生',
+      cancelColor: '#5D81CF',
+      confirmText: '女生',
+      confirmColor: '#EC7A73',
+      success (res) {
+        if (res.confirm) {
+          args.sex="woman"
+        } else if (res.cancel) {
+          args.sex="man"
+        }
+        wx.setStorage({
+          key:"args",
+          data:args
+        })
+        that.readData()
+      },
     })
   },
   toLookcontent(e){

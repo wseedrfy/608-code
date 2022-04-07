@@ -40,6 +40,8 @@ Page({
       var result=true
       var sex = e.currentTarget.dataset.sex
       const args = wx.getStorageSync('args')
+      console.log(args.sex);
+      console.log(sex);
       if(e.currentTarget.id){
         var index = parseInt(e.currentTarget.id)      //----直接获取的e.currentTarget.id类型为string，不能直接使用。需要转为number类型
       }
@@ -449,7 +451,7 @@ Page({
     this.transformTime()
     this.setData({
       iconUrl:content.iconUrl,
-      sex:args.sex,
+      sex:content.sex,
       locationName:content.locationName,
       manNum:content.manNum,
       womanNum:content.womanNum,

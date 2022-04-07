@@ -58,7 +58,7 @@ async function addCard(event) {
           nickName:event.addData.nickName,
           school:event.addData.school,
           commentList:event.addData.commentList,
-          sex:event.sex
+          sex:event.addData.sex
         }
       })
     } catch (e) {
