@@ -9,8 +9,9 @@
 </view>
 <view style="height: {{(statusBarHeight + lineHeight)}}px;"></view>
 
-<scroll-view>
+<!-- <scroll-view> -->
 <view class="All">
+  <scroll-view style="position: relative;left: 47rpx;">
   <view class="manual">
     <view class="manualText">攒局速成手册</view>
     <view class="manualText">萌新必看</view>
@@ -27,6 +28,7 @@
       </view>
     </view>
   </view>
+  </scroll-view>
   <view class="categories" style="top: {{statusBarHeight + 40}}px">
     <view wx:for="{{arry}}" wx:key="id">
       <view class="categoriesContent" bindtap="chooseLabel" id="{{index}}">
@@ -35,6 +37,7 @@
       </view>
     </view>
   </view>
+  <scroll-view style="position: relative;left: 47rpx;">
   <view class="cards" wx:for="{{copyList}}" wx:key="id" id="{{index}}" bindtap="toLookcontent">
     <view class="cardsType">
       <image src="../../../../images/{{item.showLabel}}.png" />
@@ -50,13 +53,13 @@
       </view>
     </view>
   </view>
-  <view class="loading" wx:if="{{loading}}">玩命加载中...</view>
-  <view class="none" wx:if="{{none}}">- 无更多内容 -</view>
- 
+  <view class="loading" wx:if="{{loading}}" style="margin-left: 250rpx;">玩命加载中...</view>
+  <view class="none" wx:if="{{none}}" style="margin-left: 250rpx;">- 无更多内容 -</view>
+</scroll-view>
  
  
 </view>
-</scroll-view>
+
 <!-- <scroll-view>
 <view class="head">
   <view style="height: {{statusBarHeight}}px;" />

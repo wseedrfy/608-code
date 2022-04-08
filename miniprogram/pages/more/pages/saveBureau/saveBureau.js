@@ -42,6 +42,7 @@ Page({
     label:null,
     contentIndex:0,
     enterMe:false,
+    timer: ''
   },
   toMyjoined(){
     this.setData({
@@ -125,7 +126,9 @@ Page({
         label:this.data.label
       },
       success: res => {
+        wx.hideLoading()
         if(res.result){
+          console.log("res",res);
           this.data.cardList=this.data.cardList.concat(res.result.data)
           this.data.currentPage++
           this.transformTime()
@@ -193,7 +196,6 @@ Page({
    */
   onLoad: function (options) {
     const args = wx.getStorageSync('args')
-    console.log(args);
     this.setData({
       arry:this.data.arry,
     })
@@ -264,6 +266,9 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
+    this.data.cardList=[]
+    this.data.currentPage=0
+    this.readData();
 
   },
 
@@ -273,7 +278,7 @@ Page({
   onReachBottom: function () {
     this.setData({
       loading:true,
-      none:false
+      none:false,
     })
     this.readData();
   },

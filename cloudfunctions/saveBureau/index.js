@@ -20,6 +20,9 @@ exports.main = async (event) => {
     case "readMe":
       data = await readMe(event); // 
       break;
+    case "readContent":
+      data = await readContent(event); // 
+      break;
     case "bureauMember":
       data = await bureauMember(event); // 
       break;
@@ -85,6 +88,18 @@ async function readCard(event) {
     console.error(e);
   }
 }
+
+async function readContent(event) {
+ 
+  try{
+    return await db.collection('saveBureau').where({
+      _id: event._id
+    }).get()
+  }catch(e){
+    console.error(e);
+  }
+}
+
 
 async function readMe(event) {
   var page=event.currentPage * 10;

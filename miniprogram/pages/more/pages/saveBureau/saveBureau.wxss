@@ -36,6 +36,7 @@ page{
   flex-direction: column;
   margin-top: 20rpx;
 }
+
 .manual{
   background-color: #94D3AE;
   width:650rpx;

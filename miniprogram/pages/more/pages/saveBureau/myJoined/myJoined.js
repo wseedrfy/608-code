@@ -242,14 +242,20 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    this.data.cardList=[]
+    this.data.currentPage=0
+    this.readData();
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    this.setData({
+      loading:true,
+      none:false,
+    })
+    this.readData();
   },
 
   /**

@@ -346,7 +346,6 @@ Page({
     var ShowDelCom=false
     var CommentName=""
     var CommentContent=""
-    var that=this
     this.popUp()
     if(!!this.data.commentList[index]){
       if(this.data.commentList[index].userName===args.username){
@@ -452,19 +451,41 @@ Page({
       }
     })
   },
+
+  readContent(_id){
+    wx.cloud.callFunction({
+      name: 'saveBureau',
+      data: {
+        _id:_id,
+        type: "readContent"
+      },
+      success: res => {
+        this.data.commentList=res.result.data[0].commentList
+        this.transformTime()
+        this.setData({
+          manNum:res.result.data[0].manNum,
+          womanNum:res.result.data[0].womanNum,
+        })
+      },
+      fail: err => {
+        console.error
+        wx.showToast({
+          title: '未找到这张卡片，请刷新！',
+          icon: 'none',
+        })
+      }
+    })
+  },
   
   onLoad: function (options) {
     var content=wx.getStorageSync('content')
     const args = wx.getStorageSync('args')
     content.time = util.timeago(content.time, 'Y年M月D日')
-    this.data.commentList=content.commentList
-    this.transformTime()
+    this.readContent(content._id)
     this.setData({
       iconUrl:content.iconUrl,
       sex:content.sex,
       locationName:content.locationName,
-      manNum:content.manNum,
-      womanNum:content.womanNum,
       nickName:content.nickName,
       userName:content.userName,
       photo:content.photo,
