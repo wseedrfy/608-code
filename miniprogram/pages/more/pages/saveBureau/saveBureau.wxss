@@ -25,7 +25,16 @@ page{
 }
 .savedNumber text{
   color:#E18D77;
-  font-size: 45rpx;
+  font-size: 40rpx;
+  position: absolute;
+  left: 175rpx;
+  bottom: 7px;
+  z-index: 2;
+}
+.savedNumber image{
+  margin-top: 15rpx;
+  width: 320rpx;
+  height: 90rpx;
 }
 .All{
   width: 100%;
@@ -48,12 +57,21 @@ page{
   flex-direction: column;
   box-shadow: 3px 3px #6b421140;
 }
+.topTitle{
+  margin-top: 10rpx;
+  height: 130rpx;
+  width: 630rpx;
+}
+.topTitle image{
+  width: 60%;
+  height: 100%;
+}
 .manualImg{
   position: relative;
   left: 180rpx;
-  bottom: 110rpx;
-  width: 251rpx;
-  height: 251rpx;
+  bottom: 130rpx;
+  width: 240rpx;
+  height: 240rpx;
 }
 .manualImg image{
   width: 100%;
@@ -72,10 +90,10 @@ page{
 }
 .manualBotton{
   width: 92%;
-  height: 160rpx;
+  height: 150rpx;
   position: relative;
   /* bottom: 214rpx; */
-  bottom: 236rpx;
+  bottom: 246rpx;
   display: flex;
   flex-direction: row;
   justify-content: center;
