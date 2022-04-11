@@ -122,19 +122,19 @@
 </view>
 <!-- 云留言页 -->
 <view wx:elif="{{navState==3}}"></view>
-<!-- 自习室页 -->
+<!-- 小组页 -->
 <view wx:elif="{{navState==4}}">
      <!-- 顶部导航栏 -->
      <view class="selfstudy">
      <view style="height: {{statusBarHeight}}px;width: 100%;background: white;"></view>
      <view class="selfstudy_bar"style="height: {{lineHeight}}px;background: white;line-height: {{lineHeight}}px;color: white;text-align: center;">
-          <view data-index="8" class="{{studynavState==8?'topbar_true':'topbar' }}" bindtap="navclick">新建任务</view>
+          <view data-index="8" class="{{studynavState==8?'topbar_true':'topbar' }}" bindtap="navclick">我的任务</view>
           <view data-index="5" class="{{studynavState==5?'topbar_true':'topbar' }}" bindtap="navclick">我的小组</view>
           <view data-index="6" class="{{studynavState==6?'topbar_true':'topbar' }}" bindtap="navclick">其他小组</view>
           <view data-index="7" class="{{studynavState==7?'topbar_true':'topbar' }}" bindtap="navclick">计时</view>
      </view>
      </view>
-     <!-- 我的自习室 -->
+     <!-- 我的小组 -->
      <view wx:if="{{studynavState==5}}">
           <view class="top_wrap">
                <view class="left">
@@ -217,11 +217,18 @@
                </view>
           </view>
      </view>
-     <!-- 其他自习室 -->
+     <!-- 其他小组 -->
      <view wx:elif="{{studynavState==6}}" class="selfstudy_othergroup">
           <view class="selfstudy_othergroup_title">
-               <view>let's go</view>
-               <view>Join the study room</view>
+               <view bindtouchstart="cardtouchstart" bindtouchmove="cardtouchmove" bindtouchend="cardtouchend" animation="{{id === 0 ? animationData : '' }}" class="selfstudy_othergroup_title_card card{{ id + 1}}" wx:for="{{cardlist}}" 
+               wx:key="unique" wx:for-index="id" wx:for-item="item" data-abc="{{ id === 0 }}">
+                    <view>{{item.cardname}}</view>
+                    <!-- 提示滑动的图标 -->
+                    <span class="change_icon" bindtap="slidethis" wx:if="{{id === 0}}">
+                         <image></image>
+                    </span>
+               </view>
+               <!-- <view></view> -->
           </view>
           <view class="selfstudy_othergroup_longbox">
                <view class="selfstudy_othergroup_longbox_left"></view>
@@ -356,7 +363,7 @@
           </view>
           <view class="icon_a" data-index="4" bindtap="click_d">
                <image class="icon_right" src="{{click_d ?'../images/pinktu(1).png': '../images/pinktu.png'}}"></image>
-               <view class="{{click_d?'icon_right icon_text':'icon_right icon_text_false'}}">自习室</view>
+               <view class="{{click_d?'icon_right icon_text':'icon_right icon_text_false'}}">小组</view>
           </view>
      </view>
 </view>

@@ -110,7 +110,7 @@ page {
     float: left;
     width: 12.7%;
     height: 56rpx;
-    width: 56rpx;
+    width: 9rpx;
     padding: 3% 1% 0% 3%;
 }
 
@@ -148,7 +148,7 @@ page {
 .line{
     width: 75%;
     height: 1%;
-    margin-left: 14%;
+    margin-left: 6%;
     padding-top: 12%;
     border-bottom: 2rpx solid #E5E5E5;
 }

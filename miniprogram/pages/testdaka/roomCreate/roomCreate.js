@@ -11,7 +11,7 @@ Page({
         aimgurl: "", // //临时图片的路径
 
         bqshuru: 0,
-        array: ['学习', '工作', '阅读', '思考', '运动'],
+        array: ['学习', '运动', '娱乐', '日常', '游戏','其他'],
 
         countIndex: 1, // 可选图片剩余的数量
         imageData: [], // 所选上传的图片数据
@@ -142,6 +142,9 @@ Page({
         else if (!this.data.roomBrief) {
             totast('简介')
         }
+        else if (!this.data.index) {
+            totast('请点击选择标签')
+        }
         else if (this.data.aimgurl.length == 0) {
             totast('照片')
         }
@@ -168,7 +171,8 @@ Page({
                                     wxurl: this.data.args.iconUrl,
                                     imgUrl,
                                     roomNum:this.data.roomNum,
-                                    qxbq:this.data.qxbq
+                                    qxbq:this.data.qxbq,
+                                    creattime:new Date(),
                                 }
                             }).then(res => {
                                 wx.showToast({
@@ -192,6 +196,11 @@ Page({
                 },
             });
         }
+    },
+    cancel(){
+        wx.navigateBack({
+            delta: 1
+        });
     },
     guid() {
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {

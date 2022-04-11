@@ -88,9 +88,77 @@ Page({
         {roomlable:'日常',roomlist:[{roomname:'六级',roomintroduce:'每天50个单词',roomper:'99'}]},
         {roomlable:'游戏',roomlist:[{roomname:'六级',roomintroduce:'每天50个单词',roomper:'99'}]},
         {roomlable:'其他',roomlist:[{roomname:'六级',roomintroduce:'每天50个单词',roomper:'99'}]}
-      ]
+      ],
+      cardlist:[
+        {cardname:'卡片一'},{cardname:'卡片二'},{cardname:'卡片三'}
+      ],
+      animationData: {},
     },
     //自习室的js
+    // 卡片动画
+    cardtouchstart(e) {
+      console.log(e);
+        // 获取触摸Y坐标
+        this.recordY = e.touches[0].clientY;
+        console.log(e.touches[0].clientY);
+    },
+     // 手指触摸后移动
+     cardtouchmove(e) {
+      let currentY = e.touches[0].clientY;
+      console.log(currentY);
+      movedistance =  currentY-this.recordY; // 获取移动距离
+      console.log(movedistance);
+      this.cardslideAnimation(movedistance, 300);//右边的数字是移动速度
+    },
+    //手指触摸结束
+    cardtouchend() {
+      var self = this;
+      var animation = wx.createAnimation({
+          duration: 300,
+          timingFunction: 'liner',
+        });
+      this.animation= animation;
+      let recordY;
+      if (movedistance >=200) { // 移动达到距离就动画显示全部操作项
+        this.animation.translateY(-220).rotate(-5).translateX(0).step(); //第一次动画 离开
+        this.animation.translateY(0).translateX(0).rotate(0).step();//第二次动画 复位
+        this.setData({
+          animationData: this.animation.export()//.export清除动画
+        });
+        setTimeout(function() {
+          var cardlist = self.data.cardlist;
+          var slidethis = self.data.cardlist.shift();//删掉第一个卡片
+          self.data.cardlist.push(slidethis);//把删掉的卡片加到最后
+          self.setData({
+            cardlist: self.data.cardlist,
+            animationData: {}
+          });
+        }, 400);
+        movedistance=0;
+        //滑动后右边显示的范围
+      } else if (200>movedistance){// 移动未达到距离即还原
+        recordY=0;
+        this.cardslideAnimation(recordY, 500);
+      }
+    },
+    // 滑动动画
+    cardslideAnimation(recordY, time) {
+      console.log("触发cardslideAnimation");
+      console.log(recordY);
+      var animation = wx.createAnimation({
+          duration: time,
+          timingFunction: 'liner',
+        });
+      this.setData({
+          translateY:recordY
+      })
+      this.animation= animation;
+      this.animation.translateY(recordY).step();
+      // translate(0, recordY + 'rpx').step()
+      this.setData({
+          animationData: this.animation.export()
+      })
+     },
     navclick(e){
       let studynavState = e.currentTarget.dataset.index
       this.setData({
@@ -219,12 +287,13 @@ Page({
                     {date:util.formatTime(new Date),
                     cate:_this.data.taskshow,
                     // Number(_this.data.cateActive),  
-                    time:Number(_this.data.time),}
+                    time:parseInt(_this.data.time),}
                 ]
+                console.log(logs);
                 let date=util.formatTime(new Date)
                 let cate=_this.data.taskshow
                 // _this.data.cateActive
-                let time=_this.data.time
+                
                 let storageInfo=_this.data.storageInfo
                 let username = String(storageInfo.username)
                 wx.cloud.database().collection("totaltime").where({username:username}).get().then(res=>{
@@ -255,7 +324,7 @@ Page({
                                 logs: _.push({
                                     date:date,
                                     cate:cate,
-                                    time:_this.data.time
+                                    time:parseInt(_this.data.time)
                                 })
                             }
                         }).then(res=>{
@@ -270,7 +339,6 @@ Page({
                     continueCancelShow: false,
                 })
                 clearInterval(timer);
-                console.log(logs);
                 wx.hideLoading();
             }
         }, 100);

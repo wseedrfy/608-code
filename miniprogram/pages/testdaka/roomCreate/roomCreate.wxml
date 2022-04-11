@@ -27,7 +27,7 @@
     <view class="choose_RoomLabel">
         <view class="txt">自习室标签</view>
         <view class="RoomLabel">
-            <image class="label_image" src="../testdaka//images/biaoqian.png"></image>
+            <image class="label_image"></image>
             <!-- 选择标签 -->
             <view class="label_input">
                 <picker bindchange="bindPickerChange" name="lable1" value="{{index}}" range="{{array}}">
@@ -48,5 +48,5 @@
 </view>
 <view class="btn">
     <view class="btn_create" bindtap="Save_and_Create">创建</view>
-    <view class="cancel">取消</view>
+    <view class="cancel" bindtap="cancel">取消</view>
 </view>

@@ -906,18 +906,43 @@ wx-slider .wx-slider-handle-wrapper {
 }
 /* 其他自习室css开始 */
 .selfstudy_othergroup_title{
-  margin-top: 70rpx;
-  width: 80%;
-  margin-left: 50rpx;
+  width: 650rpx;
+  height: 350rpx;
+  margin: 70rpx auto;
+  margin-bottom: 0rpx;
+  position: relative;
 }
 .selfstudy_othergroup_title >view{
-  margin-top: 20rpx;
-  font-size: 60rpx;
-  font-weight: 600;
+  /* margin-top: 20rpx; */
+  /* font-size: 60rpx; */
+  /* font-weight: 600; */
+  width: 100%;
+  height: 350rpx;
+  background: pink;
+  border-radius: 20rpx;
+  position: absolute;
+}
+.selfstudy_othergroup_title_card.card1{
+  background: white;
+  z-index: 3;
+}
+.selfstudy_othergroup_title_card.card2{
+  z-index: 2;
+  transform: translateY(20rpx) translateX(33rpx);
+  width: 90%;
+  background: pink;
+  /* box-shadow: 6px 13px 60px 10px #ccc; */
+}
+.selfstudy_othergroup_title_card.card3{
+  transform: translateY(40rpx) translateX(67rpx);
+  width: 80%;
+  z-index: 1;
+  background: green;
+  /* box-shadow: 6px 23px 50px 10px #ccc; */
 }
 .selfstudy_othergroup_longbox{
   margin: 20rpx auto;
-  margin-top: 70rpx;
+  margin-top: 100rpx;
   margin-bottom: 0;
   width: 650rpx;
   height: 80rpx;
