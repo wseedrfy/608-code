@@ -58,16 +58,6 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-      let currentPage = 0 // 当前第几页,0代表第一页 
-      let pageSize = 5 //每页显示多少数据 
-      // const _=wx.cloud.database()
-      // wx.cloud.database().collection("data_group_information").where({}).get().then(res=>{
-      //   console.log(res);
-      //   this.setData({
-      //     room:res.data
-      //   })
-      //   wx.hideLoading()
-      // })
     },
 
     /**
@@ -124,9 +114,6 @@ Page({
           loadAll: false //把“没有数据”设为false，隐藏  
         })
       }
-      console.log("currentPage",currentPage);
-      console.log("pageSize",pageSize);
-      console.log("loadAll",loadAll);
       //云数据的请求
       console.log("执行if");
       wx.cloud.database().collection("data_group_information")

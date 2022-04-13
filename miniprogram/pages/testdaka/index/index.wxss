@@ -1175,6 +1175,115 @@ wx-slider .wx-slider-handle-wrapper {
   font-size: 15rpx;
   color: rgb(56, 56, 56);
 }
+.showgroup_close{
+  overflow: hidden;
+  height: 10rpx;
+  width: 100vw;
+  transition: all 0.7s;
+  position:fixed;
+  bottom: 0;
+}
+
+.showgroup_box_close{
+  overflow: hidden;
+  position: absolute;
+  bottom: 0;
+  width: 100vw;
+  height: 1rpx;
+  background: white;
+  border-radius: 20rpx 20rpx 0 0;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.6s;
+}
+.showgroup{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  font-family: unset;
+  background-color: rgba(0, 0, 0, 0.164);
+  /* opacity: 0.6; */
+  height: 100vh;
+  width: 100vw;
+  /* transition: all 0.7s; */
+}
+.showgroup_box{
+  position: absolute;
+  bottom: 0;
+  width: 100vw;
+  height: 700rpx;
+  background: white;
+  border-radius: 20rpx 20rpx 0 0;
+  display: flex;
+  flex-direction: column;
+  transition: all 1s;
+}
+.showgroup_box_title{
+  /* background: pink; */
+  /* font-weight: 600; */
+  height:110rpx;
+  width: 100%;
+  line-height: 120rpx;
+  padding: 0 30rpx;
+  display: flex;
+  align-items: center;
+}
+.showgroup_box_introduce{
+  /* background: gray; */
+  height: 50rpx;
+  line-height: 50rpx;
+  padding: 0 30rpx;
+  font-size: 25rpx;
+  width: 100%;
+  color: rgb(48, 48, 48);
+}
+.showgroup_box_prenum{
+  display: flex;
+  /* background: pink; */
+  flex-direction: row;
+  height: 50rpx;
+  line-height: 50rpx;
+  padding: 0 30rpx;
+  font-size: 25rpx;
+  width: 100%;
+  color: rgb(48, 48, 48);
+}
+.showgroup_box_uuid{
+  /* background: orange; */
+  height: 50rpx;
+  line-height: 50rpx;
+  padding: 0 30rpx;
+  font-size: 25rpx;
+  width: 100%;
+  color: rgb(48, 48, 48);
+}
+.showgroup_box_userimage{
+  /* background: blue; */
+  height: 300rpx;
+  width: 100%;
+  font-size: 25rpx;
+  padding: 10rpx 30rpx;
+}
+.showgroup_box_turninto{
+  /* background: pink; */
+  height: 100rpx;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.showgroup_box_turninto >view{
+  height: 80rpx;
+  width: 450rpx;
+  border-radius: 40rpx;
+  text-align: center;
+  line-height: 80rpx;
+  background:#7c66f5 ;
+  color: white;
+}
 /* 其他自习室css结束 */
 .self_wrap {
   padding: 24rpx;
@@ -1330,7 +1439,26 @@ wx-slider .wx-slider-handle-wrapper {
   font-size: 24rpx;
   margin-top: 8rpx;
 }
-
+@keyframes add_show {
+    0% {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}
+@keyframes add_hide {
+  0% {
+      opacity: 1;
+      transform: translateY(0%);
+  }
+  100% {
+      opacity: 0;
+      transform: translateY(100%);
+  }
+}
 /* 自习室css结束 */
 @media (prefers-color-scheme: dark) {
   .complete_share_box_button {
